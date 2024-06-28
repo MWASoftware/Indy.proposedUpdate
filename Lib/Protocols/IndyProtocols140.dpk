@@ -228,7 +228,6 @@ contains
   IdSNTP in 'IdSNTP.pas',
   IdSSL in 'IdSSL.pas',
   IdSSLOpenSSL in 'IdSSLOpenSSL.pas',
-  IdSSLOpenSSLHeaders in 'IdSSLOpenSSLHeaders.pas',
   IdSSPI in 'IdSSPI.pas',
   IdServerInterceptLogBase in 'IdServerInterceptLogBase.pas',
   IdServerInterceptLogEvent in 'IdServerInterceptLogEvent.pas',

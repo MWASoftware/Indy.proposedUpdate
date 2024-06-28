@@ -112,6 +112,7 @@ copy *.res ..\..\C11 > nul
 copy *.pas ..\..\C11 > nul
 copy *.dcr ..\..\C11 > nul
 copy *.inc ..\..\C11 > nul
+copy opensslHdrs\*.* ..\..\C11 > nul
 
 cd ..\..\C11
 
