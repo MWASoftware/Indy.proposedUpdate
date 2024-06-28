@@ -134,6 +134,7 @@ copy *.pas ..\..\C25 > nul
 copy *.dcr ..\..\C25 > nul
 copy *.inc ..\..\C25 > nul
 copy *.ico ..\..\C25 > nul
+copy opensslHdrs\*.* ..\..\C25 > nul
 
 cd ..\..\C25
 
