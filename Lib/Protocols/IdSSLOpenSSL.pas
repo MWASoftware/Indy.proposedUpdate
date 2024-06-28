@@ -3577,7 +3577,7 @@ begin
   begin
     if SSLVersions <> [] then
     begin
-      for v := sslvSSLv3 to high(TIdSSLVersions) do
+      for v := sslvSSLv3 to high(TIdSSLVersion) do
       begin
         if v in SSLVersions then
         begin
@@ -3585,7 +3585,7 @@ begin
           break;
         end;
      end;
-      for v := high(TIdSSLVersions) downto sslvSSLv3 do
+      for v := high(TIdSSLVersion) downto sslvSSLv3 do
       begin
         if v in SSLVersions then
         begin
