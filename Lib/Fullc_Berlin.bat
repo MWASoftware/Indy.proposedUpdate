@@ -134,6 +134,7 @@ copy *.pas ..\..\C24 > nul
 copy *.dcr ..\..\C24 > nul
 copy *.inc ..\..\C24 > nul
 copy *.ico ..\..\C24 > nul
+copy opensslHdrs\*.* ..\..\C24 > nul
 
 cd ..\..\C24
 
@@ -172,7 +173,7 @@ del /Q ..\Output\hpp\%IndyPlatform%\%IndyConfig%\*.*
 del /Q ..\Output\Bpi\%IndyPlatform%\%IndyConfig%\*.*
 if "%IndyPlatform%" == "Win32" del /Q ..\Output\Obj\%IndyPlatform%\%IndyConfig%\*.*
 del /Q "%BDSCOMMONDIR%\Bpl\*Indy*.bpl"
-del /Q "%BDSCOMMONDIR%\Dcp\*.*"
+del /Q "%BDSCOMMONDIR%\Dcp\*Indy*.dcp"
 del /Q ZLib\i386-Win32-ZLib\*.*
 del /Q ZLib\x86_64-Win64-ZLib\*.*
 del /Q *.*
