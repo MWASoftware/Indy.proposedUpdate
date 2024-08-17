@@ -67,7 +67,7 @@ uses
   IdUnixTimeUDP, IdUnixTimeUDPServer, IdURI, IdUriUtils, IdUserAccounts, 
   IdUserPassProvider, IdVCard, IdWebDAV, IdWhois, IdWhoIsServer, IdZLib, 
   IdZLibCompressorBase, IdZLibConst, IdZLibHeaders, IdSSL, IdHash, IdFIPS, 
-  IdCoder, IdCoderMIME, IdCoder3to4;
+  IdCoder, IdCoderMIME, IdCoder3to4, IdNTLM;
 
 implementation
 

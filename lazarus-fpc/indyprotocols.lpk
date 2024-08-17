@@ -1008,6 +1008,10 @@ THIS SOFTWARE IS PROVIDED BY Chad Z. Hower (Kudzu) and the Indy Pit Crew &amp;am
         <Filename Value="../src/Protocols/IdCoder3to4.pas"/>
         <UnitName Value="IdCoder3to4"/>
       </Item>
+      <Item>
+        <Filename Value="../src/Protocols/IdNTLM.pas"/>
+        <UnitName Value="IdNTLM"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

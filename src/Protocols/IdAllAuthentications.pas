@@ -26,7 +26,6 @@ implementation
 
 uses
   {$IFNDEF DOTNET}
-  IdAuthenticationNTLM,
     {$IFDEF USE_SSPI}
   IdAuthenticationSSPI,
     {$ENDIF}
