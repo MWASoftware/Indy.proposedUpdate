@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="indycore"/>
+    <Author Value="Chad Z. Hower (Kudzu) and the Indy Pit Crew - http://www.indyproject.org"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="../src/Core"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CustomOptions Value="-Ur"/>
+      </Other>
+    </CompilerOptions>
+    <Description Value="Indy - Internet Direct
+
+Indy is a well-known internet component suite for Delphi, C++Builder, and Free Pascal providing both low-level support (TCP, UDP, raw sockets) and over a 120 higher level protocols (SMTP, POP3, NNT, HTTP, FTP) for building both client and server applications."/>
+    <License Value="Duel License
+
+MPL 
+
+Indy Modified BSD License
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation, about box and/or other materials provided with the distribution. 
+
+No personal names or organizations names associated with the Indy project may be used to endorse or promote products derived from this software without specific prior written permission of the specific individual or organization. 
+
+THIS SOFTWARE IS PROVIDED BY Chad Z. Hower (Kudzu) and the Indy Pit Crew &amp;amp;quot;AS IS&apos;&apos; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."/>
+    <Version Major="10" Minor="6" Release="3"/>
+    <Files>
+      <Item>
+        <Filename Value="../src/Core/IdAssignedNumbers.pas"/>
+        <UnitName Value="IdAssignedNumbers"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdBuffer.pas"/>
+        <UnitName Value="IdBuffer"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdCmdTCPClient.pas"/>
+        <UnitName Value="IdCmdTCPClient"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdCmdTCPServer.pas"/>
+        <UnitName Value="IdCmdTCPServer"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdCommandHandlers.pas"/>
+        <UnitName Value="IdCommandHandlers"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdContext.pas"/>
+        <UnitName Value="IdContext"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdCustomTCPServer.pas"/>
+        <UnitName Value="IdCustomTCPServer"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdCustomTransparentProxy.pas"/>
+        <UnitName Value="IdCustomTransparentProxy"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdExceptionCore.pas"/>
+        <UnitName Value="IdExceptionCore"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdGlobalCore.pas"/>
+        <UnitName Value="IdGlobalCore"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdIcmpClient.pas"/>
+        <UnitName Value="IdIcmpClient"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdIntercept.pas"/>
+        <UnitName Value="IdIntercept"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdInterceptSimLog.pas"/>
+        <UnitName Value="IdInterceptSimLog"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdInterceptThrottler.pas"/>
+        <UnitName Value="IdInterceptThrottler"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdIOHandler.pas"/>
+        <UnitName Value="IdIOHandler"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdIOHandlerSocket.pas"/>
+        <UnitName Value="IdIOHandlerSocket"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdIOHandlerStack.pas"/>
+        <UnitName Value="IdIOHandlerStack"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdIOHandlerStream.pas"/>
+        <UnitName Value="IdIOHandlerStream"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdIPAddress.pas"/>
+        <UnitName Value="IdIPAddress"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdIPMCastBase.pas"/>
+        <UnitName Value="IdIPMCastBase"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdIPMCastClient.pas"/>
+        <UnitName Value="IdIPMCastClient"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdIPMCastServer.pas"/>
+        <UnitName Value="IdIPMCastServer"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdLogBase.pas"/>
+        <UnitName Value="IdLogBase"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdLogDebug.pas"/>
+        <UnitName Value="IdLogDebug"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdLogEvent.pas"/>
+        <UnitName Value="IdLogEvent"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdLogFile.pas"/>
+        <UnitName Value="IdLogFile"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdLogStream.pas"/>
+        <UnitName Value="IdLogStream"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdRawBase.pas"/>
+        <UnitName Value="IdRawBase"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdRawClient.pas"/>
+        <UnitName Value="IdRawClient"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdRawFunctions.pas"/>
+        <UnitName Value="IdRawFunctions"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdRawHeaders.pas"/>
+        <UnitName Value="IdRawHeaders"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdReply.pas"/>
+        <UnitName Value="IdReply"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdReplyRFC.pas"/>
+        <UnitName Value="IdReplyRFC"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdResourceStringsCore.pas"/>
+        <UnitName Value="IdResourceStringsCore"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdScheduler.pas"/>
+        <UnitName Value="IdScheduler"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdSchedulerOfThread.pas"/>
+        <UnitName Value="IdSchedulerOfThread"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdSchedulerOfThreadDefault.pas"/>
+        <UnitName Value="IdSchedulerOfThreadDefault"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdSchedulerOfThreadPool.pas"/>
+        <UnitName Value="IdSchedulerOfThreadPool"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdServerIOHandler.pas"/>
+        <UnitName Value="IdServerIOHandler"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdServerIOHandlerSocket.pas"/>
+        <UnitName Value="IdServerIOHandlerSocket"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdServerIOHandlerStack.pas"/>
+        <UnitName Value="IdServerIOHandlerStack"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdSimpleServer.pas"/>
+        <UnitName Value="IdSimpleServer"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdSocketHandle.pas"/>
+        <UnitName Value="IdSocketHandle"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdSocks.pas"/>
+        <UnitName Value="IdSocks"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdSync.pas"/>
+        <UnitName Value="IdSync"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdTask.pas"/>
+        <UnitName Value="IdTask"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdTCPClient.pas"/>
+        <UnitName Value="IdTCPClient"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdTCPConnection.pas"/>
+        <UnitName Value="IdTCPConnection"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdTCPServer.pas"/>
+        <UnitName Value="IdTCPServer"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdTCPStream.pas"/>
+        <UnitName Value="IdTCPStream"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdThread.pas"/>
+        <UnitName Value="IdThread"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdThreadComponent.pas"/>
+        <UnitName Value="IdThreadComponent"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdThreadSafe.pas"/>
+        <UnitName Value="IdThreadSafe"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdTraceRoute.pas"/>
+        <UnitName Value="IdTraceRoute"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdUDPBase.pas"/>
+        <UnitName Value="IdUDPBase"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdUDPClient.pas"/>
+        <UnitName Value="IdUDPClient"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdUDPServer.pas"/>
+        <UnitName Value="IdUDPServer"/>
+      </Item>
+      <Item>
+        <Filename Value="../src/Core/IdYarn.pas"/>
+        <UnitName Value="IdYarn"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="indysystem"/>
+        <MaxVersion Major="10" Minor="6" Release="2"/>
+      </Item>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>
