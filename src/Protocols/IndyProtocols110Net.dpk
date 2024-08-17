@@ -218,7 +218,6 @@ contains
   IdSNPP in 'IdSNPP.pas',
   IdSNTP in 'IdSNTP.pas',
   IdSSL in 'IdSSL.pas',
-  IdSSLDotNET in 'IdSSLDotNET.pas',
   IdServerInterceptLogBase in 'IdServerInterceptLogBase.pas',
   IdServerInterceptLogEvent in 'IdServerInterceptLogEvent.pas',
   IdServerInterceptLogFile in 'IdServerInterceptLogFile.pas',

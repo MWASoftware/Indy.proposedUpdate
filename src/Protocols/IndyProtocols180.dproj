@@ -114,7 +114,6 @@
         <DCCReference Include="IdAuthentication.pas"/>
         <DCCReference Include="IdAuthenticationDigest.pas"/>
         <DCCReference Include="IdAuthenticationManager.pas"/>
-        <DCCReference Include="IdAuthenticationNTLM.pas"/>
         <DCCReference Include="IdAuthenticationSSPI.pas"/>
         <DCCReference Include="IdBlockCipherIntercept.pas"/>
         <DCCReference Include="IdChargenServer.pas"/>
@@ -276,7 +275,6 @@
         <DCCReference Include="IdReplyIMAP4.pas"/>
         <DCCReference Include="IdReplyPOP3.pas"/>
         <DCCReference Include="IdReplySMTP.pas"/>
-        <DCCReference Include="IdResourceStringsOpenSSL.pas"/>
         <DCCReference Include="IdResourceStringsProtocols.pas"/>
         <DCCReference Include="IdResourceStringsSSPI.pas"/>
         <DCCReference Include="IdResourceStringsUriUtils.pas"/>
@@ -303,8 +301,6 @@
         <DCCReference Include="IdSNPP.pas"/>
         <DCCReference Include="IdSNTP.pas"/>
         <DCCReference Include="IdSSL.pas"/>
-        <DCCReference Include="IdSSLOpenSSL.pas"/>
-        <DCCReference Include="IdSSLOpenSSLHeaders.pas"/>
         <DCCReference Include="IdSSPI.pas"/>
         <DCCReference Include="IdServerInterceptLogBase.pas"/>
         <DCCReference Include="IdServerInterceptLogEvent.pas"/>
