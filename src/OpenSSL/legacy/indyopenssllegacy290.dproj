@@ -79,7 +79,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="rtl.dcp"/>
-        <DCCReference Include="IndyCore290.dcp"/>
+        <DCCReference Include="IndyProtocols290.dcp"/>
         <DCCReference Include="IdAuthenticationNTLM.pas"/>
         <DCCReference Include="IdNTLMv2.pas"/>
         <DCCReference Include="IdResourceStringsOpenSSL.pas"/>

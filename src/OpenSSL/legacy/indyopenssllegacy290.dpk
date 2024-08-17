@@ -30,7 +30,7 @@ package indyopenssllegacy290;
 
 requires
   rtl,
-  IndyCore290;
+  IndyProtocols290;
 
 contains
   IdAuthenticationNTLM in 'IdAuthenticationNTLM.pas',
