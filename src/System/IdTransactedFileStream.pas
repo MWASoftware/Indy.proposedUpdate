@@ -56,7 +56,7 @@ been burnt with temporary files and server crashes before.
 uses
  {$IFDEF WIN32_OR_WIN64}
  Windows,
-  Consts,
+//  Consts,
  {$ENDIF}
  Classes, SysUtils, IdGlobal;
 
