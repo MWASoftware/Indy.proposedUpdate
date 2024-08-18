@@ -14,9 +14,10 @@
       <Unit>
         <Filename Value="TestClient.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="186"/>
-        <CursorPos X="54" Y="186"/>
+        <TopLine Value="329"/>
+        <CursorPos X="33" Y="348"/>
         <UsageCount Value="87"/>
         <Loaded Value="True"/>
       </Unit>
@@ -1103,11 +1104,10 @@
       </Unit>
       <Unit>
         <Filename Value="../../../src/OpenSSL/legacy/IdSSLOpenSSL.pas"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="354"/>
         <CursorPos X="3" Y="368"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../svn/runtime/protocols/IdSSLOpenSSL.pas"/>
@@ -1118,19 +1118,17 @@
       </Unit>
       <Unit>
         <Filename Value="../../../src/OpenSSL/legacy/IdSSLOpenSSLHeaders.pas"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="23107"/>
         <CursorPos Y="23127"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../src/Protocols/IdAuthenticationSSPI.pas"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="189"/>
         <CursorPos Y="209"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../src/Protocols/IdAuthentication.pas"/>
@@ -1140,58 +1138,33 @@
       </Unit>
       <Unit>
         <Filename Value="../../../src/Core/IdAuthentication.pas"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="195"/>
         <CursorPos X="26" Y="209"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../src/Protocols/IdGlobalProtocols.pas"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="323"/>
         <CursorPos X="8" Y="333"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../src/System/IdGlobal.pas"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="654"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../src/Protocols/IdHeaderList.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="138"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="74"/>
         <CursorPos X="3" Y="74"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="../../../src/OpenSSL/legacy/IdSSLOpenSSLHeaders.pas"/>
-        <Caret Line="23120" TopLine="23104"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../src/OpenSSL/legacy/IdSSLOpenSSLHeaders.pas"/>
-        <Caret Line="23124" TopLine="23104"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../src/OpenSSL/legacy/IdSSLOpenSSLHeaders.pas"/>
-        <Caret Line="23126" TopLine="23104"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../src/OpenSSL/legacy/IdSSLOpenSSLHeaders.pas"/>
-        <Caret Line="23127" TopLine="23107"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../src/OpenSSL/legacy/IdSSLOpenSSL.pas"/>
-        <Caret Line="2357" Column="30" TopLine="2344"/>
-      </Position>
+    <JumpHistory HistoryIndex="18">
       <Position>
         <Filename Value="TestClient.pas"/>
         <Caret Line="69" Column="27" TopLine="53"/>
@@ -1199,14 +1172,6 @@
       <Position>
         <Filename Value="TestClient.pas"/>
         <Caret Line="182" Column="22" TopLine="173"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../src/OpenSSL/legacy/IdSSLOpenSSL.pas"/>
-        <Caret Line="460" Column="35" TopLine="446"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../src/OpenSSL/legacy/IdSSLOpenSSL.pas"/>
-        <Caret Line="306" Column="79" TopLine="288"/>
       </Position>
       <Position>
         <Filename Value="TestClient.pas"/>
@@ -1221,19 +1186,11 @@
         <Caret Line="180" TopLine="171"/>
       </Position>
       <Position>
-        <Filename Value="../../../src/OpenSSL/legacy/IdSSLOpenSSL.pas"/>
-        <Caret Line="237" Column="87" TopLine="231"/>
-      </Position>
-      <Position>
         <Filename Value="TestClient.pas"/>
         <Caret Line="151" Column="28" TopLine="148"/>
       </Position>
       <Position>
         <Filename Value="TestClient.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../src/OpenSSL/legacy/IdSSLOpenSSL.pas"/>
-        <Caret Line="2438" Column="25" TopLine="2428"/>
       </Position>
       <Position>
         <Filename Value="TestClient.pas"/>
@@ -1268,34 +1225,29 @@
         <Caret Line="302" Column="35" TopLine="280"/>
       </Position>
       <Position>
-        <Filename Value="../../../src/Protocols/IdAuthenticationSSPI.pas"/>
-        <Caret Line="17" Column="39"/>
+        <Filename Value="TestClient.pas"/>
+        <Caret Line="20" Column="33" TopLine="11"/>
       </Position>
       <Position>
-        <Filename Value="../../../src/Core/IdAuthentication.pas"/>
-        <Caret Line="122" Column="28" TopLine="112"/>
+        <Filename Value="TestClient.pas"/>
+        <Caret Line="309" Column="33" TopLine="293"/>
       </Position>
       <Position>
-        <Filename Value="../../../src/Protocols/IdGlobalProtocols.pas"/>
-        <Caret Line="5" Column="70"/>
+        <Filename Value="TestClient.pas"/>
+        <Caret Line="81" Column="33" TopLine="64"/>
       </Position>
       <Position>
-        <Filename Value="../../../src/Protocols/IdGlobalProtocols.pas"/>
-        <Caret Line="395" Column="23" TopLine="371"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../src/Protocols/IdGlobalProtocols.pas"/>
-        <Caret Line="333" Column="8" TopLine="323"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../src/Core/IdAuthentication.pas"/>
-        <Caret Line="209" Column="26" TopLine="195"/>
+        <Filename Value="TestClient.pas"/>
+        <Caret Line="225" Column="47" TopLine="222"/>
       </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="default">
         <Mode Name="default">
+          <local>
+            <CommandLineParams Value="-L"/>
+          </local>
           <environment>
             <UserOverrides Count="1">
               <Variable0 Name="LD_LIBRARY_PATH" Value="/home/tony/Indy/svn/test/openssl/libs/1.0/x86_64"/>
@@ -1305,14 +1257,14 @@
       </Modes>
     </RunParams>
     <HistoryLists>
-      <List Name="LaunchingApplication" Type="File" Count="2">
-        <Item1 Value="C:\Windows\system32\cmd.exe \C ${TargetCmdLine}"/>
-        <Item2 Value="C:\Windows\system32\cmd.exe /C ${TargetCmdLine}"/>
+      <List Name="LaunchingApplication" Type="File" Count="3">
+        <Item2 Value="C:\Windows\system32\cmd.exe \C ${TargetCmdLine}"/>
+        <Item3 Value="C:\Windows\system32\cmd.exe /C ${TargetCmdLine}"/>
       </List>
-      <List Name="CommandLineParameters" Count="18">
-        <Item1 Value="-n"/>
-        <Item2 Value="-X"/>
-        <Item3 Value="-L"/>
+      <List Name="CommandLineParameters" Count="19">
+        <Item1 Value="-L"/>
+        <Item2 Value="-n"/>
+        <Item3 Value="-X"/>
         <Item4 Value="../libs/3.3/x86_64 -L"/>
         <Item5 Value="../libs/3.2/x86_64 -L"/>
         <Item6 Value="../libs/3.1/x86_64 -L"/>
@@ -1329,6 +1281,7 @@
         <Item17 Value="..\libs\3.2\x86_64"/>
         <Item18 Value="..\libs\1.0\x86_64"/>
       </List>
+      <List Name="WorkingDirectory" Type="File" Count="1"/>
     </HistoryLists>
   </ProjectSession>
   <Debugging>

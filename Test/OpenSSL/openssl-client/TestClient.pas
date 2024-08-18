@@ -19,6 +19,12 @@ unit TestClient;
 
 { $DEFINE HAS_WINDOWS_CERT_STORE}
 {$DEFINE LEGACYVERSION}
+{$IFDEF UNIX}
+{$DEFINE DO_CERT_VERIFICATION}
+{$ENDIF}
+{$IFDEF HAS_WINDOWS_CERT_STORE}
+{$DEFINE DO_CERT_VERIFICATION}
+{$ENDIF}
 
 interface
 
@@ -306,7 +312,7 @@ var i: integer;
     writeln('Getting ',remoteSource,' with no verification');
     FNoVerification := true;
     DoTest;
-    {$IFDEF HAS_WINDOWS_CERT_STORE}
+    {$IFDEF DO_CERT_VERIFICATION}
     FNoVerification := false;
     writeln('Getting ',remoteSource,' with verification');
     writeln;
@@ -339,9 +345,9 @@ begin
          if not DirectoryExists(FVerifyDirs) or IsDirectoryEmpty(FVerifyDirs) then
            raise Exception.CreateFmt('%s is not a directory or is empty',[FVerifyDirs]);
        end
-       {$IFDEF UNIX}
        else
        if ParamStr(i) = '-L' then
+       {$IFDEF UNIX}
          FindSSLDir := true
        {$ENDIF}
        else
