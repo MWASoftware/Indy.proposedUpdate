@@ -1,0 +1,87 @@
+This is a "strawman" proposal to demonstrate a possible package split. That is 
+separating out the OpenSSL Indy components into a separate package. This
+version is based on the current (2024-08-17) "master" branch on GitHub for IndySockets/Indy
+and uses the "legacy" OpenSSL units only. That is, it provides support for OpenSSL 1.0.2
+and no later versions. It may become the base for including an alternative package
+to support OpenSSL 1.1.1 and 3.x.
+
+The package split moves the following files from "Protocols" to a new folder "OpenSSL/legacy"
+at the same level as "Protocols":
+
+IdAuthentication.pas
+IdAuthenticationNTLM.pas {reverted to prior version}
+IdNTLMv2.pas
+IdResourceStringsOpenSSL.pas
+IdResourceStringsSSLDotNet.pas
+IdServerIOHandlerSSLOpenSSL.pas
+IdSSLDotNET.pas
+IdSSLOpenSSLHeaders.pas
+IdSSLOpenSSLHeaders_static.pas
+IdSSLOpenSSL.pas
+IdSSLOpenSSLUtils.pas
+
+Otherwise the remaining source files are unmodified except:
+
+1. AllAuthentications.pas has reference to IdAuthenticationNTLM unit removed.
+
+2. SSPI units now include conditional directives to allow conditional compilation under Unix.
+   That is they use {$IFDEF USE_SSPI} to effectively become empty units under Unix builds.
+
+3. The opportunity has been taken to rename the Top Level Folder "Lib" to "src". This avoid
+   confusion under Lazarus/fpc and to follow a more conventional naming for Unix deployments.
+  
+This branch contains package build files for both Delphi and Lazarus/FPC with no need to modify
+the build tree for different targets.
+
+Delphi Builds
+=============
+
+All Protocols/IndyProtocolsnnn.dpk and dproj files have been edited to remove references to the moved files.
+However only Protocols/IndyProtocols290 has been tested (with Delphi Berlin edition).
+
+New Packages:
+
+IndyOpenSSLLegacy and
+dclIndyOpenSSLLegacy (design time only)
+
+may be found in src\OpenSSL\legacy.
+
+These are dependent on IndyProtocols290 and dclIndyProtocols290,IndyOpenSSLLegacy  respectively.
+
+To use OpenSSL in a given project, the IndyOpenSSLLegacy package must now be included.
+
+icons\makedcr.bat has been updated to generate a .dcr package for IndyOpenSSLLegacy.
+
+Lazarus/FPC Builds
+==================
+
+All lazaarus packages may be found in the lazarus-fpc top level folder. These are:
+
+indysystem.lpk
+indycore.lpk
+indyprotocols.lpk
+indyopenssllegacy.lpk
+
+and the design time only packages
+
+indylaz.lpk
+indylaz_openssllegacy.lpk
+
+In order to install this strawman branch for Lazarus (Windows and Linux), Open first 
+that package indylaz.lpk and click on install. Then Open indylaz_openssllegacy.lpk and 
+click on install. The Indy Library should now be available for use.
+
+Test Programs
+=============
+
+Two test programs are available with variants for Delphi and Lazarus. These may be 
+found in Test/OpenSSL/openssl-client and Test/OpenSSL/openssl-server.
+
+openssl-client uses an HTTP Client to issue an http Get on an https target and returns 
+the result. Under Linux the server certificate is also verified.
+
+openssl-server provides both and a server and uses a local PKI to retrieve a web page 
+from the server, with both client and server certificate verification and to return the result.
+
+
+
