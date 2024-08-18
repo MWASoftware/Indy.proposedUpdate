@@ -61,9 +61,9 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <DCC_UsePackage>IndyOpensslLegacy290;IndyProtocols290;IndyCore290;IndySystem290;$(DCC_UsePackage)</DCC_UsePackage>
         <DCC_ExeOutput>.</DCC_ExeOutput>
         <Debugger_HostApplication>C:\Users\A User\projects\Indy\test\openssl\openssl-client\Win32\Debug\Project1.exe</Debugger_HostApplication>
-        <DCC_UnitSearchPath>..\..\..\includes;..\..\..\runtime\protocols\opensslHdrs;..\..\..\runtime\system;..\..\..\runtime\core;..\..\..\runtime\protocols;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <BRCC_IncludePath>..\..\Indy\runtime\protocols\opensslHdrs;$(BRCC_IncludePath)</BRCC_IncludePath>
         <Manifest_File>(None)</Manifest_File>

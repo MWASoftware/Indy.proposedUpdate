@@ -35,6 +35,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <RuntimeOnlyPackage>true</RuntimeOnlyPackage>
         <SanitizedProjectName>indyopenssllegacy290</SanitizedProjectName>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
         <GenDll>true</GenDll>

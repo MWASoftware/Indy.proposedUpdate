@@ -1,6 +1,6 @@
 unit IdRegisterSSL;
 
-{$mode objfpc}{$H+}
+{$i IdCompilerDefines.inc}
 
 interface
 
@@ -14,6 +14,10 @@ uses
 procedure Register;
 
 implementation
+
+{$IFNDEF FPC}
+{$R IdOpenSSLRegister.dcr}
+{$ENDIF}
 
 procedure Register;
 begin

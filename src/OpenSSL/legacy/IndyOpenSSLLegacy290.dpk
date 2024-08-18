@@ -1,4 +1,4 @@
-package indyopenssllegacy290;
+package IndyOpensslLegacy290;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
@@ -26,6 +26,7 @@ package indyopenssllegacy290;
 {$DEFINE RELEASE}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
+{$RUNONLY}
 {$IMPLICITBUILD ON}
 
 requires

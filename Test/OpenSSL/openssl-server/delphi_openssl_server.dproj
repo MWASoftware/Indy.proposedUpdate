@@ -35,6 +35,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_UsePackage>IndyOpensslLegacy290;IndyProtocols290;IndyCore290;IndySystem290;$(DCC_UsePackage)</DCC_UsePackage>
         <SanitizedProjectName>delphi_openssl_server</SanitizedProjectName>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
         <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
@@ -62,8 +63,6 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_ExeOutput>.</DCC_ExeOutput>
-        <DCC_BplOutput>C:\Users\A User\projects\Indy\test\openssl\openssl-server\</DCC_BplOutput>
-        <DCC_UnitSearchPath>C:\Users\A User\projects\Indy\runtime\system;C:\Users\A User\projects\Indy\runtime\core;C:\Users\A User\projects\Indy\runtime\protocols;C:\Users\A User\projects\Indy\runtime\protocols\opensslHdrs;C:\Users\A User\projects\Indy\includes;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
