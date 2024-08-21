@@ -104,9 +104,6 @@ uses
   IdDsnSASLListEditorFormVCL,
   {$ENDIF}
   {$IFDEF HAS_TSelectionEditor}
-    {$IFDEF USE_OPENSSL}
-   IdSSLOpenSSL,
-    {$ENDIF}
    IdFTPServer,
   {$ENDIF}
   IdSASL, IdSASLCollection,
@@ -215,10 +212,6 @@ procedure Register;
 begin
   RegisterPropertyEditor(TypeInfo(TIdSASLEntries), nil, '', TIdPropEdSASL);
   {$IFDEF HAS_TSelectionEditor}
-    {$IFDEF USE_OPENSSL}
-  RegisterSelectionEditor(TIdServerIOHandlerSSLOpenSSL, TIdOpenSSLSelectionEditor);
-  RegisterSelectionEditor(TIdSSLIOHandlerSocketOpenSSL, TIdOpenSSLSelectionEditor);
-    {$ENDIF}
   RegisterSelectionEditor(TIdFTPServer,TIdFTPServerSelectionEditor);
   {$ENDIF}
 end;
