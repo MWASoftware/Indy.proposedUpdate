@@ -89,8 +89,6 @@ TIdUnixTimeUDPServer                   BITMAP "TIdUnixTimeUDPServer.bmp"
 /* Indy IOHandlers */
 TIdServerIOHandlerSSL                  BITMAP "TIdServerIOHandlerSSL.bmp"
 TIdIOHandlerThrottle                   BITMAP "TIdIOHandlerThrottle.bmp"
-TIdSSLIOHandlerSocketOpenSSL           BITMAP "TIdSSLIOHandlerSocketOpenSSL.bmp"
-TIdServerIOHandlerSSLOpenSSL           BITMAP "TIdServerIOHandlerOpenSSL.bmp"
 
 /* Indy Intercepts */
 TIdCompressionIntercept                BITMAP "TIdCompressionIntercept.bmp"
