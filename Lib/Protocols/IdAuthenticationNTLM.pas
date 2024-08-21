@@ -59,7 +59,6 @@ Type
     function GetSteps: Integer; override;
     procedure SetUserName(const Value: String); override;
   public
-    constructor Create; override;
     function Authentication: String; override;
     function KeepAlive: Boolean; override;
   end;
@@ -80,28 +79,10 @@ uses
   IdGlobalProtocols,
   IdException,
   IdCoderMIME,
-  IdFIPS,
   IdNTLM,
   SysUtils;
 
 { TIdNTLMAuthentication }
-
-constructor TIdNTLMAuthentication.Create;
-begin
-  inherited Create;
-
-  if not LoadNTLMLibrary then begin
-    // TODO: create a new Exception class for this
-    // TODO: move this into IdResourceStringsProtocols
-    raise EIdException.Create('Could not load NTLM library'); {do not localize}
-  end;
-
-  {TODO: add this?
-  if not IsNTLMFuncsAvail then begin
-    raise ...;
-  end;
-  }
-end;
 
 function TIdNTLMAuthentication.DoNext: TIdAuthWhatsNext;
 begin

@@ -7,7 +7,6 @@
       <Unit>
         <Filename Value="fpc_openssl_server.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos Y="10"/>
         <UsageCount Value="43"/>
         <Loaded Value="True"/>
@@ -19,7 +18,7 @@
       </Unit>
       <Unit>
         <Filename Value="testserver.pas"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="173"/>
         <CursorPos X="11" Y="193"/>
         <UsageCount Value="21"/>
@@ -412,6 +411,15 @@
         <TopLine Value="73"/>
         <CursorPos X="59" Y="79"/>
         <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../Lib/Protocols/IdAuthenticationNTLM.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="27"/>
+        <CursorPos Y="62"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="15">

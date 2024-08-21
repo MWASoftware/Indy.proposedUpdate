@@ -1,8 +1,8 @@
 brc32 IdRegister.rc -r -foIdRegister.dcr
-copy IdRegister.dcr ..\src\Protocols
+copy IdRegister.dcr ..\Lib\Protocols
 brc32 IdCoreRegister.rc -r -foIdCoreRegister.dcr
-copy IdCoreRegister.dcr ..\src\Core
+copy IdCoreRegister.dcr ..\Lib\Core
 brc32 IdSuperCoreRegister.rc -r -foIdSuperCoreRegister.dcr
-copy IdSuperCoreRegister.dcr ..\src\SuperCore
+copy IdSuperCoreRegister.dcr ..\Lib\SuperCore
 brcc32 IdOpenSSLRegister.rc -r -foIdOpenSSLRegister.dcr
-copy IdOpenSSLRegister.dcr ..\src\OpenSSL\legacy
+copy IdOpenSSLRegister.dcr ..\Lib\OpenSSL\legacy
