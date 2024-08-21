@@ -34,6 +34,7 @@ interface
 uses
   Classes,
   IdContainers,
+  IdYarn,
   IdGlobalCore,
   IdIOHandler,
   IdIOHandlerSocket,
@@ -57,11 +58,14 @@ type
   end;
 
   //server
+
+  { TIdServerIOHandlerSSHBase }
+
   TIdServerIOHandlerSSHBase = class(TIdServerIOHandler)
   protected
   public
     //this is for the FTP Server to make a client IOHandler for it's data connection's IOHandler
-    function MakeClientIOHandler(ATheThread:TIdThreadHandle ): TIdIOHandler; overload; override;
+    function MakeClientIOHandler(ATheThread:TIdYarn ): TIdIOHandler; overload; override;
     function MakeClientIOHandler : TIdSSHIOHandlerSocketBase; reintroduce; overload; virtual; abstract;
     function MakeFTPSvrPort : TIdSSHIOHandlerSocketBase; virtual; abstract;
     function MakeFTPSvrPasv : TIdSSHIOHandlerSocketBase; virtual; abstract;
@@ -143,7 +147,8 @@ end;
 
 { TIdServerIOHandlerSSHBase }
 
-function TIdServerIOHandlerSSHBase.MakeClientIOHandler(ATheThread:TIdThreadHandle ): TIdIOHandler;
+function TIdServerIOHandlerSSHBase.MakeClientIOHandler(ATheThread : TIdYarn
+  ) : TIdIOHandler;
 begin
   Result := MakeClientIOHandler;
 end;

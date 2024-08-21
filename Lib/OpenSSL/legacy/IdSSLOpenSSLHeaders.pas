@@ -18079,6 +18079,12 @@ any IFDEF's and cases where the FIPS functions aren't in the .DLL}
   _FIPS_mode : function () : TIdC_INT cdecl = nil;
 {$ENDIF}
 
+{$IFNDEF OPENSSL_NO_RC4}
+RC4_Options : function () : PIdAnsiChar; cdecl = nil;
+RC4_set_key : procedure(key : PRC4_KEY; len : TIdC_INT; data : PIdAnsiChar); cdecl = nil;
+RC4 : procedure (key : PRC4_KEY; len : TIdC_ULONG; indata, outdata : PIdAnsiChar) ; cdecl = nil;
+{$ENDIF}
+
 {$IFNDEF OPENSSL_NO_HMAC}
 {
 NOTE:
@@ -18937,6 +18943,7 @@ implementation
 uses
   Classes,
   IdFIPS,
+  IdOpenSSLNTMLv2,
   IdGlobalProtocols,
   IdHashMessageDigest,
   IdResourceStringsProtocols,
@@ -20232,6 +20239,9 @@ them in case we use them later.}
   {$ENDIF}
   {$IFNDEF OPENSSL_NO_RC4}
   {CH fn_RC4_options = 'RC4_options'; } {Do not localize}
+//void RC4_set_key(RC4_KEY *key, int len, const unsigned char *data);
+//void RC4(RC4_KEY *key, unsigned long len, const unsigned char *indata,
+//		unsigned char *outdata);
     {$IFDEF OPENSSL_FIPS}
   {CH private_RC4_set_key = 'private_RC4_set_key'; } {Do not localize}
     {$ENDIF}
@@ -20313,7 +20323,7 @@ them in case we use them later.}
   {CH fn_RSA_X931_generate_key_ex = 'RSA_X931_generate_key_ex'; } {Do not localize}
   fn_RSA_check_key = 'RSA_check_key';  {Do not localize}
   fn_RSA_public_encrypt = 'RSA_public_encrypt';   {Do not localize}
-  {CH fn_RSA_private_encrypt = 'RSA_private_encrypt'; }  {Do not localize}
+  {CH fn_RSA_private_encryRC4_optionspt = 'RSA_private_encrypt'; }  {Do not localize}
   {CH fn_RSA_public_decrypt = 'RSA_public_decrypt'; }  {Do not localize}
   fn_RSA_private_decrypt = 'RSA_private_decrypt';   {Do not localize}
   fn_RSA_free = 'RSA_free';  {Do not localize}
@@ -23934,6 +23944,12 @@ we have to handle both cases.
   @_FIPS_mode_set := LoadFunctionCLib(fn_FIPS_mode_set,False);
   @_FIPS_mode := LoadFunctionCLib(fn_FIPS_mode,False);
   {$ENDIF}
+  {$IFNDEF OPENSSL_NO_RC4}
+  RC4_Options := LoadFunctionCLib('RC4_options');
+  RC4_set_key := LoadFunctionCLib('RC4_set_key');
+  RC4 := LoadFunctionCLib('RC4');
+  {$ENDIF}
+  LoadNTMLv2Functions;
 
   // TODO: expose a global callback function pointer, or an optional input
   // parameter to Load(), so users can choose to load additional OpenSSL
@@ -24686,6 +24702,7 @@ begin
   @_FIPS_mode_set := nil;
   @_FIPS_mode := nil;
   {$ENDIF}
+
 
   // TODO: expose a global callback function pointer, or an optional input
   // parameter to InitializeFuncPointers(), so users can reset any additional
