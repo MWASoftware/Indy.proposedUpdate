@@ -61,7 +61,8 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <DCC_UsePackage>IndyOpenSSLSmart290;IndyProtocols290;IndyCore290;IndySystem290;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>IndySystem290;IndyCore290;IndyProtocols290;IndyOpenSSLSmart290;$(DCC_UsePackage)</DCC_UsePackage>
+        <UsePackages>true</UsePackages>
         <DCC_ExeOutput>.</DCC_ExeOutput>
         <Debugger_HostApplication>C:\Users\A User\projects\Indy\test\openssl\openssl-client\Win32\Debug\Project1.exe</Debugger_HostApplication>
         <VerInfo_Locale>1033</VerInfo_Locale>
@@ -99,6 +100,7 @@
                 <Source>
                     <Source Name="MainSource">delphi_openssl_client.dpr</Source>
                 </Source>
+                <Excluded_Packages/>
             </Delphi.Personality>
             <Platforms>
                 <Platform value="Win32">True</Platform>

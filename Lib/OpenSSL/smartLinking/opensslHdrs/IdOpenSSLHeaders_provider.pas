@@ -90,9 +90,11 @@ type
   {$EXTERNALSYM OSSL_PROVIDER_get0_dispatch} {introduced 3.0.0}
   {$EXTERNALSYM OSSL_PROVIDER_add_builtin} {introduced 3.0.0}
   {$EXTERNALSYM OSSL_PROVIDER_get0_name} {introduced 3.0.0}
+  {$IFDEF OPENSSL_3_2_ORLATER}
   {$EXTERNALSYM OSSL_PROVIDER_get0_default_search_path} {introduced 3.2.0}
   {$EXTERNALSYM OSSL_PROVIDER_try_load_ex} {introduced 3.2.0}
   {$EXTERNALSYM OSSL_PROVIDER_load_ex} {introduced 3.2.0}
+  {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 var
