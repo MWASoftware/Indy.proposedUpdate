@@ -191,9 +191,6 @@ interface
 
 {$I IdCompilerDefines.inc}
 
-{$IFNDEF USE_OPENSSL}
-  {$message error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
 {$WRITEABLECONST OFF}
 
 {$IFNDEF FPC}
@@ -18943,7 +18940,6 @@ implementation
 uses
   Classes,
   IdFIPS,
-  IdOpenSSLNTMLv2,
   IdGlobalProtocols,
   IdHashMessageDigest,
   IdResourceStringsProtocols,
@@ -23949,7 +23945,6 @@ we have to handle both cases.
   RC4_set_key := LoadFunctionCLib('RC4_set_key');
   RC4 := LoadFunctionCLib('RC4');
   {$ENDIF}
-  LoadNTMLv2Functions;
 
   // TODO: expose a global callback function pointer, or an optional input
   // parameter to Load(), so users can choose to load additional OpenSSL

@@ -150,23 +150,6 @@ function DumpFlags(const AFlags : UInt32): String; overload;
 function LoadRC4 : Boolean;
 function RC4FunctionsLoaded : Boolean;
 
-{$IFNDEF DOTNET}
-{$IFNDEF WINDOWS}
-type
-  FILETIME = record
-    dwLowDateTime : UInt32;
-    dwHighDateTime : UInt32;
-  end;
-{$ENDIF}
-
-var
-  _DES: procedure(var Res : TIdBytes; const Akey, AData : array of byte; const AKeyIdx, ADataIdx, AResIdx : Integer) = nil;
-  DESL: procedure(const Akeys: TIdBytes; const AServerNonce: TIdBytes; out results: TIdBytes)= nil;
-  SetupLMResponse: function(var vlmHash : TIdBytes; const APassword : String; AServerNonce : TIdBytes): TIdBytes = nil;
-  LanManagerSessionKey: function(const ALMHash : TIdBytes) : TIdBytes = nil;
-{$ENDIF}
-
-
 implementation
 
 uses
@@ -195,15 +178,15 @@ uses
   IdHash,
   IdHMACMD5,
   IdHashMessageDigest,
-  IdCoderMIME;
-
-type
-  des_cblock = array[0..7] of Byte; {define here to avoid dependency on OpenSSL}
+  IdCoderMIME
+  {$IFNDEF DOTNET}, IdSSLOpenSSLHeaders{$ENDIF} // TODO: remove dependency on this!
+  ;
 
 const
 {$IFDEF DOTNET}
   MAGIC : array [ 0.. 7] of byte = ( $4b, $47, $53, $21, $40, $23, $24, $25);
 {$ELSE}
+  Magic: des_cblock = ( $4B, $47, $53, $21, $40, $23, $24, $25 );
   Magic_const : array [0..7] of byte = ( $4b, $47, $53, $21, $40, $23, $24, $25 );
 {$ENDIF}
   TYPE1_MARKER = 1;
@@ -213,7 +196,27 @@ const
 //const
 //  NUL_USER_SESSION_KEY : TIdBytes[0..15] = ($00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00);
 
+{$IFNDEF DOTNET}
+type
+  Pdes_key_schedule = ^des_key_schedule;
+  {$IFNDEF WINDOWS}
+  FILETIME = record
+    dwLowDateTime : UInt32;
+    dwHighDateTime : UInt32;
+  end;
+  {$ENDIF}
+{$ENDIF}
 
+{$IFNDEF DOTNET}
+//const char *RC4_options(void);
+var
+  GRC4_Options : function () : PIdAnsiChar; cdecl = nil;
+//void RC4_set_key(RC4_KEY *key, int len, const unsigned char *data);
+  GRC4_set_key : procedure(key : PRC4_KEY; len : TIdC_INT; data : PIdAnsiChar); cdecl = nil;
+//void RC4(RC4_KEY *key, unsigned long len, const unsigned char *indata,
+//		unsigned char *outdata);
+  GRC4 : procedure (key : PRC4_KEY; len : TIdC_ULONG; indata, outdata : PIdAnsiChar) ; cdecl = nil;
+{$ENDIF}
 
 function NulUserSessionKey : TIdBytes;
 begin
@@ -274,7 +277,7 @@ function NowAsFileTime : FILETIME;
 {$IFDEF UNIX}
   {$IFNDEF USE_VCL_POSIX}
 var
-  TheTms: UInt32;
+  TheTms: tms;
   {$ENDIF}
 {$ENDIF}
 begin
@@ -322,10 +325,7 @@ end;
 
 procedure BytesToCharArray(const ABytes : TIdBytes; var VArray : Array of char; const AIndex : Integer=0);
 var
-  i, ll, lh : {$IFNDEF DOTNET}
-//const char *RC4_options(void);
-{$ENDIF}
-Integer;
+  i, ll, lh : Integer;
 begin
   ll :=  Low( VArray);
   lh := High( Varray);
@@ -470,7 +470,6 @@ end;
 
 {$IFDEF DOTNET}
 const
-
   DES_ODD_PARITY : array[ 0.. 255] of byte =
     ( 1,   1,   2,   2,   4,   4,   7,   7,   8,   8,  11,  11,  13,  13,  14, 14,
      16,  16,  19,  19,  21,  21,  22,  22,  25,  25,  26,  26,  28,  28,  31,  31,
@@ -550,7 +549,6 @@ user@DOMAIN
    end;
 end;
 
-
 {$IFDEF DOTNET}
 
 function NTLMFunctionsLoaded : Boolean;
@@ -570,16 +568,27 @@ begin
 end;
 
 function LoadRC4 : Boolean;
+var
+  h : Integer;
 begin
   Result := LoadNTLMLibrary;
-  Result := Result and RC4FunctionsLoaded;
+  if Result then begin
+    // TODO: move these into IndyTLSOpenSSL package and update IdFIPS unit...
+    h := IdSSLOpenSSLHeaders.GetCryptLibHandle;
+    GRC4_Options := LoadLibFunction(h,'RC4_options');
+    GRC4_set_key := LoadLibFunction(h,'RC4_set_key');
+    GRC4 := LoadLibFunction(h,'RC4');
+  end;
+  Result := RC4FunctionsLoaded;
 end;
 
 function RC4FunctionsLoaded : Boolean;
 begin
-  Result := Assigned(_DES) and
-     Assigned(DESL) and
-     Assigned(SetupLMResponse);
+  // TODO: move these into IndyTLSOpenSSL package and update IdFIPS unit...
+  // Result := IsNTLMv2FuncsAvail;
+  Result := Assigned(GRC4_Options) and
+     Assigned(GRC4_set_key) and
+     Assigned(GRC4);
 end;
 {$ENDIF}
 
@@ -603,6 +612,38 @@ begin
 end;
 
 {$IFNDEF DOTNET}
+{/*
+ * turns a 56 bit key into the 64 bit, odd parity key and sets the key.
+ * The key schedule ks is also set.
+ */}
+procedure setup_des_key(key_56: des_cblock; Var ks: des_key_schedule);
+{$IFDEF USE_INLINE}inline;{$ENDIF}
+var
+  key: des_cblock;
+begin
+  key[0] := key_56[0];
+
+  key[1] := ((key_56[0] SHL 7) and $FF) or (key_56[1] SHR 1);
+  key[2] := ((key_56[1] SHL 6) and $FF) or (key_56[2] SHR 2);
+  key[3] := ((key_56[2] SHL 5) and $FF) or (key_56[3] SHR 3);
+  key[4] := ((key_56[3] SHL 4) and $FF) or (key_56[4] SHR 4);
+  key[5] := ((key_56[4] SHL 3) and $FF) or (key_56[5] SHR 5);
+  key[6] := ((key_56[5] SHL 2) and $FF) or (key_56[6] SHR 6);
+  key[7] :=  (key_56[6] SHL 1) and $FF;
+
+  DES_set_odd_parity(@key);
+  DES_set_key(@key, ks);
+end;
+
+//Returns 8 bytes in length
+procedure _DES(var Res : TIdBytes; const Akey, AData : array of byte; const AKeyIdx, ADataIdx, AResIdx : Integer);
+var
+  Lks: des_key_schedule;
+begin
+  setup_des_key(pdes_cblock(@Akey[AKeyIdx])^, Lks);
+  DES_ecb_encrypt(@AData[ADataIdx], Pconst_DES_cblock(@Res[AResIdx]), Lks, DES_ENCRYPT);
+
+end;
 
 function LMOWFv1(const Passwd, User, UserDom : TIdBytes) : TIdBytes;
 //       ConcatenationOf( DES( UpperCase( Passwd)[0..6],"KGS!@#$%"),
@@ -617,6 +658,58 @@ begin
   _DES(Result,LBuf, Magic_const,0,0,0);
   _DES(Result,LBuf, Magic_const,7,0,8);
 
+end;
+
+{/*
+ * takes a 21 byte array and treats it as 3 56-bit DES keys. The
+ * 8 byte plaintext is encrypted with each key and the resulting 24
+ * bytes are stored in the results array.
+ */}
+procedure DESL(const Akeys: TIdBytes; const AServerNonce: TIdBytes; out results: TIdBytes);
+//procedure DESL(keys: TIdBytes; AServerNonce: TIdBytes; results: TIdBytes);
+//procedure DESL(keys: TIdBytes; AServerNonce: TIdBytes; results: Pdes_key_schedule);
+var
+  ks: des_key_schedule;
+begin
+  SetLength(Results,24);
+  setup_des_key(PDES_cblock(@Akeys[0])^, ks);
+  DES_ecb_encrypt(@AServerNonce[0], Pconst_DES_cblock(results), ks, DES_ENCRYPT);
+
+  setup_des_key(PDES_cblock(Integer(Akeys) + 7)^, ks);
+  DES_ecb_encrypt(@AServerNonce[0], Pconst_DES_cblock(PtrUInt(results) + 8), ks, DES_ENCRYPT);
+
+  setup_des_key(PDES_cblock(Integer(Akeys) + 14)^, ks);
+  DES_ecb_encrypt(@AServerNonce[0], Pconst_DES_cblock(PtrUInt(results) + 16), ks, DES_ENCRYPT);
+end;
+
+
+
+//* setup LanManager password */
+function SetupLMResponse(var vlmHash : TIdBytes; const APassword : String; AServerNonce : TIdBytes): TIdBytes;
+var
+  lm_hpw : TIdBytes;
+  lm_pw : TIdBytes;
+  ks: des_key_schedule;
+begin
+  SetLength( lm_hpw,21);
+  FillBytes( lm_hpw, 14, 0);
+  SetLength( lm_pw, 21);
+  FillBytes( lm_pw, 14, 0);
+  SetLength( vlmHash, 16);
+  CopyTIdString( UpperCase( APassword), lm_pw, 0, 14);
+
+  //* create LanManager hashed password */
+  setup_des_key(pdes_cblock(@lm_pw[0])^, ks);
+  DES_ecb_encrypt(@magic, pconst_des_cblock(@lm_hpw[0]), ks, DES_ENCRYPT);
+
+  setup_des_key(pdes_cblock(@lm_pw[7])^, ks);
+  DES_ecb_encrypt(@magic, pconst_des_cblock(@lm_hpw[8]), ks, DES_ENCRYPT);
+  CopyTIdBytes(lm_pw,0,vlmHash,0,16);
+ // FillChar(lm_hpw[17], 5, 0);
+  SetLength(Result,24);
+  DESL(lm_hpw, AServerNonce, Result);
+//  DESL(PDes_cblock(@lm_hpw[0]), AServerNonce, Pdes_key_schedule(@Result[0]));
+//
 end;
 
 //* create NT hashed password */
@@ -684,7 +777,7 @@ begin
   LDes.Mode := CipherMode.ECB;
   LDes.Padding := PaddingMode.None;
   setup_des_key( AKeys, LKey, 0);
-  LDes.Key := LKey;                                        LanManagerSessionKey
+  LDes.Key := LKey;
   LEnc := LDes.CreateEncryptor;
   LEnc.TransformBlock( AServerNonce, 0, 8, Results, 0);
   setup_des_key( AKeys, LKey, 7);
@@ -728,25 +821,6 @@ begin
     CopyTIdBytes( MAGIC_NUL_KEY, 0, lm_hpw, 8, 8);
   end;
   DESL( lm_hpw, nonce, Result);
-end;
-
-function LanManagerSessionKey(const ALMHash : TIdBytes) : TIdBytes;
-var
-  LKey : TIdBytes;
-  ks : des_key_schedule;
-  LHash8 : TIdBytes;
-begin
-  LHash8 := ALMHash;
-  SetLength(LHash8,8);
-  SetLength(LKey,14);
-  FillChar(LKey,14,$bd);
-  CopyTIdBytes(LHash8,0,LKey,0,8);
-  SetLength(Result,16);
-  setup_des_key(pdes_cblock(@LKey[0])^, ks);
-  DES_ecb_encrypt(@LHash8, pconst_des_cblock(@Result[0]), ks, DES_ENCRYPT);
-
-  setup_des_key(pdes_cblock(@LKey[7])^, ks);
-  DES_ecb_encrypt(@LHash8, pconst_des_cblock(@Result[8]), ks, DES_ENCRYPT);
 end;
 
 function CreateNTLMResponse(const APassword : String; const nonce : TIdBytes): TIdBytes;
@@ -1013,6 +1087,26 @@ begin
     LHash.Free;
   end;
   {$ENDIF}
+end;
+
+function LanManagerSessionKey(const ALMHash : TIdBytes) : TIdBytes;
+var
+  LKey : TIdBytes;
+  ks : des_key_schedule;
+  LHash8 : TIdBytes;
+begin
+  LHash8 := ALMHash;
+  SetLength(LHash8,8);
+  SetLength(LKey,14);
+  FillChar(LKey,14,$bd);
+  CopyTIdBytes(LHash8,0,LKey,0,8);
+  SetLength(Result,16);
+  setup_des_key(pdes_cblock(@LKey[0])^, ks);
+  DES_ecb_encrypt(@LHash8, pconst_des_cblock(@Result[0]), ks, DES_ENCRYPT);
+
+  setup_des_key(pdes_cblock(@LKey[7])^, ks);
+  DES_ecb_encrypt(@LHash8, pconst_des_cblock(@Result[8]), ks, DES_ENCRYPT);
+
 end;
 
 function SetupLMv2Response(var VntlmHash : TIdBytes; const AUsername, ADomain : String; const APassword : String; cnonce, AServerNonce : TIdBytes): TIdBytes;

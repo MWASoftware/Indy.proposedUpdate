@@ -8,8 +8,9 @@ unit indyopensslsmart;
 interface
 
 uses
-  IdOpenSSLNTMLv2, IdResourceStringsOpenSSL, IdSSLOpenSSL, IdSSLOpenSSLConsts, 
-  IdSSLOpenSSLExceptionHandlers, IdSSLOpenSSLFIPS, IdSSLOpenSSLLoader;
+  IdResourceStringsOpenSSL, IdSSLOpenSSL, IdSSLOpenSSLConsts, 
+  IdSSLOpenSSLExceptionHandlers, IdSSLOpenSSLFIPS, IdSSLOpenSSLLoader, 
+  IdNTLMOpenSSL;
 
 implementation
 

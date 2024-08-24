@@ -201,10 +201,6 @@ interface
 
 {$I IdCompilerDefines.inc}
 
-{$IFNDEF USE_OPENSSL}
-  {$message error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-
 {$TYPEDADDRESS OFF}
 
 uses

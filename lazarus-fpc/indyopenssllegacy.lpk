@@ -49,8 +49,8 @@ THIS SOFTWARE IS PROVIDED BY Chad Z. Hower (Kudzu) and the Indy Pit Crew &amp;am
         <UnitName Value="IdSSLOpenSSLHeaders"/>
       </Item>
       <Item>
-        <Filename Value="../Lib/OpenSSL/legacy/IdOpenSSLNTMLv2.pas"/>
-        <UnitName Value="IdOpenSSLNTMLv2"/>
+        <Filename Value="../Lib/OpenSSL/legacy/IdNTLMOpenSSL.pas"/>
+        <UnitName Value="IdNTLMOpenSSL"/>
       </Item>
     </Files>
     <RequiredPkgs>

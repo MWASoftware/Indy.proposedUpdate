@@ -37,10 +37,6 @@ THIS SOFTWARE IS PROVIDED BY Chad Z. Hower (Kudzu) and the Indy Pit Crew &amp;am
     <Version Major="10" Minor="6" Release="3"/>
     <Files>
       <Item>
-        <Filename Value="../Lib/OpenSSL/smartLinking/IdOpenSSLNTMLv2.pas"/>
-        <UnitName Value="IdOpenSSLNTMLv2"/>
-      </Item>
-      <Item>
         <Filename Value="../Lib/OpenSSL/smartLinking/IdResourceStringsOpenSSL.pas"/>
         <UnitName Value="IdResourceStringsOpenSSL"/>
       </Item>
@@ -63,6 +59,10 @@ THIS SOFTWARE IS PROVIDED BY Chad Z. Hower (Kudzu) and the Indy Pit Crew &amp;am
       <Item>
         <Filename Value="../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
         <UnitName Value="IdSSLOpenSSLLoader"/>
+      </Item>
+      <Item>
+        <Filename Value="../Lib/OpenSSL/smartLinking/IdNTLMOpenSSL.pas"/>
+        <UnitName Value="IdNTLMOpenSSL"/>
       </Item>
     </Files>
     <RequiredPkgs>

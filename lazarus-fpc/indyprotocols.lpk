@@ -1016,10 +1016,6 @@ THIS SOFTWARE IS PROVIDED BY Chad Z. Hower (Kudzu) and the Indy Pit Crew &amp;am
         <Filename Value="../Lib/Protocols/IdAuthenticationNTLM.pas"/>
         <UnitName Value="IdAuthenticationNTLM"/>
       </Item>
-      <Item>
-        <Filename Value="../Lib/Protocols/IdNTLMv2.pas"/>
-        <UnitName Value="IdNTLMv2"/>
-      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

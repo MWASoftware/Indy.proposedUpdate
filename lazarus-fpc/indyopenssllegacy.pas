@@ -9,7 +9,7 @@ interface
 
 uses
   IdResourceStringsOpenSSL, IdServerIOHandlerSSLOpenSSL, IdSSLOpenSSL, 
-  IdSSLOpenSSLHeaders, IdOpenSSLNTMLv2;
+  IdSSLOpenSSLHeaders, IdNTLMOpenSSL;
 
 implementation
 
