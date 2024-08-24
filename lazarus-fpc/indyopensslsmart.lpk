@@ -8,10 +8,14 @@
       <SearchPaths>
         <IncludeFiles Value="../Lib/OpenSSL/smartLinking"/>
         <OtherUnitFiles Value="../Lib/OpenSSL/smartLinking;../Lib/OpenSSL/smartLinking/opensslHdrs"/>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
         <CustomOptions Value="-Ur"/>
+        <OtherDefines Count="2">
+          <Define0 Value="OPENSSL_USE_STATIC_LIBRARY"/>
+          <Define1 Value="OPENSSL_USE_SHARED_LIBRARY"/>
+        </OtherDefines>
       </Other>
     </CompilerOptions>
     <Description Value="Indy - Internet Direct

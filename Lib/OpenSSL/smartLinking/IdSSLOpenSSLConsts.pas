@@ -48,8 +48,10 @@ const
   {The following lists are used when trying to locate the libcrypto and libssl libraries.
    Default sufficies can be replaced by setting the IOpenSSLLoader.GetSSLLibVersions property}
   {$IFDEF OPENSSL_USE_STATIC_LIBRARY}
-  CLibCrypto = 'crypto.a';
-  CLibSSL = 'ssl.a';
+  CLibCrypto = '';
+  CLibSSL = '';
+  {$LINKLIB ssl.a}
+  {$LINKLIB crypto.a}
   {$ENDIF}
   
   {$IFDEF OPENSSL_USE_SHARED_LIBRARY}

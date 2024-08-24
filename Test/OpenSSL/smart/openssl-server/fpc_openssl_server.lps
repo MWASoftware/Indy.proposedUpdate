@@ -18,9 +18,8 @@
       </Unit>
       <Unit>
         <Filename Value="testserver.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="405"/>
+        <TopLine Value="404"/>
         <CursorPos X="13" Y="428"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
@@ -455,8 +454,17 @@
         <CursorPos X="2" Y="4767"/>
         <UsageCount Value="10"/>
       </Unit>
+      <Unit>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/opensslHdrs/IdOpenSSLHeaders_err.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="1816"/>
+        <CursorPos Y="1831"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
     </Units>
-    <JumpHistory HistoryIndex="15">
+    <JumpHistory HistoryIndex="16">
       <Position>
         <Filename Value="testserver.pas"/>
         <Caret Line="356" TopLine="343"/>
@@ -521,14 +529,15 @@
         <Filename Value="testserver.pas"/>
         <Caret Line="326" Column="10" TopLine="303"/>
       </Position>
+      <Position>
+        <Filename Value="testserver.pas"/>
+        <Caret Line="428" Column="13" TopLine="404"/>
+      </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="default">
         <Mode Name="default">
-          <local>
-            <CommandLineParams Value="../libs/3.2/x86_64"/>
-          </local>
           <environment>
             <UserOverrides Count="1">
               <Variable0 Name="LD_LIBRARY_PATH" Value="/home/tony/Indy/svn/test/openssl/libs/1.0/x86_64"/>
@@ -539,16 +548,16 @@
     </RunParams>
     <HistoryLists>
       <List Name="CommandLineParameters" Count="11">
-        <Item1 Value="../libs/3.2/x86_64"/>
-        <Item2 Value="../libs/1.0/x86_64 "/>
-        <Item3 Value="../libs/3.0/x86_64"/>
-        <Item4 Value="../libs/1.0/x86_64 -L"/>
-        <Item5 Value="../libs/3.3/x86_64"/>
-        <Item6 Value="../libs/3.3/x86_64 "/>
-        <Item7 Value="../libs/3.3/x86_64 -L"/>
-        <Item8 Value="-h"/>
-        <Item9 Value="../libs/1.0/x86_64"/>
-        <Item10 Value="../3.2/x86_64"/>
+        <Item2 Value="../libs/3.2/x86_64"/>
+        <Item3 Value="../libs/1.0/x86_64 "/>
+        <Item4 Value="../libs/3.0/x86_64"/>
+        <Item5 Value="../libs/1.0/x86_64 -L"/>
+        <Item6 Value="../libs/3.3/x86_64"/>
+        <Item7 Value="../libs/3.3/x86_64 "/>
+        <Item8 Value="../libs/3.3/x86_64 -L"/>
+        <Item9 Value="-h"/>
+        <Item10 Value="../libs/1.0/x86_64"/>
+        <Item11 Value="../3.2/x86_64"/>
       </List>
       <List Name="LaunchingApplication" Type="File" Count="3">
         <Item2 Value="C:\Windows\system32\cmd.exe \C ${TargetCmdLine}"/>

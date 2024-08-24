@@ -52,6 +52,9 @@
       <Debugging>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
+      <Options>
+        <PassLinkerOptions Value="True"/>
+      </Options>
     </Linking>
   </CompilerOptions>
   <Debugging>
