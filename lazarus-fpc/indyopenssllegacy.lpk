@@ -8,7 +8,7 @@
       <SearchPaths>
         <IncludeFiles Value="../Lib/OpenSSL/legacy"/>
         <OtherUnitFiles Value="../Lib/OpenSSL/legacy"/>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib/legacy/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
         <CustomOptions Value="-Ur"/>

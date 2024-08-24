@@ -7,8 +7,8 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <OtherUnitFiles Value="../Lib/OpenSSL/legacy"/>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+        <OtherUnitFiles Value="../Lib/OpenSSL/legacy;../Lib/Core;../Lib/Protocols"/>
+        <UnitOutputDirectory Value="lib/legacy/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <Description Value="Indy - Internet Direct

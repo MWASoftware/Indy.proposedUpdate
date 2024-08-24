@@ -7,7 +7,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <OtherUnitFiles Value="../Lib/OpenSSL/legacy;../Lib/OpenSSL/smartLinking"/>
+        <OtherUnitFiles Value="../Lib/OpenSSL/smartLinking;../Lib/Core;../Lib/Protocols"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>

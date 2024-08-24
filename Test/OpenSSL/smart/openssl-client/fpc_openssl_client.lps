@@ -7,6 +7,7 @@
       <Unit>
         <Filename Value="fpc_openssl_client.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <CursorPos Y="19"/>
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
@@ -1214,12 +1215,10 @@
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSL.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="225"/>
         <CursorPos Y="225"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../../fpcsrc/3.2.2/rtl/inc/objpas.inc"/>
@@ -1230,11 +1229,10 @@
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="10"/>
         <CursorPos Y="35"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../../fpcsrc/3.2.2/rtl/inc/astrings.inc"/>
@@ -1252,11 +1250,10 @@
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLDefines.inc"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="11"/>
         <CursorPos X="35" Y="29"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLConsts.pas"/>
@@ -1302,19 +1299,17 @@
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="447"/>
         <CursorPos Y="419"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/legacy/IdSSLOpenSSL.pas"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="190"/>
         <CursorPos Y="204"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../lazarus-fpc/indyopensslsmart.pas"/>
@@ -1324,169 +1319,53 @@
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdNTLMOpenSSL.pas"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <CursorPos Y="24"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/smartLinking/opensslHdrs/IdOpenSSLHeaders_des.pas"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="25"/>
         <CursorPos X="26" Y="34"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/Protocols/IdFIPS.pas"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="56"/>
         <CursorPos X="3" Y="97"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLFIPS.pas"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="19"/>
         <CursorPos Y="30"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLExceptionHandlers.pas"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="16"/>
         <CursorPos X="19" Y="28"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdCompilerDefines.inc"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1602"/>
         <CursorPos X="23" Y="1626"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="27">
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="957" Column="31" TopLine="933"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="1022" Column="31" TopLine="998"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="1026" Column="37" TopLine="1009"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="29" Column="26" TopLine="5"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="384" Column="29" TopLine="360"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="957" Column="31" TopLine="933"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="1021" Column="19" TopLine="1004"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="1022" Column="31" TopLine="1004"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="1033" Column="94" TopLine="1030"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="1066" Column="61" TopLine="1057"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="57" Column="13" TopLine="207"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/legacy/IdCompilerDefines.inc"/>
-        <Caret Line="419" TopLine="447"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdNTLMOpenSSL.pas"/>
-        <Caret Line="17" Column="39" TopLine="2"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
-        <Caret Line="24" Column="24" TopLine="18"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
-        <Caret Line="61" Column="26" TopLine="125"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdNTLMOpenSSL.pas"/>
-        <Caret Line="17" Column="83" TopLine="4"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdNTLMOpenSSL.pas"/>
-        <Caret Line="85" Column="70" TopLine="65"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdNTLMOpenSSL.pas"/>
-        <Caret Line="163" Column="18" TopLine="140"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLExceptionHandlers.pas"/>
-        <Caret Line="28" Column="19" TopLine="16"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdCompilerDefines.inc"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdCompilerDefines.inc"/>
-        <Caret Line="31" Column="20" TopLine="7"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdCompilerDefines.inc"/>
-        <Caret Line="1600" Column="25" TopLine="1576"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdCompilerDefines.inc"/>
-        <Caret Line="1608" Column="23" TopLine="1584"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdNTLMOpenSSL.pas"/>
-        <Caret Line="163" Column="18" TopLine="140"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
-        <Caret Line="133" Column="24" TopLine="125"/>
-      </Position>
-      <Position>
-        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSL.pas"/>
-        <Caret Line="928" Column="31" TopLine="913"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="default">
         <Mode Name="default">
           <local>
-            <CommandLineParams Value="../libs/3.2/x86_64 -L"/>
+            <CommandLineParams Value="-L"/>
           </local>
           <environment>
             <UserOverrides Count="1">
@@ -1501,10 +1380,10 @@
         <Item1 Value="C:\Windows\system32\cmd.exe \C ${TargetCmdLine}"/>
         <Item2 Value="C:\Windows\system32\cmd.exe /C ${TargetCmdLine}"/>
       </List>
-      <List Name="CommandLineParameters" Count="18">
-        <Item1 Value="../libs/3.2/x86_64 -L"/>
-        <Item2 Value="../libs/3.3/x86_64 -L"/>
-        <Item3 Value="-L"/>
+      <List Name="CommandLineParameters" Count="19">
+        <Item1 Value="-L"/>
+        <Item2 Value="../libs/3.2/x86_64 -L"/>
+        <Item3 Value="../libs/3.3/x86_64 -L"/>
         <Item4 Value="-n"/>
         <Item5 Value="-X"/>
         <Item6 Value="../libs/3.1/x86_64 -L"/>
@@ -1520,7 +1399,9 @@
         <Item16 Value="..\libs\3.0\x86_64"/>
         <Item17 Value="..\libs\3.2\x86_64"/>
         <Item18 Value="..\libs\1.0\x86_64"/>
+        <Item19 Value="..\libs\3.2\x86_64 -L"/>
       </List>
+      <List Name="WorkingDirectory" Type="File" Count="1"/>
     </HistoryLists>
   </ProjectSession>
   <Debugging>
