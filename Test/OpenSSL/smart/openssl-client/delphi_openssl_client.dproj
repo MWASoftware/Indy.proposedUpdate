@@ -50,7 +50,7 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <DCC_ConsoleTarget>true</DCC_ConsoleTarget>
-        <DCC_UsePackage>rtl;vcl;vclactnband;vcldsnap;IndyCore;IndySystem;vclx;bindcomp;tethering;svnui;appanalytics;dsnap;bindcompvcl;vclimg;vcltouch;VclSmp;vcldb;bindcompfmx;svn;bindengine;dbrtl;IndyProtocols;fmx;fmxdae;xmlrtl;fmxobj;vclwinx;fmxase;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>rtl;vcl;vclactnband;vcldsnap;vclx;bindcomp;tethering;svnui;appanalytics;dsnap;bindcompvcl;vclimg;vcltouch;VclSmp;vcldb;bindcompfmx;svn;bindengine;dbrtl;fmx;fmxdae;xmlrtl;fmxobj;vclwinx;fmxase</DCC_UsePackage>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -61,11 +61,10 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <DCC_UsePackage>IndyOpensslLegacy290;IndyProtocols290;IndyCore290;IndySystem290;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>IndyOpenSSLSmart290;IndyProtocols290;IndyCore290;IndySystem290;$(DCC_UsePackage)</DCC_UsePackage>
         <DCC_ExeOutput>.</DCC_ExeOutput>
         <Debugger_HostApplication>C:\Users\A User\projects\Indy\test\openssl\openssl-client\Win32\Debug\Project1.exe</Debugger_HostApplication>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <BRCC_IncludePath>..\..\Indy\runtime\protocols\opensslHdrs;$(BRCC_IncludePath)</BRCC_IncludePath>
         <Manifest_File>(None)</Manifest_File>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
     </PropertyGroup>

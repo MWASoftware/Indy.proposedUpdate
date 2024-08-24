@@ -1,4 +1,4 @@
-package IndyOpensslLegacy290;
+package IndyOpenSSLSmart290;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
@@ -23,10 +23,8 @@ package IndyOpensslLegacy290;
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
-{$DEFINE RELEASE}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$RUNONLY}
 {$IMPLICITBUILD ON}
 
 requires
@@ -34,12 +32,12 @@ requires
   IndyProtocols290;
 
 contains
+  IdNTLMOpenSSL in 'IdNTLMOpenSSL.pas',
   IdResourceStringsOpenSSL in 'IdResourceStringsOpenSSL.pas',
-  IdServerIOHandlerSSLOpenSSL in 'IdServerIOHandlerSSLOpenSSL.pas',
   IdSSLOpenSSL in 'IdSSLOpenSSL.pas',
-  IdSSLOpenSSLHeaders in 'IdSSLOpenSSLHeaders.pas',
-  IdNTLMOpenSSL in 'IdNTLMOpenSSL.pas';
-
-
+  IdSSLOpenSSLConsts in 'IdSSLOpenSSLConsts.pas',
+  IdSSLOpenSSLExceptionHandlers in 'IdSSLOpenSSLExceptionHandlers.pas',
+  IdSSLOpenSSLFIPS in 'IdSSLOpenSSLFIPS.pas',
+  IdSSLOpenSSLLoader in 'IdSSLOpenSSLLoader.pas';
 
 end.

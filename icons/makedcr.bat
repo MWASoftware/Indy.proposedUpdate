@@ -6,3 +6,4 @@ brc32 IdSuperCoreRegister.rc -r -foIdSuperCoreRegister.dcr
 copy IdSuperCoreRegister.dcr ..\Lib\SuperCore
 brcc32 IdOpenSSLRegister.rc -r -foIdOpenSSLRegister.dcr
 copy IdOpenSSLRegister.dcr ..\Lib\OpenSSL\legacy
+copy IdOpenSSLRegister.dcr ..\Lib\OpenSSL\smartLinking

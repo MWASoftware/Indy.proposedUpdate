@@ -1,4 +1,4 @@
-package IndyOpensslLegacy290;
+package dclIndyOpenSSLLegacy290;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
@@ -23,23 +23,18 @@ package IndyOpensslLegacy290;
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
-{$DEFINE RELEASE}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$RUNONLY}
+{$DESCRIPTION 'Indy OpenSSL Legacy API (OpenSSL 1.0.2 and earlier)'}
+{$DESIGNONLY}
 {$IMPLICITBUILD ON}
 
 requires
   rtl,
-  IndyProtocols290;
+  IndyOpensslLegacy290,
+  dclIndyProtocols290;
 
 contains
-  IdResourceStringsOpenSSL in 'IdResourceStringsOpenSSL.pas',
-  IdServerIOHandlerSSLOpenSSL in 'IdServerIOHandlerSSLOpenSSL.pas',
-  IdSSLOpenSSL in 'IdSSLOpenSSL.pas',
-  IdSSLOpenSSLHeaders in 'IdSSLOpenSSLHeaders.pas',
-  IdNTLMOpenSSL in 'IdNTLMOpenSSL.pas';
-
-
+  IdRegisterSSL in 'IdRegisterSSL.pas';
 
 end.

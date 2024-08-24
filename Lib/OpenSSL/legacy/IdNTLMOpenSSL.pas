@@ -136,7 +136,7 @@ begin
     {$IFNDEF STRING_IS_UNICODE}
     nt_hpw128 := LMD4.HashString(APassword, IndyTextEncoding_UTF16LE);
     {$ELSE}
-    nt_hpw128 := LMD4.HashBytes(BuildUnicode(APassword));
+//    nt_hpw128 := LMD4.HashBytes(BuildUnicode(APassword));
     {$ENDIF}
   finally
     LMD4.Free;
