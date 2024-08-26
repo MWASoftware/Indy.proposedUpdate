@@ -7,18 +7,18 @@
       <Unit>
         <Filename Value="fpc_openssl_client.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos Y="19"/>
-        <UsageCount Value="101"/>
+        <UsageCount Value="102"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="TestClient.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="328"/>
-        <CursorPos Y="355"/>
-        <UsageCount Value="91"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="352"/>
+        <CursorPos X="15" Y="363"/>
+        <UsageCount Value="92"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="OpenSSLClient.pas"/>
@@ -1229,10 +1229,12 @@
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="10"/>
-        <CursorPos Y="35"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="175"/>
+        <CursorPos X="21" Y="181"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../../fpcsrc/3.2.2/rtl/inc/astrings.inc"/>
@@ -1257,10 +1259,11 @@
       </Unit>
       <Unit>
         <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLConsts.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="44"/>
-        <CursorPos Y="53"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="58"/>
+        <CursorPos X="25" Y="77"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../svn/includes/IdSSLOpenSSLDefines.inc"/>
@@ -1358,8 +1361,153 @@
         <CursorPos X="23" Y="1626"/>
         <UsageCount Value="10"/>
       </Unit>
+      <Unit>
+        <Filename Value="../../../../../../fpcsrc/3.2.2/rtl/objpas/sysutils/sysutils.inc"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="720"/>
+        <CursorPos Y="741"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/usr/share/fpcsrc/rtl/objpas/sysutils/sysstrh.inc"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="91"/>
+        <CursorPos X="10" Y="105"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/usr/share/fpcsrc/rtl/objpas/sysutils/sysstr.inc"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="626"/>
+        <CursorPos X="3" Y="629"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="234" TopLine="213"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="260" TopLine="243"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="223" TopLine="208"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="225" TopLine="208"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="226" TopLine="208"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="227" TopLine="208"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="237" TopLine="224"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="263" TopLine="249"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="223" TopLine="208"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="225" TopLine="208"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="226" TopLine="208"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="227" TopLine="208"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="237" TopLine="215"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="223" TopLine="215"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="225" TopLine="215"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="185" TopLine="170"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="186" TopLine="170"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="187" TopLine="170"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="80" Column="16" TopLine="58"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLConsts.pas"/>
+        <Caret Line="77" Column="41" TopLine="58"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="225" Column="27" TopLine="209"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="139" Column="14" TopLine="139"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLConsts.pas"/>
+        <Caret Line="77" Column="41" TopLine="58"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="180" TopLine="175"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="181" TopLine="175"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="199" TopLine="175"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="180" Column="33" TopLine="175"/>
+      </Position>
+      <Position>
+        <Filename Value="/usr/share/fpcsrc/rtl/objpas/sysutils/sysstrh.inc"/>
+        <Caret Line="105" Column="10" TopLine="91"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="187" TopLine="175"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
+        <Caret Line="180" TopLine="175"/>
+      </Position>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="default">
@@ -1367,39 +1515,35 @@
           <local>
             <CommandLineParams Value="-L"/>
           </local>
-          <environment>
-            <UserOverrides Count="1">
-              <Variable0 Name="LD_LIBRARY_PATH" Value="/home/tony/Indy/svn/test/openssl/libs/1.0/x86_64"/>
-            </UserOverrides>
-          </environment>
         </Mode>
       </Modes>
     </RunParams>
     <HistoryLists>
-      <List Name="LaunchingApplication" Type="File" Count="2">
-        <Item1 Value="C:\Windows\system32\cmd.exe \C ${TargetCmdLine}"/>
-        <Item2 Value="C:\Windows\system32\cmd.exe /C ${TargetCmdLine}"/>
+      <List Name="LaunchingApplication" Type="File" Count="3">
+        <Item2 Value="C:\Windows\system32\cmd.exe \C ${TargetCmdLine}"/>
+        <Item3 Value="C:\Windows\system32\cmd.exe /C ${TargetCmdLine}"/>
       </List>
-      <List Name="CommandLineParameters" Count="19">
+      <List Name="CommandLineParameters" Count="20">
         <Item1 Value="-L"/>
-        <Item2 Value="../libs/3.2/x86_64 -L"/>
-        <Item3 Value="../libs/3.3/x86_64 -L"/>
-        <Item4 Value="-n"/>
-        <Item5 Value="-X"/>
-        <Item6 Value="../libs/3.1/x86_64 -L"/>
-        <Item7 Value="../libs/3.0/x86_64 -L"/>
-        <Item8 Value="../libs/1.1/x86_64 -L"/>
-        <Item9 Value="../libs/1.0/x86_64 -L"/>
-        <Item10 Value="../libs/1.0/x86_64"/>
-        <Item11 Value="../libs/3.3/x86_64"/>
-        <Item12 Value="-h"/>
-        <Item13 Value="../libs/3.2/x86_64"/>
-        <Item14 Value="../libs/3.2/x86_64 -l /etc/ssl/certs"/>
-        <Item15 Value="../libs/3.0/x86_64"/>
-        <Item16 Value="..\libs\3.0\x86_64"/>
-        <Item17 Value="..\libs\3.2\x86_64"/>
-        <Item18 Value="..\libs\1.0\x86_64"/>
-        <Item19 Value="..\libs\3.2\x86_64 -L"/>
+        <Item2 Value="-L /home/tony/Indy/svn/test/openssl/libs/1.0/x86_64"/>
+        <Item3 Value="../libs/3.2/x86_64 -L"/>
+        <Item4 Value="../libs/3.3/x86_64 -L"/>
+        <Item5 Value="-n"/>
+        <Item6 Value="-X"/>
+        <Item7 Value="../libs/3.1/x86_64 -L"/>
+        <Item8 Value="../libs/3.0/x86_64 -L"/>
+        <Item9 Value="../libs/1.1/x86_64 -L"/>
+        <Item10 Value="../libs/1.0/x86_64 -L"/>
+        <Item11 Value="../libs/1.0/x86_64"/>
+        <Item12 Value="../libs/3.3/x86_64"/>
+        <Item13 Value="-h"/>
+        <Item14 Value="../libs/3.2/x86_64"/>
+        <Item15 Value="../libs/3.2/x86_64 -l /etc/ssl/certs"/>
+        <Item16 Value="../libs/3.0/x86_64"/>
+        <Item17 Value="..\libs\3.0\x86_64"/>
+        <Item18 Value="..\libs\3.2\x86_64"/>
+        <Item19 Value="..\libs\1.0\x86_64"/>
+        <Item20 Value="..\libs\3.2\x86_64 -L"/>
       </List>
       <List Name="WorkingDirectory" Type="File" Count="1"/>
     </HistoryLists>

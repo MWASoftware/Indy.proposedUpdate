@@ -183,10 +183,8 @@ function TOpenSSLLoader.FindLibrary(LibName, LibVersions: string): TIdLibHandle;
 var LibVersionsList: TStringList;
   i: integer;
 begin
-  Result := NilHandle;
-  if LibVersions = '' then
-    Result := DoLoadLibrary(OpenSSLPath + LibName)
-  else
+  Result := DoLoadLibrary(OpenSSLPath + LibName);
+  if (Result = NilHandle) and (LibVersions <> '') then
   begin
     LibVersionsList := TStringList.Create;
     try
