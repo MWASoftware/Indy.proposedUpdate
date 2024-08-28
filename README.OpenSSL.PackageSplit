@@ -1,15 +1,16 @@
 This is a "strawman" proposal to demonstrate a possible package split. That is 
 separating out the OpenSSL Indy components into a separate package. This
-version is based on the current (2024-08-17) "master" branch on GitHub for IndySockets/Indy
-and uses the "legacy" OpenSSL units only. That is, it provides support for OpenSSL 1.0.2
-and no later versions. It may become the base for including an alternative package
-to support OpenSSL 1.1.1 and 3.x.
+version is based on the current (2024-08-17) "master" branch on GitHub for IndySockets/Indy.
 
-This is "Take 2" responding to comments on the first version. Specifically, the "Lib" folder
-is no longer renames and NTLMv2 and AuthenticationNTLM are moved back to "Lib/Protocols".
+Two OpenSSL package variations are provided for both Delphi and Lazarus.
 
-The package split moves the following files from "Protocols" to a new folder "OpenSSL/legacy"
-at the same level as "Protocols":
+1. IndyOpenSSLLegacy (see Lib/OpenSSL/legacy)
+
+This uses the "legacy" OpenSSL units only. That is, it provides support for OpenSSL 1.0.2
+and no later versions. It incorporates the recent updates to NTLM support and specifically the
+IdNTLMOpenSSL unit, plus supporting changes to Lib/Protocols/IdFIPS, IdNTML and IdAuthentication NTLM.
+
+Otherwise, Lib/OpenSSL/legacy comprises the following units, moved from Lib/Protocols
 
 IdResourceStringsOpenSSL.pas
 IdServerIOHandlerSSLOpenSSL.pas
@@ -18,22 +19,36 @@ IdSSLOpenSSLHeaders_static.pas
 IdSSLOpenSSL.pas
 IdSSLOpenSSLUtils.pas
 
-Otherwise the remaining source files are unmodified except:
+2. Smart Linking (see Lib/OpenSSL/smartLinking)
 
-1. SPI units now include conditional directives to allow conditional compilation under Unix.
-   That is they use {$IFDEF USE_SSPI} to effectively become empty units under Unix builds.
+The OpenSSL units in this directory are taken from my original proposed update to Indy and uses the "smart 
+linking strategy". This creates an "all singing all dancing" OpenSSL package that supports 
+OpenSSL 1.0.2, 1.1.1 and 3.x and which dynamically adjusts to the version it finds. It is intended as a 
+"drop in" replacement for the legacy package..
 
-2. NTLMv2 has been updated in order to isolate the OpenSSL specific code. OpenSSL dependent functions
-   have been moved to a new unit "IdOpenSSLNTMLv2" in Lib/OpenSSL/legacy and replaced with
-   function pointers initialised to nil. When the OpenSSL library is loaded, the procedure "LoadNTMLv2Functions" 
-   is called from IdSSLOpenSSLHeaders and sets the function pointers to point to the
-   OpenSSL dependent function now located in IdOpenSSLNTMLv2.
-  
-   Note: it may be useful to automatically load the OpenSSL libary whenever the OpenSSL package is
-   included in a project, rather than when the user explcitly loads it (or the SSL IOHander is called).
+It probably works with earlier versions - but not tested.
 
-This branch contains package build files for both Delphi and Lazarus/FPC with no need to modify
-the build tree for different targets.
+Three link models are supported.
+   Dynamic Library Load (the default and the approach used in previous versions)
+   compile time linkage to a shared (.so or .dll) library (OpenSSL 3.x only)
+   compile time linkage to a static library (FPC only with gcc compiled 
+OpenSSL).
+
+I have tested this package under the following scenarios:
+
+1. Static Linking to Static Library (Lazarus/Linux only with gcc generated libssl.a and libcrypto.a).
+
+2. Static Linking to Shared Library (DLL/so). Delphi and Lazarus (Windows and Linux).
+
+3. Dynamic Load and Link. Delphi and Lazarus (Windows and Linux). OpenSSL 1.0.2, 1.1.1. and 3.x
+
+The different link strategies are selected at compile time by a "defined symbol" set in the OpenSSL
+package options (not the using program), as follows:
+
+- OPENSSL_USE_STATIC_LIBRARY (Static Linking to Static Library)
+- OPENSSL_USE_SHARED_LIBRARY (Static Linking to Shared Library)
+- Neither of the above (Dynamic Load and Link).
+
 
 Delphi Builds
 =============
@@ -43,18 +58,33 @@ However only Protocols/IndyProtocols290 has been tested (with Delphi Berlin edit
 
 New Packages:
 
-IndyOpenSSLLegacy and
-dclIndyOpenSSLLegacy (design time only)
+IndyOpenSSLLegacy290 and
+dclIndyOpenSSLLegacy290 (design time only)
 
-may be found in src\OpenSSL\legacy.
+may be found in Lib\OpenSSL\legacy.
 
-These are dependent on IndyProtocols290 and dclIndyProtocols290,IndyOpenSSLLegacy  respectively.
+These are dependent on IndyProtocols290 and dclIndyProtocols290,IndyOpenSSLLegacy290  respectively.
 
-To use OpenSSL in a given project, the IndyOpenSSLLegacy package must now be included.
+To use OpenSSL in a given project, the IndyOpenSSLLegacy290 package must now be included.
 
-icons\makedcr.bat has been updated to generate a .dcr package for IndyOpenSSLLegacy.
+Similarly, the packages
 
-Lib/Indy290.groupproj has been updated to include the new packages in the project group.
+IndyOpenSSLSmart290 and
+dclIndyOpenSSLSmart290
+
+may be found in  Lib\OpenSSL\smartLinking
+
+Smart Linking is selected for a given project by including the IndyOpenSSLSmart290 packing
+as a progect dependency instead of IndyOpenSSLLegacy290.
+
+Lib\Indy290.groupproj has been updated to include the new packages in the project group.
+
+icons\makedcr.bat has been updated to generate a .dcr package for the OpenSSL packages.
+
+Note that there are no conflicts when compiling the two as they output to different unit
+directories. However, only one of the SSL design time packages may be added to the IDE
+at the same time, or add as a project dependency.
+
 
 Lazarus/FPC Builds
 ==================
@@ -65,11 +95,13 @@ indysystem.lpk
 indycore.lpk
 indyprotocols.lpk
 indyopenssllegacy.lpk
+indyopensslsmart.lpk
 
 and the design time only packages
 
 indylaz.lpk
 indylaz_openssllegacy.lpk
+indylaz_indyopensslsmart
 
 In order to install this strawman branch for Lazarus (Windows and Linux), Open first 
 that package indylaz.lpk and click on install. Then Open indylaz_openssllegacy.lpk and 
@@ -78,14 +110,29 @@ click on install. The Indy Library should now be available for use.
 Test Programs
 =============
 
-Two test programs are available with variants for Delphi and Lazarus. These may be 
-found in Test/OpenSSL/openssl-client and Test/OpenSSL/openssl-server.
+Two test programs are available with variants for Delphi and Lazarus, and set up for legacy and smart linking. 
+These may be found in:
+
+1. Test/OpenSSL/legacy/openssl-client and Test/OpenSSL/legacy/openssl-server.
+1. Test/OpenSSL/smart/openssl-client and Test/OpenSSL/smart/openssl-server.
 
 openssl-client uses an HTTP Client to issue an http Get on an https target and returns 
-the result. Under Linux the server certificate is also verified.
+the result. The server certificate is also verified (Linux only for legacy version).
 
 openssl-server provides both and a server and uses a local PKI to retrieve a web page 
 from the server, with both client and server certificate verification and to return the result.
+
+Note that for Delphi, two convenience project groups are provided:
+
+Test\OpenSSL\legacy\OpenSSLTests.groupprog and
+Test\OpenSSL\smart\OpenSSLTests.groupprog
+
+These build both test programs and their supporting packages as a single project group. You do
+not have to install the design time packages in order to use the test programs.
+
+When testing under Lazarus, similarly you do not need to have installed the design time packages.
+However, you need to at least "open" the dependent packages so that the IDE knows where to find
+them.
 
 
 
