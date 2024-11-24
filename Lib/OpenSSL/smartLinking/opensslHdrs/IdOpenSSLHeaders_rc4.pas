@@ -1,35 +1,31 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_rc4.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_rc4.h2pas
-     and this file regenerated. IdOpenSSLHeaders_rc4.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file rc4.h2pas 
+It should not be modified directly. All changes should be made to rc4.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 unit IdOpenSSLHeaders_rc4;
+
 
 interface
 
@@ -40,8 +36,7 @@ interface
 }
 
 uses
-  IdCTypes,
-  IdGlobal;
+  IdSSLOpenSSLAPI;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -106,9 +101,10 @@ uses
    * [including the GNU Public Licence.]
     }
 
-  type
+  
+type
     PRC4_KEY  = ^RC4_KEY;
-    RC4_INT = TIdC_UINT;
+    RC4_INT = TOpenSSL_C_UINT;
     rc4_key_st = record
         x : RC4_INT;
         y : RC4_INT;
@@ -116,233 +112,114 @@ uses
       end;
     RC4_KEY = rc4_key_st;
 
-    { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
-		
-  	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-	  files generated for C++. }
-	  
-  {$EXTERNALSYM RC4_options} {allow_nil}
-  {$EXTERNALSYM RC4_set_key} {allow_nil}
-  {$EXTERNALSYM private_RC4_set_key} {allow_nil}
-  {$EXTERNALSYM RC4} {allow_nil}
+{interface_body}
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-var
-  RC4_options: function : PIdAnsiChar; cdecl = nil; {allow_nil}
-  RC4_set_key: procedure (key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte); cdecl = nil; {allow_nil}
-  private_RC4_set_key: procedure (key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte); cdecl = nil; {allow_nil}
-  RC4: procedure (key:PRC4_KEY; len: TIdC_SIZET; const indata: Pbyte; outdata: Pbyte); cdecl = nil; {allow_nil}
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
+
+{$EXTERNALSYM RC4_options}
+{$EXTERNALSYM RC4_set_key}
+{$EXTERNALSYM private_RC4_set_key}
+{$EXTERNALSYM RC4}
+
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_RC4}
+{$IFNDEF OPENSSL_NO_RC4}
+  
+function RC4_options: PAnsiChar; cdecl; external CLibCrypto;
+procedure RC4_set_key(key:PRC4_KEY; len: TOpenSSL_C_LONG; const data:Pbyte); cdecl; external CLibCrypto;
+procedure private_RC4_set_key(key:PRC4_KEY; len: TOpenSSL_C_LONG; const data:Pbyte); cdecl; external CLibCrypto;
+procedure RC4(key:PRC4_KEY; len: TOpenSSL_C_SIZET; const indata: Pbyte; outdata: Pbyte); cdecl; external CLibCrypto;
+{$ENDIF}
+{$ENDIF}
+
+
 
 {$ELSE}
-{interface_body}
 {$IFNDEF OPENSSL_NO_RC4}
-  function RC4_options: PIdAnsiChar cdecl; external CLibCrypto; 
-  procedure RC4_set_key(key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte) cdecl; external CLibCrypto; 
-  procedure private_RC4_set_key(key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte) cdecl; external CLibCrypto; 
-  procedure RC4(key:PRC4_KEY; len: TIdC_SIZET; const indata: Pbyte; outdata: Pbyte) cdecl; external CLibCrypto; 
+{$IFNDEF OPENSSL_NO_RC4}
+  
+var
+  RC4_options: function : PAnsiChar; cdecl = nil;
+  RC4_set_key: procedure (key:PRC4_KEY; len: TOpenSSL_C_LONG; const data:Pbyte); cdecl = nil;
+  private_RC4_set_key: procedure (key:PRC4_KEY; len: TOpenSSL_C_LONG; const data:Pbyte); cdecl = nil;
+  RC4: procedure (key:PRC4_KEY; len: TOpenSSL_C_SIZET; const indata: Pbyte; outdata: Pbyte); cdecl = nil;
 {$ENDIF}
+{$ENDIF}
+
 
 {$ENDIF}
 
 implementation
 
-  uses
-    classes, 
-    IdSSLOpenSSLExceptionHandlers, 
-    IdResourceStringsOpenSSL
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    ,IdSSLOpenSSLLoader
-  {$ENDIF};
-  
+
+
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-const
-  RC4_options_procname = 'RC4_options'; {allow_nil}
-  RC4_set_key_procname = 'RC4_set_key'; {allow_nil}
-  private_RC4_set_key_procname = 'private_RC4_set_key'; {allow_nil}
-  RC4_procname = 'RC4'; {allow_nil}
-
-{$DEFINE RC4_options_allownil} {allow_nil}
-{$DEFINE RC4_set_key_allownil} {allow_nil}
-{$DEFINE private_RC4_set_key_allownil} {allow_nil}
-{$DEFINE RC4_allownil} {allow_nil}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
 {$WARN  NO_RETVAL OFF}
-function  ERR_RC4_options: PIdAnsiChar; 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(RC4_options_procname);
-end;
-
- {allow_nil}
-procedure  ERR_RC4_set_key(key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte); 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(RC4_set_key_procname);
-end;
-
- {allow_nil}
-procedure  ERR_private_RC4_set_key(key:PRC4_KEY; len: TIdC_LONG; const data:Pbyte); 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(private_RC4_set_key_procname);
-end;
-
- {allow_nil}
-procedure  ERR_RC4(key:PRC4_KEY; len: TIdC_SIZET; const indata: Pbyte; outdata: Pbyte); 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(RC4_procname);
-end;
-
- {allow_nil}
-
+{$IFNDEF OPENSSL_NO_RC4}
+{$ENDIF}
 {$WARN  NO_RETVAL ON}
-
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
-
 begin
-  RC4_options := LoadLibFunction(ADllHandle, RC4_options_procname);
+{$IFNDEF OPENSSL_NO_RC4}
+  RC4_options := LoadLibCryptoFunction('RC4_options');
   FuncLoadError := not assigned(RC4_options);
   if FuncLoadError then
   begin
-    {$if not defined(RC4_options_allownil)}
-    RC4_options := @ERR_RC4_options;
-    {$ifend}
-    {$if declared(RC4_options_introduced)}
-    if LibVersion < RC4_options_introduced then
-    begin
-      {$if declared(FC_RC4_options)}
-      RC4_options := @FC_RC4_options;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RC4_options_removed)}
-    if RC4_options_removed <= LibVersion then
-    begin
-      {$if declared(_RC4_options)}
-      RC4_options := @_RC4_options;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RC4_options_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RC4_options');
-    {$ifend}
+    AFailed.Add('RC4_options');
   end;
 
- {allow_nil}
-  RC4_set_key := LoadLibFunction(ADllHandle, RC4_set_key_procname);
+  RC4_set_key := LoadLibCryptoFunction('RC4_set_key');
   FuncLoadError := not assigned(RC4_set_key);
   if FuncLoadError then
   begin
-    {$if not defined(RC4_set_key_allownil)}
-    RC4_set_key := @ERR_RC4_set_key;
-    {$ifend}
-    {$if declared(RC4_set_key_introduced)}
-    if LibVersion < RC4_set_key_introduced then
-    begin
-      {$if declared(FC_RC4_set_key)}
-      RC4_set_key := @FC_RC4_set_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RC4_set_key_removed)}
-    if RC4_set_key_removed <= LibVersion then
-    begin
-      {$if declared(_RC4_set_key)}
-      RC4_set_key := @_RC4_set_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RC4_set_key_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RC4_set_key');
-    {$ifend}
+    AFailed.Add('RC4_set_key');
   end;
 
- {allow_nil}
-  private_RC4_set_key := LoadLibFunction(ADllHandle, private_RC4_set_key_procname);
+  private_RC4_set_key := LoadLibCryptoFunction('private_RC4_set_key');
   FuncLoadError := not assigned(private_RC4_set_key);
   if FuncLoadError then
   begin
-    {$if not defined(private_RC4_set_key_allownil)}
-    private_RC4_set_key := @ERR_private_RC4_set_key;
-    {$ifend}
-    {$if declared(private_RC4_set_key_introduced)}
-    if LibVersion < private_RC4_set_key_introduced then
-    begin
-      {$if declared(FC_private_RC4_set_key)}
-      private_RC4_set_key := @FC_private_RC4_set_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(private_RC4_set_key_removed)}
-    if private_RC4_set_key_removed <= LibVersion then
-    begin
-      {$if declared(_private_RC4_set_key)}
-      private_RC4_set_key := @_private_RC4_set_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(private_RC4_set_key_allownil)}
-    if FuncLoadError then
-      AFailed.Add('private_RC4_set_key');
-    {$ifend}
+    AFailed.Add('private_RC4_set_key');
   end;
 
- {allow_nil}
-  RC4 := LoadLibFunction(ADllHandle, RC4_procname);
+  RC4 := LoadLibCryptoFunction('RC4');
   FuncLoadError := not assigned(RC4);
   if FuncLoadError then
   begin
-    {$if not defined(RC4_allownil)}
-    RC4 := @ERR_RC4;
-    {$ifend}
-    {$if declared(RC4_introduced)}
-    if LibVersion < RC4_introduced then
-    begin
-      {$if declared(FC_RC4)}
-      RC4 := @FC_RC4;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RC4_removed)}
-    if RC4_removed <= LibVersion then
-    begin
-      {$if declared(_RC4)}
-      RC4 := @_RC4;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RC4_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RC4');
-    {$ifend}
+    AFailed.Add('RC4');
   end;
 
- {allow_nil}
+{$ENDIF}
 end;
 
-procedure Unload;
+procedure UnLoad;
 begin
-  RC4_options := nil; {allow_nil}
-  RC4_set_key := nil; {allow_nil}
-  private_RC4_set_key := nil; {allow_nil}
-  RC4 := nil; {allow_nil}
-end;
-{$ELSE}
+{$IFNDEF OPENSSL_NO_RC4}
+  RC4_options := nil;
+  RC4_set_key := nil;
+  private_RC4_set_key := nil;
+  RC4 := nil;
 {$ENDIF}
+end;
+{$ENDIF}
+
+initialization
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-initialization
-  Register_SSLLoader(@Load,'LibCrypto');
-  Register_SSLUnloader(@Unload);
+Register_SSLLoader(@Load);
+Register_SSLUnloader(@Unload);
 {$ENDIF}
+finalization
+
+
 end.

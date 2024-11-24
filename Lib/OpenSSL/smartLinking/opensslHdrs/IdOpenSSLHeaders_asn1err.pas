@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_asn1err.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_asn1err.h2pas
-     and this file regenerated. IdOpenSSLHeaders_asn1err.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file asn1err.h2pas 
+It should not be modified directly. All changes should be made to asn1err.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_asn1err;
+
 
 interface
 
@@ -39,9 +35,7 @@ interface
 
 
 uses
-  IdCTypes,
-  IdGlobal,
-  IdSSLOpenSSLConsts;
+  IdSSLOpenSSLAPI;
 
 const
 
@@ -274,97 +268,66 @@ const
   ASN1_R_WRONG_PUBLIC_KEY_TYPE                    = 200;
   ASN1_R_WRONG_TAG                                = 168;
 
-    { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
-		
-  	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-	  files generated for C++. }
-	  
-  {$EXTERNALSYM ERR_load_ASN1_strings}
+  
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-var
-  ERR_load_ASN1_strings: function : TIdC_INT; cdecl = nil;
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
+
+{$EXTERNALSYM ERR_load_ASN1_strings}
+
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+function ERR_load_ASN1_strings: TOpenSSL_C_INT; cdecl; external CLibCrypto;
 
 {$ELSE}
-  function ERR_load_ASN1_strings: TIdC_INT cdecl; external CLibCrypto;
-
+var
+  ERR_load_ASN1_strings: function : TOpenSSL_C_INT; cdecl = nil;
 {$ENDIF}
 
 implementation
 
-  uses
-    classes, 
-    IdSSLOpenSSLExceptionHandlers, 
-    IdResourceStringsOpenSSL
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    ,IdSSLOpenSSLLoader
-  {$ENDIF};
-  
+
+
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-const
-  ERR_load_ASN1_strings_procname = 'ERR_load_ASN1_strings';
-
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
 {$WARN  NO_RETVAL OFF}
-function  ERR_ERR_load_ASN1_strings: TIdC_INT; 
+function ERROR_ERR_load_ASN1_strings: TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_load_ASN1_strings_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_load_ASN1_strings');
 end;
 
-
-
 {$WARN  NO_RETVAL ON}
-
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
-
 begin
-  ERR_load_ASN1_strings := LoadLibFunction(ADllHandle, ERR_load_ASN1_strings_procname);
+  ERR_load_ASN1_strings := LoadLibCryptoFunction('ERR_load_ASN1_strings');
   FuncLoadError := not assigned(ERR_load_ASN1_strings);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_load_ASN1_strings_allownil)}
-    ERR_load_ASN1_strings := @ERR_ERR_load_ASN1_strings;
-    {$ifend}
-    {$if declared(ERR_load_ASN1_strings_introduced)}
-    if LibVersion < ERR_load_ASN1_strings_introduced then
-    begin
-      {$if declared(FC_ERR_load_ASN1_strings)}
-      ERR_load_ASN1_strings := @FC_ERR_load_ASN1_strings;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_load_ASN1_strings_removed)}
-    if ERR_load_ASN1_strings_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_load_ASN1_strings)}
-      ERR_load_ASN1_strings := @_ERR_load_ASN1_strings;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_load_ASN1_strings_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_load_ASN1_strings');
-    {$ifend}
+    ERR_load_ASN1_strings :=  @ERROR_ERR_load_ASN1_strings;
   end;
-
 
 end;
 
-procedure Unload;
+procedure UnLoad;
 begin
   ERR_load_ASN1_strings := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
-  Register_SSLLoader(@Load,'LibCrypto');
-  Register_SSLUnloader(@Unload);
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+Register_SSLLoader(@Load);
+Register_SSLUnloader(@Unload);
 {$ENDIF}
+finalization
+
+
 end.

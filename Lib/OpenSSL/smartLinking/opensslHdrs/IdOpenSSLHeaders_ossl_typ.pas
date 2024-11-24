@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_ossl_typ.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_ossl_typ.h2pas
-     and this file regenerated. IdOpenSSLHeaders_ossl_typ.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file ossl_typ.h2pas 
+It should not be modified directly. All changes should be made to ossl_typ.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_ossl_typ;
+
 
 interface
 
@@ -39,32 +35,30 @@ interface
 
 
 uses
-  IdCTypes,
-  IdGlobal,
-  IdSSLOpenSSLConsts;
+  IdSSLOpenSSLAPI;
 
 type
 // moved from unit "asn1" to prevent circular references
   asn1_string_st = record
-    length: TIdC_INT;
-    type_: TIdC_INT;
+    length: TOpenSSL_C_INT;
+    type_: TOpenSSL_C_INT;
     data: PByte;
     (*
      * The value of the following field depends on the type being held.  It
      * is mostly being used for BIT_STRING so if the input data has a
      * non-zero 'unused bits' value, it will be handled correctly
      *)
-    flags: TIdC_LONG;
+    flags: TOpenSSL_C_LONG;
   end;
 
-  // moved from asn1
+  // moved from asn1  
   ASN1_VALUE_st = type Pointer;
   ASN1_VALUE = ASN1_VALUE_st;
   PASN1_VALUE = ^ASN1_VALUE;
   PPASN1_VALUE = ^PASN1_VALUE;
 
   // moved from e_os2
-  ossl_ssize_t = type {$IFDEF WIN64}TIdC_INT64{$ELSE}TIdC_INT{$ENDIF};
+  ossl_ssize_t = type {$IFDEF WIN64}TOpenSSL_C_INT64{$ELSE}TOpenSSL_C_INT{$ENDIF};
 
   asn1_object_st = type Pointer;
   ASN1_OBJECT = asn1_object_st;
@@ -126,21 +120,21 @@ type
   PASN1_STRING = ^ASN1_STRING;
   PPASN1_STRING = ^PASN1_STRING;
 
-  ASN1_BOOLEAN = type TIdC_INT;
+  ASN1_BOOLEAN = type TOpenSSL_C_INT;
   PASN1_BOOLEAN = ^ASN1_BOOLEAN;
 
-  ASN1_NULL = type TIdC_INT;
+  ASN1_NULL = type TOpenSSL_C_INT;
   PASN1_NULL = ^ASN1_NULL;
 
-
+  
   ASN1_ITEM_st = type Pointer;
   ASN1_ITEM = ASN1_ITEM_st;
   PASN1_ITEM = ^ASN1_ITEM;
-
+  
   asn1_pctx_st = type Pointer;
   ASN1_PCTX = asn1_pctx_st;
   PASN1_PCTX = ^ASN1_PCTX;
-
+  
   asn1_sctx_st = type Pointer;
   ASN1_SCTX = asn1_sctx_st;
   PASN1_SCTX = ^ASN1_SCTX;
@@ -169,7 +163,7 @@ type
   bn_gencb_st = type Pointer;
   BN_GENCB = bn_gencb_st;
   PBN_GENCB = ^BN_GENCB;
-
+  
   buf_mem_st = type Pointer;
   BUF_MEM = buf_mem_st;
   PBUF_MEM = ^BUF_MEM;
@@ -192,12 +186,12 @@ type
   EVP_PKEY = evp_pkey_st;
   PEVP_PKEY = ^EVP_PKEY;
   PPEVP_PKEY = ^PEVP_PKEY;
-
+  
   evp_pkey_asn1_method_st = type Pointer;
   EVP_PKEY_ASN1_METHOD = evp_pkey_asn1_method_st;
   PEVP_PKEY_ASN1_METHOD = ^EVP_PKEY_ASN1_METHOD;
   PPEVP_PKEY_ASN1_METHOD = ^PEVP_PKEY_ASN1_METHOD;
-
+  
   evp_pkey_method_st = type Pointer;
   EVP_PKEY_METHOD = evp_pkey_method_st;
   PEVP_PKEY_METHOD = ^EVP_PKEY_METHOD;
@@ -206,7 +200,7 @@ type
   EVP_PKEY_CTX = evp_pkey_ctx_st;
   PEVP_PKEY_CTX = ^EVP_PKEY_CTX;
   PPEVP_PKEY_CTX = ^PEVP_PKEY_CTX;
-
+  
   evp_Encode_Ctx_st = type Pointer;
   EVP_ENCODE_CTX = evp_Encode_Ctx_st;
   PEVP_ENCODE_CTX = ^EVP_ENCODE_CTX;
@@ -214,7 +208,7 @@ type
   hmac_ctx_st = type Pointer;
   HMAC_CTX = hmac_ctx_st;
   PHMAC_CTX = ^HMAC_CTX;
-
+  
   dh_st = type Pointer;
   DH = dh_st;
   PDH = ^DH;
@@ -222,7 +216,7 @@ type
   dh_method_st = type Pointer;
   DH_METHOD = dh_method_st;
   PDH_METHOD = ^DH_METHOD;
-
+  
   dsa_st = type Pointer;
   DSA = dsa_st;
   PDSA = ^DSA;
@@ -230,7 +224,7 @@ type
   dsa_method_st = type Pointer;
   DSA_METHOD = dsa_method_st;
   PDSA_METHOD = ^DSA_METHOD;
-
+  
   rsa_st = type Pointer;
   RSA = rsa_st;
   PRSA = ^RSA;
@@ -246,14 +240,14 @@ type
   ec_key_method_st = type Pointer;
   EC_KEY_METHOD = ec_key_method_st;
   PEC_KEY_METHOD = ^EC_KEY_METHOD;
-
+  
   rand_meth_st = type Pointer;
   RAND_METHOD = rand_meth_st;
   PRAND_METHOD = ^RAND_METHOD;
   rand_drbg_st = type Pointer;
   RAND_DRBG = rand_drbg_st;
   PRAND_DRBG = ^RAND_DRBG;
-
+  
   ssl_dane_st = type Pointer;
   SSL_DANE = ssl_dane_st;
   PSSL_DANE = ^SSL_DANE;
@@ -289,7 +283,7 @@ type
   x509_store_ctx_st = type Pointer;
   X509_STORE_CTX = x509_store_ctx_st;
   PX509_STORE_CTX = ^X509_STORE_CTX;
-
+  
   x509_object_st = type Pointer;
   X509_OBJECT = x509_object_st;
   PX509_OBJECT = ^X509_OBJECT;
@@ -302,7 +296,7 @@ type
   X509_VERIFY_PARAM_st = type Pointer;
   X509_VERIFY_PARAM = X509_VERIFY_PARAM_st;
   PX509_VERIFY_PARAM = ^X509_VERIFY_PARAM;
-
+  
   x509_sig_info_st = type Pointer;
   X509_SIG_INFO = x509_sig_info_st;
   PX509_SIG_INFO = ^X509_SIG_INFO;
@@ -320,7 +314,7 @@ type
 // moved from x509v3 to prevent circular references
   (* Context specific info *)
   v3_ext_ctx = record
-    flags: TIdC_INT;
+    flags: TOpenSSL_C_INT;
     issuer_cert: PX509;
     subject_cert: PX509;
     subject_req: PX509_REQ;
@@ -345,7 +339,7 @@ type
   ui_method_st = type Pointer;
   UI_METHOD = ui_method_st;
   PUI_METHOD = ^UI_METHOD;
-
+  
   engine_st = type Pointer;
   ENGINE = engine_st;
   PENGINE = ^ENGINE;
@@ -357,14 +351,14 @@ type
   SSL_CTX = ssl_ctx_st;
   PSSL_CTX = ^SSL_CTX;
   PPSSL_CTX  = ^PSSL_CTX;
-
+  
   comp_ctx_st = type Pointer;
   COMP_CTX = comp_ctx_st;
   PCOMP_CTX = ^COMP_CTX;
   comp_method_st = type Pointer;
   COMP_METHOD = comp_method_st;
   PCOMP_METHOD = ^COMP_METHOD;
-
+  
   X509_POLICY_NODE_st = type Pointer;
   X509_POLICY_NODE = X509_POLICY_NODE_st;
   PX509_POLICY_NODE = ^X509_POLICY_NODE;
@@ -377,7 +371,7 @@ type
   X509_POLICY_CACHE_st = type Pointer;
   X509_POLICY_CACHE = X509_POLICY_CACHE_st;
   PX509_POLICY_CACHE = ^X509_POLICY_CACHE;
-
+  
   AUTHORITY_KEYID_st = type Pointer;
   AUTHORITY_KEYID = AUTHORITY_KEYID_st;
   PAUTHORITY_KEYID = ^AUTHORITY_KEYID;
@@ -390,11 +384,11 @@ type
   NAME_CONSTRAINTS_st = type Pointer;
   NAME_CONSTRAINTS = NAME_CONSTRAINTS_st;
   PNAME_CONSTRAINTS = ^NAME_CONSTRAINTS;
-
+  
   crypto_ex_data_st = type Pointer;
   CRYPTO_EX_DATA = crypto_ex_data_st;
   PCRYPTO_EX_DATA = ^CRYPTO_EX_DATA;
-
+  
   ocsp_req_ctx_st = type Pointer;
   OCSP_REQ_CTX = ocsp_req_ctx_st;
   POCSP_REQ_CTX = ^OCSP_REQ_CTX;
@@ -404,7 +398,7 @@ type
   ocsp_responder_id_st = type Pointer;
   OCSP_RESPID = ocsp_responder_id_st;
   POCSP_RESPID = ^OCSP_RESPID;
-
+  
   sct_st = type Pointer;
   SCT = sct_st;
   PSCT = ^SCT;
@@ -420,7 +414,7 @@ type
   ct_policy_eval_ctx_st = type Pointer;
   CT_POLICY_EVAL_CTX = ct_policy_eval_ctx_st;
   PCT_POLICY_EVAL_CTX = ^CT_POLICY_EVAL_CTX;
-
+  
   ossl_store_info_st = type Pointer;
   OSSL_STORE_INFO = ossl_store_info_st;
   POSSL_STORE_INFO = ^OSSL_STORE_INFO;
@@ -429,6 +423,7 @@ type
   POSSL_STORE_SEARCH = ^OSSL_STORE_SEARCH;
 
 // moved from unit "asn1" to prevent circular references'
+
 const
   V_ASN1_UNIVERSAL = $00;
   V_ASN1_APPLICATION = $40;
@@ -475,7 +470,7 @@ const
 
 type
   asn1_type_st = record
-    case type_: TIdC_INT of
+    case type_: TOpenSSL_C_INT of
 //      (ptr: PIdAnsichar);
       V_ASN1_BOOLEAN: (boolean: ASN1_BOOLEAN);
 //      (asn1_string: PASN1_STRING);
@@ -527,7 +522,7 @@ type
   X509_ALGOR = X509_algor_st;
   PX509_ALGOR = ^X509_ALGOR;
   PPX509_ALGOR = ^PX509_ALGOR;
-
+  
   i2d_of_void = type Pointer;
   Pi2d_of_void = ^i2d_of_void;
 
@@ -542,6 +537,36 @@ type
   OSSL_LIB_CTX = ossl_lib_ctx_st;
 
 
+
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
+
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
+
+
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+
+{$ELSE}
+{$ENDIF}
+
 implementation
+
+
+
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
+
+initialization
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$ENDIF}
+finalization
+
 
 end.

@@ -1,3 +1,23 @@
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWMWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }
+
 { Three ways to link to the OpenSSL library are supported:
 
   1. Dynamic linking at run time using calls to LoadLibrary and GetProcAddress.
@@ -21,6 +41,13 @@
   the OPENSSL_USE_STATIC_LIBRARY defined symbol.
 
  }
+{$IFDEF FPC}
+{$mode delphi}
+{$ENDIF}
+{$IFDEF MSWINDOWS}
+{$DEFINE WINDOWS}
+{$ENDIF}
+
 {$IFDEF STATICLOAD_OPENSSL}
 {$DEFINE OPENSSL_STATIC_LINK_MODEL}
 {$UNDEF OPENSSL_USE_STATIC_LIBRARY}

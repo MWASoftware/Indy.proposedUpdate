@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_asn1.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_asn1.h2pas
-     and this file regenerated. IdOpenSSLHeaders_asn1.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file asn1.h2pas 
+It should not be modified directly. All changes should be made to asn1.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_asn1;
+
 
 interface
 
@@ -39,12 +35,10 @@ interface
 
 
 uses
-  IdCTypes,
-  IdGlobal,
-  IdSSLOpenSSLConsts,
+  IdSSLOpenSSLAPI,
   IdOpenSSLHeaders_asn1t,
   IdOpenSSLHeaders_bio,
-  IdOpenSSlHeaders_ossl_typ;
+  IdOpenSSLHeaders_ossl_typ;
 
 {$MINENUMSIZE 4}
 
@@ -118,7 +112,7 @@ const
   ASN1_STRING_FLAG_X509_TIME = $100;
 
   (* Used with ASN1 LONG type: if a long is set to this it is omitted *)
-  ASN1_LONG_UNDEF = TIdC_LONG($7fffffff);
+  ASN1_LONG_UNDEF = TOpenSSL_C_LONG($7fffffff);
 
   STABLE_FLAGS_MALLOC = $01;
   (*
@@ -260,16 +254,18 @@ type
 // Moved to ossl_type to prevent circular references
 ///(* This is the base type that holds just about everything :-) *)
 //  asn1_string_st = record
-//    length: TIdC_int;
-//    type_: TIdC_int;
+//    length: TOpenSSL_C_int;
+//    type_: TOpenSSL_C_int;
 //    data: PByte;
 //    (*
 //     * The value of the following field depends on the type being held.  It
 //     * is mostly being used for BIT_STRING so if the input data has a
 //     * non-zero 'unused bits' value, it will be handled correctly
 //     *)
-//    flags: TIdC_long;
+//    flags: TOpenSSL_C_long;
 //  end;
+
+  pxnew = function: Pointer; cdecl;
 
   (*
    * ASN1_ENCODING structure: this is used to save the received encoding of an
@@ -278,18 +274,18 @@ type
    *)
 
   ASN1_ENCODING_st = record
-    enc: PIdAnsiChar;           (* DER encoding *)
-    len: TIdC_LONG;                     (* Length of encoding *)
-    modified: TIdC_INT;                 (* set to 1 if 'enc' is invalid *)
+    enc: PAnsiChar;           (* DER encoding *)
+    len: TOpenSSL_C_LONG;                     (* Length of encoding *)
+    modified: TOpenSSL_C_INT;                 (* set to 1 if 'enc' is invalid *)
   end;
   ASN1_ENCODING = ASN1_ENCODING_st;
 
   asn1_string_table_st = record
-    nid: TIdC_INT;
-    minsize: TIdC_LONG;
-    maxsize: TIdC_LONG;
-    mask: TIdC_ULONG;
-    flags: TIdC_ULONG;
+    nid: TOpenSSL_C_INT;
+    minsize: TOpenSSL_C_LONG;
+    maxsize: TOpenSSL_C_LONG;
+    mask: TOpenSSL_C_ULONG;
+    flags: TOpenSSL_C_ULONG;
   end;
   ASN1_STRING_TABLE = asn1_string_table_st;
   PASN1_STRING_TABLE = ^ASN1_STRING_TABLE;
@@ -457,9 +453,9 @@ type
   (* This is used to contain a list of bit names *)
 
   BIT_STRING_BITNAME_st = record
-    bitnum: TIdC_INT;
-    lname: PIdAnsiChar;
-    sname: PIdAnsiChar;
+    bitnum: TOpenSSL_C_INT;
+    lname: PAnsiChar;
+    sname: PAnsiChar;
   end;
   BIT_STRING_BITNAME = BIT_STRING_BITNAME_st;
   PBIT_STRING_BITNAME = ^BIT_STRING_BITNAME;
@@ -473,8029 +469,2873 @@ type
 //        OPENSSL_EXTERN const ASN1_ITEM name##_it;
 
 // DECLARE_ASN1_FUNCTIONS_fname(ASN1_TYPE, ASN1_ANY, ASN1_TYPE)
-    { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
-		
-  	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-	  files generated for C++. }
-	  
-  {$EXTERNALSYM ASN1_TYPE_get}
-  {$EXTERNALSYM ASN1_TYPE_set}
-  {$EXTERNALSYM ASN1_TYPE_set1}
-  {$EXTERNALSYM ASN1_TYPE_cmp}
-  {$EXTERNALSYM ASN1_TYPE_pack_sequence} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_TYPE_unpack_sequence} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_OBJECT_new}
-  {$EXTERNALSYM ASN1_OBJECT_free}
-  {$EXTERNALSYM i2d_ASN1_OBJECT}
-  {$EXTERNALSYM d2i_ASN1_OBJECT}
-  {$EXTERNALSYM ASN1_STRING_new}
-  {$EXTERNALSYM ASN1_STRING_free}
-  {$EXTERNALSYM ASN1_STRING_clear_free}
-  {$EXTERNALSYM ASN1_STRING_copy}
-  {$EXTERNALSYM ASN1_STRING_dup}
-  {$EXTERNALSYM ASN1_STRING_type_new}
-  {$EXTERNALSYM ASN1_STRING_cmp}
-  {$EXTERNALSYM ASN1_STRING_set}
-  {$EXTERNALSYM ASN1_STRING_set0}
-  {$EXTERNALSYM ASN1_STRING_length}
-  {$EXTERNALSYM ASN1_STRING_length_set}
-  {$EXTERNALSYM ASN1_STRING_type}
-  {$EXTERNALSYM ASN1_STRING_get0_data} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_BIT_STRING_set}
-  {$EXTERNALSYM ASN1_BIT_STRING_set_bit}
-  {$EXTERNALSYM ASN1_BIT_STRING_get_bit}
-  {$EXTERNALSYM ASN1_BIT_STRING_check}
-  {$EXTERNALSYM ASN1_BIT_STRING_name_print}
-  {$EXTERNALSYM ASN1_BIT_STRING_num_asc}
-  {$EXTERNALSYM ASN1_BIT_STRING_set_asc}
-  {$EXTERNALSYM ASN1_INTEGER_new}
-  {$EXTERNALSYM ASN1_INTEGER_free}
-  {$EXTERNALSYM d2i_ASN1_INTEGER}
-  {$EXTERNALSYM i2d_ASN1_INTEGER}
-  {$EXTERNALSYM d2i_ASN1_UINTEGER}
-  {$EXTERNALSYM ASN1_INTEGER_dup}
-  {$EXTERNALSYM ASN1_INTEGER_cmp}
-  {$EXTERNALSYM ASN1_UTCTIME_check}
-  {$EXTERNALSYM ASN1_UTCTIME_set}
-  {$EXTERNALSYM ASN1_UTCTIME_adj}
-  {$EXTERNALSYM ASN1_UTCTIME_set_string}
-  {$EXTERNALSYM ASN1_UTCTIME_cmp_time_t}
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_check}
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_set}
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_adj}
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_set_string}
-  {$EXTERNALSYM ASN1_TIME_diff}
-  {$EXTERNALSYM ASN1_OCTET_STRING_dup}
-  {$EXTERNALSYM ASN1_OCTET_STRING_cmp}
-  {$EXTERNALSYM ASN1_OCTET_STRING_set}
-  {$EXTERNALSYM UTF8_getc}
-  {$EXTERNALSYM UTF8_putc}
-  {$EXTERNALSYM ASN1_UTCTIME_new}
-  {$EXTERNALSYM ASN1_UTCTIME_free}
-  {$EXTERNALSYM d2i_ASN1_UTCTIME}
-  {$EXTERNALSYM i2d_ASN1_UTCTIME}
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_new}
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_free}
-  {$EXTERNALSYM d2i_ASN1_GENERALIZEDTIME}
-  {$EXTERNALSYM i2d_ASN1_GENERALIZEDTIME}
-  {$EXTERNALSYM ASN1_TIME_new}
-  {$EXTERNALSYM ASN1_TIME_free}
-  {$EXTERNALSYM d2i_ASN1_TIME}
-  {$EXTERNALSYM i2d_ASN1_TIME}
-  {$EXTERNALSYM ASN1_TIME_set}
-  {$EXTERNALSYM ASN1_TIME_adj}
-  {$EXTERNALSYM ASN1_TIME_check}
-  {$EXTERNALSYM ASN1_TIME_to_generalizedtime}
-  {$EXTERNALSYM ASN1_TIME_set_string}
-  {$EXTERNALSYM ASN1_TIME_set_string_X509} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_TIME_to_tm} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_TIME_normalize} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_TIME_cmp_time_t} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_TIME_compare} {introduced 1.1.0}
-  {$EXTERNALSYM i2a_ASN1_INTEGER}
-  {$EXTERNALSYM a2i_ASN1_INTEGER}
-  {$EXTERNALSYM i2a_ASN1_ENUMERATED}
-  {$EXTERNALSYM a2i_ASN1_ENUMERATED}
-  {$EXTERNALSYM i2a_ASN1_OBJECT}
-  {$EXTERNALSYM a2i_ASN1_STRING}
-  {$EXTERNALSYM i2a_ASN1_STRING}
-  {$EXTERNALSYM i2t_ASN1_OBJECT}
-  {$EXTERNALSYM a2d_ASN1_OBJECT}
-  {$EXTERNALSYM ASN1_OBJECT_create}
-  {$EXTERNALSYM ASN1_INTEGER_get_int64} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_INTEGER_set_int64} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_INTEGER_get_uint64} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_INTEGER_set_uint64} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_INTEGER_set}
-  {$EXTERNALSYM ASN1_INTEGER_get}
-  {$EXTERNALSYM BN_to_ASN1_INTEGER}
-  {$EXTERNALSYM ASN1_INTEGER_to_BN}
-  {$EXTERNALSYM ASN1_ENUMERATED_get_int64} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_ENUMERATED_set_int64} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_ENUMERATED_set}
-  {$EXTERNALSYM ASN1_ENUMERATED_get}
-  {$EXTERNALSYM BN_to_ASN1_ENUMERATED}
-  {$EXTERNALSYM ASN1_ENUMERATED_to_BN}
-  {$EXTERNALSYM ASN1_PRINTABLE_type}
-  {$EXTERNALSYM ASN1_tag2bit}
-  {$EXTERNALSYM ASN1_get_object}
-  {$EXTERNALSYM ASN1_check_infinite_end}
-  {$EXTERNALSYM ASN1_const_check_infinite_end}
-  {$EXTERNALSYM ASN1_put_object}
-  {$EXTERNALSYM ASN1_put_eoc}
-  {$EXTERNALSYM ASN1_object_size}
-  {$EXTERNALSYM ASN1_item_dup}
-  {$EXTERNALSYM ASN1_STRING_to_UTF8}
-  {$EXTERNALSYM ASN1_item_d2i_bio}
-  {$EXTERNALSYM ASN1_i2d_bio}
-  {$EXTERNALSYM ASN1_item_i2d_bio}
-  {$EXTERNALSYM ASN1_UTCTIME_print}
-  {$EXTERNALSYM ASN1_GENERALIZEDTIME_print}
-  {$EXTERNALSYM ASN1_TIME_print}
-  {$EXTERNALSYM ASN1_STRING_print}
-  {$EXTERNALSYM ASN1_STRING_print_ex}
-  {$EXTERNALSYM ASN1_buf_print} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_bn_print}
-  {$EXTERNALSYM ASN1_parse}
-  {$EXTERNALSYM ASN1_parse_dump}
-  {$EXTERNALSYM ASN1_tag2str}
-  {$EXTERNALSYM ASN1_UNIVERSALSTRING_to_string}
-  {$EXTERNALSYM ASN1_TYPE_set_octetstring}
-  {$EXTERNALSYM ASN1_TYPE_get_octetstring}
-  {$EXTERNALSYM ASN1_TYPE_set_int_octetstring}
-  {$EXTERNALSYM ASN1_TYPE_get_int_octetstring}
-  {$EXTERNALSYM ASN1_item_unpack}
-  {$EXTERNALSYM ASN1_item_pack}
-  {$EXTERNALSYM ASN1_STRING_set_default_mask}
-  {$EXTERNALSYM ASN1_STRING_set_default_mask_asc}
-  {$EXTERNALSYM ASN1_STRING_get_default_mask}
-  {$EXTERNALSYM ASN1_mbstring_copy}
-  {$EXTERNALSYM ASN1_mbstring_ncopy}
-  {$EXTERNALSYM ASN1_STRING_set_by_NID}
-  {$EXTERNALSYM ASN1_STRING_TABLE_get}
-  {$EXTERNALSYM ASN1_STRING_TABLE_add}
-  {$EXTERNALSYM ASN1_STRING_TABLE_cleanup}
-  {$EXTERNALSYM ASN1_item_new}
-  {$EXTERNALSYM ASN1_item_free}
-  {$EXTERNALSYM ASN1_item_d2i}
-  {$EXTERNALSYM ASN1_item_i2d}
-  {$EXTERNALSYM ASN1_item_ndef_i2d}
-  {$EXTERNALSYM ASN1_add_oid_module}
-  {$EXTERNALSYM ASN1_add_stable_module} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_generate_nconf}
-  {$EXTERNALSYM ASN1_generate_v3}
-  {$EXTERNALSYM ASN1_str2mask} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_item_print}
-  {$EXTERNALSYM ASN1_PCTX_new}
-  {$EXTERNALSYM ASN1_PCTX_free}
-  {$EXTERNALSYM ASN1_PCTX_get_flags}
-  {$EXTERNALSYM ASN1_PCTX_set_flags}
-  {$EXTERNALSYM ASN1_PCTX_get_nm_flags}
-  {$EXTERNALSYM ASN1_PCTX_set_nm_flags}
-  {$EXTERNALSYM ASN1_PCTX_get_cert_flags}
-  {$EXTERNALSYM ASN1_PCTX_set_cert_flags}
-  {$EXTERNALSYM ASN1_PCTX_get_oid_flags}
-  {$EXTERNALSYM ASN1_PCTX_set_oid_flags}
-  {$EXTERNALSYM ASN1_PCTX_get_str_flags}
-  {$EXTERNALSYM ASN1_PCTX_set_str_flags}
-  {$EXTERNALSYM ASN1_SCTX_free} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_SCTX_get_item} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_SCTX_get_template} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_SCTX_get_flags} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_SCTX_set_app_data} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_SCTX_get_app_data} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_f_asn1}
-  {$EXTERNALSYM BIO_new_NDEF}
-  {$EXTERNALSYM i2d_ASN1_bio_stream}
-  {$EXTERNALSYM PEM_write_bio_ASN1_stream}
-  {$EXTERNALSYM SMIME_read_ASN1}
-  {$EXTERNALSYM SMIME_crlf_copy}
-  {$EXTERNALSYM SMIME_text}
-  {$EXTERNALSYM ASN1_ITEM_lookup} {introduced 1.1.0}
-  {$EXTERNALSYM ASN1_ITEM_get} {introduced 1.1.0}
+  
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
+
+{$EXTERNALSYM ASN1_TYPE_get}
+{$EXTERNALSYM ASN1_TYPE_set}
+{$EXTERNALSYM ASN1_TYPE_set1}
+{$EXTERNALSYM ASN1_TYPE_cmp}
+{$EXTERNALSYM ASN1_TYPE_pack_sequence}
+{$EXTERNALSYM ASN1_TYPE_unpack_sequence}
+{$EXTERNALSYM ASN1_OBJECT_new}
+{$EXTERNALSYM ASN1_OBJECT_free}
+{$EXTERNALSYM i2d_ASN1_OBJECT}
+{$EXTERNALSYM d2i_ASN1_OBJECT}
+{$EXTERNALSYM ASN1_STRING_new}
+{$EXTERNALSYM ASN1_STRING_free}
+{$EXTERNALSYM ASN1_STRING_clear_free}
+{$EXTERNALSYM ASN1_STRING_copy}
+{$EXTERNALSYM ASN1_STRING_dup}
+{$EXTERNALSYM ASN1_STRING_type_new}
+{$EXTERNALSYM ASN1_STRING_cmp}
+{$EXTERNALSYM ASN1_STRING_set}
+{$EXTERNALSYM ASN1_STRING_set0}
+{$EXTERNALSYM ASN1_STRING_length}
+{$EXTERNALSYM ASN1_STRING_length_set}
+{$EXTERNALSYM ASN1_STRING_type}
+{$EXTERNALSYM ASN1_STRING_get0_data}
+{$EXTERNALSYM ASN1_BIT_STRING_set}
+{$EXTERNALSYM ASN1_BIT_STRING_set_bit}
+{$EXTERNALSYM ASN1_BIT_STRING_get_bit}
+{$EXTERNALSYM ASN1_BIT_STRING_check}
+{$EXTERNALSYM ASN1_BIT_STRING_name_print}
+{$EXTERNALSYM ASN1_BIT_STRING_num_asc}
+{$EXTERNALSYM ASN1_BIT_STRING_set_asc}
+{$EXTERNALSYM ASN1_INTEGER_new}
+{$EXTERNALSYM ASN1_INTEGER_free}
+{$EXTERNALSYM d2i_ASN1_INTEGER}
+{$EXTERNALSYM i2d_ASN1_INTEGER}
+{$EXTERNALSYM d2i_ASN1_UINTEGER}
+{$EXTERNALSYM ASN1_INTEGER_dup}
+{$EXTERNALSYM ASN1_INTEGER_cmp}
+{$EXTERNALSYM ASN1_UTCTIME_check}
+{$EXTERNALSYM ASN1_UTCTIME_set}
+{$EXTERNALSYM ASN1_UTCTIME_adj}
+{$EXTERNALSYM ASN1_UTCTIME_set_string}
+{$EXTERNALSYM ASN1_UTCTIME_cmp_time_t}
+{$EXTERNALSYM ASN1_GENERALIZEDTIME_check}
+{$EXTERNALSYM ASN1_GENERALIZEDTIME_set}
+{$EXTERNALSYM ASN1_GENERALIZEDTIME_adj}
+{$EXTERNALSYM ASN1_GENERALIZEDTIME_set_string}
+{$EXTERNALSYM ASN1_TIME_diff}
+{$EXTERNALSYM ASN1_OCTET_STRING_dup}
+{$EXTERNALSYM ASN1_OCTET_STRING_cmp}
+{$EXTERNALSYM ASN1_OCTET_STRING_set}
+{$EXTERNALSYM ASN1_OCTET_STRING_new}
+{$EXTERNALSYM ASN1_OCTET_STRING_free}
+{$EXTERNALSYM d2i_ASN1_OCTET_STRING}
+{$EXTERNALSYM i2d_ASN1_OCTET_STRING}
+{$EXTERNALSYM UTF8_getc}
+{$EXTERNALSYM UTF8_putc}
+{$EXTERNALSYM ASN1_UTCTIME_new}
+{$EXTERNALSYM ASN1_UTCTIME_free}
+{$EXTERNALSYM d2i_ASN1_UTCTIME}
+{$EXTERNALSYM i2d_ASN1_UTCTIME}
+{$EXTERNALSYM ASN1_GENERALIZEDTIME_new}
+{$EXTERNALSYM ASN1_GENERALIZEDTIME_free}
+{$EXTERNALSYM d2i_ASN1_GENERALIZEDTIME}
+{$EXTERNALSYM i2d_ASN1_GENERALIZEDTIME}
+{$EXTERNALSYM ASN1_TIME_new}
+{$EXTERNALSYM ASN1_TIME_free}
+{$EXTERNALSYM d2i_ASN1_TIME}
+{$EXTERNALSYM i2d_ASN1_TIME}
+{$EXTERNALSYM ASN1_TIME_set}
+{$EXTERNALSYM ASN1_TIME_adj}
+{$EXTERNALSYM ASN1_TIME_check}
+{$EXTERNALSYM ASN1_TIME_to_generalizedtime}
+{$EXTERNALSYM ASN1_TIME_set_string}
+{$EXTERNALSYM ASN1_TIME_set_string_X509}
+{$EXTERNALSYM ASN1_TIME_to_tm}
+{$EXTERNALSYM ASN1_TIME_normalize}
+{$EXTERNALSYM ASN1_TIME_cmp_time_t}
+{$EXTERNALSYM ASN1_TIME_compare}
+{$EXTERNALSYM i2a_ASN1_INTEGER}
+{$EXTERNALSYM a2i_ASN1_INTEGER}
+{$EXTERNALSYM i2a_ASN1_ENUMERATED}
+{$EXTERNALSYM a2i_ASN1_ENUMERATED}
+{$EXTERNALSYM i2a_ASN1_OBJECT}
+{$EXTERNALSYM a2i_ASN1_STRING}
+{$EXTERNALSYM i2a_ASN1_STRING}
+{$EXTERNALSYM i2t_ASN1_OBJECT}
+{$EXTERNALSYM a2d_ASN1_OBJECT}
+{$EXTERNALSYM ASN1_OBJECT_create}
+{$EXTERNALSYM ASN1_INTEGER_get_int64}
+{$EXTERNALSYM ASN1_INTEGER_set_int64}
+{$EXTERNALSYM ASN1_INTEGER_get_uint64}
+{$EXTERNALSYM ASN1_INTEGER_set_uint64}
+{$EXTERNALSYM ASN1_INTEGER_set}
+{$EXTERNALSYM ASN1_INTEGER_get}
+{$EXTERNALSYM BN_to_ASN1_INTEGER}
+{$EXTERNALSYM ASN1_INTEGER_to_BN}
+{$EXTERNALSYM ASN1_ENUMERATED_get_int64}
+{$EXTERNALSYM ASN1_ENUMERATED_set_int64}
+{$EXTERNALSYM ASN1_ENUMERATED_set}
+{$EXTERNALSYM ASN1_ENUMERATED_get}
+{$EXTERNALSYM BN_to_ASN1_ENUMERATED}
+{$EXTERNALSYM ASN1_ENUMERATED_to_BN}
+{$EXTERNALSYM ASN1_PRINTABLE_type}
+{$EXTERNALSYM ASN1_tag2bit}
+{$EXTERNALSYM ASN1_get_object}
+{$EXTERNALSYM ASN1_check_infinite_end}
+{$EXTERNALSYM ASN1_const_check_infinite_end}
+{$EXTERNALSYM ASN1_put_object}
+{$EXTERNALSYM ASN1_put_eoc}
+{$EXTERNALSYM ASN1_object_size}
+{$EXTERNALSYM ASN1_item_dup}
+{$EXTERNALSYM ASN1_STRING_to_UTF8}
+{$EXTERNALSYM ASN1_d2i_bio}
+{$EXTERNALSYM ASN1_item_d2i_bio}
+{$EXTERNALSYM ASN1_i2d_bio}
+{$EXTERNALSYM ASN1_item_i2d_bio}
+{$EXTERNALSYM ASN1_UTCTIME_print}
+{$EXTERNALSYM ASN1_GENERALIZEDTIME_print}
+{$EXTERNALSYM ASN1_TIME_print}
+{$EXTERNALSYM ASN1_STRING_print}
+{$EXTERNALSYM ASN1_STRING_print_ex}
+{$EXTERNALSYM ASN1_buf_print}
+{$EXTERNALSYM ASN1_bn_print}
+{$EXTERNALSYM ASN1_parse}
+{$EXTERNALSYM ASN1_parse_dump}
+{$EXTERNALSYM ASN1_tag2str}
+{$EXTERNALSYM ASN1_UNIVERSALSTRING_to_string}
+{$EXTERNALSYM ASN1_TYPE_set_octetstring}
+{$EXTERNALSYM ASN1_TYPE_get_octetstring}
+{$EXTERNALSYM ASN1_TYPE_set_int_octetstring}
+{$EXTERNALSYM ASN1_TYPE_get_int_octetstring}
+{$EXTERNALSYM ASN1_item_unpack}
+{$EXTERNALSYM ASN1_item_pack}
+{$EXTERNALSYM ASN1_STRING_set_default_mask}
+{$EXTERNALSYM ASN1_STRING_set_default_mask_asc}
+{$EXTERNALSYM ASN1_STRING_get_default_mask}
+{$EXTERNALSYM ASN1_mbstring_copy}
+{$EXTERNALSYM ASN1_mbstring_ncopy}
+{$EXTERNALSYM ASN1_STRING_set_by_NID}
+{$EXTERNALSYM ASN1_STRING_TABLE_get}
+{$EXTERNALSYM ASN1_STRING_TABLE_add}
+{$EXTERNALSYM ASN1_STRING_TABLE_cleanup}
+{$EXTERNALSYM ASN1_item_new}
+{$EXTERNALSYM ASN1_item_free}
+{$EXTERNALSYM ASN1_item_d2i}
+{$EXTERNALSYM ASN1_item_i2d}
+{$EXTERNALSYM ASN1_item_ndef_i2d}
+{$EXTERNALSYM ASN1_add_oid_module}
+{$EXTERNALSYM ASN1_add_stable_module}
+{$EXTERNALSYM ASN1_generate_nconf}
+{$EXTERNALSYM ASN1_generate_v3}
+{$EXTERNALSYM ASN1_str2mask}
+{$EXTERNALSYM ASN1_item_print}
+{$EXTERNALSYM ASN1_PCTX_new}
+{$EXTERNALSYM ASN1_PCTX_free}
+{$EXTERNALSYM ASN1_PCTX_get_flags}
+{$EXTERNALSYM ASN1_PCTX_set_flags}
+{$EXTERNALSYM ASN1_PCTX_get_nm_flags}
+{$EXTERNALSYM ASN1_PCTX_set_nm_flags}
+{$EXTERNALSYM ASN1_PCTX_get_cert_flags}
+{$EXTERNALSYM ASN1_PCTX_set_cert_flags}
+{$EXTERNALSYM ASN1_PCTX_get_oid_flags}
+{$EXTERNALSYM ASN1_PCTX_set_oid_flags}
+{$EXTERNALSYM ASN1_PCTX_get_str_flags}
+{$EXTERNALSYM ASN1_PCTX_set_str_flags}
+{$EXTERNALSYM ASN1_SCTX_free}
+{$EXTERNALSYM ASN1_SCTX_get_item}
+{$EXTERNALSYM ASN1_SCTX_get_template}
+{$EXTERNALSYM ASN1_SCTX_get_flags}
+{$EXTERNALSYM ASN1_SCTX_set_app_data}
+{$EXTERNALSYM ASN1_SCTX_get_app_data}
+{$EXTERNALSYM BIO_f_asn1}
+{$EXTERNALSYM BIO_new_NDEF}
+{$EXTERNALSYM i2d_ASN1_bio_stream}
+{$EXTERNALSYM PEM_write_bio_ASN1_stream}
+{$EXTERNALSYM SMIME_read_ASN1}
+{$EXTERNALSYM SMIME_crlf_copy}
+{$EXTERNALSYM SMIME_text}
+{$EXTERNALSYM ASN1_ITEM_lookup}
+{$EXTERNALSYM ASN1_ITEM_get}
+
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+function ASN1_TYPE_get(const a: PASN1_TYPE): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure ASN1_TYPE_set(a: PASN1_TYPE; type_: TOpenSSL_C_INT; value: Pointer); cdecl; external CLibCrypto;
+function ASN1_TYPE_set1(a: PASN1_TYPE; type_: TOpenSSL_C_INT; const value: Pointer): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TYPE_cmp(const a: PASN1_TYPE; const b: PASN1_TYPE): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TYPE_pack_sequence(const it: PASN1_ITEM; s: Pointer; t: PPASN1_TYPE): PASN1_TYPE; cdecl; external CLibCrypto;
+function ASN1_TYPE_unpack_sequence(const it: PASN1_ITEM; const t: PASN1_TYPE): Pointer; cdecl; external CLibCrypto;
+function ASN1_OBJECT_new: PASN1_OBJECT; cdecl; external CLibCrypto;
+procedure ASN1_OBJECT_free(a: PASN1_OBJECT); cdecl; external CLibCrypto;
+function i2d_ASN1_OBJECT(const a: PASN1_OBJECT; pp: PPByte): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function d2i_ASN1_OBJECT(a: PPASN1_OBJECT; const pp: PPByte; length: TOpenSSL_C_LONG): PASN1_OBJECT; cdecl; external CLibCrypto;
+function ASN1_STRING_new: PASN1_STRING; cdecl; external CLibCrypto;
+procedure ASN1_STRING_free(a: PASN1_STRING); cdecl; external CLibCrypto;
+procedure ASN1_STRING_clear_free(a: PASN1_STRING); cdecl; external CLibCrypto;
+function ASN1_STRING_copy(dst: PASN1_STRING; const str: PASN1_STRING): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_STRING_dup(const a: PASN1_STRING): PASN1_STRING; cdecl; external CLibCrypto;
+function ASN1_STRING_type_new(type_: TOpenSSL_C_INT): PASN1_STRING; cdecl; external CLibCrypto;
+function ASN1_STRING_cmp(const a: PASN1_STRING; const b: PASN1_STRING): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_STRING_set(str: PASN1_STRING; const data: Pointer; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure ASN1_STRING_set0(str: PASN1_STRING; data: Pointer; len: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function ASN1_STRING_length(const x: PASN1_STRING): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure ASN1_STRING_length_set(x: PASN1_STRING; n: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function ASN1_STRING_type(const x: PASN1_STRING): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_STRING_get0_data(const x: PASN1_STRING): PByte; cdecl; external CLibCrypto;
+function ASN1_BIT_STRING_set(a: PASN1_BIT_STRING; d: PByte; length: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_BIT_STRING_set_bit(a: PASN1_BIT_STRING; n: TOpenSSL_C_INT; value: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_BIT_STRING_get_bit(const a: PASN1_BIT_STRING; n: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_BIT_STRING_check(const a: PASN1_BIT_STRING; const flags: PByte; flags_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_BIT_STRING_name_print(out_: PBIO; bs: PASN1_BIT_STRING; tbl: PBIT_STRING_BITNAME; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_BIT_STRING_num_asc(const name: PAnsiChar; tbl: PBIT_STRING_BITNAME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_BIT_STRING_set_asc(bs: PASN1_BIT_STRING; const name: PAnsiChar; value: TOpenSSL_C_INT; tbl: PBIT_STRING_BITNAME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_INTEGER_new: PASN1_INTEGER; cdecl; external CLibCrypto;
+procedure ASN1_INTEGER_free(a: PASN1_INTEGER); cdecl; external CLibCrypto;
+function d2i_ASN1_INTEGER(a: PPASN1_INTEGER; const in_: PPByte; len: TOpenSSL_C_Long): PASN1_INTEGER; cdecl; external CLibCrypto;
+function i2d_ASN1_INTEGER(a: PASN1_INTEGER; out_: PPByte): TOpenSSL_C_Int; cdecl; external CLibCrypto;
+function d2i_ASN1_UINTEGER(a: PPASN1_INTEGER; const pp: PPByte; length: TOpenSSL_C_LONG): PASN1_INTEGER; cdecl; external CLibCrypto;
+function ASN1_INTEGER_dup(const x: PASN1_INTEGER): PASN1_INTEGER; cdecl; external CLibCrypto;
+function ASN1_INTEGER_cmp(const x: PASN1_INTEGER; const y: PASN1_INTEGER): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_UTCTIME_check(const a: PASN1_UTCTIME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_UTCTIME_set(s: PASN1_UTCTIME; t: TOpenSSL_C_TIMET): PASN1_UTCTIME; cdecl; external CLibCrypto;
+function ASN1_UTCTIME_adj(s: PASN1_UTCTIME; t: TOpenSSL_C_TIMET; offset_day: TOpenSSL_C_INT; offset_sec: TOpenSSL_C_LONG): PASN1_UTCTIME; cdecl; external CLibCrypto;
+function ASN1_UTCTIME_set_string(s: PASN1_UTCTIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_UTCTIME_cmp_time_t(const s: PASN1_UTCTIME; t: TOpenSSL_C_TIMET): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_GENERALIZEDTIME_check(const a: PASN1_GENERALIZEDTIME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_GENERALIZEDTIME_set(s: PASN1_GENERALIZEDTIME; t: TOpenSSL_C_TIMET): PASN1_GENERALIZEDTIME; cdecl; external CLibCrypto;
+function ASN1_GENERALIZEDTIME_adj(s: PASN1_GENERALIZEDTIME; t: TOpenSSL_C_TIMET; offset_day: TOpenSSL_C_INT; offset_sec: TOpenSSL_C_LONG): PASN1_GENERALIZEDTIME; cdecl; external CLibCrypto;
+function ASN1_GENERALIZEDTIME_set_string(s: pASN1_GENERALIZEDTIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TIME_diff(pday: POpenSSL_C_INT; psec: POpenSSL_C_INT; const from: PASN1_TIME; const to_: PASN1_TIME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_OCTET_STRING_dup(const a: PASN1_OCTET_STRING): PASN1_OCTET_STRING; cdecl; external CLibCrypto;
+function ASN1_OCTET_STRING_cmp(const a: PASN1_OCTET_STRING; const b: PASN1_OCTET_STRING): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_OCTET_STRING_set(str: PASN1_OCTET_STRING; const data: PByte; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_OCTET_STRING_new: PASN1_OCTET_STRING; cdecl; external CLibCrypto;
+procedure ASN1_OCTET_STRING_free(a: PASN1_OCTET_STRING); cdecl; external CLibCrypto;
+function d2i_ASN1_OCTET_STRING(val_out : PPASN1_OCTET_STRING; der_in : PPAnsiChar; length : TOpenSSL_C_LONG): PASN1_OCTET_STRING; cdecl; external CLibCrypto;
+function i2d_ASN1_OCTET_STRING(val_in : PASN1_OCTET_STRING; der_out : PPAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function UTF8_getc(const str: PByte; len: TOpenSSL_C_INT; val: POpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function UTF8_putc(str: PAnsiChar; len: TOpenSSL_C_INT; value: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_UTCTIME_new: PASN1_UTCTIME; cdecl; external CLibCrypto;
+procedure ASN1_UTCTIME_free(a: PASN1_UTCTIME); cdecl; external CLibCrypto;
+function d2i_ASN1_UTCTIME(a: PPASN1_UTCTIME; const in_: PPByte; len: TOpenSSL_C_LONG): PASN1_UTCTIME; cdecl; external CLibCrypto;
+function i2d_ASN1_UTCTIME(a: PASN1_UTCTIME; out_: PPByte): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_GENERALIZEDTIME_new: PASN1_GENERALIZEDTIME; cdecl; external CLibCrypto;
+procedure ASN1_GENERALIZEDTIME_free(a: PASN1_GENERALIZEDTIME); cdecl; external CLibCrypto;
+function d2i_ASN1_GENERALIZEDTIME(a: PPASN1_GENERALIZEDTIME; const in_: PPByte; len: TOpenSSL_C_LONG): PASN1_GENERALIZEDTIME; cdecl; external CLibCrypto;
+function i2d_ASN1_GENERALIZEDTIME(a: PASN1_GENERALIZEDTIME; out_: PPByte): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TIME_new: PASN1_TIME; cdecl; external CLibCrypto;
+procedure ASN1_TIME_free(a: PASN1_TIME); cdecl; external CLibCrypto;
+function d2i_ASN1_TIME(a: PPASN1_TIME; const in_: PPByte; len: TOpenSSL_C_LONG): PASN1_TIME; cdecl; external CLibCrypto;
+function i2d_ASN1_TIME(a: PASN1_TIME; out_: PPByte): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TIME_set(s: PASN1_TIME; t: TOpenSSL_C_TIMET): PASN1_TIME; cdecl; external CLibCrypto;
+function ASN1_TIME_adj(s: PASN1_TIME; t: TOpenSSL_C_TIMET; offset_day: TOpenSSL_C_INT; offset_sec: TOpenSSL_C_LONG): PASN1_TIME; cdecl; external CLibCrypto;
+function ASN1_TIME_check(const t: PASN1_TIME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TIME_to_generalizedtime(const t: PASN1_TIME; out_: PPASN1_GENERALIZEDTIME): PASN1_GENERALIZEDTIME; cdecl; external CLibCrypto;
+function ASN1_TIME_set_string(s: PASN1_TIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TIME_set_string_X509(s: PASN1_TIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TIME_to_tm(const s: PASN1_TIME; tm: POpenSSL_C_TM): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TIME_normalize(s: PASN1_TIME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TIME_cmp_time_t(const s: PASN1_TIME; t: TOpenSSL_C_TIMET): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TIME_compare(const a: PASN1_TIME; const b: PASN1_TIME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function i2a_ASN1_INTEGER(bp: PBIO; const a: PASN1_INTEGER): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function a2i_ASN1_INTEGER(bp: PBIO; bs: PASN1_INTEGER; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function i2a_ASN1_ENUMERATED(bp: PBIO; const a: PASN1_ENUMERATED): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function a2i_ASN1_ENUMERATED(bp: PBIO; bs: PASN1_ENUMERATED; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function i2a_ASN1_OBJECT(bp: PBIO; const a: PASN1_OBJECT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function a2i_ASN1_STRING(bp: PBIO; bs: PASN1_STRING; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function i2a_ASN1_STRING(bp: PBIO; const a: PASN1_STRING; type_: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function i2t_ASN1_OBJECT(buf: PAnsiChar; buf_len: TOpenSSL_C_INT; const a: PASN1_OBJECT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function a2d_ASN1_OBJECT(out_: PByte; olen: TOpenSSL_C_INT; const buf: PAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_OBJECT_create(nid: TOpenSSL_C_INT; data: PByte; len: TOpenSSL_C_INT; const sn: PAnsiChar; const ln: PAnsiChar): PASN1_OBJECT; cdecl; external CLibCrypto;
+function ASN1_INTEGER_get_int64(pr: POpenSSL_C_Int64; const a: PASN1_INTEGER): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_INTEGER_set_int64(a: PASN1_INTEGER; r: TOpenSSL_C_Int64): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_INTEGER_get_uint64(pr: POpenSSL_C_UInt64; const a: PASN1_INTEGER): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_INTEGER_set_uint64(a: PASN1_INTEGER; r: TOpenSSL_C_UInt64): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_INTEGER_set(a: PASN1_INTEGER; v: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_INTEGER_get(const a: PASN1_INTEGER): TOpenSSL_C_LONG; cdecl; external CLibCrypto;
+function BN_to_ASN1_INTEGER(const bn: PBIGNUM; ai: PASN1_INTEGER): PASN1_INTEGER; cdecl; external CLibCrypto;
+function ASN1_INTEGER_to_BN(const ai: PASN1_INTEGER; bn: PBIGNUM): PBIGNUM; cdecl; external CLibCrypto;
+function ASN1_ENUMERATED_get_int64(pr: POpenSSL_C_Int64; const a: PASN1_ENUMERATED): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_ENUMERATED_set_int64(a: PASN1_ENUMERATED; r: TOpenSSL_C_Int64): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_ENUMERATED_set(a: PASN1_ENUMERATED; v: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_ENUMERATED_get(const a: PASN1_ENUMERATED): TOpenSSL_C_LONG; cdecl; external CLibCrypto;
+function BN_to_ASN1_ENUMERATED(const bn: PBIGNUM; ai: PASN1_ENUMERATED): PASN1_ENUMERATED; cdecl; external CLibCrypto;
+function ASN1_ENUMERATED_to_BN(const ai: PASN1_ENUMERATED; bn: PBIGNUM): PBIGNUM; cdecl; external CLibCrypto;
+function ASN1_PRINTABLE_type(const s: PByte; max: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_tag2bit(tag: TOpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+function ASN1_get_object(const pp: PPByte; plength: POpenSSL_C_LONG; ptag: POpenSSL_C_INT; pclass: POpenSSL_C_INT; omax: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_check_infinite_end(p: PPByte; len: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_const_check_infinite_end(const p: PPByte; len: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure ASN1_put_object(pp: PPByte; constructed: TOpenSSL_C_INT; length: TOpenSSL_C_INT; tag: TOpenSSL_C_INT; xclass: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function ASN1_put_eoc(pp: PPByte): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_object_size(constructed: TOpenSSL_C_INT; length: TOpenSSL_C_INT; tag: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_item_dup(const it: PASN1_ITEM; x: Pointer): Pointer; cdecl; external CLibCrypto;
+function ASN1_STRING_to_UTF8(out_: PPByte; const in_: PASN1_STRING): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_d2i_bio(xnew: pxnew; d2i: pd2i_of_void; in_: PBIO; x: PPointer): Pointer; cdecl; external CLibCrypto;
+function ASN1_item_d2i_bio(const it: PASN1_ITEM; in_: PBIO; x: Pointer): Pointer; cdecl; external CLibCrypto;
+function ASN1_i2d_bio(i2d: Pi2d_of_void; out_: PBIO; x: PByte): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_item_i2d_bio(const it: PASN1_ITEM; out_: PBIO; x: Pointer): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_UTCTIME_print(fp: PBIO; const a: PASN1_UTCTIME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_GENERALIZEDTIME_print(fp: PBIO; const a: PASN1_GENERALIZEDTIME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TIME_print(fp: PBIO; const a: PASN1_TIME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_STRING_print(bp: PBIO; const v: PASN1_STRING): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_STRING_print_ex(out_: PBIO; const str: PASN1_STRING; flags: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_buf_print(bp: PBIO; const buf: PByte; buflen: TOpenSSL_C_SIZET; off: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_bn_print(bp: PBIO; const number: PAnsiChar; const num: PBIGNUM; buf: PByte; off: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_parse(bp: PBIO; const pp: PByte; len: TOpenSSL_C_LONG; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_parse_dump(bp: PPBIO; const pp: PByte; len: TOpenSSL_C_LONG; indent: TOpenSSL_C_INT; dump: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_tag2str(tag: TOpenSSL_C_INT): PAnsiChar; cdecl; external CLibCrypto;
+function ASN1_UNIVERSALSTRING_to_string(s: PASN1_UNIVERSALSTRING): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TYPE_set_octetstring(a: PASN1_TYPE; data: PByte; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TYPE_get_octetstring(const a: PASN1_TYPE; data: PByte; max_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TYPE_set_int_octetstring(a: PASN1_TYPE; num: TOpenSSL_C_LONG; data: PByte; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_TYPE_get_int_octetstring(const a: PASN1_TYPE; num: POpenSSL_C_LONG; data: PByte; max_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_item_unpack(const oct: PASN1_STRING; const it: PASN1_ITEM): Pointer; cdecl; external CLibCrypto;
+function ASN1_item_pack(obj: Pointer; const it: PASN1_ITEM; oct: PPASN1_OCTET_STRING): PASN1_STRING; cdecl; external CLibCrypto;
+procedure ASN1_STRING_set_default_mask(mask: TOpenSSL_C_ULONG); cdecl; external CLibCrypto;
+function ASN1_STRING_set_default_mask_asc(const p: PAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_STRING_get_default_mask: TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+function ASN1_mbstring_copy(out_: PPASN1_STRING; const in_: PByte; len: TOpenSSL_C_INT; inform: TOpenSSL_C_INT; mask: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_mbstring_ncopy(out_: PPASN1_STRING; const in_: PByte; len: TOpenSSL_C_INT; inform: TOpenSSL_C_INT; mask: TOpenSSL_C_ULONG; minsize: TOpenSSL_C_LONG; maxsize: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_STRING_set_by_NID(out_: PPASN1_STRING; const in_: PByte; inlen: TOpenSSL_C_INT; inform: TOpenSSL_C_INT; nid: TOpenSSL_C_INT): PASN1_STRING; cdecl; external CLibCrypto;
+function ASN1_STRING_TABLE_get(nid: TOpenSSL_C_INT): PASN1_STRING_TABLE; cdecl; external CLibCrypto;
+function ASN1_STRING_TABLE_add(v1: TOpenSSL_C_INT; v2: TOpenSSL_C_LONG; v3: TOpenSSL_C_LONG; v4: TOpenSSL_C_ULONG; v5: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure ASN1_STRING_TABLE_cleanup; cdecl; external CLibCrypto;
+function ASN1_item_new(const it: PASN1_ITEM): PASN1_VALUE; cdecl; external CLibCrypto;
+procedure ASN1_item_free(val: PASN1_VALUE; const it: PASN1_ITEM); cdecl; external CLibCrypto;
+function ASN1_item_d2i(val: PPASN1_VALUE; const in_: PPByte; len: TOpenSSL_C_LONG; const it: PASN1_ITEM): PASN1_VALUE; cdecl; external CLibCrypto;
+function ASN1_item_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_item_ndef_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure ASN1_add_oid_module; cdecl; external CLibCrypto;
+procedure ASN1_add_stable_module; cdecl; external CLibCrypto;
+function ASN1_generate_nconf(const str: PAnsiChar; nconf: PCONF): PASN1_TYPE; cdecl; external CLibCrypto;
+function ASN1_generate_v3(const str: PAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE; cdecl; external CLibCrypto;
+function ASN1_str2mask(const str: PByte; pmask: POpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_item_print(out_: PBIO; ifld: PASN1_VALUE; indent: TOpenSSL_C_INT; const it: PASN1_ITEM; const pctx: PASN1_PCTX): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_PCTX_new: PASN1_PCTX; cdecl; external CLibCrypto;
+procedure ASN1_PCTX_free(p: PASN1_PCTX); cdecl; external CLibCrypto;
+function ASN1_PCTX_get_flags(const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+procedure ASN1_PCTX_set_flags(p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl; external CLibCrypto;
+function ASN1_PCTX_get_nm_flags(const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+procedure ASN1_PCTX_set_nm_flags(p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl; external CLibCrypto;
+function ASN1_PCTX_get_cert_flags(const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+procedure ASN1_PCTX_set_cert_flags(p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl; external CLibCrypto;
+function ASN1_PCTX_get_oid_flags(const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+procedure ASN1_PCTX_set_oid_flags(p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl; external CLibCrypto;
+function ASN1_PCTX_get_str_flags(const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+procedure ASN1_PCTX_set_str_flags(p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl; external CLibCrypto;
+procedure ASN1_SCTX_free(p: PASN1_SCTX); cdecl; external CLibCrypto;
+function ASN1_SCTX_get_item(p: PASN1_SCTX): PASN1_ITEM; cdecl; external CLibCrypto;
+function ASN1_SCTX_get_template(p: PASN1_SCTX): PASN1_TEMPLATE; cdecl; external CLibCrypto;
+function ASN1_SCTX_get_flags(p: PASN1_SCTX): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+procedure ASN1_SCTX_set_app_data(p: PASN1_SCTX; data: Pointer); cdecl; external CLibCrypto;
+function ASN1_SCTX_get_app_data(p: PASN1_SCTX): Pointer; cdecl; external CLibCrypto;
+function BIO_f_asn1: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_new_NDEF(out_: PBIO; val: PASN1_VALUE; const it: PASN1_ITEM): PBIO; cdecl; external CLibCrypto;
+function i2d_ASN1_bio_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TOpenSSL_C_INT; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function PEM_write_bio_ASN1_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TOpenSSL_C_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function SMIME_read_ASN1(bio: PBIO; bcont: PPBIO; const it: PASN1_ITEM): PASN1_VALUE; cdecl; external CLibCrypto;
+function SMIME_crlf_copy(in_: PBIO; out_: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function SMIME_text(in_: PBIO; out_: PBIO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_ITEM_lookup(const name: PAnsiChar): PASN1_ITEM; cdecl; external CLibCrypto;
+function ASN1_ITEM_get(i: TOpenSSL_C_SIZET): PASN1_ITEM; cdecl; external CLibCrypto;
+
+{$ELSE}
 var
-  ASN1_TYPE_get: function (const a: PASN1_TYPE): TIdC_INT; cdecl = nil;
-  ASN1_TYPE_set: procedure (a: PASN1_TYPE; type_: TIdC_INT; value: Pointer); cdecl = nil;
-  ASN1_TYPE_set1: function (a: PASN1_TYPE; type_: TIdC_INT; const value: Pointer): TIdC_INT; cdecl = nil;
-  ASN1_TYPE_cmp: function (const a: PASN1_TYPE; const b: PASN1_TYPE): TIdC_INT; cdecl = nil;
-
-  ASN1_TYPE_pack_sequence: function (const it: PASN1_ITEM; s: Pointer; t: PPASN1_TYPE): PASN1_TYPE; cdecl = nil; {introduced 1.1.0}
-  ASN1_TYPE_unpack_sequence: function (const it: PASN1_ITEM; const t: PASN1_TYPE): Pointer; cdecl = nil; {introduced 1.1.0}
-
+  ASN1_TYPE_get: function (const a: PASN1_TYPE): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_TYPE_set: procedure (a: PASN1_TYPE; type_: TOpenSSL_C_INT; value: Pointer); cdecl = nil;
+  ASN1_TYPE_set1: function (a: PASN1_TYPE; type_: TOpenSSL_C_INT; const value: Pointer): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_TYPE_cmp: function (const a: PASN1_TYPE; const b: PASN1_TYPE): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_TYPE_pack_sequence: function (const it: PASN1_ITEM; s: Pointer; t: PPASN1_TYPE): PASN1_TYPE; cdecl = nil; {introduced 1.1.0 }
+  ASN1_TYPE_unpack_sequence: function (const it: PASN1_ITEM; const t: PASN1_TYPE): Pointer; cdecl = nil; {introduced 1.1.0 }
   ASN1_OBJECT_new: function : PASN1_OBJECT; cdecl = nil;
   ASN1_OBJECT_free: procedure (a: PASN1_OBJECT); cdecl = nil;
-  i2d_ASN1_OBJECT: function (const a: PASN1_OBJECT; pp: PPByte): TIdC_INT; cdecl = nil;
-  d2i_ASN1_OBJECT: function (a: PPASN1_OBJECT; const pp: PPByte; length: TIdC_LONG): PASN1_OBJECT; cdecl = nil;
-
-  //DECLARE_ASN1_ITEM(ASN1_OBJECT)
-  //
-  //DEFINE_STACK_OF(ASN1_OBJECT)
-
+  i2d_ASN1_OBJECT: function (const a: PASN1_OBJECT; pp: PPByte): TOpenSSL_C_INT; cdecl = nil;
+  d2i_ASN1_OBJECT: function (a: PPASN1_OBJECT; const pp: PPByte; length: TOpenSSL_C_LONG): PASN1_OBJECT; cdecl = nil;
   ASN1_STRING_new: function : PASN1_STRING; cdecl = nil;
   ASN1_STRING_free: procedure (a: PASN1_STRING); cdecl = nil;
   ASN1_STRING_clear_free: procedure (a: PASN1_STRING); cdecl = nil;
-  ASN1_STRING_copy: function (dst: PASN1_STRING; const str: PASN1_STRING): TIdC_INT; cdecl = nil;
+  ASN1_STRING_copy: function (dst: PASN1_STRING; const str: PASN1_STRING): TOpenSSL_C_INT; cdecl = nil;
   ASN1_STRING_dup: function (const a: PASN1_STRING): PASN1_STRING; cdecl = nil;
-  ASN1_STRING_type_new: function (type_: TIdC_INT): PASN1_STRING; cdecl = nil;
-  ASN1_STRING_cmp: function (const a: PASN1_STRING; const b: PASN1_STRING): TIdC_INT; cdecl = nil;
-
-  (*
-   * Since this is used to store all sorts of things, via macros, for now,
-   * make its data void *
-   *)
-  ASN1_STRING_set: function (str: PASN1_STRING; const data: Pointer; len: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_STRING_set0: procedure (str: PASN1_STRING; data: Pointer; len: TIdC_INT); cdecl = nil;
-  ASN1_STRING_length: function (const x: PASN1_STRING): TIdC_INT; cdecl = nil;
-  ASN1_STRING_length_set: procedure (x: PASN1_STRING; n: TIdC_INT); cdecl = nil;
-  ASN1_STRING_type: function (const x: PASN1_STRING): TIdC_INT; cdecl = nil;
-  ASN1_STRING_get0_data: function (const x: PASN1_STRING): PByte; cdecl = nil; {introduced 1.1.0}
-
-  //DECLARE_ASN1_FUNCTIONS(ASN1_BIT_STRING)
-  ASN1_BIT_STRING_set: function (a: PASN1_BIT_STRING; d: PByte; length: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_BIT_STRING_set_bit: function (a: PASN1_BIT_STRING; n: TIdC_INT; value: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_BIT_STRING_get_bit: function (const a: PASN1_BIT_STRING; n: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_BIT_STRING_check: function (const a: PASN1_BIT_STRING; const flags: PByte; flags_len: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  ASN1_BIT_STRING_name_print: function (out_: PBIO; bs: PASN1_BIT_STRING; tbl: PBIT_STRING_BITNAME; indent: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_BIT_STRING_num_asc: function (const name: PIdAnsiChar; tbl: PBIT_STRING_BITNAME): TIdC_INT; cdecl = nil;
-  ASN1_BIT_STRING_set_asc: function (bs: PASN1_BIT_STRING; const name: PIdAnsiChar; value: TIdC_INT; tbl: PBIT_STRING_BITNAME): TIdC_INT; cdecl = nil;
-
+  ASN1_STRING_type_new: function (type_: TOpenSSL_C_INT): PASN1_STRING; cdecl = nil;
+  ASN1_STRING_cmp: function (const a: PASN1_STRING; const b: PASN1_STRING): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_STRING_set: function (str: PASN1_STRING; const data: Pointer; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_STRING_set0: procedure (str: PASN1_STRING; data: Pointer; len: TOpenSSL_C_INT); cdecl = nil;
+  ASN1_STRING_length: function (const x: PASN1_STRING): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_STRING_length_set: procedure (x: PASN1_STRING; n: TOpenSSL_C_INT); cdecl = nil;
+  ASN1_STRING_type: function (const x: PASN1_STRING): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_STRING_get0_data: function (const x: PASN1_STRING): PByte; cdecl = nil; {introduced 1.1.0 }
+  ASN1_BIT_STRING_set: function (a: PASN1_BIT_STRING; d: PByte; length: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_BIT_STRING_set_bit: function (a: PASN1_BIT_STRING; n: TOpenSSL_C_INT; value: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_BIT_STRING_get_bit: function (const a: PASN1_BIT_STRING; n: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_BIT_STRING_check: function (const a: PASN1_BIT_STRING; const flags: PByte; flags_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_BIT_STRING_name_print: function (out_: PBIO; bs: PASN1_BIT_STRING; tbl: PBIT_STRING_BITNAME; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_BIT_STRING_num_asc: function (const name: PAnsiChar; tbl: PBIT_STRING_BITNAME): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_BIT_STRING_set_asc: function (bs: PASN1_BIT_STRING; const name: PAnsiChar; value: TOpenSSL_C_INT; tbl: PBIT_STRING_BITNAME): TOpenSSL_C_INT; cdecl = nil;
   ASN1_INTEGER_new: function : PASN1_INTEGER; cdecl = nil;
   ASN1_INTEGER_free: procedure (a: PASN1_INTEGER); cdecl = nil;
-  d2i_ASN1_INTEGER: function (a: PPASN1_INTEGER; const in_: PPByte; len: TIdC_Long): PASN1_INTEGER; cdecl = nil;
-  i2d_ASN1_INTEGER: function (a: PASN1_INTEGER; out_: PPByte): TIdC_Int; cdecl = nil;
-
-  d2i_ASN1_UINTEGER: function (a: PPASN1_INTEGER; const pp: PPByte; length: TIdC_LONG): PASN1_INTEGER; cdecl = nil;
+  d2i_ASN1_INTEGER: function (a: PPASN1_INTEGER; const in_: PPByte; len: TOpenSSL_C_Long): PASN1_INTEGER; cdecl = nil;
+  i2d_ASN1_INTEGER: function (a: PASN1_INTEGER; out_: PPByte): TOpenSSL_C_Int; cdecl = nil;
+  d2i_ASN1_UINTEGER: function (a: PPASN1_INTEGER; const pp: PPByte; length: TOpenSSL_C_LONG): PASN1_INTEGER; cdecl = nil;
   ASN1_INTEGER_dup: function (const x: PASN1_INTEGER): PASN1_INTEGER; cdecl = nil;
-  ASN1_INTEGER_cmp: function (const x: PASN1_INTEGER; const y: PASN1_INTEGER): TIdC_INT; cdecl = nil;
-
-  // DECLARE_ASN1_FUNCTIONS(ASN1_ENUMERATED)
-
-  ASN1_UTCTIME_check: function (const a: PASN1_UTCTIME): TIdC_INT; cdecl = nil;
-  ASN1_UTCTIME_set: function (s: PASN1_UTCTIME; t: TIdC_TIMET): PASN1_UTCTIME; cdecl = nil;
-  ASN1_UTCTIME_adj: function (s: PASN1_UTCTIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_UTCTIME; cdecl = nil;
-  ASN1_UTCTIME_set_string: function (s: PASN1_UTCTIME; const str: PAnsiChar): TIdC_INT; cdecl = nil;
-  ASN1_UTCTIME_cmp_time_t: function (const s: PASN1_UTCTIME; t: TIdC_TIMET): TIdC_INT; cdecl = nil;
-
-  ASN1_GENERALIZEDTIME_check: function (const a: PASN1_GENERALIZEDTIME): TIdC_INT; cdecl = nil;
-  ASN1_GENERALIZEDTIME_set: function (s: PASN1_GENERALIZEDTIME; t: TIdC_TIMET): PASN1_GENERALIZEDTIME; cdecl = nil;
-  ASN1_GENERALIZEDTIME_adj: function (s: PASN1_GENERALIZEDTIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_GENERALIZEDTIME; cdecl = nil;
-  ASN1_GENERALIZEDTIME_set_string: function (s: pASN1_GENERALIZEDTIME; const str: PAnsiChar): TIdC_INT; cdecl = nil;
-
-  ASN1_TIME_diff: function (pday: PIdC_INT; psec: PIdC_INT; const from: PASN1_TIME; const to_: PASN1_TIME): TIdC_INT; cdecl = nil;
-
-  // DECLARE_ASN1_FUNCTIONS(ASN1_OCTET_STRING)
+  ASN1_INTEGER_cmp: function (const x: PASN1_INTEGER; const y: PASN1_INTEGER): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_UTCTIME_check: function (const a: PASN1_UTCTIME): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_UTCTIME_set: function (s: PASN1_UTCTIME; t: TOpenSSL_C_TIMET): PASN1_UTCTIME; cdecl = nil;
+  ASN1_UTCTIME_adj: function (s: PASN1_UTCTIME; t: TOpenSSL_C_TIMET; offset_day: TOpenSSL_C_INT; offset_sec: TOpenSSL_C_LONG): PASN1_UTCTIME; cdecl = nil;
+  ASN1_UTCTIME_set_string: function (s: PASN1_UTCTIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_UTCTIME_cmp_time_t: function (const s: PASN1_UTCTIME; t: TOpenSSL_C_TIMET): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_GENERALIZEDTIME_check: function (const a: PASN1_GENERALIZEDTIME): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_GENERALIZEDTIME_set: function (s: PASN1_GENERALIZEDTIME; t: TOpenSSL_C_TIMET): PASN1_GENERALIZEDTIME; cdecl = nil;
+  ASN1_GENERALIZEDTIME_adj: function (s: PASN1_GENERALIZEDTIME; t: TOpenSSL_C_TIMET; offset_day: TOpenSSL_C_INT; offset_sec: TOpenSSL_C_LONG): PASN1_GENERALIZEDTIME; cdecl = nil;
+  ASN1_GENERALIZEDTIME_set_string: function (s: pASN1_GENERALIZEDTIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_TIME_diff: function (pday: POpenSSL_C_INT; psec: POpenSSL_C_INT; const from: PASN1_TIME; const to_: PASN1_TIME): TOpenSSL_C_INT; cdecl = nil;
   ASN1_OCTET_STRING_dup: function (const a: PASN1_OCTET_STRING): PASN1_OCTET_STRING; cdecl = nil;
-  ASN1_OCTET_STRING_cmp: function (const a: PASN1_OCTET_STRING; const b: PASN1_OCTET_STRING): TIdC_INT; cdecl = nil;
-  ASN1_OCTET_STRING_set: function (str: PASN1_OCTET_STRING; const data: PByte; len: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  //DECLARE_ASN1_FUNCTIONS(ASN1_VISIBLESTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_UNIVERSALSTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_UTF8STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_NULL)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_BMPSTRING)
-
-  UTF8_getc: function (const str: PByte; len: TIdC_INT; val: PIdC_ULONG): TIdC_INT; cdecl = nil;
-  UTF8_putc: function (str: PIdAnsiChar; len: TIdC_INT; value: TIdC_ULONG): TIdC_INT; cdecl = nil;
-
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, ASN1_PRINTABLE)
-  //
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, DIRECTORYSTRING)
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, DISPLAYTEXT)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_PRINTABLESTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_T61STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_IA5STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_GENERALSTRING)
-
+  ASN1_OCTET_STRING_cmp: function (const a: PASN1_OCTET_STRING; const b: PASN1_OCTET_STRING): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_OCTET_STRING_set: function (str: PASN1_OCTET_STRING; const data: PByte; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_OCTET_STRING_new: function : PASN1_OCTET_STRING; cdecl = nil;
+  ASN1_OCTET_STRING_free: procedure (a: PASN1_OCTET_STRING); cdecl = nil;
+  d2i_ASN1_OCTET_STRING: function (val_out : PPASN1_OCTET_STRING; der_in : PPAnsiChar; length : TOpenSSL_C_LONG): PASN1_OCTET_STRING; cdecl = nil;
+  i2d_ASN1_OCTET_STRING: function (val_in : PASN1_OCTET_STRING; der_out : PPAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  UTF8_getc: function (const str: PByte; len: TOpenSSL_C_INT; val: POpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = nil;
+  UTF8_putc: function (str: PAnsiChar; len: TOpenSSL_C_INT; value: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = nil;
   ASN1_UTCTIME_new: function : PASN1_UTCTIME; cdecl = nil;
   ASN1_UTCTIME_free: procedure (a: PASN1_UTCTIME); cdecl = nil;
-  d2i_ASN1_UTCTIME: function (a: PPASN1_UTCTIME; const in_: PPByte; len: TIdC_LONG): PASN1_UTCTIME; cdecl = nil;
-  i2d_ASN1_UTCTIME: function (a: PASN1_UTCTIME; out_: PPByte): TIdC_INT; cdecl = nil;
-
+  d2i_ASN1_UTCTIME: function (a: PPASN1_UTCTIME; const in_: PPByte; len: TOpenSSL_C_LONG): PASN1_UTCTIME; cdecl = nil;
+  i2d_ASN1_UTCTIME: function (a: PASN1_UTCTIME; out_: PPByte): TOpenSSL_C_INT; cdecl = nil;
   ASN1_GENERALIZEDTIME_new: function : PASN1_GENERALIZEDTIME; cdecl = nil;
   ASN1_GENERALIZEDTIME_free: procedure (a: PASN1_GENERALIZEDTIME); cdecl = nil;
-  d2i_ASN1_GENERALIZEDTIME: function (a: PPASN1_GENERALIZEDTIME; const in_: PPByte; len: TIdC_LONG): PASN1_GENERALIZEDTIME; cdecl = nil;
-  i2d_ASN1_GENERALIZEDTIME: function (a: PASN1_GENERALIZEDTIME; out_: PPByte): TIdC_INT; cdecl = nil;
-
+  d2i_ASN1_GENERALIZEDTIME: function (a: PPASN1_GENERALIZEDTIME; const in_: PPByte; len: TOpenSSL_C_LONG): PASN1_GENERALIZEDTIME; cdecl = nil;
+  i2d_ASN1_GENERALIZEDTIME: function (a: PASN1_GENERALIZEDTIME; out_: PPByte): TOpenSSL_C_INT; cdecl = nil;
   ASN1_TIME_new: function : PASN1_TIME; cdecl = nil;
   ASN1_TIME_free: procedure (a: PASN1_TIME); cdecl = nil;
-  d2i_ASN1_TIME: function (a: PPASN1_TIME; const in_: PPByte; len: TIdC_LONG): PASN1_TIME; cdecl = nil;
-  i2d_ASN1_TIME: function (a: PASN1_TIME; out_: PPByte): TIdC_INT; cdecl = nil;
-
-  // DECLARE_ASN1_ITEM(ASN1_OCTET_STRING_NDEF)
-
-  ASN1_TIME_set: function (s: PASN1_TIME; t: TIdC_TIMET): PASN1_TIME; cdecl = nil;
-  ASN1_TIME_adj: function (s: PASN1_TIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_TIME; cdecl = nil;
-  ASN1_TIME_check: function (const t: PASN1_TIME): TIdC_INT; cdecl = nil;
+  d2i_ASN1_TIME: function (a: PPASN1_TIME; const in_: PPByte; len: TOpenSSL_C_LONG): PASN1_TIME; cdecl = nil;
+  i2d_ASN1_TIME: function (a: PASN1_TIME; out_: PPByte): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_TIME_set: function (s: PASN1_TIME; t: TOpenSSL_C_TIMET): PASN1_TIME; cdecl = nil;
+  ASN1_TIME_adj: function (s: PASN1_TIME; t: TOpenSSL_C_TIMET; offset_day: TOpenSSL_C_INT; offset_sec: TOpenSSL_C_LONG): PASN1_TIME; cdecl = nil;
+  ASN1_TIME_check: function (const t: PASN1_TIME): TOpenSSL_C_INT; cdecl = nil;
   ASN1_TIME_to_generalizedtime: function (const t: PASN1_TIME; out_: PPASN1_GENERALIZEDTIME): PASN1_GENERALIZEDTIME; cdecl = nil;
-  ASN1_TIME_set_string: function (s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  ASN1_TIME_set_string_X509: function (s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  ASN1_TIME_to_tm: function (const s: PASN1_TIME; tm: PIdC_TM): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  ASN1_TIME_normalize: function (s: PASN1_TIME): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  ASN1_TIME_cmp_time_t: function (const s: PASN1_TIME; t: TIdC_TIMET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  ASN1_TIME_compare: function (const a: PASN1_TIME; const b: PASN1_TIME): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-
-  i2a_ASN1_INTEGER: function (bp: PBIO; const a: PASN1_INTEGER): TIdC_INT; cdecl = nil;
-  a2i_ASN1_INTEGER: function (bp: PBIO; bs: PASN1_INTEGER; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; cdecl = nil;
-  i2a_ASN1_ENUMERATED: function (bp: PBIO; const a: PASN1_ENUMERATED): TIdC_INT; cdecl = nil;
-  a2i_ASN1_ENUMERATED: function (bp: PBIO; bs: PASN1_ENUMERATED; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; cdecl = nil;
-  i2a_ASN1_OBJECT: function (bp: PBIO; const a: PASN1_OBJECT): TIdC_INT; cdecl = nil;
-  a2i_ASN1_STRING: function (bp: PBIO; bs: PASN1_STRING; buf: PAnsiChar; size: TIdC_INT): TIdC_INT; cdecl = nil;
-  i2a_ASN1_STRING: function (bp: PBIO; const a: PASN1_STRING; type_: TIdC_INT): TIdC_INT; cdecl = nil;
-  i2t_ASN1_OBJECT: function (buf: PAnsiChar; buf_len: TIdC_INT; const a: PASN1_OBJECT): TIdC_INT; cdecl = nil;
-
-  a2d_ASN1_OBJECT: function (out_: PByte; olen: TIdC_INT; const buf: PIdAnsiChar; num: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_OBJECT_create: function (nid: TIdC_INT; data: PByte; len: TIdC_INT; const sn: PAnsiChar; const ln: PAnsiChar): PASN1_OBJECT; cdecl = nil;
-
-  ASN1_INTEGER_get_int64: function (pr: PIdC_Int64; const a: PASN1_INTEGER): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  ASN1_INTEGER_set_int64: function (a: PASN1_INTEGER; r: TIdC_Int64): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  ASN1_INTEGER_get_uint64: function (pr: PIdC_UInt64; const a: PASN1_INTEGER): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  ASN1_INTEGER_set_uint64: function (a: PASN1_INTEGER; r: TIdC_UInt64): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-
-  ASN1_INTEGER_set: function (a: PASN1_INTEGER; v: TIdC_LONG): TIdC_INT; cdecl = nil;
-  ASN1_INTEGER_get: function (const a: PASN1_INTEGER): TIdC_LONG; cdecl = nil;
+  ASN1_TIME_set_string: function (s: PASN1_TIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_TIME_set_string_X509: function (s: PASN1_TIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_TIME_to_tm: function (const s: PASN1_TIME; tm: POpenSSL_C_TM): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_TIME_normalize: function (s: PASN1_TIME): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_TIME_cmp_time_t: function (const s: PASN1_TIME; t: TOpenSSL_C_TIMET): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_TIME_compare: function (const a: PASN1_TIME; const b: PASN1_TIME): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  i2a_ASN1_INTEGER: function (bp: PBIO; const a: PASN1_INTEGER): TOpenSSL_C_INT; cdecl = nil;
+  a2i_ASN1_INTEGER: function (bp: PBIO; bs: PASN1_INTEGER; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  i2a_ASN1_ENUMERATED: function (bp: PBIO; const a: PASN1_ENUMERATED): TOpenSSL_C_INT; cdecl = nil;
+  a2i_ASN1_ENUMERATED: function (bp: PBIO; bs: PASN1_ENUMERATED; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  i2a_ASN1_OBJECT: function (bp: PBIO; const a: PASN1_OBJECT): TOpenSSL_C_INT; cdecl = nil;
+  a2i_ASN1_STRING: function (bp: PBIO; bs: PASN1_STRING; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  i2a_ASN1_STRING: function (bp: PBIO; const a: PASN1_STRING; type_: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  i2t_ASN1_OBJECT: function (buf: PAnsiChar; buf_len: TOpenSSL_C_INT; const a: PASN1_OBJECT): TOpenSSL_C_INT; cdecl = nil;
+  a2d_ASN1_OBJECT: function (out_: PByte; olen: TOpenSSL_C_INT; const buf: PAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_OBJECT_create: function (nid: TOpenSSL_C_INT; data: PByte; len: TOpenSSL_C_INT; const sn: PAnsiChar; const ln: PAnsiChar): PASN1_OBJECT; cdecl = nil;
+  ASN1_INTEGER_get_int64: function (pr: POpenSSL_C_Int64; const a: PASN1_INTEGER): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_INTEGER_set_int64: function (a: PASN1_INTEGER; r: TOpenSSL_C_Int64): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_INTEGER_get_uint64: function (pr: POpenSSL_C_UInt64; const a: PASN1_INTEGER): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_INTEGER_set_uint64: function (a: PASN1_INTEGER; r: TOpenSSL_C_UInt64): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_INTEGER_set: function (a: PASN1_INTEGER; v: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_INTEGER_get: function (const a: PASN1_INTEGER): TOpenSSL_C_LONG; cdecl = nil;
   BN_to_ASN1_INTEGER: function (const bn: PBIGNUM; ai: PASN1_INTEGER): PASN1_INTEGER; cdecl = nil;
   ASN1_INTEGER_to_BN: function (const ai: PASN1_INTEGER; bn: PBIGNUM): PBIGNUM; cdecl = nil;
-
-  ASN1_ENUMERATED_get_int64: function (pr: PIdC_Int64; const a: PASN1_ENUMERATED): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  ASN1_ENUMERATED_set_int64: function (a: PASN1_ENUMERATED; r: TIdC_Int64): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-
-
-  ASN1_ENUMERATED_set: function (a: PASN1_ENUMERATED; v: TIdC_LONG): TIdC_INT; cdecl = nil;
-  ASN1_ENUMERATED_get: function (const a: PASN1_ENUMERATED): TIdC_LONG; cdecl = nil;
+  ASN1_ENUMERATED_get_int64: function (pr: POpenSSL_C_Int64; const a: PASN1_ENUMERATED): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_ENUMERATED_set_int64: function (a: PASN1_ENUMERATED; r: TOpenSSL_C_Int64): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_ENUMERATED_set: function (a: PASN1_ENUMERATED; v: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_ENUMERATED_get: function (const a: PASN1_ENUMERATED): TOpenSSL_C_LONG; cdecl = nil;
   BN_to_ASN1_ENUMERATED: function (const bn: PBIGNUM; ai: PASN1_ENUMERATED): PASN1_ENUMERATED; cdecl = nil;
   ASN1_ENUMERATED_to_BN: function (const ai: PASN1_ENUMERATED; bn: PBIGNUM): PBIGNUM; cdecl = nil;
-
-  (* General *)
-  (* given a string, return the correct type, max is the maximum length *)
-  ASN1_PRINTABLE_type: function (const s: PByte; max: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  ASN1_tag2bit: function (tag: TIdC_INT): TIdC_ULONG; cdecl = nil;
-
-  (* SPECIALS *)
-  ASN1_get_object: function (const pp: PPByte; plength: PIdC_LONG; ptag: PIdC_INT; pclass: PIdC_INT; omax: TIdC_LONG): TIdC_INT; cdecl = nil;
-  ASN1_check_infinite_end: function (p: PPByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
-  ASN1_const_check_infinite_end: function (const p: PPByte; len: TIdC_LONG): TIdC_INT; cdecl = nil;
-  ASN1_put_object: procedure (pp: PPByte; constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT; xclass: TIdC_INT); cdecl = nil;
-  ASN1_put_eoc: function (pp: PPByte): TIdC_INT; cdecl = nil;
-  ASN1_object_size: function (constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  (* Used to implement other functions *)
-  //void *ASN1_dup(i2d_of_void *i2d, d2i_of_void *d2i, void *x);
-  //
-  //# define ASN1_dup_of(type,i2d,d2i,x) \
-  //    ((type*)ASN1_dup(CHECKED_I2D_OF(type, i2d), \
-  //                     CHECKED_D2I_OF(type, d2i), \
-  //                     CHECKED_PTR_OF(type, x)))
-  //
-  //# define ASN1_dup_of_const(type,i2d,d2i,x) \
-  //    ((type*)ASN1_dup(CHECKED_I2D_OF(const type, i2d), \
-  //                     CHECKED_D2I_OF(type, d2i), \
-  //                     CHECKED_PTR_OF(const type, x)))
-  //
+  ASN1_PRINTABLE_type: function (const s: PByte; max: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_tag2bit: function (tag: TOpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = nil;
+  ASN1_get_object: function (const pp: PPByte; plength: POpenSSL_C_LONG; ptag: POpenSSL_C_INT; pclass: POpenSSL_C_INT; omax: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_check_infinite_end: function (p: PPByte; len: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_const_check_infinite_end: function (const p: PPByte; len: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_put_object: procedure (pp: PPByte; constructed: TOpenSSL_C_INT; length: TOpenSSL_C_INT; tag: TOpenSSL_C_INT; xclass: TOpenSSL_C_INT); cdecl = nil;
+  ASN1_put_eoc: function (pp: PPByte): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_object_size: function (constructed: TOpenSSL_C_INT; length: TOpenSSL_C_INT; tag: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
   ASN1_item_dup: function (const it: PASN1_ITEM; x: Pointer): Pointer; cdecl = nil;
-
-    (* ASN1 alloc/free macros for when a type is only used internally *)
-
-  //# define M_ASN1_new_of(type) (type *)ASN1_item_new(ASN1_ITEM_rptr(type))
-  //# define M_ASN1_free_of(x, type) \
-  //                ASN1_item_free(CHECKED_PTR_OF(type, x), ASN1_ITEM_rptr(type))
-  //
-  //# ifndef OPENSSL_NO_STDIO
-  //void *ASN1_d2i_fp(void *(*xnew) (void), d2i_of_void *d2i, FILE *in, void **x);
-
-  //#  define ASN1_d2i_fp_of(type,xnew,d2i,in,x) \
-  //    ((type*)ASN1_d2i_fp(CHECKED_NEW_OF(type, xnew), \
-  //                        CHECKED_D2I_OF(type, d2i), \
-  //                        in, \
-  //                        CHECKED_PPTR_OF(type, x)))
-  //
-  //function ASN1_item_d2i_fp(const it: PASN1_ITEM; in_: PFILE; x: Pointer): Pointer;
-  //function ASN1_i2d_fp(i2d: Pi2d_of_void; out_: PFILE; x: Pointer): TIdC_INT;
-  //
-  //#  define ASN1_i2d_fp_of(type,i2d,out,x) \
-  //    (ASN1_i2d_fp(CHECKED_I2D_OF(type, i2d), \
-  //                 out, \
-  //                 CHECKED_PTR_OF(type, x)))
-  //
-  //#  define ASN1_i2d_fp_of_const(type,i2d,out,x) \
-  //    (ASN1_i2d_fp(CHECKED_I2D_OF(const type, i2d), \
-  //                 out, \
-  //                 CHECKED_PTR_OF(const type, x)))
-  //
-  //function ASN1_item_i2d_fp(const it: PASN1_ITEM; out_: PFILE; x: Pointer): TIdC_INT;
-  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
-  //# endif
-
-  ASN1_STRING_to_UTF8: function (out_: PPByte; const in_: PASN1_STRING): TIdC_INT; cdecl = nil;
-
-  //void *ASN1_d2i_bio(void *(*xnew) (void), d2i_of_void *d2i, BIO *in, void **x);
-
-  //#  define ASN1_d2i_bio_of(type,xnew,d2i,in,x) \
-  //    ((type*)ASN1_d2i_bio( CHECKED_NEW_OF(type, xnew), \
-  //                          CHECKED_D2I_OF(type, d2i), \
-  //                          in, \
-  //                          CHECKED_PPTR_OF(type, x)))
-
+  ASN1_STRING_to_UTF8: function (out_: PPByte; const in_: PASN1_STRING): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_d2i_bio: function (xnew: pxnew; d2i: pd2i_of_void; in_: PBIO; x: PPointer): Pointer; cdecl = nil;
   ASN1_item_d2i_bio: function (const it: PASN1_ITEM; in_: PBIO; x: Pointer): Pointer; cdecl = nil;
-  ASN1_i2d_bio: function (i2d: Pi2d_of_void; out_: PBIO; x: PByte): TIdC_INT; cdecl = nil;
-
-  //#  define ASN1_i2d_bio_of(type,i2d,out,x) \
-  //    (ASN1_i2d_bio(CHECKED_I2D_OF(type, i2d), \
-  //                  out, \
-  //                  CHECKED_PTR_OF(type, x)))
-  //
-  //#  define ASN1_i2d_bio_of_const(type,i2d,out,x) \
-  //    (ASN1_i2d_bio(CHECKED_I2D_OF(const type, i2d), \
-  //                  out, \
-  //                  CHECKED_PTR_OF(const type, x)))
-
-  ASN1_item_i2d_bio: function (const it: PASN1_ITEM; out_: PBIO; x: Pointer): TIdC_INT; cdecl = nil;
-  ASN1_UTCTIME_print: function (fp: PBIO; const a: PASN1_UTCTIME): TIdC_INT; cdecl = nil;
-  ASN1_GENERALIZEDTIME_print: function (fp: PBIO; const a: PASN1_GENERALIZEDTIME): TIdC_INT; cdecl = nil;
-  ASN1_TIME_print: function (fp: PBIO; const a: PASN1_TIME): TIdC_INT; cdecl = nil;
-  ASN1_STRING_print: function (bp: PBIO; const v: PASN1_STRING): TIdC_INT; cdecl = nil;
-  ASN1_STRING_print_ex: function (out_: PBIO; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT; cdecl = nil;
-  ASN1_buf_print: function (bp: PBIO; const buf: PByte; buflen: TIdC_SIZET; off: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  ASN1_bn_print: function (bp: PBIO; const number: PIdAnsiChar; const num: PBIGNUM; buf: PByte; off: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_parse: function (bp: PBIO; const pp: PByte; len: TIdC_LONG; indent: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_parse_dump: function (bp: PPBIO; const pp: PByte; len: TIdC_LONG; indent: TIdC_INT; dump: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_tag2str: function (tag: TIdC_INT): PIdAnsiChar; cdecl = nil;
-
-  (* Used to load and write Netscape format cert *)
-
-  ASN1_UNIVERSALSTRING_to_string: function (s: PASN1_UNIVERSALSTRING): TIdC_INT; cdecl = nil;
-
-  ASN1_TYPE_set_octetstring: function (a: PASN1_TYPE; data: PByte; len: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_TYPE_get_octetstring: function (const a: PASN1_TYPE; data: PByte; max_len: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_TYPE_set_int_octetstring: function (a: PASN1_TYPE; num: TIdC_LONG; data: PByte; len: TIdC_INT): TIdC_INT; cdecl = nil;
-  ASN1_TYPE_get_int_octetstring: function (const a: PASN1_TYPE; num: PIdC_LONG; data: PByte; max_len: TIdC_INT): TIdC_INT; cdecl = nil;
-
+  ASN1_i2d_bio: function (i2d: Pi2d_of_void; out_: PBIO; x: PByte): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_item_i2d_bio: function (const it: PASN1_ITEM; out_: PBIO; x: Pointer): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_UTCTIME_print: function (fp: PBIO; const a: PASN1_UTCTIME): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_GENERALIZEDTIME_print: function (fp: PBIO; const a: PASN1_GENERALIZEDTIME): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_TIME_print: function (fp: PBIO; const a: PASN1_TIME): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_STRING_print: function (bp: PBIO; const v: PASN1_STRING): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_STRING_print_ex: function (out_: PBIO; const str: PASN1_STRING; flags: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_buf_print: function (bp: PBIO; const buf: PByte; buflen: TOpenSSL_C_SIZET; off: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_bn_print: function (bp: PBIO; const number: PAnsiChar; const num: PBIGNUM; buf: PByte; off: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_parse: function (bp: PBIO; const pp: PByte; len: TOpenSSL_C_LONG; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_parse_dump: function (bp: PPBIO; const pp: PByte; len: TOpenSSL_C_LONG; indent: TOpenSSL_C_INT; dump: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_tag2str: function (tag: TOpenSSL_C_INT): PAnsiChar; cdecl = nil;
+  ASN1_UNIVERSALSTRING_to_string: function (s: PASN1_UNIVERSALSTRING): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_TYPE_set_octetstring: function (a: PASN1_TYPE; data: PByte; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_TYPE_get_octetstring: function (const a: PASN1_TYPE; data: PByte; max_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_TYPE_set_int_octetstring: function (a: PASN1_TYPE; num: TOpenSSL_C_LONG; data: PByte; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_TYPE_get_int_octetstring: function (const a: PASN1_TYPE; num: POpenSSL_C_LONG; data: PByte; max_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
   ASN1_item_unpack: function (const oct: PASN1_STRING; const it: PASN1_ITEM): Pointer; cdecl = nil;
-
   ASN1_item_pack: function (obj: Pointer; const it: PASN1_ITEM; oct: PPASN1_OCTET_STRING): PASN1_STRING; cdecl = nil;
-
-  ASN1_STRING_set_default_mask: procedure (mask: TIdC_ULONG); cdecl = nil;
-  ASN1_STRING_set_default_mask_asc: function (const p: PAnsiChar): TIdC_INT; cdecl = nil;
-  ASN1_STRING_get_default_mask: function : TIdC_ULONG; cdecl = nil;
-  ASN1_mbstring_copy: function (out_: PPASN1_STRING; const in_: PByte; len: TIdC_INT; inform: TIdC_INT; mask: TIdC_ULONG): TIdC_INT; cdecl = nil;
-  ASN1_mbstring_ncopy: function (out_: PPASN1_STRING; const in_: PByte; len: TIdC_INT; inform: TIdC_INT; mask: TIdC_ULONG; minsize: TIdC_LONG; maxsize: TIdC_LONG): TIdC_INT; cdecl = nil;
-
-  ASN1_STRING_set_by_NID: function (out_: PPASN1_STRING; const in_: PByte; inlen: TIdC_INT; inform: TIdC_INT; nid: TIdC_INT): PASN1_STRING; cdecl = nil;
-  ASN1_STRING_TABLE_get: function (nid: TIdC_INT): PASN1_STRING_TABLE; cdecl = nil;
-  ASN1_STRING_TABLE_add: function (v1: TIdC_INT; v2: TIdC_LONG; v3: TIdC_LONG; v4: TIdC_ULONG; v5: TIdC_ULONG): TIdC_INT; cdecl = nil;
+  ASN1_STRING_set_default_mask: procedure (mask: TOpenSSL_C_ULONG); cdecl = nil;
+  ASN1_STRING_set_default_mask_asc: function (const p: PAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_STRING_get_default_mask: function : TOpenSSL_C_ULONG; cdecl = nil;
+  ASN1_mbstring_copy: function (out_: PPASN1_STRING; const in_: PByte; len: TOpenSSL_C_INT; inform: TOpenSSL_C_INT; mask: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_mbstring_ncopy: function (out_: PPASN1_STRING; const in_: PByte; len: TOpenSSL_C_INT; inform: TOpenSSL_C_INT; mask: TOpenSSL_C_ULONG; minsize: TOpenSSL_C_LONG; maxsize: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_STRING_set_by_NID: function (out_: PPASN1_STRING; const in_: PByte; inlen: TOpenSSL_C_INT; inform: TOpenSSL_C_INT; nid: TOpenSSL_C_INT): PASN1_STRING; cdecl = nil;
+  ASN1_STRING_TABLE_get: function (nid: TOpenSSL_C_INT): PASN1_STRING_TABLE; cdecl = nil;
+  ASN1_STRING_TABLE_add: function (v1: TOpenSSL_C_INT; v2: TOpenSSL_C_LONG; v3: TOpenSSL_C_LONG; v4: TOpenSSL_C_ULONG; v5: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = nil;
   ASN1_STRING_TABLE_cleanup: procedure ; cdecl = nil;
-
-  (* ASN1 template functions *)
-
-  (* Old API compatible functions *)
   ASN1_item_new: function (const it: PASN1_ITEM): PASN1_VALUE; cdecl = nil;
   ASN1_item_free: procedure (val: PASN1_VALUE; const it: PASN1_ITEM); cdecl = nil;
-  ASN1_item_d2i: function (val: PPASN1_VALUE; const in_: PPByte; len: TIdC_LONG; const it: PASN1_ITEM): PASN1_VALUE; cdecl = nil;
-  ASN1_item_i2d: function (val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
-  ASN1_item_ndef_i2d: function (val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
-
+  ASN1_item_d2i: function (val: PPASN1_VALUE; const in_: PPByte; len: TOpenSSL_C_LONG; const it: PASN1_ITEM): PASN1_VALUE; cdecl = nil;
+  ASN1_item_i2d: function (val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_item_ndef_i2d: function (val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl = nil;
   ASN1_add_oid_module: procedure ; cdecl = nil;
-  ASN1_add_stable_module: procedure ; cdecl = nil; {introduced 1.1.0}
-
+  ASN1_add_stable_module: procedure ; cdecl = nil; {introduced 1.1.0 }
   ASN1_generate_nconf: function (const str: PAnsiChar; nconf: PCONF): PASN1_TYPE; cdecl = nil;
   ASN1_generate_v3: function (const str: PAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE; cdecl = nil;
-  ASN1_str2mask: function (const str: PByte; pmask: PIdC_ULONG): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-
-  ASN1_item_print: function (out_: PBIO; ifld: PASN1_VALUE; indent: TIdC_INT; const it: PASN1_ITEM; const pctx: PASN1_PCTX): TIdC_INT; cdecl = nil;
+  ASN1_str2mask: function (const str: PByte; pmask: POpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ASN1_item_print: function (out_: PBIO; ifld: PASN1_VALUE; indent: TOpenSSL_C_INT; const it: PASN1_ITEM; const pctx: PASN1_PCTX): TOpenSSL_C_INT; cdecl = nil;
   ASN1_PCTX_new: function : PASN1_PCTX; cdecl = nil;
   ASN1_PCTX_free: procedure (p: PASN1_PCTX); cdecl = nil;
-  ASN1_PCTX_get_flags: function (const p: PASN1_PCTX): TIdC_ULONG; cdecl = nil;
-  ASN1_PCTX_set_flags: procedure (p: PASN1_PCTX; flags: TIdC_ULONG); cdecl = nil;
-  ASN1_PCTX_get_nm_flags: function (const p: PASN1_PCTX): TIdC_ULONG; cdecl = nil;
-  ASN1_PCTX_set_nm_flags: procedure (p: PASN1_PCTX; flags: TIdC_ULONG); cdecl = nil;
-  ASN1_PCTX_get_cert_flags: function (const p: PASN1_PCTX): TIdC_ULONG; cdecl = nil;
-  ASN1_PCTX_set_cert_flags: procedure (p: PASN1_PCTX; flags: TIdC_ULONG); cdecl = nil;
-  ASN1_PCTX_get_oid_flags: function (const p: PASN1_PCTX): TIdC_ULONG; cdecl = nil;
-  ASN1_PCTX_set_oid_flags: procedure (p: PASN1_PCTX; flags: TIdC_ULONG); cdecl = nil;
-  ASN1_PCTX_get_str_flags: function (const p: PASN1_PCTX): TIdC_ULONG; cdecl = nil;
-  ASN1_PCTX_set_str_flags: procedure (p: PASN1_PCTX; flags: TIdC_ULONG); cdecl = nil;
-
-  //ASN1_SCTX *ASN1_SCTX_new(int (*scan_cb) (ASN1_SCTX *ctx));
-  ASN1_SCTX_free: procedure (p: PASN1_SCTX); cdecl = nil; {introduced 1.1.0}
-  ASN1_SCTX_get_item: function (p: PASN1_SCTX): PASN1_ITEM; cdecl = nil; {introduced 1.1.0}
-  ASN1_SCTX_get_template: function (p: PASN1_SCTX): PASN1_TEMPLATE; cdecl = nil; {introduced 1.1.0}
-  ASN1_SCTX_get_flags: function (p: PASN1_SCTX): TIdC_ULONG; cdecl = nil; {introduced 1.1.0}
-  ASN1_SCTX_set_app_data: procedure (p: PASN1_SCTX; data: Pointer); cdecl = nil; {introduced 1.1.0}
-  ASN1_SCTX_get_app_data: function (p: PASN1_SCTX): Pointer; cdecl = nil; {introduced 1.1.0}
-
+  ASN1_PCTX_get_flags: function (const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl = nil;
+  ASN1_PCTX_set_flags: procedure (p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl = nil;
+  ASN1_PCTX_get_nm_flags: function (const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl = nil;
+  ASN1_PCTX_set_nm_flags: procedure (p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl = nil;
+  ASN1_PCTX_get_cert_flags: function (const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl = nil;
+  ASN1_PCTX_set_cert_flags: procedure (p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl = nil;
+  ASN1_PCTX_get_oid_flags: function (const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl = nil;
+  ASN1_PCTX_set_oid_flags: procedure (p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl = nil;
+  ASN1_PCTX_get_str_flags: function (const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl = nil;
+  ASN1_PCTX_set_str_flags: procedure (p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl = nil;
+  ASN1_SCTX_free: procedure (p: PASN1_SCTX); cdecl = nil; {introduced 1.1.0 }
+  ASN1_SCTX_get_item: function (p: PASN1_SCTX): PASN1_ITEM; cdecl = nil; {introduced 1.1.0 }
+  ASN1_SCTX_get_template: function (p: PASN1_SCTX): PASN1_TEMPLATE; cdecl = nil; {introduced 1.1.0 }
+  ASN1_SCTX_get_flags: function (p: PASN1_SCTX): TOpenSSL_C_ULONG; cdecl = nil; {introduced 1.1.0 }
+  ASN1_SCTX_set_app_data: procedure (p: PASN1_SCTX; data: Pointer); cdecl = nil; {introduced 1.1.0 }
+  ASN1_SCTX_get_app_data: function (p: PASN1_SCTX): Pointer; cdecl = nil; {introduced 1.1.0 }
   BIO_f_asn1: function : PBIO_METHOD; cdecl = nil;
-
   BIO_new_NDEF: function (out_: PBIO; val: PASN1_VALUE; const it: PASN1_ITEM): PBIO; cdecl = nil;
-
-  i2d_ASN1_bio_stream: function (out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
-  PEM_write_bio_ASN1_stream: function (out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
-  //function SMIME_write_ASN1(bio: PBIO; val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
-  //                     ctype_nid: TIdC_INT; econt_nid: TIdC_INT;
-  //                     STACK_OF(X509_ALGOR) *mdalgs, const ASN1_ITEM *it): TIdC_INT;
+  i2d_ASN1_bio_stream: function (out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TOpenSSL_C_INT; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl = nil;
+  PEM_write_bio_ASN1_stream: function (out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TOpenSSL_C_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl = nil;
   SMIME_read_ASN1: function (bio: PBIO; bcont: PPBIO; const it: PASN1_ITEM): PASN1_VALUE; cdecl = nil;
-  SMIME_crlf_copy: function (in_: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT; cdecl = nil;
-  SMIME_text: function (in_: PBIO; out_: PBIO): TIdC_INT; cdecl = nil;
-
-  ASN1_ITEM_lookup: function (const name: PIdAnsiChar): PASN1_ITEM; cdecl = nil; {introduced 1.1.0}
-  ASN1_ITEM_get: function (i: TIdC_SIZET): PASN1_ITEM; cdecl = nil; {introduced 1.1.0}
-
-{$ELSE}
-  function ASN1_TYPE_get(const a: PASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
-  procedure ASN1_TYPE_set(a: PASN1_TYPE; type_: TIdC_INT; value: Pointer) cdecl; external CLibCrypto;
-  function ASN1_TYPE_set1(a: PASN1_TYPE; type_: TIdC_INT; const value: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_TYPE_cmp(const a: PASN1_TYPE; const b: PASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_TYPE_pack_sequence(const it: PASN1_ITEM; s: Pointer; t: PPASN1_TYPE): PASN1_TYPE cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_TYPE_unpack_sequence(const it: PASN1_ITEM; const t: PASN1_TYPE): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function ASN1_OBJECT_new: PASN1_OBJECT cdecl; external CLibCrypto;
-  procedure ASN1_OBJECT_free(a: PASN1_OBJECT) cdecl; external CLibCrypto;
-  function i2d_ASN1_OBJECT(const a: PASN1_OBJECT; pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function d2i_ASN1_OBJECT(a: PPASN1_OBJECT; const pp: PPByte; length: TIdC_LONG): PASN1_OBJECT cdecl; external CLibCrypto;
-
-  //DECLARE_ASN1_ITEM(ASN1_OBJECT)
-  //
-  //DEFINE_STACK_OF(ASN1_OBJECT)
-
-  function ASN1_STRING_new: PASN1_STRING cdecl; external CLibCrypto;
-  procedure ASN1_STRING_free(a: PASN1_STRING) cdecl; external CLibCrypto;
-  procedure ASN1_STRING_clear_free(a: PASN1_STRING) cdecl; external CLibCrypto;
-  function ASN1_STRING_copy(dst: PASN1_STRING; const str: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_STRING_dup(const a: PASN1_STRING): PASN1_STRING cdecl; external CLibCrypto;
-  function ASN1_STRING_type_new(type_: TIdC_INT): PASN1_STRING cdecl; external CLibCrypto;
-  function ASN1_STRING_cmp(const a: PASN1_STRING; const b: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
-
-  (*
-   * Since this is used to store all sorts of things, via macros, for now,
-   * make its data void *
-   *)
-  function ASN1_STRING_set(str: PASN1_STRING; const data: Pointer; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  procedure ASN1_STRING_set0(str: PASN1_STRING; data: Pointer; len: TIdC_INT) cdecl; external CLibCrypto;
-  function ASN1_STRING_length(const x: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
-  procedure ASN1_STRING_length_set(x: PASN1_STRING; n: TIdC_INT) cdecl; external CLibCrypto;
-  function ASN1_STRING_type(const x: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_STRING_get0_data(const x: PASN1_STRING): PByte cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  //DECLARE_ASN1_FUNCTIONS(ASN1_BIT_STRING)
-  function ASN1_BIT_STRING_set(a: PASN1_BIT_STRING; d: PByte; length: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_BIT_STRING_set_bit(a: PASN1_BIT_STRING; n: TIdC_INT; value: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_BIT_STRING_get_bit(const a: PASN1_BIT_STRING; n: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_BIT_STRING_check(const a: PASN1_BIT_STRING; const flags: PByte; flags_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_BIT_STRING_name_print(out_: PBIO; bs: PASN1_BIT_STRING; tbl: PBIT_STRING_BITNAME; indent: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_BIT_STRING_num_asc(const name: PIdAnsiChar; tbl: PBIT_STRING_BITNAME): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_BIT_STRING_set_asc(bs: PASN1_BIT_STRING; const name: PIdAnsiChar; value: TIdC_INT; tbl: PBIT_STRING_BITNAME): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_INTEGER_new: PASN1_INTEGER cdecl; external CLibCrypto;
-  procedure ASN1_INTEGER_free(a: PASN1_INTEGER) cdecl; external CLibCrypto;
-  function d2i_ASN1_INTEGER(a: PPASN1_INTEGER; const in_: PPByte; len: TIdC_Long): PASN1_INTEGER cdecl; external CLibCrypto;
-  function i2d_ASN1_INTEGER(a: PASN1_INTEGER; out_: PPByte): TIdC_Int cdecl; external CLibCrypto;
-
-  function d2i_ASN1_UINTEGER(a: PPASN1_INTEGER; const pp: PPByte; length: TIdC_LONG): PASN1_INTEGER cdecl; external CLibCrypto;
-  function ASN1_INTEGER_dup(const x: PASN1_INTEGER): PASN1_INTEGER cdecl; external CLibCrypto;
-  function ASN1_INTEGER_cmp(const x: PASN1_INTEGER; const y: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
-
-  // DECLARE_ASN1_FUNCTIONS(ASN1_ENUMERATED)
-
-  function ASN1_UTCTIME_check(const a: PASN1_UTCTIME): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_UTCTIME_set(s: PASN1_UTCTIME; t: TIdC_TIMET): PASN1_UTCTIME cdecl; external CLibCrypto;
-  function ASN1_UTCTIME_adj(s: PASN1_UTCTIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_UTCTIME cdecl; external CLibCrypto;
-  function ASN1_UTCTIME_set_string(s: PASN1_UTCTIME; const str: PAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_UTCTIME_cmp_time_t(const s: PASN1_UTCTIME; t: TIdC_TIMET): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_GENERALIZEDTIME_check(const a: PASN1_GENERALIZEDTIME): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_GENERALIZEDTIME_set(s: PASN1_GENERALIZEDTIME; t: TIdC_TIMET): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
-  function ASN1_GENERALIZEDTIME_adj(s: PASN1_GENERALIZEDTIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
-  function ASN1_GENERALIZEDTIME_set_string(s: pASN1_GENERALIZEDTIME; const str: PAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_TIME_diff(pday: PIdC_INT; psec: PIdC_INT; const from: PASN1_TIME; const to_: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
-
-  // DECLARE_ASN1_FUNCTIONS(ASN1_OCTET_STRING)
-  function ASN1_OCTET_STRING_dup(const a: PASN1_OCTET_STRING): PASN1_OCTET_STRING cdecl; external CLibCrypto;
-  function ASN1_OCTET_STRING_cmp(const a: PASN1_OCTET_STRING; const b: PASN1_OCTET_STRING): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_OCTET_STRING_set(str: PASN1_OCTET_STRING; const data: PByte; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  //DECLARE_ASN1_FUNCTIONS(ASN1_VISIBLESTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_UNIVERSALSTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_UTF8STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_NULL)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_BMPSTRING)
-
-  function UTF8_getc(const str: PByte; len: TIdC_INT; val: PIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
-  function UTF8_putc(str: PIdAnsiChar; len: TIdC_INT; value: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
-
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, ASN1_PRINTABLE)
-  //
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, DIRECTORYSTRING)
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, DISPLAYTEXT)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_PRINTABLESTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_T61STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_IA5STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_GENERALSTRING)
-
-  function ASN1_UTCTIME_new: PASN1_UTCTIME cdecl; external CLibCrypto;
-  procedure ASN1_UTCTIME_free(a: PASN1_UTCTIME) cdecl; external CLibCrypto;
-  function d2i_ASN1_UTCTIME(a: PPASN1_UTCTIME; const in_: PPByte; len: TIdC_LONG): PASN1_UTCTIME cdecl; external CLibCrypto;
-  function i2d_ASN1_UTCTIME(a: PASN1_UTCTIME; out_: PPByte): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_GENERALIZEDTIME_new: PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
-  procedure ASN1_GENERALIZEDTIME_free(a: PASN1_GENERALIZEDTIME) cdecl; external CLibCrypto;
-  function d2i_ASN1_GENERALIZEDTIME(a: PPASN1_GENERALIZEDTIME; const in_: PPByte; len: TIdC_LONG): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
-  function i2d_ASN1_GENERALIZEDTIME(a: PASN1_GENERALIZEDTIME; out_: PPByte): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_TIME_new: PASN1_TIME cdecl; external CLibCrypto;
-  procedure ASN1_TIME_free(a: PASN1_TIME) cdecl; external CLibCrypto;
-  function d2i_ASN1_TIME(a: PPASN1_TIME; const in_: PPByte; len: TIdC_LONG): PASN1_TIME cdecl; external CLibCrypto;
-  function i2d_ASN1_TIME(a: PASN1_TIME; out_: PPByte): TIdC_INT cdecl; external CLibCrypto;
-
-  // DECLARE_ASN1_ITEM(ASN1_OCTET_STRING_NDEF)
-
-  function ASN1_TIME_set(s: PASN1_TIME; t: TIdC_TIMET): PASN1_TIME cdecl; external CLibCrypto;
-  function ASN1_TIME_adj(s: PASN1_TIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_TIME cdecl; external CLibCrypto;
-  function ASN1_TIME_check(const t: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_TIME_to_generalizedtime(const t: PASN1_TIME; out_: PPASN1_GENERALIZEDTIME): PASN1_GENERALIZEDTIME cdecl; external CLibCrypto;
-  function ASN1_TIME_set_string(s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_TIME_set_string_X509(s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_TIME_to_tm(const s: PASN1_TIME; tm: PIdC_TM): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_TIME_normalize(s: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_TIME_cmp_time_t(const s: PASN1_TIME; t: TIdC_TIMET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_TIME_compare(const a: PASN1_TIME; const b: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function i2a_ASN1_INTEGER(bp: PBIO; const a: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto;
-  function a2i_ASN1_INTEGER(bp: PBIO; bs: PASN1_INTEGER; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function i2a_ASN1_ENUMERATED(bp: PBIO; const a: PASN1_ENUMERATED): TIdC_INT cdecl; external CLibCrypto;
-  function a2i_ASN1_ENUMERATED(bp: PBIO; bs: PASN1_ENUMERATED; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function i2a_ASN1_OBJECT(bp: PBIO; const a: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-  function a2i_ASN1_STRING(bp: PBIO; bs: PASN1_STRING; buf: PAnsiChar; size: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function i2a_ASN1_STRING(bp: PBIO; const a: PASN1_STRING; type_: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function i2t_ASN1_OBJECT(buf: PAnsiChar; buf_len: TIdC_INT; const a: PASN1_OBJECT): TIdC_INT cdecl; external CLibCrypto;
-
-  function a2d_ASN1_OBJECT(out_: PByte; olen: TIdC_INT; const buf: PIdAnsiChar; num: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_OBJECT_create(nid: TIdC_INT; data: PByte; len: TIdC_INT; const sn: PAnsiChar; const ln: PAnsiChar): PASN1_OBJECT cdecl; external CLibCrypto;
-
-  function ASN1_INTEGER_get_int64(pr: PIdC_Int64; const a: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_INTEGER_set_int64(a: PASN1_INTEGER; r: TIdC_Int64): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_INTEGER_get_uint64(pr: PIdC_UInt64; const a: PASN1_INTEGER): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_INTEGER_set_uint64(a: PASN1_INTEGER; r: TIdC_UInt64): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function ASN1_INTEGER_set(a: PASN1_INTEGER; v: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_INTEGER_get(const a: PASN1_INTEGER): TIdC_LONG cdecl; external CLibCrypto;
-  function BN_to_ASN1_INTEGER(const bn: PBIGNUM; ai: PASN1_INTEGER): PASN1_INTEGER cdecl; external CLibCrypto;
-  function ASN1_INTEGER_to_BN(const ai: PASN1_INTEGER; bn: PBIGNUM): PBIGNUM cdecl; external CLibCrypto;
-
-  function ASN1_ENUMERATED_get_int64(pr: PIdC_Int64; const a: PASN1_ENUMERATED): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_ENUMERATED_set_int64(a: PASN1_ENUMERATED; r: TIdC_Int64): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-
-
-  function ASN1_ENUMERATED_set(a: PASN1_ENUMERATED; v: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_ENUMERATED_get(const a: PASN1_ENUMERATED): TIdC_LONG cdecl; external CLibCrypto;
-  function BN_to_ASN1_ENUMERATED(const bn: PBIGNUM; ai: PASN1_ENUMERATED): PASN1_ENUMERATED cdecl; external CLibCrypto;
-  function ASN1_ENUMERATED_to_BN(const ai: PASN1_ENUMERATED; bn: PBIGNUM): PBIGNUM cdecl; external CLibCrypto;
-
-  (* General *)
-  (* given a string, return the correct type, max is the maximum length *)
-  function ASN1_PRINTABLE_type(const s: PByte; max: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_tag2bit(tag: TIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
-
-  (* SPECIALS *)
-  function ASN1_get_object(const pp: PPByte; plength: PIdC_LONG; ptag: PIdC_INT; pclass: PIdC_INT; omax: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_check_infinite_end(p: PPByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_const_check_infinite_end(const p: PPByte; len: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
-  procedure ASN1_put_object(pp: PPByte; constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT; xclass: TIdC_INT) cdecl; external CLibCrypto;
-  function ASN1_put_eoc(pp: PPByte): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_object_size(constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  (* Used to implement other functions *)
-  //void *ASN1_dup(i2d_of_void *i2d, d2i_of_void *d2i, void *x);
-  //
-  //# define ASN1_dup_of(type,i2d,d2i,x) \
-  //    ((type*)ASN1_dup(CHECKED_I2D_OF(type, i2d), \
-  //                     CHECKED_D2I_OF(type, d2i), \
-  //                     CHECKED_PTR_OF(type, x)))
-  //
-  //# define ASN1_dup_of_const(type,i2d,d2i,x) \
-  //    ((type*)ASN1_dup(CHECKED_I2D_OF(const type, i2d), \
-  //                     CHECKED_D2I_OF(type, d2i), \
-  //                     CHECKED_PTR_OF(const type, x)))
-  //
-  function ASN1_item_dup(const it: PASN1_ITEM; x: Pointer): Pointer cdecl; external CLibCrypto;
-
-    (* ASN1 alloc/free macros for when a type is only used internally *)
-
-  //# define M_ASN1_new_of(type) (type *)ASN1_item_new(ASN1_ITEM_rptr(type))
-  //# define M_ASN1_free_of(x, type) \
-  //                ASN1_item_free(CHECKED_PTR_OF(type, x), ASN1_ITEM_rptr(type))
-  //
-  //# ifndef OPENSSL_NO_STDIO
-  //void *ASN1_d2i_fp(void *(*xnew) (void), d2i_of_void *d2i, FILE *in, void **x);
-
-  //#  define ASN1_d2i_fp_of(type,xnew,d2i,in,x) \
-  //    ((type*)ASN1_d2i_fp(CHECKED_NEW_OF(type, xnew), \
-  //                        CHECKED_D2I_OF(type, d2i), \
-  //                        in, \
-  //                        CHECKED_PPTR_OF(type, x)))
-  //
-  //function ASN1_item_d2i_fp(const it: PASN1_ITEM; in_: PFILE; x: Pointer): Pointer;
-  //function ASN1_i2d_fp(i2d: Pi2d_of_void; out_: PFILE; x: Pointer): TIdC_INT;
-  //
-  //#  define ASN1_i2d_fp_of(type,i2d,out,x) \
-  //    (ASN1_i2d_fp(CHECKED_I2D_OF(type, i2d), \
-  //                 out, \
-  //                 CHECKED_PTR_OF(type, x)))
-  //
-  //#  define ASN1_i2d_fp_of_const(type,i2d,out,x) \
-  //    (ASN1_i2d_fp(CHECKED_I2D_OF(const type, i2d), \
-  //                 out, \
-  //                 CHECKED_PTR_OF(const type, x)))
-  //
-  //function ASN1_item_i2d_fp(const it: PASN1_ITEM; out_: PFILE; x: Pointer): TIdC_INT;
-  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
-  //# endif
-
-  function ASN1_STRING_to_UTF8(out_: PPByte; const in_: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
-
-  //void *ASN1_d2i_bio(void *(*xnew) (void), d2i_of_void *d2i, BIO *in, void **x);
-
-  //#  define ASN1_d2i_bio_of(type,xnew,d2i,in,x) \
-  //    ((type*)ASN1_d2i_bio( CHECKED_NEW_OF(type, xnew), \
-  //                          CHECKED_D2I_OF(type, d2i), \
-  //                          in, \
-  //                          CHECKED_PPTR_OF(type, x)))
-
-  function ASN1_item_d2i_bio(const it: PASN1_ITEM; in_: PBIO; x: Pointer): Pointer cdecl; external CLibCrypto;
-  function ASN1_i2d_bio(i2d: Pi2d_of_void; out_: PBIO; x: PByte): TIdC_INT cdecl; external CLibCrypto;
-
-  //#  define ASN1_i2d_bio_of(type,i2d,out,x) \
-  //    (ASN1_i2d_bio(CHECKED_I2D_OF(type, i2d), \
-  //                  out, \
-  //                  CHECKED_PTR_OF(type, x)))
-  //
-  //#  define ASN1_i2d_bio_of_const(type,i2d,out,x) \
-  //    (ASN1_i2d_bio(CHECKED_I2D_OF(const type, i2d), \
-  //                  out, \
-  //                  CHECKED_PTR_OF(const type, x)))
-
-  function ASN1_item_i2d_bio(const it: PASN1_ITEM; out_: PBIO; x: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_UTCTIME_print(fp: PBIO; const a: PASN1_UTCTIME): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_GENERALIZEDTIME_print(fp: PBIO; const a: PASN1_GENERALIZEDTIME): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_TIME_print(fp: PBIO; const a: PASN1_TIME): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_STRING_print(bp: PBIO; const v: PASN1_STRING): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_STRING_print_ex(out_: PBIO; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_buf_print(bp: PBIO; const buf: PByte; buflen: TIdC_SIZET; off: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_bn_print(bp: PBIO; const number: PIdAnsiChar; const num: PBIGNUM; buf: PByte; off: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_parse(bp: PBIO; const pp: PByte; len: TIdC_LONG; indent: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_parse_dump(bp: PPBIO; const pp: PByte; len: TIdC_LONG; indent: TIdC_INT; dump: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_tag2str(tag: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto;
-
-  (* Used to load and write Netscape format cert *)
-
-  function ASN1_UNIVERSALSTRING_to_string(s: PASN1_UNIVERSALSTRING): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_TYPE_set_octetstring(a: PASN1_TYPE; data: PByte; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_TYPE_get_octetstring(const a: PASN1_TYPE; data: PByte; max_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_TYPE_set_int_octetstring(a: PASN1_TYPE; num: TIdC_LONG; data: PByte; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_TYPE_get_int_octetstring(const a: PASN1_TYPE; num: PIdC_LONG; data: PByte; max_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_item_unpack(const oct: PASN1_STRING; const it: PASN1_ITEM): Pointer cdecl; external CLibCrypto;
-
-  function ASN1_item_pack(obj: Pointer; const it: PASN1_ITEM; oct: PPASN1_OCTET_STRING): PASN1_STRING cdecl; external CLibCrypto;
-
-  procedure ASN1_STRING_set_default_mask(mask: TIdC_ULONG) cdecl; external CLibCrypto;
-  function ASN1_STRING_set_default_mask_asc(const p: PAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_STRING_get_default_mask: TIdC_ULONG cdecl; external CLibCrypto;
-  function ASN1_mbstring_copy(out_: PPASN1_STRING; const in_: PByte; len: TIdC_INT; inform: TIdC_INT; mask: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_mbstring_ncopy(out_: PPASN1_STRING; const in_: PByte; len: TIdC_INT; inform: TIdC_INT; mask: TIdC_ULONG; minsize: TIdC_LONG; maxsize: TIdC_LONG): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_STRING_set_by_NID(out_: PPASN1_STRING; const in_: PByte; inlen: TIdC_INT; inform: TIdC_INT; nid: TIdC_INT): PASN1_STRING cdecl; external CLibCrypto;
-  function ASN1_STRING_TABLE_get(nid: TIdC_INT): PASN1_STRING_TABLE cdecl; external CLibCrypto;
-  function ASN1_STRING_TABLE_add(v1: TIdC_INT; v2: TIdC_LONG; v3: TIdC_LONG; v4: TIdC_ULONG; v5: TIdC_ULONG): TIdC_INT cdecl; external CLibCrypto;
-  procedure ASN1_STRING_TABLE_cleanup cdecl; external CLibCrypto;
-
-  (* ASN1 template functions *)
-
-  (* Old API compatible functions *)
-  function ASN1_item_new(const it: PASN1_ITEM): PASN1_VALUE cdecl; external CLibCrypto;
-  procedure ASN1_item_free(val: PASN1_VALUE; const it: PASN1_ITEM) cdecl; external CLibCrypto;
-  function ASN1_item_d2i(val: PPASN1_VALUE; const in_: PPByte; len: TIdC_LONG; const it: PASN1_ITEM): PASN1_VALUE cdecl; external CLibCrypto;
-  function ASN1_item_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_item_ndef_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
-
-  procedure ASN1_add_oid_module cdecl; external CLibCrypto;
-  procedure ASN1_add_stable_module cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function ASN1_generate_nconf(const str: PAnsiChar; nconf: PCONF): PASN1_TYPE cdecl; external CLibCrypto;
-  function ASN1_generate_v3(const str: PAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE cdecl; external CLibCrypto;
-  function ASN1_str2mask(const str: PByte; pmask: PIdC_ULONG): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function ASN1_item_print(out_: PBIO; ifld: PASN1_VALUE; indent: TIdC_INT; const it: PASN1_ITEM; const pctx: PASN1_PCTX): TIdC_INT cdecl; external CLibCrypto;
-  function ASN1_PCTX_new: PASN1_PCTX cdecl; external CLibCrypto;
-  procedure ASN1_PCTX_free(p: PASN1_PCTX) cdecl; external CLibCrypto;
-  function ASN1_PCTX_get_flags(const p: PASN1_PCTX): TIdC_ULONG cdecl; external CLibCrypto;
-  procedure ASN1_PCTX_set_flags(p: PASN1_PCTX; flags: TIdC_ULONG) cdecl; external CLibCrypto;
-  function ASN1_PCTX_get_nm_flags(const p: PASN1_PCTX): TIdC_ULONG cdecl; external CLibCrypto;
-  procedure ASN1_PCTX_set_nm_flags(p: PASN1_PCTX; flags: TIdC_ULONG) cdecl; external CLibCrypto;
-  function ASN1_PCTX_get_cert_flags(const p: PASN1_PCTX): TIdC_ULONG cdecl; external CLibCrypto;
-  procedure ASN1_PCTX_set_cert_flags(p: PASN1_PCTX; flags: TIdC_ULONG) cdecl; external CLibCrypto;
-  function ASN1_PCTX_get_oid_flags(const p: PASN1_PCTX): TIdC_ULONG cdecl; external CLibCrypto;
-  procedure ASN1_PCTX_set_oid_flags(p: PASN1_PCTX; flags: TIdC_ULONG) cdecl; external CLibCrypto;
-  function ASN1_PCTX_get_str_flags(const p: PASN1_PCTX): TIdC_ULONG cdecl; external CLibCrypto;
-  procedure ASN1_PCTX_set_str_flags(p: PASN1_PCTX; flags: TIdC_ULONG) cdecl; external CLibCrypto;
-
-  //ASN1_SCTX *ASN1_SCTX_new(int (*scan_cb) (ASN1_SCTX *ctx));
-  procedure ASN1_SCTX_free(p: PASN1_SCTX) cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_SCTX_get_item(p: PASN1_SCTX): PASN1_ITEM cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_SCTX_get_template(p: PASN1_SCTX): PASN1_TEMPLATE cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_SCTX_get_flags(p: PASN1_SCTX): TIdC_ULONG cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure ASN1_SCTX_set_app_data(p: PASN1_SCTX; data: Pointer) cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_SCTX_get_app_data(p: PASN1_SCTX): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function BIO_f_asn1: PBIO_METHOD cdecl; external CLibCrypto;
-
-  function BIO_new_NDEF(out_: PBIO; val: PASN1_VALUE; const it: PASN1_ITEM): PBIO cdecl; external CLibCrypto;
-
-  function i2d_ASN1_bio_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
-  function PEM_write_bio_ASN1_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
-  //function SMIME_write_ASN1(bio: PBIO; val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
-  //                     ctype_nid: TIdC_INT; econt_nid: TIdC_INT;
-  //                     STACK_OF(X509_ALGOR) *mdalgs, const ASN1_ITEM *it): TIdC_INT;
-  function SMIME_read_ASN1(bio: PBIO; bcont: PPBIO; const it: PASN1_ITEM): PASN1_VALUE cdecl; external CLibCrypto;
-  function SMIME_crlf_copy(in_: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function SMIME_text(in_: PBIO; out_: PBIO): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_ITEM_lookup(const name: PIdAnsiChar): PASN1_ITEM cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ASN1_ITEM_get(i: TIdC_SIZET): PASN1_ITEM cdecl; external CLibCrypto; {introduced 1.1.0}
-
+  SMIME_crlf_copy: function (in_: PBIO; out_: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  SMIME_text: function (in_: PBIO; out_: PBIO): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_ITEM_lookup: function (const name: PAnsiChar): PASN1_ITEM; cdecl = nil; {introduced 1.1.0 }
+  ASN1_ITEM_get: function (i: TOpenSSL_C_SIZET): PASN1_ITEM; cdecl = nil; {introduced 1.1.0 }
 {$ENDIF}
+const
+  ASN1_TYPE_pack_sequence_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_TYPE_unpack_sequence_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_STRING_get0_data_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_TIME_set_string_X509_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_TIME_to_tm_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_TIME_normalize_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_TIME_cmp_time_t_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_TIME_compare_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_INTEGER_get_int64_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_INTEGER_set_int64_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_INTEGER_get_uint64_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_INTEGER_set_uint64_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_ENUMERATED_get_int64_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_ENUMERATED_set_int64_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_buf_print_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_add_stable_module_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_str2mask_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_SCTX_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_SCTX_get_item_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_SCTX_get_template_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_SCTX_get_flags_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_SCTX_set_app_data_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_SCTX_get_app_data_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_ITEM_lookup_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASN1_ITEM_get_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+
 
 implementation
 
-  uses
-    classes, 
-    IdSSLOpenSSLExceptionHandlers, 
-    IdResourceStringsOpenSSL
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    ,IdSSLOpenSSLLoader
-  {$ENDIF};
-  
-const
-  ASN1_TYPE_pack_sequence_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_TYPE_unpack_sequence_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_STRING_get0_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_TIME_set_string_X509_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_TIME_to_tm_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_TIME_normalize_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_TIME_cmp_time_t_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_TIME_compare_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_INTEGER_get_int64_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_INTEGER_set_int64_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_INTEGER_get_uint64_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_INTEGER_set_uint64_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_ENUMERATED_get_int64_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_ENUMERATED_set_int64_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_buf_print_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_add_stable_module_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_str2mask_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_SCTX_free_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_SCTX_get_item_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_SCTX_get_template_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_SCTX_get_flags_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_SCTX_set_app_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_SCTX_get_app_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_ITEM_lookup_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ASN1_ITEM_get_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
+
+
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-const
-  ASN1_TYPE_get_procname = 'ASN1_TYPE_get';
-  ASN1_TYPE_set_procname = 'ASN1_TYPE_set';
-  ASN1_TYPE_set1_procname = 'ASN1_TYPE_set1';
-  ASN1_TYPE_cmp_procname = 'ASN1_TYPE_cmp';
-
-  ASN1_TYPE_pack_sequence_procname = 'ASN1_TYPE_pack_sequence'; {introduced 1.1.0}
-  ASN1_TYPE_unpack_sequence_procname = 'ASN1_TYPE_unpack_sequence'; {introduced 1.1.0}
-
-  ASN1_OBJECT_new_procname = 'ASN1_OBJECT_new';
-  ASN1_OBJECT_free_procname = 'ASN1_OBJECT_free';
-  i2d_ASN1_OBJECT_procname = 'i2d_ASN1_OBJECT';
-  d2i_ASN1_OBJECT_procname = 'd2i_ASN1_OBJECT';
-
-  //DECLARE_ASN1_ITEM(ASN1_OBJECT)
-  //
-  //DEFINE_STACK_OF(ASN1_OBJECT)
-
-  ASN1_STRING_new_procname = 'ASN1_STRING_new';
-  ASN1_STRING_free_procname = 'ASN1_STRING_free';
-  ASN1_STRING_clear_free_procname = 'ASN1_STRING_clear_free';
-  ASN1_STRING_copy_procname = 'ASN1_STRING_copy';
-  ASN1_STRING_dup_procname = 'ASN1_STRING_dup';
-  ASN1_STRING_type_new_procname = 'ASN1_STRING_type_new';
-  ASN1_STRING_cmp_procname = 'ASN1_STRING_cmp';
-
-  (*
-   * Since this is used to store all sorts of things, via macros, for now,
-   * make its data void *
-   *)
-  ASN1_STRING_set_procname = 'ASN1_STRING_set';
-  ASN1_STRING_set0_procname = 'ASN1_STRING_set0';
-  ASN1_STRING_length_procname = 'ASN1_STRING_length';
-  ASN1_STRING_length_set_procname = 'ASN1_STRING_length_set';
-  ASN1_STRING_type_procname = 'ASN1_STRING_type';
-  ASN1_STRING_get0_data_procname = 'ASN1_STRING_get0_data'; {introduced 1.1.0}
-
-  //DECLARE_ASN1_FUNCTIONS(ASN1_BIT_STRING)
-  ASN1_BIT_STRING_set_procname = 'ASN1_BIT_STRING_set';
-  ASN1_BIT_STRING_set_bit_procname = 'ASN1_BIT_STRING_set_bit';
-  ASN1_BIT_STRING_get_bit_procname = 'ASN1_BIT_STRING_get_bit';
-  ASN1_BIT_STRING_check_procname = 'ASN1_BIT_STRING_check';
-
-  ASN1_BIT_STRING_name_print_procname = 'ASN1_BIT_STRING_name_print';
-  ASN1_BIT_STRING_num_asc_procname = 'ASN1_BIT_STRING_num_asc';
-  ASN1_BIT_STRING_set_asc_procname = 'ASN1_BIT_STRING_set_asc';
-
-  ASN1_INTEGER_new_procname = 'ASN1_INTEGER_new';
-  ASN1_INTEGER_free_procname = 'ASN1_INTEGER_free';
-  d2i_ASN1_INTEGER_procname = 'd2i_ASN1_INTEGER';
-  i2d_ASN1_INTEGER_procname = 'i2d_ASN1_INTEGER';
-
-  d2i_ASN1_UINTEGER_procname = 'd2i_ASN1_UINTEGER';
-  ASN1_INTEGER_dup_procname = 'ASN1_INTEGER_dup';
-  ASN1_INTEGER_cmp_procname = 'ASN1_INTEGER_cmp';
-
-  // DECLARE_ASN1_FUNCTIONS(ASN1_ENUMERATED)
-
-  ASN1_UTCTIME_check_procname = 'ASN1_UTCTIME_check';
-  ASN1_UTCTIME_set_procname = 'ASN1_UTCTIME_set';
-  ASN1_UTCTIME_adj_procname = 'ASN1_UTCTIME_adj';
-  ASN1_UTCTIME_set_string_procname = 'ASN1_UTCTIME_set_string';
-  ASN1_UTCTIME_cmp_time_t_procname = 'ASN1_UTCTIME_cmp_time_t';
-
-  ASN1_GENERALIZEDTIME_check_procname = 'ASN1_GENERALIZEDTIME_check';
-  ASN1_GENERALIZEDTIME_set_procname = 'ASN1_GENERALIZEDTIME_set';
-  ASN1_GENERALIZEDTIME_adj_procname = 'ASN1_GENERALIZEDTIME_adj';
-  ASN1_GENERALIZEDTIME_set_string_procname = 'ASN1_GENERALIZEDTIME_set_string';
-
-  ASN1_TIME_diff_procname = 'ASN1_TIME_diff';
-
-  // DECLARE_ASN1_FUNCTIONS(ASN1_OCTET_STRING)
-  ASN1_OCTET_STRING_dup_procname = 'ASN1_OCTET_STRING_dup';
-  ASN1_OCTET_STRING_cmp_procname = 'ASN1_OCTET_STRING_cmp';
-  ASN1_OCTET_STRING_set_procname = 'ASN1_OCTET_STRING_set';
-
-  //DECLARE_ASN1_FUNCTIONS(ASN1_VISIBLESTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_UNIVERSALSTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_UTF8STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_NULL)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_BMPSTRING)
-
-  UTF8_getc_procname = 'UTF8_getc';
-  UTF8_putc_procname = 'UTF8_putc';
-
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, ASN1_PRINTABLE)
-  //
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, DIRECTORYSTRING)
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, DISPLAYTEXT)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_PRINTABLESTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_T61STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_IA5STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_GENERALSTRING)
-
-  ASN1_UTCTIME_new_procname = 'ASN1_UTCTIME_new';
-  ASN1_UTCTIME_free_procname = 'ASN1_UTCTIME_free';
-  d2i_ASN1_UTCTIME_procname = 'd2i_ASN1_UTCTIME';
-  i2d_ASN1_UTCTIME_procname = 'i2d_ASN1_UTCTIME';
-
-  ASN1_GENERALIZEDTIME_new_procname = 'ASN1_GENERALIZEDTIME_new';
-  ASN1_GENERALIZEDTIME_free_procname = 'ASN1_GENERALIZEDTIME_free';
-  d2i_ASN1_GENERALIZEDTIME_procname = 'd2i_ASN1_GENERALIZEDTIME';
-  i2d_ASN1_GENERALIZEDTIME_procname = 'i2d_ASN1_GENERALIZEDTIME';
-
-  ASN1_TIME_new_procname = 'ASN1_TIME_new';
-  ASN1_TIME_free_procname = 'ASN1_TIME_free';
-  d2i_ASN1_TIME_procname = 'd2i_ASN1_TIME';
-  i2d_ASN1_TIME_procname = 'i2d_ASN1_TIME';
-
-  // DECLARE_ASN1_ITEM(ASN1_OCTET_STRING_NDEF)
-
-  ASN1_TIME_set_procname = 'ASN1_TIME_set';
-  ASN1_TIME_adj_procname = 'ASN1_TIME_adj';
-  ASN1_TIME_check_procname = 'ASN1_TIME_check';
-  ASN1_TIME_to_generalizedtime_procname = 'ASN1_TIME_to_generalizedtime';
-  ASN1_TIME_set_string_procname = 'ASN1_TIME_set_string';
-  ASN1_TIME_set_string_X509_procname = 'ASN1_TIME_set_string_X509'; {introduced 1.1.0}
-  ASN1_TIME_to_tm_procname = 'ASN1_TIME_to_tm'; {introduced 1.1.0}
-  ASN1_TIME_normalize_procname = 'ASN1_TIME_normalize'; {introduced 1.1.0}
-  ASN1_TIME_cmp_time_t_procname = 'ASN1_TIME_cmp_time_t'; {introduced 1.1.0}
-  ASN1_TIME_compare_procname = 'ASN1_TIME_compare'; {introduced 1.1.0}
-
-  i2a_ASN1_INTEGER_procname = 'i2a_ASN1_INTEGER';
-  a2i_ASN1_INTEGER_procname = 'a2i_ASN1_INTEGER';
-  i2a_ASN1_ENUMERATED_procname = 'i2a_ASN1_ENUMERATED';
-  a2i_ASN1_ENUMERATED_procname = 'a2i_ASN1_ENUMERATED';
-  i2a_ASN1_OBJECT_procname = 'i2a_ASN1_OBJECT';
-  a2i_ASN1_STRING_procname = 'a2i_ASN1_STRING';
-  i2a_ASN1_STRING_procname = 'i2a_ASN1_STRING';
-  i2t_ASN1_OBJECT_procname = 'i2t_ASN1_OBJECT';
-
-  a2d_ASN1_OBJECT_procname = 'a2d_ASN1_OBJECT';
-  ASN1_OBJECT_create_procname = 'ASN1_OBJECT_create';
-
-  ASN1_INTEGER_get_int64_procname = 'ASN1_INTEGER_get_int64'; {introduced 1.1.0}
-  ASN1_INTEGER_set_int64_procname = 'ASN1_INTEGER_set_int64'; {introduced 1.1.0}
-  ASN1_INTEGER_get_uint64_procname = 'ASN1_INTEGER_get_uint64'; {introduced 1.1.0}
-  ASN1_INTEGER_set_uint64_procname = 'ASN1_INTEGER_set_uint64'; {introduced 1.1.0}
-
-  ASN1_INTEGER_set_procname = 'ASN1_INTEGER_set';
-  ASN1_INTEGER_get_procname = 'ASN1_INTEGER_get';
-  BN_to_ASN1_INTEGER_procname = 'BN_to_ASN1_INTEGER';
-  ASN1_INTEGER_to_BN_procname = 'ASN1_INTEGER_to_BN';
-
-  ASN1_ENUMERATED_get_int64_procname = 'ASN1_ENUMERATED_get_int64'; {introduced 1.1.0}
-  ASN1_ENUMERATED_set_int64_procname = 'ASN1_ENUMERATED_set_int64'; {introduced 1.1.0}
-
-
-  ASN1_ENUMERATED_set_procname = 'ASN1_ENUMERATED_set';
-  ASN1_ENUMERATED_get_procname = 'ASN1_ENUMERATED_get';
-  BN_to_ASN1_ENUMERATED_procname = 'BN_to_ASN1_ENUMERATED';
-  ASN1_ENUMERATED_to_BN_procname = 'ASN1_ENUMERATED_to_BN';
-
-  (* General *)
-  (* given a string, return the correct type, max is the maximum length *)
-  ASN1_PRINTABLE_type_procname = 'ASN1_PRINTABLE_type';
-
-  ASN1_tag2bit_procname = 'ASN1_tag2bit';
-
-  (* SPECIALS *)
-  ASN1_get_object_procname = 'ASN1_get_object';
-  ASN1_check_infinite_end_procname = 'ASN1_check_infinite_end';
-  ASN1_const_check_infinite_end_procname = 'ASN1_const_check_infinite_end';
-  ASN1_put_object_procname = 'ASN1_put_object';
-  ASN1_put_eoc_procname = 'ASN1_put_eoc';
-  ASN1_object_size_procname = 'ASN1_object_size';
-
-  (* Used to implement other functions *)
-  //void *ASN1_dup(i2d_of_void *i2d, d2i_of_void *d2i, void *x);
-  //
-  //# define ASN1_dup_of(type,i2d,d2i,x) \
-  //    ((type*)ASN1_dup(CHECKED_I2D_OF(type, i2d), \
-  //                     CHECKED_D2I_OF(type, d2i), \
-  //                     CHECKED_PTR_OF(type, x)))
-  //
-  //# define ASN1_dup_of_const(type,i2d,d2i,x) \
-  //    ((type*)ASN1_dup(CHECKED_I2D_OF(const type, i2d), \
-  //                     CHECKED_D2I_OF(type, d2i), \
-  //                     CHECKED_PTR_OF(const type, x)))
-  //
-  ASN1_item_dup_procname = 'ASN1_item_dup';
-
-    (* ASN1 alloc/free macros for when a type is only used internally *)
-
-  //# define M_ASN1_new_of(type) (type *)ASN1_item_new(ASN1_ITEM_rptr(type))
-  //# define M_ASN1_free_of(x, type) \
-  //                ASN1_item_free(CHECKED_PTR_OF(type, x), ASN1_ITEM_rptr(type))
-  //
-  //# ifndef OPENSSL_NO_STDIO
-  //void *ASN1_d2i_fp(void *(*xnew) (void), d2i_of_void *d2i, FILE *in, void **x);
-
-  //#  define ASN1_d2i_fp_of(type,xnew,d2i,in,x) \
-  //    ((type*)ASN1_d2i_fp(CHECKED_NEW_OF(type, xnew), \
-  //                        CHECKED_D2I_OF(type, d2i), \
-  //                        in, \
-  //                        CHECKED_PPTR_OF(type, x)))
-  //
-  //function ASN1_item_d2i_fp(const it: PASN1_ITEM; in_: PFILE; x: Pointer): Pointer;
-  //function ASN1_i2d_fp(i2d: Pi2d_of_void; out_: PFILE; x: Pointer): TIdC_INT;
-  //
-  //#  define ASN1_i2d_fp_of(type,i2d,out,x) \
-  //    (ASN1_i2d_fp(CHECKED_I2D_OF(type, i2d), \
-  //                 out, \
-  //                 CHECKED_PTR_OF(type, x)))
-  //
-  //#  define ASN1_i2d_fp_of_const(type,i2d,out,x) \
-  //    (ASN1_i2d_fp(CHECKED_I2D_OF(const type, i2d), \
-  //                 out, \
-  //                 CHECKED_PTR_OF(const type, x)))
-  //
-  //function ASN1_item_i2d_fp(const it: PASN1_ITEM; out_: PFILE; x: Pointer): TIdC_INT;
-  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
-  //# endif
-
-  ASN1_STRING_to_UTF8_procname = 'ASN1_STRING_to_UTF8';
-
-  //void *ASN1_d2i_bio(void *(*xnew) (void), d2i_of_void *d2i, BIO *in, void **x);
-
-  //#  define ASN1_d2i_bio_of(type,xnew,d2i,in,x) \
-  //    ((type*)ASN1_d2i_bio( CHECKED_NEW_OF(type, xnew), \
-  //                          CHECKED_D2I_OF(type, d2i), \
-  //                          in, \
-  //                          CHECKED_PPTR_OF(type, x)))
-
-  ASN1_item_d2i_bio_procname = 'ASN1_item_d2i_bio';
-  ASN1_i2d_bio_procname = 'ASN1_i2d_bio';
-
-  //#  define ASN1_i2d_bio_of(type,i2d,out,x) \
-  //    (ASN1_i2d_bio(CHECKED_I2D_OF(type, i2d), \
-  //                  out, \
-  //                  CHECKED_PTR_OF(type, x)))
-  //
-  //#  define ASN1_i2d_bio_of_const(type,i2d,out,x) \
-  //    (ASN1_i2d_bio(CHECKED_I2D_OF(const type, i2d), \
-  //                  out, \
-  //                  CHECKED_PTR_OF(const type, x)))
-
-  ASN1_item_i2d_bio_procname = 'ASN1_item_i2d_bio';
-  ASN1_UTCTIME_print_procname = 'ASN1_UTCTIME_print';
-  ASN1_GENERALIZEDTIME_print_procname = 'ASN1_GENERALIZEDTIME_print';
-  ASN1_TIME_print_procname = 'ASN1_TIME_print';
-  ASN1_STRING_print_procname = 'ASN1_STRING_print';
-  ASN1_STRING_print_ex_procname = 'ASN1_STRING_print_ex';
-  ASN1_buf_print_procname = 'ASN1_buf_print'; {introduced 1.1.0}
-  ASN1_bn_print_procname = 'ASN1_bn_print';
-  ASN1_parse_procname = 'ASN1_parse';
-  ASN1_parse_dump_procname = 'ASN1_parse_dump';
-  ASN1_tag2str_procname = 'ASN1_tag2str';
-
-  (* Used to load and write Netscape format cert *)
-
-  ASN1_UNIVERSALSTRING_to_string_procname = 'ASN1_UNIVERSALSTRING_to_string';
-
-  ASN1_TYPE_set_octetstring_procname = 'ASN1_TYPE_set_octetstring';
-  ASN1_TYPE_get_octetstring_procname = 'ASN1_TYPE_get_octetstring';
-  ASN1_TYPE_set_int_octetstring_procname = 'ASN1_TYPE_set_int_octetstring';
-  ASN1_TYPE_get_int_octetstring_procname = 'ASN1_TYPE_get_int_octetstring';
-
-  ASN1_item_unpack_procname = 'ASN1_item_unpack';
-
-  ASN1_item_pack_procname = 'ASN1_item_pack';
-
-  ASN1_STRING_set_default_mask_procname = 'ASN1_STRING_set_default_mask';
-  ASN1_STRING_set_default_mask_asc_procname = 'ASN1_STRING_set_default_mask_asc';
-  ASN1_STRING_get_default_mask_procname = 'ASN1_STRING_get_default_mask';
-  ASN1_mbstring_copy_procname = 'ASN1_mbstring_copy';
-  ASN1_mbstring_ncopy_procname = 'ASN1_mbstring_ncopy';
-
-  ASN1_STRING_set_by_NID_procname = 'ASN1_STRING_set_by_NID';
-  ASN1_STRING_TABLE_get_procname = 'ASN1_STRING_TABLE_get';
-  ASN1_STRING_TABLE_add_procname = 'ASN1_STRING_TABLE_add';
-  ASN1_STRING_TABLE_cleanup_procname = 'ASN1_STRING_TABLE_cleanup';
-
-  (* ASN1 template functions *)
-
-  (* Old API compatible functions *)
-  ASN1_item_new_procname = 'ASN1_item_new';
-  ASN1_item_free_procname = 'ASN1_item_free';
-  ASN1_item_d2i_procname = 'ASN1_item_d2i';
-  ASN1_item_i2d_procname = 'ASN1_item_i2d';
-  ASN1_item_ndef_i2d_procname = 'ASN1_item_ndef_i2d';
-
-  ASN1_add_oid_module_procname = 'ASN1_add_oid_module';
-  ASN1_add_stable_module_procname = 'ASN1_add_stable_module'; {introduced 1.1.0}
-
-  ASN1_generate_nconf_procname = 'ASN1_generate_nconf';
-  ASN1_generate_v3_procname = 'ASN1_generate_v3';
-  ASN1_str2mask_procname = 'ASN1_str2mask'; {introduced 1.1.0}
-
-  ASN1_item_print_procname = 'ASN1_item_print';
-  ASN1_PCTX_new_procname = 'ASN1_PCTX_new';
-  ASN1_PCTX_free_procname = 'ASN1_PCTX_free';
-  ASN1_PCTX_get_flags_procname = 'ASN1_PCTX_get_flags';
-  ASN1_PCTX_set_flags_procname = 'ASN1_PCTX_set_flags';
-  ASN1_PCTX_get_nm_flags_procname = 'ASN1_PCTX_get_nm_flags';
-  ASN1_PCTX_set_nm_flags_procname = 'ASN1_PCTX_set_nm_flags';
-  ASN1_PCTX_get_cert_flags_procname = 'ASN1_PCTX_get_cert_flags';
-  ASN1_PCTX_set_cert_flags_procname = 'ASN1_PCTX_set_cert_flags';
-  ASN1_PCTX_get_oid_flags_procname = 'ASN1_PCTX_get_oid_flags';
-  ASN1_PCTX_set_oid_flags_procname = 'ASN1_PCTX_set_oid_flags';
-  ASN1_PCTX_get_str_flags_procname = 'ASN1_PCTX_get_str_flags';
-  ASN1_PCTX_set_str_flags_procname = 'ASN1_PCTX_set_str_flags';
-
-  //ASN1_SCTX *ASN1_SCTX_new(int (*scan_cb) (ASN1_SCTX *ctx));
-  ASN1_SCTX_free_procname = 'ASN1_SCTX_free'; {introduced 1.1.0}
-  ASN1_SCTX_get_item_procname = 'ASN1_SCTX_get_item'; {introduced 1.1.0}
-  ASN1_SCTX_get_template_procname = 'ASN1_SCTX_get_template'; {introduced 1.1.0}
-  ASN1_SCTX_get_flags_procname = 'ASN1_SCTX_get_flags'; {introduced 1.1.0}
-  ASN1_SCTX_set_app_data_procname = 'ASN1_SCTX_set_app_data'; {introduced 1.1.0}
-  ASN1_SCTX_get_app_data_procname = 'ASN1_SCTX_get_app_data'; {introduced 1.1.0}
-
-  BIO_f_asn1_procname = 'BIO_f_asn1';
-
-  BIO_new_NDEF_procname = 'BIO_new_NDEF';
-
-  i2d_ASN1_bio_stream_procname = 'i2d_ASN1_bio_stream';
-  PEM_write_bio_ASN1_stream_procname = 'PEM_write_bio_ASN1_stream';
-  //function SMIME_write_ASN1(bio: PBIO; val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
-  //                     ctype_nid: TIdC_INT; econt_nid: TIdC_INT;
-  //                     STACK_OF(X509_ALGOR) *mdalgs, const ASN1_ITEM *it): TIdC_INT;
-  SMIME_read_ASN1_procname = 'SMIME_read_ASN1';
-  SMIME_crlf_copy_procname = 'SMIME_crlf_copy';
-  SMIME_text_procname = 'SMIME_text';
-
-  ASN1_ITEM_lookup_procname = 'ASN1_ITEM_lookup'; {introduced 1.1.0}
-  ASN1_ITEM_get_procname = 'ASN1_ITEM_get'; {introduced 1.1.0}
-
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
 {$WARN  NO_RETVAL OFF}
-function  ERR_ASN1_TYPE_get(const a: PASN1_TYPE): TIdC_INT; 
+function ERROR_ASN1_TYPE_get(const a: PASN1_TYPE): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TYPE_get_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TYPE_get');
 end;
 
-
-procedure  ERR_ASN1_TYPE_set(a: PASN1_TYPE; type_: TIdC_INT; value: Pointer); 
+procedure ERROR_ASN1_TYPE_set(a: PASN1_TYPE; type_: TOpenSSL_C_INT; value: Pointer); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TYPE_set_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TYPE_set');
 end;
 
-
-function  ERR_ASN1_TYPE_set1(a: PASN1_TYPE; type_: TIdC_INT; const value: Pointer): TIdC_INT; 
+function ERROR_ASN1_TYPE_set1(a: PASN1_TYPE; type_: TOpenSSL_C_INT; const value: Pointer): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TYPE_set1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TYPE_set1');
 end;
-
 
-function  ERR_ASN1_TYPE_cmp(const a: PASN1_TYPE; const b: PASN1_TYPE): TIdC_INT; 
+function ERROR_ASN1_TYPE_cmp(const a: PASN1_TYPE; const b: PASN1_TYPE): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TYPE_cmp_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TYPE_cmp');
 end;
 
-
-
-function  ERR_ASN1_TYPE_pack_sequence(const it: PASN1_ITEM; s: Pointer; t: PPASN1_TYPE): PASN1_TYPE; 
+function ERROR_ASN1_TYPE_pack_sequence(const it: PASN1_ITEM; s: Pointer; t: PPASN1_TYPE): PASN1_TYPE; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TYPE_pack_sequence_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TYPE_pack_sequence');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_TYPE_unpack_sequence(const it: PASN1_ITEM; const t: PASN1_TYPE): Pointer; 
+function ERROR_ASN1_TYPE_unpack_sequence(const it: PASN1_ITEM; const t: PASN1_TYPE): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TYPE_unpack_sequence_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TYPE_unpack_sequence');
 end;
-
- {introduced 1.1.0}
 
-function  ERR_ASN1_OBJECT_new: PASN1_OBJECT; 
+function ERROR_ASN1_OBJECT_new: PASN1_OBJECT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_OBJECT_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_OBJECT_new');
 end;
 
-
-procedure  ERR_ASN1_OBJECT_free(a: PASN1_OBJECT); 
+procedure ERROR_ASN1_OBJECT_free(a: PASN1_OBJECT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_OBJECT_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_OBJECT_free');
 end;
 
-
-function  ERR_i2d_ASN1_OBJECT(const a: PASN1_OBJECT; pp: PPByte): TIdC_INT; 
+function ERROR_i2d_ASN1_OBJECT(const a: PASN1_OBJECT; pp: PPByte): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2d_ASN1_OBJECT_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2d_ASN1_OBJECT');
 end;
-
 
-function  ERR_d2i_ASN1_OBJECT(a: PPASN1_OBJECT; const pp: PPByte; length: TIdC_LONG): PASN1_OBJECT; 
+function ERROR_d2i_ASN1_OBJECT(a: PPASN1_OBJECT; const pp: PPByte; length: TOpenSSL_C_LONG): PASN1_OBJECT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(d2i_ASN1_OBJECT_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('d2i_ASN1_OBJECT');
 end;
 
-
-
-  //DECLARE_ASN1_ITEM(ASN1_OBJECT)
-  //
-  //DEFINE_STACK_OF(ASN1_OBJECT)
-
-function  ERR_ASN1_STRING_new: PASN1_STRING; 
+function ERROR_ASN1_STRING_new: PASN1_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_new');
 end;
-
 
-procedure  ERR_ASN1_STRING_free(a: PASN1_STRING); 
+procedure ERROR_ASN1_STRING_free(a: PASN1_STRING); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_free');
 end;
 
-
-procedure  ERR_ASN1_STRING_clear_free(a: PASN1_STRING); 
+procedure ERROR_ASN1_STRING_clear_free(a: PASN1_STRING); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_clear_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_clear_free');
 end;
 
-
-function  ERR_ASN1_STRING_copy(dst: PASN1_STRING; const str: PASN1_STRING): TIdC_INT; 
+function ERROR_ASN1_STRING_copy(dst: PASN1_STRING; const str: PASN1_STRING): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_copy_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_copy');
 end;
-
 
-function  ERR_ASN1_STRING_dup(const a: PASN1_STRING): PASN1_STRING; 
+function ERROR_ASN1_STRING_dup(const a: PASN1_STRING): PASN1_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_dup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_dup');
 end;
 
-
-function  ERR_ASN1_STRING_type_new(type_: TIdC_INT): PASN1_STRING; 
+function ERROR_ASN1_STRING_type_new(type_: TOpenSSL_C_INT): PASN1_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_type_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_type_new');
 end;
 
-
-function  ERR_ASN1_STRING_cmp(const a: PASN1_STRING; const b: PASN1_STRING): TIdC_INT; 
+function ERROR_ASN1_STRING_cmp(const a: PASN1_STRING; const b: PASN1_STRING): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_cmp_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_cmp');
 end;
-
 
-
-  (*
-   * Since this is used to store all sorts of things, via macros, for now,
-   * make its data void *
-   *)
-function  ERR_ASN1_STRING_set(str: PASN1_STRING; const data: Pointer; len: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_STRING_set(str: PASN1_STRING; const data: Pointer; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_set_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_set');
 end;
 
-
-procedure  ERR_ASN1_STRING_set0(str: PASN1_STRING; data: Pointer; len: TIdC_INT); 
+procedure ERROR_ASN1_STRING_set0(str: PASN1_STRING; data: Pointer; len: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_set0_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_set0');
 end;
-
 
-function  ERR_ASN1_STRING_length(const x: PASN1_STRING): TIdC_INT; 
+function ERROR_ASN1_STRING_length(const x: PASN1_STRING): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_length_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_length');
 end;
 
-
-procedure  ERR_ASN1_STRING_length_set(x: PASN1_STRING; n: TIdC_INT); 
+procedure ERROR_ASN1_STRING_length_set(x: PASN1_STRING; n: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_length_set_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_length_set');
 end;
-
 
-function  ERR_ASN1_STRING_type(const x: PASN1_STRING): TIdC_INT; 
+function ERROR_ASN1_STRING_type(const x: PASN1_STRING): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_type_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_type');
 end;
 
-
-function  ERR_ASN1_STRING_get0_data(const x: PASN1_STRING): PByte; 
+function ERROR_ASN1_STRING_get0_data(const x: PASN1_STRING): PByte; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_get0_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_get0_data');
 end;
-
- {introduced 1.1.0}
 
-  //DECLARE_ASN1_FUNCTIONS(ASN1_BIT_STRING)
-function  ERR_ASN1_BIT_STRING_set(a: PASN1_BIT_STRING; d: PByte; length: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_BIT_STRING_set(a: PASN1_BIT_STRING; d: PByte; length: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_set_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_BIT_STRING_set');
 end;
 
-
-function  ERR_ASN1_BIT_STRING_set_bit(a: PASN1_BIT_STRING; n: TIdC_INT; value: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_BIT_STRING_set_bit(a: PASN1_BIT_STRING; n: TOpenSSL_C_INT; value: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_set_bit_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_BIT_STRING_set_bit');
 end;
 
-
-function  ERR_ASN1_BIT_STRING_get_bit(const a: PASN1_BIT_STRING; n: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_BIT_STRING_get_bit(const a: PASN1_BIT_STRING; n: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_get_bit_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_BIT_STRING_get_bit');
 end;
-
 
-function  ERR_ASN1_BIT_STRING_check(const a: PASN1_BIT_STRING; const flags: PByte; flags_len: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_BIT_STRING_check(const a: PASN1_BIT_STRING; const flags: PByte; flags_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_check_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_BIT_STRING_check');
 end;
 
-
-
-function  ERR_ASN1_BIT_STRING_name_print(out_: PBIO; bs: PASN1_BIT_STRING; tbl: PBIT_STRING_BITNAME; indent: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_BIT_STRING_name_print(out_: PBIO; bs: PASN1_BIT_STRING; tbl: PBIT_STRING_BITNAME; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_name_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_BIT_STRING_name_print');
 end;
-
 
-function  ERR_ASN1_BIT_STRING_num_asc(const name: PIdAnsiChar; tbl: PBIT_STRING_BITNAME): TIdC_INT; 
+function ERROR_ASN1_BIT_STRING_num_asc(const name: PAnsiChar; tbl: PBIT_STRING_BITNAME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_num_asc_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_BIT_STRING_num_asc');
 end;
 
-
-function  ERR_ASN1_BIT_STRING_set_asc(bs: PASN1_BIT_STRING; const name: PIdAnsiChar; value: TIdC_INT; tbl: PBIT_STRING_BITNAME): TIdC_INT; 
+function ERROR_ASN1_BIT_STRING_set_asc(bs: PASN1_BIT_STRING; const name: PAnsiChar; value: TOpenSSL_C_INT; tbl: PBIT_STRING_BITNAME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_BIT_STRING_set_asc_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_BIT_STRING_set_asc');
 end;
-
-
 
-function  ERR_ASN1_INTEGER_new: PASN1_INTEGER; 
+function ERROR_ASN1_INTEGER_new: PASN1_INTEGER; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_INTEGER_new');
 end;
 
-
-procedure  ERR_ASN1_INTEGER_free(a: PASN1_INTEGER); 
+procedure ERROR_ASN1_INTEGER_free(a: PASN1_INTEGER); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_INTEGER_free');
 end;
-
 
-function  ERR_d2i_ASN1_INTEGER(a: PPASN1_INTEGER; const in_: PPByte; len: TIdC_Long): PASN1_INTEGER; 
+function ERROR_d2i_ASN1_INTEGER(a: PPASN1_INTEGER; const in_: PPByte; len: TOpenSSL_C_Long): PASN1_INTEGER; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(d2i_ASN1_INTEGER_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('d2i_ASN1_INTEGER');
 end;
 
-
-function  ERR_i2d_ASN1_INTEGER(a: PASN1_INTEGER; out_: PPByte): TIdC_Int; 
+function ERROR_i2d_ASN1_INTEGER(a: PASN1_INTEGER; out_: PPByte): TOpenSSL_C_Int; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2d_ASN1_INTEGER_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2d_ASN1_INTEGER');
 end;
-
 
-
-function  ERR_d2i_ASN1_UINTEGER(a: PPASN1_INTEGER; const pp: PPByte; length: TIdC_LONG): PASN1_INTEGER; 
+function ERROR_d2i_ASN1_UINTEGER(a: PPASN1_INTEGER; const pp: PPByte; length: TOpenSSL_C_LONG): PASN1_INTEGER; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(d2i_ASN1_UINTEGER_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('d2i_ASN1_UINTEGER');
 end;
 
-
-function  ERR_ASN1_INTEGER_dup(const x: PASN1_INTEGER): PASN1_INTEGER; 
+function ERROR_ASN1_INTEGER_dup(const x: PASN1_INTEGER): PASN1_INTEGER; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_dup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_INTEGER_dup');
 end;
-
 
-function  ERR_ASN1_INTEGER_cmp(const x: PASN1_INTEGER; const y: PASN1_INTEGER): TIdC_INT; 
+function ERROR_ASN1_INTEGER_cmp(const x: PASN1_INTEGER; const y: PASN1_INTEGER): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_cmp_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_INTEGER_cmp');
 end;
 
-
-
-  // DECLARE_ASN1_FUNCTIONS(ASN1_ENUMERATED)
-
-function  ERR_ASN1_UTCTIME_check(const a: PASN1_UTCTIME): TIdC_INT; 
+function ERROR_ASN1_UTCTIME_check(const a: PASN1_UTCTIME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_UTCTIME_check_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_UTCTIME_check');
 end;
-
 
-function  ERR_ASN1_UTCTIME_set(s: PASN1_UTCTIME; t: TIdC_TIMET): PASN1_UTCTIME; 
+function ERROR_ASN1_UTCTIME_set(s: PASN1_UTCTIME; t: TOpenSSL_C_TIMET): PASN1_UTCTIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_UTCTIME_set_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_UTCTIME_set');
 end;
 
-
-function  ERR_ASN1_UTCTIME_adj(s: PASN1_UTCTIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_UTCTIME; 
+function ERROR_ASN1_UTCTIME_adj(s: PASN1_UTCTIME; t: TOpenSSL_C_TIMET; offset_day: TOpenSSL_C_INT; offset_sec: TOpenSSL_C_LONG): PASN1_UTCTIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_UTCTIME_adj_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_UTCTIME_adj');
 end;
 
-
-function  ERR_ASN1_UTCTIME_set_string(s: PASN1_UTCTIME; const str: PAnsiChar): TIdC_INT; 
+function ERROR_ASN1_UTCTIME_set_string(s: PASN1_UTCTIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_UTCTIME_set_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_UTCTIME_set_string');
 end;
-
 
-function  ERR_ASN1_UTCTIME_cmp_time_t(const s: PASN1_UTCTIME; t: TIdC_TIMET): TIdC_INT; 
+function ERROR_ASN1_UTCTIME_cmp_time_t(const s: PASN1_UTCTIME; t: TOpenSSL_C_TIMET): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_UTCTIME_cmp_time_t_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_UTCTIME_cmp_time_t');
 end;
 
-
-
-function  ERR_ASN1_GENERALIZEDTIME_check(const a: PASN1_GENERALIZEDTIME): TIdC_INT; 
+function ERROR_ASN1_GENERALIZEDTIME_check(const a: PASN1_GENERALIZEDTIME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_GENERALIZEDTIME_check_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_GENERALIZEDTIME_check');
 end;
 
-
-function  ERR_ASN1_GENERALIZEDTIME_set(s: PASN1_GENERALIZEDTIME; t: TIdC_TIMET): PASN1_GENERALIZEDTIME; 
+function ERROR_ASN1_GENERALIZEDTIME_set(s: PASN1_GENERALIZEDTIME; t: TOpenSSL_C_TIMET): PASN1_GENERALIZEDTIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_GENERALIZEDTIME_set_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_GENERALIZEDTIME_set');
 end;
-
 
-function  ERR_ASN1_GENERALIZEDTIME_adj(s: PASN1_GENERALIZEDTIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_GENERALIZEDTIME; 
+function ERROR_ASN1_GENERALIZEDTIME_adj(s: PASN1_GENERALIZEDTIME; t: TOpenSSL_C_TIMET; offset_day: TOpenSSL_C_INT; offset_sec: TOpenSSL_C_LONG): PASN1_GENERALIZEDTIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_GENERALIZEDTIME_adj_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_GENERALIZEDTIME_adj');
 end;
 
-
-function  ERR_ASN1_GENERALIZEDTIME_set_string(s: pASN1_GENERALIZEDTIME; const str: PAnsiChar): TIdC_INT; 
+function ERROR_ASN1_GENERALIZEDTIME_set_string(s: pASN1_GENERALIZEDTIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_GENERALIZEDTIME_set_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_GENERALIZEDTIME_set_string');
 end;
-
-
 
-function  ERR_ASN1_TIME_diff(pday: PIdC_INT; psec: PIdC_INT; const from: PASN1_TIME; const to_: PASN1_TIME): TIdC_INT; 
+function ERROR_ASN1_TIME_diff(pday: POpenSSL_C_INT; psec: POpenSSL_C_INT; const from: PASN1_TIME; const to_: PASN1_TIME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_diff_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_diff');
 end;
 
-
-
-  // DECLARE_ASN1_FUNCTIONS(ASN1_OCTET_STRING)
-function  ERR_ASN1_OCTET_STRING_dup(const a: PASN1_OCTET_STRING): PASN1_OCTET_STRING; 
+function ERROR_ASN1_OCTET_STRING_dup(const a: PASN1_OCTET_STRING): PASN1_OCTET_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_OCTET_STRING_dup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_OCTET_STRING_dup');
 end;
-
 
-function  ERR_ASN1_OCTET_STRING_cmp(const a: PASN1_OCTET_STRING; const b: PASN1_OCTET_STRING): TIdC_INT; 
+function ERROR_ASN1_OCTET_STRING_cmp(const a: PASN1_OCTET_STRING; const b: PASN1_OCTET_STRING): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_OCTET_STRING_cmp_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_OCTET_STRING_cmp');
 end;
 
-
-function  ERR_ASN1_OCTET_STRING_set(str: PASN1_OCTET_STRING; const data: PByte; len: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_OCTET_STRING_set(str: PASN1_OCTET_STRING; const data: PByte; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_OCTET_STRING_set_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_OCTET_STRING_set');
 end;
-
-
 
-  //DECLARE_ASN1_FUNCTIONS(ASN1_VISIBLESTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_UNIVERSALSTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_UTF8STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_NULL)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_BMPSTRING)
-
-function  ERR_UTF8_getc(const str: PByte; len: TIdC_INT; val: PIdC_ULONG): TIdC_INT; 
+function ERROR_ASN1_OCTET_STRING_new: PASN1_OCTET_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(UTF8_getc_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_OCTET_STRING_new');
 end;
-
 
-function  ERR_UTF8_putc(str: PIdAnsiChar; len: TIdC_INT; value: TIdC_ULONG): TIdC_INT; 
+procedure ERROR_ASN1_OCTET_STRING_free(a: PASN1_OCTET_STRING); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(UTF8_putc_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_OCTET_STRING_free');
 end;
-
-
 
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, ASN1_PRINTABLE)
-  //
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, DIRECTORYSTRING)
-  //DECLARE_ASN1_FUNCTIONS_name(ASN1_STRING, DISPLAYTEXT)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_PRINTABLESTRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_T61STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_IA5STRING)
-  //DECLARE_ASN1_FUNCTIONS(ASN1_GENERALSTRING)
-
-function  ERR_ASN1_UTCTIME_new: PASN1_UTCTIME; 
+function ERROR_d2i_ASN1_OCTET_STRING(val_out : PPASN1_OCTET_STRING; der_in : PPAnsiChar; length : TOpenSSL_C_LONG): PASN1_OCTET_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_UTCTIME_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('d2i_ASN1_OCTET_STRING');
 end;
 
-
-procedure  ERR_ASN1_UTCTIME_free(a: PASN1_UTCTIME); 
+function ERROR_i2d_ASN1_OCTET_STRING(val_in : PASN1_OCTET_STRING; der_out : PPAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_UTCTIME_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2d_ASN1_OCTET_STRING');
 end;
-
 
-function  ERR_d2i_ASN1_UTCTIME(a: PPASN1_UTCTIME; const in_: PPByte; len: TIdC_LONG): PASN1_UTCTIME; 
+function ERROR_UTF8_getc(const str: PByte; len: TOpenSSL_C_INT; val: POpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(d2i_ASN1_UTCTIME_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('UTF8_getc');
 end;
 
-
-function  ERR_i2d_ASN1_UTCTIME(a: PASN1_UTCTIME; out_: PPByte): TIdC_INT; 
+function ERROR_UTF8_putc(str: PAnsiChar; len: TOpenSSL_C_INT; value: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2d_ASN1_UTCTIME_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('UTF8_putc');
 end;
-
 
-
-function  ERR_ASN1_GENERALIZEDTIME_new: PASN1_GENERALIZEDTIME; 
+function ERROR_ASN1_UTCTIME_new: PASN1_UTCTIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_GENERALIZEDTIME_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_UTCTIME_new');
 end;
-
 
-procedure  ERR_ASN1_GENERALIZEDTIME_free(a: PASN1_GENERALIZEDTIME); 
+procedure ERROR_ASN1_UTCTIME_free(a: PASN1_UTCTIME); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_GENERALIZEDTIME_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_UTCTIME_free');
 end;
 
-
-function  ERR_d2i_ASN1_GENERALIZEDTIME(a: PPASN1_GENERALIZEDTIME; const in_: PPByte; len: TIdC_LONG): PASN1_GENERALIZEDTIME; 
+function ERROR_d2i_ASN1_UTCTIME(a: PPASN1_UTCTIME; const in_: PPByte; len: TOpenSSL_C_LONG): PASN1_UTCTIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(d2i_ASN1_GENERALIZEDTIME_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('d2i_ASN1_UTCTIME');
 end;
 
-
-function  ERR_i2d_ASN1_GENERALIZEDTIME(a: PASN1_GENERALIZEDTIME; out_: PPByte): TIdC_INT; 
+function ERROR_i2d_ASN1_UTCTIME(a: PASN1_UTCTIME; out_: PPByte): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2d_ASN1_GENERALIZEDTIME_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2d_ASN1_UTCTIME');
 end;
-
 
-
-function  ERR_ASN1_TIME_new: PASN1_TIME; 
+function ERROR_ASN1_GENERALIZEDTIME_new: PASN1_GENERALIZEDTIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_GENERALIZEDTIME_new');
 end;
-
 
-procedure  ERR_ASN1_TIME_free(a: PASN1_TIME); 
+procedure ERROR_ASN1_GENERALIZEDTIME_free(a: PASN1_GENERALIZEDTIME); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_GENERALIZEDTIME_free');
 end;
 
-
-function  ERR_d2i_ASN1_TIME(a: PPASN1_TIME; const in_: PPByte; len: TIdC_LONG): PASN1_TIME; 
+function ERROR_d2i_ASN1_GENERALIZEDTIME(a: PPASN1_GENERALIZEDTIME; const in_: PPByte; len: TOpenSSL_C_LONG): PASN1_GENERALIZEDTIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(d2i_ASN1_TIME_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('d2i_ASN1_GENERALIZEDTIME');
 end;
-
 
-function  ERR_i2d_ASN1_TIME(a: PASN1_TIME; out_: PPByte): TIdC_INT; 
+function ERROR_i2d_ASN1_GENERALIZEDTIME(a: PASN1_GENERALIZEDTIME; out_: PPByte): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2d_ASN1_TIME_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2d_ASN1_GENERALIZEDTIME');
 end;
 
-
-
-  // DECLARE_ASN1_ITEM(ASN1_OCTET_STRING_NDEF)
-
-function  ERR_ASN1_TIME_set(s: PASN1_TIME; t: TIdC_TIMET): PASN1_TIME; 
+function ERROR_ASN1_TIME_new: PASN1_TIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_set_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_new');
 end;
 
-
-function  ERR_ASN1_TIME_adj(s: PASN1_TIME; t: TIdC_TIMET; offset_day: TIdC_INT; offset_sec: TIdC_LONG): PASN1_TIME; 
+procedure ERROR_ASN1_TIME_free(a: PASN1_TIME); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_adj_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_free');
 end;
 
-
-function  ERR_ASN1_TIME_check(const t: PASN1_TIME): TIdC_INT; 
+function ERROR_d2i_ASN1_TIME(a: PPASN1_TIME; const in_: PPByte; len: TOpenSSL_C_LONG): PASN1_TIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_check_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('d2i_ASN1_TIME');
 end;
-
 
-function  ERR_ASN1_TIME_to_generalizedtime(const t: PASN1_TIME; out_: PPASN1_GENERALIZEDTIME): PASN1_GENERALIZEDTIME; 
+function ERROR_i2d_ASN1_TIME(a: PASN1_TIME; out_: PPByte): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_to_generalizedtime_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2d_ASN1_TIME');
 end;
 
-
-function  ERR_ASN1_TIME_set_string(s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT; 
+function ERROR_ASN1_TIME_set(s: PASN1_TIME; t: TOpenSSL_C_TIMET): PASN1_TIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_set_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_set');
 end;
 
-
-function  ERR_ASN1_TIME_set_string_X509(s: PASN1_TIME; const str: PIdAnsiChar): TIdC_INT; 
+function ERROR_ASN1_TIME_adj(s: PASN1_TIME; t: TOpenSSL_C_TIMET; offset_day: TOpenSSL_C_INT; offset_sec: TOpenSSL_C_LONG): PASN1_TIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_set_string_X509_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_adj');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_TIME_to_tm(const s: PASN1_TIME; tm: PIdC_TM): TIdC_INT; 
+function ERROR_ASN1_TIME_check(const t: PASN1_TIME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_to_tm_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_check');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_TIME_normalize(s: PASN1_TIME): TIdC_INT; 
+function ERROR_ASN1_TIME_to_generalizedtime(const t: PASN1_TIME; out_: PPASN1_GENERALIZEDTIME): PASN1_GENERALIZEDTIME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_normalize_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_to_generalizedtime');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_TIME_cmp_time_t(const s: PASN1_TIME; t: TIdC_TIMET): TIdC_INT; 
+function ERROR_ASN1_TIME_set_string(s: PASN1_TIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_cmp_time_t_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_set_string');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_TIME_compare(const a: PASN1_TIME; const b: PASN1_TIME): TIdC_INT; 
+function ERROR_ASN1_TIME_set_string_X509(s: PASN1_TIME; const str: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_compare_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_set_string_X509');
 end;
-
- {introduced 1.1.0}
 
-function  ERR_i2a_ASN1_INTEGER(bp: PBIO; const a: PASN1_INTEGER): TIdC_INT; 
+function ERROR_ASN1_TIME_to_tm(const s: PASN1_TIME; tm: POpenSSL_C_TM): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2a_ASN1_INTEGER_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_to_tm');
 end;
 
-
-function  ERR_a2i_ASN1_INTEGER(bp: PBIO; bs: PASN1_INTEGER; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_TIME_normalize(s: PASN1_TIME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(a2i_ASN1_INTEGER_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_normalize');
 end;
-
 
-function  ERR_i2a_ASN1_ENUMERATED(bp: PBIO; const a: PASN1_ENUMERATED): TIdC_INT; 
+function ERROR_ASN1_TIME_cmp_time_t(const s: PASN1_TIME; t: TOpenSSL_C_TIMET): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2a_ASN1_ENUMERATED_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_cmp_time_t');
 end;
 
-
-function  ERR_a2i_ASN1_ENUMERATED(bp: PBIO; bs: PASN1_ENUMERATED; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_TIME_compare(const a: PASN1_TIME; const b: PASN1_TIME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(a2i_ASN1_ENUMERATED_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_compare');
 end;
-
 
-function  ERR_i2a_ASN1_OBJECT(bp: PBIO; const a: PASN1_OBJECT): TIdC_INT; 
+function ERROR_i2a_ASN1_INTEGER(bp: PBIO; const a: PASN1_INTEGER): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2a_ASN1_OBJECT_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2a_ASN1_INTEGER');
 end;
 
-
-function  ERR_a2i_ASN1_STRING(bp: PBIO; bs: PASN1_STRING; buf: PAnsiChar; size: TIdC_INT): TIdC_INT; 
+function ERROR_a2i_ASN1_INTEGER(bp: PBIO; bs: PASN1_INTEGER; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(a2i_ASN1_STRING_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('a2i_ASN1_INTEGER');
 end;
 
-
-function  ERR_i2a_ASN1_STRING(bp: PBIO; const a: PASN1_STRING; type_: TIdC_INT): TIdC_INT; 
+function ERROR_i2a_ASN1_ENUMERATED(bp: PBIO; const a: PASN1_ENUMERATED): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2a_ASN1_STRING_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2a_ASN1_ENUMERATED');
 end;
-
 
-function  ERR_i2t_ASN1_OBJECT(buf: PAnsiChar; buf_len: TIdC_INT; const a: PASN1_OBJECT): TIdC_INT; 
+function ERROR_a2i_ASN1_ENUMERATED(bp: PBIO; bs: PASN1_ENUMERATED; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2t_ASN1_OBJECT_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('a2i_ASN1_ENUMERATED');
 end;
 
-
-
-function  ERR_a2d_ASN1_OBJECT(out_: PByte; olen: TIdC_INT; const buf: PIdAnsiChar; num: TIdC_INT): TIdC_INT; 
+function ERROR_i2a_ASN1_OBJECT(bp: PBIO; const a: PASN1_OBJECT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(a2d_ASN1_OBJECT_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2a_ASN1_OBJECT');
 end;
 
-
-function  ERR_ASN1_OBJECT_create(nid: TIdC_INT; data: PByte; len: TIdC_INT; const sn: PAnsiChar; const ln: PAnsiChar): PASN1_OBJECT; 
+function ERROR_a2i_ASN1_STRING(bp: PBIO; bs: PASN1_STRING; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_OBJECT_create_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('a2i_ASN1_STRING');
 end;
-
 
-
-function  ERR_ASN1_INTEGER_get_int64(pr: PIdC_Int64; const a: PASN1_INTEGER): TIdC_INT; 
+function ERROR_i2a_ASN1_STRING(bp: PBIO; const a: PASN1_STRING; type_: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_get_int64_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2a_ASN1_STRING');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_INTEGER_set_int64(a: PASN1_INTEGER; r: TIdC_Int64): TIdC_INT; 
+function ERROR_i2t_ASN1_OBJECT(buf: PAnsiChar; buf_len: TOpenSSL_C_INT; const a: PASN1_OBJECT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_set_int64_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2t_ASN1_OBJECT');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_INTEGER_get_uint64(pr: PIdC_UInt64; const a: PASN1_INTEGER): TIdC_INT; 
+function ERROR_a2d_ASN1_OBJECT(out_: PByte; olen: TOpenSSL_C_INT; const buf: PAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_get_uint64_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('a2d_ASN1_OBJECT');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_INTEGER_set_uint64(a: PASN1_INTEGER; r: TIdC_UInt64): TIdC_INT; 
+function ERROR_ASN1_OBJECT_create(nid: TOpenSSL_C_INT; data: PByte; len: TOpenSSL_C_INT; const sn: PAnsiChar; const ln: PAnsiChar): PASN1_OBJECT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_set_uint64_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_OBJECT_create');
 end;
 
- {introduced 1.1.0}
-
-function  ERR_ASN1_INTEGER_set(a: PASN1_INTEGER; v: TIdC_LONG): TIdC_INT; 
+function ERROR_ASN1_INTEGER_get_int64(pr: POpenSSL_C_Int64; const a: PASN1_INTEGER): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_set_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_INTEGER_get_int64');
 end;
-
 
-function  ERR_ASN1_INTEGER_get(const a: PASN1_INTEGER): TIdC_LONG; 
+function ERROR_ASN1_INTEGER_set_int64(a: PASN1_INTEGER; r: TOpenSSL_C_Int64): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_get_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_INTEGER_set_int64');
 end;
 
-
-function  ERR_BN_to_ASN1_INTEGER(const bn: PBIGNUM; ai: PASN1_INTEGER): PASN1_INTEGER; 
+function ERROR_ASN1_INTEGER_get_uint64(pr: POpenSSL_C_UInt64; const a: PASN1_INTEGER): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BN_to_ASN1_INTEGER_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_INTEGER_get_uint64');
 end;
-
 
-function  ERR_ASN1_INTEGER_to_BN(const ai: PASN1_INTEGER; bn: PBIGNUM): PBIGNUM; 
+function ERROR_ASN1_INTEGER_set_uint64(a: PASN1_INTEGER; r: TOpenSSL_C_UInt64): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_INTEGER_to_BN_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_INTEGER_set_uint64');
 end;
-
-
 
-function  ERR_ASN1_ENUMERATED_get_int64(pr: PIdC_Int64; const a: PASN1_ENUMERATED): TIdC_INT; 
+function ERROR_ASN1_INTEGER_set(a: PASN1_INTEGER; v: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_ENUMERATED_get_int64_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_INTEGER_set');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_ENUMERATED_set_int64(a: PASN1_ENUMERATED; r: TIdC_Int64): TIdC_INT; 
+function ERROR_ASN1_INTEGER_get(const a: PASN1_INTEGER): TOpenSSL_C_LONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_ENUMERATED_set_int64_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_INTEGER_get');
 end;
 
- {introduced 1.1.0}
-
-
-function  ERR_ASN1_ENUMERATED_set(a: PASN1_ENUMERATED; v: TIdC_LONG): TIdC_INT; 
+function ERROR_BN_to_ASN1_INTEGER(const bn: PBIGNUM; ai: PASN1_INTEGER): PASN1_INTEGER; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_ENUMERATED_set_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BN_to_ASN1_INTEGER');
 end;
-
 
-function  ERR_ASN1_ENUMERATED_get(const a: PASN1_ENUMERATED): TIdC_LONG; 
+function ERROR_ASN1_INTEGER_to_BN(const ai: PASN1_INTEGER; bn: PBIGNUM): PBIGNUM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_ENUMERATED_get_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_INTEGER_to_BN');
 end;
 
-
-function  ERR_BN_to_ASN1_ENUMERATED(const bn: PBIGNUM; ai: PASN1_ENUMERATED): PASN1_ENUMERATED; 
+function ERROR_ASN1_ENUMERATED_get_int64(pr: POpenSSL_C_Int64; const a: PASN1_ENUMERATED): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BN_to_ASN1_ENUMERATED_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_ENUMERATED_get_int64');
 end;
 
-
-function  ERR_ASN1_ENUMERATED_to_BN(const ai: PASN1_ENUMERATED; bn: PBIGNUM): PBIGNUM; 
+function ERROR_ASN1_ENUMERATED_set_int64(a: PASN1_ENUMERATED; r: TOpenSSL_C_Int64): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_ENUMERATED_to_BN_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_ENUMERATED_set_int64');
 end;
-
 
-
-  (* General *)
-  (* given a string, return the correct type, max is the maximum length *)
-function  ERR_ASN1_PRINTABLE_type(const s: PByte; max: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_ENUMERATED_set(a: PASN1_ENUMERATED; v: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PRINTABLE_type_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_ENUMERATED_set');
 end;
-
-
 
-function  ERR_ASN1_tag2bit(tag: TIdC_INT): TIdC_ULONG; 
+function ERROR_ASN1_ENUMERATED_get(const a: PASN1_ENUMERATED): TOpenSSL_C_LONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_tag2bit_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_ENUMERATED_get');
 end;
 
-
-
-  (* SPECIALS *)
-function  ERR_ASN1_get_object(const pp: PPByte; plength: PIdC_LONG; ptag: PIdC_INT; pclass: PIdC_INT; omax: TIdC_LONG): TIdC_INT; 
+function ERROR_BN_to_ASN1_ENUMERATED(const bn: PBIGNUM; ai: PASN1_ENUMERATED): PASN1_ENUMERATED; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_get_object_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BN_to_ASN1_ENUMERATED');
 end;
 
-
-function  ERR_ASN1_check_infinite_end(p: PPByte; len: TIdC_LONG): TIdC_INT; 
+function ERROR_ASN1_ENUMERATED_to_BN(const ai: PASN1_ENUMERATED; bn: PBIGNUM): PBIGNUM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_check_infinite_end_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_ENUMERATED_to_BN');
 end;
-
 
-function  ERR_ASN1_const_check_infinite_end(const p: PPByte; len: TIdC_LONG): TIdC_INT; 
+function ERROR_ASN1_PRINTABLE_type(const s: PByte; max: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_const_check_infinite_end_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PRINTABLE_type');
 end;
 
-
-procedure  ERR_ASN1_put_object(pp: PPByte; constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT; xclass: TIdC_INT); 
+function ERROR_ASN1_tag2bit(tag: TOpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_put_object_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_tag2bit');
 end;
 
-
-function  ERR_ASN1_put_eoc(pp: PPByte): TIdC_INT; 
+function ERROR_ASN1_get_object(const pp: PPByte; plength: POpenSSL_C_LONG; ptag: POpenSSL_C_INT; pclass: POpenSSL_C_INT; omax: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_put_eoc_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_get_object');
 end;
-
 
-function  ERR_ASN1_object_size(constructed: TIdC_INT; length: TIdC_INT; tag: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_check_infinite_end(p: PPByte; len: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_object_size_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_check_infinite_end');
 end;
 
-
-
-  (* Used to implement other functions *)
-  //void *ASN1_dup(i2d_of_void *i2d, d2i_of_void *d2i, void *x);
-  //
-  //# define ASN1_dup_of(type,i2d,d2i,x) \
-  //    ((type*)ASN1_dup(CHECKED_I2D_OF(type, i2d), \
-  //                     CHECKED_D2I_OF(type, d2i), \
-  //                     CHECKED_PTR_OF(type, x)))
-  //
-  //# define ASN1_dup_of_const(type,i2d,d2i,x) \
-  //    ((type*)ASN1_dup(CHECKED_I2D_OF(const type, i2d), \
-  //                     CHECKED_D2I_OF(type, d2i), \
-  //                     CHECKED_PTR_OF(const type, x)))
-  //
-function  ERR_ASN1_item_dup(const it: PASN1_ITEM; x: Pointer): Pointer; 
+function ERROR_ASN1_const_check_infinite_end(const p: PPByte; len: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_dup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_const_check_infinite_end');
 end;
-
-
 
-    (* ASN1 alloc/free macros for when a type is only used internally *)
-
-  //# define M_ASN1_new_of(type) (type *)ASN1_item_new(ASN1_ITEM_rptr(type))
-  //# define M_ASN1_free_of(x, type) \
-  //                ASN1_item_free(CHECKED_PTR_OF(type, x), ASN1_ITEM_rptr(type))
-  //
-  //# ifndef OPENSSL_NO_STDIO
-  //void *ASN1_d2i_fp(void *(*xnew) (void), d2i_of_void *d2i, FILE *in, void **x);
-
-  //#  define ASN1_d2i_fp_of(type,xnew,d2i,in,x) \
-  //    ((type*)ASN1_d2i_fp(CHECKED_NEW_OF(type, xnew), \
-  //                        CHECKED_D2I_OF(type, d2i), \
-  //                        in, \
-  //                        CHECKED_PPTR_OF(type, x)))
-  //
-  //function ASN1_item_d2i_fp(const it: PASN1_ITEM; in_: PFILE; x: Pointer): Pointer;
-  //function ASN1_i2d_fp(i2d: Pi2d_of_void; out_: PFILE; x: Pointer): TIdC_INT;
-  //
-  //#  define ASN1_i2d_fp_of(type,i2d,out,x) \
-  //    (ASN1_i2d_fp(CHECKED_I2D_OF(type, i2d), \
-  //                 out, \
-  //                 CHECKED_PTR_OF(type, x)))
-  //
-  //#  define ASN1_i2d_fp_of_const(type,i2d,out,x) \
-  //    (ASN1_i2d_fp(CHECKED_I2D_OF(const type, i2d), \
-  //                 out, \
-  //                 CHECKED_PTR_OF(const type, x)))
-  //
-  //function ASN1_item_i2d_fp(const it: PASN1_ITEM; out_: PFILE; x: Pointer): TIdC_INT;
-  //function ASN1_STRING_print_ex_fp(&fp: PFILE; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT;
-  //# endif
-
-function  ERR_ASN1_STRING_to_UTF8(out_: PPByte; const in_: PASN1_STRING): TIdC_INT; 
+procedure ERROR_ASN1_put_object(pp: PPByte; constructed: TOpenSSL_C_INT; length: TOpenSSL_C_INT; tag: TOpenSSL_C_INT; xclass: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_to_UTF8_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_put_object');
 end;
-
-
-
-  //void *ASN1_d2i_bio(void *(*xnew) (void), d2i_of_void *d2i, BIO *in, void **x);
-
-  //#  define ASN1_d2i_bio_of(type,xnew,d2i,in,x) \
-  //    ((type*)ASN1_d2i_bio( CHECKED_NEW_OF(type, xnew), \
-  //                          CHECKED_D2I_OF(type, d2i), \
-  //                          in, \
-  //                          CHECKED_PPTR_OF(type, x)))
 
-function  ERR_ASN1_item_d2i_bio(const it: PASN1_ITEM; in_: PBIO; x: Pointer): Pointer; 
+function ERROR_ASN1_put_eoc(pp: PPByte): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_d2i_bio_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_put_eoc');
 end;
 
-
-function  ERR_ASN1_i2d_bio(i2d: Pi2d_of_void; out_: PBIO; x: PByte): TIdC_INT; 
+function ERROR_ASN1_object_size(constructed: TOpenSSL_C_INT; length: TOpenSSL_C_INT; tag: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_i2d_bio_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_object_size');
 end;
-
-
 
-  //#  define ASN1_i2d_bio_of(type,i2d,out,x) \
-  //    (ASN1_i2d_bio(CHECKED_I2D_OF(type, i2d), \
-  //                  out, \
-  //                  CHECKED_PTR_OF(type, x)))
-  //
-  //#  define ASN1_i2d_bio_of_const(type,i2d,out,x) \
-  //    (ASN1_i2d_bio(CHECKED_I2D_OF(const type, i2d), \
-  //                  out, \
-  //                  CHECKED_PTR_OF(const type, x)))
-
-function  ERR_ASN1_item_i2d_bio(const it: PASN1_ITEM; out_: PBIO; x: Pointer): TIdC_INT; 
+function ERROR_ASN1_item_dup(const it: PASN1_ITEM; x: Pointer): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_i2d_bio_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_dup');
 end;
 
-
-function  ERR_ASN1_UTCTIME_print(fp: PBIO; const a: PASN1_UTCTIME): TIdC_INT; 
+function ERROR_ASN1_STRING_to_UTF8(out_: PPByte; const in_: PASN1_STRING): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_UTCTIME_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_to_UTF8');
 end;
-
 
-function  ERR_ASN1_GENERALIZEDTIME_print(fp: PBIO; const a: PASN1_GENERALIZEDTIME): TIdC_INT; 
+function ERROR_ASN1_d2i_bio(xnew: pxnew; d2i: pd2i_of_void; in_: PBIO; x: PPointer): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_GENERALIZEDTIME_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_d2i_bio');
 end;
 
-
-function  ERR_ASN1_TIME_print(fp: PBIO; const a: PASN1_TIME): TIdC_INT; 
+function ERROR_ASN1_item_d2i_bio(const it: PASN1_ITEM; in_: PBIO; x: Pointer): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TIME_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_d2i_bio');
 end;
 
-
-function  ERR_ASN1_STRING_print(bp: PBIO; const v: PASN1_STRING): TIdC_INT; 
+function ERROR_ASN1_i2d_bio(i2d: Pi2d_of_void; out_: PBIO; x: PByte): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_i2d_bio');
 end;
-
 
-function  ERR_ASN1_STRING_print_ex(out_: PBIO; const str: PASN1_STRING; flags: TIdC_ULONG): TIdC_INT; 
+function ERROR_ASN1_item_i2d_bio(const it: PASN1_ITEM; out_: PBIO; x: Pointer): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_print_ex_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_i2d_bio');
 end;
 
-
-function  ERR_ASN1_buf_print(bp: PBIO; const buf: PByte; buflen: TIdC_SIZET; off: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_UTCTIME_print(fp: PBIO; const a: PASN1_UTCTIME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_buf_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_UTCTIME_print');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_bn_print(bp: PBIO; const number: PIdAnsiChar; const num: PBIGNUM; buf: PByte; off: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_GENERALIZEDTIME_print(fp: PBIO; const a: PASN1_GENERALIZEDTIME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_bn_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_GENERALIZEDTIME_print');
 end;
-
 
-function  ERR_ASN1_parse(bp: PBIO; const pp: PByte; len: TIdC_LONG; indent: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_TIME_print(fp: PBIO; const a: PASN1_TIME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_parse_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TIME_print');
 end;
 
-
-function  ERR_ASN1_parse_dump(bp: PPBIO; const pp: PByte; len: TIdC_LONG; indent: TIdC_INT; dump: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_STRING_print(bp: PBIO; const v: PASN1_STRING): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_parse_dump_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_print');
 end;
-
 
-function  ERR_ASN1_tag2str(tag: TIdC_INT): PIdAnsiChar; 
+function ERROR_ASN1_STRING_print_ex(out_: PBIO; const str: PASN1_STRING; flags: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_tag2str_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_print_ex');
 end;
 
-
-
-  (* Used to load and write Netscape format cert *)
-
-function  ERR_ASN1_UNIVERSALSTRING_to_string(s: PASN1_UNIVERSALSTRING): TIdC_INT; 
+function ERROR_ASN1_buf_print(bp: PBIO; const buf: PByte; buflen: TOpenSSL_C_SIZET; off: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_UNIVERSALSTRING_to_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_buf_print');
 end;
 
-
-
-function  ERR_ASN1_TYPE_set_octetstring(a: PASN1_TYPE; data: PByte; len: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_bn_print(bp: PBIO; const number: PAnsiChar; const num: PBIGNUM; buf: PByte; off: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TYPE_set_octetstring_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_bn_print');
 end;
 
-
-function  ERR_ASN1_TYPE_get_octetstring(const a: PASN1_TYPE; data: PByte; max_len: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_parse(bp: PBIO; const pp: PByte; len: TOpenSSL_C_LONG; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TYPE_get_octetstring_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_parse');
 end;
-
 
-function  ERR_ASN1_TYPE_set_int_octetstring(a: PASN1_TYPE; num: TIdC_LONG; data: PByte; len: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_parse_dump(bp: PPBIO; const pp: PByte; len: TOpenSSL_C_LONG; indent: TOpenSSL_C_INT; dump: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TYPE_set_int_octetstring_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_parse_dump');
 end;
 
-
-function  ERR_ASN1_TYPE_get_int_octetstring(const a: PASN1_TYPE; num: PIdC_LONG; data: PByte; max_len: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_tag2str(tag: TOpenSSL_C_INT): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_TYPE_get_int_octetstring_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_tag2str');
 end;
-
-
 
-function  ERR_ASN1_item_unpack(const oct: PASN1_STRING; const it: PASN1_ITEM): Pointer; 
+function ERROR_ASN1_UNIVERSALSTRING_to_string(s: PASN1_UNIVERSALSTRING): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_unpack_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_UNIVERSALSTRING_to_string');
 end;
 
-
-
-function  ERR_ASN1_item_pack(obj: Pointer; const it: PASN1_ITEM; oct: PPASN1_OCTET_STRING): PASN1_STRING; 
+function ERROR_ASN1_TYPE_set_octetstring(a: PASN1_TYPE; data: PByte; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_pack_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TYPE_set_octetstring');
 end;
-
-
 
-procedure  ERR_ASN1_STRING_set_default_mask(mask: TIdC_ULONG); 
+function ERROR_ASN1_TYPE_get_octetstring(const a: PASN1_TYPE; data: PByte; max_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_set_default_mask_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TYPE_get_octetstring');
 end;
 
-
-function  ERR_ASN1_STRING_set_default_mask_asc(const p: PAnsiChar): TIdC_INT; 
+function ERROR_ASN1_TYPE_set_int_octetstring(a: PASN1_TYPE; num: TOpenSSL_C_LONG; data: PByte; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_set_default_mask_asc_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TYPE_set_int_octetstring');
 end;
 
-
-function  ERR_ASN1_STRING_get_default_mask: TIdC_ULONG; 
+function ERROR_ASN1_TYPE_get_int_octetstring(const a: PASN1_TYPE; num: POpenSSL_C_LONG; data: PByte; max_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_get_default_mask_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_TYPE_get_int_octetstring');
 end;
-
 
-function  ERR_ASN1_mbstring_copy(out_: PPASN1_STRING; const in_: PByte; len: TIdC_INT; inform: TIdC_INT; mask: TIdC_ULONG): TIdC_INT; 
+function ERROR_ASN1_item_unpack(const oct: PASN1_STRING; const it: PASN1_ITEM): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_mbstring_copy_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_unpack');
 end;
 
-
-function  ERR_ASN1_mbstring_ncopy(out_: PPASN1_STRING; const in_: PByte; len: TIdC_INT; inform: TIdC_INT; mask: TIdC_ULONG; minsize: TIdC_LONG; maxsize: TIdC_LONG): TIdC_INT; 
+function ERROR_ASN1_item_pack(obj: Pointer; const it: PASN1_ITEM; oct: PPASN1_OCTET_STRING): PASN1_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_mbstring_ncopy_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_pack');
 end;
-
-
 
-function  ERR_ASN1_STRING_set_by_NID(out_: PPASN1_STRING; const in_: PByte; inlen: TIdC_INT; inform: TIdC_INT; nid: TIdC_INT): PASN1_STRING; 
+procedure ERROR_ASN1_STRING_set_default_mask(mask: TOpenSSL_C_ULONG); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_set_by_NID_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_set_default_mask');
 end;
 
-
-function  ERR_ASN1_STRING_TABLE_get(nid: TIdC_INT): PASN1_STRING_TABLE; 
+function ERROR_ASN1_STRING_set_default_mask_asc(const p: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_TABLE_get_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_set_default_mask_asc');
 end;
 
-
-function  ERR_ASN1_STRING_TABLE_add(v1: TIdC_INT; v2: TIdC_LONG; v3: TIdC_LONG; v4: TIdC_ULONG; v5: TIdC_ULONG): TIdC_INT; 
+function ERROR_ASN1_STRING_get_default_mask: TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_TABLE_add_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_get_default_mask');
 end;
-
 
-procedure  ERR_ASN1_STRING_TABLE_cleanup; 
+function ERROR_ASN1_mbstring_copy(out_: PPASN1_STRING; const in_: PByte; len: TOpenSSL_C_INT; inform: TOpenSSL_C_INT; mask: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_STRING_TABLE_cleanup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_mbstring_copy');
 end;
 
-
-
-  (* ASN1 template functions *)
-
-  (* Old API compatible functions *)
-function  ERR_ASN1_item_new(const it: PASN1_ITEM): PASN1_VALUE; 
+function ERROR_ASN1_mbstring_ncopy(out_: PPASN1_STRING; const in_: PByte; len: TOpenSSL_C_INT; inform: TOpenSSL_C_INT; mask: TOpenSSL_C_ULONG; minsize: TOpenSSL_C_LONG; maxsize: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_mbstring_ncopy');
 end;
-
 
-procedure  ERR_ASN1_item_free(val: PASN1_VALUE; const it: PASN1_ITEM); 
+function ERROR_ASN1_STRING_set_by_NID(out_: PPASN1_STRING; const in_: PByte; inlen: TOpenSSL_C_INT; inform: TOpenSSL_C_INT; nid: TOpenSSL_C_INT): PASN1_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_set_by_NID');
 end;
 
-
-function  ERR_ASN1_item_d2i(val: PPASN1_VALUE; const in_: PPByte; len: TIdC_LONG; const it: PASN1_ITEM): PASN1_VALUE; 
+function ERROR_ASN1_STRING_TABLE_get(nid: TOpenSSL_C_INT): PASN1_STRING_TABLE; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_d2i_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_TABLE_get');
 end;
 
-
-function  ERR_ASN1_item_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; 
+function ERROR_ASN1_STRING_TABLE_add(v1: TOpenSSL_C_INT; v2: TOpenSSL_C_LONG; v3: TOpenSSL_C_LONG; v4: TOpenSSL_C_ULONG; v5: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_i2d_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_TABLE_add');
 end;
-
 
-function  ERR_ASN1_item_ndef_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TIdC_INT; 
+procedure ERROR_ASN1_STRING_TABLE_cleanup; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_ndef_i2d_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_STRING_TABLE_cleanup');
 end;
 
-
-
-procedure  ERR_ASN1_add_oid_module; 
+function ERROR_ASN1_item_new(const it: PASN1_ITEM): PASN1_VALUE; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_add_oid_module_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_new');
 end;
 
-
-procedure  ERR_ASN1_add_stable_module; 
+procedure ERROR_ASN1_item_free(val: PASN1_VALUE; const it: PASN1_ITEM); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_add_stable_module_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_free');
 end;
-
- {introduced 1.1.0}
 
-function  ERR_ASN1_generate_nconf(const str: PAnsiChar; nconf: PCONF): PASN1_TYPE; 
+function ERROR_ASN1_item_d2i(val: PPASN1_VALUE; const in_: PPByte; len: TOpenSSL_C_LONG; const it: PASN1_ITEM): PASN1_VALUE; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_generate_nconf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_d2i');
 end;
 
-
-function  ERR_ASN1_generate_v3(const str: PAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE; 
+function ERROR_ASN1_item_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_generate_v3_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_i2d');
 end;
 
-
-function  ERR_ASN1_str2mask(const str: PByte; pmask: PIdC_ULONG): TIdC_INT; 
+function ERROR_ASN1_item_ndef_i2d(val: PASN1_VALUE; out_: PPByte; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_str2mask_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_ndef_i2d');
 end;
-
- {introduced 1.1.0}
 
-function  ERR_ASN1_item_print(out_: PBIO; ifld: PASN1_VALUE; indent: TIdC_INT; const it: PASN1_ITEM; const pctx: PASN1_PCTX): TIdC_INT; 
+procedure ERROR_ASN1_add_oid_module; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_add_oid_module');
 end;
 
-
-function  ERR_ASN1_PCTX_new: PASN1_PCTX; 
+procedure ERROR_ASN1_add_stable_module; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_add_stable_module');
 end;
-
 
-procedure  ERR_ASN1_PCTX_free(p: PASN1_PCTX); 
+function ERROR_ASN1_generate_nconf(const str: PAnsiChar; nconf: PCONF): PASN1_TYPE; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_generate_nconf');
 end;
 
-
-function  ERR_ASN1_PCTX_get_flags(const p: PASN1_PCTX): TIdC_ULONG; 
+function ERROR_ASN1_generate_v3(const str: PAnsiChar; cnf: PX509V3_CTX): PASN1_TYPE; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_get_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_generate_v3');
 end;
-
 
-procedure  ERR_ASN1_PCTX_set_flags(p: PASN1_PCTX; flags: TIdC_ULONG); 
+function ERROR_ASN1_str2mask(const str: PByte; pmask: POpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_set_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_str2mask');
 end;
 
-
-function  ERR_ASN1_PCTX_get_nm_flags(const p: PASN1_PCTX): TIdC_ULONG; 
+function ERROR_ASN1_item_print(out_: PBIO; ifld: PASN1_VALUE; indent: TOpenSSL_C_INT; const it: PASN1_ITEM; const pctx: PASN1_PCTX): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_get_nm_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_print');
 end;
 
-
-procedure  ERR_ASN1_PCTX_set_nm_flags(p: PASN1_PCTX; flags: TIdC_ULONG); 
+function ERROR_ASN1_PCTX_new: PASN1_PCTX; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_set_nm_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_new');
 end;
-
 
-function  ERR_ASN1_PCTX_get_cert_flags(const p: PASN1_PCTX): TIdC_ULONG; 
+procedure ERROR_ASN1_PCTX_free(p: PASN1_PCTX); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_get_cert_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_free');
 end;
 
-
-procedure  ERR_ASN1_PCTX_set_cert_flags(p: PASN1_PCTX; flags: TIdC_ULONG); 
+function ERROR_ASN1_PCTX_get_flags(const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_set_cert_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_get_flags');
 end;
 
-
-function  ERR_ASN1_PCTX_get_oid_flags(const p: PASN1_PCTX): TIdC_ULONG; 
+procedure ERROR_ASN1_PCTX_set_flags(p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_get_oid_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_set_flags');
 end;
-
 
-procedure  ERR_ASN1_PCTX_set_oid_flags(p: PASN1_PCTX; flags: TIdC_ULONG); 
+function ERROR_ASN1_PCTX_get_nm_flags(const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_set_oid_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_get_nm_flags');
 end;
 
-
-function  ERR_ASN1_PCTX_get_str_flags(const p: PASN1_PCTX): TIdC_ULONG; 
+procedure ERROR_ASN1_PCTX_set_nm_flags(p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_get_str_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_set_nm_flags');
 end;
 
-
-procedure  ERR_ASN1_PCTX_set_str_flags(p: PASN1_PCTX; flags: TIdC_ULONG); 
+function ERROR_ASN1_PCTX_get_cert_flags(const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_PCTX_set_str_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_get_cert_flags');
 end;
-
 
-
-  //ASN1_SCTX *ASN1_SCTX_new(int (*scan_cb) (ASN1_SCTX *ctx));
-procedure  ERR_ASN1_SCTX_free(p: PASN1_SCTX); 
+procedure ERROR_ASN1_PCTX_set_cert_flags(p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_SCTX_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_set_cert_flags');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_SCTX_get_item(p: PASN1_SCTX): PASN1_ITEM; 
+function ERROR_ASN1_PCTX_get_oid_flags(const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_SCTX_get_item_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_get_oid_flags');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_SCTX_get_template(p: PASN1_SCTX): PASN1_TEMPLATE; 
+procedure ERROR_ASN1_PCTX_set_oid_flags(p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_SCTX_get_template_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_set_oid_flags');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_SCTX_get_flags(p: PASN1_SCTX): TIdC_ULONG; 
+function ERROR_ASN1_PCTX_get_str_flags(const p: PASN1_PCTX): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_SCTX_get_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_get_str_flags');
 end;
 
- {introduced 1.1.0}
-procedure  ERR_ASN1_SCTX_set_app_data(p: PASN1_SCTX; data: Pointer); 
+procedure ERROR_ASN1_PCTX_set_str_flags(p: PASN1_PCTX; flags: TOpenSSL_C_ULONG); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_SCTX_set_app_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_PCTX_set_str_flags');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_SCTX_get_app_data(p: PASN1_SCTX): Pointer; 
+procedure ERROR_ASN1_SCTX_free(p: PASN1_SCTX); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_SCTX_get_app_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_SCTX_free');
 end;
-
- {introduced 1.1.0}
 
-function  ERR_BIO_f_asn1: PBIO_METHOD; 
+function ERROR_ASN1_SCTX_get_item(p: PASN1_SCTX): PASN1_ITEM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_f_asn1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_SCTX_get_item');
 end;
-
-
 
-function  ERR_BIO_new_NDEF(out_: PBIO; val: PASN1_VALUE; const it: PASN1_ITEM): PBIO; 
+function ERROR_ASN1_SCTX_get_template(p: PASN1_SCTX): PASN1_TEMPLATE; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_new_NDEF_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_SCTX_get_template');
 end;
 
-
-
-function  ERR_i2d_ASN1_bio_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const it: PASN1_ITEM): TIdC_INT; 
+function ERROR_ASN1_SCTX_get_flags(p: PASN1_SCTX): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2d_ASN1_bio_stream_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_SCTX_get_flags');
 end;
-
 
-function  ERR_PEM_write_bio_ASN1_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TIdC_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TIdC_INT; 
+procedure ERROR_ASN1_SCTX_set_app_data(p: PASN1_SCTX; data: Pointer); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(PEM_write_bio_ASN1_stream_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_SCTX_set_app_data');
 end;
 
-
-  //function SMIME_write_ASN1(bio: PBIO; val: PASN1_VALUE; data: PBIO; flags: TIdC_INT;
-  //                     ctype_nid: TIdC_INT; econt_nid: TIdC_INT;
-  //                     STACK_OF(X509_ALGOR) *mdalgs, const ASN1_ITEM *it): TIdC_INT;
-function  ERR_SMIME_read_ASN1(bio: PBIO; bcont: PPBIO; const it: PASN1_ITEM): PASN1_VALUE; 
+function ERROR_ASN1_SCTX_get_app_data(p: PASN1_SCTX): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SMIME_read_ASN1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_SCTX_get_app_data');
 end;
 
+function ERROR_BIO_f_asn1: PBIO_METHOD; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_f_asn1');
+end;
 
-function  ERR_SMIME_crlf_copy(in_: PBIO; out_: PBIO; flags: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_new_NDEF(out_: PBIO; val: PASN1_VALUE; const it: PASN1_ITEM): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SMIME_crlf_copy_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_new_NDEF');
 end;
 
+function ERROR_i2d_ASN1_bio_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TOpenSSL_C_INT; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2d_ASN1_bio_stream');
+end;
 
-function  ERR_SMIME_text(in_: PBIO; out_: PBIO): TIdC_INT; 
+function ERROR_PEM_write_bio_ASN1_stream(out_: PBIO; val: PASN1_VALUE; in_: PBIO; flags: TOpenSSL_C_INT; const hdr: PAnsiChar; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SMIME_text_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('PEM_write_bio_ASN1_stream');
 end;
 
+function ERROR_SMIME_read_ASN1(bio: PBIO; bcont: PPBIO; const it: PASN1_ITEM): PASN1_VALUE; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SMIME_read_ASN1');
+end;
 
+function ERROR_SMIME_crlf_copy(in_: PBIO; out_: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SMIME_crlf_copy');
+end;
 
-function  ERR_ASN1_ITEM_lookup(const name: PIdAnsiChar): PASN1_ITEM; 
+function ERROR_SMIME_text(in_: PBIO; out_: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_ITEM_lookup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SMIME_text');
 end;
 
- {introduced 1.1.0}
-function  ERR_ASN1_ITEM_get(i: TIdC_SIZET): PASN1_ITEM; 
+function ERROR_ASN1_ITEM_lookup(const name: PAnsiChar): PASN1_ITEM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_ITEM_get_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_ITEM_lookup');
 end;
 
- {introduced 1.1.0}
+function ERROR_ASN1_ITEM_get(i: TOpenSSL_C_SIZET): PASN1_ITEM; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_ITEM_get');
+end;
 
 {$WARN  NO_RETVAL ON}
-
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
-
 begin
-  ASN1_TYPE_get := LoadLibFunction(ADllHandle, ASN1_TYPE_get_procname);
+  ASN1_TYPE_get := LoadLibCryptoFunction('ASN1_TYPE_get');
   FuncLoadError := not assigned(ASN1_TYPE_get);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TYPE_get_allownil)}
-    ASN1_TYPE_get := @ERR_ASN1_TYPE_get;
-    {$ifend}
-    {$if declared(ASN1_TYPE_get_introduced)}
-    if LibVersion < ASN1_TYPE_get_introduced then
-    begin
-      {$if declared(FC_ASN1_TYPE_get)}
-      ASN1_TYPE_get := @FC_ASN1_TYPE_get;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TYPE_get_removed)}
-    if ASN1_TYPE_get_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TYPE_get)}
-      ASN1_TYPE_get := @_ASN1_TYPE_get;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TYPE_get_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TYPE_get');
-    {$ifend}
+    ASN1_TYPE_get :=  @ERROR_ASN1_TYPE_get;
   end;
 
-
-  ASN1_TYPE_set := LoadLibFunction(ADllHandle, ASN1_TYPE_set_procname);
+  ASN1_TYPE_set := LoadLibCryptoFunction('ASN1_TYPE_set');
   FuncLoadError := not assigned(ASN1_TYPE_set);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TYPE_set_allownil)}
-    ASN1_TYPE_set := @ERR_ASN1_TYPE_set;
-    {$ifend}
-    {$if declared(ASN1_TYPE_set_introduced)}
-    if LibVersion < ASN1_TYPE_set_introduced then
-    begin
-      {$if declared(FC_ASN1_TYPE_set)}
-      ASN1_TYPE_set := @FC_ASN1_TYPE_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TYPE_set_removed)}
-    if ASN1_TYPE_set_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TYPE_set)}
-      ASN1_TYPE_set := @_ASN1_TYPE_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TYPE_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TYPE_set');
-    {$ifend}
+    ASN1_TYPE_set :=  @ERROR_ASN1_TYPE_set;
   end;
 
-
-  ASN1_TYPE_set1 := LoadLibFunction(ADllHandle, ASN1_TYPE_set1_procname);
+  ASN1_TYPE_set1 := LoadLibCryptoFunction('ASN1_TYPE_set1');
   FuncLoadError := not assigned(ASN1_TYPE_set1);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TYPE_set1_allownil)}
-    ASN1_TYPE_set1 := @ERR_ASN1_TYPE_set1;
-    {$ifend}
-    {$if declared(ASN1_TYPE_set1_introduced)}
-    if LibVersion < ASN1_TYPE_set1_introduced then
-    begin
-      {$if declared(FC_ASN1_TYPE_set1)}
-      ASN1_TYPE_set1 := @FC_ASN1_TYPE_set1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TYPE_set1_removed)}
-    if ASN1_TYPE_set1_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TYPE_set1)}
-      ASN1_TYPE_set1 := @_ASN1_TYPE_set1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TYPE_set1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TYPE_set1');
-    {$ifend}
+    ASN1_TYPE_set1 :=  @ERROR_ASN1_TYPE_set1;
   end;
 
-
-  ASN1_TYPE_cmp := LoadLibFunction(ADllHandle, ASN1_TYPE_cmp_procname);
+  ASN1_TYPE_cmp := LoadLibCryptoFunction('ASN1_TYPE_cmp');
   FuncLoadError := not assigned(ASN1_TYPE_cmp);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TYPE_cmp_allownil)}
-    ASN1_TYPE_cmp := @ERR_ASN1_TYPE_cmp;
-    {$ifend}
-    {$if declared(ASN1_TYPE_cmp_introduced)}
-    if LibVersion < ASN1_TYPE_cmp_introduced then
-    begin
-      {$if declared(FC_ASN1_TYPE_cmp)}
-      ASN1_TYPE_cmp := @FC_ASN1_TYPE_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TYPE_cmp_removed)}
-    if ASN1_TYPE_cmp_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TYPE_cmp)}
-      ASN1_TYPE_cmp := @_ASN1_TYPE_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TYPE_cmp_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TYPE_cmp');
-    {$ifend}
+    ASN1_TYPE_cmp :=  @ERROR_ASN1_TYPE_cmp;
   end;
 
-
-  ASN1_TYPE_pack_sequence := LoadLibFunction(ADllHandle, ASN1_TYPE_pack_sequence_procname);
+  ASN1_TYPE_pack_sequence := LoadLibCryptoFunction('ASN1_TYPE_pack_sequence');
   FuncLoadError := not assigned(ASN1_TYPE_pack_sequence);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TYPE_pack_sequence_allownil)}
-    ASN1_TYPE_pack_sequence := @ERR_ASN1_TYPE_pack_sequence;
-    {$ifend}
-    {$if declared(ASN1_TYPE_pack_sequence_introduced)}
+    ASN1_TYPE_pack_sequence :=  @ERROR_ASN1_TYPE_pack_sequence;
     if LibVersion < ASN1_TYPE_pack_sequence_introduced then
-    begin
-      {$if declared(FC_ASN1_TYPE_pack_sequence)}
-      ASN1_TYPE_pack_sequence := @FC_ASN1_TYPE_pack_sequence;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TYPE_pack_sequence_removed)}
-    if ASN1_TYPE_pack_sequence_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TYPE_pack_sequence)}
-      ASN1_TYPE_pack_sequence := @_ASN1_TYPE_pack_sequence;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TYPE_pack_sequence_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_TYPE_pack_sequence');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_TYPE_unpack_sequence := LoadLibFunction(ADllHandle, ASN1_TYPE_unpack_sequence_procname);
+  ASN1_TYPE_unpack_sequence := LoadLibCryptoFunction('ASN1_TYPE_unpack_sequence');
   FuncLoadError := not assigned(ASN1_TYPE_unpack_sequence);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TYPE_unpack_sequence_allownil)}
-    ASN1_TYPE_unpack_sequence := @ERR_ASN1_TYPE_unpack_sequence;
-    {$ifend}
-    {$if declared(ASN1_TYPE_unpack_sequence_introduced)}
+    ASN1_TYPE_unpack_sequence :=  @ERROR_ASN1_TYPE_unpack_sequence;
     if LibVersion < ASN1_TYPE_unpack_sequence_introduced then
-    begin
-      {$if declared(FC_ASN1_TYPE_unpack_sequence)}
-      ASN1_TYPE_unpack_sequence := @FC_ASN1_TYPE_unpack_sequence;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TYPE_unpack_sequence_removed)}
-    if ASN1_TYPE_unpack_sequence_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TYPE_unpack_sequence)}
-      ASN1_TYPE_unpack_sequence := @_ASN1_TYPE_unpack_sequence;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TYPE_unpack_sequence_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_TYPE_unpack_sequence');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_OBJECT_new := LoadLibFunction(ADllHandle, ASN1_OBJECT_new_procname);
+  ASN1_OBJECT_new := LoadLibCryptoFunction('ASN1_OBJECT_new');
   FuncLoadError := not assigned(ASN1_OBJECT_new);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_OBJECT_new_allownil)}
-    ASN1_OBJECT_new := @ERR_ASN1_OBJECT_new;
-    {$ifend}
-    {$if declared(ASN1_OBJECT_new_introduced)}
-    if LibVersion < ASN1_OBJECT_new_introduced then
-    begin
-      {$if declared(FC_ASN1_OBJECT_new)}
-      ASN1_OBJECT_new := @FC_ASN1_OBJECT_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_OBJECT_new_removed)}
-    if ASN1_OBJECT_new_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_OBJECT_new)}
-      ASN1_OBJECT_new := @_ASN1_OBJECT_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_OBJECT_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_OBJECT_new');
-    {$ifend}
+    ASN1_OBJECT_new :=  @ERROR_ASN1_OBJECT_new;
   end;
 
-
-  ASN1_OBJECT_free := LoadLibFunction(ADllHandle, ASN1_OBJECT_free_procname);
+  ASN1_OBJECT_free := LoadLibCryptoFunction('ASN1_OBJECT_free');
   FuncLoadError := not assigned(ASN1_OBJECT_free);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_OBJECT_free_allownil)}
-    ASN1_OBJECT_free := @ERR_ASN1_OBJECT_free;
-    {$ifend}
-    {$if declared(ASN1_OBJECT_free_introduced)}
-    if LibVersion < ASN1_OBJECT_free_introduced then
-    begin
-      {$if declared(FC_ASN1_OBJECT_free)}
-      ASN1_OBJECT_free := @FC_ASN1_OBJECT_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_OBJECT_free_removed)}
-    if ASN1_OBJECT_free_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_OBJECT_free)}
-      ASN1_OBJECT_free := @_ASN1_OBJECT_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_OBJECT_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_OBJECT_free');
-    {$ifend}
+    ASN1_OBJECT_free :=  @ERROR_ASN1_OBJECT_free;
   end;
 
-
-  i2d_ASN1_OBJECT := LoadLibFunction(ADllHandle, i2d_ASN1_OBJECT_procname);
+  i2d_ASN1_OBJECT := LoadLibCryptoFunction('i2d_ASN1_OBJECT');
   FuncLoadError := not assigned(i2d_ASN1_OBJECT);
   if FuncLoadError then
   begin
-    {$if not defined(i2d_ASN1_OBJECT_allownil)}
-    i2d_ASN1_OBJECT := @ERR_i2d_ASN1_OBJECT;
-    {$ifend}
-    {$if declared(i2d_ASN1_OBJECT_introduced)}
-    if LibVersion < i2d_ASN1_OBJECT_introduced then
-    begin
-      {$if declared(FC_i2d_ASN1_OBJECT)}
-      i2d_ASN1_OBJECT := @FC_i2d_ASN1_OBJECT;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2d_ASN1_OBJECT_removed)}
-    if i2d_ASN1_OBJECT_removed <= LibVersion then
-    begin
-      {$if declared(_i2d_ASN1_OBJECT)}
-      i2d_ASN1_OBJECT := @_i2d_ASN1_OBJECT;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2d_ASN1_OBJECT_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2d_ASN1_OBJECT');
-    {$ifend}
+    i2d_ASN1_OBJECT :=  @ERROR_i2d_ASN1_OBJECT;
   end;
 
-
-  d2i_ASN1_OBJECT := LoadLibFunction(ADllHandle, d2i_ASN1_OBJECT_procname);
+  d2i_ASN1_OBJECT := LoadLibCryptoFunction('d2i_ASN1_OBJECT');
   FuncLoadError := not assigned(d2i_ASN1_OBJECT);
   if FuncLoadError then
   begin
-    {$if not defined(d2i_ASN1_OBJECT_allownil)}
-    d2i_ASN1_OBJECT := @ERR_d2i_ASN1_OBJECT;
-    {$ifend}
-    {$if declared(d2i_ASN1_OBJECT_introduced)}
-    if LibVersion < d2i_ASN1_OBJECT_introduced then
-    begin
-      {$if declared(FC_d2i_ASN1_OBJECT)}
-      d2i_ASN1_OBJECT := @FC_d2i_ASN1_OBJECT;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(d2i_ASN1_OBJECT_removed)}
-    if d2i_ASN1_OBJECT_removed <= LibVersion then
-    begin
-      {$if declared(_d2i_ASN1_OBJECT)}
-      d2i_ASN1_OBJECT := @_d2i_ASN1_OBJECT;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(d2i_ASN1_OBJECT_allownil)}
-    if FuncLoadError then
-      AFailed.Add('d2i_ASN1_OBJECT');
-    {$ifend}
+    d2i_ASN1_OBJECT :=  @ERROR_d2i_ASN1_OBJECT;
   end;
 
-
-  ASN1_STRING_new := LoadLibFunction(ADllHandle, ASN1_STRING_new_procname);
+  ASN1_STRING_new := LoadLibCryptoFunction('ASN1_STRING_new');
   FuncLoadError := not assigned(ASN1_STRING_new);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_new_allownil)}
-    ASN1_STRING_new := @ERR_ASN1_STRING_new;
-    {$ifend}
-    {$if declared(ASN1_STRING_new_introduced)}
-    if LibVersion < ASN1_STRING_new_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_new)}
-      ASN1_STRING_new := @FC_ASN1_STRING_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_new_removed)}
-    if ASN1_STRING_new_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_new)}
-      ASN1_STRING_new := @_ASN1_STRING_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_new');
-    {$ifend}
+    ASN1_STRING_new :=  @ERROR_ASN1_STRING_new;
   end;
 
-
-  ASN1_STRING_free := LoadLibFunction(ADllHandle, ASN1_STRING_free_procname);
+  ASN1_STRING_free := LoadLibCryptoFunction('ASN1_STRING_free');
   FuncLoadError := not assigned(ASN1_STRING_free);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_free_allownil)}
-    ASN1_STRING_free := @ERR_ASN1_STRING_free;
-    {$ifend}
-    {$if declared(ASN1_STRING_free_introduced)}
-    if LibVersion < ASN1_STRING_free_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_free)}
-      ASN1_STRING_free := @FC_ASN1_STRING_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_free_removed)}
-    if ASN1_STRING_free_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_free)}
-      ASN1_STRING_free := @_ASN1_STRING_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_free');
-    {$ifend}
+    ASN1_STRING_free :=  @ERROR_ASN1_STRING_free;
   end;
 
-
-  ASN1_STRING_clear_free := LoadLibFunction(ADllHandle, ASN1_STRING_clear_free_procname);
+  ASN1_STRING_clear_free := LoadLibCryptoFunction('ASN1_STRING_clear_free');
   FuncLoadError := not assigned(ASN1_STRING_clear_free);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_clear_free_allownil)}
-    ASN1_STRING_clear_free := @ERR_ASN1_STRING_clear_free;
-    {$ifend}
-    {$if declared(ASN1_STRING_clear_free_introduced)}
-    if LibVersion < ASN1_STRING_clear_free_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_clear_free)}
-      ASN1_STRING_clear_free := @FC_ASN1_STRING_clear_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_clear_free_removed)}
-    if ASN1_STRING_clear_free_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_clear_free)}
-      ASN1_STRING_clear_free := @_ASN1_STRING_clear_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_clear_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_clear_free');
-    {$ifend}
+    ASN1_STRING_clear_free :=  @ERROR_ASN1_STRING_clear_free;
   end;
 
-
-  ASN1_STRING_copy := LoadLibFunction(ADllHandle, ASN1_STRING_copy_procname);
+  ASN1_STRING_copy := LoadLibCryptoFunction('ASN1_STRING_copy');
   FuncLoadError := not assigned(ASN1_STRING_copy);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_copy_allownil)}
-    ASN1_STRING_copy := @ERR_ASN1_STRING_copy;
-    {$ifend}
-    {$if declared(ASN1_STRING_copy_introduced)}
-    if LibVersion < ASN1_STRING_copy_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_copy)}
-      ASN1_STRING_copy := @FC_ASN1_STRING_copy;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_copy_removed)}
-    if ASN1_STRING_copy_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_copy)}
-      ASN1_STRING_copy := @_ASN1_STRING_copy;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_copy_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_copy');
-    {$ifend}
+    ASN1_STRING_copy :=  @ERROR_ASN1_STRING_copy;
   end;
 
-
-  ASN1_STRING_dup := LoadLibFunction(ADllHandle, ASN1_STRING_dup_procname);
+  ASN1_STRING_dup := LoadLibCryptoFunction('ASN1_STRING_dup');
   FuncLoadError := not assigned(ASN1_STRING_dup);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_dup_allownil)}
-    ASN1_STRING_dup := @ERR_ASN1_STRING_dup;
-    {$ifend}
-    {$if declared(ASN1_STRING_dup_introduced)}
-    if LibVersion < ASN1_STRING_dup_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_dup)}
-      ASN1_STRING_dup := @FC_ASN1_STRING_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_dup_removed)}
-    if ASN1_STRING_dup_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_dup)}
-      ASN1_STRING_dup := @_ASN1_STRING_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_dup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_dup');
-    {$ifend}
+    ASN1_STRING_dup :=  @ERROR_ASN1_STRING_dup;
   end;
 
-
-  ASN1_STRING_type_new := LoadLibFunction(ADllHandle, ASN1_STRING_type_new_procname);
+  ASN1_STRING_type_new := LoadLibCryptoFunction('ASN1_STRING_type_new');
   FuncLoadError := not assigned(ASN1_STRING_type_new);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_type_new_allownil)}
-    ASN1_STRING_type_new := @ERR_ASN1_STRING_type_new;
-    {$ifend}
-    {$if declared(ASN1_STRING_type_new_introduced)}
-    if LibVersion < ASN1_STRING_type_new_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_type_new)}
-      ASN1_STRING_type_new := @FC_ASN1_STRING_type_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_type_new_removed)}
-    if ASN1_STRING_type_new_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_type_new)}
-      ASN1_STRING_type_new := @_ASN1_STRING_type_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_type_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_type_new');
-    {$ifend}
+    ASN1_STRING_type_new :=  @ERROR_ASN1_STRING_type_new;
   end;
 
-
-  ASN1_STRING_cmp := LoadLibFunction(ADllHandle, ASN1_STRING_cmp_procname);
+  ASN1_STRING_cmp := LoadLibCryptoFunction('ASN1_STRING_cmp');
   FuncLoadError := not assigned(ASN1_STRING_cmp);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_cmp_allownil)}
-    ASN1_STRING_cmp := @ERR_ASN1_STRING_cmp;
-    {$ifend}
-    {$if declared(ASN1_STRING_cmp_introduced)}
-    if LibVersion < ASN1_STRING_cmp_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_cmp)}
-      ASN1_STRING_cmp := @FC_ASN1_STRING_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_cmp_removed)}
-    if ASN1_STRING_cmp_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_cmp)}
-      ASN1_STRING_cmp := @_ASN1_STRING_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_cmp_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_cmp');
-    {$ifend}
+    ASN1_STRING_cmp :=  @ERROR_ASN1_STRING_cmp;
   end;
 
-
-  ASN1_STRING_set := LoadLibFunction(ADllHandle, ASN1_STRING_set_procname);
+  ASN1_STRING_set := LoadLibCryptoFunction('ASN1_STRING_set');
   FuncLoadError := not assigned(ASN1_STRING_set);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_set_allownil)}
-    ASN1_STRING_set := @ERR_ASN1_STRING_set;
-    {$ifend}
-    {$if declared(ASN1_STRING_set_introduced)}
-    if LibVersion < ASN1_STRING_set_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_set)}
-      ASN1_STRING_set := @FC_ASN1_STRING_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_set_removed)}
-    if ASN1_STRING_set_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_set)}
-      ASN1_STRING_set := @_ASN1_STRING_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_set');
-    {$ifend}
+    ASN1_STRING_set :=  @ERROR_ASN1_STRING_set;
   end;
 
-
-  ASN1_STRING_set0 := LoadLibFunction(ADllHandle, ASN1_STRING_set0_procname);
+  ASN1_STRING_set0 := LoadLibCryptoFunction('ASN1_STRING_set0');
   FuncLoadError := not assigned(ASN1_STRING_set0);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_set0_allownil)}
-    ASN1_STRING_set0 := @ERR_ASN1_STRING_set0;
-    {$ifend}
-    {$if declared(ASN1_STRING_set0_introduced)}
-    if LibVersion < ASN1_STRING_set0_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_set0)}
-      ASN1_STRING_set0 := @FC_ASN1_STRING_set0;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_set0_removed)}
-    if ASN1_STRING_set0_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_set0)}
-      ASN1_STRING_set0 := @_ASN1_STRING_set0;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_set0_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_set0');
-    {$ifend}
+    ASN1_STRING_set0 :=  @ERROR_ASN1_STRING_set0;
   end;
 
-
-  ASN1_STRING_length := LoadLibFunction(ADllHandle, ASN1_STRING_length_procname);
+  ASN1_STRING_length := LoadLibCryptoFunction('ASN1_STRING_length');
   FuncLoadError := not assigned(ASN1_STRING_length);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_length_allownil)}
-    ASN1_STRING_length := @ERR_ASN1_STRING_length;
-    {$ifend}
-    {$if declared(ASN1_STRING_length_introduced)}
-    if LibVersion < ASN1_STRING_length_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_length)}
-      ASN1_STRING_length := @FC_ASN1_STRING_length;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_length_removed)}
-    if ASN1_STRING_length_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_length)}
-      ASN1_STRING_length := @_ASN1_STRING_length;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_length_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_length');
-    {$ifend}
+    ASN1_STRING_length :=  @ERROR_ASN1_STRING_length;
   end;
 
-
-  ASN1_STRING_length_set := LoadLibFunction(ADllHandle, ASN1_STRING_length_set_procname);
+  ASN1_STRING_length_set := LoadLibCryptoFunction('ASN1_STRING_length_set');
   FuncLoadError := not assigned(ASN1_STRING_length_set);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_length_set_allownil)}
-    ASN1_STRING_length_set := @ERR_ASN1_STRING_length_set;
-    {$ifend}
-    {$if declared(ASN1_STRING_length_set_introduced)}
-    if LibVersion < ASN1_STRING_length_set_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_length_set)}
-      ASN1_STRING_length_set := @FC_ASN1_STRING_length_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_length_set_removed)}
-    if ASN1_STRING_length_set_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_length_set)}
-      ASN1_STRING_length_set := @_ASN1_STRING_length_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_length_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_length_set');
-    {$ifend}
+    ASN1_STRING_length_set :=  @ERROR_ASN1_STRING_length_set;
   end;
 
-
-  ASN1_STRING_type := LoadLibFunction(ADllHandle, ASN1_STRING_type_procname);
+  ASN1_STRING_type := LoadLibCryptoFunction('ASN1_STRING_type');
   FuncLoadError := not assigned(ASN1_STRING_type);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_type_allownil)}
-    ASN1_STRING_type := @ERR_ASN1_STRING_type;
-    {$ifend}
-    {$if declared(ASN1_STRING_type_introduced)}
-    if LibVersion < ASN1_STRING_type_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_type)}
-      ASN1_STRING_type := @FC_ASN1_STRING_type;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_type_removed)}
-    if ASN1_STRING_type_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_type)}
-      ASN1_STRING_type := @_ASN1_STRING_type;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_type_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_type');
-    {$ifend}
+    ASN1_STRING_type :=  @ERROR_ASN1_STRING_type;
   end;
 
-
-  ASN1_STRING_get0_data := LoadLibFunction(ADllHandle, ASN1_STRING_get0_data_procname);
+  ASN1_STRING_get0_data := LoadLibCryptoFunction('ASN1_STRING_get0_data');
   FuncLoadError := not assigned(ASN1_STRING_get0_data);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_get0_data_allownil)}
-    ASN1_STRING_get0_data := @ERR_ASN1_STRING_get0_data;
-    {$ifend}
-    {$if declared(ASN1_STRING_get0_data_introduced)}
+    ASN1_STRING_get0_data :=  @ERROR_ASN1_STRING_get0_data;
     if LibVersion < ASN1_STRING_get0_data_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_get0_data)}
-      ASN1_STRING_get0_data := @FC_ASN1_STRING_get0_data;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_get0_data_removed)}
-    if ASN1_STRING_get0_data_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_get0_data)}
-      ASN1_STRING_get0_data := @_ASN1_STRING_get0_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_get0_data_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_STRING_get0_data');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_BIT_STRING_set := LoadLibFunction(ADllHandle, ASN1_BIT_STRING_set_procname);
+  ASN1_BIT_STRING_set := LoadLibCryptoFunction('ASN1_BIT_STRING_set');
   FuncLoadError := not assigned(ASN1_BIT_STRING_set);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_BIT_STRING_set_allownil)}
-    ASN1_BIT_STRING_set := @ERR_ASN1_BIT_STRING_set;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_set_introduced)}
-    if LibVersion < ASN1_BIT_STRING_set_introduced then
-    begin
-      {$if declared(FC_ASN1_BIT_STRING_set)}
-      ASN1_BIT_STRING_set := @FC_ASN1_BIT_STRING_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_set_removed)}
-    if ASN1_BIT_STRING_set_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_BIT_STRING_set)}
-      ASN1_BIT_STRING_set := @_ASN1_BIT_STRING_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_BIT_STRING_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_BIT_STRING_set');
-    {$ifend}
+    ASN1_BIT_STRING_set :=  @ERROR_ASN1_BIT_STRING_set;
   end;
 
-
-  ASN1_BIT_STRING_set_bit := LoadLibFunction(ADllHandle, ASN1_BIT_STRING_set_bit_procname);
+  ASN1_BIT_STRING_set_bit := LoadLibCryptoFunction('ASN1_BIT_STRING_set_bit');
   FuncLoadError := not assigned(ASN1_BIT_STRING_set_bit);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_BIT_STRING_set_bit_allownil)}
-    ASN1_BIT_STRING_set_bit := @ERR_ASN1_BIT_STRING_set_bit;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_set_bit_introduced)}
-    if LibVersion < ASN1_BIT_STRING_set_bit_introduced then
-    begin
-      {$if declared(FC_ASN1_BIT_STRING_set_bit)}
-      ASN1_BIT_STRING_set_bit := @FC_ASN1_BIT_STRING_set_bit;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_set_bit_removed)}
-    if ASN1_BIT_STRING_set_bit_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_BIT_STRING_set_bit)}
-      ASN1_BIT_STRING_set_bit := @_ASN1_BIT_STRING_set_bit;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_BIT_STRING_set_bit_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_BIT_STRING_set_bit');
-    {$ifend}
+    ASN1_BIT_STRING_set_bit :=  @ERROR_ASN1_BIT_STRING_set_bit;
   end;
 
-
-  ASN1_BIT_STRING_get_bit := LoadLibFunction(ADllHandle, ASN1_BIT_STRING_get_bit_procname);
+  ASN1_BIT_STRING_get_bit := LoadLibCryptoFunction('ASN1_BIT_STRING_get_bit');
   FuncLoadError := not assigned(ASN1_BIT_STRING_get_bit);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_BIT_STRING_get_bit_allownil)}
-    ASN1_BIT_STRING_get_bit := @ERR_ASN1_BIT_STRING_get_bit;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_get_bit_introduced)}
-    if LibVersion < ASN1_BIT_STRING_get_bit_introduced then
-    begin
-      {$if declared(FC_ASN1_BIT_STRING_get_bit)}
-      ASN1_BIT_STRING_get_bit := @FC_ASN1_BIT_STRING_get_bit;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_get_bit_removed)}
-    if ASN1_BIT_STRING_get_bit_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_BIT_STRING_get_bit)}
-      ASN1_BIT_STRING_get_bit := @_ASN1_BIT_STRING_get_bit;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_BIT_STRING_get_bit_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_BIT_STRING_get_bit');
-    {$ifend}
+    ASN1_BIT_STRING_get_bit :=  @ERROR_ASN1_BIT_STRING_get_bit;
   end;
 
-
-  ASN1_BIT_STRING_check := LoadLibFunction(ADllHandle, ASN1_BIT_STRING_check_procname);
+  ASN1_BIT_STRING_check := LoadLibCryptoFunction('ASN1_BIT_STRING_check');
   FuncLoadError := not assigned(ASN1_BIT_STRING_check);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_BIT_STRING_check_allownil)}
-    ASN1_BIT_STRING_check := @ERR_ASN1_BIT_STRING_check;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_check_introduced)}
-    if LibVersion < ASN1_BIT_STRING_check_introduced then
-    begin
-      {$if declared(FC_ASN1_BIT_STRING_check)}
-      ASN1_BIT_STRING_check := @FC_ASN1_BIT_STRING_check;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_check_removed)}
-    if ASN1_BIT_STRING_check_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_BIT_STRING_check)}
-      ASN1_BIT_STRING_check := @_ASN1_BIT_STRING_check;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_BIT_STRING_check_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_BIT_STRING_check');
-    {$ifend}
+    ASN1_BIT_STRING_check :=  @ERROR_ASN1_BIT_STRING_check;
   end;
 
-
-  ASN1_BIT_STRING_name_print := LoadLibFunction(ADllHandle, ASN1_BIT_STRING_name_print_procname);
+  ASN1_BIT_STRING_name_print := LoadLibCryptoFunction('ASN1_BIT_STRING_name_print');
   FuncLoadError := not assigned(ASN1_BIT_STRING_name_print);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_BIT_STRING_name_print_allownil)}
-    ASN1_BIT_STRING_name_print := @ERR_ASN1_BIT_STRING_name_print;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_name_print_introduced)}
-    if LibVersion < ASN1_BIT_STRING_name_print_introduced then
-    begin
-      {$if declared(FC_ASN1_BIT_STRING_name_print)}
-      ASN1_BIT_STRING_name_print := @FC_ASN1_BIT_STRING_name_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_name_print_removed)}
-    if ASN1_BIT_STRING_name_print_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_BIT_STRING_name_print)}
-      ASN1_BIT_STRING_name_print := @_ASN1_BIT_STRING_name_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_BIT_STRING_name_print_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_BIT_STRING_name_print');
-    {$ifend}
+    ASN1_BIT_STRING_name_print :=  @ERROR_ASN1_BIT_STRING_name_print;
   end;
 
-
-  ASN1_BIT_STRING_num_asc := LoadLibFunction(ADllHandle, ASN1_BIT_STRING_num_asc_procname);
+  ASN1_BIT_STRING_num_asc := LoadLibCryptoFunction('ASN1_BIT_STRING_num_asc');
   FuncLoadError := not assigned(ASN1_BIT_STRING_num_asc);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_BIT_STRING_num_asc_allownil)}
-    ASN1_BIT_STRING_num_asc := @ERR_ASN1_BIT_STRING_num_asc;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_num_asc_introduced)}
-    if LibVersion < ASN1_BIT_STRING_num_asc_introduced then
-    begin
-      {$if declared(FC_ASN1_BIT_STRING_num_asc)}
-      ASN1_BIT_STRING_num_asc := @FC_ASN1_BIT_STRING_num_asc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_num_asc_removed)}
-    if ASN1_BIT_STRING_num_asc_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_BIT_STRING_num_asc)}
-      ASN1_BIT_STRING_num_asc := @_ASN1_BIT_STRING_num_asc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_BIT_STRING_num_asc_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_BIT_STRING_num_asc');
-    {$ifend}
+    ASN1_BIT_STRING_num_asc :=  @ERROR_ASN1_BIT_STRING_num_asc;
   end;
 
-
-  ASN1_BIT_STRING_set_asc := LoadLibFunction(ADllHandle, ASN1_BIT_STRING_set_asc_procname);
+  ASN1_BIT_STRING_set_asc := LoadLibCryptoFunction('ASN1_BIT_STRING_set_asc');
   FuncLoadError := not assigned(ASN1_BIT_STRING_set_asc);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_BIT_STRING_set_asc_allownil)}
-    ASN1_BIT_STRING_set_asc := @ERR_ASN1_BIT_STRING_set_asc;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_set_asc_introduced)}
-    if LibVersion < ASN1_BIT_STRING_set_asc_introduced then
-    begin
-      {$if declared(FC_ASN1_BIT_STRING_set_asc)}
-      ASN1_BIT_STRING_set_asc := @FC_ASN1_BIT_STRING_set_asc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_BIT_STRING_set_asc_removed)}
-    if ASN1_BIT_STRING_set_asc_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_BIT_STRING_set_asc)}
-      ASN1_BIT_STRING_set_asc := @_ASN1_BIT_STRING_set_asc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_BIT_STRING_set_asc_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_BIT_STRING_set_asc');
-    {$ifend}
+    ASN1_BIT_STRING_set_asc :=  @ERROR_ASN1_BIT_STRING_set_asc;
   end;
 
-
-  ASN1_INTEGER_new := LoadLibFunction(ADllHandle, ASN1_INTEGER_new_procname);
+  ASN1_INTEGER_new := LoadLibCryptoFunction('ASN1_INTEGER_new');
   FuncLoadError := not assigned(ASN1_INTEGER_new);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_INTEGER_new_allownil)}
-    ASN1_INTEGER_new := @ERR_ASN1_INTEGER_new;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_new_introduced)}
-    if LibVersion < ASN1_INTEGER_new_introduced then
-    begin
-      {$if declared(FC_ASN1_INTEGER_new)}
-      ASN1_INTEGER_new := @FC_ASN1_INTEGER_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_new_removed)}
-    if ASN1_INTEGER_new_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_INTEGER_new)}
-      ASN1_INTEGER_new := @_ASN1_INTEGER_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_INTEGER_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_INTEGER_new');
-    {$ifend}
+    ASN1_INTEGER_new :=  @ERROR_ASN1_INTEGER_new;
   end;
 
-
-  ASN1_INTEGER_free := LoadLibFunction(ADllHandle, ASN1_INTEGER_free_procname);
+  ASN1_INTEGER_free := LoadLibCryptoFunction('ASN1_INTEGER_free');
   FuncLoadError := not assigned(ASN1_INTEGER_free);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_INTEGER_free_allownil)}
-    ASN1_INTEGER_free := @ERR_ASN1_INTEGER_free;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_free_introduced)}
-    if LibVersion < ASN1_INTEGER_free_introduced then
-    begin
-      {$if declared(FC_ASN1_INTEGER_free)}
-      ASN1_INTEGER_free := @FC_ASN1_INTEGER_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_free_removed)}
-    if ASN1_INTEGER_free_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_INTEGER_free)}
-      ASN1_INTEGER_free := @_ASN1_INTEGER_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_INTEGER_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_INTEGER_free');
-    {$ifend}
+    ASN1_INTEGER_free :=  @ERROR_ASN1_INTEGER_free;
   end;
 
-
-  d2i_ASN1_INTEGER := LoadLibFunction(ADllHandle, d2i_ASN1_INTEGER_procname);
+  d2i_ASN1_INTEGER := LoadLibCryptoFunction('d2i_ASN1_INTEGER');
   FuncLoadError := not assigned(d2i_ASN1_INTEGER);
   if FuncLoadError then
   begin
-    {$if not defined(d2i_ASN1_INTEGER_allownil)}
-    d2i_ASN1_INTEGER := @ERR_d2i_ASN1_INTEGER;
-    {$ifend}
-    {$if declared(d2i_ASN1_INTEGER_introduced)}
-    if LibVersion < d2i_ASN1_INTEGER_introduced then
-    begin
-      {$if declared(FC_d2i_ASN1_INTEGER)}
-      d2i_ASN1_INTEGER := @FC_d2i_ASN1_INTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(d2i_ASN1_INTEGER_removed)}
-    if d2i_ASN1_INTEGER_removed <= LibVersion then
-    begin
-      {$if declared(_d2i_ASN1_INTEGER)}
-      d2i_ASN1_INTEGER := @_d2i_ASN1_INTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(d2i_ASN1_INTEGER_allownil)}
-    if FuncLoadError then
-      AFailed.Add('d2i_ASN1_INTEGER');
-    {$ifend}
+    d2i_ASN1_INTEGER :=  @ERROR_d2i_ASN1_INTEGER;
   end;
 
-
-  i2d_ASN1_INTEGER := LoadLibFunction(ADllHandle, i2d_ASN1_INTEGER_procname);
+  i2d_ASN1_INTEGER := LoadLibCryptoFunction('i2d_ASN1_INTEGER');
   FuncLoadError := not assigned(i2d_ASN1_INTEGER);
   if FuncLoadError then
   begin
-    {$if not defined(i2d_ASN1_INTEGER_allownil)}
-    i2d_ASN1_INTEGER := @ERR_i2d_ASN1_INTEGER;
-    {$ifend}
-    {$if declared(i2d_ASN1_INTEGER_introduced)}
-    if LibVersion < i2d_ASN1_INTEGER_introduced then
-    begin
-      {$if declared(FC_i2d_ASN1_INTEGER)}
-      i2d_ASN1_INTEGER := @FC_i2d_ASN1_INTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2d_ASN1_INTEGER_removed)}
-    if i2d_ASN1_INTEGER_removed <= LibVersion then
-    begin
-      {$if declared(_i2d_ASN1_INTEGER)}
-      i2d_ASN1_INTEGER := @_i2d_ASN1_INTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2d_ASN1_INTEGER_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2d_ASN1_INTEGER');
-    {$ifend}
+    i2d_ASN1_INTEGER :=  @ERROR_i2d_ASN1_INTEGER;
   end;
 
-
-  d2i_ASN1_UINTEGER := LoadLibFunction(ADllHandle, d2i_ASN1_UINTEGER_procname);
+  d2i_ASN1_UINTEGER := LoadLibCryptoFunction('d2i_ASN1_UINTEGER');
   FuncLoadError := not assigned(d2i_ASN1_UINTEGER);
   if FuncLoadError then
   begin
-    {$if not defined(d2i_ASN1_UINTEGER_allownil)}
-    d2i_ASN1_UINTEGER := @ERR_d2i_ASN1_UINTEGER;
-    {$ifend}
-    {$if declared(d2i_ASN1_UINTEGER_introduced)}
-    if LibVersion < d2i_ASN1_UINTEGER_introduced then
-    begin
-      {$if declared(FC_d2i_ASN1_UINTEGER)}
-      d2i_ASN1_UINTEGER := @FC_d2i_ASN1_UINTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(d2i_ASN1_UINTEGER_removed)}
-    if d2i_ASN1_UINTEGER_removed <= LibVersion then
-    begin
-      {$if declared(_d2i_ASN1_UINTEGER)}
-      d2i_ASN1_UINTEGER := @_d2i_ASN1_UINTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(d2i_ASN1_UINTEGER_allownil)}
-    if FuncLoadError then
-      AFailed.Add('d2i_ASN1_UINTEGER');
-    {$ifend}
+    d2i_ASN1_UINTEGER :=  @ERROR_d2i_ASN1_UINTEGER;
   end;
 
-
-  ASN1_INTEGER_dup := LoadLibFunction(ADllHandle, ASN1_INTEGER_dup_procname);
+  ASN1_INTEGER_dup := LoadLibCryptoFunction('ASN1_INTEGER_dup');
   FuncLoadError := not assigned(ASN1_INTEGER_dup);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_INTEGER_dup_allownil)}
-    ASN1_INTEGER_dup := @ERR_ASN1_INTEGER_dup;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_dup_introduced)}
-    if LibVersion < ASN1_INTEGER_dup_introduced then
-    begin
-      {$if declared(FC_ASN1_INTEGER_dup)}
-      ASN1_INTEGER_dup := @FC_ASN1_INTEGER_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_dup_removed)}
-    if ASN1_INTEGER_dup_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_INTEGER_dup)}
-      ASN1_INTEGER_dup := @_ASN1_INTEGER_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_INTEGER_dup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_INTEGER_dup');
-    {$ifend}
+    ASN1_INTEGER_dup :=  @ERROR_ASN1_INTEGER_dup;
   end;
 
-
-  ASN1_INTEGER_cmp := LoadLibFunction(ADllHandle, ASN1_INTEGER_cmp_procname);
+  ASN1_INTEGER_cmp := LoadLibCryptoFunction('ASN1_INTEGER_cmp');
   FuncLoadError := not assigned(ASN1_INTEGER_cmp);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_INTEGER_cmp_allownil)}
-    ASN1_INTEGER_cmp := @ERR_ASN1_INTEGER_cmp;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_cmp_introduced)}
-    if LibVersion < ASN1_INTEGER_cmp_introduced then
-    begin
-      {$if declared(FC_ASN1_INTEGER_cmp)}
-      ASN1_INTEGER_cmp := @FC_ASN1_INTEGER_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_cmp_removed)}
-    if ASN1_INTEGER_cmp_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_INTEGER_cmp)}
-      ASN1_INTEGER_cmp := @_ASN1_INTEGER_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_INTEGER_cmp_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_INTEGER_cmp');
-    {$ifend}
+    ASN1_INTEGER_cmp :=  @ERROR_ASN1_INTEGER_cmp;
   end;
 
-
-  ASN1_UTCTIME_check := LoadLibFunction(ADllHandle, ASN1_UTCTIME_check_procname);
+  ASN1_UTCTIME_check := LoadLibCryptoFunction('ASN1_UTCTIME_check');
   FuncLoadError := not assigned(ASN1_UTCTIME_check);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_UTCTIME_check_allownil)}
-    ASN1_UTCTIME_check := @ERR_ASN1_UTCTIME_check;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_check_introduced)}
-    if LibVersion < ASN1_UTCTIME_check_introduced then
-    begin
-      {$if declared(FC_ASN1_UTCTIME_check)}
-      ASN1_UTCTIME_check := @FC_ASN1_UTCTIME_check;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_check_removed)}
-    if ASN1_UTCTIME_check_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_UTCTIME_check)}
-      ASN1_UTCTIME_check := @_ASN1_UTCTIME_check;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_UTCTIME_check_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_UTCTIME_check');
-    {$ifend}
+    ASN1_UTCTIME_check :=  @ERROR_ASN1_UTCTIME_check;
   end;
 
-
-  ASN1_UTCTIME_set := LoadLibFunction(ADllHandle, ASN1_UTCTIME_set_procname);
+  ASN1_UTCTIME_set := LoadLibCryptoFunction('ASN1_UTCTIME_set');
   FuncLoadError := not assigned(ASN1_UTCTIME_set);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_UTCTIME_set_allownil)}
-    ASN1_UTCTIME_set := @ERR_ASN1_UTCTIME_set;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_set_introduced)}
-    if LibVersion < ASN1_UTCTIME_set_introduced then
-    begin
-      {$if declared(FC_ASN1_UTCTIME_set)}
-      ASN1_UTCTIME_set := @FC_ASN1_UTCTIME_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_set_removed)}
-    if ASN1_UTCTIME_set_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_UTCTIME_set)}
-      ASN1_UTCTIME_set := @_ASN1_UTCTIME_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_UTCTIME_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_UTCTIME_set');
-    {$ifend}
+    ASN1_UTCTIME_set :=  @ERROR_ASN1_UTCTIME_set;
   end;
 
-
-  ASN1_UTCTIME_adj := LoadLibFunction(ADllHandle, ASN1_UTCTIME_adj_procname);
+  ASN1_UTCTIME_adj := LoadLibCryptoFunction('ASN1_UTCTIME_adj');
   FuncLoadError := not assigned(ASN1_UTCTIME_adj);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_UTCTIME_adj_allownil)}
-    ASN1_UTCTIME_adj := @ERR_ASN1_UTCTIME_adj;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_adj_introduced)}
-    if LibVersion < ASN1_UTCTIME_adj_introduced then
-    begin
-      {$if declared(FC_ASN1_UTCTIME_adj)}
-      ASN1_UTCTIME_adj := @FC_ASN1_UTCTIME_adj;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_adj_removed)}
-    if ASN1_UTCTIME_adj_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_UTCTIME_adj)}
-      ASN1_UTCTIME_adj := @_ASN1_UTCTIME_adj;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_UTCTIME_adj_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_UTCTIME_adj');
-    {$ifend}
+    ASN1_UTCTIME_adj :=  @ERROR_ASN1_UTCTIME_adj;
   end;
 
-
-  ASN1_UTCTIME_set_string := LoadLibFunction(ADllHandle, ASN1_UTCTIME_set_string_procname);
+  ASN1_UTCTIME_set_string := LoadLibCryptoFunction('ASN1_UTCTIME_set_string');
   FuncLoadError := not assigned(ASN1_UTCTIME_set_string);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_UTCTIME_set_string_allownil)}
-    ASN1_UTCTIME_set_string := @ERR_ASN1_UTCTIME_set_string;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_set_string_introduced)}
-    if LibVersion < ASN1_UTCTIME_set_string_introduced then
-    begin
-      {$if declared(FC_ASN1_UTCTIME_set_string)}
-      ASN1_UTCTIME_set_string := @FC_ASN1_UTCTIME_set_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_set_string_removed)}
-    if ASN1_UTCTIME_set_string_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_UTCTIME_set_string)}
-      ASN1_UTCTIME_set_string := @_ASN1_UTCTIME_set_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_UTCTIME_set_string_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_UTCTIME_set_string');
-    {$ifend}
+    ASN1_UTCTIME_set_string :=  @ERROR_ASN1_UTCTIME_set_string;
   end;
 
-
-  ASN1_UTCTIME_cmp_time_t := LoadLibFunction(ADllHandle, ASN1_UTCTIME_cmp_time_t_procname);
+  ASN1_UTCTIME_cmp_time_t := LoadLibCryptoFunction('ASN1_UTCTIME_cmp_time_t');
   FuncLoadError := not assigned(ASN1_UTCTIME_cmp_time_t);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_UTCTIME_cmp_time_t_allownil)}
-    ASN1_UTCTIME_cmp_time_t := @ERR_ASN1_UTCTIME_cmp_time_t;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_cmp_time_t_introduced)}
-    if LibVersion < ASN1_UTCTIME_cmp_time_t_introduced then
-    begin
-      {$if declared(FC_ASN1_UTCTIME_cmp_time_t)}
-      ASN1_UTCTIME_cmp_time_t := @FC_ASN1_UTCTIME_cmp_time_t;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_cmp_time_t_removed)}
-    if ASN1_UTCTIME_cmp_time_t_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_UTCTIME_cmp_time_t)}
-      ASN1_UTCTIME_cmp_time_t := @_ASN1_UTCTIME_cmp_time_t;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_UTCTIME_cmp_time_t_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_UTCTIME_cmp_time_t');
-    {$ifend}
+    ASN1_UTCTIME_cmp_time_t :=  @ERROR_ASN1_UTCTIME_cmp_time_t;
   end;
 
-
-  ASN1_GENERALIZEDTIME_check := LoadLibFunction(ADllHandle, ASN1_GENERALIZEDTIME_check_procname);
+  ASN1_GENERALIZEDTIME_check := LoadLibCryptoFunction('ASN1_GENERALIZEDTIME_check');
   FuncLoadError := not assigned(ASN1_GENERALIZEDTIME_check);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_GENERALIZEDTIME_check_allownil)}
-    ASN1_GENERALIZEDTIME_check := @ERR_ASN1_GENERALIZEDTIME_check;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_check_introduced)}
-    if LibVersion < ASN1_GENERALIZEDTIME_check_introduced then
-    begin
-      {$if declared(FC_ASN1_GENERALIZEDTIME_check)}
-      ASN1_GENERALIZEDTIME_check := @FC_ASN1_GENERALIZEDTIME_check;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_check_removed)}
-    if ASN1_GENERALIZEDTIME_check_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_GENERALIZEDTIME_check)}
-      ASN1_GENERALIZEDTIME_check := @_ASN1_GENERALIZEDTIME_check;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_GENERALIZEDTIME_check_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_GENERALIZEDTIME_check');
-    {$ifend}
+    ASN1_GENERALIZEDTIME_check :=  @ERROR_ASN1_GENERALIZEDTIME_check;
   end;
 
-
-  ASN1_GENERALIZEDTIME_set := LoadLibFunction(ADllHandle, ASN1_GENERALIZEDTIME_set_procname);
+  ASN1_GENERALIZEDTIME_set := LoadLibCryptoFunction('ASN1_GENERALIZEDTIME_set');
   FuncLoadError := not assigned(ASN1_GENERALIZEDTIME_set);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_GENERALIZEDTIME_set_allownil)}
-    ASN1_GENERALIZEDTIME_set := @ERR_ASN1_GENERALIZEDTIME_set;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_set_introduced)}
-    if LibVersion < ASN1_GENERALIZEDTIME_set_introduced then
-    begin
-      {$if declared(FC_ASN1_GENERALIZEDTIME_set)}
-      ASN1_GENERALIZEDTIME_set := @FC_ASN1_GENERALIZEDTIME_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_set_removed)}
-    if ASN1_GENERALIZEDTIME_set_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_GENERALIZEDTIME_set)}
-      ASN1_GENERALIZEDTIME_set := @_ASN1_GENERALIZEDTIME_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_GENERALIZEDTIME_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_GENERALIZEDTIME_set');
-    {$ifend}
+    ASN1_GENERALIZEDTIME_set :=  @ERROR_ASN1_GENERALIZEDTIME_set;
   end;
 
-
-  ASN1_GENERALIZEDTIME_adj := LoadLibFunction(ADllHandle, ASN1_GENERALIZEDTIME_adj_procname);
+  ASN1_GENERALIZEDTIME_adj := LoadLibCryptoFunction('ASN1_GENERALIZEDTIME_adj');
   FuncLoadError := not assigned(ASN1_GENERALIZEDTIME_adj);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_GENERALIZEDTIME_adj_allownil)}
-    ASN1_GENERALIZEDTIME_adj := @ERR_ASN1_GENERALIZEDTIME_adj;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_adj_introduced)}
-    if LibVersion < ASN1_GENERALIZEDTIME_adj_introduced then
-    begin
-      {$if declared(FC_ASN1_GENERALIZEDTIME_adj)}
-      ASN1_GENERALIZEDTIME_adj := @FC_ASN1_GENERALIZEDTIME_adj;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_adj_removed)}
-    if ASN1_GENERALIZEDTIME_adj_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_GENERALIZEDTIME_adj)}
-      ASN1_GENERALIZEDTIME_adj := @_ASN1_GENERALIZEDTIME_adj;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_GENERALIZEDTIME_adj_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_GENERALIZEDTIME_adj');
-    {$ifend}
+    ASN1_GENERALIZEDTIME_adj :=  @ERROR_ASN1_GENERALIZEDTIME_adj;
   end;
 
-
-  ASN1_GENERALIZEDTIME_set_string := LoadLibFunction(ADllHandle, ASN1_GENERALIZEDTIME_set_string_procname);
+  ASN1_GENERALIZEDTIME_set_string := LoadLibCryptoFunction('ASN1_GENERALIZEDTIME_set_string');
   FuncLoadError := not assigned(ASN1_GENERALIZEDTIME_set_string);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_GENERALIZEDTIME_set_string_allownil)}
-    ASN1_GENERALIZEDTIME_set_string := @ERR_ASN1_GENERALIZEDTIME_set_string;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_set_string_introduced)}
-    if LibVersion < ASN1_GENERALIZEDTIME_set_string_introduced then
-    begin
-      {$if declared(FC_ASN1_GENERALIZEDTIME_set_string)}
-      ASN1_GENERALIZEDTIME_set_string := @FC_ASN1_GENERALIZEDTIME_set_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_set_string_removed)}
-    if ASN1_GENERALIZEDTIME_set_string_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_GENERALIZEDTIME_set_string)}
-      ASN1_GENERALIZEDTIME_set_string := @_ASN1_GENERALIZEDTIME_set_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_GENERALIZEDTIME_set_string_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_GENERALIZEDTIME_set_string');
-    {$ifend}
+    ASN1_GENERALIZEDTIME_set_string :=  @ERROR_ASN1_GENERALIZEDTIME_set_string;
   end;
 
-
-  ASN1_TIME_diff := LoadLibFunction(ADllHandle, ASN1_TIME_diff_procname);
+  ASN1_TIME_diff := LoadLibCryptoFunction('ASN1_TIME_diff');
   FuncLoadError := not assigned(ASN1_TIME_diff);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_diff_allownil)}
-    ASN1_TIME_diff := @ERR_ASN1_TIME_diff;
-    {$ifend}
-    {$if declared(ASN1_TIME_diff_introduced)}
-    if LibVersion < ASN1_TIME_diff_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_diff)}
-      ASN1_TIME_diff := @FC_ASN1_TIME_diff;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_diff_removed)}
-    if ASN1_TIME_diff_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_diff)}
-      ASN1_TIME_diff := @_ASN1_TIME_diff;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_diff_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TIME_diff');
-    {$ifend}
+    ASN1_TIME_diff :=  @ERROR_ASN1_TIME_diff;
   end;
 
-
-  ASN1_OCTET_STRING_dup := LoadLibFunction(ADllHandle, ASN1_OCTET_STRING_dup_procname);
+  ASN1_OCTET_STRING_dup := LoadLibCryptoFunction('ASN1_OCTET_STRING_dup');
   FuncLoadError := not assigned(ASN1_OCTET_STRING_dup);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_OCTET_STRING_dup_allownil)}
-    ASN1_OCTET_STRING_dup := @ERR_ASN1_OCTET_STRING_dup;
-    {$ifend}
-    {$if declared(ASN1_OCTET_STRING_dup_introduced)}
-    if LibVersion < ASN1_OCTET_STRING_dup_introduced then
-    begin
-      {$if declared(FC_ASN1_OCTET_STRING_dup)}
-      ASN1_OCTET_STRING_dup := @FC_ASN1_OCTET_STRING_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_OCTET_STRING_dup_removed)}
-    if ASN1_OCTET_STRING_dup_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_OCTET_STRING_dup)}
-      ASN1_OCTET_STRING_dup := @_ASN1_OCTET_STRING_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_OCTET_STRING_dup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_OCTET_STRING_dup');
-    {$ifend}
+    ASN1_OCTET_STRING_dup :=  @ERROR_ASN1_OCTET_STRING_dup;
   end;
 
-
-  ASN1_OCTET_STRING_cmp := LoadLibFunction(ADllHandle, ASN1_OCTET_STRING_cmp_procname);
+  ASN1_OCTET_STRING_cmp := LoadLibCryptoFunction('ASN1_OCTET_STRING_cmp');
   FuncLoadError := not assigned(ASN1_OCTET_STRING_cmp);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_OCTET_STRING_cmp_allownil)}
-    ASN1_OCTET_STRING_cmp := @ERR_ASN1_OCTET_STRING_cmp;
-    {$ifend}
-    {$if declared(ASN1_OCTET_STRING_cmp_introduced)}
-    if LibVersion < ASN1_OCTET_STRING_cmp_introduced then
-    begin
-      {$if declared(FC_ASN1_OCTET_STRING_cmp)}
-      ASN1_OCTET_STRING_cmp := @FC_ASN1_OCTET_STRING_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_OCTET_STRING_cmp_removed)}
-    if ASN1_OCTET_STRING_cmp_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_OCTET_STRING_cmp)}
-      ASN1_OCTET_STRING_cmp := @_ASN1_OCTET_STRING_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_OCTET_STRING_cmp_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_OCTET_STRING_cmp');
-    {$ifend}
+    ASN1_OCTET_STRING_cmp :=  @ERROR_ASN1_OCTET_STRING_cmp;
   end;
 
-
-  ASN1_OCTET_STRING_set := LoadLibFunction(ADllHandle, ASN1_OCTET_STRING_set_procname);
+  ASN1_OCTET_STRING_set := LoadLibCryptoFunction('ASN1_OCTET_STRING_set');
   FuncLoadError := not assigned(ASN1_OCTET_STRING_set);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_OCTET_STRING_set_allownil)}
-    ASN1_OCTET_STRING_set := @ERR_ASN1_OCTET_STRING_set;
-    {$ifend}
-    {$if declared(ASN1_OCTET_STRING_set_introduced)}
-    if LibVersion < ASN1_OCTET_STRING_set_introduced then
-    begin
-      {$if declared(FC_ASN1_OCTET_STRING_set)}
-      ASN1_OCTET_STRING_set := @FC_ASN1_OCTET_STRING_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_OCTET_STRING_set_removed)}
-    if ASN1_OCTET_STRING_set_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_OCTET_STRING_set)}
-      ASN1_OCTET_STRING_set := @_ASN1_OCTET_STRING_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_OCTET_STRING_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_OCTET_STRING_set');
-    {$ifend}
+    ASN1_OCTET_STRING_set :=  @ERROR_ASN1_OCTET_STRING_set;
   end;
 
+  ASN1_OCTET_STRING_new := LoadLibCryptoFunction('ASN1_OCTET_STRING_new');
+  FuncLoadError := not assigned(ASN1_OCTET_STRING_new);
+  if FuncLoadError then
+  begin
+    ASN1_OCTET_STRING_new :=  @ERROR_ASN1_OCTET_STRING_new;
+  end;
 
-  UTF8_getc := LoadLibFunction(ADllHandle, UTF8_getc_procname);
+  ASN1_OCTET_STRING_free := LoadLibCryptoFunction('ASN1_OCTET_STRING_free');
+  FuncLoadError := not assigned(ASN1_OCTET_STRING_free);
+  if FuncLoadError then
+  begin
+    ASN1_OCTET_STRING_free :=  @ERROR_ASN1_OCTET_STRING_free;
+  end;
+
+  d2i_ASN1_OCTET_STRING := LoadLibCryptoFunction('d2i_ASN1_OCTET_STRING');
+  FuncLoadError := not assigned(d2i_ASN1_OCTET_STRING);
+  if FuncLoadError then
+  begin
+    d2i_ASN1_OCTET_STRING :=  @ERROR_d2i_ASN1_OCTET_STRING;
+  end;
+
+  i2d_ASN1_OCTET_STRING := LoadLibCryptoFunction('i2d_ASN1_OCTET_STRING');
+  FuncLoadError := not assigned(i2d_ASN1_OCTET_STRING);
+  if FuncLoadError then
+  begin
+    i2d_ASN1_OCTET_STRING :=  @ERROR_i2d_ASN1_OCTET_STRING;
+  end;
+
+  UTF8_getc := LoadLibCryptoFunction('UTF8_getc');
   FuncLoadError := not assigned(UTF8_getc);
   if FuncLoadError then
   begin
-    {$if not defined(UTF8_getc_allownil)}
-    UTF8_getc := @ERR_UTF8_getc;
-    {$ifend}
-    {$if declared(UTF8_getc_introduced)}
-    if LibVersion < UTF8_getc_introduced then
-    begin
-      {$if declared(FC_UTF8_getc)}
-      UTF8_getc := @FC_UTF8_getc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(UTF8_getc_removed)}
-    if UTF8_getc_removed <= LibVersion then
-    begin
-      {$if declared(_UTF8_getc)}
-      UTF8_getc := @_UTF8_getc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(UTF8_getc_allownil)}
-    if FuncLoadError then
-      AFailed.Add('UTF8_getc');
-    {$ifend}
+    UTF8_getc :=  @ERROR_UTF8_getc;
   end;
 
-
-  UTF8_putc := LoadLibFunction(ADllHandle, UTF8_putc_procname);
+  UTF8_putc := LoadLibCryptoFunction('UTF8_putc');
   FuncLoadError := not assigned(UTF8_putc);
   if FuncLoadError then
   begin
-    {$if not defined(UTF8_putc_allownil)}
-    UTF8_putc := @ERR_UTF8_putc;
-    {$ifend}
-    {$if declared(UTF8_putc_introduced)}
-    if LibVersion < UTF8_putc_introduced then
-    begin
-      {$if declared(FC_UTF8_putc)}
-      UTF8_putc := @FC_UTF8_putc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(UTF8_putc_removed)}
-    if UTF8_putc_removed <= LibVersion then
-    begin
-      {$if declared(_UTF8_putc)}
-      UTF8_putc := @_UTF8_putc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(UTF8_putc_allownil)}
-    if FuncLoadError then
-      AFailed.Add('UTF8_putc');
-    {$ifend}
+    UTF8_putc :=  @ERROR_UTF8_putc;
   end;
 
-
-  ASN1_UTCTIME_new := LoadLibFunction(ADllHandle, ASN1_UTCTIME_new_procname);
+  ASN1_UTCTIME_new := LoadLibCryptoFunction('ASN1_UTCTIME_new');
   FuncLoadError := not assigned(ASN1_UTCTIME_new);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_UTCTIME_new_allownil)}
-    ASN1_UTCTIME_new := @ERR_ASN1_UTCTIME_new;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_new_introduced)}
-    if LibVersion < ASN1_UTCTIME_new_introduced then
-    begin
-      {$if declared(FC_ASN1_UTCTIME_new)}
-      ASN1_UTCTIME_new := @FC_ASN1_UTCTIME_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_new_removed)}
-    if ASN1_UTCTIME_new_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_UTCTIME_new)}
-      ASN1_UTCTIME_new := @_ASN1_UTCTIME_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_UTCTIME_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_UTCTIME_new');
-    {$ifend}
+    ASN1_UTCTIME_new :=  @ERROR_ASN1_UTCTIME_new;
   end;
 
-
-  ASN1_UTCTIME_free := LoadLibFunction(ADllHandle, ASN1_UTCTIME_free_procname);
+  ASN1_UTCTIME_free := LoadLibCryptoFunction('ASN1_UTCTIME_free');
   FuncLoadError := not assigned(ASN1_UTCTIME_free);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_UTCTIME_free_allownil)}
-    ASN1_UTCTIME_free := @ERR_ASN1_UTCTIME_free;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_free_introduced)}
-    if LibVersion < ASN1_UTCTIME_free_introduced then
-    begin
-      {$if declared(FC_ASN1_UTCTIME_free)}
-      ASN1_UTCTIME_free := @FC_ASN1_UTCTIME_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_free_removed)}
-    if ASN1_UTCTIME_free_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_UTCTIME_free)}
-      ASN1_UTCTIME_free := @_ASN1_UTCTIME_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_UTCTIME_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_UTCTIME_free');
-    {$ifend}
+    ASN1_UTCTIME_free :=  @ERROR_ASN1_UTCTIME_free;
   end;
 
-
-  d2i_ASN1_UTCTIME := LoadLibFunction(ADllHandle, d2i_ASN1_UTCTIME_procname);
+  d2i_ASN1_UTCTIME := LoadLibCryptoFunction('d2i_ASN1_UTCTIME');
   FuncLoadError := not assigned(d2i_ASN1_UTCTIME);
   if FuncLoadError then
   begin
-    {$if not defined(d2i_ASN1_UTCTIME_allownil)}
-    d2i_ASN1_UTCTIME := @ERR_d2i_ASN1_UTCTIME;
-    {$ifend}
-    {$if declared(d2i_ASN1_UTCTIME_introduced)}
-    if LibVersion < d2i_ASN1_UTCTIME_introduced then
-    begin
-      {$if declared(FC_d2i_ASN1_UTCTIME)}
-      d2i_ASN1_UTCTIME := @FC_d2i_ASN1_UTCTIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(d2i_ASN1_UTCTIME_removed)}
-    if d2i_ASN1_UTCTIME_removed <= LibVersion then
-    begin
-      {$if declared(_d2i_ASN1_UTCTIME)}
-      d2i_ASN1_UTCTIME := @_d2i_ASN1_UTCTIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(d2i_ASN1_UTCTIME_allownil)}
-    if FuncLoadError then
-      AFailed.Add('d2i_ASN1_UTCTIME');
-    {$ifend}
+    d2i_ASN1_UTCTIME :=  @ERROR_d2i_ASN1_UTCTIME;
   end;
 
-
-  i2d_ASN1_UTCTIME := LoadLibFunction(ADllHandle, i2d_ASN1_UTCTIME_procname);
+  i2d_ASN1_UTCTIME := LoadLibCryptoFunction('i2d_ASN1_UTCTIME');
   FuncLoadError := not assigned(i2d_ASN1_UTCTIME);
   if FuncLoadError then
   begin
-    {$if not defined(i2d_ASN1_UTCTIME_allownil)}
-    i2d_ASN1_UTCTIME := @ERR_i2d_ASN1_UTCTIME;
-    {$ifend}
-    {$if declared(i2d_ASN1_UTCTIME_introduced)}
-    if LibVersion < i2d_ASN1_UTCTIME_introduced then
-    begin
-      {$if declared(FC_i2d_ASN1_UTCTIME)}
-      i2d_ASN1_UTCTIME := @FC_i2d_ASN1_UTCTIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2d_ASN1_UTCTIME_removed)}
-    if i2d_ASN1_UTCTIME_removed <= LibVersion then
-    begin
-      {$if declared(_i2d_ASN1_UTCTIME)}
-      i2d_ASN1_UTCTIME := @_i2d_ASN1_UTCTIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2d_ASN1_UTCTIME_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2d_ASN1_UTCTIME');
-    {$ifend}
+    i2d_ASN1_UTCTIME :=  @ERROR_i2d_ASN1_UTCTIME;
   end;
 
-
-  ASN1_GENERALIZEDTIME_new := LoadLibFunction(ADllHandle, ASN1_GENERALIZEDTIME_new_procname);
+  ASN1_GENERALIZEDTIME_new := LoadLibCryptoFunction('ASN1_GENERALIZEDTIME_new');
   FuncLoadError := not assigned(ASN1_GENERALIZEDTIME_new);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_GENERALIZEDTIME_new_allownil)}
-    ASN1_GENERALIZEDTIME_new := @ERR_ASN1_GENERALIZEDTIME_new;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_new_introduced)}
-    if LibVersion < ASN1_GENERALIZEDTIME_new_introduced then
-    begin
-      {$if declared(FC_ASN1_GENERALIZEDTIME_new)}
-      ASN1_GENERALIZEDTIME_new := @FC_ASN1_GENERALIZEDTIME_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_new_removed)}
-    if ASN1_GENERALIZEDTIME_new_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_GENERALIZEDTIME_new)}
-      ASN1_GENERALIZEDTIME_new := @_ASN1_GENERALIZEDTIME_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_GENERALIZEDTIME_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_GENERALIZEDTIME_new');
-    {$ifend}
+    ASN1_GENERALIZEDTIME_new :=  @ERROR_ASN1_GENERALIZEDTIME_new;
   end;
 
-
-  ASN1_GENERALIZEDTIME_free := LoadLibFunction(ADllHandle, ASN1_GENERALIZEDTIME_free_procname);
+  ASN1_GENERALIZEDTIME_free := LoadLibCryptoFunction('ASN1_GENERALIZEDTIME_free');
   FuncLoadError := not assigned(ASN1_GENERALIZEDTIME_free);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_GENERALIZEDTIME_free_allownil)}
-    ASN1_GENERALIZEDTIME_free := @ERR_ASN1_GENERALIZEDTIME_free;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_free_introduced)}
-    if LibVersion < ASN1_GENERALIZEDTIME_free_introduced then
-    begin
-      {$if declared(FC_ASN1_GENERALIZEDTIME_free)}
-      ASN1_GENERALIZEDTIME_free := @FC_ASN1_GENERALIZEDTIME_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_free_removed)}
-    if ASN1_GENERALIZEDTIME_free_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_GENERALIZEDTIME_free)}
-      ASN1_GENERALIZEDTIME_free := @_ASN1_GENERALIZEDTIME_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_GENERALIZEDTIME_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_GENERALIZEDTIME_free');
-    {$ifend}
+    ASN1_GENERALIZEDTIME_free :=  @ERROR_ASN1_GENERALIZEDTIME_free;
   end;
 
-
-  d2i_ASN1_GENERALIZEDTIME := LoadLibFunction(ADllHandle, d2i_ASN1_GENERALIZEDTIME_procname);
+  d2i_ASN1_GENERALIZEDTIME := LoadLibCryptoFunction('d2i_ASN1_GENERALIZEDTIME');
   FuncLoadError := not assigned(d2i_ASN1_GENERALIZEDTIME);
   if FuncLoadError then
   begin
-    {$if not defined(d2i_ASN1_GENERALIZEDTIME_allownil)}
-    d2i_ASN1_GENERALIZEDTIME := @ERR_d2i_ASN1_GENERALIZEDTIME;
-    {$ifend}
-    {$if declared(d2i_ASN1_GENERALIZEDTIME_introduced)}
-    if LibVersion < d2i_ASN1_GENERALIZEDTIME_introduced then
-    begin
-      {$if declared(FC_d2i_ASN1_GENERALIZEDTIME)}
-      d2i_ASN1_GENERALIZEDTIME := @FC_d2i_ASN1_GENERALIZEDTIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(d2i_ASN1_GENERALIZEDTIME_removed)}
-    if d2i_ASN1_GENERALIZEDTIME_removed <= LibVersion then
-    begin
-      {$if declared(_d2i_ASN1_GENERALIZEDTIME)}
-      d2i_ASN1_GENERALIZEDTIME := @_d2i_ASN1_GENERALIZEDTIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(d2i_ASN1_GENERALIZEDTIME_allownil)}
-    if FuncLoadError then
-      AFailed.Add('d2i_ASN1_GENERALIZEDTIME');
-    {$ifend}
+    d2i_ASN1_GENERALIZEDTIME :=  @ERROR_d2i_ASN1_GENERALIZEDTIME;
   end;
 
-
-  i2d_ASN1_GENERALIZEDTIME := LoadLibFunction(ADllHandle, i2d_ASN1_GENERALIZEDTIME_procname);
+  i2d_ASN1_GENERALIZEDTIME := LoadLibCryptoFunction('i2d_ASN1_GENERALIZEDTIME');
   FuncLoadError := not assigned(i2d_ASN1_GENERALIZEDTIME);
   if FuncLoadError then
   begin
-    {$if not defined(i2d_ASN1_GENERALIZEDTIME_allownil)}
-    i2d_ASN1_GENERALIZEDTIME := @ERR_i2d_ASN1_GENERALIZEDTIME;
-    {$ifend}
-    {$if declared(i2d_ASN1_GENERALIZEDTIME_introduced)}
-    if LibVersion < i2d_ASN1_GENERALIZEDTIME_introduced then
-    begin
-      {$if declared(FC_i2d_ASN1_GENERALIZEDTIME)}
-      i2d_ASN1_GENERALIZEDTIME := @FC_i2d_ASN1_GENERALIZEDTIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2d_ASN1_GENERALIZEDTIME_removed)}
-    if i2d_ASN1_GENERALIZEDTIME_removed <= LibVersion then
-    begin
-      {$if declared(_i2d_ASN1_GENERALIZEDTIME)}
-      i2d_ASN1_GENERALIZEDTIME := @_i2d_ASN1_GENERALIZEDTIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2d_ASN1_GENERALIZEDTIME_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2d_ASN1_GENERALIZEDTIME');
-    {$ifend}
+    i2d_ASN1_GENERALIZEDTIME :=  @ERROR_i2d_ASN1_GENERALIZEDTIME;
   end;
 
-
-  ASN1_TIME_new := LoadLibFunction(ADllHandle, ASN1_TIME_new_procname);
+  ASN1_TIME_new := LoadLibCryptoFunction('ASN1_TIME_new');
   FuncLoadError := not assigned(ASN1_TIME_new);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_new_allownil)}
-    ASN1_TIME_new := @ERR_ASN1_TIME_new;
-    {$ifend}
-    {$if declared(ASN1_TIME_new_introduced)}
-    if LibVersion < ASN1_TIME_new_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_new)}
-      ASN1_TIME_new := @FC_ASN1_TIME_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_new_removed)}
-    if ASN1_TIME_new_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_new)}
-      ASN1_TIME_new := @_ASN1_TIME_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TIME_new');
-    {$ifend}
+    ASN1_TIME_new :=  @ERROR_ASN1_TIME_new;
   end;
 
-
-  ASN1_TIME_free := LoadLibFunction(ADllHandle, ASN1_TIME_free_procname);
+  ASN1_TIME_free := LoadLibCryptoFunction('ASN1_TIME_free');
   FuncLoadError := not assigned(ASN1_TIME_free);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_free_allownil)}
-    ASN1_TIME_free := @ERR_ASN1_TIME_free;
-    {$ifend}
-    {$if declared(ASN1_TIME_free_introduced)}
-    if LibVersion < ASN1_TIME_free_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_free)}
-      ASN1_TIME_free := @FC_ASN1_TIME_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_free_removed)}
-    if ASN1_TIME_free_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_free)}
-      ASN1_TIME_free := @_ASN1_TIME_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TIME_free');
-    {$ifend}
+    ASN1_TIME_free :=  @ERROR_ASN1_TIME_free;
   end;
 
-
-  d2i_ASN1_TIME := LoadLibFunction(ADllHandle, d2i_ASN1_TIME_procname);
+  d2i_ASN1_TIME := LoadLibCryptoFunction('d2i_ASN1_TIME');
   FuncLoadError := not assigned(d2i_ASN1_TIME);
   if FuncLoadError then
   begin
-    {$if not defined(d2i_ASN1_TIME_allownil)}
-    d2i_ASN1_TIME := @ERR_d2i_ASN1_TIME;
-    {$ifend}
-    {$if declared(d2i_ASN1_TIME_introduced)}
-    if LibVersion < d2i_ASN1_TIME_introduced then
-    begin
-      {$if declared(FC_d2i_ASN1_TIME)}
-      d2i_ASN1_TIME := @FC_d2i_ASN1_TIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(d2i_ASN1_TIME_removed)}
-    if d2i_ASN1_TIME_removed <= LibVersion then
-    begin
-      {$if declared(_d2i_ASN1_TIME)}
-      d2i_ASN1_TIME := @_d2i_ASN1_TIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(d2i_ASN1_TIME_allownil)}
-    if FuncLoadError then
-      AFailed.Add('d2i_ASN1_TIME');
-    {$ifend}
+    d2i_ASN1_TIME :=  @ERROR_d2i_ASN1_TIME;
   end;
 
-
-  i2d_ASN1_TIME := LoadLibFunction(ADllHandle, i2d_ASN1_TIME_procname);
+  i2d_ASN1_TIME := LoadLibCryptoFunction('i2d_ASN1_TIME');
   FuncLoadError := not assigned(i2d_ASN1_TIME);
   if FuncLoadError then
   begin
-    {$if not defined(i2d_ASN1_TIME_allownil)}
-    i2d_ASN1_TIME := @ERR_i2d_ASN1_TIME;
-    {$ifend}
-    {$if declared(i2d_ASN1_TIME_introduced)}
-    if LibVersion < i2d_ASN1_TIME_introduced then
-    begin
-      {$if declared(FC_i2d_ASN1_TIME)}
-      i2d_ASN1_TIME := @FC_i2d_ASN1_TIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2d_ASN1_TIME_removed)}
-    if i2d_ASN1_TIME_removed <= LibVersion then
-    begin
-      {$if declared(_i2d_ASN1_TIME)}
-      i2d_ASN1_TIME := @_i2d_ASN1_TIME;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2d_ASN1_TIME_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2d_ASN1_TIME');
-    {$ifend}
+    i2d_ASN1_TIME :=  @ERROR_i2d_ASN1_TIME;
   end;
 
-
-  ASN1_TIME_set := LoadLibFunction(ADllHandle, ASN1_TIME_set_procname);
+  ASN1_TIME_set := LoadLibCryptoFunction('ASN1_TIME_set');
   FuncLoadError := not assigned(ASN1_TIME_set);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_set_allownil)}
-    ASN1_TIME_set := @ERR_ASN1_TIME_set;
-    {$ifend}
-    {$if declared(ASN1_TIME_set_introduced)}
-    if LibVersion < ASN1_TIME_set_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_set)}
-      ASN1_TIME_set := @FC_ASN1_TIME_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_set_removed)}
-    if ASN1_TIME_set_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_set)}
-      ASN1_TIME_set := @_ASN1_TIME_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TIME_set');
-    {$ifend}
+    ASN1_TIME_set :=  @ERROR_ASN1_TIME_set;
   end;
 
-
-  ASN1_TIME_adj := LoadLibFunction(ADllHandle, ASN1_TIME_adj_procname);
+  ASN1_TIME_adj := LoadLibCryptoFunction('ASN1_TIME_adj');
   FuncLoadError := not assigned(ASN1_TIME_adj);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_adj_allownil)}
-    ASN1_TIME_adj := @ERR_ASN1_TIME_adj;
-    {$ifend}
-    {$if declared(ASN1_TIME_adj_introduced)}
-    if LibVersion < ASN1_TIME_adj_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_adj)}
-      ASN1_TIME_adj := @FC_ASN1_TIME_adj;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_adj_removed)}
-    if ASN1_TIME_adj_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_adj)}
-      ASN1_TIME_adj := @_ASN1_TIME_adj;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_adj_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TIME_adj');
-    {$ifend}
+    ASN1_TIME_adj :=  @ERROR_ASN1_TIME_adj;
   end;
 
-
-  ASN1_TIME_check := LoadLibFunction(ADllHandle, ASN1_TIME_check_procname);
+  ASN1_TIME_check := LoadLibCryptoFunction('ASN1_TIME_check');
   FuncLoadError := not assigned(ASN1_TIME_check);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_check_allownil)}
-    ASN1_TIME_check := @ERR_ASN1_TIME_check;
-    {$ifend}
-    {$if declared(ASN1_TIME_check_introduced)}
-    if LibVersion < ASN1_TIME_check_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_check)}
-      ASN1_TIME_check := @FC_ASN1_TIME_check;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_check_removed)}
-    if ASN1_TIME_check_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_check)}
-      ASN1_TIME_check := @_ASN1_TIME_check;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_check_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TIME_check');
-    {$ifend}
+    ASN1_TIME_check :=  @ERROR_ASN1_TIME_check;
   end;
 
-
-  ASN1_TIME_to_generalizedtime := LoadLibFunction(ADllHandle, ASN1_TIME_to_generalizedtime_procname);
+  ASN1_TIME_to_generalizedtime := LoadLibCryptoFunction('ASN1_TIME_to_generalizedtime');
   FuncLoadError := not assigned(ASN1_TIME_to_generalizedtime);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_to_generalizedtime_allownil)}
-    ASN1_TIME_to_generalizedtime := @ERR_ASN1_TIME_to_generalizedtime;
-    {$ifend}
-    {$if declared(ASN1_TIME_to_generalizedtime_introduced)}
-    if LibVersion < ASN1_TIME_to_generalizedtime_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_to_generalizedtime)}
-      ASN1_TIME_to_generalizedtime := @FC_ASN1_TIME_to_generalizedtime;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_to_generalizedtime_removed)}
-    if ASN1_TIME_to_generalizedtime_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_to_generalizedtime)}
-      ASN1_TIME_to_generalizedtime := @_ASN1_TIME_to_generalizedtime;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_to_generalizedtime_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TIME_to_generalizedtime');
-    {$ifend}
+    ASN1_TIME_to_generalizedtime :=  @ERROR_ASN1_TIME_to_generalizedtime;
   end;
 
-
-  ASN1_TIME_set_string := LoadLibFunction(ADllHandle, ASN1_TIME_set_string_procname);
+  ASN1_TIME_set_string := LoadLibCryptoFunction('ASN1_TIME_set_string');
   FuncLoadError := not assigned(ASN1_TIME_set_string);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_set_string_allownil)}
-    ASN1_TIME_set_string := @ERR_ASN1_TIME_set_string;
-    {$ifend}
-    {$if declared(ASN1_TIME_set_string_introduced)}
-    if LibVersion < ASN1_TIME_set_string_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_set_string)}
-      ASN1_TIME_set_string := @FC_ASN1_TIME_set_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_set_string_removed)}
-    if ASN1_TIME_set_string_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_set_string)}
-      ASN1_TIME_set_string := @_ASN1_TIME_set_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_set_string_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TIME_set_string');
-    {$ifend}
+    ASN1_TIME_set_string :=  @ERROR_ASN1_TIME_set_string;
   end;
 
-
-  ASN1_TIME_set_string_X509 := LoadLibFunction(ADllHandle, ASN1_TIME_set_string_X509_procname);
+  ASN1_TIME_set_string_X509 := LoadLibCryptoFunction('ASN1_TIME_set_string_X509');
   FuncLoadError := not assigned(ASN1_TIME_set_string_X509);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_set_string_X509_allownil)}
-    ASN1_TIME_set_string_X509 := @ERR_ASN1_TIME_set_string_X509;
-    {$ifend}
-    {$if declared(ASN1_TIME_set_string_X509_introduced)}
+    ASN1_TIME_set_string_X509 :=  @ERROR_ASN1_TIME_set_string_X509;
     if LibVersion < ASN1_TIME_set_string_X509_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_set_string_X509)}
-      ASN1_TIME_set_string_X509 := @FC_ASN1_TIME_set_string_X509;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_set_string_X509_removed)}
-    if ASN1_TIME_set_string_X509_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_set_string_X509)}
-      ASN1_TIME_set_string_X509 := @_ASN1_TIME_set_string_X509;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_set_string_X509_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_TIME_set_string_X509');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_TIME_to_tm := LoadLibFunction(ADllHandle, ASN1_TIME_to_tm_procname);
+  ASN1_TIME_to_tm := LoadLibCryptoFunction('ASN1_TIME_to_tm');
   FuncLoadError := not assigned(ASN1_TIME_to_tm);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_to_tm_allownil)}
-    ASN1_TIME_to_tm := @ERR_ASN1_TIME_to_tm;
-    {$ifend}
-    {$if declared(ASN1_TIME_to_tm_introduced)}
+    ASN1_TIME_to_tm :=  @ERROR_ASN1_TIME_to_tm;
     if LibVersion < ASN1_TIME_to_tm_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_to_tm)}
-      ASN1_TIME_to_tm := @FC_ASN1_TIME_to_tm;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_to_tm_removed)}
-    if ASN1_TIME_to_tm_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_to_tm)}
-      ASN1_TIME_to_tm := @_ASN1_TIME_to_tm;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_to_tm_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_TIME_to_tm');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_TIME_normalize := LoadLibFunction(ADllHandle, ASN1_TIME_normalize_procname);
+  ASN1_TIME_normalize := LoadLibCryptoFunction('ASN1_TIME_normalize');
   FuncLoadError := not assigned(ASN1_TIME_normalize);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_normalize_allownil)}
-    ASN1_TIME_normalize := @ERR_ASN1_TIME_normalize;
-    {$ifend}
-    {$if declared(ASN1_TIME_normalize_introduced)}
+    ASN1_TIME_normalize :=  @ERROR_ASN1_TIME_normalize;
     if LibVersion < ASN1_TIME_normalize_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_normalize)}
-      ASN1_TIME_normalize := @FC_ASN1_TIME_normalize;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_normalize_removed)}
-    if ASN1_TIME_normalize_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_normalize)}
-      ASN1_TIME_normalize := @_ASN1_TIME_normalize;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_normalize_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_TIME_normalize');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_TIME_cmp_time_t := LoadLibFunction(ADllHandle, ASN1_TIME_cmp_time_t_procname);
+  ASN1_TIME_cmp_time_t := LoadLibCryptoFunction('ASN1_TIME_cmp_time_t');
   FuncLoadError := not assigned(ASN1_TIME_cmp_time_t);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_cmp_time_t_allownil)}
-    ASN1_TIME_cmp_time_t := @ERR_ASN1_TIME_cmp_time_t;
-    {$ifend}
-    {$if declared(ASN1_TIME_cmp_time_t_introduced)}
+    ASN1_TIME_cmp_time_t :=  @ERROR_ASN1_TIME_cmp_time_t;
     if LibVersion < ASN1_TIME_cmp_time_t_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_cmp_time_t)}
-      ASN1_TIME_cmp_time_t := @FC_ASN1_TIME_cmp_time_t;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_cmp_time_t_removed)}
-    if ASN1_TIME_cmp_time_t_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_cmp_time_t)}
-      ASN1_TIME_cmp_time_t := @_ASN1_TIME_cmp_time_t;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_cmp_time_t_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_TIME_cmp_time_t');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_TIME_compare := LoadLibFunction(ADllHandle, ASN1_TIME_compare_procname);
+  ASN1_TIME_compare := LoadLibCryptoFunction('ASN1_TIME_compare');
   FuncLoadError := not assigned(ASN1_TIME_compare);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_compare_allownil)}
-    ASN1_TIME_compare := @ERR_ASN1_TIME_compare;
-    {$ifend}
-    {$if declared(ASN1_TIME_compare_introduced)}
+    ASN1_TIME_compare :=  @ERROR_ASN1_TIME_compare;
     if LibVersion < ASN1_TIME_compare_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_compare)}
-      ASN1_TIME_compare := @FC_ASN1_TIME_compare;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_compare_removed)}
-    if ASN1_TIME_compare_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_compare)}
-      ASN1_TIME_compare := @_ASN1_TIME_compare;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_compare_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_TIME_compare');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  i2a_ASN1_INTEGER := LoadLibFunction(ADllHandle, i2a_ASN1_INTEGER_procname);
+  i2a_ASN1_INTEGER := LoadLibCryptoFunction('i2a_ASN1_INTEGER');
   FuncLoadError := not assigned(i2a_ASN1_INTEGER);
   if FuncLoadError then
   begin
-    {$if not defined(i2a_ASN1_INTEGER_allownil)}
-    i2a_ASN1_INTEGER := @ERR_i2a_ASN1_INTEGER;
-    {$ifend}
-    {$if declared(i2a_ASN1_INTEGER_introduced)}
-    if LibVersion < i2a_ASN1_INTEGER_introduced then
-    begin
-      {$if declared(FC_i2a_ASN1_INTEGER)}
-      i2a_ASN1_INTEGER := @FC_i2a_ASN1_INTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2a_ASN1_INTEGER_removed)}
-    if i2a_ASN1_INTEGER_removed <= LibVersion then
-    begin
-      {$if declared(_i2a_ASN1_INTEGER)}
-      i2a_ASN1_INTEGER := @_i2a_ASN1_INTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2a_ASN1_INTEGER_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2a_ASN1_INTEGER');
-    {$ifend}
+    i2a_ASN1_INTEGER :=  @ERROR_i2a_ASN1_INTEGER;
   end;
 
-
-  a2i_ASN1_INTEGER := LoadLibFunction(ADllHandle, a2i_ASN1_INTEGER_procname);
+  a2i_ASN1_INTEGER := LoadLibCryptoFunction('a2i_ASN1_INTEGER');
   FuncLoadError := not assigned(a2i_ASN1_INTEGER);
   if FuncLoadError then
   begin
-    {$if not defined(a2i_ASN1_INTEGER_allownil)}
-    a2i_ASN1_INTEGER := @ERR_a2i_ASN1_INTEGER;
-    {$ifend}
-    {$if declared(a2i_ASN1_INTEGER_introduced)}
-    if LibVersion < a2i_ASN1_INTEGER_introduced then
-    begin
-      {$if declared(FC_a2i_ASN1_INTEGER)}
-      a2i_ASN1_INTEGER := @FC_a2i_ASN1_INTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(a2i_ASN1_INTEGER_removed)}
-    if a2i_ASN1_INTEGER_removed <= LibVersion then
-    begin
-      {$if declared(_a2i_ASN1_INTEGER)}
-      a2i_ASN1_INTEGER := @_a2i_ASN1_INTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(a2i_ASN1_INTEGER_allownil)}
-    if FuncLoadError then
-      AFailed.Add('a2i_ASN1_INTEGER');
-    {$ifend}
+    a2i_ASN1_INTEGER :=  @ERROR_a2i_ASN1_INTEGER;
   end;
 
-
-  i2a_ASN1_ENUMERATED := LoadLibFunction(ADllHandle, i2a_ASN1_ENUMERATED_procname);
+  i2a_ASN1_ENUMERATED := LoadLibCryptoFunction('i2a_ASN1_ENUMERATED');
   FuncLoadError := not assigned(i2a_ASN1_ENUMERATED);
   if FuncLoadError then
   begin
-    {$if not defined(i2a_ASN1_ENUMERATED_allownil)}
-    i2a_ASN1_ENUMERATED := @ERR_i2a_ASN1_ENUMERATED;
-    {$ifend}
-    {$if declared(i2a_ASN1_ENUMERATED_introduced)}
-    if LibVersion < i2a_ASN1_ENUMERATED_introduced then
-    begin
-      {$if declared(FC_i2a_ASN1_ENUMERATED)}
-      i2a_ASN1_ENUMERATED := @FC_i2a_ASN1_ENUMERATED;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2a_ASN1_ENUMERATED_removed)}
-    if i2a_ASN1_ENUMERATED_removed <= LibVersion then
-    begin
-      {$if declared(_i2a_ASN1_ENUMERATED)}
-      i2a_ASN1_ENUMERATED := @_i2a_ASN1_ENUMERATED;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2a_ASN1_ENUMERATED_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2a_ASN1_ENUMERATED');
-    {$ifend}
+    i2a_ASN1_ENUMERATED :=  @ERROR_i2a_ASN1_ENUMERATED;
   end;
 
-
-  a2i_ASN1_ENUMERATED := LoadLibFunction(ADllHandle, a2i_ASN1_ENUMERATED_procname);
+  a2i_ASN1_ENUMERATED := LoadLibCryptoFunction('a2i_ASN1_ENUMERATED');
   FuncLoadError := not assigned(a2i_ASN1_ENUMERATED);
   if FuncLoadError then
   begin
-    {$if not defined(a2i_ASN1_ENUMERATED_allownil)}
-    a2i_ASN1_ENUMERATED := @ERR_a2i_ASN1_ENUMERATED;
-    {$ifend}
-    {$if declared(a2i_ASN1_ENUMERATED_introduced)}
-    if LibVersion < a2i_ASN1_ENUMERATED_introduced then
-    begin
-      {$if declared(FC_a2i_ASN1_ENUMERATED)}
-      a2i_ASN1_ENUMERATED := @FC_a2i_ASN1_ENUMERATED;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(a2i_ASN1_ENUMERATED_removed)}
-    if a2i_ASN1_ENUMERATED_removed <= LibVersion then
-    begin
-      {$if declared(_a2i_ASN1_ENUMERATED)}
-      a2i_ASN1_ENUMERATED := @_a2i_ASN1_ENUMERATED;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(a2i_ASN1_ENUMERATED_allownil)}
-    if FuncLoadError then
-      AFailed.Add('a2i_ASN1_ENUMERATED');
-    {$ifend}
+    a2i_ASN1_ENUMERATED :=  @ERROR_a2i_ASN1_ENUMERATED;
   end;
 
-
-  i2a_ASN1_OBJECT := LoadLibFunction(ADllHandle, i2a_ASN1_OBJECT_procname);
+  i2a_ASN1_OBJECT := LoadLibCryptoFunction('i2a_ASN1_OBJECT');
   FuncLoadError := not assigned(i2a_ASN1_OBJECT);
   if FuncLoadError then
   begin
-    {$if not defined(i2a_ASN1_OBJECT_allownil)}
-    i2a_ASN1_OBJECT := @ERR_i2a_ASN1_OBJECT;
-    {$ifend}
-    {$if declared(i2a_ASN1_OBJECT_introduced)}
-    if LibVersion < i2a_ASN1_OBJECT_introduced then
-    begin
-      {$if declared(FC_i2a_ASN1_OBJECT)}
-      i2a_ASN1_OBJECT := @FC_i2a_ASN1_OBJECT;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2a_ASN1_OBJECT_removed)}
-    if i2a_ASN1_OBJECT_removed <= LibVersion then
-    begin
-      {$if declared(_i2a_ASN1_OBJECT)}
-      i2a_ASN1_OBJECT := @_i2a_ASN1_OBJECT;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2a_ASN1_OBJECT_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2a_ASN1_OBJECT');
-    {$ifend}
+    i2a_ASN1_OBJECT :=  @ERROR_i2a_ASN1_OBJECT;
   end;
 
-
-  a2i_ASN1_STRING := LoadLibFunction(ADllHandle, a2i_ASN1_STRING_procname);
+  a2i_ASN1_STRING := LoadLibCryptoFunction('a2i_ASN1_STRING');
   FuncLoadError := not assigned(a2i_ASN1_STRING);
   if FuncLoadError then
   begin
-    {$if not defined(a2i_ASN1_STRING_allownil)}
-    a2i_ASN1_STRING := @ERR_a2i_ASN1_STRING;
-    {$ifend}
-    {$if declared(a2i_ASN1_STRING_introduced)}
-    if LibVersion < a2i_ASN1_STRING_introduced then
-    begin
-      {$if declared(FC_a2i_ASN1_STRING)}
-      a2i_ASN1_STRING := @FC_a2i_ASN1_STRING;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(a2i_ASN1_STRING_removed)}
-    if a2i_ASN1_STRING_removed <= LibVersion then
-    begin
-      {$if declared(_a2i_ASN1_STRING)}
-      a2i_ASN1_STRING := @_a2i_ASN1_STRING;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(a2i_ASN1_STRING_allownil)}
-    if FuncLoadError then
-      AFailed.Add('a2i_ASN1_STRING');
-    {$ifend}
+    a2i_ASN1_STRING :=  @ERROR_a2i_ASN1_STRING;
   end;
 
-
-  i2a_ASN1_STRING := LoadLibFunction(ADllHandle, i2a_ASN1_STRING_procname);
+  i2a_ASN1_STRING := LoadLibCryptoFunction('i2a_ASN1_STRING');
   FuncLoadError := not assigned(i2a_ASN1_STRING);
   if FuncLoadError then
   begin
-    {$if not defined(i2a_ASN1_STRING_allownil)}
-    i2a_ASN1_STRING := @ERR_i2a_ASN1_STRING;
-    {$ifend}
-    {$if declared(i2a_ASN1_STRING_introduced)}
-    if LibVersion < i2a_ASN1_STRING_introduced then
-    begin
-      {$if declared(FC_i2a_ASN1_STRING)}
-      i2a_ASN1_STRING := @FC_i2a_ASN1_STRING;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2a_ASN1_STRING_removed)}
-    if i2a_ASN1_STRING_removed <= LibVersion then
-    begin
-      {$if declared(_i2a_ASN1_STRING)}
-      i2a_ASN1_STRING := @_i2a_ASN1_STRING;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2a_ASN1_STRING_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2a_ASN1_STRING');
-    {$ifend}
+    i2a_ASN1_STRING :=  @ERROR_i2a_ASN1_STRING;
   end;
 
-
-  i2t_ASN1_OBJECT := LoadLibFunction(ADllHandle, i2t_ASN1_OBJECT_procname);
+  i2t_ASN1_OBJECT := LoadLibCryptoFunction('i2t_ASN1_OBJECT');
   FuncLoadError := not assigned(i2t_ASN1_OBJECT);
   if FuncLoadError then
   begin
-    {$if not defined(i2t_ASN1_OBJECT_allownil)}
-    i2t_ASN1_OBJECT := @ERR_i2t_ASN1_OBJECT;
-    {$ifend}
-    {$if declared(i2t_ASN1_OBJECT_introduced)}
-    if LibVersion < i2t_ASN1_OBJECT_introduced then
-    begin
-      {$if declared(FC_i2t_ASN1_OBJECT)}
-      i2t_ASN1_OBJECT := @FC_i2t_ASN1_OBJECT;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2t_ASN1_OBJECT_removed)}
-    if i2t_ASN1_OBJECT_removed <= LibVersion then
-    begin
-      {$if declared(_i2t_ASN1_OBJECT)}
-      i2t_ASN1_OBJECT := @_i2t_ASN1_OBJECT;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2t_ASN1_OBJECT_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2t_ASN1_OBJECT');
-    {$ifend}
+    i2t_ASN1_OBJECT :=  @ERROR_i2t_ASN1_OBJECT;
   end;
 
-
-  a2d_ASN1_OBJECT := LoadLibFunction(ADllHandle, a2d_ASN1_OBJECT_procname);
+  a2d_ASN1_OBJECT := LoadLibCryptoFunction('a2d_ASN1_OBJECT');
   FuncLoadError := not assigned(a2d_ASN1_OBJECT);
   if FuncLoadError then
   begin
-    {$if not defined(a2d_ASN1_OBJECT_allownil)}
-    a2d_ASN1_OBJECT := @ERR_a2d_ASN1_OBJECT;
-    {$ifend}
-    {$if declared(a2d_ASN1_OBJECT_introduced)}
-    if LibVersion < a2d_ASN1_OBJECT_introduced then
-    begin
-      {$if declared(FC_a2d_ASN1_OBJECT)}
-      a2d_ASN1_OBJECT := @FC_a2d_ASN1_OBJECT;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(a2d_ASN1_OBJECT_removed)}
-    if a2d_ASN1_OBJECT_removed <= LibVersion then
-    begin
-      {$if declared(_a2d_ASN1_OBJECT)}
-      a2d_ASN1_OBJECT := @_a2d_ASN1_OBJECT;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(a2d_ASN1_OBJECT_allownil)}
-    if FuncLoadError then
-      AFailed.Add('a2d_ASN1_OBJECT');
-    {$ifend}
+    a2d_ASN1_OBJECT :=  @ERROR_a2d_ASN1_OBJECT;
   end;
 
-
-  ASN1_OBJECT_create := LoadLibFunction(ADllHandle, ASN1_OBJECT_create_procname);
+  ASN1_OBJECT_create := LoadLibCryptoFunction('ASN1_OBJECT_create');
   FuncLoadError := not assigned(ASN1_OBJECT_create);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_OBJECT_create_allownil)}
-    ASN1_OBJECT_create := @ERR_ASN1_OBJECT_create;
-    {$ifend}
-    {$if declared(ASN1_OBJECT_create_introduced)}
-    if LibVersion < ASN1_OBJECT_create_introduced then
-    begin
-      {$if declared(FC_ASN1_OBJECT_create)}
-      ASN1_OBJECT_create := @FC_ASN1_OBJECT_create;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_OBJECT_create_removed)}
-    if ASN1_OBJECT_create_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_OBJECT_create)}
-      ASN1_OBJECT_create := @_ASN1_OBJECT_create;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_OBJECT_create_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_OBJECT_create');
-    {$ifend}
+    ASN1_OBJECT_create :=  @ERROR_ASN1_OBJECT_create;
   end;
 
-
-  ASN1_INTEGER_get_int64 := LoadLibFunction(ADllHandle, ASN1_INTEGER_get_int64_procname);
+  ASN1_INTEGER_get_int64 := LoadLibCryptoFunction('ASN1_INTEGER_get_int64');
   FuncLoadError := not assigned(ASN1_INTEGER_get_int64);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_INTEGER_get_int64_allownil)}
-    ASN1_INTEGER_get_int64 := @ERR_ASN1_INTEGER_get_int64;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_get_int64_introduced)}
+    ASN1_INTEGER_get_int64 :=  @ERROR_ASN1_INTEGER_get_int64;
     if LibVersion < ASN1_INTEGER_get_int64_introduced then
-    begin
-      {$if declared(FC_ASN1_INTEGER_get_int64)}
-      ASN1_INTEGER_get_int64 := @FC_ASN1_INTEGER_get_int64;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_get_int64_removed)}
-    if ASN1_INTEGER_get_int64_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_INTEGER_get_int64)}
-      ASN1_INTEGER_get_int64 := @_ASN1_INTEGER_get_int64;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_INTEGER_get_int64_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_INTEGER_get_int64');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_INTEGER_set_int64 := LoadLibFunction(ADllHandle, ASN1_INTEGER_set_int64_procname);
+  ASN1_INTEGER_set_int64 := LoadLibCryptoFunction('ASN1_INTEGER_set_int64');
   FuncLoadError := not assigned(ASN1_INTEGER_set_int64);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_INTEGER_set_int64_allownil)}
-    ASN1_INTEGER_set_int64 := @ERR_ASN1_INTEGER_set_int64;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_set_int64_introduced)}
+    ASN1_INTEGER_set_int64 :=  @ERROR_ASN1_INTEGER_set_int64;
     if LibVersion < ASN1_INTEGER_set_int64_introduced then
-    begin
-      {$if declared(FC_ASN1_INTEGER_set_int64)}
-      ASN1_INTEGER_set_int64 := @FC_ASN1_INTEGER_set_int64;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_set_int64_removed)}
-    if ASN1_INTEGER_set_int64_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_INTEGER_set_int64)}
-      ASN1_INTEGER_set_int64 := @_ASN1_INTEGER_set_int64;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_INTEGER_set_int64_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_INTEGER_set_int64');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_INTEGER_get_uint64 := LoadLibFunction(ADllHandle, ASN1_INTEGER_get_uint64_procname);
+  ASN1_INTEGER_get_uint64 := LoadLibCryptoFunction('ASN1_INTEGER_get_uint64');
   FuncLoadError := not assigned(ASN1_INTEGER_get_uint64);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_INTEGER_get_uint64_allownil)}
-    ASN1_INTEGER_get_uint64 := @ERR_ASN1_INTEGER_get_uint64;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_get_uint64_introduced)}
+    ASN1_INTEGER_get_uint64 :=  @ERROR_ASN1_INTEGER_get_uint64;
     if LibVersion < ASN1_INTEGER_get_uint64_introduced then
-    begin
-      {$if declared(FC_ASN1_INTEGER_get_uint64)}
-      ASN1_INTEGER_get_uint64 := @FC_ASN1_INTEGER_get_uint64;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_get_uint64_removed)}
-    if ASN1_INTEGER_get_uint64_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_INTEGER_get_uint64)}
-      ASN1_INTEGER_get_uint64 := @_ASN1_INTEGER_get_uint64;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_INTEGER_get_uint64_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_INTEGER_get_uint64');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_INTEGER_set_uint64 := LoadLibFunction(ADllHandle, ASN1_INTEGER_set_uint64_procname);
+  ASN1_INTEGER_set_uint64 := LoadLibCryptoFunction('ASN1_INTEGER_set_uint64');
   FuncLoadError := not assigned(ASN1_INTEGER_set_uint64);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_INTEGER_set_uint64_allownil)}
-    ASN1_INTEGER_set_uint64 := @ERR_ASN1_INTEGER_set_uint64;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_set_uint64_introduced)}
+    ASN1_INTEGER_set_uint64 :=  @ERROR_ASN1_INTEGER_set_uint64;
     if LibVersion < ASN1_INTEGER_set_uint64_introduced then
-    begin
-      {$if declared(FC_ASN1_INTEGER_set_uint64)}
-      ASN1_INTEGER_set_uint64 := @FC_ASN1_INTEGER_set_uint64;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_set_uint64_removed)}
-    if ASN1_INTEGER_set_uint64_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_INTEGER_set_uint64)}
-      ASN1_INTEGER_set_uint64 := @_ASN1_INTEGER_set_uint64;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_INTEGER_set_uint64_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_INTEGER_set_uint64');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_INTEGER_set := LoadLibFunction(ADllHandle, ASN1_INTEGER_set_procname);
+  ASN1_INTEGER_set := LoadLibCryptoFunction('ASN1_INTEGER_set');
   FuncLoadError := not assigned(ASN1_INTEGER_set);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_INTEGER_set_allownil)}
-    ASN1_INTEGER_set := @ERR_ASN1_INTEGER_set;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_set_introduced)}
-    if LibVersion < ASN1_INTEGER_set_introduced then
-    begin
-      {$if declared(FC_ASN1_INTEGER_set)}
-      ASN1_INTEGER_set := @FC_ASN1_INTEGER_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_set_removed)}
-    if ASN1_INTEGER_set_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_INTEGER_set)}
-      ASN1_INTEGER_set := @_ASN1_INTEGER_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_INTEGER_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_INTEGER_set');
-    {$ifend}
+    ASN1_INTEGER_set :=  @ERROR_ASN1_INTEGER_set;
   end;
 
-
-  ASN1_INTEGER_get := LoadLibFunction(ADllHandle, ASN1_INTEGER_get_procname);
+  ASN1_INTEGER_get := LoadLibCryptoFunction('ASN1_INTEGER_get');
   FuncLoadError := not assigned(ASN1_INTEGER_get);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_INTEGER_get_allownil)}
-    ASN1_INTEGER_get := @ERR_ASN1_INTEGER_get;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_get_introduced)}
-    if LibVersion < ASN1_INTEGER_get_introduced then
-    begin
-      {$if declared(FC_ASN1_INTEGER_get)}
-      ASN1_INTEGER_get := @FC_ASN1_INTEGER_get;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_get_removed)}
-    if ASN1_INTEGER_get_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_INTEGER_get)}
-      ASN1_INTEGER_get := @_ASN1_INTEGER_get;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_INTEGER_get_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_INTEGER_get');
-    {$ifend}
+    ASN1_INTEGER_get :=  @ERROR_ASN1_INTEGER_get;
   end;
 
-
-  BN_to_ASN1_INTEGER := LoadLibFunction(ADllHandle, BN_to_ASN1_INTEGER_procname);
+  BN_to_ASN1_INTEGER := LoadLibCryptoFunction('BN_to_ASN1_INTEGER');
   FuncLoadError := not assigned(BN_to_ASN1_INTEGER);
   if FuncLoadError then
   begin
-    {$if not defined(BN_to_ASN1_INTEGER_allownil)}
-    BN_to_ASN1_INTEGER := @ERR_BN_to_ASN1_INTEGER;
-    {$ifend}
-    {$if declared(BN_to_ASN1_INTEGER_introduced)}
-    if LibVersion < BN_to_ASN1_INTEGER_introduced then
-    begin
-      {$if declared(FC_BN_to_ASN1_INTEGER)}
-      BN_to_ASN1_INTEGER := @FC_BN_to_ASN1_INTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BN_to_ASN1_INTEGER_removed)}
-    if BN_to_ASN1_INTEGER_removed <= LibVersion then
-    begin
-      {$if declared(_BN_to_ASN1_INTEGER)}
-      BN_to_ASN1_INTEGER := @_BN_to_ASN1_INTEGER;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BN_to_ASN1_INTEGER_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BN_to_ASN1_INTEGER');
-    {$ifend}
+    BN_to_ASN1_INTEGER :=  @ERROR_BN_to_ASN1_INTEGER;
   end;
 
-
-  ASN1_INTEGER_to_BN := LoadLibFunction(ADllHandle, ASN1_INTEGER_to_BN_procname);
+  ASN1_INTEGER_to_BN := LoadLibCryptoFunction('ASN1_INTEGER_to_BN');
   FuncLoadError := not assigned(ASN1_INTEGER_to_BN);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_INTEGER_to_BN_allownil)}
-    ASN1_INTEGER_to_BN := @ERR_ASN1_INTEGER_to_BN;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_to_BN_introduced)}
-    if LibVersion < ASN1_INTEGER_to_BN_introduced then
-    begin
-      {$if declared(FC_ASN1_INTEGER_to_BN)}
-      ASN1_INTEGER_to_BN := @FC_ASN1_INTEGER_to_BN;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_INTEGER_to_BN_removed)}
-    if ASN1_INTEGER_to_BN_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_INTEGER_to_BN)}
-      ASN1_INTEGER_to_BN := @_ASN1_INTEGER_to_BN;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_INTEGER_to_BN_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_INTEGER_to_BN');
-    {$ifend}
+    ASN1_INTEGER_to_BN :=  @ERROR_ASN1_INTEGER_to_BN;
   end;
 
-
-  ASN1_ENUMERATED_get_int64 := LoadLibFunction(ADllHandle, ASN1_ENUMERATED_get_int64_procname);
+  ASN1_ENUMERATED_get_int64 := LoadLibCryptoFunction('ASN1_ENUMERATED_get_int64');
   FuncLoadError := not assigned(ASN1_ENUMERATED_get_int64);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_ENUMERATED_get_int64_allownil)}
-    ASN1_ENUMERATED_get_int64 := @ERR_ASN1_ENUMERATED_get_int64;
-    {$ifend}
-    {$if declared(ASN1_ENUMERATED_get_int64_introduced)}
+    ASN1_ENUMERATED_get_int64 :=  @ERROR_ASN1_ENUMERATED_get_int64;
     if LibVersion < ASN1_ENUMERATED_get_int64_introduced then
-    begin
-      {$if declared(FC_ASN1_ENUMERATED_get_int64)}
-      ASN1_ENUMERATED_get_int64 := @FC_ASN1_ENUMERATED_get_int64;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_ENUMERATED_get_int64_removed)}
-    if ASN1_ENUMERATED_get_int64_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_ENUMERATED_get_int64)}
-      ASN1_ENUMERATED_get_int64 := @_ASN1_ENUMERATED_get_int64;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_ENUMERATED_get_int64_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_ENUMERATED_get_int64');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_ENUMERATED_set_int64 := LoadLibFunction(ADllHandle, ASN1_ENUMERATED_set_int64_procname);
+  ASN1_ENUMERATED_set_int64 := LoadLibCryptoFunction('ASN1_ENUMERATED_set_int64');
   FuncLoadError := not assigned(ASN1_ENUMERATED_set_int64);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_ENUMERATED_set_int64_allownil)}
-    ASN1_ENUMERATED_set_int64 := @ERR_ASN1_ENUMERATED_set_int64;
-    {$ifend}
-    {$if declared(ASN1_ENUMERATED_set_int64_introduced)}
+    ASN1_ENUMERATED_set_int64 :=  @ERROR_ASN1_ENUMERATED_set_int64;
     if LibVersion < ASN1_ENUMERATED_set_int64_introduced then
-    begin
-      {$if declared(FC_ASN1_ENUMERATED_set_int64)}
-      ASN1_ENUMERATED_set_int64 := @FC_ASN1_ENUMERATED_set_int64;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_ENUMERATED_set_int64_removed)}
-    if ASN1_ENUMERATED_set_int64_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_ENUMERATED_set_int64)}
-      ASN1_ENUMERATED_set_int64 := @_ASN1_ENUMERATED_set_int64;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_ENUMERATED_set_int64_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_ENUMERATED_set_int64');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_ENUMERATED_set := LoadLibFunction(ADllHandle, ASN1_ENUMERATED_set_procname);
+  ASN1_ENUMERATED_set := LoadLibCryptoFunction('ASN1_ENUMERATED_set');
   FuncLoadError := not assigned(ASN1_ENUMERATED_set);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_ENUMERATED_set_allownil)}
-    ASN1_ENUMERATED_set := @ERR_ASN1_ENUMERATED_set;
-    {$ifend}
-    {$if declared(ASN1_ENUMERATED_set_introduced)}
-    if LibVersion < ASN1_ENUMERATED_set_introduced then
-    begin
-      {$if declared(FC_ASN1_ENUMERATED_set)}
-      ASN1_ENUMERATED_set := @FC_ASN1_ENUMERATED_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_ENUMERATED_set_removed)}
-    if ASN1_ENUMERATED_set_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_ENUMERATED_set)}
-      ASN1_ENUMERATED_set := @_ASN1_ENUMERATED_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_ENUMERATED_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_ENUMERATED_set');
-    {$ifend}
+    ASN1_ENUMERATED_set :=  @ERROR_ASN1_ENUMERATED_set;
   end;
 
-
-  ASN1_ENUMERATED_get := LoadLibFunction(ADllHandle, ASN1_ENUMERATED_get_procname);
+  ASN1_ENUMERATED_get := LoadLibCryptoFunction('ASN1_ENUMERATED_get');
   FuncLoadError := not assigned(ASN1_ENUMERATED_get);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_ENUMERATED_get_allownil)}
-    ASN1_ENUMERATED_get := @ERR_ASN1_ENUMERATED_get;
-    {$ifend}
-    {$if declared(ASN1_ENUMERATED_get_introduced)}
-    if LibVersion < ASN1_ENUMERATED_get_introduced then
-    begin
-      {$if declared(FC_ASN1_ENUMERATED_get)}
-      ASN1_ENUMERATED_get := @FC_ASN1_ENUMERATED_get;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_ENUMERATED_get_removed)}
-    if ASN1_ENUMERATED_get_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_ENUMERATED_get)}
-      ASN1_ENUMERATED_get := @_ASN1_ENUMERATED_get;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_ENUMERATED_get_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_ENUMERATED_get');
-    {$ifend}
+    ASN1_ENUMERATED_get :=  @ERROR_ASN1_ENUMERATED_get;
   end;
 
-
-  BN_to_ASN1_ENUMERATED := LoadLibFunction(ADllHandle, BN_to_ASN1_ENUMERATED_procname);
+  BN_to_ASN1_ENUMERATED := LoadLibCryptoFunction('BN_to_ASN1_ENUMERATED');
   FuncLoadError := not assigned(BN_to_ASN1_ENUMERATED);
   if FuncLoadError then
   begin
-    {$if not defined(BN_to_ASN1_ENUMERATED_allownil)}
-    BN_to_ASN1_ENUMERATED := @ERR_BN_to_ASN1_ENUMERATED;
-    {$ifend}
-    {$if declared(BN_to_ASN1_ENUMERATED_introduced)}
-    if LibVersion < BN_to_ASN1_ENUMERATED_introduced then
-    begin
-      {$if declared(FC_BN_to_ASN1_ENUMERATED)}
-      BN_to_ASN1_ENUMERATED := @FC_BN_to_ASN1_ENUMERATED;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BN_to_ASN1_ENUMERATED_removed)}
-    if BN_to_ASN1_ENUMERATED_removed <= LibVersion then
-    begin
-      {$if declared(_BN_to_ASN1_ENUMERATED)}
-      BN_to_ASN1_ENUMERATED := @_BN_to_ASN1_ENUMERATED;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BN_to_ASN1_ENUMERATED_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BN_to_ASN1_ENUMERATED');
-    {$ifend}
+    BN_to_ASN1_ENUMERATED :=  @ERROR_BN_to_ASN1_ENUMERATED;
   end;
 
-
-  ASN1_ENUMERATED_to_BN := LoadLibFunction(ADllHandle, ASN1_ENUMERATED_to_BN_procname);
+  ASN1_ENUMERATED_to_BN := LoadLibCryptoFunction('ASN1_ENUMERATED_to_BN');
   FuncLoadError := not assigned(ASN1_ENUMERATED_to_BN);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_ENUMERATED_to_BN_allownil)}
-    ASN1_ENUMERATED_to_BN := @ERR_ASN1_ENUMERATED_to_BN;
-    {$ifend}
-    {$if declared(ASN1_ENUMERATED_to_BN_introduced)}
-    if LibVersion < ASN1_ENUMERATED_to_BN_introduced then
-    begin
-      {$if declared(FC_ASN1_ENUMERATED_to_BN)}
-      ASN1_ENUMERATED_to_BN := @FC_ASN1_ENUMERATED_to_BN;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_ENUMERATED_to_BN_removed)}
-    if ASN1_ENUMERATED_to_BN_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_ENUMERATED_to_BN)}
-      ASN1_ENUMERATED_to_BN := @_ASN1_ENUMERATED_to_BN;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_ENUMERATED_to_BN_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_ENUMERATED_to_BN');
-    {$ifend}
+    ASN1_ENUMERATED_to_BN :=  @ERROR_ASN1_ENUMERATED_to_BN;
   end;
 
-
-  ASN1_PRINTABLE_type := LoadLibFunction(ADllHandle, ASN1_PRINTABLE_type_procname);
+  ASN1_PRINTABLE_type := LoadLibCryptoFunction('ASN1_PRINTABLE_type');
   FuncLoadError := not assigned(ASN1_PRINTABLE_type);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PRINTABLE_type_allownil)}
-    ASN1_PRINTABLE_type := @ERR_ASN1_PRINTABLE_type;
-    {$ifend}
-    {$if declared(ASN1_PRINTABLE_type_introduced)}
-    if LibVersion < ASN1_PRINTABLE_type_introduced then
-    begin
-      {$if declared(FC_ASN1_PRINTABLE_type)}
-      ASN1_PRINTABLE_type := @FC_ASN1_PRINTABLE_type;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PRINTABLE_type_removed)}
-    if ASN1_PRINTABLE_type_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PRINTABLE_type)}
-      ASN1_PRINTABLE_type := @_ASN1_PRINTABLE_type;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PRINTABLE_type_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PRINTABLE_type');
-    {$ifend}
+    ASN1_PRINTABLE_type :=  @ERROR_ASN1_PRINTABLE_type;
   end;
 
-
-  ASN1_tag2bit := LoadLibFunction(ADllHandle, ASN1_tag2bit_procname);
+  ASN1_tag2bit := LoadLibCryptoFunction('ASN1_tag2bit');
   FuncLoadError := not assigned(ASN1_tag2bit);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_tag2bit_allownil)}
-    ASN1_tag2bit := @ERR_ASN1_tag2bit;
-    {$ifend}
-    {$if declared(ASN1_tag2bit_introduced)}
-    if LibVersion < ASN1_tag2bit_introduced then
-    begin
-      {$if declared(FC_ASN1_tag2bit)}
-      ASN1_tag2bit := @FC_ASN1_tag2bit;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_tag2bit_removed)}
-    if ASN1_tag2bit_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_tag2bit)}
-      ASN1_tag2bit := @_ASN1_tag2bit;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_tag2bit_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_tag2bit');
-    {$ifend}
+    ASN1_tag2bit :=  @ERROR_ASN1_tag2bit;
   end;
 
-
-  ASN1_get_object := LoadLibFunction(ADllHandle, ASN1_get_object_procname);
+  ASN1_get_object := LoadLibCryptoFunction('ASN1_get_object');
   FuncLoadError := not assigned(ASN1_get_object);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_get_object_allownil)}
-    ASN1_get_object := @ERR_ASN1_get_object;
-    {$ifend}
-    {$if declared(ASN1_get_object_introduced)}
-    if LibVersion < ASN1_get_object_introduced then
-    begin
-      {$if declared(FC_ASN1_get_object)}
-      ASN1_get_object := @FC_ASN1_get_object;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_get_object_removed)}
-    if ASN1_get_object_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_get_object)}
-      ASN1_get_object := @_ASN1_get_object;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_get_object_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_get_object');
-    {$ifend}
+    ASN1_get_object :=  @ERROR_ASN1_get_object;
   end;
 
-
-  ASN1_check_infinite_end := LoadLibFunction(ADllHandle, ASN1_check_infinite_end_procname);
+  ASN1_check_infinite_end := LoadLibCryptoFunction('ASN1_check_infinite_end');
   FuncLoadError := not assigned(ASN1_check_infinite_end);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_check_infinite_end_allownil)}
-    ASN1_check_infinite_end := @ERR_ASN1_check_infinite_end;
-    {$ifend}
-    {$if declared(ASN1_check_infinite_end_introduced)}
-    if LibVersion < ASN1_check_infinite_end_introduced then
-    begin
-      {$if declared(FC_ASN1_check_infinite_end)}
-      ASN1_check_infinite_end := @FC_ASN1_check_infinite_end;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_check_infinite_end_removed)}
-    if ASN1_check_infinite_end_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_check_infinite_end)}
-      ASN1_check_infinite_end := @_ASN1_check_infinite_end;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_check_infinite_end_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_check_infinite_end');
-    {$ifend}
+    ASN1_check_infinite_end :=  @ERROR_ASN1_check_infinite_end;
   end;
 
-
-  ASN1_const_check_infinite_end := LoadLibFunction(ADllHandle, ASN1_const_check_infinite_end_procname);
+  ASN1_const_check_infinite_end := LoadLibCryptoFunction('ASN1_const_check_infinite_end');
   FuncLoadError := not assigned(ASN1_const_check_infinite_end);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_const_check_infinite_end_allownil)}
-    ASN1_const_check_infinite_end := @ERR_ASN1_const_check_infinite_end;
-    {$ifend}
-    {$if declared(ASN1_const_check_infinite_end_introduced)}
-    if LibVersion < ASN1_const_check_infinite_end_introduced then
-    begin
-      {$if declared(FC_ASN1_const_check_infinite_end)}
-      ASN1_const_check_infinite_end := @FC_ASN1_const_check_infinite_end;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_const_check_infinite_end_removed)}
-    if ASN1_const_check_infinite_end_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_const_check_infinite_end)}
-      ASN1_const_check_infinite_end := @_ASN1_const_check_infinite_end;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_const_check_infinite_end_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_const_check_infinite_end');
-    {$ifend}
+    ASN1_const_check_infinite_end :=  @ERROR_ASN1_const_check_infinite_end;
   end;
 
-
-  ASN1_put_object := LoadLibFunction(ADllHandle, ASN1_put_object_procname);
+  ASN1_put_object := LoadLibCryptoFunction('ASN1_put_object');
   FuncLoadError := not assigned(ASN1_put_object);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_put_object_allownil)}
-    ASN1_put_object := @ERR_ASN1_put_object;
-    {$ifend}
-    {$if declared(ASN1_put_object_introduced)}
-    if LibVersion < ASN1_put_object_introduced then
-    begin
-      {$if declared(FC_ASN1_put_object)}
-      ASN1_put_object := @FC_ASN1_put_object;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_put_object_removed)}
-    if ASN1_put_object_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_put_object)}
-      ASN1_put_object := @_ASN1_put_object;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_put_object_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_put_object');
-    {$ifend}
+    ASN1_put_object :=  @ERROR_ASN1_put_object;
   end;
 
-
-  ASN1_put_eoc := LoadLibFunction(ADllHandle, ASN1_put_eoc_procname);
+  ASN1_put_eoc := LoadLibCryptoFunction('ASN1_put_eoc');
   FuncLoadError := not assigned(ASN1_put_eoc);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_put_eoc_allownil)}
-    ASN1_put_eoc := @ERR_ASN1_put_eoc;
-    {$ifend}
-    {$if declared(ASN1_put_eoc_introduced)}
-    if LibVersion < ASN1_put_eoc_introduced then
-    begin
-      {$if declared(FC_ASN1_put_eoc)}
-      ASN1_put_eoc := @FC_ASN1_put_eoc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_put_eoc_removed)}
-    if ASN1_put_eoc_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_put_eoc)}
-      ASN1_put_eoc := @_ASN1_put_eoc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_put_eoc_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_put_eoc');
-    {$ifend}
+    ASN1_put_eoc :=  @ERROR_ASN1_put_eoc;
   end;
 
-
-  ASN1_object_size := LoadLibFunction(ADllHandle, ASN1_object_size_procname);
+  ASN1_object_size := LoadLibCryptoFunction('ASN1_object_size');
   FuncLoadError := not assigned(ASN1_object_size);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_object_size_allownil)}
-    ASN1_object_size := @ERR_ASN1_object_size;
-    {$ifend}
-    {$if declared(ASN1_object_size_introduced)}
-    if LibVersion < ASN1_object_size_introduced then
-    begin
-      {$if declared(FC_ASN1_object_size)}
-      ASN1_object_size := @FC_ASN1_object_size;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_object_size_removed)}
-    if ASN1_object_size_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_object_size)}
-      ASN1_object_size := @_ASN1_object_size;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_object_size_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_object_size');
-    {$ifend}
+    ASN1_object_size :=  @ERROR_ASN1_object_size;
   end;
 
-
-  ASN1_item_dup := LoadLibFunction(ADllHandle, ASN1_item_dup_procname);
+  ASN1_item_dup := LoadLibCryptoFunction('ASN1_item_dup');
   FuncLoadError := not assigned(ASN1_item_dup);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_dup_allownil)}
-    ASN1_item_dup := @ERR_ASN1_item_dup;
-    {$ifend}
-    {$if declared(ASN1_item_dup_introduced)}
-    if LibVersion < ASN1_item_dup_introduced then
-    begin
-      {$if declared(FC_ASN1_item_dup)}
-      ASN1_item_dup := @FC_ASN1_item_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_dup_removed)}
-    if ASN1_item_dup_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_dup)}
-      ASN1_item_dup := @_ASN1_item_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_dup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_dup');
-    {$ifend}
+    ASN1_item_dup :=  @ERROR_ASN1_item_dup;
   end;
 
-
-  ASN1_STRING_to_UTF8 := LoadLibFunction(ADllHandle, ASN1_STRING_to_UTF8_procname);
+  ASN1_STRING_to_UTF8 := LoadLibCryptoFunction('ASN1_STRING_to_UTF8');
   FuncLoadError := not assigned(ASN1_STRING_to_UTF8);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_to_UTF8_allownil)}
-    ASN1_STRING_to_UTF8 := @ERR_ASN1_STRING_to_UTF8;
-    {$ifend}
-    {$if declared(ASN1_STRING_to_UTF8_introduced)}
-    if LibVersion < ASN1_STRING_to_UTF8_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_to_UTF8)}
-      ASN1_STRING_to_UTF8 := @FC_ASN1_STRING_to_UTF8;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_to_UTF8_removed)}
-    if ASN1_STRING_to_UTF8_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_to_UTF8)}
-      ASN1_STRING_to_UTF8 := @_ASN1_STRING_to_UTF8;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_to_UTF8_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_to_UTF8');
-    {$ifend}
+    ASN1_STRING_to_UTF8 :=  @ERROR_ASN1_STRING_to_UTF8;
   end;
 
+  ASN1_d2i_bio := LoadLibCryptoFunction('ASN1_d2i_bio');
+  FuncLoadError := not assigned(ASN1_d2i_bio);
+  if FuncLoadError then
+  begin
+    ASN1_d2i_bio :=  @ERROR_ASN1_d2i_bio;
+  end;
 
-  ASN1_item_d2i_bio := LoadLibFunction(ADllHandle, ASN1_item_d2i_bio_procname);
+  ASN1_item_d2i_bio := LoadLibCryptoFunction('ASN1_item_d2i_bio');
   FuncLoadError := not assigned(ASN1_item_d2i_bio);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_d2i_bio_allownil)}
-    ASN1_item_d2i_bio := @ERR_ASN1_item_d2i_bio;
-    {$ifend}
-    {$if declared(ASN1_item_d2i_bio_introduced)}
-    if LibVersion < ASN1_item_d2i_bio_introduced then
-    begin
-      {$if declared(FC_ASN1_item_d2i_bio)}
-      ASN1_item_d2i_bio := @FC_ASN1_item_d2i_bio;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_d2i_bio_removed)}
-    if ASN1_item_d2i_bio_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_d2i_bio)}
-      ASN1_item_d2i_bio := @_ASN1_item_d2i_bio;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_d2i_bio_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_d2i_bio');
-    {$ifend}
+    ASN1_item_d2i_bio :=  @ERROR_ASN1_item_d2i_bio;
   end;
 
-
-  ASN1_i2d_bio := LoadLibFunction(ADllHandle, ASN1_i2d_bio_procname);
+  ASN1_i2d_bio := LoadLibCryptoFunction('ASN1_i2d_bio');
   FuncLoadError := not assigned(ASN1_i2d_bio);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_i2d_bio_allownil)}
-    ASN1_i2d_bio := @ERR_ASN1_i2d_bio;
-    {$ifend}
-    {$if declared(ASN1_i2d_bio_introduced)}
-    if LibVersion < ASN1_i2d_bio_introduced then
-    begin
-      {$if declared(FC_ASN1_i2d_bio)}
-      ASN1_i2d_bio := @FC_ASN1_i2d_bio;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_i2d_bio_removed)}
-    if ASN1_i2d_bio_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_i2d_bio)}
-      ASN1_i2d_bio := @_ASN1_i2d_bio;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_i2d_bio_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_i2d_bio');
-    {$ifend}
+    ASN1_i2d_bio :=  @ERROR_ASN1_i2d_bio;
   end;
 
-
-  ASN1_item_i2d_bio := LoadLibFunction(ADllHandle, ASN1_item_i2d_bio_procname);
+  ASN1_item_i2d_bio := LoadLibCryptoFunction('ASN1_item_i2d_bio');
   FuncLoadError := not assigned(ASN1_item_i2d_bio);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_i2d_bio_allownil)}
-    ASN1_item_i2d_bio := @ERR_ASN1_item_i2d_bio;
-    {$ifend}
-    {$if declared(ASN1_item_i2d_bio_introduced)}
-    if LibVersion < ASN1_item_i2d_bio_introduced then
-    begin
-      {$if declared(FC_ASN1_item_i2d_bio)}
-      ASN1_item_i2d_bio := @FC_ASN1_item_i2d_bio;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_i2d_bio_removed)}
-    if ASN1_item_i2d_bio_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_i2d_bio)}
-      ASN1_item_i2d_bio := @_ASN1_item_i2d_bio;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_i2d_bio_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_i2d_bio');
-    {$ifend}
+    ASN1_item_i2d_bio :=  @ERROR_ASN1_item_i2d_bio;
   end;
 
-
-  ASN1_UTCTIME_print := LoadLibFunction(ADllHandle, ASN1_UTCTIME_print_procname);
+  ASN1_UTCTIME_print := LoadLibCryptoFunction('ASN1_UTCTIME_print');
   FuncLoadError := not assigned(ASN1_UTCTIME_print);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_UTCTIME_print_allownil)}
-    ASN1_UTCTIME_print := @ERR_ASN1_UTCTIME_print;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_print_introduced)}
-    if LibVersion < ASN1_UTCTIME_print_introduced then
-    begin
-      {$if declared(FC_ASN1_UTCTIME_print)}
-      ASN1_UTCTIME_print := @FC_ASN1_UTCTIME_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_UTCTIME_print_removed)}
-    if ASN1_UTCTIME_print_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_UTCTIME_print)}
-      ASN1_UTCTIME_print := @_ASN1_UTCTIME_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_UTCTIME_print_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_UTCTIME_print');
-    {$ifend}
+    ASN1_UTCTIME_print :=  @ERROR_ASN1_UTCTIME_print;
   end;
 
-
-  ASN1_GENERALIZEDTIME_print := LoadLibFunction(ADllHandle, ASN1_GENERALIZEDTIME_print_procname);
+  ASN1_GENERALIZEDTIME_print := LoadLibCryptoFunction('ASN1_GENERALIZEDTIME_print');
   FuncLoadError := not assigned(ASN1_GENERALIZEDTIME_print);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_GENERALIZEDTIME_print_allownil)}
-    ASN1_GENERALIZEDTIME_print := @ERR_ASN1_GENERALIZEDTIME_print;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_print_introduced)}
-    if LibVersion < ASN1_GENERALIZEDTIME_print_introduced then
-    begin
-      {$if declared(FC_ASN1_GENERALIZEDTIME_print)}
-      ASN1_GENERALIZEDTIME_print := @FC_ASN1_GENERALIZEDTIME_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_GENERALIZEDTIME_print_removed)}
-    if ASN1_GENERALIZEDTIME_print_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_GENERALIZEDTIME_print)}
-      ASN1_GENERALIZEDTIME_print := @_ASN1_GENERALIZEDTIME_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_GENERALIZEDTIME_print_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_GENERALIZEDTIME_print');
-    {$ifend}
+    ASN1_GENERALIZEDTIME_print :=  @ERROR_ASN1_GENERALIZEDTIME_print;
   end;
 
-
-  ASN1_TIME_print := LoadLibFunction(ADllHandle, ASN1_TIME_print_procname);
+  ASN1_TIME_print := LoadLibCryptoFunction('ASN1_TIME_print');
   FuncLoadError := not assigned(ASN1_TIME_print);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TIME_print_allownil)}
-    ASN1_TIME_print := @ERR_ASN1_TIME_print;
-    {$ifend}
-    {$if declared(ASN1_TIME_print_introduced)}
-    if LibVersion < ASN1_TIME_print_introduced then
-    begin
-      {$if declared(FC_ASN1_TIME_print)}
-      ASN1_TIME_print := @FC_ASN1_TIME_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TIME_print_removed)}
-    if ASN1_TIME_print_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TIME_print)}
-      ASN1_TIME_print := @_ASN1_TIME_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TIME_print_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TIME_print');
-    {$ifend}
+    ASN1_TIME_print :=  @ERROR_ASN1_TIME_print;
   end;
 
-
-  ASN1_STRING_print := LoadLibFunction(ADllHandle, ASN1_STRING_print_procname);
+  ASN1_STRING_print := LoadLibCryptoFunction('ASN1_STRING_print');
   FuncLoadError := not assigned(ASN1_STRING_print);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_print_allownil)}
-    ASN1_STRING_print := @ERR_ASN1_STRING_print;
-    {$ifend}
-    {$if declared(ASN1_STRING_print_introduced)}
-    if LibVersion < ASN1_STRING_print_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_print)}
-      ASN1_STRING_print := @FC_ASN1_STRING_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_print_removed)}
-    if ASN1_STRING_print_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_print)}
-      ASN1_STRING_print := @_ASN1_STRING_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_print_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_print');
-    {$ifend}
+    ASN1_STRING_print :=  @ERROR_ASN1_STRING_print;
   end;
 
-
-  ASN1_STRING_print_ex := LoadLibFunction(ADllHandle, ASN1_STRING_print_ex_procname);
+  ASN1_STRING_print_ex := LoadLibCryptoFunction('ASN1_STRING_print_ex');
   FuncLoadError := not assigned(ASN1_STRING_print_ex);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_print_ex_allownil)}
-    ASN1_STRING_print_ex := @ERR_ASN1_STRING_print_ex;
-    {$ifend}
-    {$if declared(ASN1_STRING_print_ex_introduced)}
-    if LibVersion < ASN1_STRING_print_ex_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_print_ex)}
-      ASN1_STRING_print_ex := @FC_ASN1_STRING_print_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_print_ex_removed)}
-    if ASN1_STRING_print_ex_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_print_ex)}
-      ASN1_STRING_print_ex := @_ASN1_STRING_print_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_print_ex_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_print_ex');
-    {$ifend}
+    ASN1_STRING_print_ex :=  @ERROR_ASN1_STRING_print_ex;
   end;
 
-
-  ASN1_buf_print := LoadLibFunction(ADllHandle, ASN1_buf_print_procname);
+  ASN1_buf_print := LoadLibCryptoFunction('ASN1_buf_print');
   FuncLoadError := not assigned(ASN1_buf_print);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_buf_print_allownil)}
-    ASN1_buf_print := @ERR_ASN1_buf_print;
-    {$ifend}
-    {$if declared(ASN1_buf_print_introduced)}
+    ASN1_buf_print :=  @ERROR_ASN1_buf_print;
     if LibVersion < ASN1_buf_print_introduced then
-    begin
-      {$if declared(FC_ASN1_buf_print)}
-      ASN1_buf_print := @FC_ASN1_buf_print;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_buf_print_removed)}
-    if ASN1_buf_print_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_buf_print)}
-      ASN1_buf_print := @_ASN1_buf_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_buf_print_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_buf_print');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_bn_print := LoadLibFunction(ADllHandle, ASN1_bn_print_procname);
+  ASN1_bn_print := LoadLibCryptoFunction('ASN1_bn_print');
   FuncLoadError := not assigned(ASN1_bn_print);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_bn_print_allownil)}
-    ASN1_bn_print := @ERR_ASN1_bn_print;
-    {$ifend}
-    {$if declared(ASN1_bn_print_introduced)}
-    if LibVersion < ASN1_bn_print_introduced then
-    begin
-      {$if declared(FC_ASN1_bn_print)}
-      ASN1_bn_print := @FC_ASN1_bn_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_bn_print_removed)}
-    if ASN1_bn_print_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_bn_print)}
-      ASN1_bn_print := @_ASN1_bn_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_bn_print_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_bn_print');
-    {$ifend}
+    ASN1_bn_print :=  @ERROR_ASN1_bn_print;
   end;
 
-
-  ASN1_parse := LoadLibFunction(ADllHandle, ASN1_parse_procname);
+  ASN1_parse := LoadLibCryptoFunction('ASN1_parse');
   FuncLoadError := not assigned(ASN1_parse);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_parse_allownil)}
-    ASN1_parse := @ERR_ASN1_parse;
-    {$ifend}
-    {$if declared(ASN1_parse_introduced)}
-    if LibVersion < ASN1_parse_introduced then
-    begin
-      {$if declared(FC_ASN1_parse)}
-      ASN1_parse := @FC_ASN1_parse;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_parse_removed)}
-    if ASN1_parse_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_parse)}
-      ASN1_parse := @_ASN1_parse;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_parse_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_parse');
-    {$ifend}
+    ASN1_parse :=  @ERROR_ASN1_parse;
   end;
 
-
-  ASN1_parse_dump := LoadLibFunction(ADllHandle, ASN1_parse_dump_procname);
+  ASN1_parse_dump := LoadLibCryptoFunction('ASN1_parse_dump');
   FuncLoadError := not assigned(ASN1_parse_dump);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_parse_dump_allownil)}
-    ASN1_parse_dump := @ERR_ASN1_parse_dump;
-    {$ifend}
-    {$if declared(ASN1_parse_dump_introduced)}
-    if LibVersion < ASN1_parse_dump_introduced then
-    begin
-      {$if declared(FC_ASN1_parse_dump)}
-      ASN1_parse_dump := @FC_ASN1_parse_dump;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_parse_dump_removed)}
-    if ASN1_parse_dump_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_parse_dump)}
-      ASN1_parse_dump := @_ASN1_parse_dump;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_parse_dump_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_parse_dump');
-    {$ifend}
+    ASN1_parse_dump :=  @ERROR_ASN1_parse_dump;
   end;
 
-
-  ASN1_tag2str := LoadLibFunction(ADllHandle, ASN1_tag2str_procname);
+  ASN1_tag2str := LoadLibCryptoFunction('ASN1_tag2str');
   FuncLoadError := not assigned(ASN1_tag2str);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_tag2str_allownil)}
-    ASN1_tag2str := @ERR_ASN1_tag2str;
-    {$ifend}
-    {$if declared(ASN1_tag2str_introduced)}
-    if LibVersion < ASN1_tag2str_introduced then
-    begin
-      {$if declared(FC_ASN1_tag2str)}
-      ASN1_tag2str := @FC_ASN1_tag2str;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_tag2str_removed)}
-    if ASN1_tag2str_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_tag2str)}
-      ASN1_tag2str := @_ASN1_tag2str;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_tag2str_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_tag2str');
-    {$ifend}
+    ASN1_tag2str :=  @ERROR_ASN1_tag2str;
   end;
 
-
-  ASN1_UNIVERSALSTRING_to_string := LoadLibFunction(ADllHandle, ASN1_UNIVERSALSTRING_to_string_procname);
+  ASN1_UNIVERSALSTRING_to_string := LoadLibCryptoFunction('ASN1_UNIVERSALSTRING_to_string');
   FuncLoadError := not assigned(ASN1_UNIVERSALSTRING_to_string);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_UNIVERSALSTRING_to_string_allownil)}
-    ASN1_UNIVERSALSTRING_to_string := @ERR_ASN1_UNIVERSALSTRING_to_string;
-    {$ifend}
-    {$if declared(ASN1_UNIVERSALSTRING_to_string_introduced)}
-    if LibVersion < ASN1_UNIVERSALSTRING_to_string_introduced then
-    begin
-      {$if declared(FC_ASN1_UNIVERSALSTRING_to_string)}
-      ASN1_UNIVERSALSTRING_to_string := @FC_ASN1_UNIVERSALSTRING_to_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_UNIVERSALSTRING_to_string_removed)}
-    if ASN1_UNIVERSALSTRING_to_string_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_UNIVERSALSTRING_to_string)}
-      ASN1_UNIVERSALSTRING_to_string := @_ASN1_UNIVERSALSTRING_to_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_UNIVERSALSTRING_to_string_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_UNIVERSALSTRING_to_string');
-    {$ifend}
+    ASN1_UNIVERSALSTRING_to_string :=  @ERROR_ASN1_UNIVERSALSTRING_to_string;
   end;
 
-
-  ASN1_TYPE_set_octetstring := LoadLibFunction(ADllHandle, ASN1_TYPE_set_octetstring_procname);
+  ASN1_TYPE_set_octetstring := LoadLibCryptoFunction('ASN1_TYPE_set_octetstring');
   FuncLoadError := not assigned(ASN1_TYPE_set_octetstring);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TYPE_set_octetstring_allownil)}
-    ASN1_TYPE_set_octetstring := @ERR_ASN1_TYPE_set_octetstring;
-    {$ifend}
-    {$if declared(ASN1_TYPE_set_octetstring_introduced)}
-    if LibVersion < ASN1_TYPE_set_octetstring_introduced then
-    begin
-      {$if declared(FC_ASN1_TYPE_set_octetstring)}
-      ASN1_TYPE_set_octetstring := @FC_ASN1_TYPE_set_octetstring;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TYPE_set_octetstring_removed)}
-    if ASN1_TYPE_set_octetstring_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TYPE_set_octetstring)}
-      ASN1_TYPE_set_octetstring := @_ASN1_TYPE_set_octetstring;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TYPE_set_octetstring_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TYPE_set_octetstring');
-    {$ifend}
+    ASN1_TYPE_set_octetstring :=  @ERROR_ASN1_TYPE_set_octetstring;
   end;
 
-
-  ASN1_TYPE_get_octetstring := LoadLibFunction(ADllHandle, ASN1_TYPE_get_octetstring_procname);
+  ASN1_TYPE_get_octetstring := LoadLibCryptoFunction('ASN1_TYPE_get_octetstring');
   FuncLoadError := not assigned(ASN1_TYPE_get_octetstring);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TYPE_get_octetstring_allownil)}
-    ASN1_TYPE_get_octetstring := @ERR_ASN1_TYPE_get_octetstring;
-    {$ifend}
-    {$if declared(ASN1_TYPE_get_octetstring_introduced)}
-    if LibVersion < ASN1_TYPE_get_octetstring_introduced then
-    begin
-      {$if declared(FC_ASN1_TYPE_get_octetstring)}
-      ASN1_TYPE_get_octetstring := @FC_ASN1_TYPE_get_octetstring;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TYPE_get_octetstring_removed)}
-    if ASN1_TYPE_get_octetstring_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TYPE_get_octetstring)}
-      ASN1_TYPE_get_octetstring := @_ASN1_TYPE_get_octetstring;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TYPE_get_octetstring_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TYPE_get_octetstring');
-    {$ifend}
+    ASN1_TYPE_get_octetstring :=  @ERROR_ASN1_TYPE_get_octetstring;
   end;
 
-
-  ASN1_TYPE_set_int_octetstring := LoadLibFunction(ADllHandle, ASN1_TYPE_set_int_octetstring_procname);
+  ASN1_TYPE_set_int_octetstring := LoadLibCryptoFunction('ASN1_TYPE_set_int_octetstring');
   FuncLoadError := not assigned(ASN1_TYPE_set_int_octetstring);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TYPE_set_int_octetstring_allownil)}
-    ASN1_TYPE_set_int_octetstring := @ERR_ASN1_TYPE_set_int_octetstring;
-    {$ifend}
-    {$if declared(ASN1_TYPE_set_int_octetstring_introduced)}
-    if LibVersion < ASN1_TYPE_set_int_octetstring_introduced then
-    begin
-      {$if declared(FC_ASN1_TYPE_set_int_octetstring)}
-      ASN1_TYPE_set_int_octetstring := @FC_ASN1_TYPE_set_int_octetstring;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TYPE_set_int_octetstring_removed)}
-    if ASN1_TYPE_set_int_octetstring_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TYPE_set_int_octetstring)}
-      ASN1_TYPE_set_int_octetstring := @_ASN1_TYPE_set_int_octetstring;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TYPE_set_int_octetstring_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TYPE_set_int_octetstring');
-    {$ifend}
+    ASN1_TYPE_set_int_octetstring :=  @ERROR_ASN1_TYPE_set_int_octetstring;
   end;
 
-
-  ASN1_TYPE_get_int_octetstring := LoadLibFunction(ADllHandle, ASN1_TYPE_get_int_octetstring_procname);
+  ASN1_TYPE_get_int_octetstring := LoadLibCryptoFunction('ASN1_TYPE_get_int_octetstring');
   FuncLoadError := not assigned(ASN1_TYPE_get_int_octetstring);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_TYPE_get_int_octetstring_allownil)}
-    ASN1_TYPE_get_int_octetstring := @ERR_ASN1_TYPE_get_int_octetstring;
-    {$ifend}
-    {$if declared(ASN1_TYPE_get_int_octetstring_introduced)}
-    if LibVersion < ASN1_TYPE_get_int_octetstring_introduced then
-    begin
-      {$if declared(FC_ASN1_TYPE_get_int_octetstring)}
-      ASN1_TYPE_get_int_octetstring := @FC_ASN1_TYPE_get_int_octetstring;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_TYPE_get_int_octetstring_removed)}
-    if ASN1_TYPE_get_int_octetstring_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_TYPE_get_int_octetstring)}
-      ASN1_TYPE_get_int_octetstring := @_ASN1_TYPE_get_int_octetstring;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_TYPE_get_int_octetstring_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_TYPE_get_int_octetstring');
-    {$ifend}
+    ASN1_TYPE_get_int_octetstring :=  @ERROR_ASN1_TYPE_get_int_octetstring;
   end;
 
-
-  ASN1_item_unpack := LoadLibFunction(ADllHandle, ASN1_item_unpack_procname);
+  ASN1_item_unpack := LoadLibCryptoFunction('ASN1_item_unpack');
   FuncLoadError := not assigned(ASN1_item_unpack);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_unpack_allownil)}
-    ASN1_item_unpack := @ERR_ASN1_item_unpack;
-    {$ifend}
-    {$if declared(ASN1_item_unpack_introduced)}
-    if LibVersion < ASN1_item_unpack_introduced then
-    begin
-      {$if declared(FC_ASN1_item_unpack)}
-      ASN1_item_unpack := @FC_ASN1_item_unpack;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_unpack_removed)}
-    if ASN1_item_unpack_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_unpack)}
-      ASN1_item_unpack := @_ASN1_item_unpack;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_unpack_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_unpack');
-    {$ifend}
+    ASN1_item_unpack :=  @ERROR_ASN1_item_unpack;
   end;
 
-
-  ASN1_item_pack := LoadLibFunction(ADllHandle, ASN1_item_pack_procname);
+  ASN1_item_pack := LoadLibCryptoFunction('ASN1_item_pack');
   FuncLoadError := not assigned(ASN1_item_pack);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_pack_allownil)}
-    ASN1_item_pack := @ERR_ASN1_item_pack;
-    {$ifend}
-    {$if declared(ASN1_item_pack_introduced)}
-    if LibVersion < ASN1_item_pack_introduced then
-    begin
-      {$if declared(FC_ASN1_item_pack)}
-      ASN1_item_pack := @FC_ASN1_item_pack;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_pack_removed)}
-    if ASN1_item_pack_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_pack)}
-      ASN1_item_pack := @_ASN1_item_pack;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_pack_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_pack');
-    {$ifend}
+    ASN1_item_pack :=  @ERROR_ASN1_item_pack;
   end;
 
-
-  ASN1_STRING_set_default_mask := LoadLibFunction(ADllHandle, ASN1_STRING_set_default_mask_procname);
+  ASN1_STRING_set_default_mask := LoadLibCryptoFunction('ASN1_STRING_set_default_mask');
   FuncLoadError := not assigned(ASN1_STRING_set_default_mask);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_set_default_mask_allownil)}
-    ASN1_STRING_set_default_mask := @ERR_ASN1_STRING_set_default_mask;
-    {$ifend}
-    {$if declared(ASN1_STRING_set_default_mask_introduced)}
-    if LibVersion < ASN1_STRING_set_default_mask_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_set_default_mask)}
-      ASN1_STRING_set_default_mask := @FC_ASN1_STRING_set_default_mask;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_set_default_mask_removed)}
-    if ASN1_STRING_set_default_mask_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_set_default_mask)}
-      ASN1_STRING_set_default_mask := @_ASN1_STRING_set_default_mask;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_set_default_mask_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_set_default_mask');
-    {$ifend}
+    ASN1_STRING_set_default_mask :=  @ERROR_ASN1_STRING_set_default_mask;
   end;
 
-
-  ASN1_STRING_set_default_mask_asc := LoadLibFunction(ADllHandle, ASN1_STRING_set_default_mask_asc_procname);
+  ASN1_STRING_set_default_mask_asc := LoadLibCryptoFunction('ASN1_STRING_set_default_mask_asc');
   FuncLoadError := not assigned(ASN1_STRING_set_default_mask_asc);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_set_default_mask_asc_allownil)}
-    ASN1_STRING_set_default_mask_asc := @ERR_ASN1_STRING_set_default_mask_asc;
-    {$ifend}
-    {$if declared(ASN1_STRING_set_default_mask_asc_introduced)}
-    if LibVersion < ASN1_STRING_set_default_mask_asc_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_set_default_mask_asc)}
-      ASN1_STRING_set_default_mask_asc := @FC_ASN1_STRING_set_default_mask_asc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_set_default_mask_asc_removed)}
-    if ASN1_STRING_set_default_mask_asc_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_set_default_mask_asc)}
-      ASN1_STRING_set_default_mask_asc := @_ASN1_STRING_set_default_mask_asc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_set_default_mask_asc_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_set_default_mask_asc');
-    {$ifend}
+    ASN1_STRING_set_default_mask_asc :=  @ERROR_ASN1_STRING_set_default_mask_asc;
   end;
 
-
-  ASN1_STRING_get_default_mask := LoadLibFunction(ADllHandle, ASN1_STRING_get_default_mask_procname);
+  ASN1_STRING_get_default_mask := LoadLibCryptoFunction('ASN1_STRING_get_default_mask');
   FuncLoadError := not assigned(ASN1_STRING_get_default_mask);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_get_default_mask_allownil)}
-    ASN1_STRING_get_default_mask := @ERR_ASN1_STRING_get_default_mask;
-    {$ifend}
-    {$if declared(ASN1_STRING_get_default_mask_introduced)}
-    if LibVersion < ASN1_STRING_get_default_mask_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_get_default_mask)}
-      ASN1_STRING_get_default_mask := @FC_ASN1_STRING_get_default_mask;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_get_default_mask_removed)}
-    if ASN1_STRING_get_default_mask_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_get_default_mask)}
-      ASN1_STRING_get_default_mask := @_ASN1_STRING_get_default_mask;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_get_default_mask_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_get_default_mask');
-    {$ifend}
+    ASN1_STRING_get_default_mask :=  @ERROR_ASN1_STRING_get_default_mask;
   end;
 
-
-  ASN1_mbstring_copy := LoadLibFunction(ADllHandle, ASN1_mbstring_copy_procname);
+  ASN1_mbstring_copy := LoadLibCryptoFunction('ASN1_mbstring_copy');
   FuncLoadError := not assigned(ASN1_mbstring_copy);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_mbstring_copy_allownil)}
-    ASN1_mbstring_copy := @ERR_ASN1_mbstring_copy;
-    {$ifend}
-    {$if declared(ASN1_mbstring_copy_introduced)}
-    if LibVersion < ASN1_mbstring_copy_introduced then
-    begin
-      {$if declared(FC_ASN1_mbstring_copy)}
-      ASN1_mbstring_copy := @FC_ASN1_mbstring_copy;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_mbstring_copy_removed)}
-    if ASN1_mbstring_copy_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_mbstring_copy)}
-      ASN1_mbstring_copy := @_ASN1_mbstring_copy;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_mbstring_copy_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_mbstring_copy');
-    {$ifend}
+    ASN1_mbstring_copy :=  @ERROR_ASN1_mbstring_copy;
   end;
 
-
-  ASN1_mbstring_ncopy := LoadLibFunction(ADllHandle, ASN1_mbstring_ncopy_procname);
+  ASN1_mbstring_ncopy := LoadLibCryptoFunction('ASN1_mbstring_ncopy');
   FuncLoadError := not assigned(ASN1_mbstring_ncopy);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_mbstring_ncopy_allownil)}
-    ASN1_mbstring_ncopy := @ERR_ASN1_mbstring_ncopy;
-    {$ifend}
-    {$if declared(ASN1_mbstring_ncopy_introduced)}
-    if LibVersion < ASN1_mbstring_ncopy_introduced then
-    begin
-      {$if declared(FC_ASN1_mbstring_ncopy)}
-      ASN1_mbstring_ncopy := @FC_ASN1_mbstring_ncopy;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_mbstring_ncopy_removed)}
-    if ASN1_mbstring_ncopy_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_mbstring_ncopy)}
-      ASN1_mbstring_ncopy := @_ASN1_mbstring_ncopy;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_mbstring_ncopy_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_mbstring_ncopy');
-    {$ifend}
+    ASN1_mbstring_ncopy :=  @ERROR_ASN1_mbstring_ncopy;
   end;
 
-
-  ASN1_STRING_set_by_NID := LoadLibFunction(ADllHandle, ASN1_STRING_set_by_NID_procname);
+  ASN1_STRING_set_by_NID := LoadLibCryptoFunction('ASN1_STRING_set_by_NID');
   FuncLoadError := not assigned(ASN1_STRING_set_by_NID);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_set_by_NID_allownil)}
-    ASN1_STRING_set_by_NID := @ERR_ASN1_STRING_set_by_NID;
-    {$ifend}
-    {$if declared(ASN1_STRING_set_by_NID_introduced)}
-    if LibVersion < ASN1_STRING_set_by_NID_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_set_by_NID)}
-      ASN1_STRING_set_by_NID := @FC_ASN1_STRING_set_by_NID;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_set_by_NID_removed)}
-    if ASN1_STRING_set_by_NID_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_set_by_NID)}
-      ASN1_STRING_set_by_NID := @_ASN1_STRING_set_by_NID;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_set_by_NID_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_set_by_NID');
-    {$ifend}
+    ASN1_STRING_set_by_NID :=  @ERROR_ASN1_STRING_set_by_NID;
   end;
 
-
-  ASN1_STRING_TABLE_get := LoadLibFunction(ADllHandle, ASN1_STRING_TABLE_get_procname);
+  ASN1_STRING_TABLE_get := LoadLibCryptoFunction('ASN1_STRING_TABLE_get');
   FuncLoadError := not assigned(ASN1_STRING_TABLE_get);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_TABLE_get_allownil)}
-    ASN1_STRING_TABLE_get := @ERR_ASN1_STRING_TABLE_get;
-    {$ifend}
-    {$if declared(ASN1_STRING_TABLE_get_introduced)}
-    if LibVersion < ASN1_STRING_TABLE_get_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_TABLE_get)}
-      ASN1_STRING_TABLE_get := @FC_ASN1_STRING_TABLE_get;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_TABLE_get_removed)}
-    if ASN1_STRING_TABLE_get_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_TABLE_get)}
-      ASN1_STRING_TABLE_get := @_ASN1_STRING_TABLE_get;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_TABLE_get_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_TABLE_get');
-    {$ifend}
+    ASN1_STRING_TABLE_get :=  @ERROR_ASN1_STRING_TABLE_get;
   end;
 
-
-  ASN1_STRING_TABLE_add := LoadLibFunction(ADllHandle, ASN1_STRING_TABLE_add_procname);
+  ASN1_STRING_TABLE_add := LoadLibCryptoFunction('ASN1_STRING_TABLE_add');
   FuncLoadError := not assigned(ASN1_STRING_TABLE_add);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_TABLE_add_allownil)}
-    ASN1_STRING_TABLE_add := @ERR_ASN1_STRING_TABLE_add;
-    {$ifend}
-    {$if declared(ASN1_STRING_TABLE_add_introduced)}
-    if LibVersion < ASN1_STRING_TABLE_add_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_TABLE_add)}
-      ASN1_STRING_TABLE_add := @FC_ASN1_STRING_TABLE_add;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_TABLE_add_removed)}
-    if ASN1_STRING_TABLE_add_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_TABLE_add)}
-      ASN1_STRING_TABLE_add := @_ASN1_STRING_TABLE_add;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_TABLE_add_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_TABLE_add');
-    {$ifend}
+    ASN1_STRING_TABLE_add :=  @ERROR_ASN1_STRING_TABLE_add;
   end;
 
-
-  ASN1_STRING_TABLE_cleanup := LoadLibFunction(ADllHandle, ASN1_STRING_TABLE_cleanup_procname);
+  ASN1_STRING_TABLE_cleanup := LoadLibCryptoFunction('ASN1_STRING_TABLE_cleanup');
   FuncLoadError := not assigned(ASN1_STRING_TABLE_cleanup);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_STRING_TABLE_cleanup_allownil)}
-    ASN1_STRING_TABLE_cleanup := @ERR_ASN1_STRING_TABLE_cleanup;
-    {$ifend}
-    {$if declared(ASN1_STRING_TABLE_cleanup_introduced)}
-    if LibVersion < ASN1_STRING_TABLE_cleanup_introduced then
-    begin
-      {$if declared(FC_ASN1_STRING_TABLE_cleanup)}
-      ASN1_STRING_TABLE_cleanup := @FC_ASN1_STRING_TABLE_cleanup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_STRING_TABLE_cleanup_removed)}
-    if ASN1_STRING_TABLE_cleanup_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_STRING_TABLE_cleanup)}
-      ASN1_STRING_TABLE_cleanup := @_ASN1_STRING_TABLE_cleanup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_STRING_TABLE_cleanup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_STRING_TABLE_cleanup');
-    {$ifend}
+    ASN1_STRING_TABLE_cleanup :=  @ERROR_ASN1_STRING_TABLE_cleanup;
   end;
 
-
-  ASN1_item_new := LoadLibFunction(ADllHandle, ASN1_item_new_procname);
+  ASN1_item_new := LoadLibCryptoFunction('ASN1_item_new');
   FuncLoadError := not assigned(ASN1_item_new);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_new_allownil)}
-    ASN1_item_new := @ERR_ASN1_item_new;
-    {$ifend}
-    {$if declared(ASN1_item_new_introduced)}
-    if LibVersion < ASN1_item_new_introduced then
-    begin
-      {$if declared(FC_ASN1_item_new)}
-      ASN1_item_new := @FC_ASN1_item_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_new_removed)}
-    if ASN1_item_new_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_new)}
-      ASN1_item_new := @_ASN1_item_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_new');
-    {$ifend}
+    ASN1_item_new :=  @ERROR_ASN1_item_new;
   end;
 
-
-  ASN1_item_free := LoadLibFunction(ADllHandle, ASN1_item_free_procname);
+  ASN1_item_free := LoadLibCryptoFunction('ASN1_item_free');
   FuncLoadError := not assigned(ASN1_item_free);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_free_allownil)}
-    ASN1_item_free := @ERR_ASN1_item_free;
-    {$ifend}
-    {$if declared(ASN1_item_free_introduced)}
-    if LibVersion < ASN1_item_free_introduced then
-    begin
-      {$if declared(FC_ASN1_item_free)}
-      ASN1_item_free := @FC_ASN1_item_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_free_removed)}
-    if ASN1_item_free_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_free)}
-      ASN1_item_free := @_ASN1_item_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_free');
-    {$ifend}
+    ASN1_item_free :=  @ERROR_ASN1_item_free;
   end;
 
-
-  ASN1_item_d2i := LoadLibFunction(ADllHandle, ASN1_item_d2i_procname);
+  ASN1_item_d2i := LoadLibCryptoFunction('ASN1_item_d2i');
   FuncLoadError := not assigned(ASN1_item_d2i);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_d2i_allownil)}
-    ASN1_item_d2i := @ERR_ASN1_item_d2i;
-    {$ifend}
-    {$if declared(ASN1_item_d2i_introduced)}
-    if LibVersion < ASN1_item_d2i_introduced then
-    begin
-      {$if declared(FC_ASN1_item_d2i)}
-      ASN1_item_d2i := @FC_ASN1_item_d2i;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_d2i_removed)}
-    if ASN1_item_d2i_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_d2i)}
-      ASN1_item_d2i := @_ASN1_item_d2i;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_d2i_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_d2i');
-    {$ifend}
+    ASN1_item_d2i :=  @ERROR_ASN1_item_d2i;
   end;
 
-
-  ASN1_item_i2d := LoadLibFunction(ADllHandle, ASN1_item_i2d_procname);
+  ASN1_item_i2d := LoadLibCryptoFunction('ASN1_item_i2d');
   FuncLoadError := not assigned(ASN1_item_i2d);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_i2d_allownil)}
-    ASN1_item_i2d := @ERR_ASN1_item_i2d;
-    {$ifend}
-    {$if declared(ASN1_item_i2d_introduced)}
-    if LibVersion < ASN1_item_i2d_introduced then
-    begin
-      {$if declared(FC_ASN1_item_i2d)}
-      ASN1_item_i2d := @FC_ASN1_item_i2d;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_i2d_removed)}
-    if ASN1_item_i2d_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_i2d)}
-      ASN1_item_i2d := @_ASN1_item_i2d;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_i2d_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_i2d');
-    {$ifend}
+    ASN1_item_i2d :=  @ERROR_ASN1_item_i2d;
   end;
 
-
-  ASN1_item_ndef_i2d := LoadLibFunction(ADllHandle, ASN1_item_ndef_i2d_procname);
+  ASN1_item_ndef_i2d := LoadLibCryptoFunction('ASN1_item_ndef_i2d');
   FuncLoadError := not assigned(ASN1_item_ndef_i2d);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_ndef_i2d_allownil)}
-    ASN1_item_ndef_i2d := @ERR_ASN1_item_ndef_i2d;
-    {$ifend}
-    {$if declared(ASN1_item_ndef_i2d_introduced)}
-    if LibVersion < ASN1_item_ndef_i2d_introduced then
-    begin
-      {$if declared(FC_ASN1_item_ndef_i2d)}
-      ASN1_item_ndef_i2d := @FC_ASN1_item_ndef_i2d;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_ndef_i2d_removed)}
-    if ASN1_item_ndef_i2d_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_ndef_i2d)}
-      ASN1_item_ndef_i2d := @_ASN1_item_ndef_i2d;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_ndef_i2d_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_ndef_i2d');
-    {$ifend}
+    ASN1_item_ndef_i2d :=  @ERROR_ASN1_item_ndef_i2d;
   end;
 
-
-  ASN1_add_oid_module := LoadLibFunction(ADllHandle, ASN1_add_oid_module_procname);
+  ASN1_add_oid_module := LoadLibCryptoFunction('ASN1_add_oid_module');
   FuncLoadError := not assigned(ASN1_add_oid_module);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_add_oid_module_allownil)}
-    ASN1_add_oid_module := @ERR_ASN1_add_oid_module;
-    {$ifend}
-    {$if declared(ASN1_add_oid_module_introduced)}
-    if LibVersion < ASN1_add_oid_module_introduced then
-    begin
-      {$if declared(FC_ASN1_add_oid_module)}
-      ASN1_add_oid_module := @FC_ASN1_add_oid_module;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_add_oid_module_removed)}
-    if ASN1_add_oid_module_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_add_oid_module)}
-      ASN1_add_oid_module := @_ASN1_add_oid_module;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_add_oid_module_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_add_oid_module');
-    {$ifend}
+    ASN1_add_oid_module :=  @ERROR_ASN1_add_oid_module;
   end;
 
-
-  ASN1_add_stable_module := LoadLibFunction(ADllHandle, ASN1_add_stable_module_procname);
+  ASN1_add_stable_module := LoadLibCryptoFunction('ASN1_add_stable_module');
   FuncLoadError := not assigned(ASN1_add_stable_module);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_add_stable_module_allownil)}
-    ASN1_add_stable_module := @ERR_ASN1_add_stable_module;
-    {$ifend}
-    {$if declared(ASN1_add_stable_module_introduced)}
+    ASN1_add_stable_module :=  @ERROR_ASN1_add_stable_module;
     if LibVersion < ASN1_add_stable_module_introduced then
-    begin
-      {$if declared(FC_ASN1_add_stable_module)}
-      ASN1_add_stable_module := @FC_ASN1_add_stable_module;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_add_stable_module_removed)}
-    if ASN1_add_stable_module_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_add_stable_module)}
-      ASN1_add_stable_module := @_ASN1_add_stable_module;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_add_stable_module_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_add_stable_module');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_generate_nconf := LoadLibFunction(ADllHandle, ASN1_generate_nconf_procname);
+  ASN1_generate_nconf := LoadLibCryptoFunction('ASN1_generate_nconf');
   FuncLoadError := not assigned(ASN1_generate_nconf);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_generate_nconf_allownil)}
-    ASN1_generate_nconf := @ERR_ASN1_generate_nconf;
-    {$ifend}
-    {$if declared(ASN1_generate_nconf_introduced)}
-    if LibVersion < ASN1_generate_nconf_introduced then
-    begin
-      {$if declared(FC_ASN1_generate_nconf)}
-      ASN1_generate_nconf := @FC_ASN1_generate_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_generate_nconf_removed)}
-    if ASN1_generate_nconf_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_generate_nconf)}
-      ASN1_generate_nconf := @_ASN1_generate_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_generate_nconf_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_generate_nconf');
-    {$ifend}
+    ASN1_generate_nconf :=  @ERROR_ASN1_generate_nconf;
   end;
 
-
-  ASN1_generate_v3 := LoadLibFunction(ADllHandle, ASN1_generate_v3_procname);
+  ASN1_generate_v3 := LoadLibCryptoFunction('ASN1_generate_v3');
   FuncLoadError := not assigned(ASN1_generate_v3);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_generate_v3_allownil)}
-    ASN1_generate_v3 := @ERR_ASN1_generate_v3;
-    {$ifend}
-    {$if declared(ASN1_generate_v3_introduced)}
-    if LibVersion < ASN1_generate_v3_introduced then
-    begin
-      {$if declared(FC_ASN1_generate_v3)}
-      ASN1_generate_v3 := @FC_ASN1_generate_v3;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_generate_v3_removed)}
-    if ASN1_generate_v3_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_generate_v3)}
-      ASN1_generate_v3 := @_ASN1_generate_v3;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_generate_v3_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_generate_v3');
-    {$ifend}
+    ASN1_generate_v3 :=  @ERROR_ASN1_generate_v3;
   end;
 
-
-  ASN1_str2mask := LoadLibFunction(ADllHandle, ASN1_str2mask_procname);
+  ASN1_str2mask := LoadLibCryptoFunction('ASN1_str2mask');
   FuncLoadError := not assigned(ASN1_str2mask);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_str2mask_allownil)}
-    ASN1_str2mask := @ERR_ASN1_str2mask;
-    {$ifend}
-    {$if declared(ASN1_str2mask_introduced)}
+    ASN1_str2mask :=  @ERROR_ASN1_str2mask;
     if LibVersion < ASN1_str2mask_introduced then
-    begin
-      {$if declared(FC_ASN1_str2mask)}
-      ASN1_str2mask := @FC_ASN1_str2mask;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_str2mask_removed)}
-    if ASN1_str2mask_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_str2mask)}
-      ASN1_str2mask := @_ASN1_str2mask;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_str2mask_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_str2mask');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_item_print := LoadLibFunction(ADllHandle, ASN1_item_print_procname);
+  ASN1_item_print := LoadLibCryptoFunction('ASN1_item_print');
   FuncLoadError := not assigned(ASN1_item_print);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_print_allownil)}
-    ASN1_item_print := @ERR_ASN1_item_print;
-    {$ifend}
-    {$if declared(ASN1_item_print_introduced)}
-    if LibVersion < ASN1_item_print_introduced then
-    begin
-      {$if declared(FC_ASN1_item_print)}
-      ASN1_item_print := @FC_ASN1_item_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_print_removed)}
-    if ASN1_item_print_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_print)}
-      ASN1_item_print := @_ASN1_item_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_print_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_print');
-    {$ifend}
+    ASN1_item_print :=  @ERROR_ASN1_item_print;
   end;
 
-
-  ASN1_PCTX_new := LoadLibFunction(ADllHandle, ASN1_PCTX_new_procname);
+  ASN1_PCTX_new := LoadLibCryptoFunction('ASN1_PCTX_new');
   FuncLoadError := not assigned(ASN1_PCTX_new);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_new_allownil)}
-    ASN1_PCTX_new := @ERR_ASN1_PCTX_new;
-    {$ifend}
-    {$if declared(ASN1_PCTX_new_introduced)}
-    if LibVersion < ASN1_PCTX_new_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_new)}
-      ASN1_PCTX_new := @FC_ASN1_PCTX_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_new_removed)}
-    if ASN1_PCTX_new_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_new)}
-      ASN1_PCTX_new := @_ASN1_PCTX_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_new');
-    {$ifend}
+    ASN1_PCTX_new :=  @ERROR_ASN1_PCTX_new;
   end;
 
-
-  ASN1_PCTX_free := LoadLibFunction(ADllHandle, ASN1_PCTX_free_procname);
+  ASN1_PCTX_free := LoadLibCryptoFunction('ASN1_PCTX_free');
   FuncLoadError := not assigned(ASN1_PCTX_free);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_free_allownil)}
-    ASN1_PCTX_free := @ERR_ASN1_PCTX_free;
-    {$ifend}
-    {$if declared(ASN1_PCTX_free_introduced)}
-    if LibVersion < ASN1_PCTX_free_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_free)}
-      ASN1_PCTX_free := @FC_ASN1_PCTX_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_free_removed)}
-    if ASN1_PCTX_free_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_free)}
-      ASN1_PCTX_free := @_ASN1_PCTX_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_free');
-    {$ifend}
+    ASN1_PCTX_free :=  @ERROR_ASN1_PCTX_free;
   end;
 
-
-  ASN1_PCTX_get_flags := LoadLibFunction(ADllHandle, ASN1_PCTX_get_flags_procname);
+  ASN1_PCTX_get_flags := LoadLibCryptoFunction('ASN1_PCTX_get_flags');
   FuncLoadError := not assigned(ASN1_PCTX_get_flags);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_get_flags_allownil)}
-    ASN1_PCTX_get_flags := @ERR_ASN1_PCTX_get_flags;
-    {$ifend}
-    {$if declared(ASN1_PCTX_get_flags_introduced)}
-    if LibVersion < ASN1_PCTX_get_flags_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_get_flags)}
-      ASN1_PCTX_get_flags := @FC_ASN1_PCTX_get_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_get_flags_removed)}
-    if ASN1_PCTX_get_flags_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_get_flags)}
-      ASN1_PCTX_get_flags := @_ASN1_PCTX_get_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_get_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_get_flags');
-    {$ifend}
+    ASN1_PCTX_get_flags :=  @ERROR_ASN1_PCTX_get_flags;
   end;
 
-
-  ASN1_PCTX_set_flags := LoadLibFunction(ADllHandle, ASN1_PCTX_set_flags_procname);
+  ASN1_PCTX_set_flags := LoadLibCryptoFunction('ASN1_PCTX_set_flags');
   FuncLoadError := not assigned(ASN1_PCTX_set_flags);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_set_flags_allownil)}
-    ASN1_PCTX_set_flags := @ERR_ASN1_PCTX_set_flags;
-    {$ifend}
-    {$if declared(ASN1_PCTX_set_flags_introduced)}
-    if LibVersion < ASN1_PCTX_set_flags_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_set_flags)}
-      ASN1_PCTX_set_flags := @FC_ASN1_PCTX_set_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_set_flags_removed)}
-    if ASN1_PCTX_set_flags_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_set_flags)}
-      ASN1_PCTX_set_flags := @_ASN1_PCTX_set_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_set_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_set_flags');
-    {$ifend}
+    ASN1_PCTX_set_flags :=  @ERROR_ASN1_PCTX_set_flags;
   end;
 
-
-  ASN1_PCTX_get_nm_flags := LoadLibFunction(ADllHandle, ASN1_PCTX_get_nm_flags_procname);
+  ASN1_PCTX_get_nm_flags := LoadLibCryptoFunction('ASN1_PCTX_get_nm_flags');
   FuncLoadError := not assigned(ASN1_PCTX_get_nm_flags);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_get_nm_flags_allownil)}
-    ASN1_PCTX_get_nm_flags := @ERR_ASN1_PCTX_get_nm_flags;
-    {$ifend}
-    {$if declared(ASN1_PCTX_get_nm_flags_introduced)}
-    if LibVersion < ASN1_PCTX_get_nm_flags_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_get_nm_flags)}
-      ASN1_PCTX_get_nm_flags := @FC_ASN1_PCTX_get_nm_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_get_nm_flags_removed)}
-    if ASN1_PCTX_get_nm_flags_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_get_nm_flags)}
-      ASN1_PCTX_get_nm_flags := @_ASN1_PCTX_get_nm_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_get_nm_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_get_nm_flags');
-    {$ifend}
+    ASN1_PCTX_get_nm_flags :=  @ERROR_ASN1_PCTX_get_nm_flags;
   end;
 
-
-  ASN1_PCTX_set_nm_flags := LoadLibFunction(ADllHandle, ASN1_PCTX_set_nm_flags_procname);
+  ASN1_PCTX_set_nm_flags := LoadLibCryptoFunction('ASN1_PCTX_set_nm_flags');
   FuncLoadError := not assigned(ASN1_PCTX_set_nm_flags);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_set_nm_flags_allownil)}
-    ASN1_PCTX_set_nm_flags := @ERR_ASN1_PCTX_set_nm_flags;
-    {$ifend}
-    {$if declared(ASN1_PCTX_set_nm_flags_introduced)}
-    if LibVersion < ASN1_PCTX_set_nm_flags_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_set_nm_flags)}
-      ASN1_PCTX_set_nm_flags := @FC_ASN1_PCTX_set_nm_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_set_nm_flags_removed)}
-    if ASN1_PCTX_set_nm_flags_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_set_nm_flags)}
-      ASN1_PCTX_set_nm_flags := @_ASN1_PCTX_set_nm_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_set_nm_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_set_nm_flags');
-    {$ifend}
+    ASN1_PCTX_set_nm_flags :=  @ERROR_ASN1_PCTX_set_nm_flags;
   end;
 
-
-  ASN1_PCTX_get_cert_flags := LoadLibFunction(ADllHandle, ASN1_PCTX_get_cert_flags_procname);
+  ASN1_PCTX_get_cert_flags := LoadLibCryptoFunction('ASN1_PCTX_get_cert_flags');
   FuncLoadError := not assigned(ASN1_PCTX_get_cert_flags);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_get_cert_flags_allownil)}
-    ASN1_PCTX_get_cert_flags := @ERR_ASN1_PCTX_get_cert_flags;
-    {$ifend}
-    {$if declared(ASN1_PCTX_get_cert_flags_introduced)}
-    if LibVersion < ASN1_PCTX_get_cert_flags_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_get_cert_flags)}
-      ASN1_PCTX_get_cert_flags := @FC_ASN1_PCTX_get_cert_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_get_cert_flags_removed)}
-    if ASN1_PCTX_get_cert_flags_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_get_cert_flags)}
-      ASN1_PCTX_get_cert_flags := @_ASN1_PCTX_get_cert_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_get_cert_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_get_cert_flags');
-    {$ifend}
+    ASN1_PCTX_get_cert_flags :=  @ERROR_ASN1_PCTX_get_cert_flags;
   end;
 
-
-  ASN1_PCTX_set_cert_flags := LoadLibFunction(ADllHandle, ASN1_PCTX_set_cert_flags_procname);
+  ASN1_PCTX_set_cert_flags := LoadLibCryptoFunction('ASN1_PCTX_set_cert_flags');
   FuncLoadError := not assigned(ASN1_PCTX_set_cert_flags);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_set_cert_flags_allownil)}
-    ASN1_PCTX_set_cert_flags := @ERR_ASN1_PCTX_set_cert_flags;
-    {$ifend}
-    {$if declared(ASN1_PCTX_set_cert_flags_introduced)}
-    if LibVersion < ASN1_PCTX_set_cert_flags_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_set_cert_flags)}
-      ASN1_PCTX_set_cert_flags := @FC_ASN1_PCTX_set_cert_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_set_cert_flags_removed)}
-    if ASN1_PCTX_set_cert_flags_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_set_cert_flags)}
-      ASN1_PCTX_set_cert_flags := @_ASN1_PCTX_set_cert_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_set_cert_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_set_cert_flags');
-    {$ifend}
+    ASN1_PCTX_set_cert_flags :=  @ERROR_ASN1_PCTX_set_cert_flags;
   end;
 
-
-  ASN1_PCTX_get_oid_flags := LoadLibFunction(ADllHandle, ASN1_PCTX_get_oid_flags_procname);
+  ASN1_PCTX_get_oid_flags := LoadLibCryptoFunction('ASN1_PCTX_get_oid_flags');
   FuncLoadError := not assigned(ASN1_PCTX_get_oid_flags);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_get_oid_flags_allownil)}
-    ASN1_PCTX_get_oid_flags := @ERR_ASN1_PCTX_get_oid_flags;
-    {$ifend}
-    {$if declared(ASN1_PCTX_get_oid_flags_introduced)}
-    if LibVersion < ASN1_PCTX_get_oid_flags_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_get_oid_flags)}
-      ASN1_PCTX_get_oid_flags := @FC_ASN1_PCTX_get_oid_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_get_oid_flags_removed)}
-    if ASN1_PCTX_get_oid_flags_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_get_oid_flags)}
-      ASN1_PCTX_get_oid_flags := @_ASN1_PCTX_get_oid_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_get_oid_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_get_oid_flags');
-    {$ifend}
+    ASN1_PCTX_get_oid_flags :=  @ERROR_ASN1_PCTX_get_oid_flags;
   end;
 
-
-  ASN1_PCTX_set_oid_flags := LoadLibFunction(ADllHandle, ASN1_PCTX_set_oid_flags_procname);
+  ASN1_PCTX_set_oid_flags := LoadLibCryptoFunction('ASN1_PCTX_set_oid_flags');
   FuncLoadError := not assigned(ASN1_PCTX_set_oid_flags);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_set_oid_flags_allownil)}
-    ASN1_PCTX_set_oid_flags := @ERR_ASN1_PCTX_set_oid_flags;
-    {$ifend}
-    {$if declared(ASN1_PCTX_set_oid_flags_introduced)}
-    if LibVersion < ASN1_PCTX_set_oid_flags_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_set_oid_flags)}
-      ASN1_PCTX_set_oid_flags := @FC_ASN1_PCTX_set_oid_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_set_oid_flags_removed)}
-    if ASN1_PCTX_set_oid_flags_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_set_oid_flags)}
-      ASN1_PCTX_set_oid_flags := @_ASN1_PCTX_set_oid_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_set_oid_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_set_oid_flags');
-    {$ifend}
+    ASN1_PCTX_set_oid_flags :=  @ERROR_ASN1_PCTX_set_oid_flags;
   end;
 
-
-  ASN1_PCTX_get_str_flags := LoadLibFunction(ADllHandle, ASN1_PCTX_get_str_flags_procname);
+  ASN1_PCTX_get_str_flags := LoadLibCryptoFunction('ASN1_PCTX_get_str_flags');
   FuncLoadError := not assigned(ASN1_PCTX_get_str_flags);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_get_str_flags_allownil)}
-    ASN1_PCTX_get_str_flags := @ERR_ASN1_PCTX_get_str_flags;
-    {$ifend}
-    {$if declared(ASN1_PCTX_get_str_flags_introduced)}
-    if LibVersion < ASN1_PCTX_get_str_flags_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_get_str_flags)}
-      ASN1_PCTX_get_str_flags := @FC_ASN1_PCTX_get_str_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_get_str_flags_removed)}
-    if ASN1_PCTX_get_str_flags_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_get_str_flags)}
-      ASN1_PCTX_get_str_flags := @_ASN1_PCTX_get_str_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_get_str_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_get_str_flags');
-    {$ifend}
+    ASN1_PCTX_get_str_flags :=  @ERROR_ASN1_PCTX_get_str_flags;
   end;
 
-
-  ASN1_PCTX_set_str_flags := LoadLibFunction(ADllHandle, ASN1_PCTX_set_str_flags_procname);
+  ASN1_PCTX_set_str_flags := LoadLibCryptoFunction('ASN1_PCTX_set_str_flags');
   FuncLoadError := not assigned(ASN1_PCTX_set_str_flags);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_PCTX_set_str_flags_allownil)}
-    ASN1_PCTX_set_str_flags := @ERR_ASN1_PCTX_set_str_flags;
-    {$ifend}
-    {$if declared(ASN1_PCTX_set_str_flags_introduced)}
-    if LibVersion < ASN1_PCTX_set_str_flags_introduced then
-    begin
-      {$if declared(FC_ASN1_PCTX_set_str_flags)}
-      ASN1_PCTX_set_str_flags := @FC_ASN1_PCTX_set_str_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_PCTX_set_str_flags_removed)}
-    if ASN1_PCTX_set_str_flags_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_PCTX_set_str_flags)}
-      ASN1_PCTX_set_str_flags := @_ASN1_PCTX_set_str_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_PCTX_set_str_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_PCTX_set_str_flags');
-    {$ifend}
+    ASN1_PCTX_set_str_flags :=  @ERROR_ASN1_PCTX_set_str_flags;
   end;
 
-
-  ASN1_SCTX_free := LoadLibFunction(ADllHandle, ASN1_SCTX_free_procname);
+  ASN1_SCTX_free := LoadLibCryptoFunction('ASN1_SCTX_free');
   FuncLoadError := not assigned(ASN1_SCTX_free);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_SCTX_free_allownil)}
-    ASN1_SCTX_free := @ERR_ASN1_SCTX_free;
-    {$ifend}
-    {$if declared(ASN1_SCTX_free_introduced)}
+    ASN1_SCTX_free :=  @ERROR_ASN1_SCTX_free;
     if LibVersion < ASN1_SCTX_free_introduced then
-    begin
-      {$if declared(FC_ASN1_SCTX_free)}
-      ASN1_SCTX_free := @FC_ASN1_SCTX_free;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_SCTX_free_removed)}
-    if ASN1_SCTX_free_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_SCTX_free)}
-      ASN1_SCTX_free := @_ASN1_SCTX_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_SCTX_free_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_SCTX_free');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_SCTX_get_item := LoadLibFunction(ADllHandle, ASN1_SCTX_get_item_procname);
+  ASN1_SCTX_get_item := LoadLibCryptoFunction('ASN1_SCTX_get_item');
   FuncLoadError := not assigned(ASN1_SCTX_get_item);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_SCTX_get_item_allownil)}
-    ASN1_SCTX_get_item := @ERR_ASN1_SCTX_get_item;
-    {$ifend}
-    {$if declared(ASN1_SCTX_get_item_introduced)}
+    ASN1_SCTX_get_item :=  @ERROR_ASN1_SCTX_get_item;
     if LibVersion < ASN1_SCTX_get_item_introduced then
-    begin
-      {$if declared(FC_ASN1_SCTX_get_item)}
-      ASN1_SCTX_get_item := @FC_ASN1_SCTX_get_item;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_SCTX_get_item_removed)}
-    if ASN1_SCTX_get_item_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_SCTX_get_item)}
-      ASN1_SCTX_get_item := @_ASN1_SCTX_get_item;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_SCTX_get_item_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_SCTX_get_item');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_SCTX_get_template := LoadLibFunction(ADllHandle, ASN1_SCTX_get_template_procname);
+  ASN1_SCTX_get_template := LoadLibCryptoFunction('ASN1_SCTX_get_template');
   FuncLoadError := not assigned(ASN1_SCTX_get_template);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_SCTX_get_template_allownil)}
-    ASN1_SCTX_get_template := @ERR_ASN1_SCTX_get_template;
-    {$ifend}
-    {$if declared(ASN1_SCTX_get_template_introduced)}
+    ASN1_SCTX_get_template :=  @ERROR_ASN1_SCTX_get_template;
     if LibVersion < ASN1_SCTX_get_template_introduced then
-    begin
-      {$if declared(FC_ASN1_SCTX_get_template)}
-      ASN1_SCTX_get_template := @FC_ASN1_SCTX_get_template;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_SCTX_get_template_removed)}
-    if ASN1_SCTX_get_template_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_SCTX_get_template)}
-      ASN1_SCTX_get_template := @_ASN1_SCTX_get_template;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_SCTX_get_template_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_SCTX_get_template');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_SCTX_get_flags := LoadLibFunction(ADllHandle, ASN1_SCTX_get_flags_procname);
+  ASN1_SCTX_get_flags := LoadLibCryptoFunction('ASN1_SCTX_get_flags');
   FuncLoadError := not assigned(ASN1_SCTX_get_flags);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_SCTX_get_flags_allownil)}
-    ASN1_SCTX_get_flags := @ERR_ASN1_SCTX_get_flags;
-    {$ifend}
-    {$if declared(ASN1_SCTX_get_flags_introduced)}
+    ASN1_SCTX_get_flags :=  @ERROR_ASN1_SCTX_get_flags;
     if LibVersion < ASN1_SCTX_get_flags_introduced then
-    begin
-      {$if declared(FC_ASN1_SCTX_get_flags)}
-      ASN1_SCTX_get_flags := @FC_ASN1_SCTX_get_flags;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_SCTX_get_flags_removed)}
-    if ASN1_SCTX_get_flags_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_SCTX_get_flags)}
-      ASN1_SCTX_get_flags := @_ASN1_SCTX_get_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_SCTX_get_flags_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_SCTX_get_flags');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_SCTX_set_app_data := LoadLibFunction(ADllHandle, ASN1_SCTX_set_app_data_procname);
+  ASN1_SCTX_set_app_data := LoadLibCryptoFunction('ASN1_SCTX_set_app_data');
   FuncLoadError := not assigned(ASN1_SCTX_set_app_data);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_SCTX_set_app_data_allownil)}
-    ASN1_SCTX_set_app_data := @ERR_ASN1_SCTX_set_app_data;
-    {$ifend}
-    {$if declared(ASN1_SCTX_set_app_data_introduced)}
+    ASN1_SCTX_set_app_data :=  @ERROR_ASN1_SCTX_set_app_data;
     if LibVersion < ASN1_SCTX_set_app_data_introduced then
-    begin
-      {$if declared(FC_ASN1_SCTX_set_app_data)}
-      ASN1_SCTX_set_app_data := @FC_ASN1_SCTX_set_app_data;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_SCTX_set_app_data_removed)}
-    if ASN1_SCTX_set_app_data_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_SCTX_set_app_data)}
-      ASN1_SCTX_set_app_data := @_ASN1_SCTX_set_app_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_SCTX_set_app_data_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_SCTX_set_app_data');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_SCTX_get_app_data := LoadLibFunction(ADllHandle, ASN1_SCTX_get_app_data_procname);
+  ASN1_SCTX_get_app_data := LoadLibCryptoFunction('ASN1_SCTX_get_app_data');
   FuncLoadError := not assigned(ASN1_SCTX_get_app_data);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_SCTX_get_app_data_allownil)}
-    ASN1_SCTX_get_app_data := @ERR_ASN1_SCTX_get_app_data;
-    {$ifend}
-    {$if declared(ASN1_SCTX_get_app_data_introduced)}
+    ASN1_SCTX_get_app_data :=  @ERROR_ASN1_SCTX_get_app_data;
     if LibVersion < ASN1_SCTX_get_app_data_introduced then
-    begin
-      {$if declared(FC_ASN1_SCTX_get_app_data)}
-      ASN1_SCTX_get_app_data := @FC_ASN1_SCTX_get_app_data;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_SCTX_get_app_data_removed)}
-    if ASN1_SCTX_get_app_data_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_SCTX_get_app_data)}
-      ASN1_SCTX_get_app_data := @_ASN1_SCTX_get_app_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_SCTX_get_app_data_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_SCTX_get_app_data');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_f_asn1 := LoadLibFunction(ADllHandle, BIO_f_asn1_procname);
+  BIO_f_asn1 := LoadLibCryptoFunction('BIO_f_asn1');
   FuncLoadError := not assigned(BIO_f_asn1);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_f_asn1_allownil)}
-    BIO_f_asn1 := @ERR_BIO_f_asn1;
-    {$ifend}
-    {$if declared(BIO_f_asn1_introduced)}
-    if LibVersion < BIO_f_asn1_introduced then
-    begin
-      {$if declared(FC_BIO_f_asn1)}
-      BIO_f_asn1 := @FC_BIO_f_asn1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_f_asn1_removed)}
-    if BIO_f_asn1_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_f_asn1)}
-      BIO_f_asn1 := @_BIO_f_asn1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_f_asn1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_f_asn1');
-    {$ifend}
+    BIO_f_asn1 :=  @ERROR_BIO_f_asn1;
   end;
 
-
-  BIO_new_NDEF := LoadLibFunction(ADllHandle, BIO_new_NDEF_procname);
+  BIO_new_NDEF := LoadLibCryptoFunction('BIO_new_NDEF');
   FuncLoadError := not assigned(BIO_new_NDEF);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_new_NDEF_allownil)}
-    BIO_new_NDEF := @ERR_BIO_new_NDEF;
-    {$ifend}
-    {$if declared(BIO_new_NDEF_introduced)}
-    if LibVersion < BIO_new_NDEF_introduced then
-    begin
-      {$if declared(FC_BIO_new_NDEF)}
-      BIO_new_NDEF := @FC_BIO_new_NDEF;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_new_NDEF_removed)}
-    if BIO_new_NDEF_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_new_NDEF)}
-      BIO_new_NDEF := @_BIO_new_NDEF;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_new_NDEF_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_new_NDEF');
-    {$ifend}
+    BIO_new_NDEF :=  @ERROR_BIO_new_NDEF;
   end;
 
-
-  i2d_ASN1_bio_stream := LoadLibFunction(ADllHandle, i2d_ASN1_bio_stream_procname);
+  i2d_ASN1_bio_stream := LoadLibCryptoFunction('i2d_ASN1_bio_stream');
   FuncLoadError := not assigned(i2d_ASN1_bio_stream);
   if FuncLoadError then
   begin
-    {$if not defined(i2d_ASN1_bio_stream_allownil)}
-    i2d_ASN1_bio_stream := @ERR_i2d_ASN1_bio_stream;
-    {$ifend}
-    {$if declared(i2d_ASN1_bio_stream_introduced)}
-    if LibVersion < i2d_ASN1_bio_stream_introduced then
-    begin
-      {$if declared(FC_i2d_ASN1_bio_stream)}
-      i2d_ASN1_bio_stream := @FC_i2d_ASN1_bio_stream;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2d_ASN1_bio_stream_removed)}
-    if i2d_ASN1_bio_stream_removed <= LibVersion then
-    begin
-      {$if declared(_i2d_ASN1_bio_stream)}
-      i2d_ASN1_bio_stream := @_i2d_ASN1_bio_stream;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2d_ASN1_bio_stream_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2d_ASN1_bio_stream');
-    {$ifend}
+    i2d_ASN1_bio_stream :=  @ERROR_i2d_ASN1_bio_stream;
   end;
 
-
-  PEM_write_bio_ASN1_stream := LoadLibFunction(ADllHandle, PEM_write_bio_ASN1_stream_procname);
+  PEM_write_bio_ASN1_stream := LoadLibCryptoFunction('PEM_write_bio_ASN1_stream');
   FuncLoadError := not assigned(PEM_write_bio_ASN1_stream);
   if FuncLoadError then
   begin
-    {$if not defined(PEM_write_bio_ASN1_stream_allownil)}
-    PEM_write_bio_ASN1_stream := @ERR_PEM_write_bio_ASN1_stream;
-    {$ifend}
-    {$if declared(PEM_write_bio_ASN1_stream_introduced)}
-    if LibVersion < PEM_write_bio_ASN1_stream_introduced then
-    begin
-      {$if declared(FC_PEM_write_bio_ASN1_stream)}
-      PEM_write_bio_ASN1_stream := @FC_PEM_write_bio_ASN1_stream;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(PEM_write_bio_ASN1_stream_removed)}
-    if PEM_write_bio_ASN1_stream_removed <= LibVersion then
-    begin
-      {$if declared(_PEM_write_bio_ASN1_stream)}
-      PEM_write_bio_ASN1_stream := @_PEM_write_bio_ASN1_stream;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(PEM_write_bio_ASN1_stream_allownil)}
-    if FuncLoadError then
-      AFailed.Add('PEM_write_bio_ASN1_stream');
-    {$ifend}
+    PEM_write_bio_ASN1_stream :=  @ERROR_PEM_write_bio_ASN1_stream;
   end;
 
-
-  SMIME_read_ASN1 := LoadLibFunction(ADllHandle, SMIME_read_ASN1_procname);
+  SMIME_read_ASN1 := LoadLibCryptoFunction('SMIME_read_ASN1');
   FuncLoadError := not assigned(SMIME_read_ASN1);
   if FuncLoadError then
   begin
-    {$if not defined(SMIME_read_ASN1_allownil)}
-    SMIME_read_ASN1 := @ERR_SMIME_read_ASN1;
-    {$ifend}
-    {$if declared(SMIME_read_ASN1_introduced)}
-    if LibVersion < SMIME_read_ASN1_introduced then
-    begin
-      {$if declared(FC_SMIME_read_ASN1)}
-      SMIME_read_ASN1 := @FC_SMIME_read_ASN1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SMIME_read_ASN1_removed)}
-    if SMIME_read_ASN1_removed <= LibVersion then
-    begin
-      {$if declared(_SMIME_read_ASN1)}
-      SMIME_read_ASN1 := @_SMIME_read_ASN1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SMIME_read_ASN1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SMIME_read_ASN1');
-    {$ifend}
+    SMIME_read_ASN1 :=  @ERROR_SMIME_read_ASN1;
   end;
 
-
-  SMIME_crlf_copy := LoadLibFunction(ADllHandle, SMIME_crlf_copy_procname);
+  SMIME_crlf_copy := LoadLibCryptoFunction('SMIME_crlf_copy');
   FuncLoadError := not assigned(SMIME_crlf_copy);
   if FuncLoadError then
   begin
-    {$if not defined(SMIME_crlf_copy_allownil)}
-    SMIME_crlf_copy := @ERR_SMIME_crlf_copy;
-    {$ifend}
-    {$if declared(SMIME_crlf_copy_introduced)}
-    if LibVersion < SMIME_crlf_copy_introduced then
-    begin
-      {$if declared(FC_SMIME_crlf_copy)}
-      SMIME_crlf_copy := @FC_SMIME_crlf_copy;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SMIME_crlf_copy_removed)}
-    if SMIME_crlf_copy_removed <= LibVersion then
-    begin
-      {$if declared(_SMIME_crlf_copy)}
-      SMIME_crlf_copy := @_SMIME_crlf_copy;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SMIME_crlf_copy_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SMIME_crlf_copy');
-    {$ifend}
+    SMIME_crlf_copy :=  @ERROR_SMIME_crlf_copy;
   end;
 
-
-  SMIME_text := LoadLibFunction(ADllHandle, SMIME_text_procname);
+  SMIME_text := LoadLibCryptoFunction('SMIME_text');
   FuncLoadError := not assigned(SMIME_text);
   if FuncLoadError then
   begin
-    {$if not defined(SMIME_text_allownil)}
-    SMIME_text := @ERR_SMIME_text;
-    {$ifend}
-    {$if declared(SMIME_text_introduced)}
-    if LibVersion < SMIME_text_introduced then
-    begin
-      {$if declared(FC_SMIME_text)}
-      SMIME_text := @FC_SMIME_text;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SMIME_text_removed)}
-    if SMIME_text_removed <= LibVersion then
-    begin
-      {$if declared(_SMIME_text)}
-      SMIME_text := @_SMIME_text;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SMIME_text_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SMIME_text');
-    {$ifend}
+    SMIME_text :=  @ERROR_SMIME_text;
   end;
 
-
-  ASN1_ITEM_lookup := LoadLibFunction(ADllHandle, ASN1_ITEM_lookup_procname);
+  ASN1_ITEM_lookup := LoadLibCryptoFunction('ASN1_ITEM_lookup');
   FuncLoadError := not assigned(ASN1_ITEM_lookup);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_ITEM_lookup_allownil)}
-    ASN1_ITEM_lookup := @ERR_ASN1_ITEM_lookup;
-    {$ifend}
-    {$if declared(ASN1_ITEM_lookup_introduced)}
+    ASN1_ITEM_lookup :=  @ERROR_ASN1_ITEM_lookup;
     if LibVersion < ASN1_ITEM_lookup_introduced then
-    begin
-      {$if declared(FC_ASN1_ITEM_lookup)}
-      ASN1_ITEM_lookup := @FC_ASN1_ITEM_lookup;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_ITEM_lookup_removed)}
-    if ASN1_ITEM_lookup_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_ITEM_lookup)}
-      ASN1_ITEM_lookup := @_ASN1_ITEM_lookup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_ITEM_lookup_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_ITEM_lookup');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ASN1_ITEM_get := LoadLibFunction(ADllHandle, ASN1_ITEM_get_procname);
+  ASN1_ITEM_get := LoadLibCryptoFunction('ASN1_ITEM_get');
   FuncLoadError := not assigned(ASN1_ITEM_get);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_ITEM_get_allownil)}
-    ASN1_ITEM_get := @ERR_ASN1_ITEM_get;
-    {$ifend}
-    {$if declared(ASN1_ITEM_get_introduced)}
+    ASN1_ITEM_get :=  @ERROR_ASN1_ITEM_get;
     if LibVersion < ASN1_ITEM_get_introduced then
-    begin
-      {$if declared(FC_ASN1_ITEM_get)}
-      ASN1_ITEM_get := @FC_ASN1_ITEM_get;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_ITEM_get_removed)}
-    if ASN1_ITEM_get_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_ITEM_get)}
-      ASN1_ITEM_get := @_ASN1_ITEM_get;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_ITEM_get_allownil)}
     if FuncLoadError then
       AFailed.Add('ASN1_ITEM_get');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
 end;
 
-procedure Unload;
+procedure UnLoad;
 begin
   ASN1_TYPE_get := nil;
   ASN1_TYPE_set := nil;
   ASN1_TYPE_set1 := nil;
   ASN1_TYPE_cmp := nil;
-  ASN1_TYPE_pack_sequence := nil; {introduced 1.1.0}
-  ASN1_TYPE_unpack_sequence := nil; {introduced 1.1.0}
+  ASN1_TYPE_pack_sequence := nil;
+  ASN1_TYPE_unpack_sequence := nil;
   ASN1_OBJECT_new := nil;
   ASN1_OBJECT_free := nil;
   i2d_ASN1_OBJECT := nil;
@@ -8512,7 +3352,7 @@ begin
   ASN1_STRING_length := nil;
   ASN1_STRING_length_set := nil;
   ASN1_STRING_type := nil;
-  ASN1_STRING_get0_data := nil; {introduced 1.1.0}
+  ASN1_STRING_get0_data := nil;
   ASN1_BIT_STRING_set := nil;
   ASN1_BIT_STRING_set_bit := nil;
   ASN1_BIT_STRING_get_bit := nil;
@@ -8540,6 +3380,10 @@ begin
   ASN1_OCTET_STRING_dup := nil;
   ASN1_OCTET_STRING_cmp := nil;
   ASN1_OCTET_STRING_set := nil;
+  ASN1_OCTET_STRING_new := nil;
+  ASN1_OCTET_STRING_free := nil;
+  d2i_ASN1_OCTET_STRING := nil;
+  i2d_ASN1_OCTET_STRING := nil;
   UTF8_getc := nil;
   UTF8_putc := nil;
   ASN1_UTCTIME_new := nil;
@@ -8559,11 +3403,11 @@ begin
   ASN1_TIME_check := nil;
   ASN1_TIME_to_generalizedtime := nil;
   ASN1_TIME_set_string := nil;
-  ASN1_TIME_set_string_X509 := nil; {introduced 1.1.0}
-  ASN1_TIME_to_tm := nil; {introduced 1.1.0}
-  ASN1_TIME_normalize := nil; {introduced 1.1.0}
-  ASN1_TIME_cmp_time_t := nil; {introduced 1.1.0}
-  ASN1_TIME_compare := nil; {introduced 1.1.0}
+  ASN1_TIME_set_string_X509 := nil;
+  ASN1_TIME_to_tm := nil;
+  ASN1_TIME_normalize := nil;
+  ASN1_TIME_cmp_time_t := nil;
+  ASN1_TIME_compare := nil;
   i2a_ASN1_INTEGER := nil;
   a2i_ASN1_INTEGER := nil;
   i2a_ASN1_ENUMERATED := nil;
@@ -8574,16 +3418,16 @@ begin
   i2t_ASN1_OBJECT := nil;
   a2d_ASN1_OBJECT := nil;
   ASN1_OBJECT_create := nil;
-  ASN1_INTEGER_get_int64 := nil; {introduced 1.1.0}
-  ASN1_INTEGER_set_int64 := nil; {introduced 1.1.0}
-  ASN1_INTEGER_get_uint64 := nil; {introduced 1.1.0}
-  ASN1_INTEGER_set_uint64 := nil; {introduced 1.1.0}
+  ASN1_INTEGER_get_int64 := nil;
+  ASN1_INTEGER_set_int64 := nil;
+  ASN1_INTEGER_get_uint64 := nil;
+  ASN1_INTEGER_set_uint64 := nil;
   ASN1_INTEGER_set := nil;
   ASN1_INTEGER_get := nil;
   BN_to_ASN1_INTEGER := nil;
   ASN1_INTEGER_to_BN := nil;
-  ASN1_ENUMERATED_get_int64 := nil; {introduced 1.1.0}
-  ASN1_ENUMERATED_set_int64 := nil; {introduced 1.1.0}
+  ASN1_ENUMERATED_get_int64 := nil;
+  ASN1_ENUMERATED_set_int64 := nil;
   ASN1_ENUMERATED_set := nil;
   ASN1_ENUMERATED_get := nil;
   BN_to_ASN1_ENUMERATED := nil;
@@ -8598,6 +3442,7 @@ begin
   ASN1_object_size := nil;
   ASN1_item_dup := nil;
   ASN1_STRING_to_UTF8 := nil;
+  ASN1_d2i_bio := nil;
   ASN1_item_d2i_bio := nil;
   ASN1_i2d_bio := nil;
   ASN1_item_i2d_bio := nil;
@@ -8606,7 +3451,7 @@ begin
   ASN1_TIME_print := nil;
   ASN1_STRING_print := nil;
   ASN1_STRING_print_ex := nil;
-  ASN1_buf_print := nil; {introduced 1.1.0}
+  ASN1_buf_print := nil;
   ASN1_bn_print := nil;
   ASN1_parse := nil;
   ASN1_parse_dump := nil;
@@ -8633,10 +3478,10 @@ begin
   ASN1_item_i2d := nil;
   ASN1_item_ndef_i2d := nil;
   ASN1_add_oid_module := nil;
-  ASN1_add_stable_module := nil; {introduced 1.1.0}
+  ASN1_add_stable_module := nil;
   ASN1_generate_nconf := nil;
   ASN1_generate_v3 := nil;
-  ASN1_str2mask := nil; {introduced 1.1.0}
+  ASN1_str2mask := nil;
   ASN1_item_print := nil;
   ASN1_PCTX_new := nil;
   ASN1_PCTX_free := nil;
@@ -8650,12 +3495,12 @@ begin
   ASN1_PCTX_set_oid_flags := nil;
   ASN1_PCTX_get_str_flags := nil;
   ASN1_PCTX_set_str_flags := nil;
-  ASN1_SCTX_free := nil; {introduced 1.1.0}
-  ASN1_SCTX_get_item := nil; {introduced 1.1.0}
-  ASN1_SCTX_get_template := nil; {introduced 1.1.0}
-  ASN1_SCTX_get_flags := nil; {introduced 1.1.0}
-  ASN1_SCTX_set_app_data := nil; {introduced 1.1.0}
-  ASN1_SCTX_get_app_data := nil; {introduced 1.1.0}
+  ASN1_SCTX_free := nil;
+  ASN1_SCTX_get_item := nil;
+  ASN1_SCTX_get_template := nil;
+  ASN1_SCTX_get_flags := nil;
+  ASN1_SCTX_set_app_data := nil;
+  ASN1_SCTX_get_app_data := nil;
   BIO_f_asn1 := nil;
   BIO_new_NDEF := nil;
   i2d_ASN1_bio_stream := nil;
@@ -8663,15 +3508,18 @@ begin
   SMIME_read_ASN1 := nil;
   SMIME_crlf_copy := nil;
   SMIME_text := nil;
-  ASN1_ITEM_lookup := nil; {introduced 1.1.0}
-  ASN1_ITEM_get := nil; {introduced 1.1.0}
+  ASN1_ITEM_lookup := nil;
+  ASN1_ITEM_get := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
-  Register_SSLLoader(@Load,'LibCrypto');
-  Register_SSLUnloader(@Unload);
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+Register_SSLLoader(@Load);
+Register_SSLUnloader(@Unload);
 {$ENDIF}
+finalization
+
+
 end.

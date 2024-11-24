@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_ssl3.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_ssl3.h2pas
-     and this file regenerated. IdOpenSSLHeaders_ssl3.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file ssl3.h2pas 
+It should not be modified directly. All changes should be made to ssl3.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_ssl3;
+
 
 interface
 
@@ -38,8 +34,7 @@ interface
 // ssl3.h
 
 
-uses
-  IdGlobal;
+uses  IdSSLOpenSSLAPI;
 
 const
   (*
@@ -207,8 +202,8 @@ const
   SSL3_RT_MAX_TLS13_ENCRYPTED_LENGTH = SSL3_RT_MAX_PLAIN_LENGTH + SSL3_RT_MAX_TLS13_ENCRYPTED_OVERHEAD;
   SSL3_RT_MAX_PACKET_SIZE = SSL3_RT_MAX_ENCRYPTED_LENGTH + SSL3_RT_HEADER_LENGTH;
 
-  SSL3_MD_CLIENT_FINISHED_= TIdAnsiChar($43) + TIdAnsiChar($4C) + TIdAnsiChar($4E) + TIdAnsiChar($54);
-  SSL3_MD_SERVER_FINISHED_= TIdAnsiChar($53) + TIdAnsiChar($52) + TIdAnsiChar($56) + TIdAnsiChar($52);
+  SSL3_MD_CLIENT_FINISHED_= TAnsiChar($43) + TAnsiChar($4C) + TAnsiChar($4E) + TAnsiChar($54);
+  SSL3_MD_SERVER_FINISHED_= TAnsiChar($53) + TAnsiChar($52) + TAnsiChar($56) + TAnsiChar($52);
 
   SSL3_VERSION = $0300;
   SSL3_VERSION_MAJOR = $03;
@@ -329,6 +324,36 @@ const
   SSL3_CHANGE_CIPHER_CLIENT_READ = SSL3_CC_CLIENT or SSL3_CC_READ;
   SSL3_CHANGE_CIPHER_SERVER_WRITE = SSL3_CC_SERVER or SSL3_CC_WRITE;
 
+
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
+
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
+
+
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+
+{$ELSE}
+{$ENDIF}
+
 implementation
+
+
+
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
+
+initialization
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$ENDIF}
+finalization
+
 
 end.

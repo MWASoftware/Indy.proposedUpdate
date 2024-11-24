@@ -23,7 +23,6 @@
 unit IdSSLOpenSSLFIPS;
 
 {$i IdCompilerDefines.inc}
-{$i IdSSLOpenSSLDefines.inc}
 {$IFNDEF USE_OPENSSL}
   {$message error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
@@ -31,7 +30,15 @@ unit IdSSLOpenSSLFIPS;
 interface
 
 uses
-  Classes;
+  Classes,
+  IdSSLOpenSSLExceptionHandlers;
+
+type
+  EIdDigestError = class(EOpenSSLAPICryptoError);
+  EIdDigestFinalEx = class(EIdDigestError);
+  EIdDigestInitEx = class(EIdDigestError);
+  EIdDigestUpdate = class(EIdDigestError);
+
 
 implementation
 
@@ -40,7 +47,6 @@ uses
   IdGlobal,
   IdCTypes,
   IdFIPS,
-  IdSSLOpenSSLExceptionHandlers,
   IdResourceStringsOpenSSL,
   IdOpenSSLHeaders_evp,
   IdOpenSSLHeaders_crypto,
@@ -77,13 +83,13 @@ end;
 
 function OpenSSLIsHashingIntfAvail : Boolean;
 begin
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if declared(IOpenSSLDLL)}
   Result := Assigned(EVP_DigestInit_ex) and
             Assigned(EVP_DigestUpdate) and
             Assigned(EVP_DigestFinal_ex) ;
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$ifend}
 end;
 
 function OpenSSLGetFIPSMode : Boolean;
@@ -118,60 +124,69 @@ begin
   {$IFDEF OPENSSL_NO_MD2}
   Result := False;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if declared(EVP_md2)}
   Result := Assigned(EVP_md2);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$ifend}
   {$ENDIF}
 end;
 
 function OpenSSLGetMD2HashInst : TIdHashIntCtx;
-{$IFNDEF OPENSSL_NO_MD2}
+{$IF declared(EVP_md2)}
 var
   LRet : PEVP_MD;
-{$ENDIF}
 begin
-  {$IFDEF OPENSSL_NO_MD2}
-  Result := nil;
-  {$ELSE}
   LRet := EVP_md2;
   Result := OpenSSLGetDigestCtx(LRet);
-  {$ENDIF}
+  {$ELSE}
+begin
+  Result := nil;
+  {$IFEND}
 end;
 
 function OpenSSLIsMD4HashIntfAvail: Boolean;
 begin
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if declared(EVP_md4)}
   Result := Assigned(EVP_md4);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$ifend}
 end;
 
 function OpenSSLGetMD4HashInst : TIdHashIntCtx;
+{$IF declared(EVP_md4)}
 var
   LRet : PEVP_MD;
 begin
   LRet := EVP_md4;
   Result := OpenSSLGetDigestCtx(LRet);
+{$ELSE}
+begin
+  Result := nil;
+{$IFEND}
 end;
 
 function OpenSSLIsMD5HashIntfAvail: Boolean;
 begin
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$IF declared(EVP_md5)}
   Result := Assigned(EVP_md5);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$IFEND}
 end;
 
 function OpenSSLGetMD5HashInst : TIdHashIntCtx;
+{$IF declared(EVP_md5)}
 var
   LRet : PEVP_MD;
 begin
   LRet := EVP_md5;
   Result := OpenSSLGetDigestCtx(LRet);
+  {$ELSE}
+  begin
+    Result := nil;
+  {$IFEND}
 end;
 
 function OpenSSLIsSHA1HashIntfAvail: Boolean;
@@ -179,11 +194,11 @@ begin
   {$IFDEF OPENSSL_NO_SHA}
   Result := False;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$IF declared(EVP_sha1)}
   Result := Assigned(EVP_sha1);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$ifend}
   {$ENDIF}
 end;
 
@@ -196,8 +211,12 @@ begin
   {$IFDEF OPENSSL_NO_SHA}
   Result := nil;
   {$ELSE}
+  {$IF declared(EVP_sha1)}
   LRet := EVP_sha1;
   Result := OpenSSLGetDigestCtx(LRet);
+  {$ELSE}
+  Result := nil;
+  {$ifend}
   {$ENDIF}
 end;
 
@@ -206,7 +225,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := False;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$IF declared(EVP_sha224)}
   Result := Assigned(EVP_sha224);
   {$ELSE}
   Result := true;
@@ -223,8 +242,10 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := nil;
   {$ELSE}
+  {$IF declared(EVP_sha224)}
   LRet := EVP_sha224;
   Result := OpenSSLGetDigestCtx(LRet);
+  {$IFEND}
   {$ENDIF}
 end;
 
@@ -233,11 +254,11 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := False;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$IF declared(EVP_sha256)}
   Result := Assigned(EVP_sha256);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$IFEND}
   {$ENDIF}
 end;
 
@@ -250,8 +271,10 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := nil;
   {$ELSE}
+  {$IF declared(EVP_sha256)}
   LRet := EVP_sha256;
   Result := OpenSSLGetDigestCtx(LRet);
+  {$ifend}
   {$ENDIF}
 end;
 
@@ -260,10 +283,11 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := False;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$IF declared(EVP_sha384)}
   Result := Assigned(EVP_sha384);
   {$ELSE}
-  {$ENDIF}
+  Result := false;
+  {$IFEND}
   {$ENDIF}
 end;
 
@@ -276,8 +300,12 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := nil;
   {$ELSE}
+  {$IF declared(EVP_sha384)}
   LRet := EVP_sha384;
   Result := OpenSSLGetDigestCtx(LRet);
+  {$ELSE}
+  Result := false;
+  {$IFEND}
   {$ENDIF}
 end;
 
@@ -286,11 +314,11 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := nil;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$IF declared(EVP_sha512)}
   Result := Assigned(EVP_sha512);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$IFEND}
   {$ENDIF}
 end;
 
@@ -303,8 +331,12 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := nil;
   {$ELSE}
+  {$IF declared(EVP_sha512)}
   LRet := EVP_sha512;
   Result := OpenSSLGetDigestCtx(LRet);
+  {$ELSE}
+  Result := false;
+  {$IFEND}
 {$ENDIF}
 end;
 
@@ -337,7 +369,7 @@ begin
   {$IFDEF OPENSSL_NO_HMAC}
   Result := False;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if declared(IOpenSSLDLL)}
   Result := Assigned(HMAC_CTX_new) and
             Assigned(HMAC_Init_ex) and
             Assigned(HMAC_Update)  and
@@ -345,7 +377,7 @@ begin
             Assigned(HMAC_CTX_free);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$ifend}
   {$ENDIF}
 end;
 
@@ -354,22 +386,22 @@ begin
  {$IFDEF OPENSSL_NO_MD5}
  Result := False;
  {$ELSE}
- {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+ {$IF declared(EVP_md5)}
  Result := Assigned(EVP_md5);
  {$ELSE}
  Result := true;
- {$ENDIF}
+ {$IFEND}
  {$ENDIF}
 end;
 
 function OpenSSLGetHMACMD5Inst(const AKey : TIdBytes) : TIdHMACIntCtx;
 begin
-  {$IFDEF OPENSSL_NO_MD5}
+  {$IF not declared(EVP_md5)}
   Result := nil;
   {$ELSE}
   Result := HMAC_CTX_new;
   HMAC_Init_ex(Result, PByte(AKey), Length(AKey), EVP_md5, nil);
-  {$ENDIF}
+  {$IFEND}
 end;
 
 function OpenSSLIsHMACSHA1Avail: Boolean;
@@ -377,11 +409,11 @@ begin
   {$IFDEF OPENSSL_NO_SHA}
   Result := False;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$IF declared(EVP_sha1)}
   Result := Assigned(EVP_sha1);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$IFEND}
   {$ENDIF}
 end;
 
@@ -401,11 +433,11 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := False;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$IF declared(EVP_sha224)}
   Result := Assigned(EVP_sha224);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$IFEND}
   {$ENDIF}
 end;
 
@@ -424,11 +456,11 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := False;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$IF declared(EVP_sha256)}
   Result := Assigned(EVP_sha256);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$IFEND}
   {$ENDIF}
 end;
 
@@ -447,11 +479,11 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := False;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+   {$IF declared(EVP_sha384)}
   Result := Assigned(EVP_sha384);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$IFEND}
   {$ENDIF}
 end;
 
@@ -470,11 +502,11 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := False;
   {$ELSE}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$IF declared(EVP_sha512)}
   Result := Assigned(EVP_sha512);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$IFEND}
   {$ENDIF}
 end;
 

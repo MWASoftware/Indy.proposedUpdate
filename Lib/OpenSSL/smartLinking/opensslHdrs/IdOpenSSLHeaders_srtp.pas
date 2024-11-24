@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_srtp.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_srtp.h2pas
-     and this file regenerated. IdOpenSSLHeaders_srtp.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file srtp.h2pas 
+It should not be modified directly. All changes should be made to srtp.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_srtp;
+
 
 interface
 
@@ -39,9 +35,7 @@ interface
 
 
 uses
-  IdCTypes,
-  IdGlobal,
-  IdSSLOpenSSLConsts,
+  IdSSLOpenSSLAPI,
   IdOpenSSLHeaders_ossl_typ,
   IdOpenSSLHeaders_ssl;
 
@@ -57,191 +51,98 @@ const
   SRTP_AEAD_AES_128_GCM = $0007;
   SRTP_AEAD_AES_256_GCM = $0008;
 
-    { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
-		
-  	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-	  files generated for C++. }
-	  
-  {$EXTERNALSYM SSL_CTX_set_tlsext_use_srtp}
-  {$EXTERNALSYM SSL_set_tlsext_use_srtp}
-  {$EXTERNALSYM SSL_get_selected_srtp_profile}
+  
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-var
-  SSL_CTX_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  SSL_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; cdecl = nil;
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
 
-  //function SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
-  SSL_get_selected_srtp_profile: function (s: PSSL): PSRTP_PROTECTION_PROFILE; cdecl = nil;
+{$EXTERNALSYM SSL_CTX_set_tlsext_use_srtp}
+{$EXTERNALSYM SSL_set_tlsext_use_srtp}
+{$EXTERNALSYM SSL_get_selected_srtp_profile}
+
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+function SSL_CTX_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function SSL_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function SSL_get_selected_srtp_profile(s: PSSL): PSRTP_PROTECTION_PROFILE; cdecl; external CLibCrypto;
 
 {$ELSE}
-  function SSL_CTX_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function SSL_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-
-  //function SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
-  function SSL_get_selected_srtp_profile(s: PSSL): PSRTP_PROTECTION_PROFILE cdecl; external CLibCrypto;
-
+var
+  SSL_CTX_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  SSL_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  SSL_get_selected_srtp_profile: function (s: PSSL): PSRTP_PROTECTION_PROFILE; cdecl = nil;
 {$ENDIF}
 
 implementation
 
-  uses
-    classes, 
-    IdSSLOpenSSLExceptionHandlers, 
-    IdResourceStringsOpenSSL
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    ,IdSSLOpenSSLLoader
-  {$ENDIF};
-  
+
+
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-const
-  SSL_CTX_set_tlsext_use_srtp_procname = 'SSL_CTX_set_tlsext_use_srtp';
-  SSL_set_tlsext_use_srtp_procname = 'SSL_set_tlsext_use_srtp';
-
-  //function SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
-  SSL_get_selected_srtp_profile_procname = 'SSL_get_selected_srtp_profile';
-
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
 {$WARN  NO_RETVAL OFF}
-function  ERR_SSL_CTX_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; 
+function ERROR_SSL_CTX_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_CTX_set_tlsext_use_srtp_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_CTX_set_tlsext_use_srtp');
 end;
 
-
-function  ERR_SSL_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PIdAnsiChar): TIdC_INT; 
+function ERROR_SSL_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_set_tlsext_use_srtp_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_set_tlsext_use_srtp');
 end;
 
-
-
-  //function SSL_get_srtp_profiles(s: PSSL): PSTACK_OF_SRTP_PROTECTION_PROFILE;
-function  ERR_SSL_get_selected_srtp_profile(s: PSSL): PSRTP_PROTECTION_PROFILE; 
+function ERROR_SSL_get_selected_srtp_profile(s: PSSL): PSRTP_PROTECTION_PROFILE; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_get_selected_srtp_profile_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_get_selected_srtp_profile');
 end;
-
-
 
 {$WARN  NO_RETVAL ON}
-
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
-
 begin
-  SSL_CTX_set_tlsext_use_srtp := LoadLibFunction(ADllHandle, SSL_CTX_set_tlsext_use_srtp_procname);
+  SSL_CTX_set_tlsext_use_srtp := LoadLibCryptoFunction('SSL_CTX_set_tlsext_use_srtp');
   FuncLoadError := not assigned(SSL_CTX_set_tlsext_use_srtp);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_CTX_set_tlsext_use_srtp_allownil)}
-    SSL_CTX_set_tlsext_use_srtp := @ERR_SSL_CTX_set_tlsext_use_srtp;
-    {$ifend}
-    {$if declared(SSL_CTX_set_tlsext_use_srtp_introduced)}
-    if LibVersion < SSL_CTX_set_tlsext_use_srtp_introduced then
-    begin
-      {$if declared(FC_SSL_CTX_set_tlsext_use_srtp)}
-      SSL_CTX_set_tlsext_use_srtp := @FC_SSL_CTX_set_tlsext_use_srtp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_CTX_set_tlsext_use_srtp_removed)}
-    if SSL_CTX_set_tlsext_use_srtp_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_CTX_set_tlsext_use_srtp)}
-      SSL_CTX_set_tlsext_use_srtp := @_SSL_CTX_set_tlsext_use_srtp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_CTX_set_tlsext_use_srtp_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SSL_CTX_set_tlsext_use_srtp');
-    {$ifend}
+    SSL_CTX_set_tlsext_use_srtp :=  @ERROR_SSL_CTX_set_tlsext_use_srtp;
   end;
 
-
-  SSL_set_tlsext_use_srtp := LoadLibFunction(ADllHandle, SSL_set_tlsext_use_srtp_procname);
+  SSL_set_tlsext_use_srtp := LoadLibCryptoFunction('SSL_set_tlsext_use_srtp');
   FuncLoadError := not assigned(SSL_set_tlsext_use_srtp);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_set_tlsext_use_srtp_allownil)}
-    SSL_set_tlsext_use_srtp := @ERR_SSL_set_tlsext_use_srtp;
-    {$ifend}
-    {$if declared(SSL_set_tlsext_use_srtp_introduced)}
-    if LibVersion < SSL_set_tlsext_use_srtp_introduced then
-    begin
-      {$if declared(FC_SSL_set_tlsext_use_srtp)}
-      SSL_set_tlsext_use_srtp := @FC_SSL_set_tlsext_use_srtp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_set_tlsext_use_srtp_removed)}
-    if SSL_set_tlsext_use_srtp_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_set_tlsext_use_srtp)}
-      SSL_set_tlsext_use_srtp := @_SSL_set_tlsext_use_srtp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_set_tlsext_use_srtp_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SSL_set_tlsext_use_srtp');
-    {$ifend}
+    SSL_set_tlsext_use_srtp :=  @ERROR_SSL_set_tlsext_use_srtp;
   end;
 
-
-  SSL_get_selected_srtp_profile := LoadLibFunction(ADllHandle, SSL_get_selected_srtp_profile_procname);
+  SSL_get_selected_srtp_profile := LoadLibCryptoFunction('SSL_get_selected_srtp_profile');
   FuncLoadError := not assigned(SSL_get_selected_srtp_profile);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_get_selected_srtp_profile_allownil)}
-    SSL_get_selected_srtp_profile := @ERR_SSL_get_selected_srtp_profile;
-    {$ifend}
-    {$if declared(SSL_get_selected_srtp_profile_introduced)}
-    if LibVersion < SSL_get_selected_srtp_profile_introduced then
-    begin
-      {$if declared(FC_SSL_get_selected_srtp_profile)}
-      SSL_get_selected_srtp_profile := @FC_SSL_get_selected_srtp_profile;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_get_selected_srtp_profile_removed)}
-    if SSL_get_selected_srtp_profile_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_get_selected_srtp_profile)}
-      SSL_get_selected_srtp_profile := @_SSL_get_selected_srtp_profile;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_get_selected_srtp_profile_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SSL_get_selected_srtp_profile');
-    {$ifend}
+    SSL_get_selected_srtp_profile :=  @ERROR_SSL_get_selected_srtp_profile;
   end;
-
 
 end;
 
-procedure Unload;
+procedure UnLoad;
 begin
   SSL_CTX_set_tlsext_use_srtp := nil;
   SSL_set_tlsext_use_srtp := nil;
   SSL_get_selected_srtp_profile := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
-  Register_SSLLoader(@Load,'LibCrypto');
-  Register_SSLUnloader(@Unload);
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+Register_SSLLoader(@Load);
+Register_SSLUnloader(@Unload);
 {$ENDIF}
+finalization
+
+
 end.

@@ -240,7 +240,6 @@ This helps user code distinquish between Self-signed and invalid certificates.
 interface
 
 {$I IdCompilerDefines.inc}
-{$i IdSSLOpenSSLDefines.inc}
 
 {$IFDEF WINDOWS}
 {$IFNDEF OPENSSL_DONT_USE_WINDOWS_CERT_STORE}
@@ -725,22 +724,22 @@ http://csrc.nist.gov/CryptoToolkit/tkhash.html
     property Bits: Integer read GetBits;
     property Version: String read GetVersion;
   end;
-  EIdOSSLCouldNotLoadSSLLibrary = class(EIdOpenSSLError);
-  EIdOSSLModeNotSet             = class(EIdOpenSSLError);
-  EIdOSSLGetMethodError         = class(EIdOpenSSLError);
-  EIdOSSLCreatingSessionError   = class(EIdOpenSSLError);
-  EIdOSSLCreatingContextError   = class(EIdOpenSSLAPICryptoError);
-  EIdOSSLLoadingRootCertError = class(EIdOpenSSLAPICryptoError);
-  EIdOSSLLoadingCertError = class(EIdOpenSSLAPICryptoError);
-  EIdOSSLLoadingKeyError = class(EIdOpenSSLAPICryptoError);
-  EIdOSSLLoadingDHParamsError = class(EIdOpenSSLAPICryptoError);
-  EIdOSSLSettingCipherError = class(EIdOpenSSLError);
-  EIdOSSLFDSetError = class(EIdOpenSSLAPISSLError);
-  EIdOSSLDataBindingError = class(EIdOpenSSLAPISSLError);
-  EIdOSSLAcceptError = class(EIdOpenSSLAPISSLError);
-  EIdOSSLConnectError = class(EIdOpenSSLAPISSLError);
+  EIdOSSLCouldNotLoadSSLLibrary = class(EOpenSSLError);
+  EIdOSSLModeNotSet             = class(EOpenSSLError);
+  EIdOSSLGetMethodError         = class(EOpenSSLError);
+  EIdOSSLCreatingSessionError   = class(EOpenSSLError);
+  EIdOSSLCreatingContextError   = class(EOpenSSLAPICryptoError);
+  EIdOSSLLoadingRootCertError = class(EOpenSSLAPICryptoError);
+  EIdOSSLLoadingCertError = class(EOpenSSLAPICryptoError);
+  EIdOSSLLoadingKeyError = class(EOpenSSLAPICryptoError);
+  EIdOSSLLoadingDHParamsError = class(EOpenSSLAPICryptoError);
+  EIdOSSLSettingCipherError = class(EOpenSSLError);
+  EIdOSSLFDSetError = class(EOpenSSLAPISSLError);
+  EIdOSSLDataBindingError = class(EOpenSSLAPISSLError);
+  EIdOSSLAcceptError = class(EOpenSSLAPISSLError);
+  EIdOSSLConnectError = class(EOpenSSLAPISSLError);
   {$IFNDEF OPENSSL_NO_TLSEXT}
-  EIdOSSLSettingTLSHostNameError = class(EIdOpenSSLAPISSLError);
+  EIdOSSLSettingTLSHostNameError = class(EOpenSSLAPISSLError);
   {$ENDIF}
 
 function LoadOpenSSLLibrary: Boolean;
@@ -787,8 +786,7 @@ uses
   IdOpenSSLHeaders_tls1,
   IdOpenSSLHeaders_objects,
   IdOpenSSLHeaders_ssl3,
-  IdSSLOpenSSLConsts,
-  IdSSLOpenSSLLoader;
+  IdSSLOpenSSLAPI;
 
 type
   TRAND_bytes = function(buf : PIdAnsiChar; num : integer) : integer; cdecl;
@@ -916,7 +914,6 @@ var
   LockInfoCB: TIdCriticalSection = nil;
   LockPassCB: TIdCriticalSection = nil;
   LockVerifyCB: TIdCriticalSection = nil;
-  CallbackLockList: TIdCriticalSectionThreadList = nil;
 
 procedure GetStateVars(const sslSocket: PSSL; AWhere, Aret: TIdC_INT; var VTypeStr, VMsg : String);
   {$IFDEF USE_INLINE}inline;{$ENDIF}
@@ -1273,7 +1270,7 @@ begin
         try
           Result := SSL_CTX_use_PrivateKey(ctx, LKey);
         finally
-          sk_pop_free(CertChain, @X509_free);
+          OPENSSL_sk_pop_free(CertChain, @X509_free);
           X509_free(LCert);
           EVP_PKEY_free(LKey);
         end;
@@ -1347,7 +1344,7 @@ begin
         try
           Result := SSL_CTX_use_certificate(ctx, LCert);
         finally
-          sk_pop_free(CertChain, @X509_free);
+          OPENSSL_sk_pop_free(CertChain, @X509_free);
           X509_free(LCert);
           EVP_PKEY_free(PKey);
         end;
@@ -2308,36 +2305,6 @@ begin
   Result := DT + Hrs / 24.0;
 end;
 
-{$IFDEF OPENSSL_SET_MEMORY_FUNCS}
-
-function IdMalloc(num: UInt32): Pointer cdecl;
-begin
-  Result := AllocMem(num);
-end;
-
-function IdRealloc(addr: Pointer; num: UInt32): Pointer cdecl;
-begin
-  Result := addr;
-  ReallocMem(Result, num);
-end;
-
-procedure IdFree(addr: Pointer)cdecl;
-begin
-  FreeMem(addr);
-end;
-
-procedure IdSslCryptoMallocInit;
-// replaces the actual alloc routines
-// this is useful if you are using a memory manager that can report on leaks
-// at shutdown time.
-var
-  r: Integer;
-begin
-  r := CRYPTO_set_mem_functions(@IdMalloc, @IdRealloc, @IdFree);
-  Assert(r <> 0);
-end;
-{$ENDIF}
-
 {$IFNDEF OPENSSL_NO_BIO}
 procedure DumpCert(AOut: TStrings; AX509: PX509);
 var
@@ -2345,9 +2312,9 @@ var
   LLen : TIdC_INT;
   LBufPtr : PIdAnsiChar;
 begin
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if declared(IOpenSSLDLL)}
   if Assigned(X509_print) then
-  {$ENDIF}
+  {$ifend}
   begin
     LMem := BIO_new(BIO_s_mem);
     if LMem <> nil then begin
@@ -2382,80 +2349,6 @@ begin
 end;
 
 {$ENDIF}
-
-{$IFNDEF WIN32_OR_WIN64}
-procedure _threadid_func(id : PCRYPTO_THREADID) cdecl;
-begin
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-  if Assigned(CRYPTO_THREADID_set_numeric) then
-  {$ENDIF}
-  begin
-    CRYPTO_THREADID_set_numeric(id, TIdC_ULONG(CurrentThreadId));
-  end;
-end;
-
-function _GetThreadID: TIdC_ULONG; cdecl;
-begin
-  // TODO: Verify how well this will work with fibers potentially running from
-  // thread to thread or many on the same thread.
-  Result := TIdC_ULONG(CurrentThreadId);
-end;
-{$ENDIF}
-
-procedure SslLockingCallback(mode, n: TIdC_INT; Afile: PIdAnsiChar;
-  line: TIdC_INT)cdecl;
-var
-  Lock: TIdCriticalSection;
-  LList: TIdCriticalSectionList;
-begin
-  Assert(CallbackLockList <> nil);
-  Lock := nil;
-
-  LList := CallbackLockList.LockList;
-  try
-    if n < LList.Count then begin
-      Lock := {$IFDEF HAS_GENERICS_TList}LList.Items[n]{$ELSE}TIdCriticalSection(LList.Items[n]){$ENDIF};
-    end;
-  finally
-    CallbackLockList.UnlockList;
-  end;
-  Assert(Lock <> nil);
-  if (mode and CRYPTO_LOCK) = CRYPTO_LOCK then begin
-    Lock.Acquire;
-  end else begin
-    Lock.Release;
-  end;
-end;
-
-procedure PrepareOpenSSLLocking;
-var
-  i, cnt: Integer;
-  Lock: TIdCriticalSection;
-  LList: TIdCriticalSectionList;
-begin
-  LList := CallbackLockList.LockList;
-  try
-    {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    if assigned(CRYPTO_num_locks) then
-      cnt := CRYPTO_num_locks
-    else
-      cnt := 0;
-    {$ELSE}
-      cnt := CRYPTO_num_locks;
-    {$ENDIF}
-    for i := 0 to cnt - 1 do begin
-      Lock := TIdCriticalSection.Create;
-      try
-        LList.Add(Lock);
-      except
-        Lock.Free;
-        raise;
-      end;
-    end;
-  finally
-    CallbackLockList.UnlockList;
-  end;
-end;
 
 // Note that I define UTCtime as  PASN1_STRING
 function UTCTime2DateTime(UTCtime: PASN1_UTCTIME): TDateTime;
@@ -2544,42 +2437,14 @@ begin
       Result := True;
       Exit;
     end;
-    {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    Result := GetOpenSSLLoader.Load;
-    if not Result then
-      Exit;
-    {$ENDIF}
-{$IFDEF OPENSSL_SET_MEMORY_FUNCS}
-    // has to be done before anything that uses memory
-    IdSslCryptoMallocInit;
-{$ENDIF}
-    OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS or OPENSSL_INIT_ADD_ALL_CIPHERS or
-                     OPENSSL_INIT_ADD_ALL_DIGESTS or OPENSSL_INIT_LOAD_CRYPTO_STRINGS or
-                     OPENSSL_INIT_LOAD_CONFIG or OPENSSL_INIT_ASYNC or
-                     OPENSSL_INIT_ENGINE_ALL_BUILTIN ,nil);
-
-
     InitializeRandom;
+    GetIOpenSSL.Init;
     // Create locking structures, we need them for callback routines
     Assert(LockInfoCB = nil);
     LockInfoCB := TIdCriticalSection.Create;
     LockPassCB := TIdCriticalSection.Create;
     LockVerifyCB := TIdCriticalSection.Create;
     // Handle internal OpenSSL locking
-    CallbackLockList := TIdCriticalSectionThreadList.Create;
-    PrepareOpenSSLLocking;
-    CRYPTO_set_locking_callback(@SslLockingCallback);
-{$IFNDEF WIN32_OR_WIN64}
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    if Assigned(CRYPTO_THREADID_set_callback) then begin
-      CRYPTO_THREADID_set_callback(@_threadid_func);
-    end else begin
-      CRYPTO_set_id_callback(@_GetThreadID);
-    end;
-{$ELSE}
-   CRYPTO_THREADID_set_callback(@_threadid_func);
-{$ENDIF}
-{$ENDIF}
     SSLIsLoaded.Value := True;
     Result := True;
   finally
@@ -2589,47 +2454,19 @@ begin
 end;
 
 procedure UnLoadOpenSSLLibrary;
-{$IFNDEF USE_OBJECT_ARC}
-var
-  i: Integer;
-  LList: TIdCriticalSectionList;
-{$ENDIF}
 begin
   SSLIsLoaded.Lock;
   try
     if not SSLIsLoaded.Value then
       Exit;
 
-    {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    if Assigned(CRYPTO_set_locking_callback) then
-    {$ENDIF}
-      CRYPTO_set_locking_callback(nil);
-
     CleanupRandom; // <-- RLebeau: why is this here and not in IdSSLOpenSSLHeaders.Unload()?
-    {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    GetOpenSSLLoader.Unload;
-    {$ENDIF}
+    {$if declared(GetIOpenSSLDLL)}
+    GetIOpenSSLDLL.Unload;
+    {$ifend}
     FreeAndNil(LockInfoCB);
     FreeAndNil(LockPassCB);
     FreeAndNil(LockVerifyCB);
-    if Assigned(CallbackLockList) then begin
-      {$IFDEF USE_OBJECT_ARC}
-      CallbackLockList.Clear; // Items are auto-freed
-      {$ELSE}
-      LList := CallbackLockList.LockList;
-      begin
-        try
-          for i := 0 to LList.Count - 1 do begin
-            {$IFDEF HAS_GENERICS_TList}LList.Items[i]{$ELSE}TIdCriticalSection(LList.Items[i]){$ENDIF}.Free;
-          end;
-          LList.Clear;
-        finally
-          CallbackLockList.UnlockList;
-        end;
-      end;
-      {$ENDIF}
-      FreeAndNil(CallbackLockList);
-    end;
     SSLIsLoaded.Value := False;
   finally
     SSLIsLoaded.Unlock;
@@ -2643,10 +2480,7 @@ begin
   // might have been loaded OK before the failure occured. LoadOpenSSLLibrary()
   // does not unload ..
   LoadOpenSSLLibrary;
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-  if Assigned(SSLeay_version) then
-  {$ENDIF}
-    Result := String(SSLeay_version(SSLEAY_VERSION_CONST));
+  Result := GetIOpenSSL.GetOpenSSLVersionStr;
 end;
 
 function OpenSSLDir : string;
@@ -2654,10 +2488,7 @@ var i: integer;
 begin
   Result := '';
   LoadOpenSSLLibrary;
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-  if Assigned(SSLeay_version) then
-  {$ENDIF}
-     Result := String(SSLeay_version(OPENSSL_DIR));
+  Result := GetIOpenSSL.GetOpenSSLPath;
   {assumed format is 'OPENSSLDIR: "<dir>"'}
   i := Pos('"',Result);
   if i < 0 then
@@ -3386,7 +3217,7 @@ begin
       Result := inherited CheckForError(Integer(Id_SOCKET_ERROR));
       Exit;
     end;
-    EIdOpenSSLAPISSLError.RaiseExceptionCode(Result, ALastResult, '');
+    EOpenSSLAPISSLError.RaiseExceptionCode(Result, ALastResult, '');
   end;
 end;
 
@@ -3395,7 +3226,7 @@ begin
   if (PassThrough) or (AError = Id_WSAESHUTDOWN) or (AError = Id_WSAECONNABORTED) or (AError = Id_WSAECONNRESET) then begin
     inherited RaiseError(AError);
   end else begin
-    EIdOpenSSLAPISSLError.RaiseException(fSSLSocket.fSSL, AError, '');
+    EOpenSSLAPISSLError.RaiseException(fSSLSocket.fSSL, AError, '');
   end;
 end;
 
@@ -3520,7 +3351,7 @@ begin
 //Ignore if cert already in store
         if (error = 0) and
            (ERR_GET_REASON(ERR_get_error) <> X509_R_CERT_ALREADY_IN_HASH_TABLE) then
-          EIdOpenSSLAPICryptoError.RaiseException(ROSCertificateNotAddedToStore);
+          EOpenSSLAPICryptoError.RaiseException(ROSCertificateNotAddedToStore);
         X509_free(X509Cert);
       end;
       cert_context := CertEnumCertificatesInStore(WinCertStore,cert_context);
@@ -3778,7 +3609,7 @@ begin
 end;
 }
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$if declared(IOpenSSLDLL)}
 function SelectTLS1Method(const AMode : TIdSSLMode) : PSSL_METHOD;
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
@@ -3800,7 +3631,7 @@ begin
     end;
   end;
 end;
-{$ENDIF}
+{$ifend}
 
 function TIdSSLContext.SetSSLMethod: PSSL_METHOD;
 begin
@@ -3839,7 +3670,7 @@ begin
       Exit;
     end;
 
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if declared(IOpenSSLDLL)}
   {we are using a legacy OpenSSL Library 1.0.2 or earlier and hence have to select
    the SSL method the old way :(}
 
@@ -3959,7 +3790,7 @@ begin
   if Result = nil then begin
     raise EIdOSSLGetMethodError.Create(RSSSLGetMethodError);
   end;
-  {$ENDIF}
+  {$ifend}
 end;
 
 function TIdSSLContext.LoadRootCert: Boolean;
@@ -3974,7 +3805,7 @@ begin
   end else begin
     //OpenSSL 1.0.2 has a new function, SSL_CTX_use_certificate_chain_file
     //that handles a chain of certificates in a PEM file.  That is prefered.
-    {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+    {$if declared(IOpenSSLDLL)}
     if Assigned(SSL_CTX_use_certificate_chain_file) then begin
        Result := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
     end else begin
@@ -3982,7 +3813,7 @@ begin
     end;
     {$ELSE}
       Result := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
-    {$ENDIF}
+    {$ifend}
   end;
 end;
 
@@ -4368,9 +4199,9 @@ var
 begin
   Result.Length := 0;
   Result.Data := nil;
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if declared(IOpenSSLDLL)}
   if Assigned(SSL_get_session) and Assigned(SSL_SESSION_get_id) then
-  {$ENDIF}
+  {$ifend}
   begin
     if fSSL <> nil then begin
       pSession := SSL_get_session(fSSL);

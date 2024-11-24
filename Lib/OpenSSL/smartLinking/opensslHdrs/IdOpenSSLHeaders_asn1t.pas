@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_asn1t.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_asn1t.h2pas
-     and this file regenerated. IdOpenSSLHeaders_asn1t.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file asn1t.h2pas 
+It should not be modified directly. All changes should be made to asn1t.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_asn1t;
+
 
 interface
 
@@ -39,11 +35,9 @@ interface
 
 
 uses
-  IdCTypes,
-  IdGlobal,
-  IdSSLOpenSSLConsts,
+  IdSSLOpenSSLAPI,
   IdOpenSSLHeaders_ossl_typ;
-
+  
 type
   // moved from asn1
   ASN1_ITEM_EXP = ASN1_ITEM;
@@ -491,12 +485,12 @@ type
 
 type
   ASN1_TEMPLATE_st = record
-    flags: TIdC_ULONG;
-    tag: TIdC_LONG;
-    offset: TIdC_ULONG;
-    fieldname: PIdAnsiChar;
+    flags: TOpenSSL_C_ULONG;
+    tag: TOpenSSL_C_LONG;
+    offset: TOpenSSL_C_ULONG;
+    fieldname: PAnsiChar;
     item: PASN1_ITEM_EXP;
-  end;
+  end;  
   ASN1_TEMPLATE = ASN1_TEMPLATE_st;
   PASN1_TEMPLATE = ^ASN1_TEMPLATE;
 
@@ -505,22 +499,22 @@ type
 //  ASN1_TEMPLATE_item(t) (t->item_ptr)
 //  ASN1_TEMPLATE_adb(t) (t->item_ptr)
 
-  adb_cb_callback = function(psel: PIdC_LONG): TIdC_INT;
+  adb_cb_callback = function(psel: POpenSSL_C_LONG): TOpenSSL_C_INT;
 
   ASN1_ADB_TABLE_st = record
-    value: TIdC_LONG;
+    value: TOpenSSL_C_LONG;
     tt: PASN1_TEMPLATE;
   end;
 
   ASN1_ADB_TABLE = ASN1_ADB_TABLE_st;
   PASN1_ADB_TABLE = ^ASN1_ADB_TABLE;
-
+  
   ASN1_ADB_st = record
-    flags: TIdC_ULONG;
-    offset: TIdC_ULONG;
+    flags: TOpenSSL_C_ULONG;
+    offset: TOpenSSL_C_ULONG;
     adb_cb: adb_cb_callback;
     tbl: PASN1_ADB_TABLE;
-    tblcount: TIdC_LONG;
+    tblcount: TOpenSSL_C_LONG;
     default_tt: PASN1_TEMPLATE;
     null_tt: PASN1_TEMPLATE;
   end;
@@ -611,12 +605,12 @@ const
 type
   ASN1_ITEM_st = record
     itype: AnsiChar;
-    utype: TIdC_LONG;
+    utype: TOpenSSL_C_LONG;
     template: PASN1_TEMPLATE;
-    tcount: TIdC_LONG;
+    tcount: TOpenSSL_C_LONG;
     funcs: Pointer;
-    size: TIdC_LONG;
-    sname: PIdAnsiChar;
+    size: TOpenSSL_C_LONG;
+    sname: PAnsiChar;
   end;
 
 //-
@@ -659,6 +653,7 @@ type
  // encoding if requested.
  //
  //
+
 const
   ASN1_ITYPE_PRIMITIVE            = $0;
 
@@ -680,45 +675,45 @@ const
 type
   ASN1_TLC_st = record
     valid: AnsiChar;
-    ret: TIdC_INT;
-    plen: TIdC_LONG;
-    ptag: TIdC_INT;
-    pclass: TIdC_INT;
-    hdrlen: TIdC_INT;
+    ret: TOpenSSL_C_INT;
+    plen: TOpenSSL_C_LONG;
+    ptag: TOpenSSL_C_INT;
+    pclass: TOpenSSL_C_INT;
+    hdrlen: TOpenSSL_C_INT;
   end;
   ASN1_TLC = ASN1_TLC_st;
   PASN1_TLC = ^ASN1_TLC;
 
-  ASN1_ex_d2i = function(pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG;
-    const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT;
-    opt: AnsiChar; ctx: PASN1_TLC): TIdC_INT;
+  ASN1_ex_d2i = function(pval: PPASN1_VALUE; const AIn: PPByte; len: TOpenSSL_C_LONG;
+    const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT;
+    opt: AnsiChar; ctx: PASN1_TLC): TOpenSSL_C_INT;
   PASN1_ex_d2i = ^ASN1_ex_d2i;
 
   ASN1_ex_i2d = function(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM;
-    tag: TIdC_INT; aclass: TIdC_INT): TIdC_INT;
+    tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT): TOpenSSL_C_INT;
   PASN1_ex_i2d = ^ASN1_ex_i2d;
 
-  ASN1_ex_new_func = function(pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT;
+  ASN1_ex_new_func = function(pval: PPASN1_VALUE; const it: PASN1_ITEM): TOpenSSL_C_INT;
   PASN1_ex_new_func = ^ASN1_ex_new_func;
 
   ASN1_ex_free_func = procedure(pval: PPASN1_VALUE; const it: PASN1_ITEM);
   PASN1_ex_free_func = ^ASN1_ex_free_func;
 
-  ASN1_ex_print_func = function(AOut: PBIO; pval: PPASN1_VALUE; indent: TIdC_INT;
-    const fname: PIdAnsiChar; const pctx: PASN1_PCTX): TIdC_INT;
+  ASN1_ex_print_func = function(AOut: PBIO; pval: PPASN1_VALUE; indent: TOpenSSL_C_INT;
+    const fname: PAnsiChar; const pctx: PASN1_PCTX): TOpenSSL_C_INT;
   PASN1_ex_print_func = ^ASN1_ex_print_func;
 
-  ASN1_primitive_i2c = function(pval: PPASN1_VALUE; const cont: PIdAnsiChar;
-    puttype: PIdC_INT; const it: PASN1_ITEM): TIdC_INT;
+  ASN1_primitive_i2c = function(pval: PPASN1_VALUE; const cont: PAnsiChar;
+    puttype: POpenSSL_C_INT; const it: PASN1_ITEM): TOpenSSL_C_INT;
   PASN1_primitive_i2c = ^ASN1_primitive_i2c;
 
   ASN1_primitive_c2i = function(pval: PPASN1_VALUE; const cont: PByte;
-    len: TIdC_INT; utype: TIdC_INT; free_cont: PIdAnsiChar;
-    const it: PASN1_ITEM): TIdC_INT;
+    len: TOpenSSL_C_INT; utype: TOpenSSL_C_INT; free_cont: PAnsiChar;
+    const it: PASN1_ITEM): TOpenSSL_C_INT;
   PASN1_primitive_c2i = ^ASN1_primitive_c2i;
 
   ASN1_primitive_print = function(AOut: PBIO; pval: PPASN1_VALUE;
-    const it: PASN1_ITEM; indent: TIdC_INT; const pctx: PASN1_PCTX): TIdC_INT;
+    const it: PASN1_ITEM; indent: TOpenSSL_C_INT; const pctx: PASN1_PCTX): TOpenSSL_C_INT;
   PASN1_primitive_print = ^ASN1_primitive_print;
 
   ASN1_EXTERN_FUNCS_st = record
@@ -735,7 +730,7 @@ type
 
   ASN1_PRIMITIVE_FUNCS_st = record
     app_data: Pointer;
-    flags: TIdC_ULONG;
+    flags: TOpenSSL_C_ULONG;
     prim_new: PASN1_ex_new_func;
     prim_free: PASN1_ex_free_func;
     prim_clear: PASN1_ex_free_func;
@@ -759,16 +754,16 @@ type
  // more appropriate.
  //
 
-  ASN1_aux_cb = function(operation: TIdC_INT; AIn: PASN1_VALUE; const it: PASN1_ITEM; exarg: Pointer): TIdC_INT;
+  ASN1_aux_cb = function(operation: TOpenSSL_C_INT; AIn: PASN1_VALUE; const it: PASN1_ITEM; exarg: Pointer): TOpenSSL_C_INT;
   PASN1_aux_cb = ^ASN1_aux_cb;
 
   ASN1_AUX_st = record
     app_data: Pointer;
-    flags: TIdC_INT;
-    ref_offset: TIdC_INT;
-    ref_lock: TIdC_INT;
+    flags: TOpenSSL_C_INT;
+    ref_offset: TOpenSSL_C_INT;
+    ref_lock: TOpenSSL_C_INT;
     asn1_cb: PASN1_aux_cb;
-    enc_offset: TidC_INT;
+    enc_offset: TOpenSSL_C_INT;
   end;
 
   ASN1_AUX = ASN1_AUX_st;
@@ -777,7 +772,7 @@ type
 
   ASN1_PRINT_ARG_st = record
     AOut: PBIO;
-    indent: TIdC_INT;
+    indent: TOpenSSL_C_INT;
     pctx: PASN1_PCTX;
   end;
 
@@ -983,234 +978,114 @@ const
 
 //* Functions used internally by the ASN1 code */
 
-    { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
-		
-  	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-	  files generated for C++. }
-	  
-  {$EXTERNALSYM ASN1_item_ex_new}
-  {$EXTERNALSYM ASN1_item_ex_free}
-  {$EXTERNALSYM ASN1_item_ex_d2i}
-  {$EXTERNALSYM ASN1_item_ex_i2d}
+  
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-var
-  ASN1_item_ex_new: function (pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT; cdecl = nil;
-  ASN1_item_ex_free: procedure (pval: PPASN1_VALUE; const it: PASN1_ITEM); cdecl = nil;
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
 
-  ASN1_item_ex_d2i: function (pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT; opt: AnsiChar; ctx: PASN1_TLC): TIdC_INT; cdecl = nil;
+{$EXTERNALSYM ASN1_item_ex_new}
+{$EXTERNALSYM ASN1_item_ex_free}
+{$EXTERNALSYM ASN1_item_ex_d2i}
+{$EXTERNALSYM ASN1_item_ex_i2d}
 
-  ASN1_item_ex_i2d: function (pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT): TIdC_INT; cdecl = nil;
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+function ASN1_item_ex_new(pval: PPASN1_VALUE; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure ASN1_item_ex_free(pval: PPASN1_VALUE; const it: PASN1_ITEM); cdecl; external CLibCrypto;
+function ASN1_item_ex_d2i(pval: PPASN1_VALUE; const AIn: PPByte; len: TOpenSSL_C_LONG; const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT; opt: AnsiChar; ctx: PASN1_TLC): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ASN1_item_ex_i2d(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
 
 {$ELSE}
-  function ASN1_item_ex_new(pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT cdecl; external CLibCrypto;
-  procedure ASN1_item_ex_free(pval: PPASN1_VALUE; const it: PASN1_ITEM) cdecl; external CLibCrypto;
-
-  function ASN1_item_ex_d2i(pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT; opt: AnsiChar; ctx: PASN1_TLC): TIdC_INT cdecl; external CLibCrypto;
-
-  function ASN1_item_ex_i2d(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
+var
+  ASN1_item_ex_new: function (pval: PPASN1_VALUE; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_item_ex_free: procedure (pval: PPASN1_VALUE; const it: PASN1_ITEM); cdecl = nil;
+  ASN1_item_ex_d2i: function (pval: PPASN1_VALUE; const AIn: PPByte; len: TOpenSSL_C_LONG; const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT; opt: AnsiChar; ctx: PASN1_TLC): TOpenSSL_C_INT; cdecl = nil;
+  ASN1_item_ex_i2d: function (pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
 {$ENDIF}
 
 implementation
 
-  uses
-    classes, 
-    IdSSLOpenSSLExceptionHandlers, 
-    IdResourceStringsOpenSSL
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    ,IdSSLOpenSSLLoader
-  {$ENDIF};
-  
+
+
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-const
-  ASN1_item_ex_new_procname = 'ASN1_item_ex_new';
-  ASN1_item_ex_free_procname = 'ASN1_item_ex_free';
-
-  ASN1_item_ex_d2i_procname = 'ASN1_item_ex_d2i';
-
-  ASN1_item_ex_i2d_procname = 'ASN1_item_ex_i2d';
-
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
 {$WARN  NO_RETVAL OFF}
-function  ERR_ASN1_item_ex_new(pval: PPASN1_VALUE; const it: PASN1_ITEM): TIdC_INT; 
+function ERROR_ASN1_item_ex_new(pval: PPASN1_VALUE; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_ex_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_ex_new');
 end;
 
-
-procedure  ERR_ASN1_item_ex_free(pval: PPASN1_VALUE; const it: PASN1_ITEM); 
+procedure ERROR_ASN1_item_ex_free(pval: PPASN1_VALUE; const it: PASN1_ITEM); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_ex_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_ex_free');
 end;
 
-
-
-function  ERR_ASN1_item_ex_d2i(pval: PPASN1_VALUE; const AIn: PPByte; len: TIdC_LONG; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT; opt: AnsiChar; ctx: PASN1_TLC): TIdC_INT; 
+function ERROR_ASN1_item_ex_d2i(pval: PPASN1_VALUE; const AIn: PPByte; len: TOpenSSL_C_LONG; const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT; opt: AnsiChar; ctx: PASN1_TLC): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_ex_d2i_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_ex_d2i');
 end;
 
-
-
-function  ERR_ASN1_item_ex_i2d(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TIdC_INT; aclass: TIdC_INT): TIdC_INT; 
+function ERROR_ASN1_item_ex_i2d(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ASN1_item_ex_i2d_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ASN1_item_ex_i2d');
 end;
-
-
 
 {$WARN  NO_RETVAL ON}
-
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
-
 begin
-  ASN1_item_ex_new := LoadLibFunction(ADllHandle, ASN1_item_ex_new_procname);
+  ASN1_item_ex_new := LoadLibCryptoFunction('ASN1_item_ex_new');
   FuncLoadError := not assigned(ASN1_item_ex_new);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_ex_new_allownil)}
-    ASN1_item_ex_new := @ERR_ASN1_item_ex_new;
-    {$ifend}
-    {$if declared(ASN1_item_ex_new_introduced)}
-    if LibVersion < ASN1_item_ex_new_introduced then
-    begin
-      {$if declared(FC_ASN1_item_ex_new)}
-      ASN1_item_ex_new := @FC_ASN1_item_ex_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_ex_new_removed)}
-    if ASN1_item_ex_new_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_ex_new)}
-      ASN1_item_ex_new := @_ASN1_item_ex_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_ex_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_ex_new');
-    {$ifend}
+    ASN1_item_ex_new :=  @ERROR_ASN1_item_ex_new;
   end;
 
-
-  ASN1_item_ex_free := LoadLibFunction(ADllHandle, ASN1_item_ex_free_procname);
+  ASN1_item_ex_free := LoadLibCryptoFunction('ASN1_item_ex_free');
   FuncLoadError := not assigned(ASN1_item_ex_free);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_ex_free_allownil)}
-    ASN1_item_ex_free := @ERR_ASN1_item_ex_free;
-    {$ifend}
-    {$if declared(ASN1_item_ex_free_introduced)}
-    if LibVersion < ASN1_item_ex_free_introduced then
-    begin
-      {$if declared(FC_ASN1_item_ex_free)}
-      ASN1_item_ex_free := @FC_ASN1_item_ex_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_ex_free_removed)}
-    if ASN1_item_ex_free_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_ex_free)}
-      ASN1_item_ex_free := @_ASN1_item_ex_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_ex_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_ex_free');
-    {$ifend}
+    ASN1_item_ex_free :=  @ERROR_ASN1_item_ex_free;
   end;
 
-
-  ASN1_item_ex_d2i := LoadLibFunction(ADllHandle, ASN1_item_ex_d2i_procname);
+  ASN1_item_ex_d2i := LoadLibCryptoFunction('ASN1_item_ex_d2i');
   FuncLoadError := not assigned(ASN1_item_ex_d2i);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_ex_d2i_allownil)}
-    ASN1_item_ex_d2i := @ERR_ASN1_item_ex_d2i;
-    {$ifend}
-    {$if declared(ASN1_item_ex_d2i_introduced)}
-    if LibVersion < ASN1_item_ex_d2i_introduced then
-    begin
-      {$if declared(FC_ASN1_item_ex_d2i)}
-      ASN1_item_ex_d2i := @FC_ASN1_item_ex_d2i;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_ex_d2i_removed)}
-    if ASN1_item_ex_d2i_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_ex_d2i)}
-      ASN1_item_ex_d2i := @_ASN1_item_ex_d2i;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_ex_d2i_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_ex_d2i');
-    {$ifend}
+    ASN1_item_ex_d2i :=  @ERROR_ASN1_item_ex_d2i;
   end;
 
-
-  ASN1_item_ex_i2d := LoadLibFunction(ADllHandle, ASN1_item_ex_i2d_procname);
+  ASN1_item_ex_i2d := LoadLibCryptoFunction('ASN1_item_ex_i2d');
   FuncLoadError := not assigned(ASN1_item_ex_i2d);
   if FuncLoadError then
   begin
-    {$if not defined(ASN1_item_ex_i2d_allownil)}
-    ASN1_item_ex_i2d := @ERR_ASN1_item_ex_i2d;
-    {$ifend}
-    {$if declared(ASN1_item_ex_i2d_introduced)}
-    if LibVersion < ASN1_item_ex_i2d_introduced then
-    begin
-      {$if declared(FC_ASN1_item_ex_i2d)}
-      ASN1_item_ex_i2d := @FC_ASN1_item_ex_i2d;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ASN1_item_ex_i2d_removed)}
-    if ASN1_item_ex_i2d_removed <= LibVersion then
-    begin
-      {$if declared(_ASN1_item_ex_i2d)}
-      ASN1_item_ex_i2d := @_ASN1_item_ex_i2d;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ASN1_item_ex_i2d_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ASN1_item_ex_i2d');
-    {$ifend}
+    ASN1_item_ex_i2d :=  @ERROR_ASN1_item_ex_i2d;
   end;
-
 
 end;
 
-procedure Unload;
+procedure UnLoad;
 begin
   ASN1_item_ex_new := nil;
   ASN1_item_ex_free := nil;
   ASN1_item_ex_d2i := nil;
   ASN1_item_ex_i2d := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
-  Register_SSLLoader(@Load,'LibCrypto');
-  Register_SSLUnloader(@Unload);
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+Register_SSLLoader(@Load);
+Register_SSLUnloader(@Unload);
 {$ENDIF}
+finalization
+
+
 end.

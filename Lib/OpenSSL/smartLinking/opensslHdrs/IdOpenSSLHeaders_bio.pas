@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_bio.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_bio.h2pas
-     and this file regenerated. IdOpenSSLHeaders_bio.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file bio.h2pas 
+It should not be modified directly. All changes should be made to bio.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_bio;
+
 
 interface
 
@@ -39,10 +35,8 @@ interface
 
 
 uses
-  IdCTypes,
-  IdGlobal,
-  IdSSLOpenSSLConsts,
-  IdOpenSSlHeaders_ossl_typ;
+  IdSSLOpenSSLAPI,
+  IdOpenSSLHeaders_ossl_typ;
 
 {$MINENUMSIZE 4}
 
@@ -278,35 +272,35 @@ type
   BIO_ADDRINFO = Pointer; // bio_addrinfo_st
   PBIO_ADDRINFO = ^BIO_ADDRINFO;
   PPBIO_ADDRINFO = ^PBIO_ADDRINFO;
-  BIO_callback_fn = function(b: PBIO; oper: TIdC_INT; const argp: PIdAnsiChar;
-    argi: TIdC_INT; argl: TIdC_LONG; ret: TIdC_LONG): TIdC_LONG;
-  BIO_callback_fn_ex = function(b: PBIO; oper: TIdC_INT; const argp: PIdAnsiChar; len: TIdC_SIZET; argi: TIdC_INT; argl: TIdC_LONG; ret: TIdC_INT; processed: PIdC_SIZET): TIdC_LONG;
+  BIO_callback_fn = function(b: PBIO; oper: TOpenSSL_C_INT; const argp: PAnsiChar; 
+    argi: TOpenSSL_C_INT; argl: TOpenSSL_C_LONG; ret: TOpenSSL_C_LONG): TOpenSSL_C_LONG;
+  BIO_callback_fn_ex = function(b: PBIO; oper: TOpenSSL_C_INT; const argp: PAnsiChar; len: TOpenSSL_C_SIZET; argi: TOpenSSL_C_INT; argl: TOpenSSL_C_LONG; ret: TOpenSSL_C_INT; processed: POpenSSL_C_SIZET): TOpenSSL_C_LONG;
   BIO_METHOD = Pointer; // bio_method_st
   PBIO_METHOD = ^BIO_METHOD;
-  BIO_info_cb = function(v1: PBIO; v2: TIdC_INT; v3: TIdC_INT): TIdC_INT;
+  BIO_info_cb = function(v1: PBIO; v2: TOpenSSL_C_INT; v3: TOpenSSL_C_INT): TOpenSSL_C_INT;
   PBIO_info_cb = ^BIO_info_cb;
-  asn1_ps_func = function(b: PBIO; pbuf: PPIdAnsiChar; plen: PIdC_INT; parg: Pointer): TIdC_INT;
+  asn1_ps_func = function(b: PBIO; pbuf: PPAnsiChar; plen: POpenSSL_C_INT; parg: Pointer): TOpenSSL_C_INT;
 
   bio_dgram_sctp_sndinfo = record
-    snd_sid: TIdC_UINT16;
-    snd_flags: TIdC_UINT16;
-    snd_ppid: TIdC_UINT32;
-    snd_context: TIdC_UINT32;
+    snd_sid: TOpenSSL_C_UINT16;
+    snd_flags: TOpenSSL_C_UINT16;
+    snd_ppid: TOpenSSL_C_UINT32;
+    snd_context: TOpenSSL_C_UINT32;
   end;
 
   bio_dgram_sctp_rcvinfo = record
-    rcv_sid: TIdC_UINT16;
-    rcv_ssn: TIdC_UINT16;
-    rcv_flags: TIdC_UINT16;
-    rcv_ppid: TIdC_UINT32;
-    rcv_tsn: TIdC_UINT32;
-    rcv_cumtsn: TIdC_UINT32;
-    rcv_context: TIdC_UINT32;
+    rcv_sid: TOpenSSL_C_UINT16;
+    rcv_ssn: TOpenSSL_C_UINT16;
+    rcv_flags: TOpenSSL_C_UINT16;
+    rcv_ppid: TOpenSSL_C_UINT32;
+    rcv_tsn: TOpenSSL_C_UINT32;
+    rcv_cumtsn: TOpenSSL_C_UINT32;
+    rcv_context: TOpenSSL_C_UINT32;
   end;
 
   bio_dgram_sctp_prinfo = record
-    pr_policy: TIdC_UINT16;
-    pr_value: TIdC_UINT32;
+    pr_policy: TOpenSSL_C_UINT16;
+    pr_value: TOpenSSL_C_UINT32;
   end;
 
   BIO_hostserv_priorities = (BIO_PARSE_PRIO_HOST, BIO_PARSE_PRIO_SERV);
@@ -320,7065 +314,2811 @@ type
 
   BIO_sock_info_type = (BIO_SOCK_INFO_ADDRESS);
 
-    { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
-		
-  	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-	  files generated for C++. }
-	  
-  {$EXTERNALSYM BIO_get_new_index} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_set_flags}
-  {$EXTERNALSYM BIO_test_flags}
-  {$EXTERNALSYM BIO_clear_flags}
-  {$EXTERNALSYM BIO_get_callback}
-  {$EXTERNALSYM BIO_set_callback}
-  {$EXTERNALSYM BIO_get_callback_ex} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_set_callback_ex} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_get_callback_arg}
-  {$EXTERNALSYM BIO_set_callback_arg}
-  {$EXTERNALSYM BIO_method_name}
-  {$EXTERNALSYM BIO_method_type}
-//  {$EXTERNALSYM PBIO}
-  {$EXTERNALSYM BIO_ctrl_pending}
-  {$EXTERNALSYM BIO_ctrl_wpending}
-  {$EXTERNALSYM BIO_ctrl_get_write_guarantee}
-  {$EXTERNALSYM BIO_ctrl_get_read_request}
-  {$EXTERNALSYM BIO_ctrl_reset_read_request}
-  {$EXTERNALSYM BIO_set_ex_data}
-  {$EXTERNALSYM BIO_get_ex_data}
-  {$EXTERNALSYM BIO_number_read}
-  {$EXTERNALSYM BIO_number_written}
-  {$EXTERNALSYM BIO_s_file}
-  {$EXTERNALSYM BIO_new_file}
-  {$EXTERNALSYM BIO_new}
-  {$EXTERNALSYM BIO_free}
-  {$EXTERNALSYM BIO_set_data} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_get_data} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_set_init} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_get_init} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_set_shutdown} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_get_shutdown} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_vfree}
-  {$EXTERNALSYM BIO_up_ref} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_read}
-  {$EXTERNALSYM BIO_read_ex} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_gets}
-  {$EXTERNALSYM BIO_write}
-  {$EXTERNALSYM BIO_write_ex} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_puts}
-  {$EXTERNALSYM BIO_indent}
-  {$EXTERNALSYM BIO_ctrl}
-  {$EXTERNALSYM BIO_callback_ctrl}
-  {$EXTERNALSYM BIO_ptr_ctrl}
-  {$EXTERNALSYM BIO_int_ctrl}
-  {$EXTERNALSYM BIO_push}
-  {$EXTERNALSYM BIO_pop}
-  {$EXTERNALSYM BIO_free_all}
-  {$EXTERNALSYM BIO_find_type}
-  {$EXTERNALSYM BIO_next}
-  {$EXTERNALSYM BIO_set_next} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_get_retry_BIO}
-  {$EXTERNALSYM BIO_get_retry_reason}
-  {$EXTERNALSYM BIO_set_retry_reason} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_dup_chain}
-  {$EXTERNALSYM BIO_nread0}
-  {$EXTERNALSYM BIO_nread}
-  {$EXTERNALSYM BIO_nwrite0}
-  {$EXTERNALSYM BIO_nwrite}
-  {$EXTERNALSYM BIO_debug_callback}
-  {$EXTERNALSYM BIO_s_mem}
-  {$EXTERNALSYM BIO_s_secmem} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_new_mem_buf}
-  {$EXTERNALSYM BIO_s_socket}
-  {$EXTERNALSYM BIO_s_connect}
-  {$EXTERNALSYM BIO_s_accept}
-  {$EXTERNALSYM BIO_s_fd}
-  {$EXTERNALSYM BIO_s_log}
-  {$EXTERNALSYM BIO_s_bio}
-  {$EXTERNALSYM BIO_s_null}
-  {$EXTERNALSYM BIO_f_null}
-  {$EXTERNALSYM BIO_f_buffer}
-  {$EXTERNALSYM BIO_f_linebuffer} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_f_nbio_test}
-  {$EXTERNALSYM BIO_s_datagram}
-  {$EXTERNALSYM BIO_dgram_non_fatal_error}
-  {$EXTERNALSYM BIO_new_dgram}
-  {$EXTERNALSYM BIO_sock_should_retry}
-  {$EXTERNALSYM BIO_sock_non_fatal_error}
-  {$EXTERNALSYM BIO_fd_should_retry}
-  {$EXTERNALSYM BIO_fd_non_fatal_error}
-  {$EXTERNALSYM BIO_dump}
-  {$EXTERNALSYM BIO_dump_indent}
-  {$EXTERNALSYM BIO_hex_string}
-  {$EXTERNALSYM BIO_ADDR_new} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDR_rawmake} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDR_free} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDR_clear} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDR_family} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDR_rawaddress} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDR_rawport} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDR_hostname_string} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDR_service_string} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDR_path_string} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDRINFO_next} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDRINFO_family} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDRINFO_socktype} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDRINFO_protocol} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDRINFO_address} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_ADDRINFO_free} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_parse_hostserv} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_lookup} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_lookup_ex} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_sock_error}
-  {$EXTERNALSYM BIO_socket_ioctl}
-  {$EXTERNALSYM BIO_socket_nbio}
-  {$EXTERNALSYM BIO_sock_init}
-  {$EXTERNALSYM BIO_set_tcp_ndelay}
-  {$EXTERNALSYM BIO_sock_info} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_socket} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_connect} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_bind} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_listen} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_accept_ex} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_closesocket} {introduced 1.1.0}
-  {$EXTERNALSYM BIO_new_socket}
-  {$EXTERNALSYM BIO_new_connect}
-  {$EXTERNALSYM BIO_new_accept}
-  {$EXTERNALSYM BIO_new_fd}
-  {$EXTERNALSYM BIO_new_bio_pair}
-  {$EXTERNALSYM BIO_copy_next_retry}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
+
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
+
+{$EXTERNALSYM BIO_get_new_index}
+{$EXTERNALSYM BIO_set_flags}
+{$EXTERNALSYM BIO_test_flags}
+{$EXTERNALSYM BIO_clear_flags}
+{$EXTERNALSYM BIO_get_callback}
+{$EXTERNALSYM BIO_set_callback}
+{$EXTERNALSYM BIO_get_callback_ex}
+{$EXTERNALSYM BIO_set_callback_ex}
+{$EXTERNALSYM BIO_get_callback_arg}
+{$EXTERNALSYM BIO_set_callback_arg}
+{$EXTERNALSYM BIO_method_name}
+{$EXTERNALSYM BIO_method_type}
+{$EXTERNALSYM BIO_ctrl_pending}
+{$EXTERNALSYM BIO_ctrl_wpending}
+{$EXTERNALSYM BIO_ctrl_get_write_guarantee}
+{$EXTERNALSYM BIO_ctrl_get_read_request}
+{$EXTERNALSYM BIO_ctrl_reset_read_request}
+{$EXTERNALSYM BIO_set_ex_data}
+{$EXTERNALSYM BIO_get_ex_data}
+{$EXTERNALSYM BIO_number_read}
+{$EXTERNALSYM BIO_number_written}
+{$EXTERNALSYM BIO_s_file}
+{$EXTERNALSYM BIO_new_file}
+{$EXTERNALSYM BIO_new}
+{$EXTERNALSYM BIO_free}
+{$EXTERNALSYM BIO_set_data}
+{$EXTERNALSYM BIO_get_data}
+{$EXTERNALSYM BIO_set_init}
+{$EXTERNALSYM BIO_get_init}
+{$EXTERNALSYM BIO_set_shutdown}
+{$EXTERNALSYM BIO_get_shutdown}
+{$EXTERNALSYM BIO_vfree}
+{$EXTERNALSYM BIO_up_ref}
+{$EXTERNALSYM BIO_read}
+{$EXTERNALSYM BIO_read_ex}
+{$EXTERNALSYM BIO_gets}
+{$EXTERNALSYM BIO_write}
+{$EXTERNALSYM BIO_write_ex}
+{$EXTERNALSYM BIO_puts}
+{$EXTERNALSYM BIO_indent}
+{$EXTERNALSYM BIO_ctrl}
+{$EXTERNALSYM BIO_callback_ctrl}
+{$EXTERNALSYM BIO_ptr_ctrl}
+{$EXTERNALSYM BIO_int_ctrl}
+{$EXTERNALSYM BIO_push}
+{$EXTERNALSYM BIO_pop}
+{$EXTERNALSYM BIO_free_all}
+{$EXTERNALSYM BIO_find_type}
+{$EXTERNALSYM BIO_next}
+{$EXTERNALSYM BIO_set_next}
+{$EXTERNALSYM BIO_get_retry_BIO}
+{$EXTERNALSYM BIO_get_retry_reason}
+{$EXTERNALSYM BIO_set_retry_reason}
+{$EXTERNALSYM BIO_dup_chain}
+{$EXTERNALSYM BIO_nread0}
+{$EXTERNALSYM BIO_nread}
+{$EXTERNALSYM BIO_nwrite0}
+{$EXTERNALSYM BIO_nwrite}
+{$EXTERNALSYM BIO_debug_callback}
+{$EXTERNALSYM BIO_s_mem}
+{$EXTERNALSYM BIO_s_secmem}
+{$EXTERNALSYM BIO_new_mem_buf}
+{$EXTERNALSYM BIO_s_socket}
+{$EXTERNALSYM BIO_s_connect}
+{$EXTERNALSYM BIO_s_accept}
+{$EXTERNALSYM BIO_s_fd}
+{$EXTERNALSYM BIO_s_log}
+{$EXTERNALSYM BIO_s_bio}
+{$EXTERNALSYM BIO_s_null}
+{$EXTERNALSYM BIO_f_null}
+{$EXTERNALSYM BIO_f_buffer}
+{$EXTERNALSYM BIO_f_linebuffer}
+{$EXTERNALSYM BIO_f_nbio_test}
+{$EXTERNALSYM BIO_s_datagram}
+{$EXTERNALSYM BIO_dgram_non_fatal_error}
+{$EXTERNALSYM BIO_new_dgram}
+{$EXTERNALSYM BIO_sock_should_retry}
+{$EXTERNALSYM BIO_sock_non_fatal_error}
+{$EXTERNALSYM BIO_fd_should_retry}
+{$EXTERNALSYM BIO_fd_non_fatal_error}
+{$EXTERNALSYM BIO_dump}
+{$EXTERNALSYM BIO_dump_indent}
+{$EXTERNALSYM BIO_hex_string}
+{$EXTERNALSYM BIO_ADDR_new}
+{$EXTERNALSYM BIO_ADDR_rawmake}
+{$EXTERNALSYM BIO_ADDR_free}
+{$EXTERNALSYM BIO_ADDR_clear}
+{$EXTERNALSYM BIO_ADDR_family}
+{$EXTERNALSYM BIO_ADDR_rawaddress}
+{$EXTERNALSYM BIO_ADDR_rawport}
+{$EXTERNALSYM BIO_ADDR_hostname_string}
+{$EXTERNALSYM BIO_ADDR_service_string}
+{$EXTERNALSYM BIO_ADDR_path_string}
+{$EXTERNALSYM BIO_ADDRINFO_next}
+{$EXTERNALSYM BIO_ADDRINFO_family}
+{$EXTERNALSYM BIO_ADDRINFO_socktype}
+{$EXTERNALSYM BIO_ADDRINFO_protocol}
+{$EXTERNALSYM BIO_ADDRINFO_address}
+{$EXTERNALSYM BIO_ADDRINFO_free}
+{$EXTERNALSYM BIO_parse_hostserv}
+{$EXTERNALSYM BIO_lookup}
+{$EXTERNALSYM BIO_lookup_ex}
+{$EXTERNALSYM BIO_sock_error}
+{$EXTERNALSYM BIO_socket_ioctl}
+{$EXTERNALSYM BIO_socket_nbio}
+{$EXTERNALSYM BIO_sock_init}
+{$EXTERNALSYM BIO_set_tcp_ndelay}
+{$EXTERNALSYM BIO_sock_info}
+{$EXTERNALSYM BIO_socket}
+{$EXTERNALSYM BIO_connect}
+{$EXTERNALSYM BIO_bind}
+{$EXTERNALSYM BIO_listen}
+{$EXTERNALSYM BIO_accept_ex}
+{$EXTERNALSYM BIO_closesocket}
+{$EXTERNALSYM BIO_new_socket}
+{$EXTERNALSYM BIO_new_connect}
+{$EXTERNALSYM BIO_new_accept}
+{$EXTERNALSYM BIO_new_fd}
+{$EXTERNALSYM BIO_new_bio_pair}
+{$EXTERNALSYM BIO_copy_next_retry}
+
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+function BIO_get_new_index: TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure BIO_set_flags(b: PBIO; flags: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function BIO_test_flags(const b: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure BIO_clear_flags(b: PBIO; flags: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function BIO_get_callback(b: PBIO): BIO_callback_fn; cdecl; external CLibCrypto;
+procedure BIO_set_callback(b: PBIO; callback: BIO_callback_fn); cdecl; external CLibCrypto;
+function BIO_get_callback_ex(b: PBIO): BIO_callback_fn_ex; cdecl; external CLibCrypto;
+procedure BIO_set_callback_ex(b: PBIO; callback: BIO_callback_fn_ex); cdecl; external CLibCrypto;
+function BIO_get_callback_arg(const b: PBIO): PAnsiChar; cdecl; external CLibCrypto;
+procedure BIO_set_callback_arg(var b: PBIO; arg: PAnsiChar); cdecl; external CLibCrypto;
+function BIO_method_name(const b: PBIO): PAnsiChar; cdecl; external CLibCrypto;
+function BIO_method_type(const b: PBIO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_ctrl_pending(b: PBIO): TOpenSSL_C_SIZET; cdecl; external CLibCrypto;
+function BIO_ctrl_wpending(b: PBIO): TOpenSSL_C_SIZET; cdecl; external CLibCrypto;
+function BIO_ctrl_get_write_guarantee(b: PBIO): TOpenSSL_C_SIZET; cdecl; external CLibCrypto;
+function BIO_ctrl_get_read_request(b: PBIO): TOpenSSL_C_SIZET; cdecl; external CLibCrypto;
+function BIO_ctrl_reset_read_request(b: PBIO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_set_ex_data(bio: PBIO; idx: TOpenSSL_C_INT; data: Pointer): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_get_ex_data(bio: PBIO; idx: TOpenSSL_C_INT): Pointer; cdecl; external CLibCrypto;
+function BIO_number_read(bio: PBIO): TOpenSSL_C_UINT64; cdecl; external CLibCrypto;
+function BIO_number_written(bio: PBIO): TOpenSSL_C_UINT64; cdecl; external CLibCrypto;
+function BIO_s_file: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_new_file(const filename: PAnsiChar; const mode: PAnsiChar): PBIO; cdecl; external CLibCrypto;
+function BIO_new(const cType: PBIO_METHOD): PBIO; cdecl; external CLibCrypto;
+function BIO_free(a: PBIO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure BIO_set_data(a: PBIO; ptr: Pointer); cdecl; external CLibCrypto;
+function BIO_get_data(a: PBIO): Pointer; cdecl; external CLibCrypto;
+procedure BIO_set_init(a: PBIO; init: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function BIO_get_init(a: PBIO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure BIO_set_shutdown(a: PBIO; shut: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function BIO_get_shutdown(a: PBIO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure BIO_vfree(a: PBIO); cdecl; external CLibCrypto;
+function BIO_up_ref(a: PBIO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_read(b: PBIO; data: Pointer; dlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_read_ex(b: PBIO; data: Pointer; dlen: TOpenSSL_C_SIZET; readbytes: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_gets( bp: PBIO; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_write(b: PBIO; const data: Pointer; dlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_write_ex(b: PBIO; const data: Pointer; dlen: TOpenSSL_C_SIZET; written: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_puts(bp: PBIO; const buf: PAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_indent(b: PBIO; indent: TOpenSSL_C_INT; max: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_ctrl(bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; parg: Pointer): TOpenSSL_C_LONG; cdecl; external CLibCrypto;
+function BIO_callback_ctrl(b: PBIO; cmd: TOpenSSL_C_INT; fp: PBIO_info_cb): TOpenSSL_C_LONG; cdecl; external CLibCrypto;
+function BIO_ptr_ctrl(bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG): Pointer; cdecl; external CLibCrypto;
+function BIO_int_ctrl(bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; iarg: TOpenSSL_C_INT): TOpenSSL_C_LONG; cdecl; external CLibCrypto;
+function BIO_push(b: PBIO; append: PBIO): PBIO; cdecl; external CLibCrypto;
+function BIO_pop(b: PBIO): PBIO; cdecl; external CLibCrypto;
+procedure BIO_free_all(a: PBIO); cdecl; external CLibCrypto;
+function BIO_find_type(b: PBIO; bio_type: TOpenSSL_C_INT): PBIO; cdecl; external CLibCrypto;
+function BIO_next(b: PBIO): PBIO; cdecl; external CLibCrypto;
+procedure BIO_set_next(b: PBIO; next: PBIO); cdecl; external CLibCrypto;
+function BIO_get_retry_BIO(bio: PBIO; reason: TOpenSSL_C_INT): PBIO; cdecl; external CLibCrypto;
+function BIO_get_retry_reason(bio: PBIO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure BIO_set_retry_reason(bio: PBIO; reason: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function BIO_dup_chain(in_: PBIO): PBIO; cdecl; external CLibCrypto;
+function BIO_nread0(bio: PBIO; buf: PPAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_nread(bio: PBIO; buf: PPAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_nwrite0(bio: PBIO; buf: PPAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_nwrite(bio: PBIO; buf: PPAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_debug_callback(bio: PBIO; cmd: TOpenSSL_C_INT; const argp: PAnsiChar; argi: TOpenSSL_C_INT; argl: TOpenSSL_C_LONG; ret: TOpenSSL_C_LONG): TOpenSSL_C_LONG; cdecl; external CLibCrypto;
+function BIO_s_mem: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_s_secmem: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_new_mem_buf(const buf: Pointer; len: TOpenSSL_C_INT): PBIO; cdecl; external CLibCrypto;
+function BIO_s_socket: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_s_connect: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_s_accept: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_s_fd: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_s_log: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_s_bio: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_s_null: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_f_null: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_f_buffer: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_f_linebuffer: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_f_nbio_test: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_s_datagram: PBIO_METHOD; cdecl; external CLibCrypto;
+function BIO_dgram_non_fatal_error(error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_new_dgram(fd: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl; external CLibCrypto;
+function BIO_sock_should_retry(i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_sock_non_fatal_error(error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_fd_should_retry(i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_fd_non_fatal_error(error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_dump(b: PBIO; const bytes: PAnsiChar; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_dump_indent(b: PBIO; const bytes: PAnsiChar; len: TOpenSSL_C_INT; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_hex_string(out_: PBIO; indent: TOpenSSL_C_INT; width: TOpenSSL_C_INT; data: PByte; datalen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_ADDR_new: PBIO_ADDR; cdecl; external CLibCrypto;
+function BIO_ADDR_rawmake(ap: PBIO_ADDR; familiy: TOpenSSL_C_INT; const where: Pointer; wherelen: TOpenSSL_C_SIZET; port: TOpenSSL_C_SHORT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure BIO_ADDR_free(a: PBIO_ADDR); cdecl; external CLibCrypto;
+procedure BIO_ADDR_clear(ap: PBIO_ADDR); cdecl; external CLibCrypto;
+function BIO_ADDR_family(const ap: PBIO_ADDR): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_ADDR_rawaddress(const ap: PBIO_ADDR; p: Pointer; l: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_ADDR_rawport(const ap: PBIO_ADDR): TOpenSSL_C_SHORT; cdecl; external CLibCrypto;
+function BIO_ADDR_hostname_string(const ap: PBIO_ADDR; numeric: TOpenSSL_C_INT): PAnsiChar; cdecl; external CLibCrypto;
+function BIO_ADDR_service_string(const ap: PBIO_ADDR; numeric: TOpenSSL_C_INT): PAnsiChar; cdecl; external CLibCrypto;
+function BIO_ADDR_path_string(const ap: PBIO_ADDR): PAnsiChar; cdecl; external CLibCrypto;
+function BIO_ADDRINFO_next(const bai: PBIO_ADDRINFO): PBIO_ADDRINFO; cdecl; external CLibCrypto;
+function BIO_ADDRINFO_family(const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_ADDRINFO_socktype(const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_ADDRINFO_protocol(const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_ADDRINFO_address(const bai: PBIO_ADDRINFO): PBIO_ADDR; cdecl; external CLibCrypto;
+procedure BIO_ADDRINFO_free(bai: PBIO_ADDRINFO); cdecl; external CLibCrypto;
+function BIO_parse_hostserv(const hostserv: PAnsiChar; host: PPAnsiChar; service: PPAnsiChar; hostserv_prio: BIO_hostserv_priorities): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_lookup(const host: PAnsiChar; const service: PAnsiChar; lookup_type: BIO_lookup_type; family: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; res: PPBIO_ADDRINFO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_lookup_ex(const host: PAnsiChar; const service: PAnsiChar; lookup_type: TOpenSSL_C_INT; family: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; protocol: TOpenSSL_C_INT; res: PPBIO_ADDRINFO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_sock_error(sock: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_socket_ioctl(fd: TOpenSSL_C_INT; cType: TOpenSSL_C_LONG; arg: Pointer): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_socket_nbio(fd: TOpenSSL_C_INT; mode: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_sock_init: TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_set_tcp_ndelay(sock: TOpenSSL_C_INT; turn_on: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_sock_info(sock: TOpenSSL_C_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_socket(domain: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; protocol: TOpenSSL_C_INT; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_connect(sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_bind(sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_listen(sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_accept_ex(accept_sock: TOpenSSL_C_INT; addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_closesocket(sock: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function BIO_new_socket(sock: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl; external CLibCrypto;
+function BIO_new_connect(const host_port: PAnsiChar): PBIO; cdecl; external CLibCrypto;
+function BIO_new_accept(const host_port: PAnsiChar): PBIO; cdecl; external CLibCrypto;
+function BIO_new_fd(fd: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl; external CLibCrypto;
+function BIO_new_bio_pair(bio1: PPBIO; writebuf1: TOpenSSL_C_SIZET; bio2: PPBIO; writebuf2: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure BIO_copy_next_retry(b: PBIO); cdecl; external CLibCrypto;
+
+{Removed functions for which legacy support available - use is deprecated}
+
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+function BIO_get_flags(const b: PBIO): TOpenSSL_C_INT; cdecl;
+procedure BIO_set_retry_special(b: PBIO); cdecl;
+procedure BIO_set_retry_read(b: PBIO); cdecl;
+procedure BIO_set_retry_write(b: PBIO); cdecl;
+procedure BIO_clear_retry_flags(b: PBIO); cdecl;
+function BIO_get_retry_flags(b: PBIO): TOpenSSL_C_INT; cdecl;
+function BIO_should_read(b: PBIO): TOpenSSL_C_INT; cdecl;
+function BIO_should_write(b: PBIO): TOpenSSL_C_INT; cdecl;
+function BIO_should_io_special(b: PBIO): TOpenSSL_C_INT; cdecl;
+function BIO_retry_type(b: PBIO): TOpenSSL_C_INT; cdecl;
+function BIO_should_retry(b: PBIO): TOpenSSL_C_INT; cdecl;
+function BIO_do_connect(b: PBIO): TOpenSSL_C_LONG; cdecl;
+function BIO_do_accept(b: PBIO): TOpenSSL_C_LONG; cdecl;
+function BIO_do_handshake(b: PBIO): TOpenSSL_C_LONG; cdecl;
+function BIO_get_mem_data(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl;
+function BIO_set_mem_buf(b: PBIO; bm: PAnsiChar; c: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+function BIO_get_mem_ptr(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl;
+function BIO_set_mem_eof_return(b: PBIO; v: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ELSE}
 var
-  {$EXTERNALSYM BIO_get_flags} {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_retry_special} {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_retry_read} {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_retry_write} {removed 1.0.0}
-  {$EXTERNALSYM BIO_clear_retry_flags} {removed 1.0.0}
-  {$EXTERNALSYM BIO_get_retry_flags} {removed 1.0.0}
-  {$EXTERNALSYM BIO_should_read} {removed 1.0.0}
-  {$EXTERNALSYM BIO_should_write} {removed 1.0.0}
-  {$EXTERNALSYM BIO_should_io_special} {removed 1.0.0}
-  {$EXTERNALSYM BIO_retry_type} {removed 1.0.0}
-  {$EXTERNALSYM BIO_should_retry} {removed 1.0.0}
-  {$EXTERNALSYM BIO_do_connect} {removed 1.0.0}
-  {$EXTERNALSYM BIO_do_accept} {removed 1.0.0}
-  {$EXTERNALSYM BIO_do_handshake} {removed 1.0.0}
-  {$EXTERNALSYM BIO_get_mem_data} {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_mem_buf} {removed 1.0.0}
-  {$EXTERNALSYM BIO_get_mem_ptr} {removed 1.0.0}
-  {$EXTERNALSYM BIO_set_mem_eof_return} {removed 1.0.0}
-  BIO_get_flags: function (const b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_set_retry_special: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
-  BIO_set_retry_read: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
-  BIO_set_retry_write: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
-
-(* These are normally used internally in BIOs *)
-  BIO_clear_retry_flags: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
-  BIO_get_retry_flags: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-
-(* These should be used by the application to tell why we should retry *)
-  BIO_should_read: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_should_write: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_should_io_special: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_retry_type: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_should_retry: function (b: PBIO): TIdC_INT; cdecl = nil; {removed 1.0.0}
-
-(* BIO_s_accept() and BIO_s_connect() *)
-  BIO_do_connect: function (b: PBIO): TIdC_LONG; cdecl = nil; {removed 1.0.0}
-  BIO_do_accept: function (b: PBIO): TIdC_LONG; cdecl = nil; {removed 1.0.0}
-  BIO_do_handshake: function (b: PBIO): TIdC_LONG; cdecl = nil; {removed 1.0.0}
-
-  BIO_get_mem_data: function (b: PBIO; pp: PIdAnsiChar) : TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_set_mem_buf: function (b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_get_mem_ptr: function (b: PBIO; pp: PIdAnsiChar): TIdC_INT; cdecl = nil; {removed 1.0.0}
-  BIO_set_mem_eof_return: function (b: PBIO; v: TIdC_INT): TIdC_INT; cdecl = nil; {removed 1.0.0}
-
-  BIO_get_new_index: function : TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_set_flags: procedure (b: PBIO; flags: TIdC_INT); cdecl = nil;
-  BIO_test_flags: function (const b: PBIO; flags: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_clear_flags: procedure (b: PBIO; flags: TIdC_INT); cdecl = nil;
-
+  BIO_get_new_index: function : TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_set_flags: procedure (b: PBIO; flags: TOpenSSL_C_INT); cdecl = nil;
+  BIO_test_flags: function (const b: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_clear_flags: procedure (b: PBIO; flags: TOpenSSL_C_INT); cdecl = nil;
   BIO_get_callback: function (b: PBIO): BIO_callback_fn; cdecl = nil;
   BIO_set_callback: procedure (b: PBIO; callback: BIO_callback_fn); cdecl = nil;
-
-  BIO_get_callback_ex: function (b: PBIO): BIO_callback_fn_ex; cdecl = nil; {introduced 1.1.0}
-  BIO_set_callback_ex: procedure (b: PBIO; callback: BIO_callback_fn_ex); cdecl = nil; {introduced 1.1.0}
-
-  BIO_get_callback_arg: function (const b: PBIO): PIdAnsiChar; cdecl = nil;
-  BIO_set_callback_arg: procedure (var b: PBIO; arg: PIdAnsiChar); cdecl = nil;
-
-  BIO_method_name: function (const b: PBIO): PIdAnsiChar; cdecl = nil;
-  BIO_method_type: function (const b: PBIO): TIdC_INT; cdecl = nil;
-
-//  {$HPPEMIT '# define BIO_set_app_data(s,arg)         BIO_set_ex_data(s,0,arg)'}
-//  {$HPPEMIT '# define BIO_get_app_data(s)             BIO_get_ex_data(s,0)'}
-//
-//  {$HPPEMIT '# define BIO_set_nbio(b,n)             BIO_ctrl(b,BIO_C_SET_NBIO,(n),NULL)'}
-//
-//  {$HPPEMIT '# ifndef OPENSSL_NO_SOCK'}
-//  (* IP families we support, for BIO_s_connect() and BIO_s_accept() *)
-//  (* Note: the underlying operating system may not support some of them *)
-//  {$HPPEMIT '#  define BIO_FAMILY_IPV4                         4'}
-//  {$HPPEMIT '#  define BIO_FAMILY_IPV6                         6'}
-//  {$HPPEMIT '#  define BIO_FAMILY_IPANY                        256'}
-//
-//  (* BIO_s_connect() *)
-//  {$HPPEMIT '#  define BIO_set_conn_hostname(b,name) BIO_ctrl(b,BIO_C_SET_CONNECT,0,'}
-//                                                   (char (name))
-//  {$HPPEMIT '#  define BIO_set_conn_port(b,port)     BIO_ctrl(b,BIO_C_SET_CONNECT,1,'}
-//                                                   (char (port))
-//  {$HPPEMIT '#  define BIO_set_conn_address(b,addr)  BIO_ctrl(b,BIO_C_SET_CONNECT,2,'}
-//                                                   (char (addr))
-//  {$HPPEMIT '#  define BIO_set_conn_ip_family(b,f)   BIO_int_ctrl(b,BIO_C_SET_CONNECT,3,f)'}
-//  {$HPPEMIT '#  define BIO_get_conn_hostname(b)      (( char )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,0))'}
-//  {$HPPEMIT '#  define BIO_get_conn_port(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,1))'}
-//  {$HPPEMIT '#  define BIO_get_conn_address(b)       (( PBIO_ADDR )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,2))'}
-//  {$HPPEMIT '#  define BIO_get_conn_ip_family(b)     BIO_ctrl(b,BIO_C_GET_CONNECT,3,NULL)'}
-//  {$HPPEMIT '#  define BIO_set_conn_mode(b,n)        BIO_ctrl(b,BIO_C_SET_CONNECT_MODE,(n),NULL)'}
-//
-//  (* BIO_s_accept() *)
-//  {$HPPEMIT '#  define BIO_set_accept_name(b,name)   BIO_ctrl(b,BIO_C_SET_ACCEPT,0,'}
-//  {$EXTERNALSYM PBIO}
-//                                                   (char (name))
-//  {$HPPEMIT '#  define BIO_set_accept_port(b,port)   BIO_ctrl(b,BIO_C_SET_ACCEPT,1,'}
-//                                                   (char (port))
-//  {$HPPEMIT '#  define BIO_get_accept_name(b)        (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,0))'}
-//  {$HPPEMIT '#  define BIO_get_accept_port(b)        (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,1))'}
-//  {$HPPEMIT '#  define BIO_get_peer_name(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,2))'}
-//  {$HPPEMIT '#  define BIO_get_peer_port(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,3))'}
-//  (* #define BIO_set_nbio(b,n)    BIO_ctrl(b,BIO_C_SET_NBIO,(n),NULL) *)
-//  {$HPPEMIT '#  define BIO_set_nbio_accept(b,n)      #  define BIO_set_nbio_accept(b,n)      BIO_ctrl(b,BIO_C_SET_ACCEPT,2,(n)?(procedure )'a':NULL)  BIO_ctrl(b,BIO_C_SET_ACCEPT,3,'}
-//                                                   (char (bio))
-//  {$HPPEMIT '#  define BIO_set_accept_ip_family(b,f) BIO_int_ctrl(b,BIO_C_SET_ACCEPT,4,f)'}
-//  {$HPPEMIT '#  define BIO_get_accept_ip_family(b)   BIO_ctrl(b,BIO_C_GET_ACCEPT,4,NULL)'}
-//
-//  (* Aliases kept for backward compatibility *)
-//  {$HPPEMIT '#  define BIO_BIND_NORMAL                 0'}
-//  {$HPPEMIT '#  define BIO_BIND_REUSEADDR              BIO_SOCK_REUSEADDR'}
-//  {$HPPEMIT '#  define BIO_BIND_REUSEADDR_IF_UNUSED    BIO_SOCK_REUSEADDR'}
-//  {$HPPEMIT '#  define BIO_set_bind_mode(b,mode) BIO_ctrl(b,BIO_C_SET_BIND_MODE,mode,NULL)'}
-//  {$HPPEMIT '#  define BIO_get_bind_mode(b)    BIO_ctrl(b,BIO_C_GET_BIND_MODE,0,NULL)'}
-//
-//  (* BIO_s_accept() and BIO_s_connect() *)
-//  {$HPPEMIT '#  define BIO_do_connect(b)       BIO_do_handshake(b)'}
-//  {$HPPEMIT '#  define BIO_do_accept(b)        BIO_do_handshake(b)'}
-//  {$HPPEMIT '# endif'}	(* OPENSSL_NO_SOCK *)
-//
-//  {$HPPEMIT '# define BIO_do_handshake(b)     BIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)'}
-//
-//  (* BIO_s_datagram(), BIO_s_fd(), BIO_s_socket(), BIO_s_accept() and BIO_s_connect() *)
-//  {$HPPEMIT '# define BIO_set_fd(b,fd,c)      BIO_int_ctrl(b,BIO_C_SET_FD,c,fd)'}
-//  {$HPPEMIT '# define BIO_get_fd(b,c)         BIO_ctrl(b,BIO_C_GET_FD,0,(char (c))'}
-//
-//  (* BIO_s_file() *)
-//  {$HPPEMIT '# define BIO_set_fp(b,fp,c)      BIO_ctrl(b,BIO_C_SET_FILE_PTR,c,(char (fp))'}
-//  {$HPPEMIT '# define BIO_get_fp(b,fpp)       BIO_ctrl(b,BIO_C_GET_FILE_PTR,0,(char (fpp))'}
-//
-//  (* BIO_s_fd() and BIO_s_file() *)
-//  {$HPPEMIT '# define BIO_seek(b,ofs(int)BIO_ctrl(b,BIO_C_FILE_SEEK,ofs,NULL)'}
-//  {$HPPEMIT '# define BIO_tell(b)     (int)BIO_ctrl(b,BIO_C_FILE_TELL,0,NULL)'}
-//
-//  (*
-//   * name is cast to lose , but might be better to route through a
-//   * cFunction so we can do it safely
-//   *)
-//  {$HPPEMIT '# ifdef CONST_STRICT'}
-//  (*
-//   * If you are wondering why this isn't defined, its because CONST_STRICT is
-//   * purely a compile-time kludge to allow  to be checked.
-//   *)
-////  function BIO_read_filename(b: PBIO; const name: PIdAnsiChar): TIdC_INT;
-//  {$HPPEMIT '# define BIO_write_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_WRITE,name)
-//  {$HPPEMIT '# define BIO_append_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_APPEND,name)
-//  {$HPPEMIT '# define BIO_rw_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_READ or BIO_FP_WRITE,name)
-//
-//  (*
-//   * WARNING WARNING, this ups the reference count on the read bio of the SSL
-//   * structure.  This is because the ssl read PBIO is now pointed to by the
-//   * next_bio field in the bio.  So when you free the PBIO, make sure you are
-//   * doing a BIO_free_all() to catch the underlying PBIO.
-//   *)
-//  {$HPPEMIT '# define BIO_set_ssl(b,ssl,c)    BIO_ctrl(b,BIO_C_SET_SSL,c,(char (ssl))'}
-//  {$HPPEMIT '# define BIO_get_ssl(b,sslp)     BIO_ctrl(b,BIO_C_GET_SSL,0,(char (sslp))'}
-//  {$HPPEMIT '# define BIO_set_ssl_mode(b,client)      BIO_ctrl(b,BIO_C_SSL_MODE,client,NULL)'}
-//  {$HPPEMIT '# define BIO_set_ssl_renegotiate_bytes(b,num)'}
-//          BIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_BYTES,num,0)
-//  {$HPPEMIT '# define BIO_get_num_renegotiates(b)'}
-//          BIO_ctrl(b,BIO_C_GET_SSL_NUM_RENEGOTIATES,0,0)
-//  {$HPPEMIT '# define BIO_set_ssl_renegotiate_timeout(b,seconds)'}
-//          BIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_TIMEOUT,seconds,0)
-//
-//  (* defined in evp.h *)
-//  (* #define BIO_set_md(b,md)     BIO_ctrl(b,BIO_C_SET_MD,1,(char )(md)) *)
-//
-//  (* For the BIO_f_buffer() type *)
-//  {$HPPEMIT '# define BIO_get_buffer_num_lines(b)     BIO_ctrl(b,BIO_C_GET_BUFF_NUM_LINES,0,NULL)'}
-//  {$HPPEMIT '# define BIO_set_buffer_size(b,size)     BIO_ctrl(b,BIO_C_SET_BUFF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_set_read_buffer_size(b,size) BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,0)'}
-//  {$HPPEMIT '# define BIO_set_write_buffer_size(b,size) BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,1)'}
-//  {$HPPEMIT '# define BIO_set_buffer_read_data(b,buf,num) BIO_ctrl(b,BIO_C_SET_BUFF_READ_DATA,num,buf)'}
-//
-//  (* Don't use the next one unless you know what you are doing :-) */
-//  {$HPPEMIT '# define BIO_dup_state(b,ret)    BIO_ctrl(b,BIO_CTRL_DUP,0,(char (ret))'}
-//
-//  {$HPPEMIT '# define BIO_reset(b)            (int)BIO_ctrl(b,BIO_CTRL_RESET,0,NULL)'}
-//  {$HPPEMIT '# define BIO_eof(b)              (int)BIO_ctrl(b,BIO_CTRL_EOF,0,NULL)'}
-//  {$HPPEMIT '# define BIO_set_close(b,c)      (int)BIO_ctrl(b,BIO_CTRL_SET_CLOSE,(c),NULL)'}
-//  {$HPPEMIT '# define BIO_get_close(b)        (int)BIO_ctrl(b,BIO_CTRL_GET_CLOSE,0,NULL)'}
-//  {$HPPEMIT '# define BIO_pending(b)          (int)BIO_ctrl(b,BIO_CTRL_PENDING,0,NULL)'}
-//  {$HPPEMIT '# define BIO_wpending(b)         (int)BIO_ctrl(b,BIO_CTRL_WPENDING,0,NULL)'}
-  (* ...pending macros have inappropriate return type *)
-  BIO_ctrl_pending: function (b: PBIO): TIdC_SIZET; cdecl = nil;
-  BIO_ctrl_wpending: function (b: PBIO): TIdC_SIZET; cdecl = nil;
-//  {$HPPEMIT '# define BIO_flush(b)            (int)BIO_ctrl(b,BIO_CTRL_FLUSH,0,NULL)'}
-//  {$HPPEMIT '# define BIO_get_info_callback(b,cbp(int)BIO_ctrl(b,BIO_CTRL_GET_CALLBACK,0,'}
-//                                                     cbp)
-//  {$HPPEMIT '# define BIO_set_info_callback(b,cb(int)BIO_callback_ctrl(b,BIO_CTRL_SET_CALLBACK,cb)'}
-//
-//  (* For the BIO_f_buffer() type *)
-//  {$HPPEMIT '# define BIO_buffer_get_num_lines(b) BIO_ctrl(b,BIO_CTRL_GET,0,NULL)'}
-//  {$HPPEMIT '# define BIO_buffer_peek(b,s,l) BIO_ctrl(b,BIO_CTRL_PEEK,(l),(s))'}
-//
-//  (* For BIO_s_bio() *)
-//  {$HPPEMIT '# define BIO_set_write_buf_size(b,size(int)BIO_ctrl(b,BIO_C_SET_WRITE_BUF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_get_write_buf_size(b,size(TIdC_SIZET)BIO_ctrl(b,BIO_C_GET_WRITE_BUF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_make_bio_pair(b1,b2)   (int)BIO_ctrl(b1,BIO_C_MAKE_BIO_PAIR,0,b2)'}
-//  {$HPPEMIT '# define BIO_destroy_bio_pair(b)    (int)BIO_ctrl(b,BIO_C_DESTROY_BIO_PAIR,0,NULL)'}
-//  {$HPPEMIT '# define BIO_shutdown_wr(b(int)BIO_ctrl(b, BIO_C_SHUTDOWN_WR, 0, NULL)'}
-//  (* macros with inappropriate type -- but ...pending macros use int too: *)
-//  {$HPPEMIT '# define BIO_get_write_guarantee(b(int)BIO_ctrl(b,BIO_C_GET_WRITE_GUARANTEE,0,NULL)'}
-//  {$HPPEMIT '# define BIO_get_read_request(b)    (int)BIO_ctrl(b,BIO_C_GET_READ_REQUEST,0,NULL)'}
-  BIO_ctrl_get_write_guarantee: function (b: PBIO): TIdC_SIZET; cdecl = nil;
-  BIO_ctrl_get_read_request: function (b: PBIO): TIdC_SIZET; cdecl = nil;
-  BIO_ctrl_reset_read_request: function (b: PBIO): TIdC_INT; cdecl = nil;
-
-  (* ctrl macros for dgram *)
-//  {$HPPEMIT '# define BIO_ctrl_dgram_connect(b,peer)'}
-//                       (TIdC_INT)BIO_ctrl(b,BIO_CTRL_DGRAM_CONNECT,0, (char (peer))
-//  {$HPPEMIT '# define BIO_ctrl_set_connected(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_SET_CONNECTED, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_recv_timedout(b)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_RECV_TIMER_EXP, 0, 0)
-//  {$HPPEMIT '# define BIO_dgram_send_timedout(b)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_SEND_TIMER_EXP, 0, 0)
-//  {$HPPEMIT '# define BIO_dgram_get_peer(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_PEER, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_set_peer(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_SET_PEER, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_get_mtu_overhead(b)'}
-//           (Cardinal)BIO_ctrl((b), BIO_CTRL_DGRAM_GET_MTU_OVERHEAD, 0, 0)
-
-//#define BIO_get_ex_new_index(l, p, newf, dupf, freef) \
-//    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_BIO, l, p, newf, dupf, freef)
-
-  BIO_set_ex_data: function (bio: PBIO; idx: TIdC_INT; data: Pointer): TIdC_INT; cdecl = nil;
-  BIO_get_ex_data: function (bio: PBIO; idx: TIdC_INT): Pointer; cdecl = nil;
-  BIO_number_read: function (bio: PBIO): TIdC_UINT64; cdecl = nil;
-  BIO_number_written: function (bio: PBIO): TIdC_UINT64; cdecl = nil;
-
-  (* For BIO_f_asn1() *)
-//  function BIO_asn1_set_prefix(b: PBIO; prefix: ^asn1_ps_func; prefix_free: ^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_get_prefix(b: PBIO; pprefix: ^^asn1_ps_func; pprefix_free: ^^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_set_suffix(b: PBIO; suffix: ^asn1_ps_func; suffix_free: ^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_get_suffix(b: PBIO; psuffix: ^asn1_ps_func; psuffix_free: ^^asn1_ps_func): TIdC_INT;
-
+  BIO_get_callback_ex: function (b: PBIO): BIO_callback_fn_ex; cdecl = nil; {introduced 1.1.0 }
+  BIO_set_callback_ex: procedure (b: PBIO; callback: BIO_callback_fn_ex); cdecl = nil; {introduced 1.1.0 }
+  BIO_get_callback_arg: function (const b: PBIO): PAnsiChar; cdecl = nil;
+  BIO_set_callback_arg: procedure (var b: PBIO; arg: PAnsiChar); cdecl = nil;
+  BIO_method_name: function (const b: PBIO): PAnsiChar; cdecl = nil;
+  BIO_method_type: function (const b: PBIO): TOpenSSL_C_INT; cdecl = nil;
+  BIO_ctrl_pending: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = nil;
+  BIO_ctrl_wpending: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = nil;
+  BIO_ctrl_get_write_guarantee: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = nil;
+  BIO_ctrl_get_read_request: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = nil;
+  BIO_ctrl_reset_read_request: function (b: PBIO): TOpenSSL_C_INT; cdecl = nil;
+  BIO_set_ex_data: function (bio: PBIO; idx: TOpenSSL_C_INT; data: Pointer): TOpenSSL_C_INT; cdecl = nil;
+  BIO_get_ex_data: function (bio: PBIO; idx: TOpenSSL_C_INT): Pointer; cdecl = nil;
+  BIO_number_read: function (bio: PBIO): TOpenSSL_C_UINT64; cdecl = nil;
+  BIO_number_written: function (bio: PBIO): TOpenSSL_C_UINT64; cdecl = nil;
   BIO_s_file: function : PBIO_METHOD; cdecl = nil;
-  BIO_new_file: function (const filename: PIdAnsiChar; const mode: PIdAnsiChar): PBIO; cdecl = nil;
-//  function BIO_new_fp(stream: cFile; close_flag: TIdC_INT): PBIO;
+  BIO_new_file: function (const filename: PAnsiChar; const mode: PAnsiChar): PBIO; cdecl = nil;
   BIO_new: function (const cType: PBIO_METHOD): PBIO; cdecl = nil;
-  BIO_free: function (a: PBIO): TIdC_INT; cdecl = nil;
-  BIO_set_data: procedure (a: PBIO; ptr: Pointer); cdecl = nil; {introduced 1.1.0}
-  BIO_get_data: function (a: PBIO): Pointer; cdecl = nil; {introduced 1.1.0}
-  BIO_set_init: procedure (a: PBIO; init: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-  BIO_get_init: function (a: PBIO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_set_shutdown: procedure (a: PBIO; shut: TIdC_INT); cdecl = nil; {introduced 1.1.0}
-  BIO_get_shutdown: function (a: PBIO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+  BIO_free: function (a: PBIO): TOpenSSL_C_INT; cdecl = nil;
+  BIO_set_data: procedure (a: PBIO; ptr: Pointer); cdecl = nil; {introduced 1.1.0 }
+  BIO_get_data: function (a: PBIO): Pointer; cdecl = nil; {introduced 1.1.0 }
+  BIO_set_init: procedure (a: PBIO; init: TOpenSSL_C_INT); cdecl = nil; {introduced 1.1.0 }
+  BIO_get_init: function (a: PBIO): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_set_shutdown: procedure (a: PBIO; shut: TOpenSSL_C_INT); cdecl = nil; {introduced 1.1.0 }
+  BIO_get_shutdown: function (a: PBIO): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
   BIO_vfree: procedure (a: PBIO); cdecl = nil;
-  BIO_up_ref: function (a: PBIO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_read: function (b: PBIO; data: Pointer; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_read_ex: function (b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_gets: function ( bp: PBIO; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_write: function (b: PBIO; const data: Pointer; dlen: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_write_ex: function (b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_puts: function (bp: PBIO; const buf: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  BIO_indent: function (b: PBIO; indent: TIdC_INT; max: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_ctrl: function (bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; cdecl = nil;
-  BIO_callback_ctrl: function (b: PBIO; cmd: TIdC_INT; fp: PBIO_info_cb): TIdC_LONG; cdecl = nil;
-  BIO_ptr_ctrl: function (bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG): Pointer; cdecl = nil;
-  BIO_int_ctrl: function (bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; iarg: TIdC_INT): TIdC_LONG; cdecl = nil;
+  BIO_up_ref: function (a: PBIO): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_read: function (b: PBIO; data: Pointer; dlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_read_ex: function (b: PBIO; data: Pointer; dlen: TOpenSSL_C_SIZET; readbytes: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_gets: function ( bp: PBIO; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_write: function (b: PBIO; const data: Pointer; dlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_write_ex: function (b: PBIO; const data: Pointer; dlen: TOpenSSL_C_SIZET; written: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_puts: function (bp: PBIO; const buf: PAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  BIO_indent: function (b: PBIO; indent: TOpenSSL_C_INT; max: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_ctrl: function (bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; parg: Pointer): TOpenSSL_C_LONG; cdecl = nil;
+  BIO_callback_ctrl: function (b: PBIO; cmd: TOpenSSL_C_INT; fp: PBIO_info_cb): TOpenSSL_C_LONG; cdecl = nil;
+  BIO_ptr_ctrl: function (bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG): Pointer; cdecl = nil;
+  BIO_int_ctrl: function (bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; iarg: TOpenSSL_C_INT): TOpenSSL_C_LONG; cdecl = nil;
   BIO_push: function (b: PBIO; append: PBIO): PBIO; cdecl = nil;
   BIO_pop: function (b: PBIO): PBIO; cdecl = nil;
   BIO_free_all: procedure (a: PBIO); cdecl = nil;
-  BIO_find_type: function (b: PBIO; bio_type: TIdC_INT): PBIO; cdecl = nil;
+  BIO_find_type: function (b: PBIO; bio_type: TOpenSSL_C_INT): PBIO; cdecl = nil;
   BIO_next: function (b: PBIO): PBIO; cdecl = nil;
-  BIO_set_next: procedure (b: PBIO; next: PBIO); cdecl = nil; {introduced 1.1.0}
-  BIO_get_retry_BIO: function (bio: PBIO; reason: TIdC_INT): PBIO; cdecl = nil;
-  BIO_get_retry_reason: function (bio: PBIO): TIdC_INT; cdecl = nil;
-  BIO_set_retry_reason: procedure (bio: PBIO; reason: TIdC_INT); cdecl = nil; {introduced 1.1.0}
+  BIO_set_next: procedure (b: PBIO; next: PBIO); cdecl = nil; {introduced 1.1.0 }
+  BIO_get_retry_BIO: function (bio: PBIO; reason: TOpenSSL_C_INT): PBIO; cdecl = nil;
+  BIO_get_retry_reason: function (bio: PBIO): TOpenSSL_C_INT; cdecl = nil;
+  BIO_set_retry_reason: procedure (bio: PBIO; reason: TOpenSSL_C_INT); cdecl = nil; {introduced 1.1.0 }
   BIO_dup_chain: function (in_: PBIO): PBIO; cdecl = nil;
-
-  BIO_nread0: function (bio: PBIO; buf: PPIdAnsiChar): TIdC_INT; cdecl = nil;
-  BIO_nread: function (bio: PBIO; buf: PPIdAnsiChar; num: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_nwrite0: function (bio: PBIO; buf: PPIdAnsiChar): TIdC_INT; cdecl = nil;
-  BIO_nwrite: function (bio: PBIO; buf: PPIdAnsiChar; num: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  BIO_debug_callback: function (bio: PBIO; cmd: TIdC_INT; const argp: PIdAnsiChar; argi: TIdC_INT; argl: TIdC_LONG; ret: TIdC_LONG): TIdC_LONG; cdecl = nil;
-
+  BIO_nread0: function (bio: PBIO; buf: PPAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  BIO_nread: function (bio: PBIO; buf: PPAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_nwrite0: function (bio: PBIO; buf: PPAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  BIO_nwrite: function (bio: PBIO; buf: PPAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_debug_callback: function (bio: PBIO; cmd: TOpenSSL_C_INT; const argp: PAnsiChar; argi: TOpenSSL_C_INT; argl: TOpenSSL_C_LONG; ret: TOpenSSL_C_LONG): TOpenSSL_C_LONG; cdecl = nil;
   BIO_s_mem: function : PBIO_METHOD; cdecl = nil;
-  BIO_s_secmem: function : PBIO_METHOD; cdecl = nil; {introduced 1.1.0}
-  BIO_new_mem_buf: function (const buf: Pointer; len: TIdC_INT): PBIO; cdecl = nil;
-
+  BIO_s_secmem: function : PBIO_METHOD; cdecl = nil; {introduced 1.1.0 }
+  BIO_new_mem_buf: function (const buf: Pointer; len: TOpenSSL_C_INT): PBIO; cdecl = nil;
   BIO_s_socket: function : PBIO_METHOD; cdecl = nil;
   BIO_s_connect: function : PBIO_METHOD; cdecl = nil;
   BIO_s_accept: function : PBIO_METHOD; cdecl = nil;
-
   BIO_s_fd: function : PBIO_METHOD; cdecl = nil;
   BIO_s_log: function : PBIO_METHOD; cdecl = nil;
   BIO_s_bio: function : PBIO_METHOD; cdecl = nil;
   BIO_s_null: function : PBIO_METHOD; cdecl = nil;
   BIO_f_null: function : PBIO_METHOD; cdecl = nil;
   BIO_f_buffer: function : PBIO_METHOD; cdecl = nil;
-  BIO_f_linebuffer: function : PBIO_METHOD; cdecl = nil; {introduced 1.1.0}
+  BIO_f_linebuffer: function : PBIO_METHOD; cdecl = nil; {introduced 1.1.0 }
   BIO_f_nbio_test: function : PBIO_METHOD; cdecl = nil;
   BIO_s_datagram: function : PBIO_METHOD; cdecl = nil;
-  BIO_dgram_non_fatal_error: function (error: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_new_dgram: function (fd: TIdC_INT; close_flag: TIdC_INT): PBIO; cdecl = nil;
-
-//  function BIO_s_datagram_sctp: PBIO_METHOD;
-//  function BIO_new_dgram_sctp(fd: TIdC_INT; close_flag: TIdC_INT): PBIO;
-//  function BIO_dgram_is_sctp(bio: PBIO): TIdC_INT;
-//  function BIO_dgram_sctp_notification_cb(bio: PBIO; handle_notifications(PBIO;
-//    context: Pointer;
-//    buf: Pointer): TIdC_INT, Pointer context);
-//  function BIO_dgram_sctp_wait_for_dry(b: PBIO): TIdC_INT;
-//  function BIO_dgram_sctp_msg_waiting(b: PBIO): TIdC_INT;
-
-  BIO_sock_should_retry: function (i: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_sock_non_fatal_error: function (error: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  BIO_fd_should_retry: function (i: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_fd_non_fatal_error: function (error: TIdC_INT): TIdC_INT; cdecl = nil;
-//  function BIO_dump_cb(
-//    Pointer data: cb(;
-//    len: TIdC_SIZET;
-//    function: Pointer): u: TIdC_INT, Pointer function ,  PIdAnsiChar s, TIdC_INT len): u;
-//  function BIO_dump_indent_cb(TIdC_INT (cb( Pointer data, TIdC_SIZET len, Pointer function ): u: TIdC_INT, Pointer function ,  PIdAnsiChar s, TIdC_INT len, TIdC_INT indent): u;
-  BIO_dump: function (b: PBIO; const bytes: PIdAnsiChar; len: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_dump_indent: function (b: PBIO; const bytes: PIdAnsiChar; len: TIdC_INT; indent: TIdC_INT): TIdC_INT; cdecl = nil;
-
-//  function BIO_dump_fp(fp: cFile; const s: PByte; len: TIdC_INT): TIdC_INT;
-//  function BIO_dump_indent_fp(fp: cFile; const s: PByte; len: TIdC_INT; indent: TIdC_INT): TIdC_INT;
-
-  BIO_hex_string: function (out_: PBIO; indent: TIdC_INT; width: TIdC_INT; data: PByte; datalen: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  BIO_ADDR_new: function : PBIO_ADDR; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDR_rawmake: function (ap: PBIO_ADDR; familiy: TIdC_INT; const where: Pointer; wherelen: TIdC_SIZET; port: TIdC_SHORT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDR_free: procedure (a: PBIO_ADDR); cdecl = nil; {introduced 1.1.0}
-  BIO_ADDR_clear: procedure (ap: PBIO_ADDR); cdecl = nil; {introduced 1.1.0}
-  BIO_ADDR_family: function (const ap: PBIO_ADDR): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDR_rawaddress: function (const ap: PBIO_ADDR; p: Pointer; l: PIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDR_rawport: function (const ap: PBIO_ADDR): TIdC_SHORT; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDR_hostname_string: function (const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDR_service_string: function (const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDR_path_string: function (const ap: PBIO_ADDR): PIdAnsiChar; cdecl = nil; {introduced 1.1.0}
-
-  BIO_ADDRINFO_next: function (const bai: PBIO_ADDRINFO): PBIO_ADDRINFO; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDRINFO_family: function (const bai: PBIO_ADDRINFO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDRINFO_socktype: function (const bai: PBIO_ADDRINFO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDRINFO_protocol: function (const bai: PBIO_ADDRINFO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDRINFO_address: function (const bai: PBIO_ADDRINFO): PBIO_ADDR; cdecl = nil; {introduced 1.1.0}
-  BIO_ADDRINFO_free: procedure (bai: PBIO_ADDRINFO); cdecl = nil; {introduced 1.1.0}
-
-  BIO_parse_hostserv: function (const hostserv: PIdAnsiChar; host: PPIdAnsiChar; service: PPIdAnsiChar; hostserv_prio: BIO_hostserv_priorities): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-
-  BIO_lookup: function (const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: BIO_lookup_type; family: TIdC_INT; socktype: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_lookup_ex: function (const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: TIdC_INT; family: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_sock_error: function (sock: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_socket_ioctl: function (fd: TIdC_INT; cType: TIdC_LONG; arg: Pointer): TIdC_INT; cdecl = nil;
-  BIO_socket_nbio: function (fd: TIdC_INT; mode: TIdC_INT): TIdC_INT; cdecl = nil;
-  BIO_sock_init: function : TIdC_INT; cdecl = nil;
-
-  BIO_set_tcp_ndelay: function (sock: TIdC_INT; turn_on: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  BIO_sock_info: function (sock: TIdC_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-
-  BIO_socket: function (domain: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_connect: function (sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_bind: function (sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_listen: function (sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_accept_ex: function (accept_sock: TIdC_INT; addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  BIO_closesocket: function (sock: TIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-
-  BIO_new_socket: function (sock: TIdC_INT; close_flag: TIdC_INT): PBIO; cdecl = nil;
-  BIO_new_connect: function (const host_port: PIdAnsiChar): PBIO; cdecl = nil;
-  BIO_new_accept: function (const host_port: PIdAnsiChar): PBIO; cdecl = nil;
-
-  BIO_new_fd: function (fd: TIdC_INT; close_flag: TIdC_INT): PBIO; cdecl = nil;
-
-  BIO_new_bio_pair: function (bio1: PPBIO; writebuf1: TIdC_SIZET; bio2: PPBIO; writebuf2: TIdC_SIZET): TIdC_INT; cdecl = nil;
-  (*
-   * If successful, returns 1 and in *bio1, *bio2 two BIO pair endpoints.
-   * Otherwise returns 0 and sets *bio1 and *bio2 to NULL. Size 0 uses default
-   * value.
-   *)
-
+  BIO_dgram_non_fatal_error: function (error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_new_dgram: function (fd: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl = nil;
+  BIO_sock_should_retry: function (i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_sock_non_fatal_error: function (error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_fd_should_retry: function (i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_fd_non_fatal_error: function (error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_dump: function (b: PBIO; const bytes: PAnsiChar; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_dump_indent: function (b: PBIO; const bytes: PAnsiChar; len: TOpenSSL_C_INT; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_hex_string: function (out_: PBIO; indent: TOpenSSL_C_INT; width: TOpenSSL_C_INT; data: PByte; datalen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_ADDR_new: function : PBIO_ADDR; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDR_rawmake: function (ap: PBIO_ADDR; familiy: TOpenSSL_C_INT; const where: Pointer; wherelen: TOpenSSL_C_SIZET; port: TOpenSSL_C_SHORT): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDR_free: procedure (a: PBIO_ADDR); cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDR_clear: procedure (ap: PBIO_ADDR); cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDR_family: function (const ap: PBIO_ADDR): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDR_rawaddress: function (const ap: PBIO_ADDR; p: Pointer; l: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDR_rawport: function (const ap: PBIO_ADDR): TOpenSSL_C_SHORT; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDR_hostname_string: function (const ap: PBIO_ADDR; numeric: TOpenSSL_C_INT): PAnsiChar; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDR_service_string: function (const ap: PBIO_ADDR; numeric: TOpenSSL_C_INT): PAnsiChar; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDR_path_string: function (const ap: PBIO_ADDR): PAnsiChar; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDRINFO_next: function (const bai: PBIO_ADDRINFO): PBIO_ADDRINFO; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDRINFO_family: function (const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDRINFO_socktype: function (const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDRINFO_protocol: function (const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDRINFO_address: function (const bai: PBIO_ADDRINFO): PBIO_ADDR; cdecl = nil; {introduced 1.1.0 }
+  BIO_ADDRINFO_free: procedure (bai: PBIO_ADDRINFO); cdecl = nil; {introduced 1.1.0 }
+  BIO_parse_hostserv: function (const hostserv: PAnsiChar; host: PPAnsiChar; service: PPAnsiChar; hostserv_prio: BIO_hostserv_priorities): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_lookup: function (const host: PAnsiChar; const service: PAnsiChar; lookup_type: BIO_lookup_type; family: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; res: PPBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_lookup_ex: function (const host: PAnsiChar; const service: PAnsiChar; lookup_type: TOpenSSL_C_INT; family: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; protocol: TOpenSSL_C_INT; res: PPBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_sock_error: function (sock: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_socket_ioctl: function (fd: TOpenSSL_C_INT; cType: TOpenSSL_C_LONG; arg: Pointer): TOpenSSL_C_INT; cdecl = nil;
+  BIO_socket_nbio: function (fd: TOpenSSL_C_INT; mode: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_sock_init: function : TOpenSSL_C_INT; cdecl = nil;
+  BIO_set_tcp_ndelay: function (sock: TOpenSSL_C_INT; turn_on: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  BIO_sock_info: function (sock: TOpenSSL_C_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_socket: function (domain: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; protocol: TOpenSSL_C_INT; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_connect: function (sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_bind: function (sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_listen: function (sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_accept_ex: function (accept_sock: TOpenSSL_C_INT; addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_closesocket: function (sock: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  BIO_new_socket: function (sock: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl = nil;
+  BIO_new_connect: function (const host_port: PAnsiChar): PBIO; cdecl = nil;
+  BIO_new_accept: function (const host_port: PAnsiChar): PBIO; cdecl = nil;
+  BIO_new_fd: function (fd: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl = nil;
+  BIO_new_bio_pair: function (bio1: PPBIO; writebuf1: TOpenSSL_C_SIZET; bio2: PPBIO; writebuf2: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = nil;
   BIO_copy_next_retry: procedure (b: PBIO); cdecl = nil;
 
-//  BIO_METHOD *BIO_meth_new(int type, const char *name);
-//  void BIO_meth_free(BIO_METHOD *biom);
-//  int (*BIO_meth_get_write(const BIO_METHOD *biom)) (BIO *, const char *, int);
-//  int (*BIO_meth_get_write_ex(const BIO_METHOD *biom)) (BIO *, const char *, TIdC_SIZET,
-//                                                  TIdC_SIZET *);
-//  int BIO_meth_set_write(BIO_METHOD *biom,
-//                         int (*write) (BIO *, const char *, int));
-//  int BIO_meth_set_write_ex(BIO_METHOD *biom,
-//                         int (*bwrite) (BIO *, const char *, TIdC_SIZET, TIdC_SIZET *));
-//  int (*BIO_meth_get_read(const BIO_METHOD *biom)) (BIO *, char *, int);
-//  int (*BIO_meth_get_read_ex(const BIO_METHOD *biom)) (BIO *, char *, TIdC_SIZET, TIdC_SIZET *);
-//  int BIO_meth_set_read(BIO_METHOD *biom,
-//                        int (*read) (BIO *, char *, int));
-//  int BIO_meth_set_read_ex(BIO_METHOD *biom,
-//                           int (*bread) (BIO *, char *, TIdC_SIZET, TIdC_SIZET *));
-//  int (*BIO_meth_get_puts(const BIO_METHOD *biom)) (BIO *, const char *);
-//  int BIO_meth_set_puts(BIO_METHOD *biom,
-//                        int (*puts) (BIO *, const char *));
-//  int (*BIO_meth_get_gets(const BIO_METHOD *biom)) (BIO *, char *, int);
-//  int BIO_meth_set_gets(BIO_METHOD *biom,
-//                        int (*gets) (BIO *, char *, int));
-//  long (*BIO_meth_get_ctrl(const BIO_METHOD *biom)) (BIO *, int, long, void *);
-//  int BIO_meth_set_ctrl(BIO_METHOD *biom,
-//                        long (*ctrl) (BIO *, int, long, void *));
-//  int (*BIO_meth_get_create(const BIO_METHOD *bion)) (BIO *);
-//  int BIO_meth_set_create(BIO_METHOD *biom, int (*create) (BIO *));
-//  int (*BIO_meth_get_destroy(const BIO_METHOD *biom)) (BIO *);
-//  int BIO_meth_set_destroy(BIO_METHOD *biom, int (*destroy) (BIO *));
-//  long (*BIO_meth_get_callback_ctrl(const BIO_METHOD *biom))
-//                                   (BIO *, int, BIO_info_cb *);
-//  int BIO_meth_set_callback_ctrl(BIO_METHOD *biom,
-//                                 long (*callback_ctrl) (BIO *, int,
-//                                                        BIO_info_cb *));
+{Removed functions for which legacy support available - use is deprecated}
 
-{$ELSE}
-
-(* These are normally used internally in BIOs *)
-
-(* These should be used by the application to tell why we should retry *)
-
-(* BIO_s_accept() and BIO_s_connect() *)
-
-
-  function BIO_get_new_index: TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure BIO_set_flags(b: PBIO; flags: TIdC_INT) cdecl; external CLibCrypto;
-  function BIO_test_flags(const b: PBIO; flags: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  procedure BIO_clear_flags(b: PBIO; flags: TIdC_INT) cdecl; external CLibCrypto;
-
-  function BIO_get_callback(b: PBIO): BIO_callback_fn cdecl; external CLibCrypto;
-  procedure BIO_set_callback(b: PBIO; callback: BIO_callback_fn) cdecl; external CLibCrypto;
-
-  function BIO_get_callback_ex(b: PBIO): BIO_callback_fn_ex cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure BIO_set_callback_ex(b: PBIO; callback: BIO_callback_fn_ex) cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function BIO_get_callback_arg(const b: PBIO): PIdAnsiChar cdecl; external CLibCrypto;
-  procedure BIO_set_callback_arg(var b: PBIO; arg: PIdAnsiChar) cdecl; external CLibCrypto;
-
-  function BIO_method_name(const b: PBIO): PIdAnsiChar cdecl; external CLibCrypto;
-  function BIO_method_type(const b: PBIO): TIdC_INT cdecl; external CLibCrypto;
-
-//  {$HPPEMIT '# define BIO_set_app_data(s,arg)         BIO_set_ex_data(s,0,arg)'}
-//  {$HPPEMIT '# define BIO_get_app_data(s)             BIO_get_ex_data(s,0)'}
-//
-//  {$HPPEMIT '# define BIO_set_nbio(b,n)             BIO_ctrl(b,BIO_C_SET_NBIO,(n),NULL)'}
-//
-//  {$HPPEMIT '# ifndef OPENSSL_NO_SOCK'}
-//  (* IP families we support, for BIO_s_connect() and BIO_s_accept() *)
-//  (* Note: the underlying operating system may not support some of them *)
-//  {$HPPEMIT '#  define BIO_FAMILY_IPV4                         4'}
-//  {$HPPEMIT '#  define BIO_FAMILY_IPV6                         6'}
-//  {$HPPEMIT '#  define BIO_FAMILY_IPANY                        256'}
-//
-//  (* BIO_s_connect() *)
-//  {$HPPEMIT '#  define BIO_set_conn_hostname(b,name) BIO_ctrl(b,BIO_C_SET_CONNECT,0,'}
-//                                                   (char (name))
-//  {$HPPEMIT '#  define BIO_set_conn_port(b,port)     BIO_ctrl(b,BIO_C_SET_CONNECT,1,'}
-//                                                   (char (port))
-//  {$HPPEMIT '#  define BIO_set_conn_address(b,addr)  BIO_ctrl(b,BIO_C_SET_CONNECT,2,'}
-//                                                   (char (addr))
-//  {$HPPEMIT '#  define BIO_set_conn_ip_family(b,f)   BIO_int_ctrl(b,BIO_C_SET_CONNECT,3,f)'}
-//  {$HPPEMIT '#  define BIO_get_conn_hostname(b)      (( char )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,0))'}
-//  {$HPPEMIT '#  define BIO_get_conn_port(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,1))'}
-//  {$HPPEMIT '#  define BIO_get_conn_address(b)       (( PBIO_ADDR )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,2))'}
-//  {$HPPEMIT '#  define BIO_get_conn_ip_family(b)     BIO_ctrl(b,BIO_C_GET_CONNECT,3,NULL)'}
-//  {$HPPEMIT '#  define BIO_set_conn_mode(b,n)        BIO_ctrl(b,BIO_C_SET_CONNECT_MODE,(n),NULL)'}
-//
-//  (* BIO_s_accept() *)
-//  {$HPPEMIT '#  define BIO_set_accept_name(b,name)   BIO_ctrl(b,BIO_C_SET_ACCEPT,0,'}
-//  {$EXTERNALSYM PBIO}
-//                                                   (char (name))
-//  {$HPPEMIT '#  define BIO_set_accept_port(b,port)   BIO_ctrl(b,BIO_C_SET_ACCEPT,1,'}
-//                                                   (char (port))
-//  {$HPPEMIT '#  define BIO_get_accept_name(b)        (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,0))'}
-//  {$HPPEMIT '#  define BIO_get_accept_port(b)        (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,1))'}
-//  {$HPPEMIT '#  define BIO_get_peer_name(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,2))'}
-//  {$HPPEMIT '#  define BIO_get_peer_port(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,3))'}
-//  (* #define BIO_set_nbio(b,n)    BIO_ctrl(b,BIO_C_SET_NBIO,(n),NULL) *)
-//  {$HPPEMIT '#  define BIO_set_nbio_accept(b,n)      #  define BIO_set_nbio_accept(b,n)      BIO_ctrl(b,BIO_C_SET_ACCEPT,2,(n)?(procedure )'a':NULL)  BIO_ctrl(b,BIO_C_SET_ACCEPT,3,'}
-//                                                   (char (bio))
-//  {$HPPEMIT '#  define BIO_set_accept_ip_family(b,f) BIO_int_ctrl(b,BIO_C_SET_ACCEPT,4,f)'}
-//  {$HPPEMIT '#  define BIO_get_accept_ip_family(b)   BIO_ctrl(b,BIO_C_GET_ACCEPT,4,NULL)'}
-//
-//  (* Aliases kept for backward compatibility *)
-//  {$HPPEMIT '#  define BIO_BIND_NORMAL                 0'}
-//  {$HPPEMIT '#  define BIO_BIND_REUSEADDR              BIO_SOCK_REUSEADDR'}
-//  {$HPPEMIT '#  define BIO_BIND_REUSEADDR_IF_UNUSED    BIO_SOCK_REUSEADDR'}
-//  {$HPPEMIT '#  define BIO_set_bind_mode(b,mode) BIO_ctrl(b,BIO_C_SET_BIND_MODE,mode,NULL)'}
-//  {$HPPEMIT '#  define BIO_get_bind_mode(b)    BIO_ctrl(b,BIO_C_GET_BIND_MODE,0,NULL)'}
-//
-//  (* BIO_s_accept() and BIO_s_connect() *)
-//  {$HPPEMIT '#  define BIO_do_connect(b)       BIO_do_handshake(b)'}
-//  {$HPPEMIT '#  define BIO_do_accept(b)        BIO_do_handshake(b)'}
-//  {$HPPEMIT '# endif'}	(* OPENSSL_NO_SOCK *)
-//
-//  {$HPPEMIT '# define BIO_do_handshake(b)     BIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)'}
-//
-//  (* BIO_s_datagram(), BIO_s_fd(), BIO_s_socket(), BIO_s_accept() and BIO_s_connect() *)
-//  {$HPPEMIT '# define BIO_set_fd(b,fd,c)      BIO_int_ctrl(b,BIO_C_SET_FD,c,fd)'}
-//  {$HPPEMIT '# define BIO_get_fd(b,c)         BIO_ctrl(b,BIO_C_GET_FD,0,(char (c))'}
-//
-//  (* BIO_s_file() *)
-//  {$HPPEMIT '# define BIO_set_fp(b,fp,c)      BIO_ctrl(b,BIO_C_SET_FILE_PTR,c,(char (fp))'}
-//  {$HPPEMIT '# define BIO_get_fp(b,fpp)       BIO_ctrl(b,BIO_C_GET_FILE_PTR,0,(char (fpp))'}
-//
-//  (* BIO_s_fd() and BIO_s_file() *)
-//  {$HPPEMIT '# define BIO_seek(b,ofs(int)BIO_ctrl(b,BIO_C_FILE_SEEK,ofs,NULL)'}
-//  {$HPPEMIT '# define BIO_tell(b)     (int)BIO_ctrl(b,BIO_C_FILE_TELL,0,NULL)'}
-//
-//  (*
-//   * name is cast to lose , but might be better to route through a
-//   * cFunction so we can do it safely
-//   *)
-//  {$HPPEMIT '# ifdef CONST_STRICT'}
-//  (*
-//   * If you are wondering why this isn't defined, its because CONST_STRICT is
-//   * purely a compile-time kludge to allow  to be checked.
-//   *)
-////  function BIO_read_filename(b: PBIO; const name: PIdAnsiChar): TIdC_INT;
-//  {$HPPEMIT '# define BIO_write_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_WRITE,name)
-//  {$HPPEMIT '# define BIO_append_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_APPEND,name)
-//  {$HPPEMIT '# define BIO_rw_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_READ or BIO_FP_WRITE,name)
-//
-//  (*
-//   * WARNING WARNING, this ups the reference count on the read bio of the SSL
-//   * structure.  This is because the ssl read PBIO is now pointed to by the
-//   * next_bio field in the bio.  So when you free the PBIO, make sure you are
-//   * doing a BIO_free_all() to catch the underlying PBIO.
-//   *)
-//  {$HPPEMIT '# define BIO_set_ssl(b,ssl,c)    BIO_ctrl(b,BIO_C_SET_SSL,c,(char (ssl))'}
-//  {$HPPEMIT '# define BIO_get_ssl(b,sslp)     BIO_ctrl(b,BIO_C_GET_SSL,0,(char (sslp))'}
-//  {$HPPEMIT '# define BIO_set_ssl_mode(b,client)      BIO_ctrl(b,BIO_C_SSL_MODE,client,NULL)'}
-//  {$HPPEMIT '# define BIO_set_ssl_renegotiate_bytes(b,num)'}
-//          BIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_BYTES,num,0)
-//  {$HPPEMIT '# define BIO_get_num_renegotiates(b)'}
-//          BIO_ctrl(b,BIO_C_GET_SSL_NUM_RENEGOTIATES,0,0)
-//  {$HPPEMIT '# define BIO_set_ssl_renegotiate_timeout(b,seconds)'}
-//          BIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_TIMEOUT,seconds,0)
-//
-//  (* defined in evp.h *)
-//  (* #define BIO_set_md(b,md)     BIO_ctrl(b,BIO_C_SET_MD,1,(char )(md)) *)
-//
-//  (* For the BIO_f_buffer() type *)
-//  {$HPPEMIT '# define BIO_get_buffer_num_lines(b)     BIO_ctrl(b,BIO_C_GET_BUFF_NUM_LINES,0,NULL)'}
-//  {$HPPEMIT '# define BIO_set_buffer_size(b,size)     BIO_ctrl(b,BIO_C_SET_BUFF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_set_read_buffer_size(b,size) BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,0)'}
-//  {$HPPEMIT '# define BIO_set_write_buffer_size(b,size) BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,1)'}
-//  {$HPPEMIT '# define BIO_set_buffer_read_data(b,buf,num) BIO_ctrl(b,BIO_C_SET_BUFF_READ_DATA,num,buf)'}
-//
-//  (* Don't use the next one unless you know what you are doing :-) */
-//  {$HPPEMIT '# define BIO_dup_state(b,ret)    BIO_ctrl(b,BIO_CTRL_DUP,0,(char (ret))'}
-//
-//  {$HPPEMIT '# define BIO_reset(b)            (int)BIO_ctrl(b,BIO_CTRL_RESET,0,NULL)'}
-//  {$HPPEMIT '# define BIO_eof(b)              (int)BIO_ctrl(b,BIO_CTRL_EOF,0,NULL)'}
-//  {$HPPEMIT '# define BIO_set_close(b,c)      (int)BIO_ctrl(b,BIO_CTRL_SET_CLOSE,(c),NULL)'}
-//  {$HPPEMIT '# define BIO_get_close(b)        (int)BIO_ctrl(b,BIO_CTRL_GET_CLOSE,0,NULL)'}
-//  {$HPPEMIT '# define BIO_pending(b)          (int)BIO_ctrl(b,BIO_CTRL_PENDING,0,NULL)'}
-//  {$HPPEMIT '# define BIO_wpending(b)         (int)BIO_ctrl(b,BIO_CTRL_WPENDING,0,NULL)'}
-  (* ...pending macros have inappropriate return type *)
-  function BIO_ctrl_pending(b: PBIO): TIdC_SIZET cdecl; external CLibCrypto;
-  function BIO_ctrl_wpending(b: PBIO): TIdC_SIZET cdecl; external CLibCrypto;
-//  {$HPPEMIT '# define BIO_flush(b)            (int)BIO_ctrl(b,BIO_CTRL_FLUSH,0,NULL)'}
-//  {$HPPEMIT '# define BIO_get_info_callback(b,cbp(int)BIO_ctrl(b,BIO_CTRL_GET_CALLBACK,0,'}
-//                                                     cbp)
-//  {$HPPEMIT '# define BIO_set_info_callback(b,cb(int)BIO_callback_ctrl(b,BIO_CTRL_SET_CALLBACK,cb)'}
-//
-//  (* For the BIO_f_buffer() type *)
-//  {$HPPEMIT '# define BIO_buffer_get_num_lines(b) BIO_ctrl(b,BIO_CTRL_GET,0,NULL)'}
-//  {$HPPEMIT '# define BIO_buffer_peek(b,s,l) BIO_ctrl(b,BIO_CTRL_PEEK,(l),(s))'}
-//
-//  (* For BIO_s_bio() *)
-//  {$HPPEMIT '# define BIO_set_write_buf_size(b,size(int)BIO_ctrl(b,BIO_C_SET_WRITE_BUF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_get_write_buf_size(b,size(TIdC_SIZET)BIO_ctrl(b,BIO_C_GET_WRITE_BUF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_make_bio_pair(b1,b2)   (int)BIO_ctrl(b1,BIO_C_MAKE_BIO_PAIR,0,b2)'}
-//  {$HPPEMIT '# define BIO_destroy_bio_pair(b)    (int)BIO_ctrl(b,BIO_C_DESTROY_BIO_PAIR,0,NULL)'}
-//  {$HPPEMIT '# define BIO_shutdown_wr(b(int)BIO_ctrl(b, BIO_C_SHUTDOWN_WR, 0, NULL)'}
-//  (* macros with inappropriate type -- but ...pending macros use int too: *)
-//  {$HPPEMIT '# define BIO_get_write_guarantee(b(int)BIO_ctrl(b,BIO_C_GET_WRITE_GUARANTEE,0,NULL)'}
-//  {$HPPEMIT '# define BIO_get_read_request(b)    (int)BIO_ctrl(b,BIO_C_GET_READ_REQUEST,0,NULL)'}
-  function BIO_ctrl_get_write_guarantee(b: PBIO): TIdC_SIZET cdecl; external CLibCrypto;
-  function BIO_ctrl_get_read_request(b: PBIO): TIdC_SIZET cdecl; external CLibCrypto;
-  function BIO_ctrl_reset_read_request(b: PBIO): TIdC_INT cdecl; external CLibCrypto;
-
-  (* ctrl macros for dgram *)
-//  {$HPPEMIT '# define BIO_ctrl_dgram_connect(b,peer)'}
-//                       (TIdC_INT)BIO_ctrl(b,BIO_CTRL_DGRAM_CONNECT,0, (char (peer))
-//  {$HPPEMIT '# define BIO_ctrl_set_connected(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_SET_CONNECTED, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_recv_timedout(b)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_RECV_TIMER_EXP, 0, 0)
-//  {$HPPEMIT '# define BIO_dgram_send_timedout(b)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_SEND_TIMER_EXP, 0, 0)
-//  {$HPPEMIT '# define BIO_dgram_get_peer(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_PEER, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_set_peer(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_SET_PEER, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_get_mtu_overhead(b)'}
-//           (Cardinal)BIO_ctrl((b), BIO_CTRL_DGRAM_GET_MTU_OVERHEAD, 0, 0)
-
-//#define BIO_get_ex_new_index(l, p, newf, dupf, freef) \
-//    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_BIO, l, p, newf, dupf, freef)
-
-  function BIO_set_ex_data(bio: PBIO; idx: TIdC_INT; data: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_get_ex_data(bio: PBIO; idx: TIdC_INT): Pointer cdecl; external CLibCrypto;
-  function BIO_number_read(bio: PBIO): TIdC_UINT64 cdecl; external CLibCrypto;
-  function BIO_number_written(bio: PBIO): TIdC_UINT64 cdecl; external CLibCrypto;
-
-  (* For BIO_f_asn1() *)
-//  function BIO_asn1_set_prefix(b: PBIO; prefix: ^asn1_ps_func; prefix_free: ^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_get_prefix(b: PBIO; pprefix: ^^asn1_ps_func; pprefix_free: ^^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_set_suffix(b: PBIO; suffix: ^asn1_ps_func; suffix_free: ^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_get_suffix(b: PBIO; psuffix: ^asn1_ps_func; psuffix_free: ^^asn1_ps_func): TIdC_INT;
-
-  function BIO_s_file: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_new_file(const filename: PIdAnsiChar; const mode: PIdAnsiChar): PBIO cdecl; external CLibCrypto;
-//  function BIO_new_fp(stream: cFile; close_flag: TIdC_INT): PBIO;
-  function BIO_new(const cType: PBIO_METHOD): PBIO cdecl; external CLibCrypto;
-  function BIO_free(a: PBIO): TIdC_INT cdecl; external CLibCrypto;
-  procedure BIO_set_data(a: PBIO; ptr: Pointer) cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_get_data(a: PBIO): Pointer cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure BIO_set_init(a: PBIO; init: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_get_init(a: PBIO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure BIO_set_shutdown(a: PBIO; shut: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_get_shutdown(a: PBIO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure BIO_vfree(a: PBIO) cdecl; external CLibCrypto;
-  function BIO_up_ref(a: PBIO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_read(b: PBIO; data: Pointer; dlen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_gets( bp: PBIO; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_write(b: PBIO; const data: Pointer; dlen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_write_ex(b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_puts(bp: PBIO; const buf: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_indent(b: PBIO; indent: TIdC_INT; max: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG cdecl; external CLibCrypto;
-  function BIO_callback_ctrl(b: PBIO; cmd: TIdC_INT; fp: PBIO_info_cb): TIdC_LONG cdecl; external CLibCrypto;
-  function BIO_ptr_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG): Pointer cdecl; external CLibCrypto;
-  function BIO_int_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; iarg: TIdC_INT): TIdC_LONG cdecl; external CLibCrypto;
-  function BIO_push(b: PBIO; append: PBIO): PBIO cdecl; external CLibCrypto;
-  function BIO_pop(b: PBIO): PBIO cdecl; external CLibCrypto;
-  procedure BIO_free_all(a: PBIO) cdecl; external CLibCrypto;
-  function BIO_find_type(b: PBIO; bio_type: TIdC_INT): PBIO cdecl; external CLibCrypto;
-  function BIO_next(b: PBIO): PBIO cdecl; external CLibCrypto;
-  procedure BIO_set_next(b: PBIO; next: PBIO) cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_get_retry_BIO(bio: PBIO; reason: TIdC_INT): PBIO cdecl; external CLibCrypto;
-  function BIO_get_retry_reason(bio: PBIO): TIdC_INT cdecl; external CLibCrypto;
-  procedure BIO_set_retry_reason(bio: PBIO; reason: TIdC_INT) cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_dup_chain(in_: PBIO): PBIO cdecl; external CLibCrypto;
-
-  function BIO_nread0(bio: PBIO; buf: PPIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_nread(bio: PBIO; buf: PPIdAnsiChar; num: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_nwrite0(bio: PBIO; buf: PPIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_nwrite(bio: PBIO; buf: PPIdAnsiChar; num: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  function BIO_debug_callback(bio: PBIO; cmd: TIdC_INT; const argp: PIdAnsiChar; argi: TIdC_INT; argl: TIdC_LONG; ret: TIdC_LONG): TIdC_LONG cdecl; external CLibCrypto;
-
-  function BIO_s_mem: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_s_secmem: PBIO_METHOD cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_new_mem_buf(const buf: Pointer; len: TIdC_INT): PBIO cdecl; external CLibCrypto;
-
-  function BIO_s_socket: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_s_connect: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_s_accept: PBIO_METHOD cdecl; external CLibCrypto;
-
-  function BIO_s_fd: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_s_log: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_s_bio: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_s_null: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_f_null: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_f_buffer: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_f_linebuffer: PBIO_METHOD cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_f_nbio_test: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_s_datagram: PBIO_METHOD cdecl; external CLibCrypto;
-  function BIO_dgram_non_fatal_error(error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_new_dgram(fd: TIdC_INT; close_flag: TIdC_INT): PBIO cdecl; external CLibCrypto;
-
-//  function BIO_s_datagram_sctp: PBIO_METHOD;
-//  function BIO_new_dgram_sctp(fd: TIdC_INT; close_flag: TIdC_INT): PBIO;
-//  function BIO_dgram_is_sctp(bio: PBIO): TIdC_INT;
-//  function BIO_dgram_sctp_notification_cb(bio: PBIO; handle_notifications(PBIO;
-//    context: Pointer;
-//    buf: Pointer): TIdC_INT, Pointer context);
-//  function BIO_dgram_sctp_wait_for_dry(b: PBIO): TIdC_INT;
-//  function BIO_dgram_sctp_msg_waiting(b: PBIO): TIdC_INT;
-
-  function BIO_sock_should_retry(i: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_sock_non_fatal_error(error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  function BIO_fd_should_retry(i: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_fd_non_fatal_error(error: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-//  function BIO_dump_cb(
-//    Pointer data: cb(;
-//    len: TIdC_SIZET;
-//    function: Pointer): u: TIdC_INT, Pointer function ,  PIdAnsiChar s, TIdC_INT len): u;
-//  function BIO_dump_indent_cb(TIdC_INT (cb( Pointer data, TIdC_SIZET len, Pointer function ): u: TIdC_INT, Pointer function ,  PIdAnsiChar s, TIdC_INT len, TIdC_INT indent): u;
-  function BIO_dump(b: PBIO; const bytes: PIdAnsiChar; len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_dump_indent(b: PBIO; const bytes: PIdAnsiChar; len: TIdC_INT; indent: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-//  function BIO_dump_fp(fp: cFile; const s: PByte; len: TIdC_INT): TIdC_INT;
-//  function BIO_dump_indent_fp(fp: cFile; const s: PByte; len: TIdC_INT; indent: TIdC_INT): TIdC_INT;
-
-  function BIO_hex_string(out_: PBIO; indent: TIdC_INT; width: TIdC_INT; data: PByte; datalen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  function BIO_ADDR_new: PBIO_ADDR cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDR_rawmake(ap: PBIO_ADDR; familiy: TIdC_INT; const where: Pointer; wherelen: TIdC_SIZET; port: TIdC_SHORT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure BIO_ADDR_free(a: PBIO_ADDR) cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure BIO_ADDR_clear(ap: PBIO_ADDR) cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDR_family(const ap: PBIO_ADDR): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDR_rawaddress(const ap: PBIO_ADDR; p: Pointer; l: PIdC_SIZET): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDR_rawport(const ap: PBIO_ADDR): TIdC_SHORT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDR_hostname_string(const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDR_service_string(const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDR_path_string(const ap: PBIO_ADDR): PIdAnsiChar cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function BIO_ADDRINFO_next(const bai: PBIO_ADDRINFO): PBIO_ADDRINFO cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDRINFO_family(const bai: PBIO_ADDRINFO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDRINFO_socktype(const bai: PBIO_ADDRINFO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDRINFO_protocol(const bai: PBIO_ADDRINFO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_ADDRINFO_address(const bai: PBIO_ADDRINFO): PBIO_ADDR cdecl; external CLibCrypto; {introduced 1.1.0}
-  procedure BIO_ADDRINFO_free(bai: PBIO_ADDRINFO) cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function BIO_parse_hostserv(const hostserv: PIdAnsiChar; host: PPIdAnsiChar; service: PPIdAnsiChar; hostserv_prio: BIO_hostserv_priorities): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function BIO_lookup(const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: BIO_lookup_type; family: TIdC_INT; socktype: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_lookup_ex(const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: TIdC_INT; family: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_sock_error(sock: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_socket_ioctl(fd: TIdC_INT; cType: TIdC_LONG; arg: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_socket_nbio(fd: TIdC_INT; mode: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function BIO_sock_init: TIdC_INT cdecl; external CLibCrypto;
-
-  function BIO_set_tcp_ndelay(sock: TIdC_INT; turn_on: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  function BIO_sock_info(sock: TIdC_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function BIO_socket(domain: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_connect(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_bind(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_listen(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_accept_ex(accept_sock: TIdC_INT; addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function BIO_closesocket(sock: TIdC_INT): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-
-  function BIO_new_socket(sock: TIdC_INT; close_flag: TIdC_INT): PBIO cdecl; external CLibCrypto;
-  function BIO_new_connect(const host_port: PIdAnsiChar): PBIO cdecl; external CLibCrypto;
-  function BIO_new_accept(const host_port: PIdAnsiChar): PBIO cdecl; external CLibCrypto;
-
-  function BIO_new_fd(fd: TIdC_INT; close_flag: TIdC_INT): PBIO cdecl; external CLibCrypto;
-
-  function BIO_new_bio_pair(bio1: PPBIO; writebuf1: TIdC_SIZET; bio2: PPBIO; writebuf2: TIdC_SIZET): TIdC_INT cdecl; external CLibCrypto;
-  (*
-   * If successful, returns 1 and in *bio1, *bio2 two BIO pair endpoints.
-   * Otherwise returns 0 and sets *bio1 and *bio2 to NULL. Size 0 uses default
-   * value.
-   *)
-
-  procedure BIO_copy_next_retry(b: PBIO) cdecl; external CLibCrypto;
-
-//  BIO_METHOD *BIO_meth_new(int type, const char *name);
-//  void BIO_meth_free(BIO_METHOD *biom);
-//  int (*BIO_meth_get_write(const BIO_METHOD *biom)) (BIO *, const char *, int);
-//  int (*BIO_meth_get_write_ex(const BIO_METHOD *biom)) (BIO *, const char *, TIdC_SIZET,
-//                                                  TIdC_SIZET *);
-//  int BIO_meth_set_write(BIO_METHOD *biom,
-//                         int (*write) (BIO *, const char *, int));
-//  int BIO_meth_set_write_ex(BIO_METHOD *biom,
-//                         int (*bwrite) (BIO *, const char *, TIdC_SIZET, TIdC_SIZET *));
-//  int (*BIO_meth_get_read(const BIO_METHOD *biom)) (BIO *, char *, int);
-//  int (*BIO_meth_get_read_ex(const BIO_METHOD *biom)) (BIO *, char *, TIdC_SIZET, TIdC_SIZET *);
-//  int BIO_meth_set_read(BIO_METHOD *biom,
-//                        int (*read) (BIO *, char *, int));
-//  int BIO_meth_set_read_ex(BIO_METHOD *biom,
-//                           int (*bread) (BIO *, char *, TIdC_SIZET, TIdC_SIZET *));
-//  int (*BIO_meth_get_puts(const BIO_METHOD *biom)) (BIO *, const char *);
-//  int BIO_meth_set_puts(BIO_METHOD *biom,
-//                        int (*puts) (BIO *, const char *));
-//  int (*BIO_meth_get_gets(const BIO_METHOD *biom)) (BIO *, char *, int);
-//  int BIO_meth_set_gets(BIO_METHOD *biom,
-//                        int (*gets) (BIO *, char *, int));
-//  long (*BIO_meth_get_ctrl(const BIO_METHOD *biom)) (BIO *, int, long, void *);
-//  int BIO_meth_set_ctrl(BIO_METHOD *biom,
-//                        long (*ctrl) (BIO *, int, long, void *));
-//  int (*BIO_meth_get_create(const BIO_METHOD *bion)) (BIO *);
-//  int BIO_meth_set_create(BIO_METHOD *biom, int (*create) (BIO *));
-//  int (*BIO_meth_get_destroy(const BIO_METHOD *biom)) (BIO *);
-//  int BIO_meth_set_destroy(BIO_METHOD *biom, int (*destroy) (BIO *));
-//  long (*BIO_meth_get_callback_ctrl(const BIO_METHOD *biom))
-//                                   (BIO *, int, BIO_info_cb *);
-//  int BIO_meth_set_callback_ctrl(BIO_METHOD *biom,
-//                                 long (*callback_ctrl) (BIO *, int,
-//                                                        BIO_info_cb *));
-
-function BIO_get_flags(const b: PBIO): TIdC_INT; {removed 1.0.0}
-procedure BIO_set_retry_special(b: PBIO); {removed 1.0.0}
-procedure BIO_set_retry_read(b: PBIO); {removed 1.0.0}
-procedure BIO_set_retry_write(b: PBIO); {removed 1.0.0}
-procedure BIO_clear_retry_flags(b: PBIO); {removed 1.0.0}
-function BIO_get_retry_flags(b: PBIO): TIdC_INT; {removed 1.0.0}
-function BIO_should_read(b: PBIO): TIdC_INT; {removed 1.0.0}
-function BIO_should_write(b: PBIO): TIdC_INT; {removed 1.0.0}
-function BIO_should_io_special(b: PBIO): TIdC_INT; {removed 1.0.0}
-function BIO_retry_type(b: PBIO): TIdC_INT; {removed 1.0.0}
-function BIO_should_retry(b: PBIO): TIdC_INT; {removed 1.0.0}
-function BIO_do_connect(b: PBIO): TIdC_LONG; {removed 1.0.0}
-function BIO_do_accept(b: PBIO): TIdC_LONG; {removed 1.0.0}
-function BIO_do_handshake(b: PBIO): TIdC_LONG; {removed 1.0.0}
-function BIO_get_mem_data(b: PBIO; pp: PIdAnsiChar) : TIdC_INT; {removed 1.0.0}
-function BIO_set_mem_buf(b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT; {removed 1.0.0}
-function BIO_get_mem_ptr(b: PBIO; pp: PIdAnsiChar): TIdC_INT; {removed 1.0.0}
-function BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT; {removed 1.0.0}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  BIO_get_flags: function (const b: PBIO): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+  BIO_set_retry_special: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
+  BIO_set_retry_read: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
+  BIO_set_retry_write: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
+  BIO_clear_retry_flags: procedure (b: PBIO); cdecl = nil; {removed 1.0.0}
+  BIO_get_retry_flags: function (b: PBIO): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+  BIO_should_read: function (b: PBIO): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+  BIO_should_write: function (b: PBIO): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+  BIO_should_io_special: function (b: PBIO): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+  BIO_retry_type: function (b: PBIO): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+  BIO_should_retry: function (b: PBIO): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+  BIO_do_connect: function (b: PBIO): TOpenSSL_C_LONG; cdecl = nil; {removed 1.0.0}
+  BIO_do_accept: function (b: PBIO): TOpenSSL_C_LONG; cdecl = nil; {removed 1.0.0}
+  BIO_do_handshake: function (b: PBIO): TOpenSSL_C_LONG; cdecl = nil; {removed 1.0.0}
+  BIO_get_mem_data: function (b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+  BIO_set_mem_buf: function (b: PBIO; bm: PAnsiChar; c: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+  BIO_get_mem_ptr: function (b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+  BIO_set_mem_eof_return: function (b: PBIO; v: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF}
+const
+  BIO_get_flags_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_set_retry_special_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_set_retry_read_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_set_retry_write_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_clear_retry_flags_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_get_retry_flags_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_should_read_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_should_write_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_should_io_special_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_retry_type_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_should_retry_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_do_connect_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_do_accept_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_do_handshake_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_get_mem_data_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_set_mem_buf_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_get_mem_ptr_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_set_mem_eof_return_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_get_new_index_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_get_callback_ex_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_set_callback_ex_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_set_data_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_get_data_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_set_init_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_get_init_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_set_shutdown_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_get_shutdown_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_up_ref_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_read_ex_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_write_ex_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_set_next_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_set_retry_reason_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_s_secmem_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_f_linebuffer_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDR_new_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDR_rawmake_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDR_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDR_clear_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDR_family_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDR_rawaddress_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDR_rawport_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDR_hostname_string_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDR_service_string_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDR_path_string_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDRINFO_next_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDRINFO_family_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDRINFO_socktype_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDRINFO_protocol_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDRINFO_address_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_ADDRINFO_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_parse_hostserv_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_lookup_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_lookup_ex_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_sock_info_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_socket_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_connect_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_bind_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_listen_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_accept_ex_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  BIO_closesocket_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+
 
 implementation
 
-  uses
-    classes, 
-    IdSSLOpenSSLExceptionHandlers, 
-    IdResourceStringsOpenSSL
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    ,IdSSLOpenSSLLoader
-  {$ENDIF};
-  
-const
-  BIO_get_new_index_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_get_callback_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_set_callback_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_set_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_get_data_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_set_init_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_get_init_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_set_shutdown_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_get_shutdown_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_up_ref_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_read_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_write_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_set_next_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_set_retry_reason_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_s_secmem_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_f_linebuffer_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDR_new_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDR_rawmake_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDR_free_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDR_clear_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDR_family_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDR_rawaddress_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDR_rawport_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDR_hostname_string_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDR_service_string_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDR_path_string_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDRINFO_next_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDRINFO_family_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDRINFO_socktype_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDRINFO_protocol_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDRINFO_address_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_ADDRINFO_free_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_parse_hostserv_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_lookup_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_lookup_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_sock_info_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_socket_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_connect_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_bind_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_listen_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_accept_ex_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_closesocket_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  BIO_get_flags_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_set_retry_special_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_set_retry_read_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_set_retry_write_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_clear_retry_flags_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_get_retry_flags_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_should_read_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_should_write_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_should_io_special_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_retry_type_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_should_retry_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_do_connect_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_do_accept_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_do_handshake_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_get_mem_data_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_set_mem_buf_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_get_mem_ptr_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  BIO_set_mem_eof_return_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-
 // # define BIO_get_flags(b) BIO_test_flags(b, ~(0x0))
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-const
-  BIO_get_flags_procname = 'BIO_get_flags'; {removed 1.0.0}
-  BIO_set_retry_special_procname = 'BIO_set_retry_special'; {removed 1.0.0}
-  BIO_set_retry_read_procname = 'BIO_set_retry_read'; {removed 1.0.0}
-  BIO_set_retry_write_procname = 'BIO_set_retry_write'; {removed 1.0.0}
 
-(* These are normally used internally in BIOs *)
-  BIO_clear_retry_flags_procname = 'BIO_clear_retry_flags'; {removed 1.0.0}
-  BIO_get_retry_flags_procname = 'BIO_get_retry_flags'; {removed 1.0.0}
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
 
-(* These should be used by the application to tell why we should retry *)
-  BIO_should_read_procname = 'BIO_should_read'; {removed 1.0.0}
-  BIO_should_write_procname = 'BIO_should_write'; {removed 1.0.0}
-  BIO_should_io_special_procname = 'BIO_should_io_special'; {removed 1.0.0}
-  BIO_retry_type_procname = 'BIO_retry_type'; {removed 1.0.0}
-  BIO_should_retry_procname = 'BIO_should_retry'; {removed 1.0.0}
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
 
-(* BIO_s_accept() and BIO_s_connect() *)
-  BIO_do_connect_procname = 'BIO_do_connect'; {removed 1.0.0}
-  BIO_do_accept_procname = 'BIO_do_accept'; {removed 1.0.0}
-  BIO_do_handshake_procname = 'BIO_do_handshake'; {removed 1.0.0}
+{Legacy Support Functions}
 
-  BIO_get_mem_data_procname = 'BIO_get_mem_data'; {removed 1.0.0}
-  BIO_set_mem_buf_procname = 'BIO_set_mem_buf'; {removed 1.0.0}
-  BIO_get_mem_ptr_procname = 'BIO_get_mem_ptr'; {removed 1.0.0}
-  BIO_set_mem_eof_return_procname = 'BIO_set_mem_eof_return'; {removed 1.0.0}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+function BIO_get_flags(const b: PBIO): TOpenSSL_C_INT;
 
-  BIO_get_new_index_procname = 'BIO_get_new_index'; {introduced 1.1.0}
-  BIO_set_flags_procname = 'BIO_set_flags';
-  BIO_test_flags_procname = 'BIO_test_flags';
-  BIO_clear_flags_procname = 'BIO_clear_flags';
-
-  BIO_get_callback_procname = 'BIO_get_callback';
-  BIO_set_callback_procname = 'BIO_set_callback';
-
-  BIO_get_callback_ex_procname = 'BIO_get_callback_ex'; {introduced 1.1.0}
-  BIO_set_callback_ex_procname = 'BIO_set_callback_ex'; {introduced 1.1.0}
-
-  BIO_get_callback_arg_procname = 'BIO_get_callback_arg';
-  BIO_set_callback_arg_procname = 'BIO_set_callback_arg';
-
-  BIO_method_name_procname = 'BIO_method_name';
-  BIO_method_type_procname = 'BIO_method_type';
-
-//  {$HPPEMIT '# define BIO_set_app_data(s,arg)         BIO_set_ex_data(s,0,arg)'}
-//  {$HPPEMIT '# define BIO_get_app_data(s)             BIO_get_ex_data(s,0)'}
-//
-//  {$HPPEMIT '# define BIO_set_nbio(b,n)             BIO_ctrl(b,BIO_C_SET_NBIO,(n),NULL)'}
-//
-//  {$HPPEMIT '# ifndef OPENSSL_NO_SOCK'}
-//  (* IP families we support, for BIO_s_connect() and BIO_s_accept() *)
-//  (* Note: the underlying operating system may not support some of them *)
-//  {$HPPEMIT '#  define BIO_FAMILY_IPV4                         4'}
-//  {$HPPEMIT '#  define BIO_FAMILY_IPV6                         6'}
-//  {$HPPEMIT '#  define BIO_FAMILY_IPANY                        256'}
-//
-//  (* BIO_s_connect() *)
-//  {$HPPEMIT '#  define BIO_set_conn_hostname(b,name) BIO_ctrl(b,BIO_C_SET_CONNECT,0,'}
-//                                                   (char (name))
-//  {$HPPEMIT '#  define BIO_set_conn_port(b,port)     BIO_ctrl(b,BIO_C_SET_CONNECT,1,'}
-//                                                   (char (port))
-//  {$HPPEMIT '#  define BIO_set_conn_address(b,addr)  BIO_ctrl(b,BIO_C_SET_CONNECT,2,'}
-//                                                   (char (addr))
-//  {$HPPEMIT '#  define BIO_set_conn_ip_family(b,f)   BIO_int_ctrl(b,BIO_C_SET_CONNECT,3,f)'}
-//  {$HPPEMIT '#  define BIO_get_conn_hostname(b)      (( char )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,0))'}
-//  {$HPPEMIT '#  define BIO_get_conn_port(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,1))'}
-//  {$HPPEMIT '#  define BIO_get_conn_address(b)       (( PBIO_ADDR )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,2))'}
-//  {$HPPEMIT '#  define BIO_get_conn_ip_family(b)     BIO_ctrl(b,BIO_C_GET_CONNECT,3,NULL)'}
-//  {$HPPEMIT '#  define BIO_set_conn_mode(b,n)        BIO_ctrl(b,BIO_C_SET_CONNECT_MODE,(n),NULL)'}
-//
-//  (* BIO_s_accept() *)
-//  {$HPPEMIT '#  define BIO_set_accept_name(b,name)   BIO_ctrl(b,BIO_C_SET_ACCEPT,0,'}
-//  {$EXTERNALSYM PBIO}
-//                                                   (char (name))
-//  {$HPPEMIT '#  define BIO_set_accept_port(b,port)   BIO_ctrl(b,BIO_C_SET_ACCEPT,1,'}
-//                                                   (char (port))
-//  {$HPPEMIT '#  define BIO_get_accept_name(b)        (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,0))'}
-//  {$HPPEMIT '#  define BIO_get_accept_port(b)        (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,1))'}
-//  {$HPPEMIT '#  define BIO_get_peer_name(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,2))'}
-//  {$HPPEMIT '#  define BIO_get_peer_port(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,3))'}
-//  (* #define BIO_set_nbio(b,n)    BIO_ctrl(b,BIO_C_SET_NBIO,(n),NULL) *)
-//  {$HPPEMIT '#  define BIO_set_nbio_accept(b,n)      #  define BIO_set_nbio_accept(b,n)      BIO_ctrl(b,BIO_C_SET_ACCEPT,2,(n)?(procedure )'a':NULL)  BIO_ctrl(b,BIO_C_SET_ACCEPT,3,'}
-//                                                   (char (bio))
-//  {$HPPEMIT '#  define BIO_set_accept_ip_family(b,f) BIO_int_ctrl(b,BIO_C_SET_ACCEPT,4,f)'}
-//  {$HPPEMIT '#  define BIO_get_accept_ip_family(b)   BIO_ctrl(b,BIO_C_GET_ACCEPT,4,NULL)'}
-//
-//  (* Aliases kept for backward compatibility *)
-//  {$HPPEMIT '#  define BIO_BIND_NORMAL                 0'}
-//  {$HPPEMIT '#  define BIO_BIND_REUSEADDR              BIO_SOCK_REUSEADDR'}
-//  {$HPPEMIT '#  define BIO_BIND_REUSEADDR_IF_UNUSED    BIO_SOCK_REUSEADDR'}
-//  {$HPPEMIT '#  define BIO_set_bind_mode(b,mode) BIO_ctrl(b,BIO_C_SET_BIND_MODE,mode,NULL)'}
-//  {$HPPEMIT '#  define BIO_get_bind_mode(b)    BIO_ctrl(b,BIO_C_GET_BIND_MODE,0,NULL)'}
-//
-//  (* BIO_s_accept() and BIO_s_connect() *)
-//  {$HPPEMIT '#  define BIO_do_connect(b)       BIO_do_handshake(b)'}
-//  {$HPPEMIT '#  define BIO_do_accept(b)        BIO_do_handshake(b)'}
-//  {$HPPEMIT '# endif'}	(* OPENSSL_NO_SOCK *)
-//
-//  {$HPPEMIT '# define BIO_do_handshake(b)     BIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)'}
-//
-//  (* BIO_s_datagram(), BIO_s_fd(), BIO_s_socket(), BIO_s_accept() and BIO_s_connect() *)
-//  {$HPPEMIT '# define BIO_set_fd(b,fd,c)      BIO_int_ctrl(b,BIO_C_SET_FD,c,fd)'}
-//  {$HPPEMIT '# define BIO_get_fd(b,c)         BIO_ctrl(b,BIO_C_GET_FD,0,(char (c))'}
-//
-//  (* BIO_s_file() *)
-//  {$HPPEMIT '# define BIO_set_fp(b,fp,c)      BIO_ctrl(b,BIO_C_SET_FILE_PTR,c,(char (fp))'}
-//  {$HPPEMIT '# define BIO_get_fp(b,fpp)       BIO_ctrl(b,BIO_C_GET_FILE_PTR,0,(char (fpp))'}
-//
-//  (* BIO_s_fd() and BIO_s_file() *)
-//  {$HPPEMIT '# define BIO_seek(b,ofs(int)BIO_ctrl(b,BIO_C_FILE_SEEK,ofs,NULL)'}
-//  {$HPPEMIT '# define BIO_tell(b)     (int)BIO_ctrl(b,BIO_C_FILE_TELL,0,NULL)'}
-//
-//  (*
-//   * name is cast to lose , but might be better to route through a
-//   * cFunction so we can do it safely
-//   *)
-//  {$HPPEMIT '# ifdef CONST_STRICT'}
-//  (*
-//   * If you are wondering why this isn't defined, its because CONST_STRICT is
-//   * purely a compile-time kludge to allow  to be checked.
-//   *)
-////  function BIO_read_filename(b: PBIO; const name: PIdAnsiChar): TIdC_INT;
-//  {$HPPEMIT '# define BIO_write_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_WRITE,name)
-//  {$HPPEMIT '# define BIO_append_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_APPEND,name)
-//  {$HPPEMIT '# define BIO_rw_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_READ or BIO_FP_WRITE,name)
-//
-//  (*
-//   * WARNING WARNING, this ups the reference count on the read bio of the SSL
-//   * structure.  This is because the ssl read PBIO is now pointed to by the
-//   * next_bio field in the bio.  So when you free the PBIO, make sure you are
-//   * doing a BIO_free_all() to catch the underlying PBIO.
-//   *)
-//  {$HPPEMIT '# define BIO_set_ssl(b,ssl,c)    BIO_ctrl(b,BIO_C_SET_SSL,c,(char (ssl))'}
-//  {$HPPEMIT '# define BIO_get_ssl(b,sslp)     BIO_ctrl(b,BIO_C_GET_SSL,0,(char (sslp))'}
-//  {$HPPEMIT '# define BIO_set_ssl_mode(b,client)      BIO_ctrl(b,BIO_C_SSL_MODE,client,NULL)'}
-//  {$HPPEMIT '# define BIO_set_ssl_renegotiate_bytes(b,num)'}
-//          BIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_BYTES,num,0)
-//  {$HPPEMIT '# define BIO_get_num_renegotiates(b)'}
-//          BIO_ctrl(b,BIO_C_GET_SSL_NUM_RENEGOTIATES,0,0)
-//  {$HPPEMIT '# define BIO_set_ssl_renegotiate_timeout(b,seconds)'}
-//          BIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_TIMEOUT,seconds,0)
-//
-//  (* defined in evp.h *)
-//  (* #define BIO_set_md(b,md)     BIO_ctrl(b,BIO_C_SET_MD,1,(char )(md)) *)
-//
-//  (* For the BIO_f_buffer() type *)
-//  {$HPPEMIT '# define BIO_get_buffer_num_lines(b)     BIO_ctrl(b,BIO_C_GET_BUFF_NUM_LINES,0,NULL)'}
-//  {$HPPEMIT '# define BIO_set_buffer_size(b,size)     BIO_ctrl(b,BIO_C_SET_BUFF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_set_read_buffer_size(b,size) BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,0)'}
-//  {$HPPEMIT '# define BIO_set_write_buffer_size(b,size) BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,1)'}
-//  {$HPPEMIT '# define BIO_set_buffer_read_data(b,buf,num) BIO_ctrl(b,BIO_C_SET_BUFF_READ_DATA,num,buf)'}
-//
-//  (* Don't use the next one unless you know what you are doing :-) */
-//  {$HPPEMIT '# define BIO_dup_state(b,ret)    BIO_ctrl(b,BIO_CTRL_DUP,0,(char (ret))'}
-//
-//  {$HPPEMIT '# define BIO_reset(b)            (int)BIO_ctrl(b,BIO_CTRL_RESET,0,NULL)'}
-//  {$HPPEMIT '# define BIO_eof(b)              (int)BIO_ctrl(b,BIO_CTRL_EOF,0,NULL)'}
-//  {$HPPEMIT '# define BIO_set_close(b,c)      (int)BIO_ctrl(b,BIO_CTRL_SET_CLOSE,(c),NULL)'}
-//  {$HPPEMIT '# define BIO_get_close(b)        (int)BIO_ctrl(b,BIO_CTRL_GET_CLOSE,0,NULL)'}
-//  {$HPPEMIT '# define BIO_pending(b)          (int)BIO_ctrl(b,BIO_CTRL_PENDING,0,NULL)'}
-//  {$HPPEMIT '# define BIO_wpending(b)         (int)BIO_ctrl(b,BIO_CTRL_WPENDING,0,NULL)'}
-  (* ...pending macros have inappropriate return type *)
-  BIO_ctrl_pending_procname = 'BIO_ctrl_pending';
-  BIO_ctrl_wpending_procname = 'BIO_ctrl_wpending';
-//  {$HPPEMIT '# define BIO_flush(b)            (int)BIO_ctrl(b,BIO_CTRL_FLUSH,0,NULL)'}
-//  {$HPPEMIT '# define BIO_get_info_callback(b,cbp(int)BIO_ctrl(b,BIO_CTRL_GET_CALLBACK,0,'}
-//                                                     cbp)
-//  {$HPPEMIT '# define BIO_set_info_callback(b,cb(int)BIO_callback_ctrl(b,BIO_CTRL_SET_CALLBACK,cb)'}
-//
-//  (* For the BIO_f_buffer() type *)
-//  {$HPPEMIT '# define BIO_buffer_get_num_lines(b) BIO_ctrl(b,BIO_CTRL_GET,0,NULL)'}
-//  {$HPPEMIT '# define BIO_buffer_peek(b,s,l) BIO_ctrl(b,BIO_CTRL_PEEK,(l),(s))'}
-//
-//  (* For BIO_s_bio() *)
-//  {$HPPEMIT '# define BIO_set_write_buf_size(b,size(int)BIO_ctrl(b,BIO_C_SET_WRITE_BUF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_get_write_buf_size(b,size(TIdC_SIZET)BIO_ctrl(b,BIO_C_GET_WRITE_BUF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_make_bio_pair(b1,b2)   (int)BIO_ctrl(b1,BIO_C_MAKE_BIO_PAIR,0,b2)'}
-//  {$HPPEMIT '# define BIO_destroy_bio_pair(b)    (int)BIO_ctrl(b,BIO_C_DESTROY_BIO_PAIR,0,NULL)'}
-//  {$HPPEMIT '# define BIO_shutdown_wr(b(int)BIO_ctrl(b, BIO_C_SHUTDOWN_WR, 0, NULL)'}
-//  (* macros with inappropriate type -- but ...pending macros use int too: *)
-//  {$HPPEMIT '# define BIO_get_write_guarantee(b(int)BIO_ctrl(b,BIO_C_GET_WRITE_GUARANTEE,0,NULL)'}
-//  {$HPPEMIT '# define BIO_get_read_request(b)    (int)BIO_ctrl(b,BIO_C_GET_READ_REQUEST,0,NULL)'}
-  BIO_ctrl_get_write_guarantee_procname = 'BIO_ctrl_get_write_guarantee';
-  BIO_ctrl_get_read_request_procname = 'BIO_ctrl_get_read_request';
-  BIO_ctrl_reset_read_request_procname = 'BIO_ctrl_reset_read_request';
-
-  (* ctrl macros for dgram *)
-//  {$HPPEMIT '# define BIO_ctrl_dgram_connect(b,peer)'}
-//                       (TIdC_INT)BIO_ctrl(b,BIO_CTRL_DGRAM_CONNECT,0, (char (peer))
-//  {$HPPEMIT '# define BIO_ctrl_set_connected(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_SET_CONNECTED, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_recv_timedout(b)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_RECV_TIMER_EXP, 0, 0)
-//  {$HPPEMIT '# define BIO_dgram_send_timedout(b)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_SEND_TIMER_EXP, 0, 0)
-//  {$HPPEMIT '# define BIO_dgram_get_peer(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_PEER, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_set_peer(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_SET_PEER, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_get_mtu_overhead(b)'}
-//           (Cardinal)BIO_ctrl((b), BIO_CTRL_DGRAM_GET_MTU_OVERHEAD, 0, 0)
-
-//#define BIO_get_ex_new_index(l, p, newf, dupf, freef) \
-//    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_BIO, l, p, newf, dupf, freef)
-
-  BIO_set_ex_data_procname = 'BIO_set_ex_data';
-  BIO_get_ex_data_procname = 'BIO_get_ex_data';
-  BIO_number_read_procname = 'BIO_number_read';
-  BIO_number_written_procname = 'BIO_number_written';
-
-  (* For BIO_f_asn1() *)
-//  function BIO_asn1_set_prefix(b: PBIO; prefix: ^asn1_ps_func; prefix_free: ^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_get_prefix(b: PBIO; pprefix: ^^asn1_ps_func; pprefix_free: ^^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_set_suffix(b: PBIO; suffix: ^asn1_ps_func; suffix_free: ^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_get_suffix(b: PBIO; psuffix: ^asn1_ps_func; psuffix_free: ^^asn1_ps_func): TIdC_INT;
-
-  BIO_s_file_procname = 'BIO_s_file';
-  BIO_new_file_procname = 'BIO_new_file';
-//  function BIO_new_fp(stream: cFile; close_flag: TIdC_INT): PBIO;
-  BIO_new_procname = 'BIO_new';
-  BIO_free_procname = 'BIO_free';
-  BIO_set_data_procname = 'BIO_set_data'; {introduced 1.1.0}
-  BIO_get_data_procname = 'BIO_get_data'; {introduced 1.1.0}
-  BIO_set_init_procname = 'BIO_set_init'; {introduced 1.1.0}
-  BIO_get_init_procname = 'BIO_get_init'; {introduced 1.1.0}
-  BIO_set_shutdown_procname = 'BIO_set_shutdown'; {introduced 1.1.0}
-  BIO_get_shutdown_procname = 'BIO_get_shutdown'; {introduced 1.1.0}
-  BIO_vfree_procname = 'BIO_vfree';
-  BIO_up_ref_procname = 'BIO_up_ref'; {introduced 1.1.0}
-  BIO_read_procname = 'BIO_read';
-  BIO_read_ex_procname = 'BIO_read_ex'; {introduced 1.1.0}
-  BIO_gets_procname = 'BIO_gets';
-  BIO_write_procname = 'BIO_write';
-  BIO_write_ex_procname = 'BIO_write_ex'; {introduced 1.1.0}
-  BIO_puts_procname = 'BIO_puts';
-  BIO_indent_procname = 'BIO_indent';
-  BIO_ctrl_procname = 'BIO_ctrl';
-  BIO_callback_ctrl_procname = 'BIO_callback_ctrl';
-  BIO_ptr_ctrl_procname = 'BIO_ptr_ctrl';
-  BIO_int_ctrl_procname = 'BIO_int_ctrl';
-  BIO_push_procname = 'BIO_push';
-  BIO_pop_procname = 'BIO_pop';
-  BIO_free_all_procname = 'BIO_free_all';
-  BIO_find_type_procname = 'BIO_find_type';
-  BIO_next_procname = 'BIO_next';
-  BIO_set_next_procname = 'BIO_set_next'; {introduced 1.1.0}
-  BIO_get_retry_BIO_procname = 'BIO_get_retry_BIO';
-  BIO_get_retry_reason_procname = 'BIO_get_retry_reason';
-  BIO_set_retry_reason_procname = 'BIO_set_retry_reason'; {introduced 1.1.0}
-  BIO_dup_chain_procname = 'BIO_dup_chain';
-
-  BIO_nread0_procname = 'BIO_nread0';
-  BIO_nread_procname = 'BIO_nread';
-  BIO_nwrite0_procname = 'BIO_nwrite0';
-  BIO_nwrite_procname = 'BIO_nwrite';
-
-  BIO_debug_callback_procname = 'BIO_debug_callback';
-
-  BIO_s_mem_procname = 'BIO_s_mem';
-  BIO_s_secmem_procname = 'BIO_s_secmem'; {introduced 1.1.0}
-  BIO_new_mem_buf_procname = 'BIO_new_mem_buf';
-
-  BIO_s_socket_procname = 'BIO_s_socket';
-  BIO_s_connect_procname = 'BIO_s_connect';
-  BIO_s_accept_procname = 'BIO_s_accept';
-
-  BIO_s_fd_procname = 'BIO_s_fd';
-  BIO_s_log_procname = 'BIO_s_log';
-  BIO_s_bio_procname = 'BIO_s_bio';
-  BIO_s_null_procname = 'BIO_s_null';
-  BIO_f_null_procname = 'BIO_f_null';
-  BIO_f_buffer_procname = 'BIO_f_buffer';
-  BIO_f_linebuffer_procname = 'BIO_f_linebuffer'; {introduced 1.1.0}
-  BIO_f_nbio_test_procname = 'BIO_f_nbio_test';
-  BIO_s_datagram_procname = 'BIO_s_datagram';
-  BIO_dgram_non_fatal_error_procname = 'BIO_dgram_non_fatal_error';
-  BIO_new_dgram_procname = 'BIO_new_dgram';
-
-//  function BIO_s_datagram_sctp: PBIO_METHOD;
-//  function BIO_new_dgram_sctp(fd: TIdC_INT; close_flag: TIdC_INT): PBIO;
-//  function BIO_dgram_is_sctp(bio: PBIO): TIdC_INT;
-//  function BIO_dgram_sctp_notification_cb(bio: PBIO; handle_notifications(PBIO;
-//    context: Pointer;
-//    buf: Pointer): TIdC_INT, Pointer context);
-//  function BIO_dgram_sctp_wait_for_dry(b: PBIO): TIdC_INT;
-//  function BIO_dgram_sctp_msg_waiting(b: PBIO): TIdC_INT;
-
-  BIO_sock_should_retry_procname = 'BIO_sock_should_retry';
-  BIO_sock_non_fatal_error_procname = 'BIO_sock_non_fatal_error';
-
-  BIO_fd_should_retry_procname = 'BIO_fd_should_retry';
-  BIO_fd_non_fatal_error_procname = 'BIO_fd_non_fatal_error';
-//  function BIO_dump_cb(
-//    Pointer data: cb(;
-//    len: TIdC_SIZET;
-//    function: Pointer): u: TIdC_INT, Pointer function ,  PIdAnsiChar s, TIdC_INT len): u;
-//  function BIO_dump_indent_cb(TIdC_INT (cb( Pointer data, TIdC_SIZET len, Pointer function ): u: TIdC_INT, Pointer function ,  PIdAnsiChar s, TIdC_INT len, TIdC_INT indent): u;
-  BIO_dump_procname = 'BIO_dump';
-  BIO_dump_indent_procname = 'BIO_dump_indent';
-
-//  function BIO_dump_fp(fp: cFile; const s: PByte; len: TIdC_INT): TIdC_INT;
-//  function BIO_dump_indent_fp(fp: cFile; const s: PByte; len: TIdC_INT; indent: TIdC_INT): TIdC_INT;
-
-  BIO_hex_string_procname = 'BIO_hex_string';
-
-  BIO_ADDR_new_procname = 'BIO_ADDR_new'; {introduced 1.1.0}
-  BIO_ADDR_rawmake_procname = 'BIO_ADDR_rawmake'; {introduced 1.1.0}
-  BIO_ADDR_free_procname = 'BIO_ADDR_free'; {introduced 1.1.0}
-  BIO_ADDR_clear_procname = 'BIO_ADDR_clear'; {introduced 1.1.0}
-  BIO_ADDR_family_procname = 'BIO_ADDR_family'; {introduced 1.1.0}
-  BIO_ADDR_rawaddress_procname = 'BIO_ADDR_rawaddress'; {introduced 1.1.0}
-  BIO_ADDR_rawport_procname = 'BIO_ADDR_rawport'; {introduced 1.1.0}
-  BIO_ADDR_hostname_string_procname = 'BIO_ADDR_hostname_string'; {introduced 1.1.0}
-  BIO_ADDR_service_string_procname = 'BIO_ADDR_service_string'; {introduced 1.1.0}
-  BIO_ADDR_path_string_procname = 'BIO_ADDR_path_string'; {introduced 1.1.0}
-
-  BIO_ADDRINFO_next_procname = 'BIO_ADDRINFO_next'; {introduced 1.1.0}
-  BIO_ADDRINFO_family_procname = 'BIO_ADDRINFO_family'; {introduced 1.1.0}
-  BIO_ADDRINFO_socktype_procname = 'BIO_ADDRINFO_socktype'; {introduced 1.1.0}
-  BIO_ADDRINFO_protocol_procname = 'BIO_ADDRINFO_protocol'; {introduced 1.1.0}
-  BIO_ADDRINFO_address_procname = 'BIO_ADDRINFO_address'; {introduced 1.1.0}
-  BIO_ADDRINFO_free_procname = 'BIO_ADDRINFO_free'; {introduced 1.1.0}
-
-  BIO_parse_hostserv_procname = 'BIO_parse_hostserv'; {introduced 1.1.0}
-
-  BIO_lookup_procname = 'BIO_lookup'; {introduced 1.1.0}
-  BIO_lookup_ex_procname = 'BIO_lookup_ex'; {introduced 1.1.0}
-  BIO_sock_error_procname = 'BIO_sock_error';
-  BIO_socket_ioctl_procname = 'BIO_socket_ioctl';
-  BIO_socket_nbio_procname = 'BIO_socket_nbio';
-  BIO_sock_init_procname = 'BIO_sock_init';
-
-  BIO_set_tcp_ndelay_procname = 'BIO_set_tcp_ndelay';
-
-  BIO_sock_info_procname = 'BIO_sock_info'; {introduced 1.1.0}
-
-  BIO_socket_procname = 'BIO_socket'; {introduced 1.1.0}
-  BIO_connect_procname = 'BIO_connect'; {introduced 1.1.0}
-  BIO_bind_procname = 'BIO_bind'; {introduced 1.1.0}
-  BIO_listen_procname = 'BIO_listen'; {introduced 1.1.0}
-  BIO_accept_ex_procname = 'BIO_accept_ex'; {introduced 1.1.0}
-  BIO_closesocket_procname = 'BIO_closesocket'; {introduced 1.1.0}
-
-  BIO_new_socket_procname = 'BIO_new_socket';
-  BIO_new_connect_procname = 'BIO_new_connect';
-  BIO_new_accept_procname = 'BIO_new_accept';
-
-  BIO_new_fd_procname = 'BIO_new_fd';
-
-  BIO_new_bio_pair_procname = 'BIO_new_bio_pair';
-  (*
-   * If successful, returns 1 and in *bio1, *bio2 two BIO pair endpoints.
-   * Otherwise returns 0 and sets *bio1 and *bio2 to NULL. Size 0 uses default
-   * value.
-   *)
-
-  BIO_copy_next_retry_procname = 'BIO_copy_next_retry';
-
-//  BIO_METHOD *BIO_meth_new(int type, const char *name);
-//  void BIO_meth_free(BIO_METHOD *biom);
-//  int (*BIO_meth_get_write(const BIO_METHOD *biom)) (BIO *, const char *, int);
-//  int (*BIO_meth_get_write_ex(const BIO_METHOD *biom)) (BIO *, const char *, TIdC_SIZET,
-//                                                  TIdC_SIZET *);
-//  int BIO_meth_set_write(BIO_METHOD *biom,
-//                         int (*write) (BIO *, const char *, int));
-//  int BIO_meth_set_write_ex(BIO_METHOD *biom,
-//                         int (*bwrite) (BIO *, const char *, TIdC_SIZET, TIdC_SIZET *));
-//  int (*BIO_meth_get_read(const BIO_METHOD *biom)) (BIO *, char *, int);
-//  int (*BIO_meth_get_read_ex(const BIO_METHOD *biom)) (BIO *, char *, TIdC_SIZET, TIdC_SIZET *);
-//  int BIO_meth_set_read(BIO_METHOD *biom,
-//                        int (*read) (BIO *, char *, int));
-//  int BIO_meth_set_read_ex(BIO_METHOD *biom,
-//                           int (*bread) (BIO *, char *, TIdC_SIZET, TIdC_SIZET *));
-//  int (*BIO_meth_get_puts(const BIO_METHOD *biom)) (BIO *, const char *);
-//  int BIO_meth_set_puts(BIO_METHOD *biom,
-//                        int (*puts) (BIO *, const char *));
-//  int (*BIO_meth_get_gets(const BIO_METHOD *biom)) (BIO *, char *, int);
-//  int BIO_meth_set_gets(BIO_METHOD *biom,
-//                        int (*gets) (BIO *, char *, int));
-//  long (*BIO_meth_get_ctrl(const BIO_METHOD *biom)) (BIO *, int, long, void *);
-//  int BIO_meth_set_ctrl(BIO_METHOD *biom,
-//                        long (*ctrl) (BIO *, int, long, void *));
-//  int (*BIO_meth_get_create(const BIO_METHOD *bion)) (BIO *);
-//  int BIO_meth_set_create(BIO_METHOD *biom, int (*create) (BIO *));
-//  int (*BIO_meth_get_destroy(const BIO_METHOD *biom)) (BIO *);
-//  int BIO_meth_set_destroy(BIO_METHOD *biom, int (*destroy) (BIO *));
-//  long (*BIO_meth_get_callback_ctrl(const BIO_METHOD *biom))
-//                                   (BIO *, int, BIO_info_cb *);
-//  int BIO_meth_set_callback_ctrl(BIO_METHOD *biom,
-//                                 long (*callback_ctrl) (BIO *, int,
-//                                                        BIO_info_cb *));
-
-
-// # define BIO_get_flags(b) BIO_test_flags(b, ~(0x0))
-function  _BIO_get_flags(const b: PBIO): TIdC_INT; cdecl;
 begin
   Result := BIO_test_flags(b, not $0);
 end;
 
 //# define BIO_set_retry_special(b) \
 //                BIO_set_flags(b, (BIO_FLAGS_IO_SPECIAL|BIO_FLAGS_SHOULD_RETRY))
-procedure  _BIO_set_retry_special(b: PBIO); cdecl;
+
+
+procedure BIO_set_retry_special(b: PBIO);
+
 begin
   BIO_set_flags(b, BIO_FLAGS_IO_SPECIAL or BIO_FLAGS_SHOULD_RETRY);
 end;
 
 //# define BIO_set_retry_read(b) \
 //                BIO_set_flags(b, (BIO_FLAGS_READ|BIO_FLAGS_SHOULD_RETRY))
-procedure  _BIO_set_retry_read(b: PBIO); cdecl;
+
+
+procedure BIO_set_retry_read(b: PBIO);
+
 begin
   BIO_set_flags(b, BIO_FLAGS_READ or BIO_FLAGS_SHOULD_RETRY);
 end;
 
 //# define BIO_set_retry_write(b) \
 //                BIO_set_flags(b, (BIO_FLAGS_WRITE|BIO_FLAGS_SHOULD_RETRY))
-procedure  _BIO_set_retry_write(b: PBIO); cdecl;
+
+
+procedure BIO_set_retry_write(b: PBIO);
+
 begin
   BIO_set_flags(b, BIO_FLAGS_WRITE or BIO_FLAGS_SHOULD_RETRY);
 end;
 
 //# define BIO_clear_retry_flags(b) \
 //                BIO_clear_flags(b, (BIO_FLAGS_RWS|BIO_FLAGS_SHOULD_RETRY))
-procedure  _BIO_clear_retry_flags(b: PBIO); cdecl;
+
+
+procedure BIO_clear_retry_flags(b: PBIO);
+
 begin
   BIO_clear_flags(b, BIO_FLAGS_RWS or BIO_FLAGS_SHOULD_RETRY);
 end;
 
 //# define BIO_get_retry_flags(b) \
 //                BIO_test_flags(b, (BIO_FLAGS_RWS|BIO_FLAGS_SHOULD_RETRY))
-function  _BIO_get_retry_flags(b: PBIO): TIdC_INT; cdecl;
+
+
+function BIO_get_retry_flags(b: PBIO): TOpenSSL_C_INT;
+
 begin
   Result := BIO_test_flags(b, BIO_FLAGS_RWS or BIO_FLAGS_SHOULD_RETRY);
 end;
 
 //# define BIO_should_read(a)              BIO_test_flags(a, BIO_FLAGS_READ)
-function  _BIO_should_read(b: PBIO): TIdC_INT; cdecl;
+
+
+function BIO_should_read(b: PBIO): TOpenSSL_C_INT;
+
 begin
   Result := BIO_test_flags(b, BIO_FLAGS_READ);
 end;
 
 //# define BIO_should_write(a)             BIO_test_flags(a, BIO_FLAGS_WRITE)
-function  _BIO_should_write(b: PBIO): TIdC_INT; cdecl;
+
+
+function BIO_should_write(b: PBIO): TOpenSSL_C_INT;
+
 begin
   Result := BIO_test_flags(b, BIO_FLAGS_WRITE);
 end;
 
 //# define BIO_should_io_special(a)        BIO_test_flags(a, BIO_FLAGS_IO_SPECIAL)
-function  _BIO_should_io_special(b: PBIO): TIdC_INT; cdecl;
+
+
+function BIO_should_io_special(b: PBIO): TOpenSSL_C_INT;
+
 begin
   Result := BIO_test_flags(b, BIO_FLAGS_IO_SPECIAL);
 end;
 
 //# define BIO_retry_type(a)               BIO_test_flags(a, BIO_FLAGS_RWS)
-function  _BIO_retry_type(b: PBIO): TIdC_INT; cdecl;
+
+
+function BIO_retry_type(b: PBIO): TOpenSSL_C_INT;
+
 begin
   Result := BIO_test_flags(b, BIO_FLAGS_RWS);
 end;
 
 //# define BIO_should_retry(a)             BIO_test_flags(a, BIO_FLAGS_SHOULD_RETRY)
-function  _BIO_should_retry(b: PBIO): TIdC_INT; cdecl;
+
+
+function BIO_should_retry(b: PBIO): TOpenSSL_C_INT;
+
 begin
   Result := BIO_test_flags(b, BIO_FLAGS_SHOULD_RETRY);
 end;
 
 //#  define BIO_do_connect(b)       BIO_do_handshake(b)
-function  _BIO_do_connect(b: PBIO): TIdC_LONG; cdecl;
+
+
+function BIO_do_connect(b: PBIO): TOpenSSL_C_LONG;
+
 begin
   Result := BIO_do_handshake(b);
 end;
 
 //#  define BIO_do_accept(b)        BIO_do_handshake(b)
-function  _BIO_do_accept(b: PBIO): TIdC_LONG; cdecl;
+
+
+function BIO_do_accept(b: PBIO): TOpenSSL_C_LONG;
+
 begin
   Result := BIO_do_handshake(b);
 end;
 
 //# define BIO_do_handshake(b)     BIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)
-function  _BIO_do_handshake(b: PBIO): TIdC_LONG; cdecl;
+
+
+function BIO_do_handshake(b: PBIO): TOpenSSL_C_LONG;
+
 begin
   Result := BIO_ctrl(b, BIO_C_DO_STATE_MACHINE, 0, nil);
 end;
 
 //# define BIO_get_mem_data(b,pp)  BIO_ctrl(b,BIO_CTRL_INFO,0,(char (pp))
-function  _BIO_get_mem_data(b: PBIO; pp: PIdAnsiChar) : TIdC_INT; cdecl;
+
+
+function BIO_get_mem_data(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT;
+
 begin
   Result := BIO_ctrl(b, BIO_CTRL_INFO, 0, pp);
 end;
 
 //# define BIO_set_mem_buf(b,bm,c) BIO_ctrl(b,BIO_C_SET_BUF_MEM,c,(char (bm))
-function  _BIO_set_mem_buf(b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT; cdecl;
+
+
+function BIO_set_mem_buf(b: PBIO; bm: PAnsiChar; c: TOpenSSL_C_INT): TOpenSSL_C_INT;
+
 begin
   Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM, c, bm);
 end;
 
 //# define BIO_get_mem_ptr(b,pp)   BIO_ctrl(b,BIO_C_GET_BUF_MEM_PTR,0,(char (pp))
-function  _BIO_get_mem_ptr(b: PBIO; pp: PIdAnsiChar): TIdC_INT; cdecl;
+
+
+function BIO_get_mem_ptr(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT;
+
 begin
   Result := BIO_ctrl(b, BIO_C_GET_BUF_MEM_PTR, 0, pp);
 end;
 
 //# define BIO_set_mem_eof_return(b,v) BIO_ctrl(b,BIO_C_SET_BUF_MEM_EOF_RETURN,v,0)
-function  _BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT; cdecl;
+
+
+function BIO_set_mem_eof_return(b: PBIO; v: TOpenSSL_C_INT): TOpenSSL_C_INT;
+
 begin
   Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM_EOF_RETURN, v, nil);
 end;
 
+
+
+
+
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ELSE}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+function COMPAT_BIO_get_flags(const b: PBIO): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := BIO_test_flags(b, not $0);
+end;
+
+//# define BIO_set_retry_special(b) \
+//                BIO_set_flags(b, (BIO_FLAGS_IO_SPECIAL|BIO_FLAGS_SHOULD_RETRY))
+
+
+procedure COMPAT_BIO_set_retry_special(b: PBIO); cdecl;
+
+begin
+  BIO_set_flags(b, BIO_FLAGS_IO_SPECIAL or BIO_FLAGS_SHOULD_RETRY);
+end;
+
+//# define BIO_set_retry_read(b) \
+//                BIO_set_flags(b, (BIO_FLAGS_READ|BIO_FLAGS_SHOULD_RETRY))
+
+
+procedure COMPAT_BIO_set_retry_read(b: PBIO); cdecl;
+
+begin
+  BIO_set_flags(b, BIO_FLAGS_READ or BIO_FLAGS_SHOULD_RETRY);
+end;
+
+//# define BIO_set_retry_write(b) \
+//                BIO_set_flags(b, (BIO_FLAGS_WRITE|BIO_FLAGS_SHOULD_RETRY))
+
+
+procedure COMPAT_BIO_set_retry_write(b: PBIO); cdecl;
+
+begin
+  BIO_set_flags(b, BIO_FLAGS_WRITE or BIO_FLAGS_SHOULD_RETRY);
+end;
+
+//# define BIO_clear_retry_flags(b) \
+//                BIO_clear_flags(b, (BIO_FLAGS_RWS|BIO_FLAGS_SHOULD_RETRY))
+
+
+procedure COMPAT_BIO_clear_retry_flags(b: PBIO); cdecl;
+
+begin
+  BIO_clear_flags(b, BIO_FLAGS_RWS or BIO_FLAGS_SHOULD_RETRY);
+end;
+
+//# define BIO_get_retry_flags(b) \
+//                BIO_test_flags(b, (BIO_FLAGS_RWS|BIO_FLAGS_SHOULD_RETRY))
+
+
+function COMPAT_BIO_get_retry_flags(b: PBIO): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := BIO_test_flags(b, BIO_FLAGS_RWS or BIO_FLAGS_SHOULD_RETRY);
+end;
+
+//# define BIO_should_read(a)              BIO_test_flags(a, BIO_FLAGS_READ)
+
+
+function COMPAT_BIO_should_read(b: PBIO): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := BIO_test_flags(b, BIO_FLAGS_READ);
+end;
+
+//# define BIO_should_write(a)             BIO_test_flags(a, BIO_FLAGS_WRITE)
+
+
+function COMPAT_BIO_should_write(b: PBIO): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := BIO_test_flags(b, BIO_FLAGS_WRITE);
+end;
+
+//# define BIO_should_io_special(a)        BIO_test_flags(a, BIO_FLAGS_IO_SPECIAL)
+
+
+function COMPAT_BIO_should_io_special(b: PBIO): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := BIO_test_flags(b, BIO_FLAGS_IO_SPECIAL);
+end;
+
+//# define BIO_retry_type(a)               BIO_test_flags(a, BIO_FLAGS_RWS)
+
+
+function COMPAT_BIO_retry_type(b: PBIO): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := BIO_test_flags(b, BIO_FLAGS_RWS);
+end;
+
+//# define BIO_should_retry(a)             BIO_test_flags(a, BIO_FLAGS_SHOULD_RETRY)
+
+
+function COMPAT_BIO_should_retry(b: PBIO): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := BIO_test_flags(b, BIO_FLAGS_SHOULD_RETRY);
+end;
+
+//#  define BIO_do_connect(b)       BIO_do_handshake(b)
+
+
+function COMPAT_BIO_do_connect(b: PBIO): TOpenSSL_C_LONG; cdecl;
+
+begin
+  Result := BIO_do_handshake(b);
+end;
+
+//#  define BIO_do_accept(b)        BIO_do_handshake(b)
+
+
+function COMPAT_BIO_do_accept(b: PBIO): TOpenSSL_C_LONG; cdecl;
+
+begin
+  Result := BIO_do_handshake(b);
+end;
+
+//# define BIO_do_handshake(b)     BIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)
+
+
+function COMPAT_BIO_do_handshake(b: PBIO): TOpenSSL_C_LONG; cdecl;
+
+begin
+  Result := BIO_ctrl(b, BIO_C_DO_STATE_MACHINE, 0, nil);
+end;
+
+//# define BIO_get_mem_data(b,pp)  BIO_ctrl(b,BIO_CTRL_INFO,0,(char (pp))
+
+
+function COMPAT_BIO_get_mem_data(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := BIO_ctrl(b, BIO_CTRL_INFO, 0, pp);
+end;
+
+//# define BIO_set_mem_buf(b,bm,c) BIO_ctrl(b,BIO_C_SET_BUF_MEM,c,(char (bm))
+
+
+function COMPAT_BIO_set_mem_buf(b: PBIO; bm: PAnsiChar; c: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM, c, bm);
+end;
+
+//# define BIO_get_mem_ptr(b,pp)   BIO_ctrl(b,BIO_C_GET_BUF_MEM_PTR,0,(char (pp))
+
+
+function COMPAT_BIO_get_mem_ptr(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := BIO_ctrl(b, BIO_C_GET_BUF_MEM_PTR, 0, pp);
+end;
+
+//# define BIO_set_mem_eof_return(b,v) BIO_ctrl(b,BIO_C_SET_BUF_MEM_EOF_RETURN,v,0)
+
+
+function COMPAT_BIO_set_mem_eof_return(b: PBIO; v: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM_EOF_RETURN, v, nil);
+end;
+
+
+
+
+
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+
 {$WARN  NO_RETVAL OFF}
-function  ERR_BIO_get_flags(const b: PBIO): TIdC_INT; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_get_flags(const b: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_flags');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-procedure  ERR_BIO_set_retry_special(b: PBIO); 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+procedure ERROR_BIO_set_retry_special(b: PBIO); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_retry_special_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_retry_special');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-procedure  ERR_BIO_set_retry_read(b: PBIO); 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+procedure ERROR_BIO_set_retry_read(b: PBIO); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_retry_read_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_retry_read');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-procedure  ERR_BIO_set_retry_write(b: PBIO); 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+procedure ERROR_BIO_set_retry_write(b: PBIO); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_retry_write_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_retry_write');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-
-(* These are normally used internally in BIOs *)
-procedure  ERR_BIO_clear_retry_flags(b: PBIO); 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+procedure ERROR_BIO_clear_retry_flags(b: PBIO); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_clear_retry_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_clear_retry_flags');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-function  ERR_BIO_get_retry_flags(b: PBIO): TIdC_INT; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_get_retry_flags(b: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_retry_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_retry_flags');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-
-(* These should be used by the application to tell why we should retry *)
-function  ERR_BIO_should_read(b: PBIO): TIdC_INT; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_should_read(b: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_should_read_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_should_read');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-function  ERR_BIO_should_write(b: PBIO): TIdC_INT; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_should_write(b: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_should_write_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_should_write');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-function  ERR_BIO_should_io_special(b: PBIO): TIdC_INT; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_should_io_special(b: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_should_io_special_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_should_io_special');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-function  ERR_BIO_retry_type(b: PBIO): TIdC_INT; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_retry_type(b: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_retry_type_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_retry_type');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-function  ERR_BIO_should_retry(b: PBIO): TIdC_INT; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_should_retry(b: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_should_retry_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_should_retry');
 end;
-
- 
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
-(* BIO_s_accept() and BIO_s_connect() *)
-function  ERR_BIO_do_connect(b: PBIO): TIdC_LONG; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_do_connect(b: PBIO): TOpenSSL_C_LONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_do_connect_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_do_connect');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-function  ERR_BIO_do_accept(b: PBIO): TIdC_LONG; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_do_accept(b: PBIO): TOpenSSL_C_LONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_do_accept_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_do_accept');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-function  ERR_BIO_do_handshake(b: PBIO): TIdC_LONG; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_do_handshake(b: PBIO): TOpenSSL_C_LONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_do_handshake_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_do_handshake');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-
-function  ERR_BIO_get_mem_data(b: PBIO; pp: PIdAnsiChar) : TIdC_INT; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_get_mem_data(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_mem_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_mem_data');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-function  ERR_BIO_set_mem_buf(b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_set_mem_buf(b: PBIO; bm: PAnsiChar; c: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_mem_buf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_mem_buf');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-function  ERR_BIO_get_mem_ptr(b: PBIO; pp: PIdAnsiChar): TIdC_INT; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_get_mem_ptr(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_mem_ptr_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_mem_ptr');
 end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
- 
-function  ERR_BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_BIO_set_mem_eof_return(b: PBIO; v: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_mem_eof_return_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_mem_eof_return');
 end;
-
- 
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
-function  ERR_BIO_get_new_index: TIdC_INT; 
+function ERROR_BIO_get_new_index: TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_new_index_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_new_index');
 end;
 
- {introduced 1.1.0}
-procedure  ERR_BIO_set_flags(b: PBIO; flags: TIdC_INT); 
+procedure ERROR_BIO_set_flags(b: PBIO; flags: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_flags');
 end;
 
-
-function  ERR_BIO_test_flags(const b: PBIO; flags: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_test_flags(const b: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_test_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_test_flags');
 end;
-
 
-procedure  ERR_BIO_clear_flags(b: PBIO; flags: TIdC_INT); 
+procedure ERROR_BIO_clear_flags(b: PBIO; flags: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_clear_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_clear_flags');
 end;
 
-
-
-function  ERR_BIO_get_callback(b: PBIO): BIO_callback_fn; 
+function ERROR_BIO_get_callback(b: PBIO): BIO_callback_fn; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_callback_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_callback');
 end;
-
 
-procedure  ERR_BIO_set_callback(b: PBIO; callback: BIO_callback_fn); 
+procedure ERROR_BIO_set_callback(b: PBIO; callback: BIO_callback_fn); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_callback_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_callback');
 end;
 
-
-
-function  ERR_BIO_get_callback_ex(b: PBIO): BIO_callback_fn_ex; 
+function ERROR_BIO_get_callback_ex(b: PBIO): BIO_callback_fn_ex; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_callback_ex_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_callback_ex');
 end;
 
- {introduced 1.1.0}
-procedure  ERR_BIO_set_callback_ex(b: PBIO; callback: BIO_callback_fn_ex); 
+procedure ERROR_BIO_set_callback_ex(b: PBIO; callback: BIO_callback_fn_ex); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_callback_ex_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_callback_ex');
 end;
 
- {introduced 1.1.0}
-
-function  ERR_BIO_get_callback_arg(const b: PBIO): PIdAnsiChar; 
+function ERROR_BIO_get_callback_arg(const b: PBIO): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_callback_arg_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_callback_arg');
 end;
-
 
-procedure  ERR_BIO_set_callback_arg(var b: PBIO; arg: PIdAnsiChar); 
+procedure ERROR_BIO_set_callback_arg(var b: PBIO; arg: PAnsiChar); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_callback_arg_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_callback_arg');
 end;
 
-
-
-function  ERR_BIO_method_name(const b: PBIO): PIdAnsiChar; 
+function ERROR_BIO_method_name(const b: PBIO): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_method_name_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_method_name');
 end;
-
 
-function  ERR_BIO_method_type(const b: PBIO): TIdC_INT; 
+function ERROR_BIO_method_type(const b: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_method_type_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_method_type');
 end;
 
-
-
-//  {$HPPEMIT '# define BIO_set_app_data(s,arg)         BIO_set_ex_data(s,0,arg)'}
-//  {$HPPEMIT '# define BIO_get_app_data(s)             BIO_get_ex_data(s,0)'}
-//
-//  {$HPPEMIT '# define BIO_set_nbio(b,n)             BIO_ctrl(b,BIO_C_SET_NBIO,(n),NULL)'}
-//
-//  {$HPPEMIT '# ifndef OPENSSL_NO_SOCK'}
-//  (* IP families we support, for BIO_s_connect() and BIO_s_accept() *)
-//  (* Note: the underlying operating system may not support some of them *)
-//  {$HPPEMIT '#  define BIO_FAMILY_IPV4                         4'}
-//  {$HPPEMIT '#  define BIO_FAMILY_IPV6                         6'}
-//  {$HPPEMIT '#  define BIO_FAMILY_IPANY                        256'}
-//
-//  (* BIO_s_connect() *)
-//  {$HPPEMIT '#  define BIO_set_conn_hostname(b,name) BIO_ctrl(b,BIO_C_SET_CONNECT,0,'}
-//                                                   (char (name))
-//  {$HPPEMIT '#  define BIO_set_conn_port(b,port)     BIO_ctrl(b,BIO_C_SET_CONNECT,1,'}
-//                                                   (char (port))
-//  {$HPPEMIT '#  define BIO_set_conn_address(b,addr)  BIO_ctrl(b,BIO_C_SET_CONNECT,2,'}
-//                                                   (char (addr))
-//  {$HPPEMIT '#  define BIO_set_conn_ip_family(b,f)   BIO_int_ctrl(b,BIO_C_SET_CONNECT,3,f)'}
-//  {$HPPEMIT '#  define BIO_get_conn_hostname(b)      (( char )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,0))'}
-//  {$HPPEMIT '#  define BIO_get_conn_port(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,1))'}
-//  {$HPPEMIT '#  define BIO_get_conn_address(b)       (( PBIO_ADDR )BIO_ptr_ctrl(b,BIO_C_GET_CONNECT,2))'}
-//  {$HPPEMIT '#  define BIO_get_conn_ip_family(b)     BIO_ctrl(b,BIO_C_GET_CONNECT,3,NULL)'}
-//  {$HPPEMIT '#  define BIO_set_conn_mode(b,n)        BIO_ctrl(b,BIO_C_SET_CONNECT_MODE,(n),NULL)'}
-//
-//  (* BIO_s_accept() *)
-//  {$HPPEMIT '#  define BIO_set_accept_name(b,name)   BIO_ctrl(b,BIO_C_SET_ACCEPT,0,'}
-//  {$EXTERNALSYM PBIO}
-//                                                   (char (name))
-//  {$HPPEMIT '#  define BIO_set_accept_port(b,port)   BIO_ctrl(b,BIO_C_SET_ACCEPT,1,'}
-//                                                   (char (port))
-//  {$HPPEMIT '#  define BIO_get_accept_name(b)        (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,0))'}
-//  {$HPPEMIT '#  define BIO_get_accept_port(b)        (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,1))'}
-//  {$HPPEMIT '#  define BIO_get_peer_name(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,2))'}
-//  {$HPPEMIT '#  define BIO_get_peer_port(b)          (( char )BIO_ptr_ctrl(b,BIO_C_GET_ACCEPT,3))'}
-//  (* #define BIO_set_nbio(b,n)    BIO_ctrl(b,BIO_C_SET_NBIO,(n),NULL) *)
-//  {$HPPEMIT '#  define BIO_set_nbio_accept(b,n)      #  define BIO_set_nbio_accept(b,n)      BIO_ctrl(b,BIO_C_SET_ACCEPT,2,(n)?(procedure )'a':NULL)  BIO_ctrl(b,BIO_C_SET_ACCEPT,3,'}
-//                                                   (char (bio))
-//  {$HPPEMIT '#  define BIO_set_accept_ip_family(b,f) BIO_int_ctrl(b,BIO_C_SET_ACCEPT,4,f)'}
-//  {$HPPEMIT '#  define BIO_get_accept_ip_family(b)   BIO_ctrl(b,BIO_C_GET_ACCEPT,4,NULL)'}
-//
-//  (* Aliases kept for backward compatibility *)
-//  {$HPPEMIT '#  define BIO_BIND_NORMAL                 0'}
-//  {$HPPEMIT '#  define BIO_BIND_REUSEADDR              BIO_SOCK_REUSEADDR'}
-//  {$HPPEMIT '#  define BIO_BIND_REUSEADDR_IF_UNUSED    BIO_SOCK_REUSEADDR'}
-//  {$HPPEMIT '#  define BIO_set_bind_mode(b,mode) BIO_ctrl(b,BIO_C_SET_BIND_MODE,mode,NULL)'}
-//  {$HPPEMIT '#  define BIO_get_bind_mode(b)    BIO_ctrl(b,BIO_C_GET_BIND_MODE,0,NULL)'}
-//
-//  (* BIO_s_accept() and BIO_s_connect() *)
-//  {$HPPEMIT '#  define BIO_do_connect(b)       BIO_do_handshake(b)'}
-//  {$HPPEMIT '#  define BIO_do_accept(b)        BIO_do_handshake(b)'}
-//  {$HPPEMIT '# endif'}	(* OPENSSL_NO_SOCK *)
-//
-//  {$HPPEMIT '# define BIO_do_handshake(b)     BIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)'}
-//
-//  (* BIO_s_datagram(), BIO_s_fd(), BIO_s_socket(), BIO_s_accept() and BIO_s_connect() *)
-//  {$HPPEMIT '# define BIO_set_fd(b,fd,c)      BIO_int_ctrl(b,BIO_C_SET_FD,c,fd)'}
-//  {$HPPEMIT '# define BIO_get_fd(b,c)         BIO_ctrl(b,BIO_C_GET_FD,0,(char (c))'}
-//
-//  (* BIO_s_file() *)
-//  {$HPPEMIT '# define BIO_set_fp(b,fp,c)      BIO_ctrl(b,BIO_C_SET_FILE_PTR,c,(char (fp))'}
-//  {$HPPEMIT '# define BIO_get_fp(b,fpp)       BIO_ctrl(b,BIO_C_GET_FILE_PTR,0,(char (fpp))'}
-//
-//  (* BIO_s_fd() and BIO_s_file() *)
-//  {$HPPEMIT '# define BIO_seek(b,ofs(int)BIO_ctrl(b,BIO_C_FILE_SEEK,ofs,NULL)'}
-//  {$HPPEMIT '# define BIO_tell(b)     (int)BIO_ctrl(b,BIO_C_FILE_TELL,0,NULL)'}
-//
-//  (*
-//   * name is cast to lose , but might be better to route through a
-//   * cFunction so we can do it safely
-//   *)
-//  {$HPPEMIT '# ifdef CONST_STRICT'}
-//  (*
-//   * If you are wondering why this isn't defined, its because CONST_STRICT is
-//   * purely a compile-time kludge to allow  to be checked.
-//   *)
-////  function BIO_read_filename(b: PBIO; const name: PIdAnsiChar): TIdC_INT;
-//  {$HPPEMIT '# define BIO_write_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_WRITE,name)
-//  {$HPPEMIT '# define BIO_append_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_APPEND,name)
-//  {$HPPEMIT '# define BIO_rw_filename(b,name(int)BIO_ctrl(b,BIO_C_SET_FILENAME,'}
-//                  BIO_CLOSE or BIO_FP_READ or BIO_FP_WRITE,name)
-//
-//  (*
-//   * WARNING WARNING, this ups the reference count on the read bio of the SSL
-//   * structure.  This is because the ssl read PBIO is now pointed to by the
-//   * next_bio field in the bio.  So when you free the PBIO, make sure you are
-//   * doing a BIO_free_all() to catch the underlying PBIO.
-//   *)
-//  {$HPPEMIT '# define BIO_set_ssl(b,ssl,c)    BIO_ctrl(b,BIO_C_SET_SSL,c,(char (ssl))'}
-//  {$HPPEMIT '# define BIO_get_ssl(b,sslp)     BIO_ctrl(b,BIO_C_GET_SSL,0,(char (sslp))'}
-//  {$HPPEMIT '# define BIO_set_ssl_mode(b,client)      BIO_ctrl(b,BIO_C_SSL_MODE,client,NULL)'}
-//  {$HPPEMIT '# define BIO_set_ssl_renegotiate_bytes(b,num)'}
-//          BIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_BYTES,num,0)
-//  {$HPPEMIT '# define BIO_get_num_renegotiates(b)'}
-//          BIO_ctrl(b,BIO_C_GET_SSL_NUM_RENEGOTIATES,0,0)
-//  {$HPPEMIT '# define BIO_set_ssl_renegotiate_timeout(b,seconds)'}
-//          BIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_TIMEOUT,seconds,0)
-//
-//  (* defined in evp.h *)
-//  (* #define BIO_set_md(b,md)     BIO_ctrl(b,BIO_C_SET_MD,1,(char )(md)) *)
-//
-//  (* For the BIO_f_buffer() type *)
-//  {$HPPEMIT '# define BIO_get_buffer_num_lines(b)     BIO_ctrl(b,BIO_C_GET_BUFF_NUM_LINES,0,NULL)'}
-//  {$HPPEMIT '# define BIO_set_buffer_size(b,size)     BIO_ctrl(b,BIO_C_SET_BUFF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_set_read_buffer_size(b,size) BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,0)'}
-//  {$HPPEMIT '# define BIO_set_write_buffer_size(b,size) BIO_int_ctrl(b,BIO_C_SET_BUFF_SIZE,size,1)'}
-//  {$HPPEMIT '# define BIO_set_buffer_read_data(b,buf,num) BIO_ctrl(b,BIO_C_SET_BUFF_READ_DATA,num,buf)'}
-//
-//  (* Don't use the next one unless you know what you are doing :-) */
-//  {$HPPEMIT '# define BIO_dup_state(b,ret)    BIO_ctrl(b,BIO_CTRL_DUP,0,(char (ret))'}
-//
-//  {$HPPEMIT '# define BIO_reset(b)            (int)BIO_ctrl(b,BIO_CTRL_RESET,0,NULL)'}
-//  {$HPPEMIT '# define BIO_eof(b)              (int)BIO_ctrl(b,BIO_CTRL_EOF,0,NULL)'}
-//  {$HPPEMIT '# define BIO_set_close(b,c)      (int)BIO_ctrl(b,BIO_CTRL_SET_CLOSE,(c),NULL)'}
-//  {$HPPEMIT '# define BIO_get_close(b)        (int)BIO_ctrl(b,BIO_CTRL_GET_CLOSE,0,NULL)'}
-//  {$HPPEMIT '# define BIO_pending(b)          (int)BIO_ctrl(b,BIO_CTRL_PENDING,0,NULL)'}
-//  {$HPPEMIT '# define BIO_wpending(b)         (int)BIO_ctrl(b,BIO_CTRL_WPENDING,0,NULL)'}
-  (* ...pending macros have inappropriate return type *)
-function  ERR_BIO_ctrl_pending(b: PBIO): TIdC_SIZET; 
+function ERROR_BIO_ctrl_pending(b: PBIO): TOpenSSL_C_SIZET; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ctrl_pending_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ctrl_pending');
 end;
 
-
-function  ERR_BIO_ctrl_wpending(b: PBIO): TIdC_SIZET; 
+function ERROR_BIO_ctrl_wpending(b: PBIO): TOpenSSL_C_SIZET; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ctrl_wpending_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ctrl_wpending');
 end;
-
 
-//  {$HPPEMIT '# define BIO_flush(b)            (int)BIO_ctrl(b,BIO_CTRL_FLUSH,0,NULL)'}
-//  {$HPPEMIT '# define BIO_get_info_callback(b,cbp(int)BIO_ctrl(b,BIO_CTRL_GET_CALLBACK,0,'}
-//                                                     cbp)
-//  {$HPPEMIT '# define BIO_set_info_callback(b,cb(int)BIO_callback_ctrl(b,BIO_CTRL_SET_CALLBACK,cb)'}
-//
-//  (* For the BIO_f_buffer() type *)
-//  {$HPPEMIT '# define BIO_buffer_get_num_lines(b) BIO_ctrl(b,BIO_CTRL_GET,0,NULL)'}
-//  {$HPPEMIT '# define BIO_buffer_peek(b,s,l) BIO_ctrl(b,BIO_CTRL_PEEK,(l),(s))'}
-//
-//  (* For BIO_s_bio() *)
-//  {$HPPEMIT '# define BIO_set_write_buf_size(b,size(int)BIO_ctrl(b,BIO_C_SET_WRITE_BUF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_get_write_buf_size(b,size(TIdC_SIZET)BIO_ctrl(b,BIO_C_GET_WRITE_BUF_SIZE,size,NULL)'}
-//  {$HPPEMIT '# define BIO_make_bio_pair(b1,b2)   (int)BIO_ctrl(b1,BIO_C_MAKE_BIO_PAIR,0,b2)'}
-//  {$HPPEMIT '# define BIO_destroy_bio_pair(b)    (int)BIO_ctrl(b,BIO_C_DESTROY_BIO_PAIR,0,NULL)'}
-//  {$HPPEMIT '# define BIO_shutdown_wr(b(int)BIO_ctrl(b, BIO_C_SHUTDOWN_WR, 0, NULL)'}
-//  (* macros with inappropriate type -- but ...pending macros use int too: *)
-//  {$HPPEMIT '# define BIO_get_write_guarantee(b(int)BIO_ctrl(b,BIO_C_GET_WRITE_GUARANTEE,0,NULL)'}
-//  {$HPPEMIT '# define BIO_get_read_request(b)    (int)BIO_ctrl(b,BIO_C_GET_READ_REQUEST,0,NULL)'}
-function  ERR_BIO_ctrl_get_write_guarantee(b: PBIO): TIdC_SIZET; 
+function ERROR_BIO_ctrl_get_write_guarantee(b: PBIO): TOpenSSL_C_SIZET; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ctrl_get_write_guarantee_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ctrl_get_write_guarantee');
 end;
 
-
-function  ERR_BIO_ctrl_get_read_request(b: PBIO): TIdC_SIZET; 
+function ERROR_BIO_ctrl_get_read_request(b: PBIO): TOpenSSL_C_SIZET; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ctrl_get_read_request_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ctrl_get_read_request');
 end;
-
 
-function  ERR_BIO_ctrl_reset_read_request(b: PBIO): TIdC_INT; 
+function ERROR_BIO_ctrl_reset_read_request(b: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ctrl_reset_read_request_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ctrl_reset_read_request');
 end;
-
-
 
-  (* ctrl macros for dgram *)
-//  {$HPPEMIT '# define BIO_ctrl_dgram_connect(b,peer)'}
-//                       (TIdC_INT)BIO_ctrl(b,BIO_CTRL_DGRAM_CONNECT,0, (char (peer))
-//  {$HPPEMIT '# define BIO_ctrl_set_connected(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_SET_CONNECTED, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_recv_timedout(b)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_RECV_TIMER_EXP, 0, 0)
-//  {$HPPEMIT '# define BIO_dgram_send_timedout(b)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_SEND_TIMER_EXP, 0, 0)
-//  {$HPPEMIT '# define BIO_dgram_get_peer(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_GET_PEER, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_set_peer(b,peer)'}
-//           (TIdC_INT)BIO_ctrl(b, BIO_CTRL_DGRAM_SET_PEER, 0, (char (peer))
-//  {$HPPEMIT '# define BIO_dgram_get_mtu_overhead(b)'}
-//           (Cardinal)BIO_ctrl((b), BIO_CTRL_DGRAM_GET_MTU_OVERHEAD, 0, 0)
-
-//#define BIO_get_ex_new_index(l, p, newf, dupf, freef) \
-//    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_BIO, l, p, newf, dupf, freef)
-
-function  ERR_BIO_set_ex_data(bio: PBIO; idx: TIdC_INT; data: Pointer): TIdC_INT; 
+function ERROR_BIO_set_ex_data(bio: PBIO; idx: TOpenSSL_C_INT; data: Pointer): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_ex_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_ex_data');
 end;
 
-
-function  ERR_BIO_get_ex_data(bio: PBIO; idx: TIdC_INT): Pointer; 
+function ERROR_BIO_get_ex_data(bio: PBIO; idx: TOpenSSL_C_INT): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_ex_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_ex_data');
 end;
-
 
-function  ERR_BIO_number_read(bio: PBIO): TIdC_UINT64; 
+function ERROR_BIO_number_read(bio: PBIO): TOpenSSL_C_UINT64; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_number_read_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_number_read');
 end;
 
-
-function  ERR_BIO_number_written(bio: PBIO): TIdC_UINT64; 
+function ERROR_BIO_number_written(bio: PBIO): TOpenSSL_C_UINT64; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_number_written_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_number_written');
 end;
-
-
 
-  (* For BIO_f_asn1() *)
-//  function BIO_asn1_set_prefix(b: PBIO; prefix: ^asn1_ps_func; prefix_free: ^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_get_prefix(b: PBIO; pprefix: ^^asn1_ps_func; pprefix_free: ^^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_set_suffix(b: PBIO; suffix: ^asn1_ps_func; suffix_free: ^asn1_ps_func): TIdC_INT;
-//  function BIO_asn1_get_suffix(b: PBIO; psuffix: ^asn1_ps_func; psuffix_free: ^^asn1_ps_func): TIdC_INT;
-
-function  ERR_BIO_s_file: PBIO_METHOD; 
+function ERROR_BIO_s_file: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_s_file_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_s_file');
 end;
-
 
-function  ERR_BIO_new_file(const filename: PIdAnsiChar; const mode: PIdAnsiChar): PBIO; 
+function ERROR_BIO_new_file(const filename: PAnsiChar; const mode: PAnsiChar): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_new_file_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_new_file');
 end;
 
-
-//  function BIO_new_fp(stream: cFile; close_flag: TIdC_INT): PBIO;
-function  ERR_BIO_new(const cType: PBIO_METHOD): PBIO; 
+function ERROR_BIO_new(const cType: PBIO_METHOD): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_new');
 end;
-
 
-function  ERR_BIO_free(a: PBIO): TIdC_INT; 
+function ERROR_BIO_free(a: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_free');
 end;
 
-
-procedure  ERR_BIO_set_data(a: PBIO; ptr: Pointer); 
+procedure ERROR_BIO_set_data(a: PBIO; ptr: Pointer); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_data');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_get_data(a: PBIO): Pointer; 
+function ERROR_BIO_get_data(a: PBIO): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_data');
 end;
 
- {introduced 1.1.0}
-procedure  ERR_BIO_set_init(a: PBIO; init: TIdC_INT); 
+procedure ERROR_BIO_set_init(a: PBIO; init: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_init_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_init');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_get_init(a: PBIO): TIdC_INT; 
+function ERROR_BIO_get_init(a: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_init_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_init');
 end;
 
- {introduced 1.1.0}
-procedure  ERR_BIO_set_shutdown(a: PBIO; shut: TIdC_INT); 
+procedure ERROR_BIO_set_shutdown(a: PBIO; shut: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_shutdown_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_shutdown');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_get_shutdown(a: PBIO): TIdC_INT; 
+function ERROR_BIO_get_shutdown(a: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_shutdown_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_shutdown');
 end;
 
- {introduced 1.1.0}
-procedure  ERR_BIO_vfree(a: PBIO); 
+procedure ERROR_BIO_vfree(a: PBIO); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_vfree_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_vfree');
 end;
 
-
-function  ERR_BIO_up_ref(a: PBIO): TIdC_INT; 
+function ERROR_BIO_up_ref(a: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_up_ref_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_up_ref');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_read(b: PBIO; data: Pointer; dlen: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_read(b: PBIO; data: Pointer; dlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_read_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_read');
 end;
-
 
-function  ERR_BIO_read_ex(b: PBIO; data: Pointer; dlen: TIdC_SIZET; readbytes: PIdC_SIZET): TIdC_INT; 
+function ERROR_BIO_read_ex(b: PBIO; data: Pointer; dlen: TOpenSSL_C_SIZET; readbytes: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_read_ex_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_read_ex');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_gets( bp: PBIO; buf: PIdAnsiChar; size: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_gets( bp: PBIO; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_gets_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_gets');
 end;
 
-
-function  ERR_BIO_write(b: PBIO; const data: Pointer; dlen: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_write(b: PBIO; const data: Pointer; dlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_write_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_write');
 end;
-
 
-function  ERR_BIO_write_ex(b: PBIO; const data: Pointer; dlen: TIdC_SIZET; written: PIdC_SIZET): TIdC_INT; 
+function ERROR_BIO_write_ex(b: PBIO; const data: Pointer; dlen: TOpenSSL_C_SIZET; written: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_write_ex_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_write_ex');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_puts(bp: PBIO; const buf: PIdAnsiChar): TIdC_INT; 
+function ERROR_BIO_puts(bp: PBIO; const buf: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_puts_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_puts');
 end;
 
-
-function  ERR_BIO_indent(b: PBIO; indent: TIdC_INT; max: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_indent(b: PBIO; indent: TOpenSSL_C_INT; max: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_indent_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_indent');
 end;
-
 
-function  ERR_BIO_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; parg: Pointer): TIdC_LONG; 
+function ERROR_BIO_ctrl(bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; parg: Pointer): TOpenSSL_C_LONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ctrl_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ctrl');
 end;
 
-
-function  ERR_BIO_callback_ctrl(b: PBIO; cmd: TIdC_INT; fp: PBIO_info_cb): TIdC_LONG; 
+function ERROR_BIO_callback_ctrl(b: PBIO; cmd: TOpenSSL_C_INT; fp: PBIO_info_cb): TOpenSSL_C_LONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_callback_ctrl_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_callback_ctrl');
 end;
 
-
-function  ERR_BIO_ptr_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG): Pointer; 
+function ERROR_BIO_ptr_ctrl(bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ptr_ctrl_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ptr_ctrl');
 end;
-
 
-function  ERR_BIO_int_ctrl(bp: PBIO; cmd: TIdC_INT; larg: TIdC_LONG; iarg: TIdC_INT): TIdC_LONG; 
+function ERROR_BIO_int_ctrl(bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; iarg: TOpenSSL_C_INT): TOpenSSL_C_LONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_int_ctrl_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_int_ctrl');
 end;
 
-
-function  ERR_BIO_push(b: PBIO; append: PBIO): PBIO; 
+function ERROR_BIO_push(b: PBIO; append: PBIO): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_push_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_push');
 end;
-
 
-function  ERR_BIO_pop(b: PBIO): PBIO; 
+function ERROR_BIO_pop(b: PBIO): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_pop_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_pop');
 end;
 
-
-procedure  ERR_BIO_free_all(a: PBIO); 
+procedure ERROR_BIO_free_all(a: PBIO); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_free_all_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_free_all');
 end;
-
 
-function  ERR_BIO_find_type(b: PBIO; bio_type: TIdC_INT): PBIO; 
+function ERROR_BIO_find_type(b: PBIO; bio_type: TOpenSSL_C_INT): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_find_type_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_find_type');
 end;
 
-
-function  ERR_BIO_next(b: PBIO): PBIO; 
+function ERROR_BIO_next(b: PBIO): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_next_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_next');
 end;
-
 
-procedure  ERR_BIO_set_next(b: PBIO; next: PBIO); 
+procedure ERROR_BIO_set_next(b: PBIO; next: PBIO); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_next_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_next');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_get_retry_BIO(bio: PBIO; reason: TIdC_INT): PBIO; 
+function ERROR_BIO_get_retry_BIO(bio: PBIO; reason: TOpenSSL_C_INT): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_retry_BIO_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_retry_BIO');
 end;
 
-
-function  ERR_BIO_get_retry_reason(bio: PBIO): TIdC_INT; 
+function ERROR_BIO_get_retry_reason(bio: PBIO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_get_retry_reason_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_get_retry_reason');
 end;
-
 
-procedure  ERR_BIO_set_retry_reason(bio: PBIO; reason: TIdC_INT); 
+procedure ERROR_BIO_set_retry_reason(bio: PBIO; reason: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_retry_reason_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_retry_reason');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_dup_chain(in_: PBIO): PBIO; 
+function ERROR_BIO_dup_chain(in_: PBIO): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_dup_chain_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_dup_chain');
 end;
 
-
-
-function  ERR_BIO_nread0(bio: PBIO; buf: PPIdAnsiChar): TIdC_INT; 
+function ERROR_BIO_nread0(bio: PBIO; buf: PPAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_nread0_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_nread0');
 end;
 
-
-function  ERR_BIO_nread(bio: PBIO; buf: PPIdAnsiChar; num: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_nread(bio: PBIO; buf: PPAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_nread_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_nread');
 end;
-
 
-function  ERR_BIO_nwrite0(bio: PBIO; buf: PPIdAnsiChar): TIdC_INT; 
+function ERROR_BIO_nwrite0(bio: PBIO; buf: PPAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_nwrite0_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_nwrite0');
 end;
 
-
-function  ERR_BIO_nwrite(bio: PBIO; buf: PPIdAnsiChar; num: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_nwrite(bio: PBIO; buf: PPAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_nwrite_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_nwrite');
 end;
-
-
 
-function  ERR_BIO_debug_callback(bio: PBIO; cmd: TIdC_INT; const argp: PIdAnsiChar; argi: TIdC_INT; argl: TIdC_LONG; ret: TIdC_LONG): TIdC_LONG; 
+function ERROR_BIO_debug_callback(bio: PBIO; cmd: TOpenSSL_C_INT; const argp: PAnsiChar; argi: TOpenSSL_C_INT; argl: TOpenSSL_C_LONG; ret: TOpenSSL_C_LONG): TOpenSSL_C_LONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_debug_callback_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_debug_callback');
 end;
 
-
-
-function  ERR_BIO_s_mem: PBIO_METHOD; 
+function ERROR_BIO_s_mem: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_s_mem_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_s_mem');
 end;
 
-
-function  ERR_BIO_s_secmem: PBIO_METHOD; 
+function ERROR_BIO_s_secmem: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_s_secmem_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_s_secmem');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_new_mem_buf(const buf: Pointer; len: TIdC_INT): PBIO; 
+function ERROR_BIO_new_mem_buf(const buf: Pointer; len: TOpenSSL_C_INT): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_new_mem_buf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_new_mem_buf');
 end;
-
 
-
-function  ERR_BIO_s_socket: PBIO_METHOD; 
+function ERROR_BIO_s_socket: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_s_socket_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_s_socket');
 end;
 
-
-function  ERR_BIO_s_connect: PBIO_METHOD; 
+function ERROR_BIO_s_connect: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_s_connect_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_s_connect');
 end;
-
 
-function  ERR_BIO_s_accept: PBIO_METHOD; 
+function ERROR_BIO_s_accept: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_s_accept_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_s_accept');
 end;
 
-
-
-function  ERR_BIO_s_fd: PBIO_METHOD; 
+function ERROR_BIO_s_fd: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_s_fd_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_s_fd');
 end;
 
-
-function  ERR_BIO_s_log: PBIO_METHOD; 
+function ERROR_BIO_s_log: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_s_log_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_s_log');
 end;
-
 
-function  ERR_BIO_s_bio: PBIO_METHOD; 
+function ERROR_BIO_s_bio: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_s_bio_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_s_bio');
 end;
 
-
-function  ERR_BIO_s_null: PBIO_METHOD; 
+function ERROR_BIO_s_null: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_s_null_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_s_null');
 end;
 
-
-function  ERR_BIO_f_null: PBIO_METHOD; 
+function ERROR_BIO_f_null: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_f_null_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_f_null');
 end;
-
 
-function  ERR_BIO_f_buffer: PBIO_METHOD; 
+function ERROR_BIO_f_buffer: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_f_buffer_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_f_buffer');
 end;
 
-
-function  ERR_BIO_f_linebuffer: PBIO_METHOD; 
+function ERROR_BIO_f_linebuffer: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_f_linebuffer_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_f_linebuffer');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_f_nbio_test: PBIO_METHOD; 
+function ERROR_BIO_f_nbio_test: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_f_nbio_test_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_f_nbio_test');
 end;
-
 
-function  ERR_BIO_s_datagram: PBIO_METHOD; 
+function ERROR_BIO_s_datagram: PBIO_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_s_datagram_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_s_datagram');
 end;
 
-
-function  ERR_BIO_dgram_non_fatal_error(error: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_dgram_non_fatal_error(error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_dgram_non_fatal_error_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_dgram_non_fatal_error');
 end;
-
 
-function  ERR_BIO_new_dgram(fd: TIdC_INT; close_flag: TIdC_INT): PBIO; 
+function ERROR_BIO_new_dgram(fd: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_new_dgram_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_new_dgram');
 end;
 
-
-
-//  function BIO_s_datagram_sctp: PBIO_METHOD;
-//  function BIO_new_dgram_sctp(fd: TIdC_INT; close_flag: TIdC_INT): PBIO;
-//  function BIO_dgram_is_sctp(bio: PBIO): TIdC_INT;
-//  function BIO_dgram_sctp_notification_cb(bio: PBIO; handle_notifications(PBIO;
-//    context: Pointer;
-//    buf: Pointer): TIdC_INT, Pointer context);
-//  function BIO_dgram_sctp_wait_for_dry(b: PBIO): TIdC_INT;
-//  function BIO_dgram_sctp_msg_waiting(b: PBIO): TIdC_INT;
-
-function  ERR_BIO_sock_should_retry(i: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_sock_should_retry(i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_sock_should_retry_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_sock_should_retry');
 end;
-
 
-function  ERR_BIO_sock_non_fatal_error(error: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_sock_non_fatal_error(error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_sock_non_fatal_error_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_sock_non_fatal_error');
 end;
 
-
-
-function  ERR_BIO_fd_should_retry(i: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_fd_should_retry(i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_fd_should_retry_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_fd_should_retry');
 end;
 
-
-function  ERR_BIO_fd_non_fatal_error(error: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_fd_non_fatal_error(error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_fd_non_fatal_error_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_fd_non_fatal_error');
 end;
-
 
-//  function BIO_dump_cb(
-//    Pointer data: cb(;
-//    len: TIdC_SIZET;
-//    function: Pointer): u: TIdC_INT, Pointer function ,  PIdAnsiChar s, TIdC_INT len): u;
-//  function BIO_dump_indent_cb(TIdC_INT (cb( Pointer data, TIdC_SIZET len, Pointer function ): u: TIdC_INT, Pointer function ,  PIdAnsiChar s, TIdC_INT len, TIdC_INT indent): u;
-function  ERR_BIO_dump(b: PBIO; const bytes: PIdAnsiChar; len: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_dump(b: PBIO; const bytes: PAnsiChar; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_dump_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_dump');
 end;
 
-
-function  ERR_BIO_dump_indent(b: PBIO; const bytes: PIdAnsiChar; len: TIdC_INT; indent: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_dump_indent(b: PBIO; const bytes: PAnsiChar; len: TOpenSSL_C_INT; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_dump_indent_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_dump_indent');
 end;
-
-
 
-//  function BIO_dump_fp(fp: cFile; const s: PByte; len: TIdC_INT): TIdC_INT;
-//  function BIO_dump_indent_fp(fp: cFile; const s: PByte; len: TIdC_INT; indent: TIdC_INT): TIdC_INT;
-
-function  ERR_BIO_hex_string(out_: PBIO; indent: TIdC_INT; width: TIdC_INT; data: PByte; datalen: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_hex_string(out_: PBIO; indent: TOpenSSL_C_INT; width: TOpenSSL_C_INT; data: PByte; datalen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_hex_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_hex_string');
 end;
-
 
-
-function  ERR_BIO_ADDR_new: PBIO_ADDR; 
+function ERROR_BIO_ADDR_new: PBIO_ADDR; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDR_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDR_new');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_ADDR_rawmake(ap: PBIO_ADDR; familiy: TIdC_INT; const where: Pointer; wherelen: TIdC_SIZET; port: TIdC_SHORT): TIdC_INT; 
+function ERROR_BIO_ADDR_rawmake(ap: PBIO_ADDR; familiy: TOpenSSL_C_INT; const where: Pointer; wherelen: TOpenSSL_C_SIZET; port: TOpenSSL_C_SHORT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDR_rawmake_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDR_rawmake');
 end;
 
- {introduced 1.1.0}
-procedure  ERR_BIO_ADDR_free(a: PBIO_ADDR); 
+procedure ERROR_BIO_ADDR_free(a: PBIO_ADDR); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDR_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDR_free');
 end;
 
- {introduced 1.1.0}
-procedure  ERR_BIO_ADDR_clear(ap: PBIO_ADDR); 
+procedure ERROR_BIO_ADDR_clear(ap: PBIO_ADDR); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDR_clear_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDR_clear');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_ADDR_family(const ap: PBIO_ADDR): TIdC_INT; 
+function ERROR_BIO_ADDR_family(const ap: PBIO_ADDR): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDR_family_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDR_family');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_ADDR_rawaddress(const ap: PBIO_ADDR; p: Pointer; l: PIdC_SIZET): TIdC_INT; 
+function ERROR_BIO_ADDR_rawaddress(const ap: PBIO_ADDR; p: Pointer; l: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDR_rawaddress_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDR_rawaddress');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_ADDR_rawport(const ap: PBIO_ADDR): TIdC_SHORT; 
+function ERROR_BIO_ADDR_rawport(const ap: PBIO_ADDR): TOpenSSL_C_SHORT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDR_rawport_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDR_rawport');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_ADDR_hostname_string(const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; 
+function ERROR_BIO_ADDR_hostname_string(const ap: PBIO_ADDR; numeric: TOpenSSL_C_INT): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDR_hostname_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDR_hostname_string');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_ADDR_service_string(const ap: PBIO_ADDR; numeric: TIdC_INT): PIdAnsiChar; 
+function ERROR_BIO_ADDR_service_string(const ap: PBIO_ADDR; numeric: TOpenSSL_C_INT): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDR_service_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDR_service_string');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_ADDR_path_string(const ap: PBIO_ADDR): PIdAnsiChar; 
+function ERROR_BIO_ADDR_path_string(const ap: PBIO_ADDR): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDR_path_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDR_path_string');
 end;
-
- {introduced 1.1.0}
 
-function  ERR_BIO_ADDRINFO_next(const bai: PBIO_ADDRINFO): PBIO_ADDRINFO; 
+function ERROR_BIO_ADDRINFO_next(const bai: PBIO_ADDRINFO): PBIO_ADDRINFO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_next_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDRINFO_next');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_ADDRINFO_family(const bai: PBIO_ADDRINFO): TIdC_INT; 
+function ERROR_BIO_ADDRINFO_family(const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_family_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDRINFO_family');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_ADDRINFO_socktype(const bai: PBIO_ADDRINFO): TIdC_INT; 
+function ERROR_BIO_ADDRINFO_socktype(const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_socktype_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDRINFO_socktype');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_ADDRINFO_protocol(const bai: PBIO_ADDRINFO): TIdC_INT; 
+function ERROR_BIO_ADDRINFO_protocol(const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_protocol_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDRINFO_protocol');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_ADDRINFO_address(const bai: PBIO_ADDRINFO): PBIO_ADDR; 
+function ERROR_BIO_ADDRINFO_address(const bai: PBIO_ADDRINFO): PBIO_ADDR; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_address_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDRINFO_address');
 end;
 
- {introduced 1.1.0}
-procedure  ERR_BIO_ADDRINFO_free(bai: PBIO_ADDRINFO); 
+procedure ERROR_BIO_ADDRINFO_free(bai: PBIO_ADDRINFO); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_ADDRINFO_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_ADDRINFO_free');
 end;
 
- {introduced 1.1.0}
-
-function  ERR_BIO_parse_hostserv(const hostserv: PIdAnsiChar; host: PPIdAnsiChar; service: PPIdAnsiChar; hostserv_prio: BIO_hostserv_priorities): TIdC_INT; 
+function ERROR_BIO_parse_hostserv(const hostserv: PAnsiChar; host: PPAnsiChar; service: PPAnsiChar; hostserv_prio: BIO_hostserv_priorities): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_parse_hostserv_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_parse_hostserv');
 end;
 
- {introduced 1.1.0}
-
-function  ERR_BIO_lookup(const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: BIO_lookup_type; family: TIdC_INT; socktype: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT; 
+function ERROR_BIO_lookup(const host: PAnsiChar; const service: PAnsiChar; lookup_type: BIO_lookup_type; family: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; res: PPBIO_ADDRINFO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_lookup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_lookup');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_lookup_ex(const host: PIdAnsiChar; const service: PIdAnsiChar; lookup_type: TIdC_INT; family: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; res: PPBIO_ADDRINFO): TIdC_INT; 
+function ERROR_BIO_lookup_ex(const host: PAnsiChar; const service: PAnsiChar; lookup_type: TOpenSSL_C_INT; family: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; protocol: TOpenSSL_C_INT; res: PPBIO_ADDRINFO): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_lookup_ex_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_lookup_ex');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_sock_error(sock: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_sock_error(sock: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_sock_error_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_sock_error');
 end;
-
 
-function  ERR_BIO_socket_ioctl(fd: TIdC_INT; cType: TIdC_LONG; arg: Pointer): TIdC_INT; 
+function ERROR_BIO_socket_ioctl(fd: TOpenSSL_C_INT; cType: TOpenSSL_C_LONG; arg: Pointer): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_socket_ioctl_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_socket_ioctl');
 end;
 
-
-function  ERR_BIO_socket_nbio(fd: TIdC_INT; mode: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_socket_nbio(fd: TOpenSSL_C_INT; mode: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_socket_nbio_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_socket_nbio');
 end;
-
 
-function  ERR_BIO_sock_init: TIdC_INT; 
+function ERROR_BIO_sock_init: TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_sock_init_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_sock_init');
 end;
-
-
 
-function  ERR_BIO_set_tcp_ndelay(sock: TIdC_INT; turn_on: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_set_tcp_ndelay(sock: TOpenSSL_C_INT; turn_on: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_set_tcp_ndelay_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_set_tcp_ndelay');
 end;
 
-
-
-function  ERR_BIO_sock_info(sock: TIdC_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TIdC_INT; 
+function ERROR_BIO_sock_info(sock: TOpenSSL_C_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_sock_info_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_sock_info');
 end;
-
- {introduced 1.1.0}
 
-function  ERR_BIO_socket(domain: TIdC_INT; socktype: TIdC_INT; protocol: TIdC_INT; options: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_socket(domain: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; protocol: TOpenSSL_C_INT; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_socket_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_socket');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_connect(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_connect(sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_connect_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_connect');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_bind(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_bind(sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_bind_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_bind');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_listen(sock: TIdC_INT; const addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_listen(sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_listen_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_listen');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_accept_ex(accept_sock: TIdC_INT; addr: PBIO_ADDR; options: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_accept_ex(accept_sock: TOpenSSL_C_INT; addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_accept_ex_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_accept_ex');
 end;
 
- {introduced 1.1.0}
-function  ERR_BIO_closesocket(sock: TIdC_INT): TIdC_INT; 
+function ERROR_BIO_closesocket(sock: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_closesocket_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_closesocket');
 end;
 
- {introduced 1.1.0}
-
-function  ERR_BIO_new_socket(sock: TIdC_INT; close_flag: TIdC_INT): PBIO; 
+function ERROR_BIO_new_socket(sock: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_new_socket_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_new_socket');
 end;
-
 
-function  ERR_BIO_new_connect(const host_port: PIdAnsiChar): PBIO; 
+function ERROR_BIO_new_connect(const host_port: PAnsiChar): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_new_connect_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_new_connect');
 end;
 
-
-function  ERR_BIO_new_accept(const host_port: PIdAnsiChar): PBIO; 
+function ERROR_BIO_new_accept(const host_port: PAnsiChar): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_new_accept_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_new_accept');
 end;
-
 
-
-function  ERR_BIO_new_fd(fd: TIdC_INT; close_flag: TIdC_INT): PBIO; 
+function ERROR_BIO_new_fd(fd: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_new_fd_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_new_fd');
 end;
-
 
-
-function  ERR_BIO_new_bio_pair(bio1: PPBIO; writebuf1: TIdC_SIZET; bio2: PPBIO; writebuf2: TIdC_SIZET): TIdC_INT; 
+function ERROR_BIO_new_bio_pair(bio1: PPBIO; writebuf1: TOpenSSL_C_SIZET; bio2: PPBIO; writebuf2: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_new_bio_pair_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_new_bio_pair');
 end;
-
 
-  (*
-   * If successful, returns 1 and in *bio1, *bio2 two BIO pair endpoints.
-   * Otherwise returns 0 and sets *bio1 and *bio2 to NULL. Size 0 uses default
-   * value.
-   *)
-
-procedure  ERR_BIO_copy_next_retry(b: PBIO); 
+procedure ERROR_BIO_copy_next_retry(b: PBIO); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(BIO_copy_next_retry_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BIO_copy_next_retry');
 end;
-
-
-
-//  BIO_METHOD *BIO_meth_new(int type, const char *name);
-//  void BIO_meth_free(BIO_METHOD *biom);
-//  int (*BIO_meth_get_write(const BIO_METHOD *biom)) (BIO *, const char *, int);
-//  int (*BIO_meth_get_write_ex(const BIO_METHOD *biom)) (BIO *, const char *, TIdC_SIZET,
-//                                                  TIdC_SIZET *);
-//  int BIO_meth_set_write(BIO_METHOD *biom,
-//                         int (*write) (BIO *, const char *, int));
-//  int BIO_meth_set_write_ex(BIO_METHOD *biom,
-//                         int (*bwrite) (BIO *, const char *, TIdC_SIZET, TIdC_SIZET *));
-//  int (*BIO_meth_get_read(const BIO_METHOD *biom)) (BIO *, char *, int);
-//  int (*BIO_meth_get_read_ex(const BIO_METHOD *biom)) (BIO *, char *, TIdC_SIZET, TIdC_SIZET *);
-//  int BIO_meth_set_read(BIO_METHOD *biom,
-//                        int (*read) (BIO *, char *, int));
-//  int BIO_meth_set_read_ex(BIO_METHOD *biom,
-//                           int (*bread) (BIO *, char *, TIdC_SIZET, TIdC_SIZET *));
-//  int (*BIO_meth_get_puts(const BIO_METHOD *biom)) (BIO *, const char *);
-//  int BIO_meth_set_puts(BIO_METHOD *biom,
-//                        int (*puts) (BIO *, const char *));
-//  int (*BIO_meth_get_gets(const BIO_METHOD *biom)) (BIO *, char *, int);
-//  int BIO_meth_set_gets(BIO_METHOD *biom,
-//                        int (*gets) (BIO *, char *, int));
-//  long (*BIO_meth_get_ctrl(const BIO_METHOD *biom)) (BIO *, int, long, void *);
-//  int BIO_meth_set_ctrl(BIO_METHOD *biom,
-//                        long (*ctrl) (BIO *, int, long, void *));
-//  int (*BIO_meth_get_create(const BIO_METHOD *bion)) (BIO *);
-//  int BIO_meth_set_create(BIO_METHOD *biom, int (*create) (BIO *));
-//  int (*BIO_meth_get_destroy(const BIO_METHOD *biom)) (BIO *);
-//  int BIO_meth_set_destroy(BIO_METHOD *biom, int (*destroy) (BIO *));
-//  long (*BIO_meth_get_callback_ctrl(const BIO_METHOD *biom))
-//                                   (BIO *, int, BIO_info_cb *);
-//  int BIO_meth_set_callback_ctrl(BIO_METHOD *biom,
-//                                 long (*callback_ctrl) (BIO *, int,
-//                                                        BIO_info_cb *));
 
 {$WARN  NO_RETVAL ON}
-
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
-
 begin
-  BIO_get_flags := LoadLibFunction(ADllHandle, BIO_get_flags_procname);
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  BIO_get_flags := LoadLibCryptoFunction('BIO_get_flags');
   FuncLoadError := not assigned(BIO_get_flags);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_flags_allownil)}
-    BIO_get_flags := @ERR_BIO_get_flags;
-    {$ifend}
-    {$if declared(BIO_get_flags_introduced)}
-    if LibVersion < BIO_get_flags_introduced then
-    begin
-      {$if declared(FC_BIO_get_flags)}
-      BIO_get_flags := @FC_BIO_get_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_flags_removed)}
+    BIO_get_flags := @COMPAT_BIO_get_flags;
     if BIO_get_flags_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_flags)}
-      BIO_get_flags := @_BIO_get_flags;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_flags_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_get_flags');
-    {$ifend}
   end;
 
- 
-  BIO_set_retry_special := LoadLibFunction(ADllHandle, BIO_set_retry_special_procname);
+  BIO_set_retry_special := LoadLibCryptoFunction('BIO_set_retry_special');
   FuncLoadError := not assigned(BIO_set_retry_special);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_retry_special_allownil)}
-    BIO_set_retry_special := @ERR_BIO_set_retry_special;
-    {$ifend}
-    {$if declared(BIO_set_retry_special_introduced)}
-    if LibVersion < BIO_set_retry_special_introduced then
-    begin
-      {$if declared(FC_BIO_set_retry_special)}
-      BIO_set_retry_special := @FC_BIO_set_retry_special;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_retry_special_removed)}
+    BIO_set_retry_special := @COMPAT_BIO_set_retry_special;
     if BIO_set_retry_special_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_retry_special)}
-      BIO_set_retry_special := @_BIO_set_retry_special;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_retry_special_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_set_retry_special');
-    {$ifend}
   end;
 
- 
-  BIO_set_retry_read := LoadLibFunction(ADllHandle, BIO_set_retry_read_procname);
+  BIO_set_retry_read := LoadLibCryptoFunction('BIO_set_retry_read');
   FuncLoadError := not assigned(BIO_set_retry_read);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_retry_read_allownil)}
-    BIO_set_retry_read := @ERR_BIO_set_retry_read;
-    {$ifend}
-    {$if declared(BIO_set_retry_read_introduced)}
-    if LibVersion < BIO_set_retry_read_introduced then
-    begin
-      {$if declared(FC_BIO_set_retry_read)}
-      BIO_set_retry_read := @FC_BIO_set_retry_read;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_retry_read_removed)}
+    BIO_set_retry_read := @COMPAT_BIO_set_retry_read;
     if BIO_set_retry_read_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_retry_read)}
-      BIO_set_retry_read := @_BIO_set_retry_read;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_retry_read_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_set_retry_read');
-    {$ifend}
   end;
 
- 
-  BIO_set_retry_write := LoadLibFunction(ADllHandle, BIO_set_retry_write_procname);
+  BIO_set_retry_write := LoadLibCryptoFunction('BIO_set_retry_write');
   FuncLoadError := not assigned(BIO_set_retry_write);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_retry_write_allownil)}
-    BIO_set_retry_write := @ERR_BIO_set_retry_write;
-    {$ifend}
-    {$if declared(BIO_set_retry_write_introduced)}
-    if LibVersion < BIO_set_retry_write_introduced then
-    begin
-      {$if declared(FC_BIO_set_retry_write)}
-      BIO_set_retry_write := @FC_BIO_set_retry_write;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_retry_write_removed)}
+    BIO_set_retry_write := @COMPAT_BIO_set_retry_write;
     if BIO_set_retry_write_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_retry_write)}
-      BIO_set_retry_write := @_BIO_set_retry_write;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_retry_write_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_set_retry_write');
-    {$ifend}
   end;
 
- 
-  BIO_clear_retry_flags := LoadLibFunction(ADllHandle, BIO_clear_retry_flags_procname);
+  BIO_clear_retry_flags := LoadLibCryptoFunction('BIO_clear_retry_flags');
   FuncLoadError := not assigned(BIO_clear_retry_flags);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_clear_retry_flags_allownil)}
-    BIO_clear_retry_flags := @ERR_BIO_clear_retry_flags;
-    {$ifend}
-    {$if declared(BIO_clear_retry_flags_introduced)}
-    if LibVersion < BIO_clear_retry_flags_introduced then
-    begin
-      {$if declared(FC_BIO_clear_retry_flags)}
-      BIO_clear_retry_flags := @FC_BIO_clear_retry_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_clear_retry_flags_removed)}
+    BIO_clear_retry_flags := @COMPAT_BIO_clear_retry_flags;
     if BIO_clear_retry_flags_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_clear_retry_flags)}
-      BIO_clear_retry_flags := @_BIO_clear_retry_flags;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_clear_retry_flags_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_clear_retry_flags');
-    {$ifend}
   end;
 
- 
-  BIO_get_retry_flags := LoadLibFunction(ADllHandle, BIO_get_retry_flags_procname);
+  BIO_get_retry_flags := LoadLibCryptoFunction('BIO_get_retry_flags');
   FuncLoadError := not assigned(BIO_get_retry_flags);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_retry_flags_allownil)}
-    BIO_get_retry_flags := @ERR_BIO_get_retry_flags;
-    {$ifend}
-    {$if declared(BIO_get_retry_flags_introduced)}
-    if LibVersion < BIO_get_retry_flags_introduced then
-    begin
-      {$if declared(FC_BIO_get_retry_flags)}
-      BIO_get_retry_flags := @FC_BIO_get_retry_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_retry_flags_removed)}
+    BIO_get_retry_flags := @COMPAT_BIO_get_retry_flags;
     if BIO_get_retry_flags_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_retry_flags)}
-      BIO_get_retry_flags := @_BIO_get_retry_flags;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_retry_flags_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_get_retry_flags');
-    {$ifend}
   end;
 
- 
-  BIO_should_read := LoadLibFunction(ADllHandle, BIO_should_read_procname);
+  BIO_should_read := LoadLibCryptoFunction('BIO_should_read');
   FuncLoadError := not assigned(BIO_should_read);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_should_read_allownil)}
-    BIO_should_read := @ERR_BIO_should_read;
-    {$ifend}
-    {$if declared(BIO_should_read_introduced)}
-    if LibVersion < BIO_should_read_introduced then
-    begin
-      {$if declared(FC_BIO_should_read)}
-      BIO_should_read := @FC_BIO_should_read;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_should_read_removed)}
+    BIO_should_read := @COMPAT_BIO_should_read;
     if BIO_should_read_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_should_read)}
-      BIO_should_read := @_BIO_should_read;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_should_read_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_should_read');
-    {$ifend}
   end;
 
- 
-  BIO_should_write := LoadLibFunction(ADllHandle, BIO_should_write_procname);
+  BIO_should_write := LoadLibCryptoFunction('BIO_should_write');
   FuncLoadError := not assigned(BIO_should_write);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_should_write_allownil)}
-    BIO_should_write := @ERR_BIO_should_write;
-    {$ifend}
-    {$if declared(BIO_should_write_introduced)}
-    if LibVersion < BIO_should_write_introduced then
-    begin
-      {$if declared(FC_BIO_should_write)}
-      BIO_should_write := @FC_BIO_should_write;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_should_write_removed)}
+    BIO_should_write := @COMPAT_BIO_should_write;
     if BIO_should_write_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_should_write)}
-      BIO_should_write := @_BIO_should_write;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_should_write_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_should_write');
-    {$ifend}
   end;
 
- 
-  BIO_should_io_special := LoadLibFunction(ADllHandle, BIO_should_io_special_procname);
+  BIO_should_io_special := LoadLibCryptoFunction('BIO_should_io_special');
   FuncLoadError := not assigned(BIO_should_io_special);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_should_io_special_allownil)}
-    BIO_should_io_special := @ERR_BIO_should_io_special;
-    {$ifend}
-    {$if declared(BIO_should_io_special_introduced)}
-    if LibVersion < BIO_should_io_special_introduced then
-    begin
-      {$if declared(FC_BIO_should_io_special)}
-      BIO_should_io_special := @FC_BIO_should_io_special;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_should_io_special_removed)}
+    BIO_should_io_special := @COMPAT_BIO_should_io_special;
     if BIO_should_io_special_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_should_io_special)}
-      BIO_should_io_special := @_BIO_should_io_special;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_should_io_special_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_should_io_special');
-    {$ifend}
   end;
 
- 
-  BIO_retry_type := LoadLibFunction(ADllHandle, BIO_retry_type_procname);
+  BIO_retry_type := LoadLibCryptoFunction('BIO_retry_type');
   FuncLoadError := not assigned(BIO_retry_type);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_retry_type_allownil)}
-    BIO_retry_type := @ERR_BIO_retry_type;
-    {$ifend}
-    {$if declared(BIO_retry_type_introduced)}
-    if LibVersion < BIO_retry_type_introduced then
-    begin
-      {$if declared(FC_BIO_retry_type)}
-      BIO_retry_type := @FC_BIO_retry_type;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_retry_type_removed)}
+    BIO_retry_type := @COMPAT_BIO_retry_type;
     if BIO_retry_type_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_retry_type)}
-      BIO_retry_type := @_BIO_retry_type;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_retry_type_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_retry_type');
-    {$ifend}
   end;
 
- 
-  BIO_should_retry := LoadLibFunction(ADllHandle, BIO_should_retry_procname);
+  BIO_should_retry := LoadLibCryptoFunction('BIO_should_retry');
   FuncLoadError := not assigned(BIO_should_retry);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_should_retry_allownil)}
-    BIO_should_retry := @ERR_BIO_should_retry;
-    {$ifend}
-    {$if declared(BIO_should_retry_introduced)}
-    if LibVersion < BIO_should_retry_introduced then
-    begin
-      {$if declared(FC_BIO_should_retry)}
-      BIO_should_retry := @FC_BIO_should_retry;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_should_retry_removed)}
+    BIO_should_retry := @COMPAT_BIO_should_retry;
     if BIO_should_retry_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_should_retry)}
-      BIO_should_retry := @_BIO_should_retry;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_should_retry_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_should_retry');
-    {$ifend}
   end;
 
- 
-  BIO_do_connect := LoadLibFunction(ADllHandle, BIO_do_connect_procname);
+  BIO_do_connect := LoadLibCryptoFunction('BIO_do_connect');
   FuncLoadError := not assigned(BIO_do_connect);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_do_connect_allownil)}
-    BIO_do_connect := @ERR_BIO_do_connect;
-    {$ifend}
-    {$if declared(BIO_do_connect_introduced)}
-    if LibVersion < BIO_do_connect_introduced then
-    begin
-      {$if declared(FC_BIO_do_connect)}
-      BIO_do_connect := @FC_BIO_do_connect;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_do_connect_removed)}
+    BIO_do_connect := @COMPAT_BIO_do_connect;
     if BIO_do_connect_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_do_connect)}
-      BIO_do_connect := @_BIO_do_connect;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_do_connect_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_do_connect');
-    {$ifend}
   end;
 
- 
-  BIO_do_accept := LoadLibFunction(ADllHandle, BIO_do_accept_procname);
+  BIO_do_accept := LoadLibCryptoFunction('BIO_do_accept');
   FuncLoadError := not assigned(BIO_do_accept);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_do_accept_allownil)}
-    BIO_do_accept := @ERR_BIO_do_accept;
-    {$ifend}
-    {$if declared(BIO_do_accept_introduced)}
-    if LibVersion < BIO_do_accept_introduced then
-    begin
-      {$if declared(FC_BIO_do_accept)}
-      BIO_do_accept := @FC_BIO_do_accept;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_do_accept_removed)}
+    BIO_do_accept := @COMPAT_BIO_do_accept;
     if BIO_do_accept_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_do_accept)}
-      BIO_do_accept := @_BIO_do_accept;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_do_accept_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_do_accept');
-    {$ifend}
   end;
 
- 
-  BIO_do_handshake := LoadLibFunction(ADllHandle, BIO_do_handshake_procname);
+  BIO_do_handshake := LoadLibCryptoFunction('BIO_do_handshake');
   FuncLoadError := not assigned(BIO_do_handshake);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_do_handshake_allownil)}
-    BIO_do_handshake := @ERR_BIO_do_handshake;
-    {$ifend}
-    {$if declared(BIO_do_handshake_introduced)}
-    if LibVersion < BIO_do_handshake_introduced then
-    begin
-      {$if declared(FC_BIO_do_handshake)}
-      BIO_do_handshake := @FC_BIO_do_handshake;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_do_handshake_removed)}
+    BIO_do_handshake := @COMPAT_BIO_do_handshake;
     if BIO_do_handshake_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_do_handshake)}
-      BIO_do_handshake := @_BIO_do_handshake;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_do_handshake_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_do_handshake');
-    {$ifend}
   end;
 
- 
-  BIO_get_mem_data := LoadLibFunction(ADllHandle, BIO_get_mem_data_procname);
+  BIO_get_mem_data := LoadLibCryptoFunction('BIO_get_mem_data');
   FuncLoadError := not assigned(BIO_get_mem_data);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_mem_data_allownil)}
-    BIO_get_mem_data := @ERR_BIO_get_mem_data;
-    {$ifend}
-    {$if declared(BIO_get_mem_data_introduced)}
-    if LibVersion < BIO_get_mem_data_introduced then
-    begin
-      {$if declared(FC_BIO_get_mem_data)}
-      BIO_get_mem_data := @FC_BIO_get_mem_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_mem_data_removed)}
+    BIO_get_mem_data := @COMPAT_BIO_get_mem_data;
     if BIO_get_mem_data_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_mem_data)}
-      BIO_get_mem_data := @_BIO_get_mem_data;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_mem_data_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_get_mem_data');
-    {$ifend}
   end;
 
- 
-  BIO_set_mem_buf := LoadLibFunction(ADllHandle, BIO_set_mem_buf_procname);
+  BIO_set_mem_buf := LoadLibCryptoFunction('BIO_set_mem_buf');
   FuncLoadError := not assigned(BIO_set_mem_buf);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_mem_buf_allownil)}
-    BIO_set_mem_buf := @ERR_BIO_set_mem_buf;
-    {$ifend}
-    {$if declared(BIO_set_mem_buf_introduced)}
-    if LibVersion < BIO_set_mem_buf_introduced then
-    begin
-      {$if declared(FC_BIO_set_mem_buf)}
-      BIO_set_mem_buf := @FC_BIO_set_mem_buf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_mem_buf_removed)}
+    BIO_set_mem_buf := @COMPAT_BIO_set_mem_buf;
     if BIO_set_mem_buf_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_mem_buf)}
-      BIO_set_mem_buf := @_BIO_set_mem_buf;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_mem_buf_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_set_mem_buf');
-    {$ifend}
   end;
 
- 
-  BIO_get_mem_ptr := LoadLibFunction(ADllHandle, BIO_get_mem_ptr_procname);
+  BIO_get_mem_ptr := LoadLibCryptoFunction('BIO_get_mem_ptr');
   FuncLoadError := not assigned(BIO_get_mem_ptr);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_mem_ptr_allownil)}
-    BIO_get_mem_ptr := @ERR_BIO_get_mem_ptr;
-    {$ifend}
-    {$if declared(BIO_get_mem_ptr_introduced)}
-    if LibVersion < BIO_get_mem_ptr_introduced then
-    begin
-      {$if declared(FC_BIO_get_mem_ptr)}
-      BIO_get_mem_ptr := @FC_BIO_get_mem_ptr;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_mem_ptr_removed)}
+    BIO_get_mem_ptr := @COMPAT_BIO_get_mem_ptr;
     if BIO_get_mem_ptr_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_mem_ptr)}
-      BIO_get_mem_ptr := @_BIO_get_mem_ptr;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_mem_ptr_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_get_mem_ptr');
-    {$ifend}
   end;
 
- 
-  BIO_set_mem_eof_return := LoadLibFunction(ADllHandle, BIO_set_mem_eof_return_procname);
+  BIO_set_mem_eof_return := LoadLibCryptoFunction('BIO_set_mem_eof_return');
   FuncLoadError := not assigned(BIO_set_mem_eof_return);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_mem_eof_return_allownil)}
-    BIO_set_mem_eof_return := @ERR_BIO_set_mem_eof_return;
-    {$ifend}
-    {$if declared(BIO_set_mem_eof_return_introduced)}
-    if LibVersion < BIO_set_mem_eof_return_introduced then
-    begin
-      {$if declared(FC_BIO_set_mem_eof_return)}
-      BIO_set_mem_eof_return := @FC_BIO_set_mem_eof_return;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_mem_eof_return_removed)}
+    BIO_set_mem_eof_return := @COMPAT_BIO_set_mem_eof_return;
     if BIO_set_mem_eof_return_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_mem_eof_return)}
-      BIO_set_mem_eof_return := @_BIO_set_mem_eof_return;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_mem_eof_return_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_set_mem_eof_return');
-    {$ifend}
   end;
 
- 
-  BIO_get_new_index := LoadLibFunction(ADllHandle, BIO_get_new_index_procname);
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
+  BIO_get_new_index := LoadLibCryptoFunction('BIO_get_new_index');
   FuncLoadError := not assigned(BIO_get_new_index);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_new_index_allownil)}
-    BIO_get_new_index := @ERR_BIO_get_new_index;
-    {$ifend}
-    {$if declared(BIO_get_new_index_introduced)}
+    BIO_get_new_index :=  @ERROR_BIO_get_new_index;
     if LibVersion < BIO_get_new_index_introduced then
-    begin
-      {$if declared(FC_BIO_get_new_index)}
-      BIO_get_new_index := @FC_BIO_get_new_index;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_new_index_removed)}
-    if BIO_get_new_index_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_new_index)}
-      BIO_get_new_index := @_BIO_get_new_index;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_new_index_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_get_new_index');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_set_flags := LoadLibFunction(ADllHandle, BIO_set_flags_procname);
+  BIO_set_flags := LoadLibCryptoFunction('BIO_set_flags');
   FuncLoadError := not assigned(BIO_set_flags);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_flags_allownil)}
-    BIO_set_flags := @ERR_BIO_set_flags;
-    {$ifend}
-    {$if declared(BIO_set_flags_introduced)}
-    if LibVersion < BIO_set_flags_introduced then
-    begin
-      {$if declared(FC_BIO_set_flags)}
-      BIO_set_flags := @FC_BIO_set_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_flags_removed)}
-    if BIO_set_flags_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_flags)}
-      BIO_set_flags := @_BIO_set_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_set_flags');
-    {$ifend}
+    BIO_set_flags :=  @ERROR_BIO_set_flags;
   end;
 
-
-  BIO_test_flags := LoadLibFunction(ADllHandle, BIO_test_flags_procname);
+  BIO_test_flags := LoadLibCryptoFunction('BIO_test_flags');
   FuncLoadError := not assigned(BIO_test_flags);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_test_flags_allownil)}
-    BIO_test_flags := @ERR_BIO_test_flags;
-    {$ifend}
-    {$if declared(BIO_test_flags_introduced)}
-    if LibVersion < BIO_test_flags_introduced then
-    begin
-      {$if declared(FC_BIO_test_flags)}
-      BIO_test_flags := @FC_BIO_test_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_test_flags_removed)}
-    if BIO_test_flags_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_test_flags)}
-      BIO_test_flags := @_BIO_test_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_test_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_test_flags');
-    {$ifend}
+    BIO_test_flags :=  @ERROR_BIO_test_flags;
   end;
 
-
-  BIO_clear_flags := LoadLibFunction(ADllHandle, BIO_clear_flags_procname);
+  BIO_clear_flags := LoadLibCryptoFunction('BIO_clear_flags');
   FuncLoadError := not assigned(BIO_clear_flags);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_clear_flags_allownil)}
-    BIO_clear_flags := @ERR_BIO_clear_flags;
-    {$ifend}
-    {$if declared(BIO_clear_flags_introduced)}
-    if LibVersion < BIO_clear_flags_introduced then
-    begin
-      {$if declared(FC_BIO_clear_flags)}
-      BIO_clear_flags := @FC_BIO_clear_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_clear_flags_removed)}
-    if BIO_clear_flags_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_clear_flags)}
-      BIO_clear_flags := @_BIO_clear_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_clear_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_clear_flags');
-    {$ifend}
+    BIO_clear_flags :=  @ERROR_BIO_clear_flags;
   end;
 
-
-  BIO_get_callback := LoadLibFunction(ADllHandle, BIO_get_callback_procname);
+  BIO_get_callback := LoadLibCryptoFunction('BIO_get_callback');
   FuncLoadError := not assigned(BIO_get_callback);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_callback_allownil)}
-    BIO_get_callback := @ERR_BIO_get_callback;
-    {$ifend}
-    {$if declared(BIO_get_callback_introduced)}
-    if LibVersion < BIO_get_callback_introduced then
-    begin
-      {$if declared(FC_BIO_get_callback)}
-      BIO_get_callback := @FC_BIO_get_callback;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_callback_removed)}
-    if BIO_get_callback_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_callback)}
-      BIO_get_callback := @_BIO_get_callback;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_callback_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_get_callback');
-    {$ifend}
+    BIO_get_callback :=  @ERROR_BIO_get_callback;
   end;
 
-
-  BIO_set_callback := LoadLibFunction(ADllHandle, BIO_set_callback_procname);
+  BIO_set_callback := LoadLibCryptoFunction('BIO_set_callback');
   FuncLoadError := not assigned(BIO_set_callback);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_callback_allownil)}
-    BIO_set_callback := @ERR_BIO_set_callback;
-    {$ifend}
-    {$if declared(BIO_set_callback_introduced)}
-    if LibVersion < BIO_set_callback_introduced then
-    begin
-      {$if declared(FC_BIO_set_callback)}
-      BIO_set_callback := @FC_BIO_set_callback;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_callback_removed)}
-    if BIO_set_callback_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_callback)}
-      BIO_set_callback := @_BIO_set_callback;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_callback_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_set_callback');
-    {$ifend}
+    BIO_set_callback :=  @ERROR_BIO_set_callback;
   end;
 
-
-  BIO_get_callback_ex := LoadLibFunction(ADllHandle, BIO_get_callback_ex_procname);
+  BIO_get_callback_ex := LoadLibCryptoFunction('BIO_get_callback_ex');
   FuncLoadError := not assigned(BIO_get_callback_ex);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_callback_ex_allownil)}
-    BIO_get_callback_ex := @ERR_BIO_get_callback_ex;
-    {$ifend}
-    {$if declared(BIO_get_callback_ex_introduced)}
+    BIO_get_callback_ex :=  @ERROR_BIO_get_callback_ex;
     if LibVersion < BIO_get_callback_ex_introduced then
-    begin
-      {$if declared(FC_BIO_get_callback_ex)}
-      BIO_get_callback_ex := @FC_BIO_get_callback_ex;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_callback_ex_removed)}
-    if BIO_get_callback_ex_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_callback_ex)}
-      BIO_get_callback_ex := @_BIO_get_callback_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_callback_ex_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_get_callback_ex');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_set_callback_ex := LoadLibFunction(ADllHandle, BIO_set_callback_ex_procname);
+  BIO_set_callback_ex := LoadLibCryptoFunction('BIO_set_callback_ex');
   FuncLoadError := not assigned(BIO_set_callback_ex);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_callback_ex_allownil)}
-    BIO_set_callback_ex := @ERR_BIO_set_callback_ex;
-    {$ifend}
-    {$if declared(BIO_set_callback_ex_introduced)}
+    BIO_set_callback_ex :=  @ERROR_BIO_set_callback_ex;
     if LibVersion < BIO_set_callback_ex_introduced then
-    begin
-      {$if declared(FC_BIO_set_callback_ex)}
-      BIO_set_callback_ex := @FC_BIO_set_callback_ex;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_callback_ex_removed)}
-    if BIO_set_callback_ex_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_callback_ex)}
-      BIO_set_callback_ex := @_BIO_set_callback_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_callback_ex_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_set_callback_ex');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_get_callback_arg := LoadLibFunction(ADllHandle, BIO_get_callback_arg_procname);
+  BIO_get_callback_arg := LoadLibCryptoFunction('BIO_get_callback_arg');
   FuncLoadError := not assigned(BIO_get_callback_arg);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_callback_arg_allownil)}
-    BIO_get_callback_arg := @ERR_BIO_get_callback_arg;
-    {$ifend}
-    {$if declared(BIO_get_callback_arg_introduced)}
-    if LibVersion < BIO_get_callback_arg_introduced then
-    begin
-      {$if declared(FC_BIO_get_callback_arg)}
-      BIO_get_callback_arg := @FC_BIO_get_callback_arg;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_callback_arg_removed)}
-    if BIO_get_callback_arg_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_callback_arg)}
-      BIO_get_callback_arg := @_BIO_get_callback_arg;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_callback_arg_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_get_callback_arg');
-    {$ifend}
+    BIO_get_callback_arg :=  @ERROR_BIO_get_callback_arg;
   end;
 
-
-  BIO_set_callback_arg := LoadLibFunction(ADllHandle, BIO_set_callback_arg_procname);
+  BIO_set_callback_arg := LoadLibCryptoFunction('BIO_set_callback_arg');
   FuncLoadError := not assigned(BIO_set_callback_arg);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_callback_arg_allownil)}
-    BIO_set_callback_arg := @ERR_BIO_set_callback_arg;
-    {$ifend}
-    {$if declared(BIO_set_callback_arg_introduced)}
-    if LibVersion < BIO_set_callback_arg_introduced then
-    begin
-      {$if declared(FC_BIO_set_callback_arg)}
-      BIO_set_callback_arg := @FC_BIO_set_callback_arg;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_callback_arg_removed)}
-    if BIO_set_callback_arg_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_callback_arg)}
-      BIO_set_callback_arg := @_BIO_set_callback_arg;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_callback_arg_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_set_callback_arg');
-    {$ifend}
+    BIO_set_callback_arg :=  @ERROR_BIO_set_callback_arg;
   end;
 
-
-  BIO_method_name := LoadLibFunction(ADllHandle, BIO_method_name_procname);
+  BIO_method_name := LoadLibCryptoFunction('BIO_method_name');
   FuncLoadError := not assigned(BIO_method_name);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_method_name_allownil)}
-    BIO_method_name := @ERR_BIO_method_name;
-    {$ifend}
-    {$if declared(BIO_method_name_introduced)}
-    if LibVersion < BIO_method_name_introduced then
-    begin
-      {$if declared(FC_BIO_method_name)}
-      BIO_method_name := @FC_BIO_method_name;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_method_name_removed)}
-    if BIO_method_name_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_method_name)}
-      BIO_method_name := @_BIO_method_name;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_method_name_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_method_name');
-    {$ifend}
+    BIO_method_name :=  @ERROR_BIO_method_name;
   end;
 
-
-  BIO_method_type := LoadLibFunction(ADllHandle, BIO_method_type_procname);
+  BIO_method_type := LoadLibCryptoFunction('BIO_method_type');
   FuncLoadError := not assigned(BIO_method_type);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_method_type_allownil)}
-    BIO_method_type := @ERR_BIO_method_type;
-    {$ifend}
-    {$if declared(BIO_method_type_introduced)}
-    if LibVersion < BIO_method_type_introduced then
-    begin
-      {$if declared(FC_BIO_method_type)}
-      BIO_method_type := @FC_BIO_method_type;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_method_type_removed)}
-    if BIO_method_type_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_method_type)}
-      BIO_method_type := @_BIO_method_type;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_method_type_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_method_type');
-    {$ifend}
+    BIO_method_type :=  @ERROR_BIO_method_type;
   end;
 
-
-  BIO_ctrl_pending := LoadLibFunction(ADllHandle, BIO_ctrl_pending_procname);
+  BIO_ctrl_pending := LoadLibCryptoFunction('BIO_ctrl_pending');
   FuncLoadError := not assigned(BIO_ctrl_pending);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ctrl_pending_allownil)}
-    BIO_ctrl_pending := @ERR_BIO_ctrl_pending;
-    {$ifend}
-    {$if declared(BIO_ctrl_pending_introduced)}
-    if LibVersion < BIO_ctrl_pending_introduced then
-    begin
-      {$if declared(FC_BIO_ctrl_pending)}
-      BIO_ctrl_pending := @FC_BIO_ctrl_pending;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ctrl_pending_removed)}
-    if BIO_ctrl_pending_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ctrl_pending)}
-      BIO_ctrl_pending := @_BIO_ctrl_pending;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ctrl_pending_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_ctrl_pending');
-    {$ifend}
+    BIO_ctrl_pending :=  @ERROR_BIO_ctrl_pending;
   end;
 
-
-  BIO_ctrl_wpending := LoadLibFunction(ADllHandle, BIO_ctrl_wpending_procname);
+  BIO_ctrl_wpending := LoadLibCryptoFunction('BIO_ctrl_wpending');
   FuncLoadError := not assigned(BIO_ctrl_wpending);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ctrl_wpending_allownil)}
-    BIO_ctrl_wpending := @ERR_BIO_ctrl_wpending;
-    {$ifend}
-    {$if declared(BIO_ctrl_wpending_introduced)}
-    if LibVersion < BIO_ctrl_wpending_introduced then
-    begin
-      {$if declared(FC_BIO_ctrl_wpending)}
-      BIO_ctrl_wpending := @FC_BIO_ctrl_wpending;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ctrl_wpending_removed)}
-    if BIO_ctrl_wpending_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ctrl_wpending)}
-      BIO_ctrl_wpending := @_BIO_ctrl_wpending;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ctrl_wpending_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_ctrl_wpending');
-    {$ifend}
+    BIO_ctrl_wpending :=  @ERROR_BIO_ctrl_wpending;
   end;
 
-
-  BIO_ctrl_get_write_guarantee := LoadLibFunction(ADllHandle, BIO_ctrl_get_write_guarantee_procname);
+  BIO_ctrl_get_write_guarantee := LoadLibCryptoFunction('BIO_ctrl_get_write_guarantee');
   FuncLoadError := not assigned(BIO_ctrl_get_write_guarantee);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ctrl_get_write_guarantee_allownil)}
-    BIO_ctrl_get_write_guarantee := @ERR_BIO_ctrl_get_write_guarantee;
-    {$ifend}
-    {$if declared(BIO_ctrl_get_write_guarantee_introduced)}
-    if LibVersion < BIO_ctrl_get_write_guarantee_introduced then
-    begin
-      {$if declared(FC_BIO_ctrl_get_write_guarantee)}
-      BIO_ctrl_get_write_guarantee := @FC_BIO_ctrl_get_write_guarantee;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ctrl_get_write_guarantee_removed)}
-    if BIO_ctrl_get_write_guarantee_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ctrl_get_write_guarantee)}
-      BIO_ctrl_get_write_guarantee := @_BIO_ctrl_get_write_guarantee;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ctrl_get_write_guarantee_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_ctrl_get_write_guarantee');
-    {$ifend}
+    BIO_ctrl_get_write_guarantee :=  @ERROR_BIO_ctrl_get_write_guarantee;
   end;
 
-
-  BIO_ctrl_get_read_request := LoadLibFunction(ADllHandle, BIO_ctrl_get_read_request_procname);
+  BIO_ctrl_get_read_request := LoadLibCryptoFunction('BIO_ctrl_get_read_request');
   FuncLoadError := not assigned(BIO_ctrl_get_read_request);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ctrl_get_read_request_allownil)}
-    BIO_ctrl_get_read_request := @ERR_BIO_ctrl_get_read_request;
-    {$ifend}
-    {$if declared(BIO_ctrl_get_read_request_introduced)}
-    if LibVersion < BIO_ctrl_get_read_request_introduced then
-    begin
-      {$if declared(FC_BIO_ctrl_get_read_request)}
-      BIO_ctrl_get_read_request := @FC_BIO_ctrl_get_read_request;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ctrl_get_read_request_removed)}
-    if BIO_ctrl_get_read_request_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ctrl_get_read_request)}
-      BIO_ctrl_get_read_request := @_BIO_ctrl_get_read_request;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ctrl_get_read_request_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_ctrl_get_read_request');
-    {$ifend}
+    BIO_ctrl_get_read_request :=  @ERROR_BIO_ctrl_get_read_request;
   end;
 
-
-  BIO_ctrl_reset_read_request := LoadLibFunction(ADllHandle, BIO_ctrl_reset_read_request_procname);
+  BIO_ctrl_reset_read_request := LoadLibCryptoFunction('BIO_ctrl_reset_read_request');
   FuncLoadError := not assigned(BIO_ctrl_reset_read_request);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ctrl_reset_read_request_allownil)}
-    BIO_ctrl_reset_read_request := @ERR_BIO_ctrl_reset_read_request;
-    {$ifend}
-    {$if declared(BIO_ctrl_reset_read_request_introduced)}
-    if LibVersion < BIO_ctrl_reset_read_request_introduced then
-    begin
-      {$if declared(FC_BIO_ctrl_reset_read_request)}
-      BIO_ctrl_reset_read_request := @FC_BIO_ctrl_reset_read_request;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ctrl_reset_read_request_removed)}
-    if BIO_ctrl_reset_read_request_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ctrl_reset_read_request)}
-      BIO_ctrl_reset_read_request := @_BIO_ctrl_reset_read_request;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ctrl_reset_read_request_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_ctrl_reset_read_request');
-    {$ifend}
+    BIO_ctrl_reset_read_request :=  @ERROR_BIO_ctrl_reset_read_request;
   end;
 
-
-  BIO_set_ex_data := LoadLibFunction(ADllHandle, BIO_set_ex_data_procname);
+  BIO_set_ex_data := LoadLibCryptoFunction('BIO_set_ex_data');
   FuncLoadError := not assigned(BIO_set_ex_data);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_ex_data_allownil)}
-    BIO_set_ex_data := @ERR_BIO_set_ex_data;
-    {$ifend}
-    {$if declared(BIO_set_ex_data_introduced)}
-    if LibVersion < BIO_set_ex_data_introduced then
-    begin
-      {$if declared(FC_BIO_set_ex_data)}
-      BIO_set_ex_data := @FC_BIO_set_ex_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_ex_data_removed)}
-    if BIO_set_ex_data_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_ex_data)}
-      BIO_set_ex_data := @_BIO_set_ex_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_ex_data_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_set_ex_data');
-    {$ifend}
+    BIO_set_ex_data :=  @ERROR_BIO_set_ex_data;
   end;
 
-
-  BIO_get_ex_data := LoadLibFunction(ADllHandle, BIO_get_ex_data_procname);
+  BIO_get_ex_data := LoadLibCryptoFunction('BIO_get_ex_data');
   FuncLoadError := not assigned(BIO_get_ex_data);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_ex_data_allownil)}
-    BIO_get_ex_data := @ERR_BIO_get_ex_data;
-    {$ifend}
-    {$if declared(BIO_get_ex_data_introduced)}
-    if LibVersion < BIO_get_ex_data_introduced then
-    begin
-      {$if declared(FC_BIO_get_ex_data)}
-      BIO_get_ex_data := @FC_BIO_get_ex_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_ex_data_removed)}
-    if BIO_get_ex_data_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_ex_data)}
-      BIO_get_ex_data := @_BIO_get_ex_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_ex_data_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_get_ex_data');
-    {$ifend}
+    BIO_get_ex_data :=  @ERROR_BIO_get_ex_data;
   end;
 
-
-  BIO_number_read := LoadLibFunction(ADllHandle, BIO_number_read_procname);
+  BIO_number_read := LoadLibCryptoFunction('BIO_number_read');
   FuncLoadError := not assigned(BIO_number_read);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_number_read_allownil)}
-    BIO_number_read := @ERR_BIO_number_read;
-    {$ifend}
-    {$if declared(BIO_number_read_introduced)}
-    if LibVersion < BIO_number_read_introduced then
-    begin
-      {$if declared(FC_BIO_number_read)}
-      BIO_number_read := @FC_BIO_number_read;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_number_read_removed)}
-    if BIO_number_read_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_number_read)}
-      BIO_number_read := @_BIO_number_read;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_number_read_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_number_read');
-    {$ifend}
+    BIO_number_read :=  @ERROR_BIO_number_read;
   end;
 
-
-  BIO_number_written := LoadLibFunction(ADllHandle, BIO_number_written_procname);
+  BIO_number_written := LoadLibCryptoFunction('BIO_number_written');
   FuncLoadError := not assigned(BIO_number_written);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_number_written_allownil)}
-    BIO_number_written := @ERR_BIO_number_written;
-    {$ifend}
-    {$if declared(BIO_number_written_introduced)}
-    if LibVersion < BIO_number_written_introduced then
-    begin
-      {$if declared(FC_BIO_number_written)}
-      BIO_number_written := @FC_BIO_number_written;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_number_written_removed)}
-    if BIO_number_written_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_number_written)}
-      BIO_number_written := @_BIO_number_written;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_number_written_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_number_written');
-    {$ifend}
+    BIO_number_written :=  @ERROR_BIO_number_written;
   end;
 
-
-  BIO_s_file := LoadLibFunction(ADllHandle, BIO_s_file_procname);
+  BIO_s_file := LoadLibCryptoFunction('BIO_s_file');
   FuncLoadError := not assigned(BIO_s_file);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_s_file_allownil)}
-    BIO_s_file := @ERR_BIO_s_file;
-    {$ifend}
-    {$if declared(BIO_s_file_introduced)}
-    if LibVersion < BIO_s_file_introduced then
-    begin
-      {$if declared(FC_BIO_s_file)}
-      BIO_s_file := @FC_BIO_s_file;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_s_file_removed)}
-    if BIO_s_file_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_s_file)}
-      BIO_s_file := @_BIO_s_file;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_s_file_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_s_file');
-    {$ifend}
+    BIO_s_file :=  @ERROR_BIO_s_file;
   end;
 
-
-  BIO_new_file := LoadLibFunction(ADllHandle, BIO_new_file_procname);
+  BIO_new_file := LoadLibCryptoFunction('BIO_new_file');
   FuncLoadError := not assigned(BIO_new_file);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_new_file_allownil)}
-    BIO_new_file := @ERR_BIO_new_file;
-    {$ifend}
-    {$if declared(BIO_new_file_introduced)}
-    if LibVersion < BIO_new_file_introduced then
-    begin
-      {$if declared(FC_BIO_new_file)}
-      BIO_new_file := @FC_BIO_new_file;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_new_file_removed)}
-    if BIO_new_file_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_new_file)}
-      BIO_new_file := @_BIO_new_file;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_new_file_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_new_file');
-    {$ifend}
+    BIO_new_file :=  @ERROR_BIO_new_file;
   end;
 
-
-  BIO_new := LoadLibFunction(ADllHandle, BIO_new_procname);
+  BIO_new := LoadLibCryptoFunction('BIO_new');
   FuncLoadError := not assigned(BIO_new);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_new_allownil)}
-    BIO_new := @ERR_BIO_new;
-    {$ifend}
-    {$if declared(BIO_new_introduced)}
-    if LibVersion < BIO_new_introduced then
-    begin
-      {$if declared(FC_BIO_new)}
-      BIO_new := @FC_BIO_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_new_removed)}
-    if BIO_new_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_new)}
-      BIO_new := @_BIO_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_new');
-    {$ifend}
+    BIO_new :=  @ERROR_BIO_new;
   end;
 
-
-  BIO_free := LoadLibFunction(ADllHandle, BIO_free_procname);
+  BIO_free := LoadLibCryptoFunction('BIO_free');
   FuncLoadError := not assigned(BIO_free);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_free_allownil)}
-    BIO_free := @ERR_BIO_free;
-    {$ifend}
-    {$if declared(BIO_free_introduced)}
-    if LibVersion < BIO_free_introduced then
-    begin
-      {$if declared(FC_BIO_free)}
-      BIO_free := @FC_BIO_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_free_removed)}
-    if BIO_free_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_free)}
-      BIO_free := @_BIO_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_free');
-    {$ifend}
+    BIO_free :=  @ERROR_BIO_free;
   end;
 
-
-  BIO_set_data := LoadLibFunction(ADllHandle, BIO_set_data_procname);
+  BIO_set_data := LoadLibCryptoFunction('BIO_set_data');
   FuncLoadError := not assigned(BIO_set_data);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_data_allownil)}
-    BIO_set_data := @ERR_BIO_set_data;
-    {$ifend}
-    {$if declared(BIO_set_data_introduced)}
+    BIO_set_data :=  @ERROR_BIO_set_data;
     if LibVersion < BIO_set_data_introduced then
-    begin
-      {$if declared(FC_BIO_set_data)}
-      BIO_set_data := @FC_BIO_set_data;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_data_removed)}
-    if BIO_set_data_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_data)}
-      BIO_set_data := @_BIO_set_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_data_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_set_data');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_get_data := LoadLibFunction(ADllHandle, BIO_get_data_procname);
+  BIO_get_data := LoadLibCryptoFunction('BIO_get_data');
   FuncLoadError := not assigned(BIO_get_data);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_data_allownil)}
-    BIO_get_data := @ERR_BIO_get_data;
-    {$ifend}
-    {$if declared(BIO_get_data_introduced)}
+    BIO_get_data :=  @ERROR_BIO_get_data;
     if LibVersion < BIO_get_data_introduced then
-    begin
-      {$if declared(FC_BIO_get_data)}
-      BIO_get_data := @FC_BIO_get_data;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_data_removed)}
-    if BIO_get_data_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_data)}
-      BIO_get_data := @_BIO_get_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_data_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_get_data');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_set_init := LoadLibFunction(ADllHandle, BIO_set_init_procname);
+  BIO_set_init := LoadLibCryptoFunction('BIO_set_init');
   FuncLoadError := not assigned(BIO_set_init);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_init_allownil)}
-    BIO_set_init := @ERR_BIO_set_init;
-    {$ifend}
-    {$if declared(BIO_set_init_introduced)}
+    BIO_set_init :=  @ERROR_BIO_set_init;
     if LibVersion < BIO_set_init_introduced then
-    begin
-      {$if declared(FC_BIO_set_init)}
-      BIO_set_init := @FC_BIO_set_init;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_init_removed)}
-    if BIO_set_init_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_init)}
-      BIO_set_init := @_BIO_set_init;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_init_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_set_init');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_get_init := LoadLibFunction(ADllHandle, BIO_get_init_procname);
+  BIO_get_init := LoadLibCryptoFunction('BIO_get_init');
   FuncLoadError := not assigned(BIO_get_init);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_init_allownil)}
-    BIO_get_init := @ERR_BIO_get_init;
-    {$ifend}
-    {$if declared(BIO_get_init_introduced)}
+    BIO_get_init :=  @ERROR_BIO_get_init;
     if LibVersion < BIO_get_init_introduced then
-    begin
-      {$if declared(FC_BIO_get_init)}
-      BIO_get_init := @FC_BIO_get_init;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_init_removed)}
-    if BIO_get_init_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_init)}
-      BIO_get_init := @_BIO_get_init;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_init_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_get_init');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_set_shutdown := LoadLibFunction(ADllHandle, BIO_set_shutdown_procname);
+  BIO_set_shutdown := LoadLibCryptoFunction('BIO_set_shutdown');
   FuncLoadError := not assigned(BIO_set_shutdown);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_shutdown_allownil)}
-    BIO_set_shutdown := @ERR_BIO_set_shutdown;
-    {$ifend}
-    {$if declared(BIO_set_shutdown_introduced)}
+    BIO_set_shutdown :=  @ERROR_BIO_set_shutdown;
     if LibVersion < BIO_set_shutdown_introduced then
-    begin
-      {$if declared(FC_BIO_set_shutdown)}
-      BIO_set_shutdown := @FC_BIO_set_shutdown;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_shutdown_removed)}
-    if BIO_set_shutdown_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_shutdown)}
-      BIO_set_shutdown := @_BIO_set_shutdown;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_shutdown_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_set_shutdown');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_get_shutdown := LoadLibFunction(ADllHandle, BIO_get_shutdown_procname);
+  BIO_get_shutdown := LoadLibCryptoFunction('BIO_get_shutdown');
   FuncLoadError := not assigned(BIO_get_shutdown);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_shutdown_allownil)}
-    BIO_get_shutdown := @ERR_BIO_get_shutdown;
-    {$ifend}
-    {$if declared(BIO_get_shutdown_introduced)}
+    BIO_get_shutdown :=  @ERROR_BIO_get_shutdown;
     if LibVersion < BIO_get_shutdown_introduced then
-    begin
-      {$if declared(FC_BIO_get_shutdown)}
-      BIO_get_shutdown := @FC_BIO_get_shutdown;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_shutdown_removed)}
-    if BIO_get_shutdown_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_shutdown)}
-      BIO_get_shutdown := @_BIO_get_shutdown;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_shutdown_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_get_shutdown');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_vfree := LoadLibFunction(ADllHandle, BIO_vfree_procname);
+  BIO_vfree := LoadLibCryptoFunction('BIO_vfree');
   FuncLoadError := not assigned(BIO_vfree);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_vfree_allownil)}
-    BIO_vfree := @ERR_BIO_vfree;
-    {$ifend}
-    {$if declared(BIO_vfree_introduced)}
-    if LibVersion < BIO_vfree_introduced then
-    begin
-      {$if declared(FC_BIO_vfree)}
-      BIO_vfree := @FC_BIO_vfree;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_vfree_removed)}
-    if BIO_vfree_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_vfree)}
-      BIO_vfree := @_BIO_vfree;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_vfree_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_vfree');
-    {$ifend}
+    BIO_vfree :=  @ERROR_BIO_vfree;
   end;
 
-
-  BIO_up_ref := LoadLibFunction(ADllHandle, BIO_up_ref_procname);
+  BIO_up_ref := LoadLibCryptoFunction('BIO_up_ref');
   FuncLoadError := not assigned(BIO_up_ref);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_up_ref_allownil)}
-    BIO_up_ref := @ERR_BIO_up_ref;
-    {$ifend}
-    {$if declared(BIO_up_ref_introduced)}
+    BIO_up_ref :=  @ERROR_BIO_up_ref;
     if LibVersion < BIO_up_ref_introduced then
-    begin
-      {$if declared(FC_BIO_up_ref)}
-      BIO_up_ref := @FC_BIO_up_ref;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_up_ref_removed)}
-    if BIO_up_ref_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_up_ref)}
-      BIO_up_ref := @_BIO_up_ref;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_up_ref_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_up_ref');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_read := LoadLibFunction(ADllHandle, BIO_read_procname);
+  BIO_read := LoadLibCryptoFunction('BIO_read');
   FuncLoadError := not assigned(BIO_read);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_read_allownil)}
-    BIO_read := @ERR_BIO_read;
-    {$ifend}
-    {$if declared(BIO_read_introduced)}
-    if LibVersion < BIO_read_introduced then
-    begin
-      {$if declared(FC_BIO_read)}
-      BIO_read := @FC_BIO_read;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_read_removed)}
-    if BIO_read_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_read)}
-      BIO_read := @_BIO_read;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_read_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_read');
-    {$ifend}
+    BIO_read :=  @ERROR_BIO_read;
   end;
 
-
-  BIO_read_ex := LoadLibFunction(ADllHandle, BIO_read_ex_procname);
+  BIO_read_ex := LoadLibCryptoFunction('BIO_read_ex');
   FuncLoadError := not assigned(BIO_read_ex);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_read_ex_allownil)}
-    BIO_read_ex := @ERR_BIO_read_ex;
-    {$ifend}
-    {$if declared(BIO_read_ex_introduced)}
+    BIO_read_ex :=  @ERROR_BIO_read_ex;
     if LibVersion < BIO_read_ex_introduced then
-    begin
-      {$if declared(FC_BIO_read_ex)}
-      BIO_read_ex := @FC_BIO_read_ex;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_read_ex_removed)}
-    if BIO_read_ex_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_read_ex)}
-      BIO_read_ex := @_BIO_read_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_read_ex_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_read_ex');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_gets := LoadLibFunction(ADllHandle, BIO_gets_procname);
+  BIO_gets := LoadLibCryptoFunction('BIO_gets');
   FuncLoadError := not assigned(BIO_gets);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_gets_allownil)}
-    BIO_gets := @ERR_BIO_gets;
-    {$ifend}
-    {$if declared(BIO_gets_introduced)}
-    if LibVersion < BIO_gets_introduced then
-    begin
-      {$if declared(FC_BIO_gets)}
-      BIO_gets := @FC_BIO_gets;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_gets_removed)}
-    if BIO_gets_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_gets)}
-      BIO_gets := @_BIO_gets;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_gets_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_gets');
-    {$ifend}
+    BIO_gets :=  @ERROR_BIO_gets;
   end;
 
-
-  BIO_write := LoadLibFunction(ADllHandle, BIO_write_procname);
+  BIO_write := LoadLibCryptoFunction('BIO_write');
   FuncLoadError := not assigned(BIO_write);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_write_allownil)}
-    BIO_write := @ERR_BIO_write;
-    {$ifend}
-    {$if declared(BIO_write_introduced)}
-    if LibVersion < BIO_write_introduced then
-    begin
-      {$if declared(FC_BIO_write)}
-      BIO_write := @FC_BIO_write;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_write_removed)}
-    if BIO_write_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_write)}
-      BIO_write := @_BIO_write;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_write_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_write');
-    {$ifend}
+    BIO_write :=  @ERROR_BIO_write;
   end;
 
-
-  BIO_write_ex := LoadLibFunction(ADllHandle, BIO_write_ex_procname);
+  BIO_write_ex := LoadLibCryptoFunction('BIO_write_ex');
   FuncLoadError := not assigned(BIO_write_ex);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_write_ex_allownil)}
-    BIO_write_ex := @ERR_BIO_write_ex;
-    {$ifend}
-    {$if declared(BIO_write_ex_introduced)}
+    BIO_write_ex :=  @ERROR_BIO_write_ex;
     if LibVersion < BIO_write_ex_introduced then
-    begin
-      {$if declared(FC_BIO_write_ex)}
-      BIO_write_ex := @FC_BIO_write_ex;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_write_ex_removed)}
-    if BIO_write_ex_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_write_ex)}
-      BIO_write_ex := @_BIO_write_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_write_ex_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_write_ex');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_puts := LoadLibFunction(ADllHandle, BIO_puts_procname);
+  BIO_puts := LoadLibCryptoFunction('BIO_puts');
   FuncLoadError := not assigned(BIO_puts);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_puts_allownil)}
-    BIO_puts := @ERR_BIO_puts;
-    {$ifend}
-    {$if declared(BIO_puts_introduced)}
-    if LibVersion < BIO_puts_introduced then
-    begin
-      {$if declared(FC_BIO_puts)}
-      BIO_puts := @FC_BIO_puts;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_puts_removed)}
-    if BIO_puts_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_puts)}
-      BIO_puts := @_BIO_puts;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_puts_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_puts');
-    {$ifend}
+    BIO_puts :=  @ERROR_BIO_puts;
   end;
 
-
-  BIO_indent := LoadLibFunction(ADllHandle, BIO_indent_procname);
+  BIO_indent := LoadLibCryptoFunction('BIO_indent');
   FuncLoadError := not assigned(BIO_indent);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_indent_allownil)}
-    BIO_indent := @ERR_BIO_indent;
-    {$ifend}
-    {$if declared(BIO_indent_introduced)}
-    if LibVersion < BIO_indent_introduced then
-    begin
-      {$if declared(FC_BIO_indent)}
-      BIO_indent := @FC_BIO_indent;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_indent_removed)}
-    if BIO_indent_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_indent)}
-      BIO_indent := @_BIO_indent;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_indent_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_indent');
-    {$ifend}
+    BIO_indent :=  @ERROR_BIO_indent;
   end;
 
-
-  BIO_ctrl := LoadLibFunction(ADllHandle, BIO_ctrl_procname);
+  BIO_ctrl := LoadLibCryptoFunction('BIO_ctrl');
   FuncLoadError := not assigned(BIO_ctrl);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ctrl_allownil)}
-    BIO_ctrl := @ERR_BIO_ctrl;
-    {$ifend}
-    {$if declared(BIO_ctrl_introduced)}
-    if LibVersion < BIO_ctrl_introduced then
-    begin
-      {$if declared(FC_BIO_ctrl)}
-      BIO_ctrl := @FC_BIO_ctrl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ctrl_removed)}
-    if BIO_ctrl_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ctrl)}
-      BIO_ctrl := @_BIO_ctrl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ctrl_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_ctrl');
-    {$ifend}
+    BIO_ctrl :=  @ERROR_BIO_ctrl;
   end;
 
-
-  BIO_callback_ctrl := LoadLibFunction(ADllHandle, BIO_callback_ctrl_procname);
+  BIO_callback_ctrl := LoadLibCryptoFunction('BIO_callback_ctrl');
   FuncLoadError := not assigned(BIO_callback_ctrl);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_callback_ctrl_allownil)}
-    BIO_callback_ctrl := @ERR_BIO_callback_ctrl;
-    {$ifend}
-    {$if declared(BIO_callback_ctrl_introduced)}
-    if LibVersion < BIO_callback_ctrl_introduced then
-    begin
-      {$if declared(FC_BIO_callback_ctrl)}
-      BIO_callback_ctrl := @FC_BIO_callback_ctrl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_callback_ctrl_removed)}
-    if BIO_callback_ctrl_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_callback_ctrl)}
-      BIO_callback_ctrl := @_BIO_callback_ctrl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_callback_ctrl_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_callback_ctrl');
-    {$ifend}
+    BIO_callback_ctrl :=  @ERROR_BIO_callback_ctrl;
   end;
 
-
-  BIO_ptr_ctrl := LoadLibFunction(ADllHandle, BIO_ptr_ctrl_procname);
+  BIO_ptr_ctrl := LoadLibCryptoFunction('BIO_ptr_ctrl');
   FuncLoadError := not assigned(BIO_ptr_ctrl);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ptr_ctrl_allownil)}
-    BIO_ptr_ctrl := @ERR_BIO_ptr_ctrl;
-    {$ifend}
-    {$if declared(BIO_ptr_ctrl_introduced)}
-    if LibVersion < BIO_ptr_ctrl_introduced then
-    begin
-      {$if declared(FC_BIO_ptr_ctrl)}
-      BIO_ptr_ctrl := @FC_BIO_ptr_ctrl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ptr_ctrl_removed)}
-    if BIO_ptr_ctrl_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ptr_ctrl)}
-      BIO_ptr_ctrl := @_BIO_ptr_ctrl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ptr_ctrl_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_ptr_ctrl');
-    {$ifend}
+    BIO_ptr_ctrl :=  @ERROR_BIO_ptr_ctrl;
   end;
 
-
-  BIO_int_ctrl := LoadLibFunction(ADllHandle, BIO_int_ctrl_procname);
+  BIO_int_ctrl := LoadLibCryptoFunction('BIO_int_ctrl');
   FuncLoadError := not assigned(BIO_int_ctrl);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_int_ctrl_allownil)}
-    BIO_int_ctrl := @ERR_BIO_int_ctrl;
-    {$ifend}
-    {$if declared(BIO_int_ctrl_introduced)}
-    if LibVersion < BIO_int_ctrl_introduced then
-    begin
-      {$if declared(FC_BIO_int_ctrl)}
-      BIO_int_ctrl := @FC_BIO_int_ctrl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_int_ctrl_removed)}
-    if BIO_int_ctrl_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_int_ctrl)}
-      BIO_int_ctrl := @_BIO_int_ctrl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_int_ctrl_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_int_ctrl');
-    {$ifend}
+    BIO_int_ctrl :=  @ERROR_BIO_int_ctrl;
   end;
 
-
-  BIO_push := LoadLibFunction(ADllHandle, BIO_push_procname);
+  BIO_push := LoadLibCryptoFunction('BIO_push');
   FuncLoadError := not assigned(BIO_push);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_push_allownil)}
-    BIO_push := @ERR_BIO_push;
-    {$ifend}
-    {$if declared(BIO_push_introduced)}
-    if LibVersion < BIO_push_introduced then
-    begin
-      {$if declared(FC_BIO_push)}
-      BIO_push := @FC_BIO_push;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_push_removed)}
-    if BIO_push_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_push)}
-      BIO_push := @_BIO_push;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_push_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_push');
-    {$ifend}
+    BIO_push :=  @ERROR_BIO_push;
   end;
 
-
-  BIO_pop := LoadLibFunction(ADllHandle, BIO_pop_procname);
+  BIO_pop := LoadLibCryptoFunction('BIO_pop');
   FuncLoadError := not assigned(BIO_pop);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_pop_allownil)}
-    BIO_pop := @ERR_BIO_pop;
-    {$ifend}
-    {$if declared(BIO_pop_introduced)}
-    if LibVersion < BIO_pop_introduced then
-    begin
-      {$if declared(FC_BIO_pop)}
-      BIO_pop := @FC_BIO_pop;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_pop_removed)}
-    if BIO_pop_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_pop)}
-      BIO_pop := @_BIO_pop;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_pop_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_pop');
-    {$ifend}
+    BIO_pop :=  @ERROR_BIO_pop;
   end;
 
-
-  BIO_free_all := LoadLibFunction(ADllHandle, BIO_free_all_procname);
+  BIO_free_all := LoadLibCryptoFunction('BIO_free_all');
   FuncLoadError := not assigned(BIO_free_all);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_free_all_allownil)}
-    BIO_free_all := @ERR_BIO_free_all;
-    {$ifend}
-    {$if declared(BIO_free_all_introduced)}
-    if LibVersion < BIO_free_all_introduced then
-    begin
-      {$if declared(FC_BIO_free_all)}
-      BIO_free_all := @FC_BIO_free_all;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_free_all_removed)}
-    if BIO_free_all_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_free_all)}
-      BIO_free_all := @_BIO_free_all;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_free_all_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_free_all');
-    {$ifend}
+    BIO_free_all :=  @ERROR_BIO_free_all;
   end;
 
-
-  BIO_find_type := LoadLibFunction(ADllHandle, BIO_find_type_procname);
+  BIO_find_type := LoadLibCryptoFunction('BIO_find_type');
   FuncLoadError := not assigned(BIO_find_type);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_find_type_allownil)}
-    BIO_find_type := @ERR_BIO_find_type;
-    {$ifend}
-    {$if declared(BIO_find_type_introduced)}
-    if LibVersion < BIO_find_type_introduced then
-    begin
-      {$if declared(FC_BIO_find_type)}
-      BIO_find_type := @FC_BIO_find_type;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_find_type_removed)}
-    if BIO_find_type_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_find_type)}
-      BIO_find_type := @_BIO_find_type;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_find_type_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_find_type');
-    {$ifend}
+    BIO_find_type :=  @ERROR_BIO_find_type;
   end;
 
-
-  BIO_next := LoadLibFunction(ADllHandle, BIO_next_procname);
+  BIO_next := LoadLibCryptoFunction('BIO_next');
   FuncLoadError := not assigned(BIO_next);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_next_allownil)}
-    BIO_next := @ERR_BIO_next;
-    {$ifend}
-    {$if declared(BIO_next_introduced)}
-    if LibVersion < BIO_next_introduced then
-    begin
-      {$if declared(FC_BIO_next)}
-      BIO_next := @FC_BIO_next;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_next_removed)}
-    if BIO_next_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_next)}
-      BIO_next := @_BIO_next;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_next_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_next');
-    {$ifend}
+    BIO_next :=  @ERROR_BIO_next;
   end;
 
-
-  BIO_set_next := LoadLibFunction(ADllHandle, BIO_set_next_procname);
+  BIO_set_next := LoadLibCryptoFunction('BIO_set_next');
   FuncLoadError := not assigned(BIO_set_next);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_next_allownil)}
-    BIO_set_next := @ERR_BIO_set_next;
-    {$ifend}
-    {$if declared(BIO_set_next_introduced)}
+    BIO_set_next :=  @ERROR_BIO_set_next;
     if LibVersion < BIO_set_next_introduced then
-    begin
-      {$if declared(FC_BIO_set_next)}
-      BIO_set_next := @FC_BIO_set_next;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_next_removed)}
-    if BIO_set_next_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_next)}
-      BIO_set_next := @_BIO_set_next;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_next_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_set_next');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_get_retry_BIO := LoadLibFunction(ADllHandle, BIO_get_retry_BIO_procname);
+  BIO_get_retry_BIO := LoadLibCryptoFunction('BIO_get_retry_BIO');
   FuncLoadError := not assigned(BIO_get_retry_BIO);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_retry_BIO_allownil)}
-    BIO_get_retry_BIO := @ERR_BIO_get_retry_BIO;
-    {$ifend}
-    {$if declared(BIO_get_retry_BIO_introduced)}
-    if LibVersion < BIO_get_retry_BIO_introduced then
-    begin
-      {$if declared(FC_BIO_get_retry_BIO)}
-      BIO_get_retry_BIO := @FC_BIO_get_retry_BIO;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_retry_BIO_removed)}
-    if BIO_get_retry_BIO_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_retry_BIO)}
-      BIO_get_retry_BIO := @_BIO_get_retry_BIO;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_retry_BIO_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_get_retry_BIO');
-    {$ifend}
+    BIO_get_retry_BIO :=  @ERROR_BIO_get_retry_BIO;
   end;
 
-
-  BIO_get_retry_reason := LoadLibFunction(ADllHandle, BIO_get_retry_reason_procname);
+  BIO_get_retry_reason := LoadLibCryptoFunction('BIO_get_retry_reason');
   FuncLoadError := not assigned(BIO_get_retry_reason);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_get_retry_reason_allownil)}
-    BIO_get_retry_reason := @ERR_BIO_get_retry_reason;
-    {$ifend}
-    {$if declared(BIO_get_retry_reason_introduced)}
-    if LibVersion < BIO_get_retry_reason_introduced then
-    begin
-      {$if declared(FC_BIO_get_retry_reason)}
-      BIO_get_retry_reason := @FC_BIO_get_retry_reason;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_get_retry_reason_removed)}
-    if BIO_get_retry_reason_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_get_retry_reason)}
-      BIO_get_retry_reason := @_BIO_get_retry_reason;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_get_retry_reason_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_get_retry_reason');
-    {$ifend}
+    BIO_get_retry_reason :=  @ERROR_BIO_get_retry_reason;
   end;
 
-
-  BIO_set_retry_reason := LoadLibFunction(ADllHandle, BIO_set_retry_reason_procname);
+  BIO_set_retry_reason := LoadLibCryptoFunction('BIO_set_retry_reason');
   FuncLoadError := not assigned(BIO_set_retry_reason);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_retry_reason_allownil)}
-    BIO_set_retry_reason := @ERR_BIO_set_retry_reason;
-    {$ifend}
-    {$if declared(BIO_set_retry_reason_introduced)}
+    BIO_set_retry_reason :=  @ERROR_BIO_set_retry_reason;
     if LibVersion < BIO_set_retry_reason_introduced then
-    begin
-      {$if declared(FC_BIO_set_retry_reason)}
-      BIO_set_retry_reason := @FC_BIO_set_retry_reason;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_retry_reason_removed)}
-    if BIO_set_retry_reason_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_retry_reason)}
-      BIO_set_retry_reason := @_BIO_set_retry_reason;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_retry_reason_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_set_retry_reason');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_dup_chain := LoadLibFunction(ADllHandle, BIO_dup_chain_procname);
+  BIO_dup_chain := LoadLibCryptoFunction('BIO_dup_chain');
   FuncLoadError := not assigned(BIO_dup_chain);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_dup_chain_allownil)}
-    BIO_dup_chain := @ERR_BIO_dup_chain;
-    {$ifend}
-    {$if declared(BIO_dup_chain_introduced)}
-    if LibVersion < BIO_dup_chain_introduced then
-    begin
-      {$if declared(FC_BIO_dup_chain)}
-      BIO_dup_chain := @FC_BIO_dup_chain;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_dup_chain_removed)}
-    if BIO_dup_chain_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_dup_chain)}
-      BIO_dup_chain := @_BIO_dup_chain;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_dup_chain_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_dup_chain');
-    {$ifend}
+    BIO_dup_chain :=  @ERROR_BIO_dup_chain;
   end;
 
-
-  BIO_nread0 := LoadLibFunction(ADllHandle, BIO_nread0_procname);
+  BIO_nread0 := LoadLibCryptoFunction('BIO_nread0');
   FuncLoadError := not assigned(BIO_nread0);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_nread0_allownil)}
-    BIO_nread0 := @ERR_BIO_nread0;
-    {$ifend}
-    {$if declared(BIO_nread0_introduced)}
-    if LibVersion < BIO_nread0_introduced then
-    begin
-      {$if declared(FC_BIO_nread0)}
-      BIO_nread0 := @FC_BIO_nread0;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_nread0_removed)}
-    if BIO_nread0_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_nread0)}
-      BIO_nread0 := @_BIO_nread0;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_nread0_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_nread0');
-    {$ifend}
+    BIO_nread0 :=  @ERROR_BIO_nread0;
   end;
 
-
-  BIO_nread := LoadLibFunction(ADllHandle, BIO_nread_procname);
+  BIO_nread := LoadLibCryptoFunction('BIO_nread');
   FuncLoadError := not assigned(BIO_nread);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_nread_allownil)}
-    BIO_nread := @ERR_BIO_nread;
-    {$ifend}
-    {$if declared(BIO_nread_introduced)}
-    if LibVersion < BIO_nread_introduced then
-    begin
-      {$if declared(FC_BIO_nread)}
-      BIO_nread := @FC_BIO_nread;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_nread_removed)}
-    if BIO_nread_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_nread)}
-      BIO_nread := @_BIO_nread;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_nread_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_nread');
-    {$ifend}
+    BIO_nread :=  @ERROR_BIO_nread;
   end;
 
-
-  BIO_nwrite0 := LoadLibFunction(ADllHandle, BIO_nwrite0_procname);
+  BIO_nwrite0 := LoadLibCryptoFunction('BIO_nwrite0');
   FuncLoadError := not assigned(BIO_nwrite0);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_nwrite0_allownil)}
-    BIO_nwrite0 := @ERR_BIO_nwrite0;
-    {$ifend}
-    {$if declared(BIO_nwrite0_introduced)}
-    if LibVersion < BIO_nwrite0_introduced then
-    begin
-      {$if declared(FC_BIO_nwrite0)}
-      BIO_nwrite0 := @FC_BIO_nwrite0;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_nwrite0_removed)}
-    if BIO_nwrite0_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_nwrite0)}
-      BIO_nwrite0 := @_BIO_nwrite0;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_nwrite0_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_nwrite0');
-    {$ifend}
+    BIO_nwrite0 :=  @ERROR_BIO_nwrite0;
   end;
 
-
-  BIO_nwrite := LoadLibFunction(ADllHandle, BIO_nwrite_procname);
+  BIO_nwrite := LoadLibCryptoFunction('BIO_nwrite');
   FuncLoadError := not assigned(BIO_nwrite);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_nwrite_allownil)}
-    BIO_nwrite := @ERR_BIO_nwrite;
-    {$ifend}
-    {$if declared(BIO_nwrite_introduced)}
-    if LibVersion < BIO_nwrite_introduced then
-    begin
-      {$if declared(FC_BIO_nwrite)}
-      BIO_nwrite := @FC_BIO_nwrite;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_nwrite_removed)}
-    if BIO_nwrite_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_nwrite)}
-      BIO_nwrite := @_BIO_nwrite;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_nwrite_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_nwrite');
-    {$ifend}
+    BIO_nwrite :=  @ERROR_BIO_nwrite;
   end;
 
-
-  BIO_debug_callback := LoadLibFunction(ADllHandle, BIO_debug_callback_procname);
+  BIO_debug_callback := LoadLibCryptoFunction('BIO_debug_callback');
   FuncLoadError := not assigned(BIO_debug_callback);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_debug_callback_allownil)}
-    BIO_debug_callback := @ERR_BIO_debug_callback;
-    {$ifend}
-    {$if declared(BIO_debug_callback_introduced)}
-    if LibVersion < BIO_debug_callback_introduced then
-    begin
-      {$if declared(FC_BIO_debug_callback)}
-      BIO_debug_callback := @FC_BIO_debug_callback;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_debug_callback_removed)}
-    if BIO_debug_callback_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_debug_callback)}
-      BIO_debug_callback := @_BIO_debug_callback;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_debug_callback_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_debug_callback');
-    {$ifend}
+    BIO_debug_callback :=  @ERROR_BIO_debug_callback;
   end;
 
-
-  BIO_s_mem := LoadLibFunction(ADllHandle, BIO_s_mem_procname);
+  BIO_s_mem := LoadLibCryptoFunction('BIO_s_mem');
   FuncLoadError := not assigned(BIO_s_mem);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_s_mem_allownil)}
-    BIO_s_mem := @ERR_BIO_s_mem;
-    {$ifend}
-    {$if declared(BIO_s_mem_introduced)}
-    if LibVersion < BIO_s_mem_introduced then
-    begin
-      {$if declared(FC_BIO_s_mem)}
-      BIO_s_mem := @FC_BIO_s_mem;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_s_mem_removed)}
-    if BIO_s_mem_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_s_mem)}
-      BIO_s_mem := @_BIO_s_mem;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_s_mem_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_s_mem');
-    {$ifend}
+    BIO_s_mem :=  @ERROR_BIO_s_mem;
   end;
 
-
-  BIO_s_secmem := LoadLibFunction(ADllHandle, BIO_s_secmem_procname);
+  BIO_s_secmem := LoadLibCryptoFunction('BIO_s_secmem');
   FuncLoadError := not assigned(BIO_s_secmem);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_s_secmem_allownil)}
-    BIO_s_secmem := @ERR_BIO_s_secmem;
-    {$ifend}
-    {$if declared(BIO_s_secmem_introduced)}
+    BIO_s_secmem :=  @ERROR_BIO_s_secmem;
     if LibVersion < BIO_s_secmem_introduced then
-    begin
-      {$if declared(FC_BIO_s_secmem)}
-      BIO_s_secmem := @FC_BIO_s_secmem;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_s_secmem_removed)}
-    if BIO_s_secmem_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_s_secmem)}
-      BIO_s_secmem := @_BIO_s_secmem;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_s_secmem_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_s_secmem');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_new_mem_buf := LoadLibFunction(ADllHandle, BIO_new_mem_buf_procname);
+  BIO_new_mem_buf := LoadLibCryptoFunction('BIO_new_mem_buf');
   FuncLoadError := not assigned(BIO_new_mem_buf);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_new_mem_buf_allownil)}
-    BIO_new_mem_buf := @ERR_BIO_new_mem_buf;
-    {$ifend}
-    {$if declared(BIO_new_mem_buf_introduced)}
-    if LibVersion < BIO_new_mem_buf_introduced then
-    begin
-      {$if declared(FC_BIO_new_mem_buf)}
-      BIO_new_mem_buf := @FC_BIO_new_mem_buf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_new_mem_buf_removed)}
-    if BIO_new_mem_buf_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_new_mem_buf)}
-      BIO_new_mem_buf := @_BIO_new_mem_buf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_new_mem_buf_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_new_mem_buf');
-    {$ifend}
+    BIO_new_mem_buf :=  @ERROR_BIO_new_mem_buf;
   end;
 
-
-  BIO_s_socket := LoadLibFunction(ADllHandle, BIO_s_socket_procname);
+  BIO_s_socket := LoadLibCryptoFunction('BIO_s_socket');
   FuncLoadError := not assigned(BIO_s_socket);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_s_socket_allownil)}
-    BIO_s_socket := @ERR_BIO_s_socket;
-    {$ifend}
-    {$if declared(BIO_s_socket_introduced)}
-    if LibVersion < BIO_s_socket_introduced then
-    begin
-      {$if declared(FC_BIO_s_socket)}
-      BIO_s_socket := @FC_BIO_s_socket;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_s_socket_removed)}
-    if BIO_s_socket_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_s_socket)}
-      BIO_s_socket := @_BIO_s_socket;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_s_socket_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_s_socket');
-    {$ifend}
+    BIO_s_socket :=  @ERROR_BIO_s_socket;
   end;
 
-
-  BIO_s_connect := LoadLibFunction(ADllHandle, BIO_s_connect_procname);
+  BIO_s_connect := LoadLibCryptoFunction('BIO_s_connect');
   FuncLoadError := not assigned(BIO_s_connect);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_s_connect_allownil)}
-    BIO_s_connect := @ERR_BIO_s_connect;
-    {$ifend}
-    {$if declared(BIO_s_connect_introduced)}
-    if LibVersion < BIO_s_connect_introduced then
-    begin
-      {$if declared(FC_BIO_s_connect)}
-      BIO_s_connect := @FC_BIO_s_connect;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_s_connect_removed)}
-    if BIO_s_connect_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_s_connect)}
-      BIO_s_connect := @_BIO_s_connect;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_s_connect_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_s_connect');
-    {$ifend}
+    BIO_s_connect :=  @ERROR_BIO_s_connect;
   end;
 
-
-  BIO_s_accept := LoadLibFunction(ADllHandle, BIO_s_accept_procname);
+  BIO_s_accept := LoadLibCryptoFunction('BIO_s_accept');
   FuncLoadError := not assigned(BIO_s_accept);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_s_accept_allownil)}
-    BIO_s_accept := @ERR_BIO_s_accept;
-    {$ifend}
-    {$if declared(BIO_s_accept_introduced)}
-    if LibVersion < BIO_s_accept_introduced then
-    begin
-      {$if declared(FC_BIO_s_accept)}
-      BIO_s_accept := @FC_BIO_s_accept;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_s_accept_removed)}
-    if BIO_s_accept_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_s_accept)}
-      BIO_s_accept := @_BIO_s_accept;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_s_accept_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_s_accept');
-    {$ifend}
+    BIO_s_accept :=  @ERROR_BIO_s_accept;
   end;
 
-
-  BIO_s_fd := LoadLibFunction(ADllHandle, BIO_s_fd_procname);
+  BIO_s_fd := LoadLibCryptoFunction('BIO_s_fd');
   FuncLoadError := not assigned(BIO_s_fd);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_s_fd_allownil)}
-    BIO_s_fd := @ERR_BIO_s_fd;
-    {$ifend}
-    {$if declared(BIO_s_fd_introduced)}
-    if LibVersion < BIO_s_fd_introduced then
-    begin
-      {$if declared(FC_BIO_s_fd)}
-      BIO_s_fd := @FC_BIO_s_fd;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_s_fd_removed)}
-    if BIO_s_fd_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_s_fd)}
-      BIO_s_fd := @_BIO_s_fd;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_s_fd_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_s_fd');
-    {$ifend}
+    BIO_s_fd :=  @ERROR_BIO_s_fd;
   end;
 
-
-  BIO_s_log := LoadLibFunction(ADllHandle, BIO_s_log_procname);
+  BIO_s_log := LoadLibCryptoFunction('BIO_s_log');
   FuncLoadError := not assigned(BIO_s_log);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_s_log_allownil)}
-    BIO_s_log := @ERR_BIO_s_log;
-    {$ifend}
-    {$if declared(BIO_s_log_introduced)}
-    if LibVersion < BIO_s_log_introduced then
-    begin
-      {$if declared(FC_BIO_s_log)}
-      BIO_s_log := @FC_BIO_s_log;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_s_log_removed)}
-    if BIO_s_log_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_s_log)}
-      BIO_s_log := @_BIO_s_log;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_s_log_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_s_log');
-    {$ifend}
+    BIO_s_log :=  @ERROR_BIO_s_log;
   end;
 
-
-  BIO_s_bio := LoadLibFunction(ADllHandle, BIO_s_bio_procname);
+  BIO_s_bio := LoadLibCryptoFunction('BIO_s_bio');
   FuncLoadError := not assigned(BIO_s_bio);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_s_bio_allownil)}
-    BIO_s_bio := @ERR_BIO_s_bio;
-    {$ifend}
-    {$if declared(BIO_s_bio_introduced)}
-    if LibVersion < BIO_s_bio_introduced then
-    begin
-      {$if declared(FC_BIO_s_bio)}
-      BIO_s_bio := @FC_BIO_s_bio;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_s_bio_removed)}
-    if BIO_s_bio_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_s_bio)}
-      BIO_s_bio := @_BIO_s_bio;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_s_bio_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_s_bio');
-    {$ifend}
+    BIO_s_bio :=  @ERROR_BIO_s_bio;
   end;
 
-
-  BIO_s_null := LoadLibFunction(ADllHandle, BIO_s_null_procname);
+  BIO_s_null := LoadLibCryptoFunction('BIO_s_null');
   FuncLoadError := not assigned(BIO_s_null);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_s_null_allownil)}
-    BIO_s_null := @ERR_BIO_s_null;
-    {$ifend}
-    {$if declared(BIO_s_null_introduced)}
-    if LibVersion < BIO_s_null_introduced then
-    begin
-      {$if declared(FC_BIO_s_null)}
-      BIO_s_null := @FC_BIO_s_null;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_s_null_removed)}
-    if BIO_s_null_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_s_null)}
-      BIO_s_null := @_BIO_s_null;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_s_null_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_s_null');
-    {$ifend}
+    BIO_s_null :=  @ERROR_BIO_s_null;
   end;
 
-
-  BIO_f_null := LoadLibFunction(ADllHandle, BIO_f_null_procname);
+  BIO_f_null := LoadLibCryptoFunction('BIO_f_null');
   FuncLoadError := not assigned(BIO_f_null);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_f_null_allownil)}
-    BIO_f_null := @ERR_BIO_f_null;
-    {$ifend}
-    {$if declared(BIO_f_null_introduced)}
-    if LibVersion < BIO_f_null_introduced then
-    begin
-      {$if declared(FC_BIO_f_null)}
-      BIO_f_null := @FC_BIO_f_null;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_f_null_removed)}
-    if BIO_f_null_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_f_null)}
-      BIO_f_null := @_BIO_f_null;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_f_null_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_f_null');
-    {$ifend}
+    BIO_f_null :=  @ERROR_BIO_f_null;
   end;
 
-
-  BIO_f_buffer := LoadLibFunction(ADllHandle, BIO_f_buffer_procname);
+  BIO_f_buffer := LoadLibCryptoFunction('BIO_f_buffer');
   FuncLoadError := not assigned(BIO_f_buffer);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_f_buffer_allownil)}
-    BIO_f_buffer := @ERR_BIO_f_buffer;
-    {$ifend}
-    {$if declared(BIO_f_buffer_introduced)}
-    if LibVersion < BIO_f_buffer_introduced then
-    begin
-      {$if declared(FC_BIO_f_buffer)}
-      BIO_f_buffer := @FC_BIO_f_buffer;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_f_buffer_removed)}
-    if BIO_f_buffer_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_f_buffer)}
-      BIO_f_buffer := @_BIO_f_buffer;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_f_buffer_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_f_buffer');
-    {$ifend}
+    BIO_f_buffer :=  @ERROR_BIO_f_buffer;
   end;
 
-
-  BIO_f_linebuffer := LoadLibFunction(ADllHandle, BIO_f_linebuffer_procname);
+  BIO_f_linebuffer := LoadLibCryptoFunction('BIO_f_linebuffer');
   FuncLoadError := not assigned(BIO_f_linebuffer);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_f_linebuffer_allownil)}
-    BIO_f_linebuffer := @ERR_BIO_f_linebuffer;
-    {$ifend}
-    {$if declared(BIO_f_linebuffer_introduced)}
+    BIO_f_linebuffer :=  @ERROR_BIO_f_linebuffer;
     if LibVersion < BIO_f_linebuffer_introduced then
-    begin
-      {$if declared(FC_BIO_f_linebuffer)}
-      BIO_f_linebuffer := @FC_BIO_f_linebuffer;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_f_linebuffer_removed)}
-    if BIO_f_linebuffer_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_f_linebuffer)}
-      BIO_f_linebuffer := @_BIO_f_linebuffer;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_f_linebuffer_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_f_linebuffer');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_f_nbio_test := LoadLibFunction(ADllHandle, BIO_f_nbio_test_procname);
+  BIO_f_nbio_test := LoadLibCryptoFunction('BIO_f_nbio_test');
   FuncLoadError := not assigned(BIO_f_nbio_test);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_f_nbio_test_allownil)}
-    BIO_f_nbio_test := @ERR_BIO_f_nbio_test;
-    {$ifend}
-    {$if declared(BIO_f_nbio_test_introduced)}
-    if LibVersion < BIO_f_nbio_test_introduced then
-    begin
-      {$if declared(FC_BIO_f_nbio_test)}
-      BIO_f_nbio_test := @FC_BIO_f_nbio_test;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_f_nbio_test_removed)}
-    if BIO_f_nbio_test_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_f_nbio_test)}
-      BIO_f_nbio_test := @_BIO_f_nbio_test;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_f_nbio_test_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_f_nbio_test');
-    {$ifend}
+    BIO_f_nbio_test :=  @ERROR_BIO_f_nbio_test;
   end;
 
-
-  BIO_s_datagram := LoadLibFunction(ADllHandle, BIO_s_datagram_procname);
+  BIO_s_datagram := LoadLibCryptoFunction('BIO_s_datagram');
   FuncLoadError := not assigned(BIO_s_datagram);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_s_datagram_allownil)}
-    BIO_s_datagram := @ERR_BIO_s_datagram;
-    {$ifend}
-    {$if declared(BIO_s_datagram_introduced)}
-    if LibVersion < BIO_s_datagram_introduced then
-    begin
-      {$if declared(FC_BIO_s_datagram)}
-      BIO_s_datagram := @FC_BIO_s_datagram;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_s_datagram_removed)}
-    if BIO_s_datagram_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_s_datagram)}
-      BIO_s_datagram := @_BIO_s_datagram;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_s_datagram_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_s_datagram');
-    {$ifend}
+    BIO_s_datagram :=  @ERROR_BIO_s_datagram;
   end;
 
-
-  BIO_dgram_non_fatal_error := LoadLibFunction(ADllHandle, BIO_dgram_non_fatal_error_procname);
+  BIO_dgram_non_fatal_error := LoadLibCryptoFunction('BIO_dgram_non_fatal_error');
   FuncLoadError := not assigned(BIO_dgram_non_fatal_error);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_dgram_non_fatal_error_allownil)}
-    BIO_dgram_non_fatal_error := @ERR_BIO_dgram_non_fatal_error;
-    {$ifend}
-    {$if declared(BIO_dgram_non_fatal_error_introduced)}
-    if LibVersion < BIO_dgram_non_fatal_error_introduced then
-    begin
-      {$if declared(FC_BIO_dgram_non_fatal_error)}
-      BIO_dgram_non_fatal_error := @FC_BIO_dgram_non_fatal_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_dgram_non_fatal_error_removed)}
-    if BIO_dgram_non_fatal_error_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_dgram_non_fatal_error)}
-      BIO_dgram_non_fatal_error := @_BIO_dgram_non_fatal_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_dgram_non_fatal_error_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_dgram_non_fatal_error');
-    {$ifend}
+    BIO_dgram_non_fatal_error :=  @ERROR_BIO_dgram_non_fatal_error;
   end;
 
-
-  BIO_new_dgram := LoadLibFunction(ADllHandle, BIO_new_dgram_procname);
+  BIO_new_dgram := LoadLibCryptoFunction('BIO_new_dgram');
   FuncLoadError := not assigned(BIO_new_dgram);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_new_dgram_allownil)}
-    BIO_new_dgram := @ERR_BIO_new_dgram;
-    {$ifend}
-    {$if declared(BIO_new_dgram_introduced)}
-    if LibVersion < BIO_new_dgram_introduced then
-    begin
-      {$if declared(FC_BIO_new_dgram)}
-      BIO_new_dgram := @FC_BIO_new_dgram;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_new_dgram_removed)}
-    if BIO_new_dgram_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_new_dgram)}
-      BIO_new_dgram := @_BIO_new_dgram;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_new_dgram_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_new_dgram');
-    {$ifend}
+    BIO_new_dgram :=  @ERROR_BIO_new_dgram;
   end;
 
-
-  BIO_sock_should_retry := LoadLibFunction(ADllHandle, BIO_sock_should_retry_procname);
+  BIO_sock_should_retry := LoadLibCryptoFunction('BIO_sock_should_retry');
   FuncLoadError := not assigned(BIO_sock_should_retry);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_sock_should_retry_allownil)}
-    BIO_sock_should_retry := @ERR_BIO_sock_should_retry;
-    {$ifend}
-    {$if declared(BIO_sock_should_retry_introduced)}
-    if LibVersion < BIO_sock_should_retry_introduced then
-    begin
-      {$if declared(FC_BIO_sock_should_retry)}
-      BIO_sock_should_retry := @FC_BIO_sock_should_retry;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_sock_should_retry_removed)}
-    if BIO_sock_should_retry_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_sock_should_retry)}
-      BIO_sock_should_retry := @_BIO_sock_should_retry;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_sock_should_retry_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_sock_should_retry');
-    {$ifend}
+    BIO_sock_should_retry :=  @ERROR_BIO_sock_should_retry;
   end;
 
-
-  BIO_sock_non_fatal_error := LoadLibFunction(ADllHandle, BIO_sock_non_fatal_error_procname);
+  BIO_sock_non_fatal_error := LoadLibCryptoFunction('BIO_sock_non_fatal_error');
   FuncLoadError := not assigned(BIO_sock_non_fatal_error);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_sock_non_fatal_error_allownil)}
-    BIO_sock_non_fatal_error := @ERR_BIO_sock_non_fatal_error;
-    {$ifend}
-    {$if declared(BIO_sock_non_fatal_error_introduced)}
-    if LibVersion < BIO_sock_non_fatal_error_introduced then
-    begin
-      {$if declared(FC_BIO_sock_non_fatal_error)}
-      BIO_sock_non_fatal_error := @FC_BIO_sock_non_fatal_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_sock_non_fatal_error_removed)}
-    if BIO_sock_non_fatal_error_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_sock_non_fatal_error)}
-      BIO_sock_non_fatal_error := @_BIO_sock_non_fatal_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_sock_non_fatal_error_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_sock_non_fatal_error');
-    {$ifend}
+    BIO_sock_non_fatal_error :=  @ERROR_BIO_sock_non_fatal_error;
   end;
 
-
-  BIO_fd_should_retry := LoadLibFunction(ADllHandle, BIO_fd_should_retry_procname);
+  BIO_fd_should_retry := LoadLibCryptoFunction('BIO_fd_should_retry');
   FuncLoadError := not assigned(BIO_fd_should_retry);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_fd_should_retry_allownil)}
-    BIO_fd_should_retry := @ERR_BIO_fd_should_retry;
-    {$ifend}
-    {$if declared(BIO_fd_should_retry_introduced)}
-    if LibVersion < BIO_fd_should_retry_introduced then
-    begin
-      {$if declared(FC_BIO_fd_should_retry)}
-      BIO_fd_should_retry := @FC_BIO_fd_should_retry;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_fd_should_retry_removed)}
-    if BIO_fd_should_retry_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_fd_should_retry)}
-      BIO_fd_should_retry := @_BIO_fd_should_retry;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_fd_should_retry_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_fd_should_retry');
-    {$ifend}
+    BIO_fd_should_retry :=  @ERROR_BIO_fd_should_retry;
   end;
 
-
-  BIO_fd_non_fatal_error := LoadLibFunction(ADllHandle, BIO_fd_non_fatal_error_procname);
+  BIO_fd_non_fatal_error := LoadLibCryptoFunction('BIO_fd_non_fatal_error');
   FuncLoadError := not assigned(BIO_fd_non_fatal_error);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_fd_non_fatal_error_allownil)}
-    BIO_fd_non_fatal_error := @ERR_BIO_fd_non_fatal_error;
-    {$ifend}
-    {$if declared(BIO_fd_non_fatal_error_introduced)}
-    if LibVersion < BIO_fd_non_fatal_error_introduced then
-    begin
-      {$if declared(FC_BIO_fd_non_fatal_error)}
-      BIO_fd_non_fatal_error := @FC_BIO_fd_non_fatal_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_fd_non_fatal_error_removed)}
-    if BIO_fd_non_fatal_error_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_fd_non_fatal_error)}
-      BIO_fd_non_fatal_error := @_BIO_fd_non_fatal_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_fd_non_fatal_error_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_fd_non_fatal_error');
-    {$ifend}
+    BIO_fd_non_fatal_error :=  @ERROR_BIO_fd_non_fatal_error;
   end;
 
-
-  BIO_dump := LoadLibFunction(ADllHandle, BIO_dump_procname);
+  BIO_dump := LoadLibCryptoFunction('BIO_dump');
   FuncLoadError := not assigned(BIO_dump);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_dump_allownil)}
-    BIO_dump := @ERR_BIO_dump;
-    {$ifend}
-    {$if declared(BIO_dump_introduced)}
-    if LibVersion < BIO_dump_introduced then
-    begin
-      {$if declared(FC_BIO_dump)}
-      BIO_dump := @FC_BIO_dump;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_dump_removed)}
-    if BIO_dump_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_dump)}
-      BIO_dump := @_BIO_dump;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_dump_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_dump');
-    {$ifend}
+    BIO_dump :=  @ERROR_BIO_dump;
   end;
 
-
-  BIO_dump_indent := LoadLibFunction(ADllHandle, BIO_dump_indent_procname);
+  BIO_dump_indent := LoadLibCryptoFunction('BIO_dump_indent');
   FuncLoadError := not assigned(BIO_dump_indent);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_dump_indent_allownil)}
-    BIO_dump_indent := @ERR_BIO_dump_indent;
-    {$ifend}
-    {$if declared(BIO_dump_indent_introduced)}
-    if LibVersion < BIO_dump_indent_introduced then
-    begin
-      {$if declared(FC_BIO_dump_indent)}
-      BIO_dump_indent := @FC_BIO_dump_indent;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_dump_indent_removed)}
-    if BIO_dump_indent_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_dump_indent)}
-      BIO_dump_indent := @_BIO_dump_indent;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_dump_indent_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_dump_indent');
-    {$ifend}
+    BIO_dump_indent :=  @ERROR_BIO_dump_indent;
   end;
 
-
-  BIO_hex_string := LoadLibFunction(ADllHandle, BIO_hex_string_procname);
+  BIO_hex_string := LoadLibCryptoFunction('BIO_hex_string');
   FuncLoadError := not assigned(BIO_hex_string);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_hex_string_allownil)}
-    BIO_hex_string := @ERR_BIO_hex_string;
-    {$ifend}
-    {$if declared(BIO_hex_string_introduced)}
-    if LibVersion < BIO_hex_string_introduced then
-    begin
-      {$if declared(FC_BIO_hex_string)}
-      BIO_hex_string := @FC_BIO_hex_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_hex_string_removed)}
-    if BIO_hex_string_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_hex_string)}
-      BIO_hex_string := @_BIO_hex_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_hex_string_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_hex_string');
-    {$ifend}
+    BIO_hex_string :=  @ERROR_BIO_hex_string;
   end;
 
-
-  BIO_ADDR_new := LoadLibFunction(ADllHandle, BIO_ADDR_new_procname);
+  BIO_ADDR_new := LoadLibCryptoFunction('BIO_ADDR_new');
   FuncLoadError := not assigned(BIO_ADDR_new);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDR_new_allownil)}
-    BIO_ADDR_new := @ERR_BIO_ADDR_new;
-    {$ifend}
-    {$if declared(BIO_ADDR_new_introduced)}
+    BIO_ADDR_new :=  @ERROR_BIO_ADDR_new;
     if LibVersion < BIO_ADDR_new_introduced then
-    begin
-      {$if declared(FC_BIO_ADDR_new)}
-      BIO_ADDR_new := @FC_BIO_ADDR_new;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDR_new_removed)}
-    if BIO_ADDR_new_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDR_new)}
-      BIO_ADDR_new := @_BIO_ADDR_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDR_new_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDR_new');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDR_rawmake := LoadLibFunction(ADllHandle, BIO_ADDR_rawmake_procname);
+  BIO_ADDR_rawmake := LoadLibCryptoFunction('BIO_ADDR_rawmake');
   FuncLoadError := not assigned(BIO_ADDR_rawmake);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDR_rawmake_allownil)}
-    BIO_ADDR_rawmake := @ERR_BIO_ADDR_rawmake;
-    {$ifend}
-    {$if declared(BIO_ADDR_rawmake_introduced)}
+    BIO_ADDR_rawmake :=  @ERROR_BIO_ADDR_rawmake;
     if LibVersion < BIO_ADDR_rawmake_introduced then
-    begin
-      {$if declared(FC_BIO_ADDR_rawmake)}
-      BIO_ADDR_rawmake := @FC_BIO_ADDR_rawmake;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDR_rawmake_removed)}
-    if BIO_ADDR_rawmake_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDR_rawmake)}
-      BIO_ADDR_rawmake := @_BIO_ADDR_rawmake;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDR_rawmake_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDR_rawmake');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDR_free := LoadLibFunction(ADllHandle, BIO_ADDR_free_procname);
+  BIO_ADDR_free := LoadLibCryptoFunction('BIO_ADDR_free');
   FuncLoadError := not assigned(BIO_ADDR_free);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDR_free_allownil)}
-    BIO_ADDR_free := @ERR_BIO_ADDR_free;
-    {$ifend}
-    {$if declared(BIO_ADDR_free_introduced)}
+    BIO_ADDR_free :=  @ERROR_BIO_ADDR_free;
     if LibVersion < BIO_ADDR_free_introduced then
-    begin
-      {$if declared(FC_BIO_ADDR_free)}
-      BIO_ADDR_free := @FC_BIO_ADDR_free;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDR_free_removed)}
-    if BIO_ADDR_free_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDR_free)}
-      BIO_ADDR_free := @_BIO_ADDR_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDR_free_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDR_free');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDR_clear := LoadLibFunction(ADllHandle, BIO_ADDR_clear_procname);
+  BIO_ADDR_clear := LoadLibCryptoFunction('BIO_ADDR_clear');
   FuncLoadError := not assigned(BIO_ADDR_clear);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDR_clear_allownil)}
-    BIO_ADDR_clear := @ERR_BIO_ADDR_clear;
-    {$ifend}
-    {$if declared(BIO_ADDR_clear_introduced)}
+    BIO_ADDR_clear :=  @ERROR_BIO_ADDR_clear;
     if LibVersion < BIO_ADDR_clear_introduced then
-    begin
-      {$if declared(FC_BIO_ADDR_clear)}
-      BIO_ADDR_clear := @FC_BIO_ADDR_clear;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDR_clear_removed)}
-    if BIO_ADDR_clear_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDR_clear)}
-      BIO_ADDR_clear := @_BIO_ADDR_clear;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDR_clear_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDR_clear');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDR_family := LoadLibFunction(ADllHandle, BIO_ADDR_family_procname);
+  BIO_ADDR_family := LoadLibCryptoFunction('BIO_ADDR_family');
   FuncLoadError := not assigned(BIO_ADDR_family);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDR_family_allownil)}
-    BIO_ADDR_family := @ERR_BIO_ADDR_family;
-    {$ifend}
-    {$if declared(BIO_ADDR_family_introduced)}
+    BIO_ADDR_family :=  @ERROR_BIO_ADDR_family;
     if LibVersion < BIO_ADDR_family_introduced then
-    begin
-      {$if declared(FC_BIO_ADDR_family)}
-      BIO_ADDR_family := @FC_BIO_ADDR_family;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDR_family_removed)}
-    if BIO_ADDR_family_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDR_family)}
-      BIO_ADDR_family := @_BIO_ADDR_family;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDR_family_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDR_family');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDR_rawaddress := LoadLibFunction(ADllHandle, BIO_ADDR_rawaddress_procname);
+  BIO_ADDR_rawaddress := LoadLibCryptoFunction('BIO_ADDR_rawaddress');
   FuncLoadError := not assigned(BIO_ADDR_rawaddress);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDR_rawaddress_allownil)}
-    BIO_ADDR_rawaddress := @ERR_BIO_ADDR_rawaddress;
-    {$ifend}
-    {$if declared(BIO_ADDR_rawaddress_introduced)}
+    BIO_ADDR_rawaddress :=  @ERROR_BIO_ADDR_rawaddress;
     if LibVersion < BIO_ADDR_rawaddress_introduced then
-    begin
-      {$if declared(FC_BIO_ADDR_rawaddress)}
-      BIO_ADDR_rawaddress := @FC_BIO_ADDR_rawaddress;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDR_rawaddress_removed)}
-    if BIO_ADDR_rawaddress_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDR_rawaddress)}
-      BIO_ADDR_rawaddress := @_BIO_ADDR_rawaddress;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDR_rawaddress_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDR_rawaddress');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDR_rawport := LoadLibFunction(ADllHandle, BIO_ADDR_rawport_procname);
+  BIO_ADDR_rawport := LoadLibCryptoFunction('BIO_ADDR_rawport');
   FuncLoadError := not assigned(BIO_ADDR_rawport);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDR_rawport_allownil)}
-    BIO_ADDR_rawport := @ERR_BIO_ADDR_rawport;
-    {$ifend}
-    {$if declared(BIO_ADDR_rawport_introduced)}
+    BIO_ADDR_rawport :=  @ERROR_BIO_ADDR_rawport;
     if LibVersion < BIO_ADDR_rawport_introduced then
-    begin
-      {$if declared(FC_BIO_ADDR_rawport)}
-      BIO_ADDR_rawport := @FC_BIO_ADDR_rawport;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDR_rawport_removed)}
-    if BIO_ADDR_rawport_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDR_rawport)}
-      BIO_ADDR_rawport := @_BIO_ADDR_rawport;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDR_rawport_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDR_rawport');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDR_hostname_string := LoadLibFunction(ADllHandle, BIO_ADDR_hostname_string_procname);
+  BIO_ADDR_hostname_string := LoadLibCryptoFunction('BIO_ADDR_hostname_string');
   FuncLoadError := not assigned(BIO_ADDR_hostname_string);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDR_hostname_string_allownil)}
-    BIO_ADDR_hostname_string := @ERR_BIO_ADDR_hostname_string;
-    {$ifend}
-    {$if declared(BIO_ADDR_hostname_string_introduced)}
+    BIO_ADDR_hostname_string :=  @ERROR_BIO_ADDR_hostname_string;
     if LibVersion < BIO_ADDR_hostname_string_introduced then
-    begin
-      {$if declared(FC_BIO_ADDR_hostname_string)}
-      BIO_ADDR_hostname_string := @FC_BIO_ADDR_hostname_string;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDR_hostname_string_removed)}
-    if BIO_ADDR_hostname_string_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDR_hostname_string)}
-      BIO_ADDR_hostname_string := @_BIO_ADDR_hostname_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDR_hostname_string_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDR_hostname_string');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDR_service_string := LoadLibFunction(ADllHandle, BIO_ADDR_service_string_procname);
+  BIO_ADDR_service_string := LoadLibCryptoFunction('BIO_ADDR_service_string');
   FuncLoadError := not assigned(BIO_ADDR_service_string);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDR_service_string_allownil)}
-    BIO_ADDR_service_string := @ERR_BIO_ADDR_service_string;
-    {$ifend}
-    {$if declared(BIO_ADDR_service_string_introduced)}
+    BIO_ADDR_service_string :=  @ERROR_BIO_ADDR_service_string;
     if LibVersion < BIO_ADDR_service_string_introduced then
-    begin
-      {$if declared(FC_BIO_ADDR_service_string)}
-      BIO_ADDR_service_string := @FC_BIO_ADDR_service_string;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDR_service_string_removed)}
-    if BIO_ADDR_service_string_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDR_service_string)}
-      BIO_ADDR_service_string := @_BIO_ADDR_service_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDR_service_string_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDR_service_string');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDR_path_string := LoadLibFunction(ADllHandle, BIO_ADDR_path_string_procname);
+  BIO_ADDR_path_string := LoadLibCryptoFunction('BIO_ADDR_path_string');
   FuncLoadError := not assigned(BIO_ADDR_path_string);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDR_path_string_allownil)}
-    BIO_ADDR_path_string := @ERR_BIO_ADDR_path_string;
-    {$ifend}
-    {$if declared(BIO_ADDR_path_string_introduced)}
+    BIO_ADDR_path_string :=  @ERROR_BIO_ADDR_path_string;
     if LibVersion < BIO_ADDR_path_string_introduced then
-    begin
-      {$if declared(FC_BIO_ADDR_path_string)}
-      BIO_ADDR_path_string := @FC_BIO_ADDR_path_string;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDR_path_string_removed)}
-    if BIO_ADDR_path_string_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDR_path_string)}
-      BIO_ADDR_path_string := @_BIO_ADDR_path_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDR_path_string_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDR_path_string');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDRINFO_next := LoadLibFunction(ADllHandle, BIO_ADDRINFO_next_procname);
+  BIO_ADDRINFO_next := LoadLibCryptoFunction('BIO_ADDRINFO_next');
   FuncLoadError := not assigned(BIO_ADDRINFO_next);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDRINFO_next_allownil)}
-    BIO_ADDRINFO_next := @ERR_BIO_ADDRINFO_next;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_next_introduced)}
+    BIO_ADDRINFO_next :=  @ERROR_BIO_ADDRINFO_next;
     if LibVersion < BIO_ADDRINFO_next_introduced then
-    begin
-      {$if declared(FC_BIO_ADDRINFO_next)}
-      BIO_ADDRINFO_next := @FC_BIO_ADDRINFO_next;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_next_removed)}
-    if BIO_ADDRINFO_next_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDRINFO_next)}
-      BIO_ADDRINFO_next := @_BIO_ADDRINFO_next;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDRINFO_next_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDRINFO_next');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDRINFO_family := LoadLibFunction(ADllHandle, BIO_ADDRINFO_family_procname);
+  BIO_ADDRINFO_family := LoadLibCryptoFunction('BIO_ADDRINFO_family');
   FuncLoadError := not assigned(BIO_ADDRINFO_family);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDRINFO_family_allownil)}
-    BIO_ADDRINFO_family := @ERR_BIO_ADDRINFO_family;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_family_introduced)}
+    BIO_ADDRINFO_family :=  @ERROR_BIO_ADDRINFO_family;
     if LibVersion < BIO_ADDRINFO_family_introduced then
-    begin
-      {$if declared(FC_BIO_ADDRINFO_family)}
-      BIO_ADDRINFO_family := @FC_BIO_ADDRINFO_family;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_family_removed)}
-    if BIO_ADDRINFO_family_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDRINFO_family)}
-      BIO_ADDRINFO_family := @_BIO_ADDRINFO_family;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDRINFO_family_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDRINFO_family');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDRINFO_socktype := LoadLibFunction(ADllHandle, BIO_ADDRINFO_socktype_procname);
+  BIO_ADDRINFO_socktype := LoadLibCryptoFunction('BIO_ADDRINFO_socktype');
   FuncLoadError := not assigned(BIO_ADDRINFO_socktype);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDRINFO_socktype_allownil)}
-    BIO_ADDRINFO_socktype := @ERR_BIO_ADDRINFO_socktype;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_socktype_introduced)}
+    BIO_ADDRINFO_socktype :=  @ERROR_BIO_ADDRINFO_socktype;
     if LibVersion < BIO_ADDRINFO_socktype_introduced then
-    begin
-      {$if declared(FC_BIO_ADDRINFO_socktype)}
-      BIO_ADDRINFO_socktype := @FC_BIO_ADDRINFO_socktype;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_socktype_removed)}
-    if BIO_ADDRINFO_socktype_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDRINFO_socktype)}
-      BIO_ADDRINFO_socktype := @_BIO_ADDRINFO_socktype;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDRINFO_socktype_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDRINFO_socktype');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDRINFO_protocol := LoadLibFunction(ADllHandle, BIO_ADDRINFO_protocol_procname);
+  BIO_ADDRINFO_protocol := LoadLibCryptoFunction('BIO_ADDRINFO_protocol');
   FuncLoadError := not assigned(BIO_ADDRINFO_protocol);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDRINFO_protocol_allownil)}
-    BIO_ADDRINFO_protocol := @ERR_BIO_ADDRINFO_protocol;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_protocol_introduced)}
+    BIO_ADDRINFO_protocol :=  @ERROR_BIO_ADDRINFO_protocol;
     if LibVersion < BIO_ADDRINFO_protocol_introduced then
-    begin
-      {$if declared(FC_BIO_ADDRINFO_protocol)}
-      BIO_ADDRINFO_protocol := @FC_BIO_ADDRINFO_protocol;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_protocol_removed)}
-    if BIO_ADDRINFO_protocol_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDRINFO_protocol)}
-      BIO_ADDRINFO_protocol := @_BIO_ADDRINFO_protocol;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDRINFO_protocol_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDRINFO_protocol');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDRINFO_address := LoadLibFunction(ADllHandle, BIO_ADDRINFO_address_procname);
+  BIO_ADDRINFO_address := LoadLibCryptoFunction('BIO_ADDRINFO_address');
   FuncLoadError := not assigned(BIO_ADDRINFO_address);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDRINFO_address_allownil)}
-    BIO_ADDRINFO_address := @ERR_BIO_ADDRINFO_address;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_address_introduced)}
+    BIO_ADDRINFO_address :=  @ERROR_BIO_ADDRINFO_address;
     if LibVersion < BIO_ADDRINFO_address_introduced then
-    begin
-      {$if declared(FC_BIO_ADDRINFO_address)}
-      BIO_ADDRINFO_address := @FC_BIO_ADDRINFO_address;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_address_removed)}
-    if BIO_ADDRINFO_address_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDRINFO_address)}
-      BIO_ADDRINFO_address := @_BIO_ADDRINFO_address;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDRINFO_address_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDRINFO_address');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_ADDRINFO_free := LoadLibFunction(ADllHandle, BIO_ADDRINFO_free_procname);
+  BIO_ADDRINFO_free := LoadLibCryptoFunction('BIO_ADDRINFO_free');
   FuncLoadError := not assigned(BIO_ADDRINFO_free);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_ADDRINFO_free_allownil)}
-    BIO_ADDRINFO_free := @ERR_BIO_ADDRINFO_free;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_free_introduced)}
+    BIO_ADDRINFO_free :=  @ERROR_BIO_ADDRINFO_free;
     if LibVersion < BIO_ADDRINFO_free_introduced then
-    begin
-      {$if declared(FC_BIO_ADDRINFO_free)}
-      BIO_ADDRINFO_free := @FC_BIO_ADDRINFO_free;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_ADDRINFO_free_removed)}
-    if BIO_ADDRINFO_free_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_ADDRINFO_free)}
-      BIO_ADDRINFO_free := @_BIO_ADDRINFO_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_ADDRINFO_free_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_ADDRINFO_free');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_parse_hostserv := LoadLibFunction(ADllHandle, BIO_parse_hostserv_procname);
+  BIO_parse_hostserv := LoadLibCryptoFunction('BIO_parse_hostserv');
   FuncLoadError := not assigned(BIO_parse_hostserv);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_parse_hostserv_allownil)}
-    BIO_parse_hostserv := @ERR_BIO_parse_hostserv;
-    {$ifend}
-    {$if declared(BIO_parse_hostserv_introduced)}
+    BIO_parse_hostserv :=  @ERROR_BIO_parse_hostserv;
     if LibVersion < BIO_parse_hostserv_introduced then
-    begin
-      {$if declared(FC_BIO_parse_hostserv)}
-      BIO_parse_hostserv := @FC_BIO_parse_hostserv;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_parse_hostserv_removed)}
-    if BIO_parse_hostserv_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_parse_hostserv)}
-      BIO_parse_hostserv := @_BIO_parse_hostserv;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_parse_hostserv_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_parse_hostserv');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_lookup := LoadLibFunction(ADllHandle, BIO_lookup_procname);
+  BIO_lookup := LoadLibCryptoFunction('BIO_lookup');
   FuncLoadError := not assigned(BIO_lookup);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_lookup_allownil)}
-    BIO_lookup := @ERR_BIO_lookup;
-    {$ifend}
-    {$if declared(BIO_lookup_introduced)}
+    BIO_lookup :=  @ERROR_BIO_lookup;
     if LibVersion < BIO_lookup_introduced then
-    begin
-      {$if declared(FC_BIO_lookup)}
-      BIO_lookup := @FC_BIO_lookup;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_lookup_removed)}
-    if BIO_lookup_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_lookup)}
-      BIO_lookup := @_BIO_lookup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_lookup_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_lookup');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_lookup_ex := LoadLibFunction(ADllHandle, BIO_lookup_ex_procname);
+  BIO_lookup_ex := LoadLibCryptoFunction('BIO_lookup_ex');
   FuncLoadError := not assigned(BIO_lookup_ex);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_lookup_ex_allownil)}
-    BIO_lookup_ex := @ERR_BIO_lookup_ex;
-    {$ifend}
-    {$if declared(BIO_lookup_ex_introduced)}
+    BIO_lookup_ex :=  @ERROR_BIO_lookup_ex;
     if LibVersion < BIO_lookup_ex_introduced then
-    begin
-      {$if declared(FC_BIO_lookup_ex)}
-      BIO_lookup_ex := @FC_BIO_lookup_ex;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_lookup_ex_removed)}
-    if BIO_lookup_ex_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_lookup_ex)}
-      BIO_lookup_ex := @_BIO_lookup_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_lookup_ex_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_lookup_ex');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_sock_error := LoadLibFunction(ADllHandle, BIO_sock_error_procname);
+  BIO_sock_error := LoadLibCryptoFunction('BIO_sock_error');
   FuncLoadError := not assigned(BIO_sock_error);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_sock_error_allownil)}
-    BIO_sock_error := @ERR_BIO_sock_error;
-    {$ifend}
-    {$if declared(BIO_sock_error_introduced)}
-    if LibVersion < BIO_sock_error_introduced then
-    begin
-      {$if declared(FC_BIO_sock_error)}
-      BIO_sock_error := @FC_BIO_sock_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_sock_error_removed)}
-    if BIO_sock_error_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_sock_error)}
-      BIO_sock_error := @_BIO_sock_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_sock_error_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_sock_error');
-    {$ifend}
+    BIO_sock_error :=  @ERROR_BIO_sock_error;
   end;
 
-
-  BIO_socket_ioctl := LoadLibFunction(ADllHandle, BIO_socket_ioctl_procname);
+  BIO_socket_ioctl := LoadLibCryptoFunction('BIO_socket_ioctl');
   FuncLoadError := not assigned(BIO_socket_ioctl);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_socket_ioctl_allownil)}
-    BIO_socket_ioctl := @ERR_BIO_socket_ioctl;
-    {$ifend}
-    {$if declared(BIO_socket_ioctl_introduced)}
-    if LibVersion < BIO_socket_ioctl_introduced then
-    begin
-      {$if declared(FC_BIO_socket_ioctl)}
-      BIO_socket_ioctl := @FC_BIO_socket_ioctl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_socket_ioctl_removed)}
-    if BIO_socket_ioctl_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_socket_ioctl)}
-      BIO_socket_ioctl := @_BIO_socket_ioctl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_socket_ioctl_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_socket_ioctl');
-    {$ifend}
+    BIO_socket_ioctl :=  @ERROR_BIO_socket_ioctl;
   end;
 
-
-  BIO_socket_nbio := LoadLibFunction(ADllHandle, BIO_socket_nbio_procname);
+  BIO_socket_nbio := LoadLibCryptoFunction('BIO_socket_nbio');
   FuncLoadError := not assigned(BIO_socket_nbio);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_socket_nbio_allownil)}
-    BIO_socket_nbio := @ERR_BIO_socket_nbio;
-    {$ifend}
-    {$if declared(BIO_socket_nbio_introduced)}
-    if LibVersion < BIO_socket_nbio_introduced then
-    begin
-      {$if declared(FC_BIO_socket_nbio)}
-      BIO_socket_nbio := @FC_BIO_socket_nbio;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_socket_nbio_removed)}
-    if BIO_socket_nbio_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_socket_nbio)}
-      BIO_socket_nbio := @_BIO_socket_nbio;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_socket_nbio_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_socket_nbio');
-    {$ifend}
+    BIO_socket_nbio :=  @ERROR_BIO_socket_nbio;
   end;
 
-
-  BIO_sock_init := LoadLibFunction(ADllHandle, BIO_sock_init_procname);
+  BIO_sock_init := LoadLibCryptoFunction('BIO_sock_init');
   FuncLoadError := not assigned(BIO_sock_init);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_sock_init_allownil)}
-    BIO_sock_init := @ERR_BIO_sock_init;
-    {$ifend}
-    {$if declared(BIO_sock_init_introduced)}
-    if LibVersion < BIO_sock_init_introduced then
-    begin
-      {$if declared(FC_BIO_sock_init)}
-      BIO_sock_init := @FC_BIO_sock_init;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_sock_init_removed)}
-    if BIO_sock_init_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_sock_init)}
-      BIO_sock_init := @_BIO_sock_init;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_sock_init_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_sock_init');
-    {$ifend}
+    BIO_sock_init :=  @ERROR_BIO_sock_init;
   end;
 
-
-  BIO_set_tcp_ndelay := LoadLibFunction(ADllHandle, BIO_set_tcp_ndelay_procname);
+  BIO_set_tcp_ndelay := LoadLibCryptoFunction('BIO_set_tcp_ndelay');
   FuncLoadError := not assigned(BIO_set_tcp_ndelay);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_set_tcp_ndelay_allownil)}
-    BIO_set_tcp_ndelay := @ERR_BIO_set_tcp_ndelay;
-    {$ifend}
-    {$if declared(BIO_set_tcp_ndelay_introduced)}
-    if LibVersion < BIO_set_tcp_ndelay_introduced then
-    begin
-      {$if declared(FC_BIO_set_tcp_ndelay)}
-      BIO_set_tcp_ndelay := @FC_BIO_set_tcp_ndelay;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_set_tcp_ndelay_removed)}
-    if BIO_set_tcp_ndelay_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_set_tcp_ndelay)}
-      BIO_set_tcp_ndelay := @_BIO_set_tcp_ndelay;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_set_tcp_ndelay_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_set_tcp_ndelay');
-    {$ifend}
+    BIO_set_tcp_ndelay :=  @ERROR_BIO_set_tcp_ndelay;
   end;
 
-
-  BIO_sock_info := LoadLibFunction(ADllHandle, BIO_sock_info_procname);
+  BIO_sock_info := LoadLibCryptoFunction('BIO_sock_info');
   FuncLoadError := not assigned(BIO_sock_info);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_sock_info_allownil)}
-    BIO_sock_info := @ERR_BIO_sock_info;
-    {$ifend}
-    {$if declared(BIO_sock_info_introduced)}
+    BIO_sock_info :=  @ERROR_BIO_sock_info;
     if LibVersion < BIO_sock_info_introduced then
-    begin
-      {$if declared(FC_BIO_sock_info)}
-      BIO_sock_info := @FC_BIO_sock_info;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_sock_info_removed)}
-    if BIO_sock_info_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_sock_info)}
-      BIO_sock_info := @_BIO_sock_info;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_sock_info_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_sock_info');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_socket := LoadLibFunction(ADllHandle, BIO_socket_procname);
+  BIO_socket := LoadLibCryptoFunction('BIO_socket');
   FuncLoadError := not assigned(BIO_socket);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_socket_allownil)}
-    BIO_socket := @ERR_BIO_socket;
-    {$ifend}
-    {$if declared(BIO_socket_introduced)}
+    BIO_socket :=  @ERROR_BIO_socket;
     if LibVersion < BIO_socket_introduced then
-    begin
-      {$if declared(FC_BIO_socket)}
-      BIO_socket := @FC_BIO_socket;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_socket_removed)}
-    if BIO_socket_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_socket)}
-      BIO_socket := @_BIO_socket;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_socket_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_socket');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_connect := LoadLibFunction(ADllHandle, BIO_connect_procname);
+  BIO_connect := LoadLibCryptoFunction('BIO_connect');
   FuncLoadError := not assigned(BIO_connect);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_connect_allownil)}
-    BIO_connect := @ERR_BIO_connect;
-    {$ifend}
-    {$if declared(BIO_connect_introduced)}
+    BIO_connect :=  @ERROR_BIO_connect;
     if LibVersion < BIO_connect_introduced then
-    begin
-      {$if declared(FC_BIO_connect)}
-      BIO_connect := @FC_BIO_connect;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_connect_removed)}
-    if BIO_connect_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_connect)}
-      BIO_connect := @_BIO_connect;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_connect_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_connect');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_bind := LoadLibFunction(ADllHandle, BIO_bind_procname);
+  BIO_bind := LoadLibCryptoFunction('BIO_bind');
   FuncLoadError := not assigned(BIO_bind);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_bind_allownil)}
-    BIO_bind := @ERR_BIO_bind;
-    {$ifend}
-    {$if declared(BIO_bind_introduced)}
+    BIO_bind :=  @ERROR_BIO_bind;
     if LibVersion < BIO_bind_introduced then
-    begin
-      {$if declared(FC_BIO_bind)}
-      BIO_bind := @FC_BIO_bind;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_bind_removed)}
-    if BIO_bind_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_bind)}
-      BIO_bind := @_BIO_bind;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_bind_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_bind');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_listen := LoadLibFunction(ADllHandle, BIO_listen_procname);
+  BIO_listen := LoadLibCryptoFunction('BIO_listen');
   FuncLoadError := not assigned(BIO_listen);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_listen_allownil)}
-    BIO_listen := @ERR_BIO_listen;
-    {$ifend}
-    {$if declared(BIO_listen_introduced)}
+    BIO_listen :=  @ERROR_BIO_listen;
     if LibVersion < BIO_listen_introduced then
-    begin
-      {$if declared(FC_BIO_listen)}
-      BIO_listen := @FC_BIO_listen;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_listen_removed)}
-    if BIO_listen_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_listen)}
-      BIO_listen := @_BIO_listen;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_listen_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_listen');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_accept_ex := LoadLibFunction(ADllHandle, BIO_accept_ex_procname);
+  BIO_accept_ex := LoadLibCryptoFunction('BIO_accept_ex');
   FuncLoadError := not assigned(BIO_accept_ex);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_accept_ex_allownil)}
-    BIO_accept_ex := @ERR_BIO_accept_ex;
-    {$ifend}
-    {$if declared(BIO_accept_ex_introduced)}
+    BIO_accept_ex :=  @ERROR_BIO_accept_ex;
     if LibVersion < BIO_accept_ex_introduced then
-    begin
-      {$if declared(FC_BIO_accept_ex)}
-      BIO_accept_ex := @FC_BIO_accept_ex;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_accept_ex_removed)}
-    if BIO_accept_ex_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_accept_ex)}
-      BIO_accept_ex := @_BIO_accept_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_accept_ex_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_accept_ex');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_closesocket := LoadLibFunction(ADllHandle, BIO_closesocket_procname);
+  BIO_closesocket := LoadLibCryptoFunction('BIO_closesocket');
   FuncLoadError := not assigned(BIO_closesocket);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_closesocket_allownil)}
-    BIO_closesocket := @ERR_BIO_closesocket;
-    {$ifend}
-    {$if declared(BIO_closesocket_introduced)}
+    BIO_closesocket :=  @ERROR_BIO_closesocket;
     if LibVersion < BIO_closesocket_introduced then
-    begin
-      {$if declared(FC_BIO_closesocket)}
-      BIO_closesocket := @FC_BIO_closesocket;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_closesocket_removed)}
-    if BIO_closesocket_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_closesocket)}
-      BIO_closesocket := @_BIO_closesocket;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_closesocket_allownil)}
     if FuncLoadError then
       AFailed.Add('BIO_closesocket');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  BIO_new_socket := LoadLibFunction(ADllHandle, BIO_new_socket_procname);
+  BIO_new_socket := LoadLibCryptoFunction('BIO_new_socket');
   FuncLoadError := not assigned(BIO_new_socket);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_new_socket_allownil)}
-    BIO_new_socket := @ERR_BIO_new_socket;
-    {$ifend}
-    {$if declared(BIO_new_socket_introduced)}
-    if LibVersion < BIO_new_socket_introduced then
-    begin
-      {$if declared(FC_BIO_new_socket)}
-      BIO_new_socket := @FC_BIO_new_socket;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_new_socket_removed)}
-    if BIO_new_socket_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_new_socket)}
-      BIO_new_socket := @_BIO_new_socket;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_new_socket_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_new_socket');
-    {$ifend}
+    BIO_new_socket :=  @ERROR_BIO_new_socket;
   end;
 
-
-  BIO_new_connect := LoadLibFunction(ADllHandle, BIO_new_connect_procname);
+  BIO_new_connect := LoadLibCryptoFunction('BIO_new_connect');
   FuncLoadError := not assigned(BIO_new_connect);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_new_connect_allownil)}
-    BIO_new_connect := @ERR_BIO_new_connect;
-    {$ifend}
-    {$if declared(BIO_new_connect_introduced)}
-    if LibVersion < BIO_new_connect_introduced then
-    begin
-      {$if declared(FC_BIO_new_connect)}
-      BIO_new_connect := @FC_BIO_new_connect;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_new_connect_removed)}
-    if BIO_new_connect_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_new_connect)}
-      BIO_new_connect := @_BIO_new_connect;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_new_connect_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_new_connect');
-    {$ifend}
+    BIO_new_connect :=  @ERROR_BIO_new_connect;
   end;
 
-
-  BIO_new_accept := LoadLibFunction(ADllHandle, BIO_new_accept_procname);
+  BIO_new_accept := LoadLibCryptoFunction('BIO_new_accept');
   FuncLoadError := not assigned(BIO_new_accept);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_new_accept_allownil)}
-    BIO_new_accept := @ERR_BIO_new_accept;
-    {$ifend}
-    {$if declared(BIO_new_accept_introduced)}
-    if LibVersion < BIO_new_accept_introduced then
-    begin
-      {$if declared(FC_BIO_new_accept)}
-      BIO_new_accept := @FC_BIO_new_accept;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_new_accept_removed)}
-    if BIO_new_accept_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_new_accept)}
-      BIO_new_accept := @_BIO_new_accept;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_new_accept_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_new_accept');
-    {$ifend}
+    BIO_new_accept :=  @ERROR_BIO_new_accept;
   end;
 
-
-  BIO_new_fd := LoadLibFunction(ADllHandle, BIO_new_fd_procname);
+  BIO_new_fd := LoadLibCryptoFunction('BIO_new_fd');
   FuncLoadError := not assigned(BIO_new_fd);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_new_fd_allownil)}
-    BIO_new_fd := @ERR_BIO_new_fd;
-    {$ifend}
-    {$if declared(BIO_new_fd_introduced)}
-    if LibVersion < BIO_new_fd_introduced then
-    begin
-      {$if declared(FC_BIO_new_fd)}
-      BIO_new_fd := @FC_BIO_new_fd;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_new_fd_removed)}
-    if BIO_new_fd_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_new_fd)}
-      BIO_new_fd := @_BIO_new_fd;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_new_fd_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_new_fd');
-    {$ifend}
+    BIO_new_fd :=  @ERROR_BIO_new_fd;
   end;
 
-
-  BIO_new_bio_pair := LoadLibFunction(ADllHandle, BIO_new_bio_pair_procname);
+  BIO_new_bio_pair := LoadLibCryptoFunction('BIO_new_bio_pair');
   FuncLoadError := not assigned(BIO_new_bio_pair);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_new_bio_pair_allownil)}
-    BIO_new_bio_pair := @ERR_BIO_new_bio_pair;
-    {$ifend}
-    {$if declared(BIO_new_bio_pair_introduced)}
-    if LibVersion < BIO_new_bio_pair_introduced then
-    begin
-      {$if declared(FC_BIO_new_bio_pair)}
-      BIO_new_bio_pair := @FC_BIO_new_bio_pair;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_new_bio_pair_removed)}
-    if BIO_new_bio_pair_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_new_bio_pair)}
-      BIO_new_bio_pair := @_BIO_new_bio_pair;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_new_bio_pair_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_new_bio_pair');
-    {$ifend}
+    BIO_new_bio_pair :=  @ERROR_BIO_new_bio_pair;
   end;
 
-
-  BIO_copy_next_retry := LoadLibFunction(ADllHandle, BIO_copy_next_retry_procname);
+  BIO_copy_next_retry := LoadLibCryptoFunction('BIO_copy_next_retry');
   FuncLoadError := not assigned(BIO_copy_next_retry);
   if FuncLoadError then
   begin
-    {$if not defined(BIO_copy_next_retry_allownil)}
-    BIO_copy_next_retry := @ERR_BIO_copy_next_retry;
-    {$ifend}
-    {$if declared(BIO_copy_next_retry_introduced)}
-    if LibVersion < BIO_copy_next_retry_introduced then
-    begin
-      {$if declared(FC_BIO_copy_next_retry)}
-      BIO_copy_next_retry := @FC_BIO_copy_next_retry;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(BIO_copy_next_retry_removed)}
-    if BIO_copy_next_retry_removed <= LibVersion then
-    begin
-      {$if declared(_BIO_copy_next_retry)}
-      BIO_copy_next_retry := @_BIO_copy_next_retry;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(BIO_copy_next_retry_allownil)}
-    if FuncLoadError then
-      AFailed.Add('BIO_copy_next_retry');
-    {$ifend}
+    BIO_copy_next_retry :=  @ERROR_BIO_copy_next_retry;
   end;
-
 
 end;
 
-procedure Unload;
+procedure UnLoad;
 begin
-  BIO_get_flags := nil; {removed 1.0.0}
-  BIO_set_retry_special := nil; {removed 1.0.0}
-  BIO_set_retry_read := nil; {removed 1.0.0}
-  BIO_set_retry_write := nil; {removed 1.0.0}
-  BIO_clear_retry_flags := nil; {removed 1.0.0}
-  BIO_get_retry_flags := nil; {removed 1.0.0}
-  BIO_should_read := nil; {removed 1.0.0}
-  BIO_should_write := nil; {removed 1.0.0}
-  BIO_should_io_special := nil; {removed 1.0.0}
-  BIO_retry_type := nil; {removed 1.0.0}
-  BIO_should_retry := nil; {removed 1.0.0}
-  BIO_do_connect := nil; {removed 1.0.0}
-  BIO_do_accept := nil; {removed 1.0.0}
-  BIO_do_handshake := nil; {removed 1.0.0}
-  BIO_get_mem_data := nil; {removed 1.0.0}
-  BIO_set_mem_buf := nil; {removed 1.0.0}
-  BIO_get_mem_ptr := nil; {removed 1.0.0}
-  BIO_set_mem_eof_return := nil; {removed 1.0.0}
-  BIO_get_new_index := nil; {introduced 1.1.0}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  BIO_get_flags := nil;
+  BIO_set_retry_special := nil;
+  BIO_set_retry_read := nil;
+  BIO_set_retry_write := nil;
+  BIO_clear_retry_flags := nil;
+  BIO_get_retry_flags := nil;
+  BIO_should_read := nil;
+  BIO_should_write := nil;
+  BIO_should_io_special := nil;
+  BIO_retry_type := nil;
+  BIO_should_retry := nil;
+  BIO_do_connect := nil;
+  BIO_do_accept := nil;
+  BIO_do_handshake := nil;
+  BIO_get_mem_data := nil;
+  BIO_set_mem_buf := nil;
+  BIO_get_mem_ptr := nil;
+  BIO_set_mem_eof_return := nil;
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
+  BIO_get_new_index := nil;
   BIO_set_flags := nil;
   BIO_test_flags := nil;
   BIO_clear_flags := nil;
   BIO_get_callback := nil;
   BIO_set_callback := nil;
-  BIO_get_callback_ex := nil; {introduced 1.1.0}
-  BIO_set_callback_ex := nil; {introduced 1.1.0}
+  BIO_get_callback_ex := nil;
+  BIO_set_callback_ex := nil;
   BIO_get_callback_arg := nil;
   BIO_set_callback_arg := nil;
   BIO_method_name := nil;
@@ -7396,19 +3136,19 @@ begin
   BIO_new_file := nil;
   BIO_new := nil;
   BIO_free := nil;
-  BIO_set_data := nil; {introduced 1.1.0}
-  BIO_get_data := nil; {introduced 1.1.0}
-  BIO_set_init := nil; {introduced 1.1.0}
-  BIO_get_init := nil; {introduced 1.1.0}
-  BIO_set_shutdown := nil; {introduced 1.1.0}
-  BIO_get_shutdown := nil; {introduced 1.1.0}
+  BIO_set_data := nil;
+  BIO_get_data := nil;
+  BIO_set_init := nil;
+  BIO_get_init := nil;
+  BIO_set_shutdown := nil;
+  BIO_get_shutdown := nil;
   BIO_vfree := nil;
-  BIO_up_ref := nil; {introduced 1.1.0}
+  BIO_up_ref := nil;
   BIO_read := nil;
-  BIO_read_ex := nil; {introduced 1.1.0}
+  BIO_read_ex := nil;
   BIO_gets := nil;
   BIO_write := nil;
-  BIO_write_ex := nil; {introduced 1.1.0}
+  BIO_write_ex := nil;
   BIO_puts := nil;
   BIO_indent := nil;
   BIO_ctrl := nil;
@@ -7420,10 +3160,10 @@ begin
   BIO_free_all := nil;
   BIO_find_type := nil;
   BIO_next := nil;
-  BIO_set_next := nil; {introduced 1.1.0}
+  BIO_set_next := nil;
   BIO_get_retry_BIO := nil;
   BIO_get_retry_reason := nil;
-  BIO_set_retry_reason := nil; {introduced 1.1.0}
+  BIO_set_retry_reason := nil;
   BIO_dup_chain := nil;
   BIO_nread0 := nil;
   BIO_nread := nil;
@@ -7431,7 +3171,7 @@ begin
   BIO_nwrite := nil;
   BIO_debug_callback := nil;
   BIO_s_mem := nil;
-  BIO_s_secmem := nil; {introduced 1.1.0}
+  BIO_s_secmem := nil;
   BIO_new_mem_buf := nil;
   BIO_s_socket := nil;
   BIO_s_connect := nil;
@@ -7442,7 +3182,7 @@ begin
   BIO_s_null := nil;
   BIO_f_null := nil;
   BIO_f_buffer := nil;
-  BIO_f_linebuffer := nil; {introduced 1.1.0}
+  BIO_f_linebuffer := nil;
   BIO_f_nbio_test := nil;
   BIO_s_datagram := nil;
   BIO_dgram_non_fatal_error := nil;
@@ -7454,37 +3194,37 @@ begin
   BIO_dump := nil;
   BIO_dump_indent := nil;
   BIO_hex_string := nil;
-  BIO_ADDR_new := nil; {introduced 1.1.0}
-  BIO_ADDR_rawmake := nil; {introduced 1.1.0}
-  BIO_ADDR_free := nil; {introduced 1.1.0}
-  BIO_ADDR_clear := nil; {introduced 1.1.0}
-  BIO_ADDR_family := nil; {introduced 1.1.0}
-  BIO_ADDR_rawaddress := nil; {introduced 1.1.0}
-  BIO_ADDR_rawport := nil; {introduced 1.1.0}
-  BIO_ADDR_hostname_string := nil; {introduced 1.1.0}
-  BIO_ADDR_service_string := nil; {introduced 1.1.0}
-  BIO_ADDR_path_string := nil; {introduced 1.1.0}
-  BIO_ADDRINFO_next := nil; {introduced 1.1.0}
-  BIO_ADDRINFO_family := nil; {introduced 1.1.0}
-  BIO_ADDRINFO_socktype := nil; {introduced 1.1.0}
-  BIO_ADDRINFO_protocol := nil; {introduced 1.1.0}
-  BIO_ADDRINFO_address := nil; {introduced 1.1.0}
-  BIO_ADDRINFO_free := nil; {introduced 1.1.0}
-  BIO_parse_hostserv := nil; {introduced 1.1.0}
-  BIO_lookup := nil; {introduced 1.1.0}
-  BIO_lookup_ex := nil; {introduced 1.1.0}
+  BIO_ADDR_new := nil;
+  BIO_ADDR_rawmake := nil;
+  BIO_ADDR_free := nil;
+  BIO_ADDR_clear := nil;
+  BIO_ADDR_family := nil;
+  BIO_ADDR_rawaddress := nil;
+  BIO_ADDR_rawport := nil;
+  BIO_ADDR_hostname_string := nil;
+  BIO_ADDR_service_string := nil;
+  BIO_ADDR_path_string := nil;
+  BIO_ADDRINFO_next := nil;
+  BIO_ADDRINFO_family := nil;
+  BIO_ADDRINFO_socktype := nil;
+  BIO_ADDRINFO_protocol := nil;
+  BIO_ADDRINFO_address := nil;
+  BIO_ADDRINFO_free := nil;
+  BIO_parse_hostserv := nil;
+  BIO_lookup := nil;
+  BIO_lookup_ex := nil;
   BIO_sock_error := nil;
   BIO_socket_ioctl := nil;
   BIO_socket_nbio := nil;
   BIO_sock_init := nil;
   BIO_set_tcp_ndelay := nil;
-  BIO_sock_info := nil; {introduced 1.1.0}
-  BIO_socket := nil; {introduced 1.1.0}
-  BIO_connect := nil; {introduced 1.1.0}
-  BIO_bind := nil; {introduced 1.1.0}
-  BIO_listen := nil; {introduced 1.1.0}
-  BIO_accept_ex := nil; {introduced 1.1.0}
-  BIO_closesocket := nil; {introduced 1.1.0}
+  BIO_sock_info := nil;
+  BIO_socket := nil;
+  BIO_connect := nil;
+  BIO_bind := nil;
+  BIO_listen := nil;
+  BIO_accept_ex := nil;
+  BIO_closesocket := nil;
   BIO_new_socket := nil;
   BIO_new_connect := nil;
   BIO_new_accept := nil;
@@ -7492,124 +3232,15 @@ begin
   BIO_new_bio_pair := nil;
   BIO_copy_next_retry := nil;
 end;
-{$ELSE}
-function BIO_get_flags(const b: PBIO): TIdC_INT;
-begin
-  Result := BIO_test_flags(b, not $0);
-end;
-
-//# define BIO_set_retry_special(b) \
-//                BIO_set_flags(b, (BIO_FLAGS_IO_SPECIAL|BIO_FLAGS_SHOULD_RETRY))
-procedure BIO_set_retry_special(b: PBIO);
-begin
-  BIO_set_flags(b, BIO_FLAGS_IO_SPECIAL or BIO_FLAGS_SHOULD_RETRY);
-end;
-
-//# define BIO_set_retry_read(b) \
-//                BIO_set_flags(b, (BIO_FLAGS_READ|BIO_FLAGS_SHOULD_RETRY))
-procedure BIO_set_retry_read(b: PBIO);
-begin
-  BIO_set_flags(b, BIO_FLAGS_READ or BIO_FLAGS_SHOULD_RETRY);
-end;
-
-//# define BIO_set_retry_write(b) \
-//                BIO_set_flags(b, (BIO_FLAGS_WRITE|BIO_FLAGS_SHOULD_RETRY))
-procedure BIO_set_retry_write(b: PBIO);
-begin
-  BIO_set_flags(b, BIO_FLAGS_WRITE or BIO_FLAGS_SHOULD_RETRY);
-end;
-
-//# define BIO_clear_retry_flags(b) \
-//                BIO_clear_flags(b, (BIO_FLAGS_RWS|BIO_FLAGS_SHOULD_RETRY))
-procedure BIO_clear_retry_flags(b: PBIO);
-begin
-  BIO_clear_flags(b, BIO_FLAGS_RWS or BIO_FLAGS_SHOULD_RETRY);
-end;
-
-//# define BIO_get_retry_flags(b) \
-//                BIO_test_flags(b, (BIO_FLAGS_RWS|BIO_FLAGS_SHOULD_RETRY))
-function BIO_get_retry_flags(b: PBIO): TIdC_INT;
-begin
-  Result := BIO_test_flags(b, BIO_FLAGS_RWS or BIO_FLAGS_SHOULD_RETRY);
-end;
-
-//# define BIO_should_read(a)              BIO_test_flags(a, BIO_FLAGS_READ)
-function BIO_should_read(b: PBIO): TIdC_INT;
-begin
-  Result := BIO_test_flags(b, BIO_FLAGS_READ);
-end;
-
-//# define BIO_should_write(a)             BIO_test_flags(a, BIO_FLAGS_WRITE)
-function BIO_should_write(b: PBIO): TIdC_INT;
-begin
-  Result := BIO_test_flags(b, BIO_FLAGS_WRITE);
-end;
-
-//# define BIO_should_io_special(a)        BIO_test_flags(a, BIO_FLAGS_IO_SPECIAL)
-function BIO_should_io_special(b: PBIO): TIdC_INT;
-begin
-  Result := BIO_test_flags(b, BIO_FLAGS_IO_SPECIAL);
-end;
-
-//# define BIO_retry_type(a)               BIO_test_flags(a, BIO_FLAGS_RWS)
-function BIO_retry_type(b: PBIO): TIdC_INT;
-begin
-  Result := BIO_test_flags(b, BIO_FLAGS_RWS);
-end;
-
-//# define BIO_should_retry(a)             BIO_test_flags(a, BIO_FLAGS_SHOULD_RETRY)
-function BIO_should_retry(b: PBIO): TIdC_INT;
-begin
-  Result := BIO_test_flags(b, BIO_FLAGS_SHOULD_RETRY);
-end;
-
-//#  define BIO_do_connect(b)       BIO_do_handshake(b)
-function BIO_do_connect(b: PBIO): TIdC_LONG;
-begin
-  Result := BIO_do_handshake(b);
-end;
-
-//#  define BIO_do_accept(b)        BIO_do_handshake(b)
-function BIO_do_accept(b: PBIO): TIdC_LONG;
-begin
-  Result := BIO_do_handshake(b);
-end;
-
-//# define BIO_do_handshake(b)     BIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)
-function BIO_do_handshake(b: PBIO): TIdC_LONG;
-begin
-  Result := BIO_ctrl(b, BIO_C_DO_STATE_MACHINE, 0, nil);
-end;
-
-//# define BIO_get_mem_data(b,pp)  BIO_ctrl(b,BIO_CTRL_INFO,0,(char (pp))
-function BIO_get_mem_data(b: PBIO; pp: PIdAnsiChar) : TIdC_INT;
-begin
-  Result := BIO_ctrl(b, BIO_CTRL_INFO, 0, pp);
-end;
-
-//# define BIO_set_mem_buf(b,bm,c) BIO_ctrl(b,BIO_C_SET_BUF_MEM,c,(char (bm))
-function BIO_set_mem_buf(b: PBIO; bm: PIdAnsiChar; c: TIdC_INT): TIdC_INT;
-begin
-  Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM, c, bm);
-end;
-
-//# define BIO_get_mem_ptr(b,pp)   BIO_ctrl(b,BIO_C_GET_BUF_MEM_PTR,0,(char (pp))
-function BIO_get_mem_ptr(b: PBIO; pp: PIdAnsiChar): TIdC_INT;
-begin
-  Result := BIO_ctrl(b, BIO_C_GET_BUF_MEM_PTR, 0, pp);
-end;
-
-//# define BIO_set_mem_eof_return(b,v) BIO_ctrl(b,BIO_C_SET_BUF_MEM_EOF_RETURN,v,0)
-function BIO_set_mem_eof_return(b: PBIO; v: TIdC_INT): TIdC_INT;
-begin
-  Result := BIO_ctrl(b, BIO_C_SET_BUF_MEM_EOF_RETURN, v, nil);
-end;
-
 {$ENDIF}
+
+initialization
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-initialization
-  Register_SSLLoader(@Load,'LibCrypto');
-  Register_SSLUnloader(@Unload);
+Register_SSLLoader(@Load);
+Register_SSLUnloader(@Unload);
 {$ENDIF}
+finalization
+
+
 end.

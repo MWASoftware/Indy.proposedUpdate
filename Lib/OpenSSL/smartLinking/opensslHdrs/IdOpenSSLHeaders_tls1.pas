@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_tls1.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_tls1.h2pas
-     and this file regenerated. IdOpenSSLHeaders_tls1.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file tls1.h2pas 
+It should not be modified directly. All changes should be made to tls1.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_tls1;
+
 
 interface
 
@@ -39,9 +35,7 @@ interface
 
 
 uses
-  IdCTypes,
-  IdGlobal,
-  IdSSLOpenSSLConsts,
+  IdSSLOpenSSLAPI,
   IdOpenSSLHeaders_ossl_typ;
 
 const
@@ -120,7 +114,7 @@ const
    *)
   TLSEXT_TYPE_supported_groups = 10;
   TLSEXT_TYPE_elliptic_curves = TLSEXT_TYPE_supported_groups;
-  TLSEXT_TYPE_ec_poTIdC_INT_formats = 11;
+  TLSEXT_TYPE_ec_poTOpenSSL_C_INT_formats = 11;
 
   (* ExtensionType value from RFC5054 *)
   TLSEXT_TYPE_srp = 12;
@@ -179,12 +173,12 @@ const
   (* status request value from RFC3546 *)
   TLSEXT_STATUSTYPE_ocsp = 1;
 
-  (* ECPoTIdC_INTFormat values from RFC4492 *)
-  TLSEXT_ECPOTIdC_INTFORMAT_first = 0;
-  TLSEXT_ECPOTIdC_INTFORMAT_uncompressed = 0;
-  TLSEXT_ECPOTIdC_INTFORMAT_ansiX962_compressed_prime = 1;
-  TLSEXT_ECPOTIdC_INTFORMAT_ansiX962_compressed_PIdAnsiChar2 = 2;
-  TLSEXT_ECPOTIdC_INTFORMAT_last = 2;
+  (* ECPoTOpenSSL_C_INTFormat values from RFC4492 *)
+  TLSEXT_ECPOTOpenSSL_C_INTFORMAT_first = 0;
+  TLSEXT_ECPOTOpenSSL_C_INTFORMAT_uncompressed = 0;
+  TLSEXT_ECPOTOpenSSL_C_INTFORMAT_ansiX962_compressed_prime = 1;
+  TLSEXT_ECPOTOpenSSL_C_INTFORMAT_ansiX962_compressed_PAnsiChar2 = 2;
+  TLSEXT_ECPOTOpenSSL_C_INTFORMAT_last = 2;
 
   (* Signature and hash algorithms from RFC5246 *)
   TLSEXT_signature_anonymous = 0;
@@ -716,7 +710,7 @@ const
   (*
    * XXX Backward compatibility alert: Older versions of OpenSSL gave some DHE
    * ciphers names with "EDH" instead of "DHE".  Going forward, we should be
-   * using DHE everywhere, though we may indefinitely maTIdC_INTain aliases for
+   * using DHE everywhere, though we may indefinitely maTOpenSSL_C_INTain aliases for
    * users or configurations that used "EDH"
    *)
   TLS1_TXT_DHE_DSS_WITH_RC4_128_SHA = AnsiString('DHE-DSS-RC4-SHA');
@@ -1047,935 +1041,347 @@ const
 //  (*
 //   * client finished
 //   *)
-//  TLS_MD_CLIENT_FINISH_CONST = TIdAnsiChar($63) + TIdAnsiChar($6c) + TIdAnsiChar($69) + TIdAnsiChar($65) + TIdAnsiChar($6e) + TIdAnsiChar($74) + TIdAnsiChar($20) + TIdAnsiChar($66) + TIdAnsiChar($69) + TIdAnsiChar($6e) + TIdAnsiChar($69) + TIdAnsiChar($73) + TIdAnsiChar($68) + TIdAnsiChar($65) + TIdAnsiChar($64);
+//  TLS_MD_CLIENT_FINISH_CONST = TAnsiChar($63) + TAnsiChar($6c) + TAnsiChar($69) + TAnsiChar($65) + TAnsiChar($6e) + TAnsiChar($74) + TAnsiChar($20) + TAnsiChar($66) + TAnsiChar($69) + TAnsiChar($6e) + TAnsiChar($69) + TAnsiChar($73) + TAnsiChar($68) + TAnsiChar($65) + TAnsiChar($64);
 //
 //  (*
 //   * server finished
 //   *)
-//  TLS_MD_SERVER_FINISH_CONST = TIdAnsiChar($73) + TIdAnsiChar($65) + TIdAnsiChar($72) + TIdAnsiChar($76) + TIdAnsiChar($65) + TIdAnsiChar($72) + TIdAnsiChar($20) + TIdAnsiChar($66) + TIdAnsiChar($69) + TIdAnsiChar($6e) + TIdAnsiChar($69) + TIdAnsiChar($73) + TIdAnsiChar($68) + TIdAnsiChar($65) + TIdAnsiChar($64);
+//  TLS_MD_SERVER_FINISH_CONST = TAnsiChar($73) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($76) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($20) + TAnsiChar($66) + TAnsiChar($69) + TAnsiChar($6e) + TAnsiChar($69) + TAnsiChar($73) + TAnsiChar($68) + TAnsiChar($65) + TAnsiChar($64);
 //
 //  (*
 //   * server write key
 //   *)
-//  TLS_MD_SERVER_WRITE_KEY_CONST = TIdAnsiChar($73) + TIdAnsiChar($65) + TIdAnsiChar($72) + TIdAnsiChar($76) + TIdAnsiChar($65) + TIdAnsiChar($72) + TIdAnsiChar($20) + TIdAnsiChar($77) + TIdAnsiChar($72) + TIdAnsiChar($69) + TIdAnsiChar($74) + TIdAnsiChar($65) + TIdAnsiChar($20) + TIdAnsiChar($6b) + TIdAnsiChar($65) + TIdAnsiChar($79);
+//  TLS_MD_SERVER_WRITE_KEY_CONST = TAnsiChar($73) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($76) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($20) + TAnsiChar($77) + TAnsiChar($72) + TAnsiChar($69) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($20) + TAnsiChar($6b) + TAnsiChar($65) + TAnsiChar($79);
 //
 //  (*
 //   * key expansion
 //   *)
-//  TLS_MD_KEY_EXPANSION_CONST = TIdAnsiChar($6b) + TIdAnsiChar($65) + TIdAnsiChar($79) + TIdAnsiChar($20) + TIdAnsiChar($65) + TIdAnsiChar($78) + TIdAnsiChar($70) + TIdAnsiChar($61) + TIdAnsiChar($6e) + TIdAnsiChar($73) + TIdAnsiChar($69) + TIdAnsiChar($6f) + TIdAnsiChar($6e);
+//  TLS_MD_KEY_EXPANSION_CONST = TAnsiChar($6b) + TAnsiChar($65) + TAnsiChar($79) + TAnsiChar($20) + TAnsiChar($65) + TAnsiChar($78) + TAnsiChar($70) + TAnsiChar($61) + TAnsiChar($6e) + TAnsiChar($73) + TAnsiChar($69) + TAnsiChar($6f) + TAnsiChar($6e);
 //
 //  (*
 //   * client write key
 //   *)
-//  TLS_MD_CLIENT_WRITE_KEY_CONST = TIdAnsiChar($63) + TIdAnsiChar($6c) + TIdAnsiChar($69) + TIdAnsiChar($65) + TIdAnsiChar($6e) + TIdAnsiChar($74) + TIdAnsiChar($20) + TIdAnsiChar($77) + TIdAnsiChar($72) + TIdAnsiChar($69) + TIdAnsiChar($74) + TIdAnsiChar($65) + TIdAnsiChar($20) + TIdAnsiChar($6b) + TIdAnsiChar($65) + TIdAnsiChar($79);
+//  TLS_MD_CLIENT_WRITE_KEY_CONST = TAnsiChar($63) + TAnsiChar($6c) + TAnsiChar($69) + TAnsiChar($65) + TAnsiChar($6e) + TAnsiChar($74) + TAnsiChar($20) + TAnsiChar($77) + TAnsiChar($72) + TAnsiChar($69) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($20) + TAnsiChar($6b) + TAnsiChar($65) + TAnsiChar($79);
 //
 //  (*
 //   * server write key
 //   *)
-//  TLS_MD_SERVER_WRITE_KEY_CONST = TIdAnsiChar($73) + TIdAnsiChar($65) + TIdAnsiChar($72) + TIdAnsiChar($76) + TIdAnsiChar($65) + TIdAnsiChar($72) + TIdAnsiChar($20) + TIdAnsiChar($77) + TIdAnsiChar($72) + TIdAnsiChar($69) + TIdAnsiChar($74) + TIdAnsiChar($65) + TIdAnsiChar($20) + TIdAnsiChar($6b) + TIdAnsiChar($65) + TIdAnsiChar($79);
+//  TLS_MD_SERVER_WRITE_KEY_CONST = TAnsiChar($73) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($76) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($20) + TAnsiChar($77) + TAnsiChar($72) + TAnsiChar($69) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($20) + TAnsiChar($6b) + TAnsiChar($65) + TAnsiChar($79);
 //
 //  (*
 //   * IV block
 //   *)
-//  TLS_MD_IV_BLOCK_CONST = TIdAnsiChar($49) + TIdAnsiChar($56) + TIdAnsiChar($20) + TIdAnsiChar($62) + TIdAnsiChar($6c) + TIdAnsiChar($6f) + TIdAnsiChar($63) + TIdAnsiChar($6b);
+//  TLS_MD_IV_BLOCK_CONST = TAnsiChar($49) + TAnsiChar($56) + TAnsiChar($20) + TAnsiChar($62) + TAnsiChar($6c) + TAnsiChar($6f) + TAnsiChar($63) + TAnsiChar($6b);
 //
 //  (*
 //   * master secret
 //   *)
-//  TLS_MD_MASTER_SECRET_CONST = TIdAnsiChar($6d) + TIdAnsiChar($61) + TIdAnsiChar($73) + TIdAnsiChar($74) + TIdAnsiChar($65) + TIdAnsiChar($72) + TIdAnsiChar($20) + TIdAnsiChar($73) + TIdAnsiChar($65) + TIdAnsiChar($63) + TIdAnsiChar($72) + TIdAnsiChar($65) + TIdAnsiChar($74);
+//  TLS_MD_MASTER_SECRET_CONST = TAnsiChar($6d) + TAnsiChar($61) + TAnsiChar($73) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($20) + TAnsiChar($73) + TAnsiChar($65) + TAnsiChar($63) + TAnsiChar($72) + TAnsiChar($65) + TAnsiChar($74);
 //
 //  (*
 //   * extended master secret
 //   *)
-//  TLS_MD_EXTENDED_MASTER_SECRET_CONST = TIdAnsiChar($65) + TIdAnsiChar($78) + TIdAnsiChar($74) + TIdAnsiChar($65) + TIdAnsiChar($6e) + TIdAnsiChar($64) + TIdAnsiChar($65) + TIdAnsiChar($64) + TIdAnsiChar($20) + TIdAnsiChar($6d) + TIdAnsiChar($61) + TIdAnsiChar($73) + TIdAnsiChar($74) + TIdAnsiChar($65) + TIdAnsiChar($72) + TIdAnsiChar($20) + TIdAnsiChar($73) + TIdAnsiChar($65) + TIdAnsiChar($63) + TIdAnsiChar($72) + TIdAnsiChar($65) + TIdAnsiChar($74);
+//  TLS_MD_EXTENDED_MASTER_SECRET_CONST = TAnsiChar($65) + TAnsiChar($78) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($6e) + TAnsiChar($64) + TAnsiChar($65) + TAnsiChar($64) + TAnsiChar($20) + TAnsiChar($6d) + TAnsiChar($61) + TAnsiChar($73) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($20) + TAnsiChar($73) + TAnsiChar($65) + TAnsiChar($63) + TAnsiChar($72) + TAnsiChar($65) + TAnsiChar($74);
 
 type
   (* TLS Session Ticket extension struct *)
   tls_session_ticket_ext_st = record
-    length: TIdC_USHORT;
+    length: TOpenSSL_C_USHORT;
     data: Pointer;
   end;
 
-    { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
-		
-  	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-	  files generated for C++. }
-	  
-  {$EXTERNALSYM SSL_CTX_set_tlsext_max_fragment_length} {introduced 1.1.0}
-  {$EXTERNALSYM SSL_set_tlsext_max_fragment_length} {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_servername}
-  {$EXTERNALSYM SSL_get_servername_type}
-  {$EXTERNALSYM SSL_export_keying_material}
-  {$EXTERNALSYM SSL_export_keying_material_early} {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_peer_signature_type_nid} {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_signature_type_nid} {introduced 1.1.0}
-  {$EXTERNALSYM SSL_get_sigalgs}
-  {$EXTERNALSYM SSL_get_shared_sigalgs}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-var
-  {$EXTERNALSYM SSL_set_tlsext_host_name} {removed 1.0.0}
-  SSL_set_tlsext_host_name: function (s: PSSL; const name: PIdAnsiChar): TIdC_LONG; cdecl = nil; {removed 1.0.0}
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
 
-  SSL_CTX_set_tlsext_max_fragment_length: function (ctx: PSSL_CTx; mode: TIdC_UINT8): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  SSL_set_tlsext_max_fragment_length: function (ssl: PSSL; mode: TIdC_UINT8): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
 
-  SSL_get_servername: function (const s: PSSL; const type_: TIdC_INT): PIdAnsiChar; cdecl = nil;
-  SSL_get_servername_type: function (const s: PSSL): TIdC_INT; cdecl = nil;
-  (*
-   * SSL_export_keying_material exports a value derived from the master secret,
-   * as specified in RFC 5705. It writes |olen| bytes to |out| given a label and
-   * optional context. (Since a zero length context is allowed, the |use_context|
-   * flag controls whether a context is included.) It returns 1 on success and
-   * 0 or -1 otherwise.
-   *)
-  SSL_export_keying_material: function (s: PSSL; out_: PByte; olen: TIdC_SIZET; const label_: PIdAnsiChar; llen: TIdC_SIZET; const context: PByte; contextlen: TIdC_SIZET; use_context: TIdC_INT): TIdC_INT; cdecl = nil;
+{$EXTERNALSYM SSL_CTX_set_tlsext_max_fragment_length}
+{$EXTERNALSYM SSL_set_tlsext_max_fragment_length}
+{$EXTERNALSYM SSL_get_servername}
+{$EXTERNALSYM SSL_get_servername_type}
+{$EXTERNALSYM SSL_export_keying_material}
+{$EXTERNALSYM SSL_export_keying_material_early}
+{$EXTERNALSYM SSL_get_peer_signature_type_nid}
+{$EXTERNALSYM SSL_get_signature_type_nid}
+{$EXTERNALSYM SSL_get_sigalgs}
+{$EXTERNALSYM SSL_get_shared_sigalgs}
 
-  (*
-   * SSL_export_keying_material_early exports a value derived from the
-   * early exporter master secret, as specified in
-   * https://tools.ietf.org/html/draft-ietf-tls-tls13-23. It writes
-   * |olen| bytes to |out| given a label and optional context. It
-   * returns 1 on success and 0 otherwise.
-   *)
-  SSL_export_keying_material_early: function (s: PSSL; out_: PByte; olen: TIdC_SIZET; const label_: PIdAnsiChar; llen: TIdC_SIZET; const context: PByte; contextlen: TIdC_SIZET): TIdC_INT; cdecl = nil; {introduced 1.1.0}
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+function SSL_CTX_set_tlsext_max_fragment_length(ctx: PSSL_CTx; mode: TOpenSSL_C_UINT8): TOpenSSL_C_INT; cdecl; external CLibSSL;
+function SSL_set_tlsext_max_fragment_length(ssl: PSSL; mode: TOpenSSL_C_UINT8): TOpenSSL_C_INT; cdecl; external CLibSSL;
+function SSL_get_servername(const s: PSSL; const type_: TOpenSSL_C_INT): PAnsiChar; cdecl; external CLibSSL;
+function SSL_get_servername_type(const s: PSSL): TOpenSSL_C_INT; cdecl; external CLibSSL;
+function SSL_export_keying_material(s: PSSL; out_: PByte; olen: TOpenSSL_C_SIZET; const label_: PAnsiChar; llen: TOpenSSL_C_SIZET; const context: PByte; contextlen: TOpenSSL_C_SIZET; use_context: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibSSL;
+function SSL_export_keying_material_early(s: PSSL; out_: PByte; olen: TOpenSSL_C_SIZET; const label_: PAnsiChar; llen: TOpenSSL_C_SIZET; const context: PByte; contextlen: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl; external CLibSSL;
+function SSL_get_peer_signature_type_nid(const s: PSSl; pnid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibSSL;
+function SSL_get_signature_type_nid(const s: PSSl; pnid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibSSL;
+function SSL_get_sigalgs(s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_INT; phash: POpenSSL_C_INT; psignandhash: POpenSSL_C_INT; rsig: PByte; rhash: PByte): TOpenSSL_C_INT; cdecl; external CLibSSL;
+function SSL_get_shared_sigalgs(s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_INT; phash: POpenSSL_C_INT; psignandhash: POpenSSL_C_INT; rsig: PByte; rhash: PByte): TOpenSSL_C_INT; cdecl; external CLibSSL;
 
-  SSL_get_peer_signature_type_nid: function (const s: PSSl; pnid: PIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  SSL_get_signature_type_nid: function (const s: PSSl; pnid: PIdC_INT): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  SSL_get_sigalgs: function (s: PSSl; idx: TIdC_INT; psign: PIdC_INT; phash: PIdC_INT; psignandhash: PIdC_INT; rsig: PByte; rhash: PByte): TIdC_INT; cdecl = nil;
-  SSL_get_shared_sigalgs: function (s: PSSl; idx: TIdC_INT; psign: PIdC_INT; phash: PIdC_INT; psignandhash: PIdC_INT; rsig: PByte; rhash: PByte): TIdC_INT; cdecl = nil;
+{Removed functions for which legacy support available - use is deprecated}
 
-  //__owur TIdC_INT SSL_check_chain(s: PSSL, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain);
-
-  //# define SSL_set_tlsext_debug_callback(ssl, cb) \
-  //        SSL_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_DEBUG_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_set_tlsext_debug_arg(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_DEBUG_ARG,0,arg)
-  //
-  //# define SSL_get_tlsext_status_type(ssl) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE,0,NULL)
-  //
-  //# define SSL_set_tlsext_status_type(ssl, type) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,NULL)
-  //
-  //# define SSL_get_tlsext_status_exts(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_EXTS,0,arg)
-  //
-  //# define SSL_set_tlsext_status_exts(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_EXTS,0,arg)
-  //
-  //# define SSL_get_tlsext_status_ids(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_IDS,0,arg)
-  //
-  //# define SSL_set_tlsext_status_ids(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_IDS,0,arg)
-  //
-  //# define SSL_get_tlsext_status_ocsp_resp(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_OCSP_RESP,0,arg)
-  //
-  //# define SSL_set_tlsext_status_ocsp_resp(ssl, arg, arglen) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP,arglen,arg)
-  //
-  //# define SSL_CTX_set_tlsext_servername_callback(ctx, cb) \
-  //        SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_CTX_set_tlsext_servername_arg(ctx, arg) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG,0,arg)
-  //
-  //# define SSL_CTX_get_tlsext_ticket_keys(ctx, keys, keylen) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_TLSEXT_TICKET_KEYS,keylen,keys)
-  //# define SSL_CTX_set_tlsext_ticket_keys(ctx, keys, keylen) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_TICKET_KEYS,keylen,keys)
-  //
-  //# define SSL_CTX_get_tlsext_status_cb(ssl, cb) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB,0,(void *)cb)
-  //# define SSL_CTX_set_tlsext_status_cb(ssl, cb) \
-  //        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_CTX_get_tlsext_status_arg(ssl, arg) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB_ARG,0,arg)
-  //# define SSL_CTX_set_tlsext_status_arg(ssl, arg) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB_ARG,0,arg)
-  //
-  //# define SSL_CTX_set_tlsext_status_type(ssl, type) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,NULL)
-  //
-  //# define SSL_CTX_get_tlsext_status_type(ssl) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE,0,NULL)
-  //
-  //# define SSL_CTX_set_tlsext_ticket_key_cb(ssl, cb) \
-  //        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_TICKET_KEY_CB,\
-  //                (void (*)(void))cb)
-
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+function SSL_set_tlsext_host_name(s: PSSL; const name: PAnsiChar): TOpenSSL_C_LONG; cdecl;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ELSE}
+var
+  SSL_CTX_set_tlsext_max_fragment_length: function (ctx: PSSL_CTx; mode: TOpenSSL_C_UINT8): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  SSL_set_tlsext_max_fragment_length: function (ssl: PSSL; mode: TOpenSSL_C_UINT8): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  SSL_get_servername: function (const s: PSSL; const type_: TOpenSSL_C_INT): PAnsiChar; cdecl = nil;
+  SSL_get_servername_type: function (const s: PSSL): TOpenSSL_C_INT; cdecl = nil;
+  SSL_export_keying_material: function (s: PSSL; out_: PByte; olen: TOpenSSL_C_SIZET; const label_: PAnsiChar; llen: TOpenSSL_C_SIZET; const context: PByte; contextlen: TOpenSSL_C_SIZET; use_context: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  SSL_export_keying_material_early: function (s: PSSL; out_: PByte; olen: TOpenSSL_C_SIZET; const label_: PAnsiChar; llen: TOpenSSL_C_SIZET; const context: PByte; contextlen: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  SSL_get_peer_signature_type_nid: function (const s: PSSl; pnid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  SSL_get_signature_type_nid: function (const s: PSSl; pnid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  SSL_get_sigalgs: function (s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_INT; phash: POpenSSL_C_INT; psignandhash: POpenSSL_C_INT; rsig: PByte; rhash: PByte): TOpenSSL_C_INT; cdecl = nil;
+  SSL_get_shared_sigalgs: function (s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_INT; phash: POpenSSL_C_INT; psignandhash: POpenSSL_C_INT; rsig: PByte; rhash: PByte): TOpenSSL_C_INT; cdecl = nil;
 
-  function SSL_CTX_set_tlsext_max_fragment_length(ctx: PSSL_CTx; mode: TIdC_UINT8): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  function SSL_set_tlsext_max_fragment_length(ssl: PSSL; mode: TIdC_UINT8): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
+{Removed functions for which legacy support available - use is deprecated}
 
-  function SSL_get_servername(const s: PSSL; const type_: TIdC_INT): PIdAnsiChar cdecl; external CLibSSL;
-  function SSL_get_servername_type(const s: PSSL): TIdC_INT cdecl; external CLibSSL;
-  (*
-   * SSL_export_keying_material exports a value derived from the master secret,
-   * as specified in RFC 5705. It writes |olen| bytes to |out| given a label and
-   * optional context. (Since a zero length context is allowed, the |use_context|
-   * flag controls whether a context is included.) It returns 1 on success and
-   * 0 or -1 otherwise.
-   *)
-  function SSL_export_keying_material(s: PSSL; out_: PByte; olen: TIdC_SIZET; const label_: PIdAnsiChar; llen: TIdC_SIZET; const context: PByte; contextlen: TIdC_SIZET; use_context: TIdC_INT): TIdC_INT cdecl; external CLibSSL;
-
-  (*
-   * SSL_export_keying_material_early exports a value derived from the
-   * early exporter master secret, as specified in
-   * https://tools.ietf.org/html/draft-ietf-tls-tls13-23. It writes
-   * |olen| bytes to |out| given a label and optional context. It
-   * returns 1 on success and 0 otherwise.
-   *)
-  function SSL_export_keying_material_early(s: PSSL; out_: PByte; olen: TIdC_SIZET; const label_: PIdAnsiChar; llen: TIdC_SIZET; const context: PByte; contextlen: TIdC_SIZET): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-
-  function SSL_get_peer_signature_type_nid(const s: PSSl; pnid: PIdC_INT): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  function SSL_get_signature_type_nid(const s: PSSl; pnid: PIdC_INT): TIdC_INT cdecl; external CLibSSL; {introduced 1.1.0}
-  function SSL_get_sigalgs(s: PSSl; idx: TIdC_INT; psign: PIdC_INT; phash: PIdC_INT; psignandhash: PIdC_INT; rsig: PByte; rhash: PByte): TIdC_INT cdecl; external CLibSSL;
-  function SSL_get_shared_sigalgs(s: PSSl; idx: TIdC_INT; psign: PIdC_INT; phash: PIdC_INT; psignandhash: PIdC_INT; rsig: PByte; rhash: PByte): TIdC_INT cdecl; external CLibSSL;
-
-  //__owur TIdC_INT SSL_check_chain(s: PSSL, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain);
-
-  //# define SSL_set_tlsext_debug_callback(ssl, cb) \
-  //        SSL_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_DEBUG_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_set_tlsext_debug_arg(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_DEBUG_ARG,0,arg)
-  //
-  //# define SSL_get_tlsext_status_type(ssl) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE,0,NULL)
-  //
-  //# define SSL_set_tlsext_status_type(ssl, type) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,NULL)
-  //
-  //# define SSL_get_tlsext_status_exts(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_EXTS,0,arg)
-  //
-  //# define SSL_set_tlsext_status_exts(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_EXTS,0,arg)
-  //
-  //# define SSL_get_tlsext_status_ids(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_IDS,0,arg)
-  //
-  //# define SSL_set_tlsext_status_ids(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_IDS,0,arg)
-  //
-  //# define SSL_get_tlsext_status_ocsp_resp(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_OCSP_RESP,0,arg)
-  //
-  //# define SSL_set_tlsext_status_ocsp_resp(ssl, arg, arglen) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP,arglen,arg)
-  //
-  //# define SSL_CTX_set_tlsext_servername_callback(ctx, cb) \
-  //        SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_CTX_set_tlsext_servername_arg(ctx, arg) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG,0,arg)
-  //
-  //# define SSL_CTX_get_tlsext_ticket_keys(ctx, keys, keylen) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_TLSEXT_TICKET_KEYS,keylen,keys)
-  //# define SSL_CTX_set_tlsext_ticket_keys(ctx, keys, keylen) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_TICKET_KEYS,keylen,keys)
-  //
-  //# define SSL_CTX_get_tlsext_status_cb(ssl, cb) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB,0,(void *)cb)
-  //# define SSL_CTX_set_tlsext_status_cb(ssl, cb) \
-  //        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_CTX_get_tlsext_status_arg(ssl, arg) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB_ARG,0,arg)
-  //# define SSL_CTX_set_tlsext_status_arg(ssl, arg) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB_ARG,0,arg)
-  //
-  //# define SSL_CTX_set_tlsext_status_type(ssl, type) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,NULL)
-  //
-  //# define SSL_CTX_get_tlsext_status_type(ssl) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE,0,NULL)
-  //
-  //# define SSL_CTX_set_tlsext_ticket_key_cb(ssl, cb) \
-  //        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_TICKET_KEY_CB,\
-  //                (void (*)(void))cb)
-
-function SSL_set_tlsext_host_name(s: PSSL; const name: PIdAnsiChar): TIdC_LONG; {removed 1.0.0}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  SSL_set_tlsext_host_name: function (s: PSSL; const name: PAnsiChar): TOpenSSL_C_LONG; cdecl = nil; {removed 1.0.0}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF}
+const
+  SSL_set_tlsext_host_name_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  SSL_CTX_set_tlsext_max_fragment_length_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  SSL_set_tlsext_max_fragment_length_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  SSL_export_keying_material_early_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  SSL_get_peer_signature_type_nid_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  SSL_get_signature_type_nid_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+
 
 implementation
 
-uses 
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-  classes,
-  IdSSLOpenSSLLoader,
-  {$ENDIF}
-  IdSSLOpenSSLExceptionHandlers,
-  IdResourceStringsOpenSSL,
-
-  IdOpenSSLHeaders_ssl;
-  
-const
-  SSL_CTX_set_tlsext_max_fragment_length_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  SSL_set_tlsext_max_fragment_length_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  SSL_export_keying_material_early_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  SSL_get_peer_signature_type_nid_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  SSL_get_signature_type_nid_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  SSL_set_tlsext_host_name_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-
+uses
+  IdOpenSSLHeaders_ssl,
+classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
 
 //# define SSL_set_tlsext_host_name(s,name)         SSL_ctrl(s,SSL_CTRL_SET_TLSEXT_HOSTNAME,TLSEXT_NAMETYPE_host_name, (void *)name)
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-const
-  SSL_set_tlsext_host_name_procname = 'SSL_set_tlsext_host_name'; {removed 1.0.0}
 
-  SSL_CTX_set_tlsext_max_fragment_length_procname = 'SSL_CTX_set_tlsext_max_fragment_length'; {introduced 1.1.0}
-  SSL_set_tlsext_max_fragment_length_procname = 'SSL_set_tlsext_max_fragment_length'; {introduced 1.1.0}
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
 
-  SSL_get_servername_procname = 'SSL_get_servername';
-  SSL_get_servername_type_procname = 'SSL_get_servername_type';
-  (*
-   * SSL_export_keying_material exports a value derived from the master secret,
-   * as specified in RFC 5705. It writes |olen| bytes to |out| given a label and
-   * optional context. (Since a zero length context is allowed, the |use_context|
-   * flag controls whether a context is included.) It returns 1 on success and
-   * 0 or -1 otherwise.
-   *)
-  SSL_export_keying_material_procname = 'SSL_export_keying_material';
+{Legacy Support Functions}
 
-  (*
-   * SSL_export_keying_material_early exports a value derived from the
-   * early exporter master secret, as specified in
-   * https://tools.ietf.org/html/draft-ietf-tls-tls13-23. It writes
-   * |olen| bytes to |out| given a label and optional context. It
-   * returns 1 on success and 0 otherwise.
-   *)
-  SSL_export_keying_material_early_procname = 'SSL_export_keying_material_early'; {introduced 1.1.0}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+function SSL_set_tlsext_host_name(s: PSSL; const name: PAnsiChar): TOpenSSL_C_LONG;
 
-  SSL_get_peer_signature_type_nid_procname = 'SSL_get_peer_signature_type_nid'; {introduced 1.1.0}
-  SSL_get_signature_type_nid_procname = 'SSL_get_signature_type_nid'; {introduced 1.1.0}
-  SSL_get_sigalgs_procname = 'SSL_get_sigalgs';
-  SSL_get_shared_sigalgs_procname = 'SSL_get_shared_sigalgs';
-
-  //__owur TIdC_INT SSL_check_chain(s: PSSL, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain);
-
-  //# define SSL_set_tlsext_debug_callback(ssl, cb) \
-  //        SSL_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_DEBUG_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_set_tlsext_debug_arg(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_DEBUG_ARG,0,arg)
-  //
-  //# define SSL_get_tlsext_status_type(ssl) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE,0,NULL)
-  //
-  //# define SSL_set_tlsext_status_type(ssl, type) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,NULL)
-  //
-  //# define SSL_get_tlsext_status_exts(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_EXTS,0,arg)
-  //
-  //# define SSL_set_tlsext_status_exts(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_EXTS,0,arg)
-  //
-  //# define SSL_get_tlsext_status_ids(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_IDS,0,arg)
-  //
-  //# define SSL_set_tlsext_status_ids(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_IDS,0,arg)
-  //
-  //# define SSL_get_tlsext_status_ocsp_resp(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_OCSP_RESP,0,arg)
-  //
-  //# define SSL_set_tlsext_status_ocsp_resp(ssl, arg, arglen) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP,arglen,arg)
-  //
-  //# define SSL_CTX_set_tlsext_servername_callback(ctx, cb) \
-  //        SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_CTX_set_tlsext_servername_arg(ctx, arg) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG,0,arg)
-  //
-  //# define SSL_CTX_get_tlsext_ticket_keys(ctx, keys, keylen) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_TLSEXT_TICKET_KEYS,keylen,keys)
-  //# define SSL_CTX_set_tlsext_ticket_keys(ctx, keys, keylen) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_TICKET_KEYS,keylen,keys)
-  //
-  //# define SSL_CTX_get_tlsext_status_cb(ssl, cb) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB,0,(void *)cb)
-  //# define SSL_CTX_set_tlsext_status_cb(ssl, cb) \
-  //        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_CTX_get_tlsext_status_arg(ssl, arg) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB_ARG,0,arg)
-  //# define SSL_CTX_set_tlsext_status_arg(ssl, arg) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB_ARG,0,arg)
-  //
-  //# define SSL_CTX_set_tlsext_status_type(ssl, type) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,NULL)
-  //
-  //# define SSL_CTX_get_tlsext_status_type(ssl) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE,0,NULL)
-  //
-  //# define SSL_CTX_set_tlsext_ticket_key_cb(ssl, cb) \
-  //        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_TICKET_KEY_CB,\
-  //                (void (*)(void))cb)
-
-
-
-//# define SSL_set_tlsext_host_name(s,name)         SSL_ctrl(s,SSL_CTRL_SET_TLSEXT_HOSTNAME,TLSEXT_NAMETYPE_host_name, (void *)name)
-function  _SSL_set_tlsext_host_name(s: PSSL; const name: PIdAnsiChar): TIdC_LONG; cdecl;
 begin
   Result := SSL_ctrl(s, SSL_CTRL_SET_TLSEXT_HOSTNAME, TLSEXT_NAMETYPE_host_name, Pointer(name));
 end;
 
+
+
+
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ELSE}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+function COMPAT_SSL_set_tlsext_host_name(s: PSSL; const name: PAnsiChar): TOpenSSL_C_LONG; cdecl;
+
+begin
+  Result := SSL_ctrl(s, SSL_CTRL_SET_TLSEXT_HOSTNAME, TLSEXT_NAMETYPE_host_name, Pointer(name));
+end;
+
+
+
+
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+
 {$WARN  NO_RETVAL OFF}
-function  ERR_SSL_set_tlsext_host_name(s: PSSL; const name: PIdAnsiChar): TIdC_LONG; 
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_SSL_set_tlsext_host_name(s: PSSL; const name: PAnsiChar): TOpenSSL_C_LONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_set_tlsext_host_name_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_set_tlsext_host_name');
+end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+
+function ERROR_SSL_CTX_set_tlsext_max_fragment_length(ctx: PSSL_CTx; mode: TOpenSSL_C_UINT8): TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_CTX_set_tlsext_max_fragment_length');
 end;
 
- 
-
-function  ERR_SSL_CTX_set_tlsext_max_fragment_length(ctx: PSSL_CTx; mode: TIdC_UINT8): TIdC_INT; 
+function ERROR_SSL_set_tlsext_max_fragment_length(ssl: PSSL; mode: TOpenSSL_C_UINT8): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_CTX_set_tlsext_max_fragment_length_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_set_tlsext_max_fragment_length');
 end;
 
- {introduced 1.1.0}
-function  ERR_SSL_set_tlsext_max_fragment_length(ssl: PSSL; mode: TIdC_UINT8): TIdC_INT; 
+function ERROR_SSL_get_servername(const s: PSSL; const type_: TOpenSSL_C_INT): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_set_tlsext_max_fragment_length_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_get_servername');
 end;
 
- {introduced 1.1.0}
-
-function  ERR_SSL_get_servername(const s: PSSL; const type_: TIdC_INT): PIdAnsiChar; 
+function ERROR_SSL_get_servername_type(const s: PSSL): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_get_servername_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_get_servername_type');
 end;
 
-
-function  ERR_SSL_get_servername_type(const s: PSSL): TIdC_INT; 
+function ERROR_SSL_export_keying_material(s: PSSL; out_: PByte; olen: TOpenSSL_C_SIZET; const label_: PAnsiChar; llen: TOpenSSL_C_SIZET; const context: PByte; contextlen: TOpenSSL_C_SIZET; use_context: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_get_servername_type_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_export_keying_material');
 end;
 
-
-  (*
-   * SSL_export_keying_material exports a value derived from the master secret,
-   * as specified in RFC 5705. It writes |olen| bytes to |out| given a label and
-   * optional context. (Since a zero length context is allowed, the |use_context|
-   * flag controls whether a context is included.) It returns 1 on success and
-   * 0 or -1 otherwise.
-   *)
-function  ERR_SSL_export_keying_material(s: PSSL; out_: PByte; olen: TIdC_SIZET; const label_: PIdAnsiChar; llen: TIdC_SIZET; const context: PByte; contextlen: TIdC_SIZET; use_context: TIdC_INT): TIdC_INT; 
+function ERROR_SSL_export_keying_material_early(s: PSSL; out_: PByte; olen: TOpenSSL_C_SIZET; const label_: PAnsiChar; llen: TOpenSSL_C_SIZET; const context: PByte; contextlen: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_export_keying_material_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_export_keying_material_early');
 end;
 
-
-
-  (*
-   * SSL_export_keying_material_early exports a value derived from the
-   * early exporter master secret, as specified in
-   * https://tools.ietf.org/html/draft-ietf-tls-tls13-23. It writes
-   * |olen| bytes to |out| given a label and optional context. It
-   * returns 1 on success and 0 otherwise.
-   *)
-function  ERR_SSL_export_keying_material_early(s: PSSL; out_: PByte; olen: TIdC_SIZET; const label_: PIdAnsiChar; llen: TIdC_SIZET; const context: PByte; contextlen: TIdC_SIZET): TIdC_INT; 
+function ERROR_SSL_get_peer_signature_type_nid(const s: PSSl; pnid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_export_keying_material_early_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_get_peer_signature_type_nid');
 end;
 
- {introduced 1.1.0}
-
-function  ERR_SSL_get_peer_signature_type_nid(const s: PSSl; pnid: PIdC_INT): TIdC_INT; 
+function ERROR_SSL_get_signature_type_nid(const s: PSSl; pnid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_get_peer_signature_type_nid_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_get_signature_type_nid');
 end;
 
- {introduced 1.1.0}
-function  ERR_SSL_get_signature_type_nid(const s: PSSl; pnid: PIdC_INT): TIdC_INT; 
+function ERROR_SSL_get_sigalgs(s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_INT; phash: POpenSSL_C_INT; psignandhash: POpenSSL_C_INT; rsig: PByte; rhash: PByte): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_get_signature_type_nid_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_get_sigalgs');
 end;
 
- {introduced 1.1.0}
-function  ERR_SSL_get_sigalgs(s: PSSl; idx: TIdC_INT; psign: PIdC_INT; phash: PIdC_INT; psignandhash: PIdC_INT; rsig: PByte; rhash: PByte): TIdC_INT; 
+function ERROR_SSL_get_shared_sigalgs(s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_INT; phash: POpenSSL_C_INT; psignandhash: POpenSSL_C_INT; rsig: PByte; rhash: PByte): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_get_sigalgs_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_get_shared_sigalgs');
 end;
-
-
-function  ERR_SSL_get_shared_sigalgs(s: PSSl; idx: TIdC_INT; psign: PIdC_INT; phash: PIdC_INT; psignandhash: PIdC_INT; rsig: PByte; rhash: PByte): TIdC_INT; 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(SSL_get_shared_sigalgs_procname);
-end;
-
-
-
-  //__owur TIdC_INT SSL_check_chain(s: PSSL, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain);
-
-  //# define SSL_set_tlsext_debug_callback(ssl, cb) \
-  //        SSL_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_DEBUG_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_set_tlsext_debug_arg(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_DEBUG_ARG,0,arg)
-  //
-  //# define SSL_get_tlsext_status_type(ssl) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE,0,NULL)
-  //
-  //# define SSL_set_tlsext_status_type(ssl, type) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,NULL)
-  //
-  //# define SSL_get_tlsext_status_exts(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_EXTS,0,arg)
-  //
-  //# define SSL_set_tlsext_status_exts(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_EXTS,0,arg)
-  //
-  //# define SSL_get_tlsext_status_ids(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_IDS,0,arg)
-  //
-  //# define SSL_set_tlsext_status_ids(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_IDS,0,arg)
-  //
-  //# define SSL_get_tlsext_status_ocsp_resp(ssl, arg) \
-  //        SSL_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_OCSP_RESP,0,arg)
-  //
-  //# define SSL_set_tlsext_status_ocsp_resp(ssl, arg, arglen) \
-  //        SSL_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP,arglen,arg)
-  //
-  //# define SSL_CTX_set_tlsext_servername_callback(ctx, cb) \
-  //        SSL_CTX_callback_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_CTX_set_tlsext_servername_arg(ctx, arg) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_SERVERNAME_ARG,0,arg)
-  //
-  //# define SSL_CTX_get_tlsext_ticket_keys(ctx, keys, keylen) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_GET_TLSEXT_TICKET_KEYS,keylen,keys)
-  //# define SSL_CTX_set_tlsext_ticket_keys(ctx, keys, keylen) \
-  //        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TLSEXT_TICKET_KEYS,keylen,keys)
-  //
-  //# define SSL_CTX_get_tlsext_status_cb(ssl, cb) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB,0,(void *)cb)
-  //# define SSL_CTX_set_tlsext_status_cb(ssl, cb) \
-  //        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB,\
-  //                (void (*)(void))cb)
-
-  //# define SSL_CTX_get_tlsext_status_arg(ssl, arg) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_CB_ARG,0,arg)
-  //# define SSL_CTX_set_tlsext_status_arg(ssl, arg) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB_ARG,0,arg)
-  //
-  //# define SSL_CTX_set_tlsext_status_type(ssl, type) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_SET_TLSEXT_STATUS_REQ_TYPE,type,NULL)
-  //
-  //# define SSL_CTX_get_tlsext_status_type(ssl) \
-  //        SSL_CTX_ctrl(ssl,SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE,0,NULL)
-  //
-  //# define SSL_CTX_set_tlsext_ticket_key_cb(ssl, cb) \
-  //        SSL_CTX_callback_ctrl(ssl,SSL_CTRL_SET_TLSEXT_TICKET_KEY_CB,\
-  //                (void (*)(void))cb)
 
 {$WARN  NO_RETVAL ON}
-
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
-
 begin
-  SSL_set_tlsext_host_name := LoadLibFunction(ADllHandle, SSL_set_tlsext_host_name_procname);
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  SSL_set_tlsext_host_name := LoadLibSSLFunction('SSL_set_tlsext_host_name');
   FuncLoadError := not assigned(SSL_set_tlsext_host_name);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_set_tlsext_host_name_allownil)}
-    SSL_set_tlsext_host_name := @ERR_SSL_set_tlsext_host_name;
-    {$ifend}
-    {$if declared(SSL_set_tlsext_host_name_introduced)}
-    if LibVersion < SSL_set_tlsext_host_name_introduced then
-    begin
-      {$if declared(FC_SSL_set_tlsext_host_name)}
-      SSL_set_tlsext_host_name := @FC_SSL_set_tlsext_host_name;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_set_tlsext_host_name_removed)}
+    SSL_set_tlsext_host_name := @COMPAT_SSL_set_tlsext_host_name;
     if SSL_set_tlsext_host_name_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_set_tlsext_host_name)}
-      SSL_set_tlsext_host_name := @_SSL_set_tlsext_host_name;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_set_tlsext_host_name_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_set_tlsext_host_name');
-    {$ifend}
   end;
 
- 
-  SSL_CTX_set_tlsext_max_fragment_length := LoadLibFunction(ADllHandle, SSL_CTX_set_tlsext_max_fragment_length_procname);
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
+  SSL_CTX_set_tlsext_max_fragment_length := LoadLibSSLFunction('SSL_CTX_set_tlsext_max_fragment_length');
   FuncLoadError := not assigned(SSL_CTX_set_tlsext_max_fragment_length);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_CTX_set_tlsext_max_fragment_length_allownil)}
-    SSL_CTX_set_tlsext_max_fragment_length := @ERR_SSL_CTX_set_tlsext_max_fragment_length;
-    {$ifend}
-    {$if declared(SSL_CTX_set_tlsext_max_fragment_length_introduced)}
+    SSL_CTX_set_tlsext_max_fragment_length :=  @ERROR_SSL_CTX_set_tlsext_max_fragment_length;
     if LibVersion < SSL_CTX_set_tlsext_max_fragment_length_introduced then
-    begin
-      {$if declared(FC_SSL_CTX_set_tlsext_max_fragment_length)}
-      SSL_CTX_set_tlsext_max_fragment_length := @FC_SSL_CTX_set_tlsext_max_fragment_length;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_CTX_set_tlsext_max_fragment_length_removed)}
-    if SSL_CTX_set_tlsext_max_fragment_length_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_CTX_set_tlsext_max_fragment_length)}
-      SSL_CTX_set_tlsext_max_fragment_length := @_SSL_CTX_set_tlsext_max_fragment_length;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_CTX_set_tlsext_max_fragment_length_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_CTX_set_tlsext_max_fragment_length');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  SSL_set_tlsext_max_fragment_length := LoadLibFunction(ADllHandle, SSL_set_tlsext_max_fragment_length_procname);
+  SSL_set_tlsext_max_fragment_length := LoadLibSSLFunction('SSL_set_tlsext_max_fragment_length');
   FuncLoadError := not assigned(SSL_set_tlsext_max_fragment_length);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_set_tlsext_max_fragment_length_allownil)}
-    SSL_set_tlsext_max_fragment_length := @ERR_SSL_set_tlsext_max_fragment_length;
-    {$ifend}
-    {$if declared(SSL_set_tlsext_max_fragment_length_introduced)}
+    SSL_set_tlsext_max_fragment_length :=  @ERROR_SSL_set_tlsext_max_fragment_length;
     if LibVersion < SSL_set_tlsext_max_fragment_length_introduced then
-    begin
-      {$if declared(FC_SSL_set_tlsext_max_fragment_length)}
-      SSL_set_tlsext_max_fragment_length := @FC_SSL_set_tlsext_max_fragment_length;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_set_tlsext_max_fragment_length_removed)}
-    if SSL_set_tlsext_max_fragment_length_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_set_tlsext_max_fragment_length)}
-      SSL_set_tlsext_max_fragment_length := @_SSL_set_tlsext_max_fragment_length;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_set_tlsext_max_fragment_length_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_set_tlsext_max_fragment_length');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  SSL_get_servername := LoadLibFunction(ADllHandle, SSL_get_servername_procname);
+  SSL_get_servername := LoadLibSSLFunction('SSL_get_servername');
   FuncLoadError := not assigned(SSL_get_servername);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_get_servername_allownil)}
-    SSL_get_servername := @ERR_SSL_get_servername;
-    {$ifend}
-    {$if declared(SSL_get_servername_introduced)}
-    if LibVersion < SSL_get_servername_introduced then
-    begin
-      {$if declared(FC_SSL_get_servername)}
-      SSL_get_servername := @FC_SSL_get_servername;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_get_servername_removed)}
-    if SSL_get_servername_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_get_servername)}
-      SSL_get_servername := @_SSL_get_servername;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_get_servername_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SSL_get_servername');
-    {$ifend}
+    SSL_get_servername :=  @ERROR_SSL_get_servername;
   end;
 
-
-  SSL_get_servername_type := LoadLibFunction(ADllHandle, SSL_get_servername_type_procname);
+  SSL_get_servername_type := LoadLibSSLFunction('SSL_get_servername_type');
   FuncLoadError := not assigned(SSL_get_servername_type);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_get_servername_type_allownil)}
-    SSL_get_servername_type := @ERR_SSL_get_servername_type;
-    {$ifend}
-    {$if declared(SSL_get_servername_type_introduced)}
-    if LibVersion < SSL_get_servername_type_introduced then
-    begin
-      {$if declared(FC_SSL_get_servername_type)}
-      SSL_get_servername_type := @FC_SSL_get_servername_type;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_get_servername_type_removed)}
-    if SSL_get_servername_type_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_get_servername_type)}
-      SSL_get_servername_type := @_SSL_get_servername_type;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_get_servername_type_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SSL_get_servername_type');
-    {$ifend}
+    SSL_get_servername_type :=  @ERROR_SSL_get_servername_type;
   end;
 
-
-  SSL_export_keying_material := LoadLibFunction(ADllHandle, SSL_export_keying_material_procname);
+  SSL_export_keying_material := LoadLibSSLFunction('SSL_export_keying_material');
   FuncLoadError := not assigned(SSL_export_keying_material);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_export_keying_material_allownil)}
-    SSL_export_keying_material := @ERR_SSL_export_keying_material;
-    {$ifend}
-    {$if declared(SSL_export_keying_material_introduced)}
-    if LibVersion < SSL_export_keying_material_introduced then
-    begin
-      {$if declared(FC_SSL_export_keying_material)}
-      SSL_export_keying_material := @FC_SSL_export_keying_material;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_export_keying_material_removed)}
-    if SSL_export_keying_material_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_export_keying_material)}
-      SSL_export_keying_material := @_SSL_export_keying_material;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_export_keying_material_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SSL_export_keying_material');
-    {$ifend}
+    SSL_export_keying_material :=  @ERROR_SSL_export_keying_material;
   end;
 
-
-  SSL_export_keying_material_early := LoadLibFunction(ADllHandle, SSL_export_keying_material_early_procname);
+  SSL_export_keying_material_early := LoadLibSSLFunction('SSL_export_keying_material_early');
   FuncLoadError := not assigned(SSL_export_keying_material_early);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_export_keying_material_early_allownil)}
-    SSL_export_keying_material_early := @ERR_SSL_export_keying_material_early;
-    {$ifend}
-    {$if declared(SSL_export_keying_material_early_introduced)}
+    SSL_export_keying_material_early :=  @ERROR_SSL_export_keying_material_early;
     if LibVersion < SSL_export_keying_material_early_introduced then
-    begin
-      {$if declared(FC_SSL_export_keying_material_early)}
-      SSL_export_keying_material_early := @FC_SSL_export_keying_material_early;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_export_keying_material_early_removed)}
-    if SSL_export_keying_material_early_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_export_keying_material_early)}
-      SSL_export_keying_material_early := @_SSL_export_keying_material_early;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_export_keying_material_early_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_export_keying_material_early');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  SSL_get_peer_signature_type_nid := LoadLibFunction(ADllHandle, SSL_get_peer_signature_type_nid_procname);
+  SSL_get_peer_signature_type_nid := LoadLibSSLFunction('SSL_get_peer_signature_type_nid');
   FuncLoadError := not assigned(SSL_get_peer_signature_type_nid);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_get_peer_signature_type_nid_allownil)}
-    SSL_get_peer_signature_type_nid := @ERR_SSL_get_peer_signature_type_nid;
-    {$ifend}
-    {$if declared(SSL_get_peer_signature_type_nid_introduced)}
+    SSL_get_peer_signature_type_nid :=  @ERROR_SSL_get_peer_signature_type_nid;
     if LibVersion < SSL_get_peer_signature_type_nid_introduced then
-    begin
-      {$if declared(FC_SSL_get_peer_signature_type_nid)}
-      SSL_get_peer_signature_type_nid := @FC_SSL_get_peer_signature_type_nid;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_get_peer_signature_type_nid_removed)}
-    if SSL_get_peer_signature_type_nid_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_get_peer_signature_type_nid)}
-      SSL_get_peer_signature_type_nid := @_SSL_get_peer_signature_type_nid;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_get_peer_signature_type_nid_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_get_peer_signature_type_nid');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  SSL_get_signature_type_nid := LoadLibFunction(ADllHandle, SSL_get_signature_type_nid_procname);
+  SSL_get_signature_type_nid := LoadLibSSLFunction('SSL_get_signature_type_nid');
   FuncLoadError := not assigned(SSL_get_signature_type_nid);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_get_signature_type_nid_allownil)}
-    SSL_get_signature_type_nid := @ERR_SSL_get_signature_type_nid;
-    {$ifend}
-    {$if declared(SSL_get_signature_type_nid_introduced)}
+    SSL_get_signature_type_nid :=  @ERROR_SSL_get_signature_type_nid;
     if LibVersion < SSL_get_signature_type_nid_introduced then
-    begin
-      {$if declared(FC_SSL_get_signature_type_nid)}
-      SSL_get_signature_type_nid := @FC_SSL_get_signature_type_nid;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_get_signature_type_nid_removed)}
-    if SSL_get_signature_type_nid_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_get_signature_type_nid)}
-      SSL_get_signature_type_nid := @_SSL_get_signature_type_nid;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_get_signature_type_nid_allownil)}
     if FuncLoadError then
       AFailed.Add('SSL_get_signature_type_nid');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  SSL_get_sigalgs := LoadLibFunction(ADllHandle, SSL_get_sigalgs_procname);
+  SSL_get_sigalgs := LoadLibSSLFunction('SSL_get_sigalgs');
   FuncLoadError := not assigned(SSL_get_sigalgs);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_get_sigalgs_allownil)}
-    SSL_get_sigalgs := @ERR_SSL_get_sigalgs;
-    {$ifend}
-    {$if declared(SSL_get_sigalgs_introduced)}
-    if LibVersion < SSL_get_sigalgs_introduced then
-    begin
-      {$if declared(FC_SSL_get_sigalgs)}
-      SSL_get_sigalgs := @FC_SSL_get_sigalgs;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_get_sigalgs_removed)}
-    if SSL_get_sigalgs_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_get_sigalgs)}
-      SSL_get_sigalgs := @_SSL_get_sigalgs;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_get_sigalgs_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SSL_get_sigalgs');
-    {$ifend}
+    SSL_get_sigalgs :=  @ERROR_SSL_get_sigalgs;
   end;
 
-
-  SSL_get_shared_sigalgs := LoadLibFunction(ADllHandle, SSL_get_shared_sigalgs_procname);
+  SSL_get_shared_sigalgs := LoadLibSSLFunction('SSL_get_shared_sigalgs');
   FuncLoadError := not assigned(SSL_get_shared_sigalgs);
   if FuncLoadError then
   begin
-    {$if not defined(SSL_get_shared_sigalgs_allownil)}
-    SSL_get_shared_sigalgs := @ERR_SSL_get_shared_sigalgs;
-    {$ifend}
-    {$if declared(SSL_get_shared_sigalgs_introduced)}
-    if LibVersion < SSL_get_shared_sigalgs_introduced then
-    begin
-      {$if declared(FC_SSL_get_shared_sigalgs)}
-      SSL_get_shared_sigalgs := @FC_SSL_get_shared_sigalgs;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSL_get_shared_sigalgs_removed)}
-    if SSL_get_shared_sigalgs_removed <= LibVersion then
-    begin
-      {$if declared(_SSL_get_shared_sigalgs)}
-      SSL_get_shared_sigalgs := @_SSL_get_shared_sigalgs;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSL_get_shared_sigalgs_allownil)}
-    if FuncLoadError then
-      AFailed.Add('SSL_get_shared_sigalgs');
-    {$ifend}
+    SSL_get_shared_sigalgs :=  @ERROR_SSL_get_shared_sigalgs;
   end;
-
 
 end;
 
-procedure Unload;
+procedure UnLoad;
 begin
-  SSL_set_tlsext_host_name := nil; {removed 1.0.0}
-  SSL_CTX_set_tlsext_max_fragment_length := nil; {introduced 1.1.0}
-  SSL_set_tlsext_max_fragment_length := nil; {introduced 1.1.0}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  SSL_set_tlsext_host_name := nil;
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
+  SSL_CTX_set_tlsext_max_fragment_length := nil;
+  SSL_set_tlsext_max_fragment_length := nil;
   SSL_get_servername := nil;
   SSL_get_servername_type := nil;
   SSL_export_keying_material := nil;
-  SSL_export_keying_material_early := nil; {introduced 1.1.0}
-  SSL_get_peer_signature_type_nid := nil; {introduced 1.1.0}
-  SSL_get_signature_type_nid := nil; {introduced 1.1.0}
+  SSL_export_keying_material_early := nil;
+  SSL_get_peer_signature_type_nid := nil;
+  SSL_get_signature_type_nid := nil;
   SSL_get_sigalgs := nil;
   SSL_get_shared_sigalgs := nil;
 end;
-{$ELSE}
-function SSL_set_tlsext_host_name(s: PSSL; const name: PIdAnsiChar): TIdC_LONG;
-begin
-  Result := SSL_ctrl(s, SSL_CTRL_SET_TLSEXT_HOSTNAME, TLSEXT_NAMETYPE_host_name, Pointer(name));
-end;
-
 {$ENDIF}
+
+initialization
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-initialization
-  Register_SSLLoader(@Load,'LibSSL');
-  Register_SSLUnloader(@Unload);
+Register_SSLLoader(@Load);
+Register_SSLUnloader(@Unload);
 {$ENDIF}
+finalization
+
+
 end.

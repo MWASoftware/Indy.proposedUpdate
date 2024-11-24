@@ -1,7 +1,3 @@
-(* This unit was generated from the source file asn1_mac.h2pas 
-It should not be modified directly. All changes should be made to asn1_mac.h2pas
-and this file regenerated *)
-
 {$i IdSSLOpenSSLDefines.inc}
 
 {
@@ -22,51 +18,22 @@ and this file regenerated *)
 
     This file includes software copied from the Indy (Internet Direct) project, and which is offered
     under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
-    }  
+    }
 
-
-unit IdOpenSSLHeaders_asn1_mac;
-
+unit IdSSLOpenSSLResourceStrings;
 
 interface
 
-// Headers for OpenSSL 1.1.1
-// asn1_mac.h
+resourcestring
+  RSOSSUnsupportedVersion = 'Unsupported SSL Library version: %.8x.';
+  ROSSLCantGetSSLVersionNo = 'Unable to determine SSL Library Version number';
+  ROSSLAPIFunctionNotPresent = 'OpenSSL API Function/Procedure %s not found in SSL Library';
+  ROSUnsupported = 'Not Supported';
+  ROSSLEOFViolation = 'EOF was observed that violates the protocol';
+  RSOUnknown        = 'Unknown SSL Error - probably socket error';
 
-{.$i IdCompilerDefines.inc}
-
-//#error "This file is obsolete; please update your software."
-
-
-{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
-
-The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-files generated for C++. }
-
-
-{$IFDEF OPENSSL_STATIC_LINK_MODEL}
-
-{$ELSE}
-{$ENDIF}
 
 implementation
 
-
-
-uses classes,
-     IdSSLOpenSSLExceptionHandlers,
-     IdSSLOpenSSLResourceStrings;
-
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
-{$ENDIF}
-
-initialization
-
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-{$ENDIF}
-finalization
-
-
 end.
+

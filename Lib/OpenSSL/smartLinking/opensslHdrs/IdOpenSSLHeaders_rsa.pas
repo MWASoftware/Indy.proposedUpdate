@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_rsa.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_rsa.h2pas
-     and this file regenerated. IdOpenSSLHeaders_rsa.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file rsa.h2pas 
+It should not be modified directly. All changes should be made to rsa.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_rsa;
+
 
 interface
 
@@ -39,9 +35,7 @@ interface
 
 
 uses
-  IdCTypes,
-  IdGlobal,
-  IdSSLOpenSSLConsts,
+  IdSSLOpenSSLAPI,
   IdOpenSSLHeaders_ossl_typ,
   IdOpenSSLHeaders_evp;
 
@@ -54,8 +48,8 @@ const
   (* exponent limit enforced for "large" modulus only *)
   OPENSSL_RSA_MAX_PUBEXP_BITS =  64;
 
-  RSA_3 =  TIdC_Long($3);
-  RSA_F4 = TIdC_Long($10001);
+  RSA_3 =  TOpenSSL_C_Long($3);
+  RSA_F4 = TOpenSSL_C_Long($10001);
 
   (* based on RFC 8017 appendix A.1.2 *)
   RSA_ASN1_VERSION_DEFAULT = 0;
@@ -166,29 +160,29 @@ type
   //DECLARE_ASN1_ENCODE_FUNCTIONS_const(RSA, RSAPublicKey)
   //DECLARE_ASN1_ENCODE_FUNCTIONS_const(RSA, RSAPrivateKey)
 
-  RSA_meth_set_priv_dec_priv_dec = function(flen: TIdC_INT; const from: PByte;
-    to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; cdecl;
+  RSA_meth_set_priv_dec_priv_dec = function(flen: TOpenSSL_C_INT; const from: PByte;
+    to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 
   RSA_meth_set_mod_exp_mod_exp = function(r0: PBIGNUM; const i: PBIGNUM;
-    rsa: PRSA; ctx: PBN_CTX): TIdC_INT; cdecl;
+    rsa: PRSA; ctx: PBN_CTX): TOpenSSL_C_INT; cdecl;
 
   RSA_meth_set_bn_mod_exp_bn_mod_exp = function(r: PBIGNUM; const a: PBIGNUM;
-    const p: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTx; m_ctx: PBN_MONT_CTx): TIdC_INT; cdecl;
+    const p: PBIGNUM; const m: PBIGNUM; ctx: PBN_CTx; m_ctx: PBN_MONT_CTx): TOpenSSL_C_INT; cdecl;
 
-  RSA_meth_set_init_init = function(rsa: PRSA): TIdC_INT; cdecl;
+  RSA_meth_set_init_init = function(rsa: PRSA): TOpenSSL_C_INT; cdecl;
 
-  RSA_meth_set_finish_finish = function(rsa: PRSA): TIdC_INT; cdecl;
+  RSA_meth_set_finish_finish = function(rsa: PRSA): TOpenSSL_C_INT; cdecl;
 
-  RSA_meth_set_sign_sign = function(type_: TIdC_INT; const m: PByte;
-    m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; const rsa: PRSA): TIdC_INT; cdecl;
+  RSA_meth_set_sign_sign = function(type_: TOpenSSL_C_INT; const m: PByte;
+    m_length: TOpenSSL_C_UINT; sigret: PByte; siglen: POpenSSL_C_UINT; const rsa: PRSA): TOpenSSL_C_INT; cdecl;
 
-  RSA_meth_set_verify_verify = function(dtype: TIdC_INT; const m: PByte;
-    m_length: TIdC_UINT; const sigbuf: PByte; siglen: TIdC_UINT; const rsa: PRSA): TIdC_INT; cdecl;
+  RSA_meth_set_verify_verify = function(dtype: TOpenSSL_C_INT; const m: PByte;
+    m_length: TOpenSSL_C_UINT; const sigbuf: PByte; siglen: TOpenSSL_C_UINT; const rsa: PRSA): TOpenSSL_C_INT; cdecl;
 
-  RSA_meth_set_keygen_keygen = function(rsa: PRSA; bits: TIdC_INT; e: PBIGNUM; cb: PBN_GENCb): TIdC_INT; cdecl;
+  RSA_meth_set_keygen_keygen = function(rsa: PRSA; bits: TOpenSSL_C_INT; e: PBIGNUM; cb: PBN_GENCb): TOpenSSL_C_INT; cdecl;
 
-  RSA_meth_set_multi_prime_keygen_keygen = function(rsa: PRSA; bits: TIdC_INT;
-    primes: TIdC_INT; e: PBIGNUM; cb: PBN_GENCb): TIdC_INT; cdecl;
+  RSA_meth_set_multi_prime_keygen_keygen = function(rsa: PRSA; bits: TOpenSSL_C_INT;
+    primes: TOpenSSL_C_INT; e: PBIGNUM; cb: PBN_GENCb): TOpenSSL_C_INT; cdecl;
 
 //# define EVP_PKEY_CTX_set_rsa_padding(ctx, pad) \
 //        RSA_pkey_ctx_ctrl(ctx, -1, EVP_PKEY_CTRL_RSA_PADDING, pad, NULL)
@@ -256,128 +250,215 @@ type
 //# define RSA_set_app_data(s,arg)         RSA_set_ex_data(s,0,arg)
 //# define RSA_get_app_data(s)             RSA_get_ex_data(s,0)
 
-    { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
-		
-  	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-	  files generated for C++. }
-	  
-  {$EXTERNALSYM RSA_new}
-  {$EXTERNALSYM RSA_new_method}
-  {$EXTERNALSYM RSA_bits}
-  {$EXTERNALSYM RSA_size}
-  {$EXTERNALSYM RSA_security_bits}
-  {$EXTERNALSYM RSA_set0_key}
-  {$EXTERNALSYM RSA_set0_factors}
-  {$EXTERNALSYM RSA_set0_crt_params}
-  {$EXTERNALSYM RSA_get0_key}
-  {$EXTERNALSYM RSA_get0_factors}
-  {$EXTERNALSYM RSA_get_multi_prime_extra_count}
-  {$EXTERNALSYM RSA_get0_crt_params}
-  {$EXTERNALSYM RSA_get0_n}
-  {$EXTERNALSYM RSA_get0_e}
-  {$EXTERNALSYM RSA_get0_d}
-  {$EXTERNALSYM RSA_get0_p}
-  {$EXTERNALSYM RSA_get0_q}
-  {$EXTERNALSYM RSA_get0_dmp1}
-  {$EXTERNALSYM RSA_get0_dmq1}
-  {$EXTERNALSYM RSA_get0_iqmp}
-  {$EXTERNALSYM RSA_clear_flags}
-  {$EXTERNALSYM RSA_test_flags}
-  {$EXTERNALSYM RSA_set_flags}
-  {$EXTERNALSYM RSA_get_version}
-  {$EXTERNALSYM RSA_get0_engine}
-  {$EXTERNALSYM RSA_generate_key_ex}
-  {$EXTERNALSYM RSA_generate_multi_prime_key}
-  {$EXTERNALSYM RSA_X931_derive_ex}
-  {$EXTERNALSYM RSA_X931_generate_key_ex}
-  {$EXTERNALSYM RSA_check_key}
-  {$EXTERNALSYM RSA_check_key_ex}
-  {$EXTERNALSYM RSA_public_encrypt}
-  {$EXTERNALSYM RSA_private_encrypt}
-  {$EXTERNALSYM RSA_public_decrypt}
-  {$EXTERNALSYM RSA_private_decrypt}
-  {$EXTERNALSYM RSA_free}
-  {$EXTERNALSYM RSA_up_ref}
-  {$EXTERNALSYM RSA_flags}
-  {$EXTERNALSYM RSA_set_default_method}
-  {$EXTERNALSYM RSA_get_default_method}
-  {$EXTERNALSYM RSA_null_method}
-  {$EXTERNALSYM RSA_get_method}
-  {$EXTERNALSYM RSA_set_method}
-  {$EXTERNALSYM RSA_PKCS1_OpenSSL}
-  {$EXTERNALSYM RSA_pkey_ctx_ctrl}
-  {$EXTERNALSYM RSA_print}
-  {$EXTERNALSYM RSA_sign}
-  {$EXTERNALSYM RSA_verify}
-  {$EXTERNALSYM RSA_sign_ASN1_OCTET_STRING}
-  {$EXTERNALSYM RSA_verify_ASN1_OCTET_STRING}
-  {$EXTERNALSYM RSA_blinding_on}
-  {$EXTERNALSYM RSA_blinding_off}
-  {$EXTERNALSYM RSA_setup_blinding}
-  {$EXTERNALSYM RSA_padding_add_PKCS1_type_1}
-  {$EXTERNALSYM RSA_padding_check_PKCS1_type_1}
-  {$EXTERNALSYM RSA_padding_add_PKCS1_type_2}
-  {$EXTERNALSYM RSA_padding_check_PKCS1_type_2}
-  {$EXTERNALSYM PKCS1_MGF1}
-  {$EXTERNALSYM RSA_padding_add_PKCS1_OAEP}
-  {$EXTERNALSYM RSA_padding_check_PKCS1_OAEP}
-  {$EXTERNALSYM RSA_padding_add_PKCS1_OAEP_mgf1}
-  {$EXTERNALSYM RSA_padding_check_PKCS1_OAEP_mgf1}
-  {$EXTERNALSYM RSA_padding_add_SSLv23}
-  {$EXTERNALSYM RSA_padding_check_SSLv23}
-  {$EXTERNALSYM RSA_padding_add_none}
-  {$EXTERNALSYM RSA_padding_check_none}
-  {$EXTERNALSYM RSA_padding_add_X931}
-  {$EXTERNALSYM RSA_padding_check_X931}
-  {$EXTERNALSYM RSA_X931_hash_id}
-  {$EXTERNALSYM RSA_verify_PKCS1_PSS}
-  {$EXTERNALSYM RSA_padding_add_PKCS1_PSS}
-  {$EXTERNALSYM RSA_verify_PKCS1_PSS_mgf1}
-  {$EXTERNALSYM RSA_padding_add_PKCS1_PSS_mgf1}
-  {$EXTERNALSYM RSA_set_ex_data}
-  {$EXTERNALSYM RSA_get_ex_data}
-  {$EXTERNALSYM RSAPublicKey_dup}
-  {$EXTERNALSYM RSAPrivateKey_dup}
-  {$EXTERNALSYM RSA_meth_new}
-  {$EXTERNALSYM RSA_meth_free}
-  {$EXTERNALSYM RSA_meth_dup}
-  {$EXTERNALSYM RSA_meth_get0_name}
-  {$EXTERNALSYM RSA_meth_set1_name}
-  {$EXTERNALSYM RSA_meth_get_flags}
-  {$EXTERNALSYM RSA_meth_set_flags}
-  {$EXTERNALSYM RSA_meth_get0_app_data}
-  {$EXTERNALSYM RSA_meth_set0_app_data}
-  {$EXTERNALSYM RSA_meth_set_priv_dec}
-  {$EXTERNALSYM RSA_meth_set_mod_exp}
-  {$EXTERNALSYM RSA_meth_set_bn_mod_exp}
-  {$EXTERNALSYM RSA_meth_set_init}
-  {$EXTERNALSYM RSA_meth_set_finish}
-  {$EXTERNALSYM RSA_meth_set_sign}
-  {$EXTERNALSYM RSA_meth_set_verify}
-  {$EXTERNALSYM RSA_meth_set_keygen}
-  {$EXTERNALSYM RSA_meth_set_multi_prime_keygen}
+  
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
+
+{$EXTERNALSYM RSA_new}
+{$EXTERNALSYM RSA_new_method}
+{$EXTERNALSYM RSA_bits}
+{$EXTERNALSYM RSA_size}
+{$EXTERNALSYM RSA_security_bits}
+{$EXTERNALSYM RSA_set0_key}
+{$EXTERNALSYM RSA_set0_factors}
+{$EXTERNALSYM RSA_set0_crt_params}
+{$EXTERNALSYM RSA_get0_key}
+{$EXTERNALSYM RSA_get0_factors}
+{$EXTERNALSYM RSA_get_multi_prime_extra_count}
+{$EXTERNALSYM RSA_get0_crt_params}
+{$EXTERNALSYM RSA_get0_n}
+{$EXTERNALSYM RSA_get0_e}
+{$EXTERNALSYM RSA_get0_d}
+{$EXTERNALSYM RSA_get0_p}
+{$EXTERNALSYM RSA_get0_q}
+{$EXTERNALSYM RSA_get0_dmp1}
+{$EXTERNALSYM RSA_get0_dmq1}
+{$EXTERNALSYM RSA_get0_iqmp}
+{$EXTERNALSYM RSA_clear_flags}
+{$EXTERNALSYM RSA_test_flags}
+{$EXTERNALSYM RSA_set_flags}
+{$EXTERNALSYM RSA_get_version}
+{$EXTERNALSYM RSA_get0_engine}
+{$EXTERNALSYM RSA_generate_key_ex}
+{$EXTERNALSYM RSA_generate_multi_prime_key}
+{$EXTERNALSYM RSA_X931_derive_ex}
+{$EXTERNALSYM RSA_X931_generate_key_ex}
+{$EXTERNALSYM RSA_check_key}
+{$EXTERNALSYM RSA_check_key_ex}
+{$EXTERNALSYM RSA_public_encrypt}
+{$EXTERNALSYM RSA_private_encrypt}
+{$EXTERNALSYM RSA_public_decrypt}
+{$EXTERNALSYM RSA_private_decrypt}
+{$EXTERNALSYM RSA_free}
+{$EXTERNALSYM RSA_up_ref}
+{$EXTERNALSYM RSA_flags}
+{$EXTERNALSYM RSA_set_default_method}
+{$EXTERNALSYM RSA_get_default_method}
+{$EXTERNALSYM RSA_null_method}
+{$EXTERNALSYM RSA_get_method}
+{$EXTERNALSYM RSA_set_method}
+{$EXTERNALSYM RSA_PKCS1_OpenSSL}
+{$EXTERNALSYM RSA_pkey_ctx_ctrl}
+{$EXTERNALSYM RSA_print}
+{$EXTERNALSYM RSA_sign}
+{$EXTERNALSYM RSA_verify}
+{$EXTERNALSYM RSA_sign_ASN1_OCTET_STRING}
+{$EXTERNALSYM RSA_verify_ASN1_OCTET_STRING}
+{$EXTERNALSYM RSA_blinding_on}
+{$EXTERNALSYM RSA_blinding_off}
+{$EXTERNALSYM RSA_setup_blinding}
+{$EXTERNALSYM RSA_padding_add_PKCS1_type_1}
+{$EXTERNALSYM RSA_padding_check_PKCS1_type_1}
+{$EXTERNALSYM RSA_padding_add_PKCS1_type_2}
+{$EXTERNALSYM RSA_padding_check_PKCS1_type_2}
+{$EXTERNALSYM PKCS1_MGF1}
+{$EXTERNALSYM RSA_padding_add_PKCS1_OAEP}
+{$EXTERNALSYM RSA_padding_check_PKCS1_OAEP}
+{$EXTERNALSYM RSA_padding_add_PKCS1_OAEP_mgf1}
+{$EXTERNALSYM RSA_padding_check_PKCS1_OAEP_mgf1}
+{$EXTERNALSYM RSA_padding_add_none}
+{$EXTERNALSYM RSA_padding_check_none}
+{$EXTERNALSYM RSA_padding_add_X931}
+{$EXTERNALSYM RSA_padding_check_X931}
+{$EXTERNALSYM RSA_X931_hash_id}
+{$EXTERNALSYM RSA_verify_PKCS1_PSS}
+{$EXTERNALSYM RSA_padding_add_PKCS1_PSS}
+{$EXTERNALSYM RSA_verify_PKCS1_PSS_mgf1}
+{$EXTERNALSYM RSA_padding_add_PKCS1_PSS_mgf1}
+{$EXTERNALSYM RSA_set_ex_data}
+{$EXTERNALSYM RSA_get_ex_data}
+{$EXTERNALSYM RSAPublicKey_dup}
+{$EXTERNALSYM RSAPrivateKey_dup}
+{$EXTERNALSYM RSA_meth_new}
+{$EXTERNALSYM RSA_meth_free}
+{$EXTERNALSYM RSA_meth_dup}
+{$EXTERNALSYM RSA_meth_get0_name}
+{$EXTERNALSYM RSA_meth_set1_name}
+{$EXTERNALSYM RSA_meth_get_flags}
+{$EXTERNALSYM RSA_meth_set_flags}
+{$EXTERNALSYM RSA_meth_get0_app_data}
+{$EXTERNALSYM RSA_meth_set0_app_data}
+{$EXTERNALSYM RSA_meth_set_priv_dec}
+{$EXTERNALSYM RSA_meth_set_mod_exp}
+{$EXTERNALSYM RSA_meth_set_bn_mod_exp}
+{$EXTERNALSYM RSA_meth_set_init}
+{$EXTERNALSYM RSA_meth_set_finish}
+{$EXTERNALSYM RSA_meth_set_sign}
+{$EXTERNALSYM RSA_meth_set_verify}
+{$EXTERNALSYM RSA_meth_set_keygen}
+{$EXTERNALSYM RSA_meth_set_multi_prime_keygen}
+
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+function RSA_new: PRSA; cdecl; external CLibCrypto;
+function RSA_new_method(engine: PENGINE): PRSA; cdecl; external CLibCrypto;
+function RSA_bits(const rsa: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_size(const rsa: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_security_bits(const rsa: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_set0_key(r: PRSA; n: PBIGNUM; e: PBIGNUM; d: PBIGNUM): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_set0_factors(r: PRSA; p: PBIGNUM; q: PBIGNUM): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_set0_crt_params(r: PRSA; dmp1: PBIGNUM; dmq1: PBIGNUM; iqmp: PBIGNUM): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure RSA_get0_key(const r: PRSA; const n: PPBIGNUM; const e: PPBIGNUM; const d: PPBIGNUM); cdecl; external CLibCrypto;
+procedure RSA_get0_factors(const r: PRSA; const p: PPBIGNUM; const q: PPBIGNUM); cdecl; external CLibCrypto;
+function RSA_get_multi_prime_extra_count(const r: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure RSA_get0_crt_params(const r: PRSA; const dmp1: PPBIGNUM; const dmq1: PPBIGNUM; const iqmp: PPBIGNUM); cdecl; external CLibCrypto;
+function RSA_get0_n(const d: PRSA): PBIGNUM; cdecl; external CLibCrypto;
+function RSA_get0_e(const d: PRSA): PBIGNUM; cdecl; external CLibCrypto;
+function RSA_get0_d(const d: PRSA): PBIGNUM; cdecl; external CLibCrypto;
+function RSA_get0_p(const d: PRSA): PBIGNUM; cdecl; external CLibCrypto;
+function RSA_get0_q(const d: PRSA): PBIGNUM; cdecl; external CLibCrypto;
+function RSA_get0_dmp1(const r: PRSA): PBIGNUM; cdecl; external CLibCrypto;
+function RSA_get0_dmq1(const r: PRSA): PBIGNUM; cdecl; external CLibCrypto;
+function RSA_get0_iqmp(const r: PRSA): PBIGNUM; cdecl; external CLibCrypto;
+procedure RSA_clear_flags(r: PRSA; flags: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function RSA_test_flags(const r: PRSA; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure RSA_set_flags(r: PRSA; flags: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function RSA_get_version(r: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_get0_engine(const r: PRSA): PENGINE; cdecl; external CLibCrypto;
+function RSA_generate_key_ex(rsa: PRSA; bits: TOpenSSL_C_INT; e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_generate_multi_prime_key(rsa: PRSA; bits: TOpenSSL_C_INT; primes: TOpenSSL_C_INT; e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_X931_derive_ex(rsa: PRSA; p1: PBIGNUM; p2: PBIGNUM; q1: PBIGNUM; q2: PBIGNUM; const Xp1: PBIGNUM; const Xp2: PBIGNUM; const Xp: PBIGNUM; const Xq1: PBIGNUM; const Xq2: PBIGNUM; const Xq: PBIGNUM; const e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_X931_generate_key_ex(rsa: PRSA; bits: TOpenSSL_C_INT; const e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_check_key(const v1: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_check_key_ex(const v1: PRSA; cb: BN_GENCB): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_public_encrypt(flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_private_encrypt(flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_public_decrypt(flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_private_decrypt(flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure RSA_free(r: PRSA); cdecl; external CLibCrypto;
+function RSA_up_ref(r: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_flags(const r: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure RSA_set_default_method(const meth: PRSA_METHOD); cdecl; external CLibCrypto;
+function RSA_get_default_method: PRSA_METHOD; cdecl; external CLibCrypto;
+function RSA_null_method: PRSA_METHOD; cdecl; external CLibCrypto;
+function RSA_get_method(const rsa: PRSA): PRSA_METHOD; cdecl; external CLibCrypto;
+function RSA_set_method(rsa: PRSA; const meth: PRSA_METHOD): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_PKCS1_OpenSSL: PRSA_METHOD; cdecl; external CLibCrypto;
+function RSA_pkey_ctx_ctrl(ctx: PEVP_PKEY_CTX; optype: TOpenSSL_C_INT; cmd: TOpenSSL_C_INT; p1: TOpenSSL_C_INT; p2: Pointer): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_print(bp: PBIO; const r: PRSA; offset: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_sign(type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; sigret: PByte; siglen: POpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_verify(type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; const sigbuf: PByte; siglen: TOpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_sign_ASN1_OCTET_STRING(type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; sigret: PByte; siglen: POpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_verify_ASN1_OCTET_STRING(type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; sigbuf: PByte; siglen: TOpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_blinding_on(rsa: PRSA; ctx: PBN_CTX): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure RSA_blinding_off(rsa: PRSA); cdecl; external CLibCrypto;
+function RSA_setup_blinding(rsa: PRSA; ctx: PBN_CTX): PBN_BLINDING; cdecl; external CLibCrypto;
+function RSA_padding_add_PKCS1_type_1(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_check_PKCS1_type_1(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_add_PKCS1_type_2(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_check_PKCS1_type_2(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function PKCS1_MGF1(mask: PByte; len: TOpenSSL_C_LONG; const seed: PByte; seedlen: TOpenSSL_C_LONG; const dgst: PEVP_MD): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_add_PKCS1_OAEP(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; const p: PByte; pl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_check_PKCS1_OAEP(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT; const p: PByte; pl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_add_PKCS1_OAEP_mgf1(to_: PByte; tlen: TOpenSSL_C_INT; const from: PByte; flen: TOpenSSL_C_INT; const param: PByte; plen: TOpenSSL_C_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_check_PKCS1_OAEP_mgf1(to_: PByte; tlen: TOpenSSL_C_INT; const from: PByte; flen: TOpenSSL_C_INT; num: TOpenSSL_C_INT; const param: PByte; plen: TOpenSSL_C_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_add_none(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_check_none(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_add_X931(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_check_X931(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_X931_hash_id(nid: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_verify_PKCS1_PSS(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const EM: PByte; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_add_PKCS1_PSS(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_verify_PKCS1_PSS_mgf1(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; const EM: PByte; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_padding_add_PKCS1_PSS_mgf1(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_set_ex_data(r: PRSA; idx: TOpenSSL_C_INT; arg: Pointer): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_get_ex_data(const r: PRSA; idx: TOpenSSL_C_INT): Pointer; cdecl; external CLibCrypto;
+function RSAPublicKey_dup(rsa: PRSA): PRSA; cdecl; external CLibCrypto;
+function RSAPrivateKey_dup(rsa: PRSA): PRSA; cdecl; external CLibCrypto;
+function RSA_meth_new(const name: PAnsiChar; flags: TOpenSSL_C_INT): PRSA_METHOD; cdecl; external CLibCrypto;
+procedure RSA_meth_free(meth: PRSA_METHOD); cdecl; external CLibCrypto;
+function RSA_meth_dup(const meth: PRSA_METHOD): PRSA_METHOD; cdecl; external CLibCrypto;
+function RSA_meth_get0_name(const meth: PRSA_METHOD): PAnsiChar; cdecl; external CLibCrypto;
+function RSA_meth_set1_name(meth: PRSA_METHOD; const name: PAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_get_flags(const meth: PRSA_METHOD): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_set_flags(meth: PRSA_METHOD; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_get0_app_data(const meth: PRSA_METHOD): Pointer; cdecl; external CLibCrypto;
+function RSA_meth_set0_app_data(meth: PRSA_METHOD; app_data: Pointer): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_set_priv_dec(rsa: PRSA_METHOD; priv_dec: RSA_meth_set_priv_dec_priv_dec): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_set_mod_exp(rsa: PRSA_METHOD; mod_exp: RSA_meth_set_mod_exp_mod_exp): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_set_bn_mod_exp(rsa: PRSA_METHOD; bn_mod_exp: RSA_meth_set_bn_mod_exp_bn_mod_exp): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_set_init(rsa: PRSA_METHOD; init: RSA_meth_set_init_init): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_set_finish(rsa: PRSA_METHOD; finish: RSA_meth_set_finish_finish): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_set_sign(rsa: PRSA_METHOD; sign: RSA_meth_set_sign_sign): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_set_verify(rsa: PRSA_METHOD; verify: RSA_meth_set_verify_verify): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_set_keygen(rsa: PRSA_METHOD; keygen: RSA_meth_set_keygen_keygen): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function RSA_meth_set_multi_prime_keygen(meth: PRSA_METHOD; keygen: RSA_meth_set_multi_prime_keygen_keygen): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+
+{$ELSE}
 var
   RSA_new: function : PRSA; cdecl = nil;
   RSA_new_method: function (engine: PENGINE): PRSA; cdecl = nil;
-  RSA_bits: function (const rsa: PRSA): TIdC_INT; cdecl = nil;
-  RSA_size: function (const rsa: PRSA): TIdC_INT; cdecl = nil;
-  RSA_security_bits: function (const rsa: PRSA): TIdC_INT; cdecl = nil;
-
-  RSA_set0_key: function (r: PRSA; n: PBIGNUM; e: PBIGNUM; d: PBIGNUM): TIdC_INT; cdecl = nil;
-  RSA_set0_factors: function (r: PRSA; p: PBIGNUM; q: PBIGNUM): TIdC_INT; cdecl = nil;
-  RSA_set0_crt_params: function (r: PRSA; dmp1: PBIGNUM; dmq1: PBIGNUM; iqmp: PBIGNUM): TIdC_INT; cdecl = nil;
-  //function RSA_set0_multi_prime_params(r: PRSA; primes: array of PBIGNUM; exps: array of PBIGNUM; coeffs: array of PBIGNUM; pnum: TIdC_INT): TIdC_INT;
-
+  RSA_bits: function (const rsa: PRSA): TOpenSSL_C_INT; cdecl = nil;
+  RSA_size: function (const rsa: PRSA): TOpenSSL_C_INT; cdecl = nil;
+  RSA_security_bits: function (const rsa: PRSA): TOpenSSL_C_INT; cdecl = nil;
+  RSA_set0_key: function (r: PRSA; n: PBIGNUM; e: PBIGNUM; d: PBIGNUM): TOpenSSL_C_INT; cdecl = nil;
+  RSA_set0_factors: function (r: PRSA; p: PBIGNUM; q: PBIGNUM): TOpenSSL_C_INT; cdecl = nil;
+  RSA_set0_crt_params: function (r: PRSA; dmp1: PBIGNUM; dmq1: PBIGNUM; iqmp: PBIGNUM): TOpenSSL_C_INT; cdecl = nil;
   RSA_get0_key: procedure (const r: PRSA; const n: PPBIGNUM; const e: PPBIGNUM; const d: PPBIGNUM); cdecl = nil;
   RSA_get0_factors: procedure (const r: PRSA; const p: PPBIGNUM; const q: PPBIGNUM); cdecl = nil;
-  RSA_get_multi_prime_extra_count: function (const r: PRSA): TIdC_INT; cdecl = nil;
-  //function RSA_get0_multi_prime_factors(const r: PRSA; const primes: array of PBIGNUM): TIdC_INT;
+  RSA_get_multi_prime_extra_count: function (const r: PRSA): TOpenSSL_C_INT; cdecl = nil;
   RSA_get0_crt_params: procedure (const r: PRSA; const dmp1: PPBIGNUM; const dmq1: PPBIGNUM; const iqmp: PPBIGNUM); cdecl = nil;
-
-  //function RSA_get0_multi_prime_crt_params(const r: PRSA; const exps: array of PBIGNUM; const coeffs: array of PBIGNUM): TIdC_INT;
-
   RSA_get0_n: function (const d: PRSA): PBIGNUM; cdecl = nil;
   RSA_get0_e: function (const d: PRSA): PBIGNUM; cdecl = nil;
   RSA_get0_d: function (const d: PRSA): PBIGNUM; cdecl = nil;
@@ -386,4242 +467,1258 @@ var
   RSA_get0_dmp1: function (const r: PRSA): PBIGNUM; cdecl = nil;
   RSA_get0_dmq1: function (const r: PRSA): PBIGNUM; cdecl = nil;
   RSA_get0_iqmp: function (const r: PRSA): PBIGNUM; cdecl = nil;
-
-  RSA_clear_flags: procedure (r: PRSA; flags: TIdC_INT); cdecl = nil;
-  RSA_test_flags: function (const r: PRSA; flags: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_set_flags: procedure (r: PRSA; flags: TIdC_INT); cdecl = nil;
-  RSA_get_version: function (r: PRSA): TIdC_INT; cdecl = nil;
+  RSA_clear_flags: procedure (r: PRSA; flags: TOpenSSL_C_INT); cdecl = nil;
+  RSA_test_flags: function (const r: PRSA; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_set_flags: procedure (r: PRSA; flags: TOpenSSL_C_INT); cdecl = nil;
+  RSA_get_version: function (r: PRSA): TOpenSSL_C_INT; cdecl = nil;
   RSA_get0_engine: function (const r: PRSA): PENGINE; cdecl = nil;
-
-  (* New version *)
-  RSA_generate_key_ex: function (rsa: PRSA; bits: TIdC_INT; e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; cdecl = nil;
-  (* Multi-prime version *)
-  RSA_generate_multi_prime_key: function (rsa: PRSA; bits: TIdC_INT; primes: TIdC_INT; e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; cdecl = nil;
-  RSA_X931_derive_ex: function (rsa: PRSA; p1: PBIGNUM; p2: PBIGNUM; q1: PBIGNUM; q2: PBIGNUM; const Xp1: PBIGNUM; const Xp2: PBIGNUM; const Xp: PBIGNUM; const Xq1: PBIGNUM; const Xq2: PBIGNUM; const Xq: PBIGNUM; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; cdecl = nil;
-  RSA_X931_generate_key_ex: function (rsa: PRSA; bits: TIdC_INT; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; cdecl = nil;
-
-  RSA_check_key: function (const v1: PRSA): TIdC_INT; cdecl = nil;
-  RSA_check_key_ex: function (const v1: PRSA; cb: BN_GENCB): TIdC_INT; cdecl = nil;
-  (* next 4 return -1 on error *)
-  RSA_public_encrypt: function (flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_private_encrypt: function (flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_public_decrypt: function (flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_private_decrypt: function (flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; cdecl = nil;
-
+  RSA_generate_key_ex: function (rsa: PRSA; bits: TOpenSSL_C_INT; e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl = nil;
+  RSA_generate_multi_prime_key: function (rsa: PRSA; bits: TOpenSSL_C_INT; primes: TOpenSSL_C_INT; e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl = nil;
+  RSA_X931_derive_ex: function (rsa: PRSA; p1: PBIGNUM; p2: PBIGNUM; q1: PBIGNUM; q2: PBIGNUM; const Xp1: PBIGNUM; const Xp2: PBIGNUM; const Xp: PBIGNUM; const Xq1: PBIGNUM; const Xq2: PBIGNUM; const Xq: PBIGNUM; const e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl = nil;
+  RSA_X931_generate_key_ex: function (rsa: PRSA; bits: TOpenSSL_C_INT; const e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl = nil;
+  RSA_check_key: function (const v1: PRSA): TOpenSSL_C_INT; cdecl = nil;
+  RSA_check_key_ex: function (const v1: PRSA; cb: BN_GENCB): TOpenSSL_C_INT; cdecl = nil;
+  RSA_public_encrypt: function (flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_private_encrypt: function (flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_public_decrypt: function (flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_private_decrypt: function (flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
   RSA_free: procedure (r: PRSA); cdecl = nil;
-  (* "up" the RSA object's reference count *)
-  RSA_up_ref: function (r: PRSA): TIdC_INT; cdecl = nil;
-
-  RSA_flags: function (const r: PRSA): TIdC_INT; cdecl = nil;
-
+  RSA_up_ref: function (r: PRSA): TOpenSSL_C_INT; cdecl = nil;
+  RSA_flags: function (const r: PRSA): TOpenSSL_C_INT; cdecl = nil;
   RSA_set_default_method: procedure (const meth: PRSA_METHOD); cdecl = nil;
   RSA_get_default_method: function : PRSA_METHOD; cdecl = nil;
   RSA_null_method: function : PRSA_METHOD; cdecl = nil;
   RSA_get_method: function (const rsa: PRSA): PRSA_METHOD; cdecl = nil;
-  RSA_set_method: function (rsa: PRSA; const meth: PRSA_METHOD): TIdC_INT; cdecl = nil;
-
-  (* these are the actual RSA functions *)
+  RSA_set_method: function (rsa: PRSA; const meth: PRSA_METHOD): TOpenSSL_C_INT; cdecl = nil;
   RSA_PKCS1_OpenSSL: function : PRSA_METHOD; cdecl = nil;
-
-  RSA_pkey_ctx_ctrl: function (ctx: PEVP_PKEY_CTX; optype: TIdC_INT; cmd: TIdC_INT; p1: TIdC_INT; p2: Pointer): TIdC_INT; cdecl = nil;
-
-  RSA_print: function (bp: PBIO; const r: PRSA; offset: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  (*
-   * The following 2 functions sign and verify a X509_SIG ASN1 object inside
-   * PKCS#1 padded RSA encryption
-   *)
-  RSA_sign: function (type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; rsa: PRSA): TIdC_INT; cdecl = nil;
-  RSA_verify: function (type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; const sigbuf: PByte; siglen: TIdC_UINT; rsa: PRSA): TIdC_INT; cdecl = nil;
-
-  (*
-   * The following 2 function sign and verify a ASN1_OCTET_STRING object inside
-   * PKCS#1 padded RSA encryption
-   *)
-  RSA_sign_ASN1_OCTET_STRING: function (type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; rsa: PRSA): TIdC_INT; cdecl = nil;
-  RSA_verify_ASN1_OCTET_STRING: function (type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigbuf: PByte; siglen: TIdC_UINT; rsa: PRSA): TIdC_INT; cdecl = nil;
-
-  RSA_blinding_on: function (rsa: PRSA; ctx: PBN_CTX): TIdC_INT; cdecl = nil;
+  RSA_pkey_ctx_ctrl: function (ctx: PEVP_PKEY_CTX; optype: TOpenSSL_C_INT; cmd: TOpenSSL_C_INT; p1: TOpenSSL_C_INT; p2: Pointer): TOpenSSL_C_INT; cdecl = nil;
+  RSA_print: function (bp: PBIO; const r: PRSA; offset: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_sign: function (type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; sigret: PByte; siglen: POpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl = nil;
+  RSA_verify: function (type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; const sigbuf: PByte; siglen: TOpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl = nil;
+  RSA_sign_ASN1_OCTET_STRING: function (type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; sigret: PByte; siglen: POpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl = nil;
+  RSA_verify_ASN1_OCTET_STRING: function (type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; sigbuf: PByte; siglen: TOpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl = nil;
+  RSA_blinding_on: function (rsa: PRSA; ctx: PBN_CTX): TOpenSSL_C_INT; cdecl = nil;
   RSA_blinding_off: procedure (rsa: PRSA); cdecl = nil;
   RSA_setup_blinding: function (rsa: PRSA; ctx: PBN_CTX): PBN_BLINDING; cdecl = nil;
-  RSA_padding_add_PKCS1_type_1: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_check_PKCS1_type_1: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_add_PKCS1_type_2: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_check_PKCS1_type_2: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; cdecl = nil;
-  PKCS1_MGF1: function (mask: PByte; len: TIdC_LONG; const seed: PByte; seedlen: TIdC_LONG; const dgst: PEVP_MD): TIdC_INT; cdecl = nil;
-  RSA_padding_add_PKCS1_OAEP: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_check_PKCS1_OAEP: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_add_PKCS1_OAEP_mgf1: function (to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT; cdecl = nil;
-  RSA_padding_check_PKCS1_OAEP_mgf1: function (to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; num: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT; cdecl = nil;
-  RSA_padding_add_SSLv23: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_check_SSLv23: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_add_none: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_check_none: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_add_X931: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_check_X931: function (to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_X931_hash_id: function (nid: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  RSA_verify_PKCS1_PSS: function (rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const EM: PByte; sLen: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_add_PKCS1_PSS: function (rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; sLen: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_verify_PKCS1_PSS_mgf1: function (rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; const EM: PByte; sLen: TIdC_INT): TIdC_INT; cdecl = nil;
-  RSA_padding_add_PKCS1_PSS_mgf1: function (rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; sLen: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  //#define RSA_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_RSA, l, p, newf, dupf, freef)
-
-  RSA_set_ex_data: function (r: PRSA; idx: TIdC_INT; arg: Pointer): TIdC_INT; cdecl = nil;
-  RSA_get_ex_data: function (const r: PRSA; idx: TIdC_INT): Pointer; cdecl = nil;
+  RSA_padding_add_PKCS1_type_1: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_check_PKCS1_type_1: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_add_PKCS1_type_2: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_check_PKCS1_type_2: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  PKCS1_MGF1: function (mask: PByte; len: TOpenSSL_C_LONG; const seed: PByte; seedlen: TOpenSSL_C_LONG; const dgst: PEVP_MD): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_add_PKCS1_OAEP: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; const p: PByte; pl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_check_PKCS1_OAEP: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT; const p: PByte; pl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_add_PKCS1_OAEP_mgf1: function (to_: PByte; tlen: TOpenSSL_C_INT; const from: PByte; flen: TOpenSSL_C_INT; const param: PByte; plen: TOpenSSL_C_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_check_PKCS1_OAEP_mgf1: function (to_: PByte; tlen: TOpenSSL_C_INT; const from: PByte; flen: TOpenSSL_C_INT; num: TOpenSSL_C_INT; const param: PByte; plen: TOpenSSL_C_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_add_none: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_check_none: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_add_X931: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_check_X931: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_X931_hash_id: function (nid: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_verify_PKCS1_PSS: function (rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const EM: PByte; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_add_PKCS1_PSS: function (rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_verify_PKCS1_PSS_mgf1: function (rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; const EM: PByte; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_padding_add_PKCS1_PSS_mgf1: function (rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  RSA_set_ex_data: function (r: PRSA; idx: TOpenSSL_C_INT; arg: Pointer): TOpenSSL_C_INT; cdecl = nil;
+  RSA_get_ex_data: function (const r: PRSA; idx: TOpenSSL_C_INT): Pointer; cdecl = nil;
   RSAPublicKey_dup: function (rsa: PRSA): PRSA; cdecl = nil;
   RSAPrivateKey_dup: function (rsa: PRSA): PRSA; cdecl = nil;
-
-  RSA_meth_new: function (const name: PIdAnsiChar; flags: TIdC_INT): PRSA_METHOD; cdecl = nil;
+  RSA_meth_new: function (const name: PAnsiChar; flags: TOpenSSL_C_INT): PRSA_METHOD; cdecl = nil;
   RSA_meth_free: procedure (meth: PRSA_METHOD); cdecl = nil;
   RSA_meth_dup: function (const meth: PRSA_METHOD): PRSA_METHOD; cdecl = nil;
-  RSA_meth_get0_name: function (const meth: PRSA_METHOD): PIdAnsiChar; cdecl = nil;
-  RSA_meth_set1_name: function (meth: PRSA_METHOD; const name: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  RSA_meth_get_flags: function (const meth: PRSA_METHOD): TIdC_INT; cdecl = nil;
-  RSA_meth_set_flags: function (meth: PRSA_METHOD; flags: TIdC_INT): TIdC_INT; cdecl = nil;
+  RSA_meth_get0_name: function (const meth: PRSA_METHOD): PAnsiChar; cdecl = nil;
+  RSA_meth_set1_name: function (meth: PRSA_METHOD; const name: PAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  RSA_meth_get_flags: function (const meth: PRSA_METHOD): TOpenSSL_C_INT; cdecl = nil;
+  RSA_meth_set_flags: function (meth: PRSA_METHOD; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
   RSA_meth_get0_app_data: function (const meth: PRSA_METHOD): Pointer; cdecl = nil;
-  RSA_meth_set0_app_data: function (meth: PRSA_METHOD; app_data: Pointer): TIdC_INT; cdecl = nil;
-
-  //int (*RSA_meth_get_pub_enc(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_pub_enc(RSA_METHOD *rsa,
-  //                         int (*pub_enc) (int flen, const unsigned char *from,
-  //                                         unsigned char *to_, RSA *rsa,
-  //                                         int padding));
-  //int (*RSA_meth_get_pub_dec(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_pub_dec(RSA_METHOD *rsa,
-  //                         int (*pub_dec) (int flen, const unsigned char *from,
-  //                                         unsigned char *to_, RSA *rsa,
-  //                                         int padding));
-  //int (*RSA_meth_get_priv_enc(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_priv_enc(RSA_METHOD *rsa,
-  //                          int (*priv_enc) (int flen, const unsigned char *from,
-  //                                           unsigned char *to_, RSA *rsa,
-  //                                           int padding));
-  //int (*RSA_meth_get_priv_dec(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  RSA_meth_set_priv_dec: function (rsa: PRSA_METHOD; priv_dec: RSA_meth_set_priv_dec_priv_dec): TIdC_INT; cdecl = nil;
-
-  //int (*RSA_meth_get_mod_exp(const RSA_METHOD *meth))
-  //    (BIGNUM *r0, const BIGNUM *i, RSA *rsa, BN_CTX *ctx);
-  RSA_meth_set_mod_exp: function (rsa: PRSA_METHOD; mod_exp: RSA_meth_set_mod_exp_mod_exp): TIdC_INT; cdecl = nil;
-  //int (*RSA_meth_get_bn_mod_exp(const RSA_METHOD *meth))
-  //    (BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
-  //     const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx);
-  RSA_meth_set_bn_mod_exp: function (rsa: PRSA_METHOD; bn_mod_exp: RSA_meth_set_bn_mod_exp_bn_mod_exp): TIdC_INT; cdecl = nil;
-  //int (*RSA_meth_get_init(const RSA_METHOD *meth)) (RSA *rsa);
-  RSA_meth_set_init: function (rsa: PRSA_METHOD; init: RSA_meth_set_init_init): TIdC_INT; cdecl = nil;
-  //int (*RSA_meth_get_finish(const RSA_METHOD *meth)) (RSA *rsa);
-  RSA_meth_set_finish: function (rsa: PRSA_METHOD; finish: RSA_meth_set_finish_finish): TIdC_INT; cdecl = nil;
-  //int (*RSA_meth_get_sign(const RSA_METHOD *meth))
-  //    (int type_,
-  //     const unsigned char *m, unsigned int m_length,
-  //     unsigned char *sigret, unsigned int *siglen,
-  //     const RSA *rsa);
-  RSA_meth_set_sign: function (rsa: PRSA_METHOD; sign: RSA_meth_set_sign_sign): TIdC_INT; cdecl = nil;
-  //int (*RSA_meth_get_verify(const RSA_METHOD *meth))
-  //    (int dtype, const unsigned char *m,
-  //     unsigned int m_length, const unsigned char *sigbuf,
-  //     unsigned int siglen, const RSA *rsa);
-  RSA_meth_set_verify: function (rsa: PRSA_METHOD; verify: RSA_meth_set_verify_verify): TIdC_INT; cdecl = nil;
-  //int (*RSA_meth_get_keygen(const RSA_METHOD *meth))
-  //    (RSA *rsa, int bits, BIGNUM *e, BN_GENCB *cb);
-  RSA_meth_set_keygen: function (rsa: PRSA_METHOD; keygen: RSA_meth_set_keygen_keygen): TIdC_INT; cdecl = nil;
-  //int (*RSA_meth_get_multi_prime_keygen(const RSA_METHOD *meth))
-  //    (RSA *rsa, int bits, int primes, BIGNUM *e, BN_GENCB *cb);
-  RSA_meth_set_multi_prime_keygen: function (meth: PRSA_METHOD; keygen: RSA_meth_set_multi_prime_keygen_keygen): TIdC_INT; cdecl = nil;
-
-{$ELSE}
-  function RSA_new: PRSA cdecl; external CLibCrypto;
-  function RSA_new_method(engine: PENGINE): PRSA cdecl; external CLibCrypto;
-  function RSA_bits(const rsa: PRSA): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_size(const rsa: PRSA): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_security_bits(const rsa: PRSA): TIdC_INT cdecl; external CLibCrypto;
-
-  function RSA_set0_key(r: PRSA; n: PBIGNUM; e: PBIGNUM; d: PBIGNUM): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_set0_factors(r: PRSA; p: PBIGNUM; q: PBIGNUM): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_set0_crt_params(r: PRSA; dmp1: PBIGNUM; dmq1: PBIGNUM; iqmp: PBIGNUM): TIdC_INT cdecl; external CLibCrypto;
-  //function RSA_set0_multi_prime_params(r: PRSA; primes: array of PBIGNUM; exps: array of PBIGNUM; coeffs: array of PBIGNUM; pnum: TIdC_INT): TIdC_INT;
-
-  procedure RSA_get0_key(const r: PRSA; const n: PPBIGNUM; const e: PPBIGNUM; const d: PPBIGNUM) cdecl; external CLibCrypto;
-  procedure RSA_get0_factors(const r: PRSA; const p: PPBIGNUM; const q: PPBIGNUM) cdecl; external CLibCrypto;
-  function RSA_get_multi_prime_extra_count(const r: PRSA): TIdC_INT cdecl; external CLibCrypto;
-  //function RSA_get0_multi_prime_factors(const r: PRSA; const primes: array of PBIGNUM): TIdC_INT;
-  procedure RSA_get0_crt_params(const r: PRSA; const dmp1: PPBIGNUM; const dmq1: PPBIGNUM; const iqmp: PPBIGNUM) cdecl; external CLibCrypto;
-
-  //function RSA_get0_multi_prime_crt_params(const r: PRSA; const exps: array of PBIGNUM; const coeffs: array of PBIGNUM): TIdC_INT;
-
-  function RSA_get0_n(const d: PRSA): PBIGNUM cdecl; external CLibCrypto;
-  function RSA_get0_e(const d: PRSA): PBIGNUM cdecl; external CLibCrypto;
-  function RSA_get0_d(const d: PRSA): PBIGNUM cdecl; external CLibCrypto;
-  function RSA_get0_p(const d: PRSA): PBIGNUM cdecl; external CLibCrypto;
-  function RSA_get0_q(const d: PRSA): PBIGNUM cdecl; external CLibCrypto;
-  function RSA_get0_dmp1(const r: PRSA): PBIGNUM cdecl; external CLibCrypto;
-  function RSA_get0_dmq1(const r: PRSA): PBIGNUM cdecl; external CLibCrypto;
-  function RSA_get0_iqmp(const r: PRSA): PBIGNUM cdecl; external CLibCrypto;
-
-  procedure RSA_clear_flags(r: PRSA; flags: TIdC_INT) cdecl; external CLibCrypto;
-  function RSA_test_flags(const r: PRSA; flags: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  procedure RSA_set_flags(r: PRSA; flags: TIdC_INT) cdecl; external CLibCrypto;
-  function RSA_get_version(r: PRSA): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_get0_engine(const r: PRSA): PENGINE cdecl; external CLibCrypto;
-
-  (* New version *)
-  function RSA_generate_key_ex(rsa: PRSA; bits: TIdC_INT; e: PBIGNUM; cb: PBN_GENCB): TIdC_INT cdecl; external CLibCrypto;
-  (* Multi-prime version *)
-  function RSA_generate_multi_prime_key(rsa: PRSA; bits: TIdC_INT; primes: TIdC_INT; e: PBIGNUM; cb: PBN_GENCB): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_X931_derive_ex(rsa: PRSA; p1: PBIGNUM; p2: PBIGNUM; q1: PBIGNUM; q2: PBIGNUM; const Xp1: PBIGNUM; const Xp2: PBIGNUM; const Xp: PBIGNUM; const Xq1: PBIGNUM; const Xq2: PBIGNUM; const Xq: PBIGNUM; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_X931_generate_key_ex(rsa: PRSA; bits: TIdC_INT; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT cdecl; external CLibCrypto;
-
-  function RSA_check_key(const v1: PRSA): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_check_key_ex(const v1: PRSA; cb: BN_GENCB): TIdC_INT cdecl; external CLibCrypto;
-  (* next 4 return -1 on error *)
-  function RSA_public_encrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_private_encrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_public_decrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_private_decrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  procedure RSA_free(r: PRSA) cdecl; external CLibCrypto;
-  (* "up" the RSA object's reference count *)
-  function RSA_up_ref(r: PRSA): TIdC_INT cdecl; external CLibCrypto;
-
-  function RSA_flags(const r: PRSA): TIdC_INT cdecl; external CLibCrypto;
-
-  procedure RSA_set_default_method(const meth: PRSA_METHOD) cdecl; external CLibCrypto;
-  function RSA_get_default_method: PRSA_METHOD cdecl; external CLibCrypto;
-  function RSA_null_method: PRSA_METHOD cdecl; external CLibCrypto;
-  function RSA_get_method(const rsa: PRSA): PRSA_METHOD cdecl; external CLibCrypto;
-  function RSA_set_method(rsa: PRSA; const meth: PRSA_METHOD): TIdC_INT cdecl; external CLibCrypto;
-
-  (* these are the actual RSA functions *)
-  function RSA_PKCS1_OpenSSL: PRSA_METHOD cdecl; external CLibCrypto;
-
-  function RSA_pkey_ctx_ctrl(ctx: PEVP_PKEY_CTX; optype: TIdC_INT; cmd: TIdC_INT; p1: TIdC_INT; p2: Pointer): TIdC_INT cdecl; external CLibCrypto;
-
-  function RSA_print(bp: PBIO; const r: PRSA; offset: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  (*
-   * The following 2 functions sign and verify a X509_SIG ASN1 object inside
-   * PKCS#1 padded RSA encryption
-   *)
-  function RSA_sign(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; rsa: PRSA): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_verify(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; const sigbuf: PByte; siglen: TIdC_UINT; rsa: PRSA): TIdC_INT cdecl; external CLibCrypto;
-
-  (*
-   * The following 2 function sign and verify a ASN1_OCTET_STRING object inside
-   * PKCS#1 padded RSA encryption
-   *)
-  function RSA_sign_ASN1_OCTET_STRING(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; rsa: PRSA): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_verify_ASN1_OCTET_STRING(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigbuf: PByte; siglen: TIdC_UINT; rsa: PRSA): TIdC_INT cdecl; external CLibCrypto;
-
-  function RSA_blinding_on(rsa: PRSA; ctx: PBN_CTX): TIdC_INT cdecl; external CLibCrypto;
-  procedure RSA_blinding_off(rsa: PRSA) cdecl; external CLibCrypto;
-  function RSA_setup_blinding(rsa: PRSA; ctx: PBN_CTX): PBN_BLINDING cdecl; external CLibCrypto;
-  function RSA_padding_add_PKCS1_type_1(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_check_PKCS1_type_1(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_add_PKCS1_type_2(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_check_PKCS1_type_2(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function PKCS1_MGF1(mask: PByte; len: TIdC_LONG; const seed: PByte; seedlen: TIdC_LONG; const dgst: PEVP_MD): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_add_PKCS1_OAEP(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_check_PKCS1_OAEP(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_add_PKCS1_OAEP_mgf1(to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_check_PKCS1_OAEP_mgf1(to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; num: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_add_SSLv23(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_check_SSLv23(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_add_none(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_check_none(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_add_X931(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_check_X931(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_X931_hash_id(nid: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  function RSA_verify_PKCS1_PSS(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const EM: PByte; sLen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_add_PKCS1_PSS(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; sLen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_verify_PKCS1_PSS_mgf1(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; const EM: PByte; sLen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_padding_add_PKCS1_PSS_mgf1(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; sLen: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  //#define RSA_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_RSA, l, p, newf, dupf, freef)
-
-  function RSA_set_ex_data(r: PRSA; idx: TIdC_INT; arg: Pointer): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_get_ex_data(const r: PRSA; idx: TIdC_INT): Pointer cdecl; external CLibCrypto;
-  function RSAPublicKey_dup(rsa: PRSA): PRSA cdecl; external CLibCrypto;
-  function RSAPrivateKey_dup(rsa: PRSA): PRSA cdecl; external CLibCrypto;
-
-  function RSA_meth_new(const name: PIdAnsiChar; flags: TIdC_INT): PRSA_METHOD cdecl; external CLibCrypto;
-  procedure RSA_meth_free(meth: PRSA_METHOD) cdecl; external CLibCrypto;
-  function RSA_meth_dup(const meth: PRSA_METHOD): PRSA_METHOD cdecl; external CLibCrypto;
-  function RSA_meth_get0_name(const meth: PRSA_METHOD): PIdAnsiChar cdecl; external CLibCrypto;
-  function RSA_meth_set1_name(meth: PRSA_METHOD; const name: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_meth_get_flags(const meth: PRSA_METHOD): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_meth_set_flags(meth: PRSA_METHOD; flags: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function RSA_meth_get0_app_data(const meth: PRSA_METHOD): Pointer cdecl; external CLibCrypto;
-  function RSA_meth_set0_app_data(meth: PRSA_METHOD; app_data: Pointer): TIdC_INT cdecl; external CLibCrypto;
-
-  //int (*RSA_meth_get_pub_enc(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_pub_enc(RSA_METHOD *rsa,
-  //                         int (*pub_enc) (int flen, const unsigned char *from,
-  //                                         unsigned char *to_, RSA *rsa,
-  //                                         int padding));
-  //int (*RSA_meth_get_pub_dec(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_pub_dec(RSA_METHOD *rsa,
-  //                         int (*pub_dec) (int flen, const unsigned char *from,
-  //                                         unsigned char *to_, RSA *rsa,
-  //                                         int padding));
-  //int (*RSA_meth_get_priv_enc(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_priv_enc(RSA_METHOD *rsa,
-  //                          int (*priv_enc) (int flen, const unsigned char *from,
-  //                                           unsigned char *to_, RSA *rsa,
-  //                                           int padding));
-  //int (*RSA_meth_get_priv_dec(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  function RSA_meth_set_priv_dec(rsa: PRSA_METHOD; priv_dec: RSA_meth_set_priv_dec_priv_dec): TIdC_INT cdecl; external CLibCrypto;
-
-  //int (*RSA_meth_get_mod_exp(const RSA_METHOD *meth))
-  //    (BIGNUM *r0, const BIGNUM *i, RSA *rsa, BN_CTX *ctx);
-  function RSA_meth_set_mod_exp(rsa: PRSA_METHOD; mod_exp: RSA_meth_set_mod_exp_mod_exp): TIdC_INT cdecl; external CLibCrypto;
-  //int (*RSA_meth_get_bn_mod_exp(const RSA_METHOD *meth))
-  //    (BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
-  //     const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx);
-  function RSA_meth_set_bn_mod_exp(rsa: PRSA_METHOD; bn_mod_exp: RSA_meth_set_bn_mod_exp_bn_mod_exp): TIdC_INT cdecl; external CLibCrypto;
-  //int (*RSA_meth_get_init(const RSA_METHOD *meth)) (RSA *rsa);
-  function RSA_meth_set_init(rsa: PRSA_METHOD; init: RSA_meth_set_init_init): TIdC_INT cdecl; external CLibCrypto;
-  //int (*RSA_meth_get_finish(const RSA_METHOD *meth)) (RSA *rsa);
-  function RSA_meth_set_finish(rsa: PRSA_METHOD; finish: RSA_meth_set_finish_finish): TIdC_INT cdecl; external CLibCrypto;
-  //int (*RSA_meth_get_sign(const RSA_METHOD *meth))
-  //    (int type_,
-  //     const unsigned char *m, unsigned int m_length,
-  //     unsigned char *sigret, unsigned int *siglen,
-  //     const RSA *rsa);
-  function RSA_meth_set_sign(rsa: PRSA_METHOD; sign: RSA_meth_set_sign_sign): TIdC_INT cdecl; external CLibCrypto;
-  //int (*RSA_meth_get_verify(const RSA_METHOD *meth))
-  //    (int dtype, const unsigned char *m,
-  //     unsigned int m_length, const unsigned char *sigbuf,
-  //     unsigned int siglen, const RSA *rsa);
-  function RSA_meth_set_verify(rsa: PRSA_METHOD; verify: RSA_meth_set_verify_verify): TIdC_INT cdecl; external CLibCrypto;
-  //int (*RSA_meth_get_keygen(const RSA_METHOD *meth))
-  //    (RSA *rsa, int bits, BIGNUM *e, BN_GENCB *cb);
-  function RSA_meth_set_keygen(rsa: PRSA_METHOD; keygen: RSA_meth_set_keygen_keygen): TIdC_INT cdecl; external CLibCrypto;
-  //int (*RSA_meth_get_multi_prime_keygen(const RSA_METHOD *meth))
-  //    (RSA *rsa, int bits, int primes, BIGNUM *e, BN_GENCB *cb);
-  function RSA_meth_set_multi_prime_keygen(meth: PRSA_METHOD; keygen: RSA_meth_set_multi_prime_keygen_keygen): TIdC_INT cdecl; external CLibCrypto;
-
+  RSA_meth_set0_app_data: function (meth: PRSA_METHOD; app_data: Pointer): TOpenSSL_C_INT; cdecl = nil;
+  RSA_meth_set_priv_dec: function (rsa: PRSA_METHOD; priv_dec: RSA_meth_set_priv_dec_priv_dec): TOpenSSL_C_INT; cdecl = nil;
+  RSA_meth_set_mod_exp: function (rsa: PRSA_METHOD; mod_exp: RSA_meth_set_mod_exp_mod_exp): TOpenSSL_C_INT; cdecl = nil;
+  RSA_meth_set_bn_mod_exp: function (rsa: PRSA_METHOD; bn_mod_exp: RSA_meth_set_bn_mod_exp_bn_mod_exp): TOpenSSL_C_INT; cdecl = nil;
+  RSA_meth_set_init: function (rsa: PRSA_METHOD; init: RSA_meth_set_init_init): TOpenSSL_C_INT; cdecl = nil;
+  RSA_meth_set_finish: function (rsa: PRSA_METHOD; finish: RSA_meth_set_finish_finish): TOpenSSL_C_INT; cdecl = nil;
+  RSA_meth_set_sign: function (rsa: PRSA_METHOD; sign: RSA_meth_set_sign_sign): TOpenSSL_C_INT; cdecl = nil;
+  RSA_meth_set_verify: function (rsa: PRSA_METHOD; verify: RSA_meth_set_verify_verify): TOpenSSL_C_INT; cdecl = nil;
+  RSA_meth_set_keygen: function (rsa: PRSA_METHOD; keygen: RSA_meth_set_keygen_keygen): TOpenSSL_C_INT; cdecl = nil;
+  RSA_meth_set_multi_prime_keygen: function (meth: PRSA_METHOD; keygen: RSA_meth_set_multi_prime_keygen_keygen): TOpenSSL_C_INT; cdecl = nil;
 {$ENDIF}
+const
+  RSA_padding_add_SSLv23_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  RSA_padding_check_SSLv23_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+
 
 implementation
 
-  uses
-    classes, 
-    IdSSLOpenSSLExceptionHandlers, 
-    IdResourceStringsOpenSSL
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    ,IdSSLOpenSSLLoader
-  {$ENDIF};
-  
+
+
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-const
-  RSA_new_procname = 'RSA_new';
-  RSA_new_method_procname = 'RSA_new_method';
-  RSA_bits_procname = 'RSA_bits';
-  RSA_size_procname = 'RSA_size';
-  RSA_security_bits_procname = 'RSA_security_bits';
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 
-  RSA_set0_key_procname = 'RSA_set0_key';
-  RSA_set0_factors_procname = 'RSA_set0_factors';
-  RSA_set0_crt_params_procname = 'RSA_set0_crt_params';
-  //function RSA_set0_multi_prime_params(r: PRSA; primes: array of PBIGNUM; exps: array of PBIGNUM; coeffs: array of PBIGNUM; pnum: TIdC_INT): TIdC_INT;
+var
+  RSA_padding_add_SSLv23: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {removed 3.0.0}
+  RSA_padding_check_SSLv23: function (to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {removed 3.0.0}
 
-  RSA_get0_key_procname = 'RSA_get0_key';
-  RSA_get0_factors_procname = 'RSA_get0_factors';
-  RSA_get_multi_prime_extra_count_procname = 'RSA_get_multi_prime_extra_count';
-  //function RSA_get0_multi_prime_factors(const r: PRSA; const primes: array of PBIGNUM): TIdC_INT;
-  RSA_get0_crt_params_procname = 'RSA_get0_crt_params';
-
-  //function RSA_get0_multi_prime_crt_params(const r: PRSA; const exps: array of PBIGNUM; const coeffs: array of PBIGNUM): TIdC_INT;
-
-  RSA_get0_n_procname = 'RSA_get0_n';
-  RSA_get0_e_procname = 'RSA_get0_e';
-  RSA_get0_d_procname = 'RSA_get0_d';
-  RSA_get0_p_procname = 'RSA_get0_p';
-  RSA_get0_q_procname = 'RSA_get0_q';
-  RSA_get0_dmp1_procname = 'RSA_get0_dmp1';
-  RSA_get0_dmq1_procname = 'RSA_get0_dmq1';
-  RSA_get0_iqmp_procname = 'RSA_get0_iqmp';
-
-  RSA_clear_flags_procname = 'RSA_clear_flags';
-  RSA_test_flags_procname = 'RSA_test_flags';
-  RSA_set_flags_procname = 'RSA_set_flags';
-  RSA_get_version_procname = 'RSA_get_version';
-  RSA_get0_engine_procname = 'RSA_get0_engine';
-
-  (* New version *)
-  RSA_generate_key_ex_procname = 'RSA_generate_key_ex';
-  (* Multi-prime version *)
-  RSA_generate_multi_prime_key_procname = 'RSA_generate_multi_prime_key';
-  RSA_X931_derive_ex_procname = 'RSA_X931_derive_ex';
-  RSA_X931_generate_key_ex_procname = 'RSA_X931_generate_key_ex';
-
-  RSA_check_key_procname = 'RSA_check_key';
-  RSA_check_key_ex_procname = 'RSA_check_key_ex';
-  (* next 4 return -1 on error *)
-  RSA_public_encrypt_procname = 'RSA_public_encrypt';
-  RSA_private_encrypt_procname = 'RSA_private_encrypt';
-  RSA_public_decrypt_procname = 'RSA_public_decrypt';
-  RSA_private_decrypt_procname = 'RSA_private_decrypt';
-
-  RSA_free_procname = 'RSA_free';
-  (* "up" the RSA object's reference count *)
-  RSA_up_ref_procname = 'RSA_up_ref';
-
-  RSA_flags_procname = 'RSA_flags';
-
-  RSA_set_default_method_procname = 'RSA_set_default_method';
-  RSA_get_default_method_procname = 'RSA_get_default_method';
-  RSA_null_method_procname = 'RSA_null_method';
-  RSA_get_method_procname = 'RSA_get_method';
-  RSA_set_method_procname = 'RSA_set_method';
-
-  (* these are the actual RSA functions *)
-  RSA_PKCS1_OpenSSL_procname = 'RSA_PKCS1_OpenSSL';
-
-  RSA_pkey_ctx_ctrl_procname = 'RSA_pkey_ctx_ctrl';
-
-  RSA_print_procname = 'RSA_print';
-
-  (*
-   * The following 2 functions sign and verify a X509_SIG ASN1 object inside
-   * PKCS#1 padded RSA encryption
-   *)
-  RSA_sign_procname = 'RSA_sign';
-  RSA_verify_procname = 'RSA_verify';
-
-  (*
-   * The following 2 function sign and verify a ASN1_OCTET_STRING object inside
-   * PKCS#1 padded RSA encryption
-   *)
-  RSA_sign_ASN1_OCTET_STRING_procname = 'RSA_sign_ASN1_OCTET_STRING';
-  RSA_verify_ASN1_OCTET_STRING_procname = 'RSA_verify_ASN1_OCTET_STRING';
-
-  RSA_blinding_on_procname = 'RSA_blinding_on';
-  RSA_blinding_off_procname = 'RSA_blinding_off';
-  RSA_setup_blinding_procname = 'RSA_setup_blinding';
-  RSA_padding_add_PKCS1_type_1_procname = 'RSA_padding_add_PKCS1_type_1';
-  RSA_padding_check_PKCS1_type_1_procname = 'RSA_padding_check_PKCS1_type_1';
-  RSA_padding_add_PKCS1_type_2_procname = 'RSA_padding_add_PKCS1_type_2';
-  RSA_padding_check_PKCS1_type_2_procname = 'RSA_padding_check_PKCS1_type_2';
-  PKCS1_MGF1_procname = 'PKCS1_MGF1';
-  RSA_padding_add_PKCS1_OAEP_procname = 'RSA_padding_add_PKCS1_OAEP';
-  RSA_padding_check_PKCS1_OAEP_procname = 'RSA_padding_check_PKCS1_OAEP';
-  RSA_padding_add_PKCS1_OAEP_mgf1_procname = 'RSA_padding_add_PKCS1_OAEP_mgf1';
-  RSA_padding_check_PKCS1_OAEP_mgf1_procname = 'RSA_padding_check_PKCS1_OAEP_mgf1';
-  RSA_padding_add_SSLv23_procname = 'RSA_padding_add_SSLv23';
-  RSA_padding_check_SSLv23_procname = 'RSA_padding_check_SSLv23';
-  RSA_padding_add_none_procname = 'RSA_padding_add_none';
-  RSA_padding_check_none_procname = 'RSA_padding_check_none';
-  RSA_padding_add_X931_procname = 'RSA_padding_add_X931';
-  RSA_padding_check_X931_procname = 'RSA_padding_check_X931';
-  RSA_X931_hash_id_procname = 'RSA_X931_hash_id';
-
-  RSA_verify_PKCS1_PSS_procname = 'RSA_verify_PKCS1_PSS';
-  RSA_padding_add_PKCS1_PSS_procname = 'RSA_padding_add_PKCS1_PSS';
-  RSA_verify_PKCS1_PSS_mgf1_procname = 'RSA_verify_PKCS1_PSS_mgf1';
-  RSA_padding_add_PKCS1_PSS_mgf1_procname = 'RSA_padding_add_PKCS1_PSS_mgf1';
-
-  //#define RSA_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_RSA, l, p, newf, dupf, freef)
-
-  RSA_set_ex_data_procname = 'RSA_set_ex_data';
-  RSA_get_ex_data_procname = 'RSA_get_ex_data';
-  RSAPublicKey_dup_procname = 'RSAPublicKey_dup';
-  RSAPrivateKey_dup_procname = 'RSAPrivateKey_dup';
-
-  RSA_meth_new_procname = 'RSA_meth_new';
-  RSA_meth_free_procname = 'RSA_meth_free';
-  RSA_meth_dup_procname = 'RSA_meth_dup';
-  RSA_meth_get0_name_procname = 'RSA_meth_get0_name';
-  RSA_meth_set1_name_procname = 'RSA_meth_set1_name';
-  RSA_meth_get_flags_procname = 'RSA_meth_get_flags';
-  RSA_meth_set_flags_procname = 'RSA_meth_set_flags';
-  RSA_meth_get0_app_data_procname = 'RSA_meth_get0_app_data';
-  RSA_meth_set0_app_data_procname = 'RSA_meth_set0_app_data';
-
-  //int (*RSA_meth_get_pub_enc(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_pub_enc(RSA_METHOD *rsa,
-  //                         int (*pub_enc) (int flen, const unsigned char *from,
-  //                                         unsigned char *to_, RSA *rsa,
-  //                                         int padding));
-  //int (*RSA_meth_get_pub_dec(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_pub_dec(RSA_METHOD *rsa,
-  //                         int (*pub_dec) (int flen, const unsigned char *from,
-  //                                         unsigned char *to_, RSA *rsa,
-  //                                         int padding));
-  //int (*RSA_meth_get_priv_enc(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_priv_enc(RSA_METHOD *rsa,
-  //                          int (*priv_enc) (int flen, const unsigned char *from,
-  //                                           unsigned char *to_, RSA *rsa,
-  //                                           int padding));
-  //int (*RSA_meth_get_priv_dec(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  RSA_meth_set_priv_dec_procname = 'RSA_meth_set_priv_dec';
-
-  //int (*RSA_meth_get_mod_exp(const RSA_METHOD *meth))
-  //    (BIGNUM *r0, const BIGNUM *i, RSA *rsa, BN_CTX *ctx);
-  RSA_meth_set_mod_exp_procname = 'RSA_meth_set_mod_exp';
-  //int (*RSA_meth_get_bn_mod_exp(const RSA_METHOD *meth))
-  //    (BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
-  //     const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx);
-  RSA_meth_set_bn_mod_exp_procname = 'RSA_meth_set_bn_mod_exp';
-  //int (*RSA_meth_get_init(const RSA_METHOD *meth)) (RSA *rsa);
-  RSA_meth_set_init_procname = 'RSA_meth_set_init';
-  //int (*RSA_meth_get_finish(const RSA_METHOD *meth)) (RSA *rsa);
-  RSA_meth_set_finish_procname = 'RSA_meth_set_finish';
-  //int (*RSA_meth_get_sign(const RSA_METHOD *meth))
-  //    (int type_,
-  //     const unsigned char *m, unsigned int m_length,
-  //     unsigned char *sigret, unsigned int *siglen,
-  //     const RSA *rsa);
-  RSA_meth_set_sign_procname = 'RSA_meth_set_sign';
-  //int (*RSA_meth_get_verify(const RSA_METHOD *meth))
-  //    (int dtype, const unsigned char *m,
-  //     unsigned int m_length, const unsigned char *sigbuf,
-  //     unsigned int siglen, const RSA *rsa);
-  RSA_meth_set_verify_procname = 'RSA_meth_set_verify';
-  //int (*RSA_meth_get_keygen(const RSA_METHOD *meth))
-  //    (RSA *rsa, int bits, BIGNUM *e, BN_GENCB *cb);
-  RSA_meth_set_keygen_procname = 'RSA_meth_set_keygen';
-  //int (*RSA_meth_get_multi_prime_keygen(const RSA_METHOD *meth))
-  //    (RSA *rsa, int bits, int primes, BIGNUM *e, BN_GENCB *cb);
-  RSA_meth_set_multi_prime_keygen_procname = 'RSA_meth_set_multi_prime_keygen';
-
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
 {$WARN  NO_RETVAL OFF}
-function  ERR_RSA_new: PRSA; 
+function ERROR_RSA_new: PRSA; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_new');
 end;
 
-
-function  ERR_RSA_new_method(engine: PENGINE): PRSA; 
+function ERROR_RSA_new_method(engine: PENGINE): PRSA; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_new_method_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_new_method');
 end;
 
-
-function  ERR_RSA_bits(const rsa: PRSA): TIdC_INT; 
+function ERROR_RSA_bits(const rsa: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_bits_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_bits');
 end;
-
 
-function  ERR_RSA_size(const rsa: PRSA): TIdC_INT; 
+function ERROR_RSA_size(const rsa: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_size_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_size');
 end;
 
-
-function  ERR_RSA_security_bits(const rsa: PRSA): TIdC_INT; 
+function ERROR_RSA_security_bits(const rsa: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_security_bits_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_security_bits');
 end;
-
 
-
-function  ERR_RSA_set0_key(r: PRSA; n: PBIGNUM; e: PBIGNUM; d: PBIGNUM): TIdC_INT; 
+function ERROR_RSA_set0_key(r: PRSA; n: PBIGNUM; e: PBIGNUM; d: PBIGNUM): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_set0_key_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_set0_key');
 end;
-
 
-function  ERR_RSA_set0_factors(r: PRSA; p: PBIGNUM; q: PBIGNUM): TIdC_INT; 
+function ERROR_RSA_set0_factors(r: PRSA; p: PBIGNUM; q: PBIGNUM): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_set0_factors_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_set0_factors');
 end;
 
-
-function  ERR_RSA_set0_crt_params(r: PRSA; dmp1: PBIGNUM; dmq1: PBIGNUM; iqmp: PBIGNUM): TIdC_INT; 
+function ERROR_RSA_set0_crt_params(r: PRSA; dmp1: PBIGNUM; dmq1: PBIGNUM; iqmp: PBIGNUM): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_set0_crt_params_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_set0_crt_params');
 end;
-
-
-  //function RSA_set0_multi_prime_params(r: PRSA; primes: array of PBIGNUM; exps: array of PBIGNUM; coeffs: array of PBIGNUM; pnum: TIdC_INT): TIdC_INT;
 
-procedure  ERR_RSA_get0_key(const r: PRSA; const n: PPBIGNUM; const e: PPBIGNUM; const d: PPBIGNUM); 
+procedure ERROR_RSA_get0_key(const r: PRSA; const n: PPBIGNUM; const e: PPBIGNUM; const d: PPBIGNUM); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_key_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_key');
 end;
 
-
-procedure  ERR_RSA_get0_factors(const r: PRSA; const p: PPBIGNUM; const q: PPBIGNUM); 
+procedure ERROR_RSA_get0_factors(const r: PRSA; const p: PPBIGNUM; const q: PPBIGNUM); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_factors_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_factors');
 end;
-
 
-function  ERR_RSA_get_multi_prime_extra_count(const r: PRSA): TIdC_INT; 
+function ERROR_RSA_get_multi_prime_extra_count(const r: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get_multi_prime_extra_count_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get_multi_prime_extra_count');
 end;
 
-
-  //function RSA_get0_multi_prime_factors(const r: PRSA; const primes: array of PBIGNUM): TIdC_INT;
-procedure  ERR_RSA_get0_crt_params(const r: PRSA; const dmp1: PPBIGNUM; const dmq1: PPBIGNUM; const iqmp: PPBIGNUM); 
+procedure ERROR_RSA_get0_crt_params(const r: PRSA; const dmp1: PPBIGNUM; const dmq1: PPBIGNUM; const iqmp: PPBIGNUM); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_crt_params_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_crt_params');
 end;
-
 
-
-  //function RSA_get0_multi_prime_crt_params(const r: PRSA; const exps: array of PBIGNUM; const coeffs: array of PBIGNUM): TIdC_INT;
-
-function  ERR_RSA_get0_n(const d: PRSA): PBIGNUM; 
+function ERROR_RSA_get0_n(const d: PRSA): PBIGNUM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_n_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_n');
 end;
-
 
-function  ERR_RSA_get0_e(const d: PRSA): PBIGNUM; 
+function ERROR_RSA_get0_e(const d: PRSA): PBIGNUM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_e_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_e');
 end;
 
-
-function  ERR_RSA_get0_d(const d: PRSA): PBIGNUM; 
+function ERROR_RSA_get0_d(const d: PRSA): PBIGNUM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_d_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_d');
 end;
-
 
-function  ERR_RSA_get0_p(const d: PRSA): PBIGNUM; 
+function ERROR_RSA_get0_p(const d: PRSA): PBIGNUM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_p_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_p');
 end;
 
-
-function  ERR_RSA_get0_q(const d: PRSA): PBIGNUM; 
+function ERROR_RSA_get0_q(const d: PRSA): PBIGNUM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_q_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_q');
 end;
-
 
-function  ERR_RSA_get0_dmp1(const r: PRSA): PBIGNUM; 
+function ERROR_RSA_get0_dmp1(const r: PRSA): PBIGNUM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_dmp1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_dmp1');
 end;
 
-
-function  ERR_RSA_get0_dmq1(const r: PRSA): PBIGNUM; 
+function ERROR_RSA_get0_dmq1(const r: PRSA): PBIGNUM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_dmq1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_dmq1');
 end;
-
 
-function  ERR_RSA_get0_iqmp(const r: PRSA): PBIGNUM; 
+function ERROR_RSA_get0_iqmp(const r: PRSA): PBIGNUM; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_iqmp_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_iqmp');
 end;
-
-
 
-procedure  ERR_RSA_clear_flags(r: PRSA; flags: TIdC_INT); 
+procedure ERROR_RSA_clear_flags(r: PRSA; flags: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_clear_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_clear_flags');
 end;
 
-
-function  ERR_RSA_test_flags(const r: PRSA; flags: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_test_flags(const r: PRSA; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_test_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_test_flags');
 end;
-
 
-procedure  ERR_RSA_set_flags(r: PRSA; flags: TIdC_INT); 
+procedure ERROR_RSA_set_flags(r: PRSA; flags: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_set_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_set_flags');
 end;
 
-
-function  ERR_RSA_get_version(r: PRSA): TIdC_INT; 
+function ERROR_RSA_get_version(r: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get_version_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get_version');
 end;
-
 
-function  ERR_RSA_get0_engine(const r: PRSA): PENGINE; 
+function ERROR_RSA_get0_engine(const r: PRSA): PENGINE; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get0_engine_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get0_engine');
 end;
 
-
-
-  (* New version *)
-function  ERR_RSA_generate_key_ex(rsa: PRSA; bits: TIdC_INT; e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; 
+function ERROR_RSA_generate_key_ex(rsa: PRSA; bits: TOpenSSL_C_INT; e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_generate_key_ex_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_generate_key_ex');
 end;
-
 
-  (* Multi-prime version *)
-function  ERR_RSA_generate_multi_prime_key(rsa: PRSA; bits: TIdC_INT; primes: TIdC_INT; e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; 
+function ERROR_RSA_generate_multi_prime_key(rsa: PRSA; bits: TOpenSSL_C_INT; primes: TOpenSSL_C_INT; e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_generate_multi_prime_key_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_generate_multi_prime_key');
 end;
 
-
-function  ERR_RSA_X931_derive_ex(rsa: PRSA; p1: PBIGNUM; p2: PBIGNUM; q1: PBIGNUM; q2: PBIGNUM; const Xp1: PBIGNUM; const Xp2: PBIGNUM; const Xp: PBIGNUM; const Xq1: PBIGNUM; const Xq2: PBIGNUM; const Xq: PBIGNUM; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; 
+function ERROR_RSA_X931_derive_ex(rsa: PRSA; p1: PBIGNUM; p2: PBIGNUM; q1: PBIGNUM; q2: PBIGNUM; const Xp1: PBIGNUM; const Xp2: PBIGNUM; const Xp: PBIGNUM; const Xq1: PBIGNUM; const Xq2: PBIGNUM; const Xq: PBIGNUM; const e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_X931_derive_ex_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_X931_derive_ex');
 end;
-
 
-function  ERR_RSA_X931_generate_key_ex(rsa: PRSA; bits: TIdC_INT; const e: PBIGNUM; cb: PBN_GENCB): TIdC_INT; 
+function ERROR_RSA_X931_generate_key_ex(rsa: PRSA; bits: TOpenSSL_C_INT; const e: PBIGNUM; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_X931_generate_key_ex_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_X931_generate_key_ex');
 end;
-
-
 
-function  ERR_RSA_check_key(const v1: PRSA): TIdC_INT; 
+function ERROR_RSA_check_key(const v1: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_check_key_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_check_key');
 end;
 
-
-function  ERR_RSA_check_key_ex(const v1: PRSA; cb: BN_GENCB): TIdC_INT; 
+function ERROR_RSA_check_key_ex(const v1: PRSA; cb: BN_GENCB): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_check_key_ex_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_check_key_ex');
 end;
-
 
-  (* next 4 return -1 on error *)
-function  ERR_RSA_public_encrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_public_encrypt(flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_public_encrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_public_encrypt');
 end;
 
-
-function  ERR_RSA_private_encrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_private_encrypt(flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_private_encrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_private_encrypt');
 end;
-
 
-function  ERR_RSA_public_decrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_public_decrypt(flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_public_decrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_public_decrypt');
 end;
 
-
-function  ERR_RSA_private_decrypt(flen: TIdC_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_private_decrypt(flen: TOpenSSL_C_INT; const from: PByte; to_: PByte; rsa: PRSA; padding: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_private_decrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_private_decrypt');
 end;
-
 
-
-procedure  ERR_RSA_free(r: PRSA); 
+procedure ERROR_RSA_free(r: PRSA); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_free');
 end;
-
 
-  (* "up" the RSA object's reference count *)
-function  ERR_RSA_up_ref(r: PRSA): TIdC_INT; 
+function ERROR_RSA_up_ref(r: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_up_ref_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_up_ref');
 end;
 
-
-
-function  ERR_RSA_flags(const r: PRSA): TIdC_INT; 
+function ERROR_RSA_flags(const r: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_flags');
 end;
-
 
-
-procedure  ERR_RSA_set_default_method(const meth: PRSA_METHOD); 
+procedure ERROR_RSA_set_default_method(const meth: PRSA_METHOD); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_set_default_method_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_set_default_method');
 end;
-
 
-function  ERR_RSA_get_default_method: PRSA_METHOD; 
+function ERROR_RSA_get_default_method: PRSA_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get_default_method_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get_default_method');
 end;
 
-
-function  ERR_RSA_null_method: PRSA_METHOD; 
+function ERROR_RSA_null_method: PRSA_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_null_method_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_null_method');
 end;
-
 
-function  ERR_RSA_get_method(const rsa: PRSA): PRSA_METHOD; 
+function ERROR_RSA_get_method(const rsa: PRSA): PRSA_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get_method_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get_method');
 end;
 
-
-function  ERR_RSA_set_method(rsa: PRSA; const meth: PRSA_METHOD): TIdC_INT; 
+function ERROR_RSA_set_method(rsa: PRSA; const meth: PRSA_METHOD): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_set_method_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_set_method');
 end;
-
 
-
-  (* these are the actual RSA functions *)
-function  ERR_RSA_PKCS1_OpenSSL: PRSA_METHOD; 
+function ERROR_RSA_PKCS1_OpenSSL: PRSA_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_PKCS1_OpenSSL_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_PKCS1_OpenSSL');
 end;
-
 
-
-function  ERR_RSA_pkey_ctx_ctrl(ctx: PEVP_PKEY_CTX; optype: TIdC_INT; cmd: TIdC_INT; p1: TIdC_INT; p2: Pointer): TIdC_INT; 
+function ERROR_RSA_pkey_ctx_ctrl(ctx: PEVP_PKEY_CTX; optype: TOpenSSL_C_INT; cmd: TOpenSSL_C_INT; p1: TOpenSSL_C_INT; p2: Pointer): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_pkey_ctx_ctrl_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_pkey_ctx_ctrl');
 end;
-
 
-
-function  ERR_RSA_print(bp: PBIO; const r: PRSA; offset: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_print(bp: PBIO; const r: PRSA; offset: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_print');
 end;
-
 
-
-  (*
-   * The following 2 functions sign and verify a X509_SIG ASN1 object inside
-   * PKCS#1 padded RSA encryption
-   *)
-function  ERR_RSA_sign(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; rsa: PRSA): TIdC_INT; 
+function ERROR_RSA_sign(type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; sigret: PByte; siglen: POpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_sign_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_sign');
 end;
 
-
-function  ERR_RSA_verify(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; const sigbuf: PByte; siglen: TIdC_UINT; rsa: PRSA): TIdC_INT; 
+function ERROR_RSA_verify(type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; const sigbuf: PByte; siglen: TOpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_verify_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_verify');
 end;
-
 
-
-  (*
-   * The following 2 function sign and verify a ASN1_OCTET_STRING object inside
-   * PKCS#1 padded RSA encryption
-   *)
-function  ERR_RSA_sign_ASN1_OCTET_STRING(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigret: PByte; siglen: PIdC_UINT; rsa: PRSA): TIdC_INT; 
+function ERROR_RSA_sign_ASN1_OCTET_STRING(type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; sigret: PByte; siglen: POpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_sign_ASN1_OCTET_STRING_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_sign_ASN1_OCTET_STRING');
 end;
-
 
-function  ERR_RSA_verify_ASN1_OCTET_STRING(type_: TIdC_INT; const m: PByte; m_length: TIdC_UINT; sigbuf: PByte; siglen: TIdC_UINT; rsa: PRSA): TIdC_INT; 
+function ERROR_RSA_verify_ASN1_OCTET_STRING(type_: TOpenSSL_C_INT; const m: PByte; m_length: TOpenSSL_C_UINT; sigbuf: PByte; siglen: TOpenSSL_C_UINT; rsa: PRSA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_verify_ASN1_OCTET_STRING_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_verify_ASN1_OCTET_STRING');
 end;
-
-
 
-function  ERR_RSA_blinding_on(rsa: PRSA; ctx: PBN_CTX): TIdC_INT; 
+function ERROR_RSA_blinding_on(rsa: PRSA; ctx: PBN_CTX): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_blinding_on_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_blinding_on');
 end;
 
-
-procedure  ERR_RSA_blinding_off(rsa: PRSA); 
+procedure ERROR_RSA_blinding_off(rsa: PRSA); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_blinding_off_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_blinding_off');
 end;
 
-
-function  ERR_RSA_setup_blinding(rsa: PRSA; ctx: PBN_CTX): PBN_BLINDING; 
+function ERROR_RSA_setup_blinding(rsa: PRSA; ctx: PBN_CTX): PBN_BLINDING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_setup_blinding_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_setup_blinding');
 end;
-
 
-function  ERR_RSA_padding_add_PKCS1_type_1(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_add_PKCS1_type_1(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_type_1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_add_PKCS1_type_1');
 end;
 
-
-function  ERR_RSA_padding_check_PKCS1_type_1(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_check_PKCS1_type_1(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_check_PKCS1_type_1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_check_PKCS1_type_1');
 end;
-
 
-function  ERR_RSA_padding_add_PKCS1_type_2(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_add_PKCS1_type_2(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_type_2_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_add_PKCS1_type_2');
 end;
 
-
-function  ERR_RSA_padding_check_PKCS1_type_2(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_check_PKCS1_type_2(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_check_PKCS1_type_2_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_check_PKCS1_type_2');
 end;
-
 
-function  ERR_PKCS1_MGF1(mask: PByte; len: TIdC_LONG; const seed: PByte; seedlen: TIdC_LONG; const dgst: PEVP_MD): TIdC_INT; 
+function ERROR_PKCS1_MGF1(mask: PByte; len: TOpenSSL_C_LONG; const seed: PByte; seedlen: TOpenSSL_C_LONG; const dgst: PEVP_MD): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(PKCS1_MGF1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('PKCS1_MGF1');
 end;
 
-
-function  ERR_RSA_padding_add_PKCS1_OAEP(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_add_PKCS1_OAEP(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; const p: PByte; pl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_OAEP_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_add_PKCS1_OAEP');
 end;
 
-
-function  ERR_RSA_padding_check_PKCS1_OAEP(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT; const p: PByte; pl: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_check_PKCS1_OAEP(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT; const p: PByte; pl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_check_PKCS1_OAEP_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_check_PKCS1_OAEP');
 end;
-
 
-function  ERR_RSA_padding_add_PKCS1_OAEP_mgf1(to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT; 
+function ERROR_RSA_padding_add_PKCS1_OAEP_mgf1(to_: PByte; tlen: TOpenSSL_C_INT; const from: PByte; flen: TOpenSSL_C_INT; const param: PByte; plen: TOpenSSL_C_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_OAEP_mgf1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_add_PKCS1_OAEP_mgf1');
 end;
 
-
-function  ERR_RSA_padding_check_PKCS1_OAEP_mgf1(to_: PByte; tlen: TIdC_INT; const from: PByte; flen: TIdC_INT; num: TIdC_INT; const param: PByte; plen: TIdC_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TIdC_INT; 
+function ERROR_RSA_padding_check_PKCS1_OAEP_mgf1(to_: PByte; tlen: TOpenSSL_C_INT; const from: PByte; flen: TOpenSSL_C_INT; num: TOpenSSL_C_INT; const param: PByte; plen: TOpenSSL_C_INT; const md: PEVP_MD; const mgf1md: PEVP_MD): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_check_PKCS1_OAEP_mgf1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_check_PKCS1_OAEP_mgf1');
 end;
-
 
-function  ERR_RSA_padding_add_SSLv23(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_add_SSLv23(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_add_SSLv23_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_add_SSLv23');
 end;
 
-
-function  ERR_RSA_padding_check_SSLv23(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_check_SSLv23(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_check_SSLv23_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_check_SSLv23');
 end;
-
 
-function  ERR_RSA_padding_add_none(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_add_none(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_add_none_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_add_none');
 end;
 
-
-function  ERR_RSA_padding_check_none(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_check_none(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_check_none_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_check_none');
 end;
-
 
-function  ERR_RSA_padding_add_X931(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_add_X931(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_add_X931_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_add_X931');
 end;
 
-
-function  ERR_RSA_padding_check_X931(to_: PByte; tlen: TIdC_INT; const f: PByte; fl: TIdC_INT; rsa_len: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_check_X931(to_: PByte; tlen: TOpenSSL_C_INT; const f: PByte; fl: TOpenSSL_C_INT; rsa_len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_check_X931_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_check_X931');
 end;
-
 
-function  ERR_RSA_X931_hash_id(nid: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_X931_hash_id(nid: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_X931_hash_id_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_X931_hash_id');
 end;
 
-
-
-function  ERR_RSA_verify_PKCS1_PSS(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const EM: PByte; sLen: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_verify_PKCS1_PSS(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const EM: PByte; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_verify_PKCS1_PSS_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_verify_PKCS1_PSS');
 end;
 
-
-function  ERR_RSA_padding_add_PKCS1_PSS(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; sLen: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_add_PKCS1_PSS(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_PSS_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_add_PKCS1_PSS');
 end;
-
 
-function  ERR_RSA_verify_PKCS1_PSS_mgf1(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; const EM: PByte; sLen: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_verify_PKCS1_PSS_mgf1(rsa: PRSA; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; const EM: PByte; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_verify_PKCS1_PSS_mgf1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_verify_PKCS1_PSS_mgf1');
 end;
 
-
-function  ERR_RSA_padding_add_PKCS1_PSS_mgf1(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; sLen: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_padding_add_PKCS1_PSS_mgf1(rsa: PRSA; EM: PByte; const mHash: PByte; const Hash: PEVP_MD; const mgf1Hash: PEVP_MD; sLen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_padding_add_PKCS1_PSS_mgf1_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_padding_add_PKCS1_PSS_mgf1');
 end;
-
-
 
-  //#define RSA_get_ex_new_index(l, p, newf, dupf, freef) \
-  //    CRYPTO_get_ex_new_index(CRYPTO_EX_INDEX_RSA, l, p, newf, dupf, freef)
-
-function  ERR_RSA_set_ex_data(r: PRSA; idx: TIdC_INT; arg: Pointer): TIdC_INT; 
+function ERROR_RSA_set_ex_data(r: PRSA; idx: TOpenSSL_C_INT; arg: Pointer): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_set_ex_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_set_ex_data');
 end;
-
 
-function  ERR_RSA_get_ex_data(const r: PRSA; idx: TIdC_INT): Pointer; 
+function ERROR_RSA_get_ex_data(const r: PRSA; idx: TOpenSSL_C_INT): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_get_ex_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_get_ex_data');
 end;
 
-
-function  ERR_RSAPublicKey_dup(rsa: PRSA): PRSA; 
+function ERROR_RSAPublicKey_dup(rsa: PRSA): PRSA; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSAPublicKey_dup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSAPublicKey_dup');
 end;
-
 
-function  ERR_RSAPrivateKey_dup(rsa: PRSA): PRSA; 
+function ERROR_RSAPrivateKey_dup(rsa: PRSA): PRSA; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSAPrivateKey_dup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSAPrivateKey_dup');
 end;
 
-
-
-function  ERR_RSA_meth_new(const name: PIdAnsiChar; flags: TIdC_INT): PRSA_METHOD; 
+function ERROR_RSA_meth_new(const name: PAnsiChar; flags: TOpenSSL_C_INT): PRSA_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_new_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_new');
 end;
 
-
-procedure  ERR_RSA_meth_free(meth: PRSA_METHOD); 
+procedure ERROR_RSA_meth_free(meth: PRSA_METHOD); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_free');
 end;
-
 
-function  ERR_RSA_meth_dup(const meth: PRSA_METHOD): PRSA_METHOD; 
+function ERROR_RSA_meth_dup(const meth: PRSA_METHOD): PRSA_METHOD; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_dup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_dup');
 end;
 
-
-function  ERR_RSA_meth_get0_name(const meth: PRSA_METHOD): PIdAnsiChar; 
+function ERROR_RSA_meth_get0_name(const meth: PRSA_METHOD): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_get0_name_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_get0_name');
 end;
-
 
-function  ERR_RSA_meth_set1_name(meth: PRSA_METHOD; const name: PIdAnsiChar): TIdC_INT; 
+function ERROR_RSA_meth_set1_name(meth: PRSA_METHOD; const name: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set1_name_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set1_name');
 end;
 
-
-function  ERR_RSA_meth_get_flags(const meth: PRSA_METHOD): TIdC_INT; 
+function ERROR_RSA_meth_get_flags(const meth: PRSA_METHOD): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_get_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_get_flags');
 end;
-
 
-function  ERR_RSA_meth_set_flags(meth: PRSA_METHOD; flags: TIdC_INT): TIdC_INT; 
+function ERROR_RSA_meth_set_flags(meth: PRSA_METHOD; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set_flags');
 end;
 
-
-function  ERR_RSA_meth_get0_app_data(const meth: PRSA_METHOD): Pointer; 
+function ERROR_RSA_meth_get0_app_data(const meth: PRSA_METHOD): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_get0_app_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_get0_app_data');
 end;
 
-
-function  ERR_RSA_meth_set0_app_data(meth: PRSA_METHOD; app_data: Pointer): TIdC_INT; 
+function ERROR_RSA_meth_set0_app_data(meth: PRSA_METHOD; app_data: Pointer): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set0_app_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set0_app_data');
 end;
-
 
-
-  //int (*RSA_meth_get_pub_enc(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_pub_enc(RSA_METHOD *rsa,
-  //                         int (*pub_enc) (int flen, const unsigned char *from,
-  //                                         unsigned char *to_, RSA *rsa,
-  //                                         int padding));
-  //int (*RSA_meth_get_pub_dec(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_pub_dec(RSA_METHOD *rsa,
-  //                         int (*pub_dec) (int flen, const unsigned char *from,
-  //                                         unsigned char *to_, RSA *rsa,
-  //                                         int padding));
-  //int (*RSA_meth_get_priv_enc(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-  //int RSA_meth_set_priv_enc(RSA_METHOD *rsa,
-  //                          int (*priv_enc) (int flen, const unsigned char *from,
-  //                                           unsigned char *to_, RSA *rsa,
-  //                                           int padding));
-  //int (*RSA_meth_get_priv_dec(const RSA_METHOD *meth))
-  //    (int flen, const unsigned char *from,
-  //     unsigned char *to_, RSA *rsa, int padding);
-function  ERR_RSA_meth_set_priv_dec(rsa: PRSA_METHOD; priv_dec: RSA_meth_set_priv_dec_priv_dec): TIdC_INT; 
+function ERROR_RSA_meth_set_priv_dec(rsa: PRSA_METHOD; priv_dec: RSA_meth_set_priv_dec_priv_dec): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set_priv_dec_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set_priv_dec');
 end;
-
 
-
-  //int (*RSA_meth_get_mod_exp(const RSA_METHOD *meth))
-  //    (BIGNUM *r0, const BIGNUM *i, RSA *rsa, BN_CTX *ctx);
-function  ERR_RSA_meth_set_mod_exp(rsa: PRSA_METHOD; mod_exp: RSA_meth_set_mod_exp_mod_exp): TIdC_INT; 
+function ERROR_RSA_meth_set_mod_exp(rsa: PRSA_METHOD; mod_exp: RSA_meth_set_mod_exp_mod_exp): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set_mod_exp_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set_mod_exp');
 end;
-
 
-  //int (*RSA_meth_get_bn_mod_exp(const RSA_METHOD *meth))
-  //    (BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
-  //     const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx);
-function  ERR_RSA_meth_set_bn_mod_exp(rsa: PRSA_METHOD; bn_mod_exp: RSA_meth_set_bn_mod_exp_bn_mod_exp): TIdC_INT; 
+function ERROR_RSA_meth_set_bn_mod_exp(rsa: PRSA_METHOD; bn_mod_exp: RSA_meth_set_bn_mod_exp_bn_mod_exp): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set_bn_mod_exp_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set_bn_mod_exp');
 end;
 
-
-  //int (*RSA_meth_get_init(const RSA_METHOD *meth)) (RSA *rsa);
-function  ERR_RSA_meth_set_init(rsa: PRSA_METHOD; init: RSA_meth_set_init_init): TIdC_INT; 
+function ERROR_RSA_meth_set_init(rsa: PRSA_METHOD; init: RSA_meth_set_init_init): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set_init_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set_init');
 end;
-
 
-  //int (*RSA_meth_get_finish(const RSA_METHOD *meth)) (RSA *rsa);
-function  ERR_RSA_meth_set_finish(rsa: PRSA_METHOD; finish: RSA_meth_set_finish_finish): TIdC_INT; 
+function ERROR_RSA_meth_set_finish(rsa: PRSA_METHOD; finish: RSA_meth_set_finish_finish): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set_finish_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set_finish');
 end;
 
-
-  //int (*RSA_meth_get_sign(const RSA_METHOD *meth))
-  //    (int type_,
-  //     const unsigned char *m, unsigned int m_length,
-  //     unsigned char *sigret, unsigned int *siglen,
-  //     const RSA *rsa);
-function  ERR_RSA_meth_set_sign(rsa: PRSA_METHOD; sign: RSA_meth_set_sign_sign): TIdC_INT; 
+function ERROR_RSA_meth_set_sign(rsa: PRSA_METHOD; sign: RSA_meth_set_sign_sign): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set_sign_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set_sign');
 end;
-
 
-  //int (*RSA_meth_get_verify(const RSA_METHOD *meth))
-  //    (int dtype, const unsigned char *m,
-  //     unsigned int m_length, const unsigned char *sigbuf,
-  //     unsigned int siglen, const RSA *rsa);
-function  ERR_RSA_meth_set_verify(rsa: PRSA_METHOD; verify: RSA_meth_set_verify_verify): TIdC_INT; 
+function ERROR_RSA_meth_set_verify(rsa: PRSA_METHOD; verify: RSA_meth_set_verify_verify): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set_verify_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set_verify');
 end;
 
-
-  //int (*RSA_meth_get_keygen(const RSA_METHOD *meth))
-  //    (RSA *rsa, int bits, BIGNUM *e, BN_GENCB *cb);
-function  ERR_RSA_meth_set_keygen(rsa: PRSA_METHOD; keygen: RSA_meth_set_keygen_keygen): TIdC_INT; 
+function ERROR_RSA_meth_set_keygen(rsa: PRSA_METHOD; keygen: RSA_meth_set_keygen_keygen): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set_keygen_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set_keygen');
 end;
-
 
-  //int (*RSA_meth_get_multi_prime_keygen(const RSA_METHOD *meth))
-  //    (RSA *rsa, int bits, int primes, BIGNUM *e, BN_GENCB *cb);
-function  ERR_RSA_meth_set_multi_prime_keygen(meth: PRSA_METHOD; keygen: RSA_meth_set_multi_prime_keygen_keygen): TIdC_INT; 
+function ERROR_RSA_meth_set_multi_prime_keygen(meth: PRSA_METHOD; keygen: RSA_meth_set_multi_prime_keygen_keygen): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(RSA_meth_set_multi_prime_keygen_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('RSA_meth_set_multi_prime_keygen');
 end;
-
-
 
 {$WARN  NO_RETVAL ON}
-
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
-
 begin
-  RSA_new := LoadLibFunction(ADllHandle, RSA_new_procname);
+  RSA_new := LoadLibCryptoFunction('RSA_new');
   FuncLoadError := not assigned(RSA_new);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_new_allownil)}
-    RSA_new := @ERR_RSA_new;
-    {$ifend}
-    {$if declared(RSA_new_introduced)}
-    if LibVersion < RSA_new_introduced then
-    begin
-      {$if declared(FC_RSA_new)}
-      RSA_new := @FC_RSA_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_new_removed)}
-    if RSA_new_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_new)}
-      RSA_new := @_RSA_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_new');
-    {$ifend}
+    RSA_new :=  @ERROR_RSA_new;
   end;
 
-
-  RSA_new_method := LoadLibFunction(ADllHandle, RSA_new_method_procname);
+  RSA_new_method := LoadLibCryptoFunction('RSA_new_method');
   FuncLoadError := not assigned(RSA_new_method);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_new_method_allownil)}
-    RSA_new_method := @ERR_RSA_new_method;
-    {$ifend}
-    {$if declared(RSA_new_method_introduced)}
-    if LibVersion < RSA_new_method_introduced then
-    begin
-      {$if declared(FC_RSA_new_method)}
-      RSA_new_method := @FC_RSA_new_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_new_method_removed)}
-    if RSA_new_method_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_new_method)}
-      RSA_new_method := @_RSA_new_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_new_method_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_new_method');
-    {$ifend}
+    RSA_new_method :=  @ERROR_RSA_new_method;
   end;
 
-
-  RSA_bits := LoadLibFunction(ADllHandle, RSA_bits_procname);
+  RSA_bits := LoadLibCryptoFunction('RSA_bits');
   FuncLoadError := not assigned(RSA_bits);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_bits_allownil)}
-    RSA_bits := @ERR_RSA_bits;
-    {$ifend}
-    {$if declared(RSA_bits_introduced)}
-    if LibVersion < RSA_bits_introduced then
-    begin
-      {$if declared(FC_RSA_bits)}
-      RSA_bits := @FC_RSA_bits;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_bits_removed)}
-    if RSA_bits_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_bits)}
-      RSA_bits := @_RSA_bits;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_bits_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_bits');
-    {$ifend}
+    RSA_bits :=  @ERROR_RSA_bits;
   end;
 
-
-  RSA_size := LoadLibFunction(ADllHandle, RSA_size_procname);
+  RSA_size := LoadLibCryptoFunction('RSA_size');
   FuncLoadError := not assigned(RSA_size);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_size_allownil)}
-    RSA_size := @ERR_RSA_size;
-    {$ifend}
-    {$if declared(RSA_size_introduced)}
-    if LibVersion < RSA_size_introduced then
-    begin
-      {$if declared(FC_RSA_size)}
-      RSA_size := @FC_RSA_size;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_size_removed)}
-    if RSA_size_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_size)}
-      RSA_size := @_RSA_size;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_size_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_size');
-    {$ifend}
+    RSA_size :=  @ERROR_RSA_size;
   end;
 
-
-  RSA_security_bits := LoadLibFunction(ADllHandle, RSA_security_bits_procname);
+  RSA_security_bits := LoadLibCryptoFunction('RSA_security_bits');
   FuncLoadError := not assigned(RSA_security_bits);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_security_bits_allownil)}
-    RSA_security_bits := @ERR_RSA_security_bits;
-    {$ifend}
-    {$if declared(RSA_security_bits_introduced)}
-    if LibVersion < RSA_security_bits_introduced then
-    begin
-      {$if declared(FC_RSA_security_bits)}
-      RSA_security_bits := @FC_RSA_security_bits;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_security_bits_removed)}
-    if RSA_security_bits_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_security_bits)}
-      RSA_security_bits := @_RSA_security_bits;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_security_bits_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_security_bits');
-    {$ifend}
+    RSA_security_bits :=  @ERROR_RSA_security_bits;
   end;
 
-
-  RSA_set0_key := LoadLibFunction(ADllHandle, RSA_set0_key_procname);
+  RSA_set0_key := LoadLibCryptoFunction('RSA_set0_key');
   FuncLoadError := not assigned(RSA_set0_key);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_set0_key_allownil)}
-    RSA_set0_key := @ERR_RSA_set0_key;
-    {$ifend}
-    {$if declared(RSA_set0_key_introduced)}
-    if LibVersion < RSA_set0_key_introduced then
-    begin
-      {$if declared(FC_RSA_set0_key)}
-      RSA_set0_key := @FC_RSA_set0_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_set0_key_removed)}
-    if RSA_set0_key_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_set0_key)}
-      RSA_set0_key := @_RSA_set0_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_set0_key_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_set0_key');
-    {$ifend}
+    RSA_set0_key :=  @ERROR_RSA_set0_key;
   end;
 
-
-  RSA_set0_factors := LoadLibFunction(ADllHandle, RSA_set0_factors_procname);
+  RSA_set0_factors := LoadLibCryptoFunction('RSA_set0_factors');
   FuncLoadError := not assigned(RSA_set0_factors);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_set0_factors_allownil)}
-    RSA_set0_factors := @ERR_RSA_set0_factors;
-    {$ifend}
-    {$if declared(RSA_set0_factors_introduced)}
-    if LibVersion < RSA_set0_factors_introduced then
-    begin
-      {$if declared(FC_RSA_set0_factors)}
-      RSA_set0_factors := @FC_RSA_set0_factors;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_set0_factors_removed)}
-    if RSA_set0_factors_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_set0_factors)}
-      RSA_set0_factors := @_RSA_set0_factors;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_set0_factors_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_set0_factors');
-    {$ifend}
+    RSA_set0_factors :=  @ERROR_RSA_set0_factors;
   end;
 
-
-  RSA_set0_crt_params := LoadLibFunction(ADllHandle, RSA_set0_crt_params_procname);
+  RSA_set0_crt_params := LoadLibCryptoFunction('RSA_set0_crt_params');
   FuncLoadError := not assigned(RSA_set0_crt_params);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_set0_crt_params_allownil)}
-    RSA_set0_crt_params := @ERR_RSA_set0_crt_params;
-    {$ifend}
-    {$if declared(RSA_set0_crt_params_introduced)}
-    if LibVersion < RSA_set0_crt_params_introduced then
-    begin
-      {$if declared(FC_RSA_set0_crt_params)}
-      RSA_set0_crt_params := @FC_RSA_set0_crt_params;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_set0_crt_params_removed)}
-    if RSA_set0_crt_params_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_set0_crt_params)}
-      RSA_set0_crt_params := @_RSA_set0_crt_params;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_set0_crt_params_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_set0_crt_params');
-    {$ifend}
+    RSA_set0_crt_params :=  @ERROR_RSA_set0_crt_params;
   end;
 
-
-  RSA_get0_key := LoadLibFunction(ADllHandle, RSA_get0_key_procname);
+  RSA_get0_key := LoadLibCryptoFunction('RSA_get0_key');
   FuncLoadError := not assigned(RSA_get0_key);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_key_allownil)}
-    RSA_get0_key := @ERR_RSA_get0_key;
-    {$ifend}
-    {$if declared(RSA_get0_key_introduced)}
-    if LibVersion < RSA_get0_key_introduced then
-    begin
-      {$if declared(FC_RSA_get0_key)}
-      RSA_get0_key := @FC_RSA_get0_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_key_removed)}
-    if RSA_get0_key_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_key)}
-      RSA_get0_key := @_RSA_get0_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_key_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_key');
-    {$ifend}
+    RSA_get0_key :=  @ERROR_RSA_get0_key;
   end;
 
-
-  RSA_get0_factors := LoadLibFunction(ADllHandle, RSA_get0_factors_procname);
+  RSA_get0_factors := LoadLibCryptoFunction('RSA_get0_factors');
   FuncLoadError := not assigned(RSA_get0_factors);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_factors_allownil)}
-    RSA_get0_factors := @ERR_RSA_get0_factors;
-    {$ifend}
-    {$if declared(RSA_get0_factors_introduced)}
-    if LibVersion < RSA_get0_factors_introduced then
-    begin
-      {$if declared(FC_RSA_get0_factors)}
-      RSA_get0_factors := @FC_RSA_get0_factors;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_factors_removed)}
-    if RSA_get0_factors_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_factors)}
-      RSA_get0_factors := @_RSA_get0_factors;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_factors_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_factors');
-    {$ifend}
+    RSA_get0_factors :=  @ERROR_RSA_get0_factors;
   end;
 
-
-  RSA_get_multi_prime_extra_count := LoadLibFunction(ADllHandle, RSA_get_multi_prime_extra_count_procname);
+  RSA_get_multi_prime_extra_count := LoadLibCryptoFunction('RSA_get_multi_prime_extra_count');
   FuncLoadError := not assigned(RSA_get_multi_prime_extra_count);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get_multi_prime_extra_count_allownil)}
-    RSA_get_multi_prime_extra_count := @ERR_RSA_get_multi_prime_extra_count;
-    {$ifend}
-    {$if declared(RSA_get_multi_prime_extra_count_introduced)}
-    if LibVersion < RSA_get_multi_prime_extra_count_introduced then
-    begin
-      {$if declared(FC_RSA_get_multi_prime_extra_count)}
-      RSA_get_multi_prime_extra_count := @FC_RSA_get_multi_prime_extra_count;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get_multi_prime_extra_count_removed)}
-    if RSA_get_multi_prime_extra_count_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get_multi_prime_extra_count)}
-      RSA_get_multi_prime_extra_count := @_RSA_get_multi_prime_extra_count;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get_multi_prime_extra_count_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get_multi_prime_extra_count');
-    {$ifend}
+    RSA_get_multi_prime_extra_count :=  @ERROR_RSA_get_multi_prime_extra_count;
   end;
 
-
-  RSA_get0_crt_params := LoadLibFunction(ADllHandle, RSA_get0_crt_params_procname);
+  RSA_get0_crt_params := LoadLibCryptoFunction('RSA_get0_crt_params');
   FuncLoadError := not assigned(RSA_get0_crt_params);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_crt_params_allownil)}
-    RSA_get0_crt_params := @ERR_RSA_get0_crt_params;
-    {$ifend}
-    {$if declared(RSA_get0_crt_params_introduced)}
-    if LibVersion < RSA_get0_crt_params_introduced then
-    begin
-      {$if declared(FC_RSA_get0_crt_params)}
-      RSA_get0_crt_params := @FC_RSA_get0_crt_params;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_crt_params_removed)}
-    if RSA_get0_crt_params_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_crt_params)}
-      RSA_get0_crt_params := @_RSA_get0_crt_params;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_crt_params_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_crt_params');
-    {$ifend}
+    RSA_get0_crt_params :=  @ERROR_RSA_get0_crt_params;
   end;
 
-
-  RSA_get0_n := LoadLibFunction(ADllHandle, RSA_get0_n_procname);
+  RSA_get0_n := LoadLibCryptoFunction('RSA_get0_n');
   FuncLoadError := not assigned(RSA_get0_n);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_n_allownil)}
-    RSA_get0_n := @ERR_RSA_get0_n;
-    {$ifend}
-    {$if declared(RSA_get0_n_introduced)}
-    if LibVersion < RSA_get0_n_introduced then
-    begin
-      {$if declared(FC_RSA_get0_n)}
-      RSA_get0_n := @FC_RSA_get0_n;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_n_removed)}
-    if RSA_get0_n_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_n)}
-      RSA_get0_n := @_RSA_get0_n;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_n_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_n');
-    {$ifend}
+    RSA_get0_n :=  @ERROR_RSA_get0_n;
   end;
 
-
-  RSA_get0_e := LoadLibFunction(ADllHandle, RSA_get0_e_procname);
+  RSA_get0_e := LoadLibCryptoFunction('RSA_get0_e');
   FuncLoadError := not assigned(RSA_get0_e);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_e_allownil)}
-    RSA_get0_e := @ERR_RSA_get0_e;
-    {$ifend}
-    {$if declared(RSA_get0_e_introduced)}
-    if LibVersion < RSA_get0_e_introduced then
-    begin
-      {$if declared(FC_RSA_get0_e)}
-      RSA_get0_e := @FC_RSA_get0_e;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_e_removed)}
-    if RSA_get0_e_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_e)}
-      RSA_get0_e := @_RSA_get0_e;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_e_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_e');
-    {$ifend}
+    RSA_get0_e :=  @ERROR_RSA_get0_e;
   end;
 
-
-  RSA_get0_d := LoadLibFunction(ADllHandle, RSA_get0_d_procname);
+  RSA_get0_d := LoadLibCryptoFunction('RSA_get0_d');
   FuncLoadError := not assigned(RSA_get0_d);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_d_allownil)}
-    RSA_get0_d := @ERR_RSA_get0_d;
-    {$ifend}
-    {$if declared(RSA_get0_d_introduced)}
-    if LibVersion < RSA_get0_d_introduced then
-    begin
-      {$if declared(FC_RSA_get0_d)}
-      RSA_get0_d := @FC_RSA_get0_d;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_d_removed)}
-    if RSA_get0_d_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_d)}
-      RSA_get0_d := @_RSA_get0_d;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_d_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_d');
-    {$ifend}
+    RSA_get0_d :=  @ERROR_RSA_get0_d;
   end;
 
-
-  RSA_get0_p := LoadLibFunction(ADllHandle, RSA_get0_p_procname);
+  RSA_get0_p := LoadLibCryptoFunction('RSA_get0_p');
   FuncLoadError := not assigned(RSA_get0_p);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_p_allownil)}
-    RSA_get0_p := @ERR_RSA_get0_p;
-    {$ifend}
-    {$if declared(RSA_get0_p_introduced)}
-    if LibVersion < RSA_get0_p_introduced then
-    begin
-      {$if declared(FC_RSA_get0_p)}
-      RSA_get0_p := @FC_RSA_get0_p;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_p_removed)}
-    if RSA_get0_p_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_p)}
-      RSA_get0_p := @_RSA_get0_p;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_p_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_p');
-    {$ifend}
+    RSA_get0_p :=  @ERROR_RSA_get0_p;
   end;
 
-
-  RSA_get0_q := LoadLibFunction(ADllHandle, RSA_get0_q_procname);
+  RSA_get0_q := LoadLibCryptoFunction('RSA_get0_q');
   FuncLoadError := not assigned(RSA_get0_q);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_q_allownil)}
-    RSA_get0_q := @ERR_RSA_get0_q;
-    {$ifend}
-    {$if declared(RSA_get0_q_introduced)}
-    if LibVersion < RSA_get0_q_introduced then
-    begin
-      {$if declared(FC_RSA_get0_q)}
-      RSA_get0_q := @FC_RSA_get0_q;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_q_removed)}
-    if RSA_get0_q_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_q)}
-      RSA_get0_q := @_RSA_get0_q;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_q_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_q');
-    {$ifend}
+    RSA_get0_q :=  @ERROR_RSA_get0_q;
   end;
 
-
-  RSA_get0_dmp1 := LoadLibFunction(ADllHandle, RSA_get0_dmp1_procname);
+  RSA_get0_dmp1 := LoadLibCryptoFunction('RSA_get0_dmp1');
   FuncLoadError := not assigned(RSA_get0_dmp1);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_dmp1_allownil)}
-    RSA_get0_dmp1 := @ERR_RSA_get0_dmp1;
-    {$ifend}
-    {$if declared(RSA_get0_dmp1_introduced)}
-    if LibVersion < RSA_get0_dmp1_introduced then
-    begin
-      {$if declared(FC_RSA_get0_dmp1)}
-      RSA_get0_dmp1 := @FC_RSA_get0_dmp1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_dmp1_removed)}
-    if RSA_get0_dmp1_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_dmp1)}
-      RSA_get0_dmp1 := @_RSA_get0_dmp1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_dmp1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_dmp1');
-    {$ifend}
+    RSA_get0_dmp1 :=  @ERROR_RSA_get0_dmp1;
   end;
 
-
-  RSA_get0_dmq1 := LoadLibFunction(ADllHandle, RSA_get0_dmq1_procname);
+  RSA_get0_dmq1 := LoadLibCryptoFunction('RSA_get0_dmq1');
   FuncLoadError := not assigned(RSA_get0_dmq1);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_dmq1_allownil)}
-    RSA_get0_dmq1 := @ERR_RSA_get0_dmq1;
-    {$ifend}
-    {$if declared(RSA_get0_dmq1_introduced)}
-    if LibVersion < RSA_get0_dmq1_introduced then
-    begin
-      {$if declared(FC_RSA_get0_dmq1)}
-      RSA_get0_dmq1 := @FC_RSA_get0_dmq1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_dmq1_removed)}
-    if RSA_get0_dmq1_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_dmq1)}
-      RSA_get0_dmq1 := @_RSA_get0_dmq1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_dmq1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_dmq1');
-    {$ifend}
+    RSA_get0_dmq1 :=  @ERROR_RSA_get0_dmq1;
   end;
 
-
-  RSA_get0_iqmp := LoadLibFunction(ADllHandle, RSA_get0_iqmp_procname);
+  RSA_get0_iqmp := LoadLibCryptoFunction('RSA_get0_iqmp');
   FuncLoadError := not assigned(RSA_get0_iqmp);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_iqmp_allownil)}
-    RSA_get0_iqmp := @ERR_RSA_get0_iqmp;
-    {$ifend}
-    {$if declared(RSA_get0_iqmp_introduced)}
-    if LibVersion < RSA_get0_iqmp_introduced then
-    begin
-      {$if declared(FC_RSA_get0_iqmp)}
-      RSA_get0_iqmp := @FC_RSA_get0_iqmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_iqmp_removed)}
-    if RSA_get0_iqmp_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_iqmp)}
-      RSA_get0_iqmp := @_RSA_get0_iqmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_iqmp_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_iqmp');
-    {$ifend}
+    RSA_get0_iqmp :=  @ERROR_RSA_get0_iqmp;
   end;
 
-
-  RSA_clear_flags := LoadLibFunction(ADllHandle, RSA_clear_flags_procname);
+  RSA_clear_flags := LoadLibCryptoFunction('RSA_clear_flags');
   FuncLoadError := not assigned(RSA_clear_flags);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_clear_flags_allownil)}
-    RSA_clear_flags := @ERR_RSA_clear_flags;
-    {$ifend}
-    {$if declared(RSA_clear_flags_introduced)}
-    if LibVersion < RSA_clear_flags_introduced then
-    begin
-      {$if declared(FC_RSA_clear_flags)}
-      RSA_clear_flags := @FC_RSA_clear_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_clear_flags_removed)}
-    if RSA_clear_flags_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_clear_flags)}
-      RSA_clear_flags := @_RSA_clear_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_clear_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_clear_flags');
-    {$ifend}
+    RSA_clear_flags :=  @ERROR_RSA_clear_flags;
   end;
 
-
-  RSA_test_flags := LoadLibFunction(ADllHandle, RSA_test_flags_procname);
+  RSA_test_flags := LoadLibCryptoFunction('RSA_test_flags');
   FuncLoadError := not assigned(RSA_test_flags);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_test_flags_allownil)}
-    RSA_test_flags := @ERR_RSA_test_flags;
-    {$ifend}
-    {$if declared(RSA_test_flags_introduced)}
-    if LibVersion < RSA_test_flags_introduced then
-    begin
-      {$if declared(FC_RSA_test_flags)}
-      RSA_test_flags := @FC_RSA_test_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_test_flags_removed)}
-    if RSA_test_flags_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_test_flags)}
-      RSA_test_flags := @_RSA_test_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_test_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_test_flags');
-    {$ifend}
+    RSA_test_flags :=  @ERROR_RSA_test_flags;
   end;
 
-
-  RSA_set_flags := LoadLibFunction(ADllHandle, RSA_set_flags_procname);
+  RSA_set_flags := LoadLibCryptoFunction('RSA_set_flags');
   FuncLoadError := not assigned(RSA_set_flags);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_set_flags_allownil)}
-    RSA_set_flags := @ERR_RSA_set_flags;
-    {$ifend}
-    {$if declared(RSA_set_flags_introduced)}
-    if LibVersion < RSA_set_flags_introduced then
-    begin
-      {$if declared(FC_RSA_set_flags)}
-      RSA_set_flags := @FC_RSA_set_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_set_flags_removed)}
-    if RSA_set_flags_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_set_flags)}
-      RSA_set_flags := @_RSA_set_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_set_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_set_flags');
-    {$ifend}
+    RSA_set_flags :=  @ERROR_RSA_set_flags;
   end;
 
-
-  RSA_get_version := LoadLibFunction(ADllHandle, RSA_get_version_procname);
+  RSA_get_version := LoadLibCryptoFunction('RSA_get_version');
   FuncLoadError := not assigned(RSA_get_version);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get_version_allownil)}
-    RSA_get_version := @ERR_RSA_get_version;
-    {$ifend}
-    {$if declared(RSA_get_version_introduced)}
-    if LibVersion < RSA_get_version_introduced then
-    begin
-      {$if declared(FC_RSA_get_version)}
-      RSA_get_version := @FC_RSA_get_version;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get_version_removed)}
-    if RSA_get_version_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get_version)}
-      RSA_get_version := @_RSA_get_version;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get_version_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get_version');
-    {$ifend}
+    RSA_get_version :=  @ERROR_RSA_get_version;
   end;
 
-
-  RSA_get0_engine := LoadLibFunction(ADllHandle, RSA_get0_engine_procname);
+  RSA_get0_engine := LoadLibCryptoFunction('RSA_get0_engine');
   FuncLoadError := not assigned(RSA_get0_engine);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get0_engine_allownil)}
-    RSA_get0_engine := @ERR_RSA_get0_engine;
-    {$ifend}
-    {$if declared(RSA_get0_engine_introduced)}
-    if LibVersion < RSA_get0_engine_introduced then
-    begin
-      {$if declared(FC_RSA_get0_engine)}
-      RSA_get0_engine := @FC_RSA_get0_engine;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get0_engine_removed)}
-    if RSA_get0_engine_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get0_engine)}
-      RSA_get0_engine := @_RSA_get0_engine;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get0_engine_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get0_engine');
-    {$ifend}
+    RSA_get0_engine :=  @ERROR_RSA_get0_engine;
   end;
 
-
-  RSA_generate_key_ex := LoadLibFunction(ADllHandle, RSA_generate_key_ex_procname);
+  RSA_generate_key_ex := LoadLibCryptoFunction('RSA_generate_key_ex');
   FuncLoadError := not assigned(RSA_generate_key_ex);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_generate_key_ex_allownil)}
-    RSA_generate_key_ex := @ERR_RSA_generate_key_ex;
-    {$ifend}
-    {$if declared(RSA_generate_key_ex_introduced)}
-    if LibVersion < RSA_generate_key_ex_introduced then
-    begin
-      {$if declared(FC_RSA_generate_key_ex)}
-      RSA_generate_key_ex := @FC_RSA_generate_key_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_generate_key_ex_removed)}
-    if RSA_generate_key_ex_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_generate_key_ex)}
-      RSA_generate_key_ex := @_RSA_generate_key_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_generate_key_ex_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_generate_key_ex');
-    {$ifend}
+    RSA_generate_key_ex :=  @ERROR_RSA_generate_key_ex;
   end;
 
-
-  RSA_generate_multi_prime_key := LoadLibFunction(ADllHandle, RSA_generate_multi_prime_key_procname);
+  RSA_generate_multi_prime_key := LoadLibCryptoFunction('RSA_generate_multi_prime_key');
   FuncLoadError := not assigned(RSA_generate_multi_prime_key);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_generate_multi_prime_key_allownil)}
-    RSA_generate_multi_prime_key := @ERR_RSA_generate_multi_prime_key;
-    {$ifend}
-    {$if declared(RSA_generate_multi_prime_key_introduced)}
-    if LibVersion < RSA_generate_multi_prime_key_introduced then
-    begin
-      {$if declared(FC_RSA_generate_multi_prime_key)}
-      RSA_generate_multi_prime_key := @FC_RSA_generate_multi_prime_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_generate_multi_prime_key_removed)}
-    if RSA_generate_multi_prime_key_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_generate_multi_prime_key)}
-      RSA_generate_multi_prime_key := @_RSA_generate_multi_prime_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_generate_multi_prime_key_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_generate_multi_prime_key');
-    {$ifend}
+    RSA_generate_multi_prime_key :=  @ERROR_RSA_generate_multi_prime_key;
   end;
 
-
-  RSA_X931_derive_ex := LoadLibFunction(ADllHandle, RSA_X931_derive_ex_procname);
+  RSA_X931_derive_ex := LoadLibCryptoFunction('RSA_X931_derive_ex');
   FuncLoadError := not assigned(RSA_X931_derive_ex);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_X931_derive_ex_allownil)}
-    RSA_X931_derive_ex := @ERR_RSA_X931_derive_ex;
-    {$ifend}
-    {$if declared(RSA_X931_derive_ex_introduced)}
-    if LibVersion < RSA_X931_derive_ex_introduced then
-    begin
-      {$if declared(FC_RSA_X931_derive_ex)}
-      RSA_X931_derive_ex := @FC_RSA_X931_derive_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_X931_derive_ex_removed)}
-    if RSA_X931_derive_ex_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_X931_derive_ex)}
-      RSA_X931_derive_ex := @_RSA_X931_derive_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_X931_derive_ex_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_X931_derive_ex');
-    {$ifend}
+    RSA_X931_derive_ex :=  @ERROR_RSA_X931_derive_ex;
   end;
 
-
-  RSA_X931_generate_key_ex := LoadLibFunction(ADllHandle, RSA_X931_generate_key_ex_procname);
+  RSA_X931_generate_key_ex := LoadLibCryptoFunction('RSA_X931_generate_key_ex');
   FuncLoadError := not assigned(RSA_X931_generate_key_ex);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_X931_generate_key_ex_allownil)}
-    RSA_X931_generate_key_ex := @ERR_RSA_X931_generate_key_ex;
-    {$ifend}
-    {$if declared(RSA_X931_generate_key_ex_introduced)}
-    if LibVersion < RSA_X931_generate_key_ex_introduced then
-    begin
-      {$if declared(FC_RSA_X931_generate_key_ex)}
-      RSA_X931_generate_key_ex := @FC_RSA_X931_generate_key_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_X931_generate_key_ex_removed)}
-    if RSA_X931_generate_key_ex_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_X931_generate_key_ex)}
-      RSA_X931_generate_key_ex := @_RSA_X931_generate_key_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_X931_generate_key_ex_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_X931_generate_key_ex');
-    {$ifend}
+    RSA_X931_generate_key_ex :=  @ERROR_RSA_X931_generate_key_ex;
   end;
 
-
-  RSA_check_key := LoadLibFunction(ADllHandle, RSA_check_key_procname);
+  RSA_check_key := LoadLibCryptoFunction('RSA_check_key');
   FuncLoadError := not assigned(RSA_check_key);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_check_key_allownil)}
-    RSA_check_key := @ERR_RSA_check_key;
-    {$ifend}
-    {$if declared(RSA_check_key_introduced)}
-    if LibVersion < RSA_check_key_introduced then
-    begin
-      {$if declared(FC_RSA_check_key)}
-      RSA_check_key := @FC_RSA_check_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_check_key_removed)}
-    if RSA_check_key_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_check_key)}
-      RSA_check_key := @_RSA_check_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_check_key_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_check_key');
-    {$ifend}
+    RSA_check_key :=  @ERROR_RSA_check_key;
   end;
 
-
-  RSA_check_key_ex := LoadLibFunction(ADllHandle, RSA_check_key_ex_procname);
+  RSA_check_key_ex := LoadLibCryptoFunction('RSA_check_key_ex');
   FuncLoadError := not assigned(RSA_check_key_ex);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_check_key_ex_allownil)}
-    RSA_check_key_ex := @ERR_RSA_check_key_ex;
-    {$ifend}
-    {$if declared(RSA_check_key_ex_introduced)}
-    if LibVersion < RSA_check_key_ex_introduced then
-    begin
-      {$if declared(FC_RSA_check_key_ex)}
-      RSA_check_key_ex := @FC_RSA_check_key_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_check_key_ex_removed)}
-    if RSA_check_key_ex_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_check_key_ex)}
-      RSA_check_key_ex := @_RSA_check_key_ex;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_check_key_ex_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_check_key_ex');
-    {$ifend}
+    RSA_check_key_ex :=  @ERROR_RSA_check_key_ex;
   end;
 
-
-  RSA_public_encrypt := LoadLibFunction(ADllHandle, RSA_public_encrypt_procname);
+  RSA_public_encrypt := LoadLibCryptoFunction('RSA_public_encrypt');
   FuncLoadError := not assigned(RSA_public_encrypt);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_public_encrypt_allownil)}
-    RSA_public_encrypt := @ERR_RSA_public_encrypt;
-    {$ifend}
-    {$if declared(RSA_public_encrypt_introduced)}
-    if LibVersion < RSA_public_encrypt_introduced then
-    begin
-      {$if declared(FC_RSA_public_encrypt)}
-      RSA_public_encrypt := @FC_RSA_public_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_public_encrypt_removed)}
-    if RSA_public_encrypt_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_public_encrypt)}
-      RSA_public_encrypt := @_RSA_public_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_public_encrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_public_encrypt');
-    {$ifend}
+    RSA_public_encrypt :=  @ERROR_RSA_public_encrypt;
   end;
 
-
-  RSA_private_encrypt := LoadLibFunction(ADllHandle, RSA_private_encrypt_procname);
+  RSA_private_encrypt := LoadLibCryptoFunction('RSA_private_encrypt');
   FuncLoadError := not assigned(RSA_private_encrypt);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_private_encrypt_allownil)}
-    RSA_private_encrypt := @ERR_RSA_private_encrypt;
-    {$ifend}
-    {$if declared(RSA_private_encrypt_introduced)}
-    if LibVersion < RSA_private_encrypt_introduced then
-    begin
-      {$if declared(FC_RSA_private_encrypt)}
-      RSA_private_encrypt := @FC_RSA_private_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_private_encrypt_removed)}
-    if RSA_private_encrypt_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_private_encrypt)}
-      RSA_private_encrypt := @_RSA_private_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_private_encrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_private_encrypt');
-    {$ifend}
+    RSA_private_encrypt :=  @ERROR_RSA_private_encrypt;
   end;
 
-
-  RSA_public_decrypt := LoadLibFunction(ADllHandle, RSA_public_decrypt_procname);
+  RSA_public_decrypt := LoadLibCryptoFunction('RSA_public_decrypt');
   FuncLoadError := not assigned(RSA_public_decrypt);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_public_decrypt_allownil)}
-    RSA_public_decrypt := @ERR_RSA_public_decrypt;
-    {$ifend}
-    {$if declared(RSA_public_decrypt_introduced)}
-    if LibVersion < RSA_public_decrypt_introduced then
-    begin
-      {$if declared(FC_RSA_public_decrypt)}
-      RSA_public_decrypt := @FC_RSA_public_decrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_public_decrypt_removed)}
-    if RSA_public_decrypt_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_public_decrypt)}
-      RSA_public_decrypt := @_RSA_public_decrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_public_decrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_public_decrypt');
-    {$ifend}
+    RSA_public_decrypt :=  @ERROR_RSA_public_decrypt;
   end;
 
-
-  RSA_private_decrypt := LoadLibFunction(ADllHandle, RSA_private_decrypt_procname);
+  RSA_private_decrypt := LoadLibCryptoFunction('RSA_private_decrypt');
   FuncLoadError := not assigned(RSA_private_decrypt);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_private_decrypt_allownil)}
-    RSA_private_decrypt := @ERR_RSA_private_decrypt;
-    {$ifend}
-    {$if declared(RSA_private_decrypt_introduced)}
-    if LibVersion < RSA_private_decrypt_introduced then
-    begin
-      {$if declared(FC_RSA_private_decrypt)}
-      RSA_private_decrypt := @FC_RSA_private_decrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_private_decrypt_removed)}
-    if RSA_private_decrypt_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_private_decrypt)}
-      RSA_private_decrypt := @_RSA_private_decrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_private_decrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_private_decrypt');
-    {$ifend}
+    RSA_private_decrypt :=  @ERROR_RSA_private_decrypt;
   end;
 
-
-  RSA_free := LoadLibFunction(ADllHandle, RSA_free_procname);
+  RSA_free := LoadLibCryptoFunction('RSA_free');
   FuncLoadError := not assigned(RSA_free);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_free_allownil)}
-    RSA_free := @ERR_RSA_free;
-    {$ifend}
-    {$if declared(RSA_free_introduced)}
-    if LibVersion < RSA_free_introduced then
-    begin
-      {$if declared(FC_RSA_free)}
-      RSA_free := @FC_RSA_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_free_removed)}
-    if RSA_free_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_free)}
-      RSA_free := @_RSA_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_free');
-    {$ifend}
+    RSA_free :=  @ERROR_RSA_free;
   end;
 
-
-  RSA_up_ref := LoadLibFunction(ADllHandle, RSA_up_ref_procname);
+  RSA_up_ref := LoadLibCryptoFunction('RSA_up_ref');
   FuncLoadError := not assigned(RSA_up_ref);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_up_ref_allownil)}
-    RSA_up_ref := @ERR_RSA_up_ref;
-    {$ifend}
-    {$if declared(RSA_up_ref_introduced)}
-    if LibVersion < RSA_up_ref_introduced then
-    begin
-      {$if declared(FC_RSA_up_ref)}
-      RSA_up_ref := @FC_RSA_up_ref;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_up_ref_removed)}
-    if RSA_up_ref_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_up_ref)}
-      RSA_up_ref := @_RSA_up_ref;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_up_ref_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_up_ref');
-    {$ifend}
+    RSA_up_ref :=  @ERROR_RSA_up_ref;
   end;
 
-
-  RSA_flags := LoadLibFunction(ADllHandle, RSA_flags_procname);
+  RSA_flags := LoadLibCryptoFunction('RSA_flags');
   FuncLoadError := not assigned(RSA_flags);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_flags_allownil)}
-    RSA_flags := @ERR_RSA_flags;
-    {$ifend}
-    {$if declared(RSA_flags_introduced)}
-    if LibVersion < RSA_flags_introduced then
-    begin
-      {$if declared(FC_RSA_flags)}
-      RSA_flags := @FC_RSA_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_flags_removed)}
-    if RSA_flags_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_flags)}
-      RSA_flags := @_RSA_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_flags');
-    {$ifend}
+    RSA_flags :=  @ERROR_RSA_flags;
   end;
 
-
-  RSA_set_default_method := LoadLibFunction(ADllHandle, RSA_set_default_method_procname);
+  RSA_set_default_method := LoadLibCryptoFunction('RSA_set_default_method');
   FuncLoadError := not assigned(RSA_set_default_method);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_set_default_method_allownil)}
-    RSA_set_default_method := @ERR_RSA_set_default_method;
-    {$ifend}
-    {$if declared(RSA_set_default_method_introduced)}
-    if LibVersion < RSA_set_default_method_introduced then
-    begin
-      {$if declared(FC_RSA_set_default_method)}
-      RSA_set_default_method := @FC_RSA_set_default_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_set_default_method_removed)}
-    if RSA_set_default_method_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_set_default_method)}
-      RSA_set_default_method := @_RSA_set_default_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_set_default_method_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_set_default_method');
-    {$ifend}
+    RSA_set_default_method :=  @ERROR_RSA_set_default_method;
   end;
 
-
-  RSA_get_default_method := LoadLibFunction(ADllHandle, RSA_get_default_method_procname);
+  RSA_get_default_method := LoadLibCryptoFunction('RSA_get_default_method');
   FuncLoadError := not assigned(RSA_get_default_method);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get_default_method_allownil)}
-    RSA_get_default_method := @ERR_RSA_get_default_method;
-    {$ifend}
-    {$if declared(RSA_get_default_method_introduced)}
-    if LibVersion < RSA_get_default_method_introduced then
-    begin
-      {$if declared(FC_RSA_get_default_method)}
-      RSA_get_default_method := @FC_RSA_get_default_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get_default_method_removed)}
-    if RSA_get_default_method_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get_default_method)}
-      RSA_get_default_method := @_RSA_get_default_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get_default_method_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get_default_method');
-    {$ifend}
+    RSA_get_default_method :=  @ERROR_RSA_get_default_method;
   end;
 
-
-  RSA_null_method := LoadLibFunction(ADllHandle, RSA_null_method_procname);
+  RSA_null_method := LoadLibCryptoFunction('RSA_null_method');
   FuncLoadError := not assigned(RSA_null_method);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_null_method_allownil)}
-    RSA_null_method := @ERR_RSA_null_method;
-    {$ifend}
-    {$if declared(RSA_null_method_introduced)}
-    if LibVersion < RSA_null_method_introduced then
-    begin
-      {$if declared(FC_RSA_null_method)}
-      RSA_null_method := @FC_RSA_null_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_null_method_removed)}
-    if RSA_null_method_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_null_method)}
-      RSA_null_method := @_RSA_null_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_null_method_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_null_method');
-    {$ifend}
+    RSA_null_method :=  @ERROR_RSA_null_method;
   end;
 
-
-  RSA_get_method := LoadLibFunction(ADllHandle, RSA_get_method_procname);
+  RSA_get_method := LoadLibCryptoFunction('RSA_get_method');
   FuncLoadError := not assigned(RSA_get_method);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get_method_allownil)}
-    RSA_get_method := @ERR_RSA_get_method;
-    {$ifend}
-    {$if declared(RSA_get_method_introduced)}
-    if LibVersion < RSA_get_method_introduced then
-    begin
-      {$if declared(FC_RSA_get_method)}
-      RSA_get_method := @FC_RSA_get_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get_method_removed)}
-    if RSA_get_method_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get_method)}
-      RSA_get_method := @_RSA_get_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get_method_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get_method');
-    {$ifend}
+    RSA_get_method :=  @ERROR_RSA_get_method;
   end;
 
-
-  RSA_set_method := LoadLibFunction(ADllHandle, RSA_set_method_procname);
+  RSA_set_method := LoadLibCryptoFunction('RSA_set_method');
   FuncLoadError := not assigned(RSA_set_method);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_set_method_allownil)}
-    RSA_set_method := @ERR_RSA_set_method;
-    {$ifend}
-    {$if declared(RSA_set_method_introduced)}
-    if LibVersion < RSA_set_method_introduced then
-    begin
-      {$if declared(FC_RSA_set_method)}
-      RSA_set_method := @FC_RSA_set_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_set_method_removed)}
-    if RSA_set_method_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_set_method)}
-      RSA_set_method := @_RSA_set_method;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_set_method_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_set_method');
-    {$ifend}
+    RSA_set_method :=  @ERROR_RSA_set_method;
   end;
 
-
-  RSA_PKCS1_OpenSSL := LoadLibFunction(ADllHandle, RSA_PKCS1_OpenSSL_procname);
+  RSA_PKCS1_OpenSSL := LoadLibCryptoFunction('RSA_PKCS1_OpenSSL');
   FuncLoadError := not assigned(RSA_PKCS1_OpenSSL);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_PKCS1_OpenSSL_allownil)}
-    RSA_PKCS1_OpenSSL := @ERR_RSA_PKCS1_OpenSSL;
-    {$ifend}
-    {$if declared(RSA_PKCS1_OpenSSL_introduced)}
-    if LibVersion < RSA_PKCS1_OpenSSL_introduced then
-    begin
-      {$if declared(FC_RSA_PKCS1_OpenSSL)}
-      RSA_PKCS1_OpenSSL := @FC_RSA_PKCS1_OpenSSL;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_PKCS1_OpenSSL_removed)}
-    if RSA_PKCS1_OpenSSL_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_PKCS1_OpenSSL)}
-      RSA_PKCS1_OpenSSL := @_RSA_PKCS1_OpenSSL;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_PKCS1_OpenSSL_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_PKCS1_OpenSSL');
-    {$ifend}
+    RSA_PKCS1_OpenSSL :=  @ERROR_RSA_PKCS1_OpenSSL;
   end;
 
-
-  RSA_pkey_ctx_ctrl := LoadLibFunction(ADllHandle, RSA_pkey_ctx_ctrl_procname);
+  RSA_pkey_ctx_ctrl := LoadLibCryptoFunction('RSA_pkey_ctx_ctrl');
   FuncLoadError := not assigned(RSA_pkey_ctx_ctrl);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_pkey_ctx_ctrl_allownil)}
-    RSA_pkey_ctx_ctrl := @ERR_RSA_pkey_ctx_ctrl;
-    {$ifend}
-    {$if declared(RSA_pkey_ctx_ctrl_introduced)}
-    if LibVersion < RSA_pkey_ctx_ctrl_introduced then
-    begin
-      {$if declared(FC_RSA_pkey_ctx_ctrl)}
-      RSA_pkey_ctx_ctrl := @FC_RSA_pkey_ctx_ctrl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_pkey_ctx_ctrl_removed)}
-    if RSA_pkey_ctx_ctrl_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_pkey_ctx_ctrl)}
-      RSA_pkey_ctx_ctrl := @_RSA_pkey_ctx_ctrl;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_pkey_ctx_ctrl_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_pkey_ctx_ctrl');
-    {$ifend}
+    RSA_pkey_ctx_ctrl :=  @ERROR_RSA_pkey_ctx_ctrl;
   end;
 
-
-  RSA_print := LoadLibFunction(ADllHandle, RSA_print_procname);
+  RSA_print := LoadLibCryptoFunction('RSA_print');
   FuncLoadError := not assigned(RSA_print);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_print_allownil)}
-    RSA_print := @ERR_RSA_print;
-    {$ifend}
-    {$if declared(RSA_print_introduced)}
-    if LibVersion < RSA_print_introduced then
-    begin
-      {$if declared(FC_RSA_print)}
-      RSA_print := @FC_RSA_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_print_removed)}
-    if RSA_print_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_print)}
-      RSA_print := @_RSA_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_print_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_print');
-    {$ifend}
+    RSA_print :=  @ERROR_RSA_print;
   end;
 
-
-  RSA_sign := LoadLibFunction(ADllHandle, RSA_sign_procname);
+  RSA_sign := LoadLibCryptoFunction('RSA_sign');
   FuncLoadError := not assigned(RSA_sign);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_sign_allownil)}
-    RSA_sign := @ERR_RSA_sign;
-    {$ifend}
-    {$if declared(RSA_sign_introduced)}
-    if LibVersion < RSA_sign_introduced then
-    begin
-      {$if declared(FC_RSA_sign)}
-      RSA_sign := @FC_RSA_sign;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_sign_removed)}
-    if RSA_sign_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_sign)}
-      RSA_sign := @_RSA_sign;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_sign_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_sign');
-    {$ifend}
+    RSA_sign :=  @ERROR_RSA_sign;
   end;
 
-
-  RSA_verify := LoadLibFunction(ADllHandle, RSA_verify_procname);
+  RSA_verify := LoadLibCryptoFunction('RSA_verify');
   FuncLoadError := not assigned(RSA_verify);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_verify_allownil)}
-    RSA_verify := @ERR_RSA_verify;
-    {$ifend}
-    {$if declared(RSA_verify_introduced)}
-    if LibVersion < RSA_verify_introduced then
-    begin
-      {$if declared(FC_RSA_verify)}
-      RSA_verify := @FC_RSA_verify;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_verify_removed)}
-    if RSA_verify_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_verify)}
-      RSA_verify := @_RSA_verify;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_verify_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_verify');
-    {$ifend}
+    RSA_verify :=  @ERROR_RSA_verify;
   end;
 
-
-  RSA_sign_ASN1_OCTET_STRING := LoadLibFunction(ADllHandle, RSA_sign_ASN1_OCTET_STRING_procname);
+  RSA_sign_ASN1_OCTET_STRING := LoadLibCryptoFunction('RSA_sign_ASN1_OCTET_STRING');
   FuncLoadError := not assigned(RSA_sign_ASN1_OCTET_STRING);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_sign_ASN1_OCTET_STRING_allownil)}
-    RSA_sign_ASN1_OCTET_STRING := @ERR_RSA_sign_ASN1_OCTET_STRING;
-    {$ifend}
-    {$if declared(RSA_sign_ASN1_OCTET_STRING_introduced)}
-    if LibVersion < RSA_sign_ASN1_OCTET_STRING_introduced then
-    begin
-      {$if declared(FC_RSA_sign_ASN1_OCTET_STRING)}
-      RSA_sign_ASN1_OCTET_STRING := @FC_RSA_sign_ASN1_OCTET_STRING;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_sign_ASN1_OCTET_STRING_removed)}
-    if RSA_sign_ASN1_OCTET_STRING_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_sign_ASN1_OCTET_STRING)}
-      RSA_sign_ASN1_OCTET_STRING := @_RSA_sign_ASN1_OCTET_STRING;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_sign_ASN1_OCTET_STRING_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_sign_ASN1_OCTET_STRING');
-    {$ifend}
+    RSA_sign_ASN1_OCTET_STRING :=  @ERROR_RSA_sign_ASN1_OCTET_STRING;
   end;
 
-
-  RSA_verify_ASN1_OCTET_STRING := LoadLibFunction(ADllHandle, RSA_verify_ASN1_OCTET_STRING_procname);
+  RSA_verify_ASN1_OCTET_STRING := LoadLibCryptoFunction('RSA_verify_ASN1_OCTET_STRING');
   FuncLoadError := not assigned(RSA_verify_ASN1_OCTET_STRING);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_verify_ASN1_OCTET_STRING_allownil)}
-    RSA_verify_ASN1_OCTET_STRING := @ERR_RSA_verify_ASN1_OCTET_STRING;
-    {$ifend}
-    {$if declared(RSA_verify_ASN1_OCTET_STRING_introduced)}
-    if LibVersion < RSA_verify_ASN1_OCTET_STRING_introduced then
-    begin
-      {$if declared(FC_RSA_verify_ASN1_OCTET_STRING)}
-      RSA_verify_ASN1_OCTET_STRING := @FC_RSA_verify_ASN1_OCTET_STRING;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_verify_ASN1_OCTET_STRING_removed)}
-    if RSA_verify_ASN1_OCTET_STRING_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_verify_ASN1_OCTET_STRING)}
-      RSA_verify_ASN1_OCTET_STRING := @_RSA_verify_ASN1_OCTET_STRING;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_verify_ASN1_OCTET_STRING_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_verify_ASN1_OCTET_STRING');
-    {$ifend}
+    RSA_verify_ASN1_OCTET_STRING :=  @ERROR_RSA_verify_ASN1_OCTET_STRING;
   end;
 
-
-  RSA_blinding_on := LoadLibFunction(ADllHandle, RSA_blinding_on_procname);
+  RSA_blinding_on := LoadLibCryptoFunction('RSA_blinding_on');
   FuncLoadError := not assigned(RSA_blinding_on);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_blinding_on_allownil)}
-    RSA_blinding_on := @ERR_RSA_blinding_on;
-    {$ifend}
-    {$if declared(RSA_blinding_on_introduced)}
-    if LibVersion < RSA_blinding_on_introduced then
-    begin
-      {$if declared(FC_RSA_blinding_on)}
-      RSA_blinding_on := @FC_RSA_blinding_on;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_blinding_on_removed)}
-    if RSA_blinding_on_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_blinding_on)}
-      RSA_blinding_on := @_RSA_blinding_on;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_blinding_on_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_blinding_on');
-    {$ifend}
+    RSA_blinding_on :=  @ERROR_RSA_blinding_on;
   end;
 
-
-  RSA_blinding_off := LoadLibFunction(ADllHandle, RSA_blinding_off_procname);
+  RSA_blinding_off := LoadLibCryptoFunction('RSA_blinding_off');
   FuncLoadError := not assigned(RSA_blinding_off);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_blinding_off_allownil)}
-    RSA_blinding_off := @ERR_RSA_blinding_off;
-    {$ifend}
-    {$if declared(RSA_blinding_off_introduced)}
-    if LibVersion < RSA_blinding_off_introduced then
-    begin
-      {$if declared(FC_RSA_blinding_off)}
-      RSA_blinding_off := @FC_RSA_blinding_off;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_blinding_off_removed)}
-    if RSA_blinding_off_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_blinding_off)}
-      RSA_blinding_off := @_RSA_blinding_off;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_blinding_off_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_blinding_off');
-    {$ifend}
+    RSA_blinding_off :=  @ERROR_RSA_blinding_off;
   end;
 
-
-  RSA_setup_blinding := LoadLibFunction(ADllHandle, RSA_setup_blinding_procname);
+  RSA_setup_blinding := LoadLibCryptoFunction('RSA_setup_blinding');
   FuncLoadError := not assigned(RSA_setup_blinding);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_setup_blinding_allownil)}
-    RSA_setup_blinding := @ERR_RSA_setup_blinding;
-    {$ifend}
-    {$if declared(RSA_setup_blinding_introduced)}
-    if LibVersion < RSA_setup_blinding_introduced then
-    begin
-      {$if declared(FC_RSA_setup_blinding)}
-      RSA_setup_blinding := @FC_RSA_setup_blinding;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_setup_blinding_removed)}
-    if RSA_setup_blinding_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_setup_blinding)}
-      RSA_setup_blinding := @_RSA_setup_blinding;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_setup_blinding_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_setup_blinding');
-    {$ifend}
+    RSA_setup_blinding :=  @ERROR_RSA_setup_blinding;
   end;
 
-
-  RSA_padding_add_PKCS1_type_1 := LoadLibFunction(ADllHandle, RSA_padding_add_PKCS1_type_1_procname);
+  RSA_padding_add_PKCS1_type_1 := LoadLibCryptoFunction('RSA_padding_add_PKCS1_type_1');
   FuncLoadError := not assigned(RSA_padding_add_PKCS1_type_1);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_add_PKCS1_type_1_allownil)}
-    RSA_padding_add_PKCS1_type_1 := @ERR_RSA_padding_add_PKCS1_type_1;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_type_1_introduced)}
-    if LibVersion < RSA_padding_add_PKCS1_type_1_introduced then
-    begin
-      {$if declared(FC_RSA_padding_add_PKCS1_type_1)}
-      RSA_padding_add_PKCS1_type_1 := @FC_RSA_padding_add_PKCS1_type_1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_type_1_removed)}
-    if RSA_padding_add_PKCS1_type_1_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_add_PKCS1_type_1)}
-      RSA_padding_add_PKCS1_type_1 := @_RSA_padding_add_PKCS1_type_1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_add_PKCS1_type_1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_add_PKCS1_type_1');
-    {$ifend}
+    RSA_padding_add_PKCS1_type_1 :=  @ERROR_RSA_padding_add_PKCS1_type_1;
   end;
 
-
-  RSA_padding_check_PKCS1_type_1 := LoadLibFunction(ADllHandle, RSA_padding_check_PKCS1_type_1_procname);
+  RSA_padding_check_PKCS1_type_1 := LoadLibCryptoFunction('RSA_padding_check_PKCS1_type_1');
   FuncLoadError := not assigned(RSA_padding_check_PKCS1_type_1);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_check_PKCS1_type_1_allownil)}
-    RSA_padding_check_PKCS1_type_1 := @ERR_RSA_padding_check_PKCS1_type_1;
-    {$ifend}
-    {$if declared(RSA_padding_check_PKCS1_type_1_introduced)}
-    if LibVersion < RSA_padding_check_PKCS1_type_1_introduced then
-    begin
-      {$if declared(FC_RSA_padding_check_PKCS1_type_1)}
-      RSA_padding_check_PKCS1_type_1 := @FC_RSA_padding_check_PKCS1_type_1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_check_PKCS1_type_1_removed)}
-    if RSA_padding_check_PKCS1_type_1_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_check_PKCS1_type_1)}
-      RSA_padding_check_PKCS1_type_1 := @_RSA_padding_check_PKCS1_type_1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_check_PKCS1_type_1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_check_PKCS1_type_1');
-    {$ifend}
+    RSA_padding_check_PKCS1_type_1 :=  @ERROR_RSA_padding_check_PKCS1_type_1;
   end;
 
-
-  RSA_padding_add_PKCS1_type_2 := LoadLibFunction(ADllHandle, RSA_padding_add_PKCS1_type_2_procname);
+  RSA_padding_add_PKCS1_type_2 := LoadLibCryptoFunction('RSA_padding_add_PKCS1_type_2');
   FuncLoadError := not assigned(RSA_padding_add_PKCS1_type_2);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_add_PKCS1_type_2_allownil)}
-    RSA_padding_add_PKCS1_type_2 := @ERR_RSA_padding_add_PKCS1_type_2;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_type_2_introduced)}
-    if LibVersion < RSA_padding_add_PKCS1_type_2_introduced then
-    begin
-      {$if declared(FC_RSA_padding_add_PKCS1_type_2)}
-      RSA_padding_add_PKCS1_type_2 := @FC_RSA_padding_add_PKCS1_type_2;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_type_2_removed)}
-    if RSA_padding_add_PKCS1_type_2_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_add_PKCS1_type_2)}
-      RSA_padding_add_PKCS1_type_2 := @_RSA_padding_add_PKCS1_type_2;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_add_PKCS1_type_2_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_add_PKCS1_type_2');
-    {$ifend}
+    RSA_padding_add_PKCS1_type_2 :=  @ERROR_RSA_padding_add_PKCS1_type_2;
   end;
 
-
-  RSA_padding_check_PKCS1_type_2 := LoadLibFunction(ADllHandle, RSA_padding_check_PKCS1_type_2_procname);
+  RSA_padding_check_PKCS1_type_2 := LoadLibCryptoFunction('RSA_padding_check_PKCS1_type_2');
   FuncLoadError := not assigned(RSA_padding_check_PKCS1_type_2);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_check_PKCS1_type_2_allownil)}
-    RSA_padding_check_PKCS1_type_2 := @ERR_RSA_padding_check_PKCS1_type_2;
-    {$ifend}
-    {$if declared(RSA_padding_check_PKCS1_type_2_introduced)}
-    if LibVersion < RSA_padding_check_PKCS1_type_2_introduced then
-    begin
-      {$if declared(FC_RSA_padding_check_PKCS1_type_2)}
-      RSA_padding_check_PKCS1_type_2 := @FC_RSA_padding_check_PKCS1_type_2;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_check_PKCS1_type_2_removed)}
-    if RSA_padding_check_PKCS1_type_2_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_check_PKCS1_type_2)}
-      RSA_padding_check_PKCS1_type_2 := @_RSA_padding_check_PKCS1_type_2;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_check_PKCS1_type_2_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_check_PKCS1_type_2');
-    {$ifend}
+    RSA_padding_check_PKCS1_type_2 :=  @ERROR_RSA_padding_check_PKCS1_type_2;
   end;
 
-
-  PKCS1_MGF1 := LoadLibFunction(ADllHandle, PKCS1_MGF1_procname);
+  PKCS1_MGF1 := LoadLibCryptoFunction('PKCS1_MGF1');
   FuncLoadError := not assigned(PKCS1_MGF1);
   if FuncLoadError then
   begin
-    {$if not defined(PKCS1_MGF1_allownil)}
-    PKCS1_MGF1 := @ERR_PKCS1_MGF1;
-    {$ifend}
-    {$if declared(PKCS1_MGF1_introduced)}
-    if LibVersion < PKCS1_MGF1_introduced then
-    begin
-      {$if declared(FC_PKCS1_MGF1)}
-      PKCS1_MGF1 := @FC_PKCS1_MGF1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(PKCS1_MGF1_removed)}
-    if PKCS1_MGF1_removed <= LibVersion then
-    begin
-      {$if declared(_PKCS1_MGF1)}
-      PKCS1_MGF1 := @_PKCS1_MGF1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(PKCS1_MGF1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('PKCS1_MGF1');
-    {$ifend}
+    PKCS1_MGF1 :=  @ERROR_PKCS1_MGF1;
   end;
 
-
-  RSA_padding_add_PKCS1_OAEP := LoadLibFunction(ADllHandle, RSA_padding_add_PKCS1_OAEP_procname);
+  RSA_padding_add_PKCS1_OAEP := LoadLibCryptoFunction('RSA_padding_add_PKCS1_OAEP');
   FuncLoadError := not assigned(RSA_padding_add_PKCS1_OAEP);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_add_PKCS1_OAEP_allownil)}
-    RSA_padding_add_PKCS1_OAEP := @ERR_RSA_padding_add_PKCS1_OAEP;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_OAEP_introduced)}
-    if LibVersion < RSA_padding_add_PKCS1_OAEP_introduced then
-    begin
-      {$if declared(FC_RSA_padding_add_PKCS1_OAEP)}
-      RSA_padding_add_PKCS1_OAEP := @FC_RSA_padding_add_PKCS1_OAEP;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_OAEP_removed)}
-    if RSA_padding_add_PKCS1_OAEP_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_add_PKCS1_OAEP)}
-      RSA_padding_add_PKCS1_OAEP := @_RSA_padding_add_PKCS1_OAEP;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_add_PKCS1_OAEP_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_add_PKCS1_OAEP');
-    {$ifend}
+    RSA_padding_add_PKCS1_OAEP :=  @ERROR_RSA_padding_add_PKCS1_OAEP;
   end;
 
-
-  RSA_padding_check_PKCS1_OAEP := LoadLibFunction(ADllHandle, RSA_padding_check_PKCS1_OAEP_procname);
+  RSA_padding_check_PKCS1_OAEP := LoadLibCryptoFunction('RSA_padding_check_PKCS1_OAEP');
   FuncLoadError := not assigned(RSA_padding_check_PKCS1_OAEP);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_check_PKCS1_OAEP_allownil)}
-    RSA_padding_check_PKCS1_OAEP := @ERR_RSA_padding_check_PKCS1_OAEP;
-    {$ifend}
-    {$if declared(RSA_padding_check_PKCS1_OAEP_introduced)}
-    if LibVersion < RSA_padding_check_PKCS1_OAEP_introduced then
-    begin
-      {$if declared(FC_RSA_padding_check_PKCS1_OAEP)}
-      RSA_padding_check_PKCS1_OAEP := @FC_RSA_padding_check_PKCS1_OAEP;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_check_PKCS1_OAEP_removed)}
-    if RSA_padding_check_PKCS1_OAEP_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_check_PKCS1_OAEP)}
-      RSA_padding_check_PKCS1_OAEP := @_RSA_padding_check_PKCS1_OAEP;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_check_PKCS1_OAEP_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_check_PKCS1_OAEP');
-    {$ifend}
+    RSA_padding_check_PKCS1_OAEP :=  @ERROR_RSA_padding_check_PKCS1_OAEP;
   end;
 
-
-  RSA_padding_add_PKCS1_OAEP_mgf1 := LoadLibFunction(ADllHandle, RSA_padding_add_PKCS1_OAEP_mgf1_procname);
+  RSA_padding_add_PKCS1_OAEP_mgf1 := LoadLibCryptoFunction('RSA_padding_add_PKCS1_OAEP_mgf1');
   FuncLoadError := not assigned(RSA_padding_add_PKCS1_OAEP_mgf1);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_add_PKCS1_OAEP_mgf1_allownil)}
-    RSA_padding_add_PKCS1_OAEP_mgf1 := @ERR_RSA_padding_add_PKCS1_OAEP_mgf1;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_OAEP_mgf1_introduced)}
-    if LibVersion < RSA_padding_add_PKCS1_OAEP_mgf1_introduced then
-    begin
-      {$if declared(FC_RSA_padding_add_PKCS1_OAEP_mgf1)}
-      RSA_padding_add_PKCS1_OAEP_mgf1 := @FC_RSA_padding_add_PKCS1_OAEP_mgf1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_OAEP_mgf1_removed)}
-    if RSA_padding_add_PKCS1_OAEP_mgf1_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_add_PKCS1_OAEP_mgf1)}
-      RSA_padding_add_PKCS1_OAEP_mgf1 := @_RSA_padding_add_PKCS1_OAEP_mgf1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_add_PKCS1_OAEP_mgf1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_add_PKCS1_OAEP_mgf1');
-    {$ifend}
+    RSA_padding_add_PKCS1_OAEP_mgf1 :=  @ERROR_RSA_padding_add_PKCS1_OAEP_mgf1;
   end;
 
-
-  RSA_padding_check_PKCS1_OAEP_mgf1 := LoadLibFunction(ADllHandle, RSA_padding_check_PKCS1_OAEP_mgf1_procname);
+  RSA_padding_check_PKCS1_OAEP_mgf1 := LoadLibCryptoFunction('RSA_padding_check_PKCS1_OAEP_mgf1');
   FuncLoadError := not assigned(RSA_padding_check_PKCS1_OAEP_mgf1);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_check_PKCS1_OAEP_mgf1_allownil)}
-    RSA_padding_check_PKCS1_OAEP_mgf1 := @ERR_RSA_padding_check_PKCS1_OAEP_mgf1;
-    {$ifend}
-    {$if declared(RSA_padding_check_PKCS1_OAEP_mgf1_introduced)}
-    if LibVersion < RSA_padding_check_PKCS1_OAEP_mgf1_introduced then
-    begin
-      {$if declared(FC_RSA_padding_check_PKCS1_OAEP_mgf1)}
-      RSA_padding_check_PKCS1_OAEP_mgf1 := @FC_RSA_padding_check_PKCS1_OAEP_mgf1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_check_PKCS1_OAEP_mgf1_removed)}
-    if RSA_padding_check_PKCS1_OAEP_mgf1_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_check_PKCS1_OAEP_mgf1)}
-      RSA_padding_check_PKCS1_OAEP_mgf1 := @_RSA_padding_check_PKCS1_OAEP_mgf1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_check_PKCS1_OAEP_mgf1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_check_PKCS1_OAEP_mgf1');
-    {$ifend}
+    RSA_padding_check_PKCS1_OAEP_mgf1 :=  @ERROR_RSA_padding_check_PKCS1_OAEP_mgf1;
   end;
 
-
-  RSA_padding_add_SSLv23 := LoadLibFunction(ADllHandle, RSA_padding_add_SSLv23_procname);
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  RSA_padding_add_SSLv23 := LoadLibCryptoFunction('RSA_padding_add_SSLv23');
   FuncLoadError := not assigned(RSA_padding_add_SSLv23);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_add_SSLv23_allownil)}
-    RSA_padding_add_SSLv23 := @ERR_RSA_padding_add_SSLv23;
-    {$ifend}
-    {$if declared(RSA_padding_add_SSLv23_introduced)}
-    if LibVersion < RSA_padding_add_SSLv23_introduced then
-    begin
-      {$if declared(FC_RSA_padding_add_SSLv23)}
-      RSA_padding_add_SSLv23 := @FC_RSA_padding_add_SSLv23;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_add_SSLv23_removed)}
     if RSA_padding_add_SSLv23_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_add_SSLv23)}
-      RSA_padding_add_SSLv23 := @_RSA_padding_add_SSLv23;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_add_SSLv23_allownil)}
     if FuncLoadError then
       AFailed.Add('RSA_padding_add_SSLv23');
-    {$ifend}
   end;
 
-
-  RSA_padding_check_SSLv23 := LoadLibFunction(ADllHandle, RSA_padding_check_SSLv23_procname);
+  RSA_padding_check_SSLv23 := LoadLibCryptoFunction('RSA_padding_check_SSLv23');
   FuncLoadError := not assigned(RSA_padding_check_SSLv23);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_check_SSLv23_allownil)}
-    RSA_padding_check_SSLv23 := @ERR_RSA_padding_check_SSLv23;
-    {$ifend}
-    {$if declared(RSA_padding_check_SSLv23_introduced)}
-    if LibVersion < RSA_padding_check_SSLv23_introduced then
-    begin
-      {$if declared(FC_RSA_padding_check_SSLv23)}
-      RSA_padding_check_SSLv23 := @FC_RSA_padding_check_SSLv23;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_check_SSLv23_removed)}
     if RSA_padding_check_SSLv23_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_check_SSLv23)}
-      RSA_padding_check_SSLv23 := @_RSA_padding_check_SSLv23;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_check_SSLv23_allownil)}
     if FuncLoadError then
       AFailed.Add('RSA_padding_check_SSLv23');
-    {$ifend}
   end;
 
-
-  RSA_padding_add_none := LoadLibFunction(ADllHandle, RSA_padding_add_none_procname);
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
+  RSA_padding_add_none := LoadLibCryptoFunction('RSA_padding_add_none');
   FuncLoadError := not assigned(RSA_padding_add_none);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_add_none_allownil)}
-    RSA_padding_add_none := @ERR_RSA_padding_add_none;
-    {$ifend}
-    {$if declared(RSA_padding_add_none_introduced)}
-    if LibVersion < RSA_padding_add_none_introduced then
-    begin
-      {$if declared(FC_RSA_padding_add_none)}
-      RSA_padding_add_none := @FC_RSA_padding_add_none;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_add_none_removed)}
-    if RSA_padding_add_none_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_add_none)}
-      RSA_padding_add_none := @_RSA_padding_add_none;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_add_none_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_add_none');
-    {$ifend}
+    RSA_padding_add_none :=  @ERROR_RSA_padding_add_none;
   end;
 
-
-  RSA_padding_check_none := LoadLibFunction(ADllHandle, RSA_padding_check_none_procname);
+  RSA_padding_check_none := LoadLibCryptoFunction('RSA_padding_check_none');
   FuncLoadError := not assigned(RSA_padding_check_none);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_check_none_allownil)}
-    RSA_padding_check_none := @ERR_RSA_padding_check_none;
-    {$ifend}
-    {$if declared(RSA_padding_check_none_introduced)}
-    if LibVersion < RSA_padding_check_none_introduced then
-    begin
-      {$if declared(FC_RSA_padding_check_none)}
-      RSA_padding_check_none := @FC_RSA_padding_check_none;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_check_none_removed)}
-    if RSA_padding_check_none_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_check_none)}
-      RSA_padding_check_none := @_RSA_padding_check_none;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_check_none_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_check_none');
-    {$ifend}
+    RSA_padding_check_none :=  @ERROR_RSA_padding_check_none;
   end;
 
-
-  RSA_padding_add_X931 := LoadLibFunction(ADllHandle, RSA_padding_add_X931_procname);
+  RSA_padding_add_X931 := LoadLibCryptoFunction('RSA_padding_add_X931');
   FuncLoadError := not assigned(RSA_padding_add_X931);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_add_X931_allownil)}
-    RSA_padding_add_X931 := @ERR_RSA_padding_add_X931;
-    {$ifend}
-    {$if declared(RSA_padding_add_X931_introduced)}
-    if LibVersion < RSA_padding_add_X931_introduced then
-    begin
-      {$if declared(FC_RSA_padding_add_X931)}
-      RSA_padding_add_X931 := @FC_RSA_padding_add_X931;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_add_X931_removed)}
-    if RSA_padding_add_X931_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_add_X931)}
-      RSA_padding_add_X931 := @_RSA_padding_add_X931;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_add_X931_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_add_X931');
-    {$ifend}
+    RSA_padding_add_X931 :=  @ERROR_RSA_padding_add_X931;
   end;
 
-
-  RSA_padding_check_X931 := LoadLibFunction(ADllHandle, RSA_padding_check_X931_procname);
+  RSA_padding_check_X931 := LoadLibCryptoFunction('RSA_padding_check_X931');
   FuncLoadError := not assigned(RSA_padding_check_X931);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_check_X931_allownil)}
-    RSA_padding_check_X931 := @ERR_RSA_padding_check_X931;
-    {$ifend}
-    {$if declared(RSA_padding_check_X931_introduced)}
-    if LibVersion < RSA_padding_check_X931_introduced then
-    begin
-      {$if declared(FC_RSA_padding_check_X931)}
-      RSA_padding_check_X931 := @FC_RSA_padding_check_X931;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_check_X931_removed)}
-    if RSA_padding_check_X931_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_check_X931)}
-      RSA_padding_check_X931 := @_RSA_padding_check_X931;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_check_X931_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_check_X931');
-    {$ifend}
+    RSA_padding_check_X931 :=  @ERROR_RSA_padding_check_X931;
   end;
 
-
-  RSA_X931_hash_id := LoadLibFunction(ADllHandle, RSA_X931_hash_id_procname);
+  RSA_X931_hash_id := LoadLibCryptoFunction('RSA_X931_hash_id');
   FuncLoadError := not assigned(RSA_X931_hash_id);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_X931_hash_id_allownil)}
-    RSA_X931_hash_id := @ERR_RSA_X931_hash_id;
-    {$ifend}
-    {$if declared(RSA_X931_hash_id_introduced)}
-    if LibVersion < RSA_X931_hash_id_introduced then
-    begin
-      {$if declared(FC_RSA_X931_hash_id)}
-      RSA_X931_hash_id := @FC_RSA_X931_hash_id;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_X931_hash_id_removed)}
-    if RSA_X931_hash_id_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_X931_hash_id)}
-      RSA_X931_hash_id := @_RSA_X931_hash_id;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_X931_hash_id_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_X931_hash_id');
-    {$ifend}
+    RSA_X931_hash_id :=  @ERROR_RSA_X931_hash_id;
   end;
 
-
-  RSA_verify_PKCS1_PSS := LoadLibFunction(ADllHandle, RSA_verify_PKCS1_PSS_procname);
+  RSA_verify_PKCS1_PSS := LoadLibCryptoFunction('RSA_verify_PKCS1_PSS');
   FuncLoadError := not assigned(RSA_verify_PKCS1_PSS);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_verify_PKCS1_PSS_allownil)}
-    RSA_verify_PKCS1_PSS := @ERR_RSA_verify_PKCS1_PSS;
-    {$ifend}
-    {$if declared(RSA_verify_PKCS1_PSS_introduced)}
-    if LibVersion < RSA_verify_PKCS1_PSS_introduced then
-    begin
-      {$if declared(FC_RSA_verify_PKCS1_PSS)}
-      RSA_verify_PKCS1_PSS := @FC_RSA_verify_PKCS1_PSS;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_verify_PKCS1_PSS_removed)}
-    if RSA_verify_PKCS1_PSS_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_verify_PKCS1_PSS)}
-      RSA_verify_PKCS1_PSS := @_RSA_verify_PKCS1_PSS;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_verify_PKCS1_PSS_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_verify_PKCS1_PSS');
-    {$ifend}
+    RSA_verify_PKCS1_PSS :=  @ERROR_RSA_verify_PKCS1_PSS;
   end;
 
-
-  RSA_padding_add_PKCS1_PSS := LoadLibFunction(ADllHandle, RSA_padding_add_PKCS1_PSS_procname);
+  RSA_padding_add_PKCS1_PSS := LoadLibCryptoFunction('RSA_padding_add_PKCS1_PSS');
   FuncLoadError := not assigned(RSA_padding_add_PKCS1_PSS);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_add_PKCS1_PSS_allownil)}
-    RSA_padding_add_PKCS1_PSS := @ERR_RSA_padding_add_PKCS1_PSS;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_PSS_introduced)}
-    if LibVersion < RSA_padding_add_PKCS1_PSS_introduced then
-    begin
-      {$if declared(FC_RSA_padding_add_PKCS1_PSS)}
-      RSA_padding_add_PKCS1_PSS := @FC_RSA_padding_add_PKCS1_PSS;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_PSS_removed)}
-    if RSA_padding_add_PKCS1_PSS_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_add_PKCS1_PSS)}
-      RSA_padding_add_PKCS1_PSS := @_RSA_padding_add_PKCS1_PSS;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_add_PKCS1_PSS_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_add_PKCS1_PSS');
-    {$ifend}
+    RSA_padding_add_PKCS1_PSS :=  @ERROR_RSA_padding_add_PKCS1_PSS;
   end;
 
-
-  RSA_verify_PKCS1_PSS_mgf1 := LoadLibFunction(ADllHandle, RSA_verify_PKCS1_PSS_mgf1_procname);
+  RSA_verify_PKCS1_PSS_mgf1 := LoadLibCryptoFunction('RSA_verify_PKCS1_PSS_mgf1');
   FuncLoadError := not assigned(RSA_verify_PKCS1_PSS_mgf1);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_verify_PKCS1_PSS_mgf1_allownil)}
-    RSA_verify_PKCS1_PSS_mgf1 := @ERR_RSA_verify_PKCS1_PSS_mgf1;
-    {$ifend}
-    {$if declared(RSA_verify_PKCS1_PSS_mgf1_introduced)}
-    if LibVersion < RSA_verify_PKCS1_PSS_mgf1_introduced then
-    begin
-      {$if declared(FC_RSA_verify_PKCS1_PSS_mgf1)}
-      RSA_verify_PKCS1_PSS_mgf1 := @FC_RSA_verify_PKCS1_PSS_mgf1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_verify_PKCS1_PSS_mgf1_removed)}
-    if RSA_verify_PKCS1_PSS_mgf1_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_verify_PKCS1_PSS_mgf1)}
-      RSA_verify_PKCS1_PSS_mgf1 := @_RSA_verify_PKCS1_PSS_mgf1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_verify_PKCS1_PSS_mgf1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_verify_PKCS1_PSS_mgf1');
-    {$ifend}
+    RSA_verify_PKCS1_PSS_mgf1 :=  @ERROR_RSA_verify_PKCS1_PSS_mgf1;
   end;
 
-
-  RSA_padding_add_PKCS1_PSS_mgf1 := LoadLibFunction(ADllHandle, RSA_padding_add_PKCS1_PSS_mgf1_procname);
+  RSA_padding_add_PKCS1_PSS_mgf1 := LoadLibCryptoFunction('RSA_padding_add_PKCS1_PSS_mgf1');
   FuncLoadError := not assigned(RSA_padding_add_PKCS1_PSS_mgf1);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_padding_add_PKCS1_PSS_mgf1_allownil)}
-    RSA_padding_add_PKCS1_PSS_mgf1 := @ERR_RSA_padding_add_PKCS1_PSS_mgf1;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_PSS_mgf1_introduced)}
-    if LibVersion < RSA_padding_add_PKCS1_PSS_mgf1_introduced then
-    begin
-      {$if declared(FC_RSA_padding_add_PKCS1_PSS_mgf1)}
-      RSA_padding_add_PKCS1_PSS_mgf1 := @FC_RSA_padding_add_PKCS1_PSS_mgf1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_padding_add_PKCS1_PSS_mgf1_removed)}
-    if RSA_padding_add_PKCS1_PSS_mgf1_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_padding_add_PKCS1_PSS_mgf1)}
-      RSA_padding_add_PKCS1_PSS_mgf1 := @_RSA_padding_add_PKCS1_PSS_mgf1;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_padding_add_PKCS1_PSS_mgf1_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_padding_add_PKCS1_PSS_mgf1');
-    {$ifend}
+    RSA_padding_add_PKCS1_PSS_mgf1 :=  @ERROR_RSA_padding_add_PKCS1_PSS_mgf1;
   end;
 
-
-  RSA_set_ex_data := LoadLibFunction(ADllHandle, RSA_set_ex_data_procname);
+  RSA_set_ex_data := LoadLibCryptoFunction('RSA_set_ex_data');
   FuncLoadError := not assigned(RSA_set_ex_data);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_set_ex_data_allownil)}
-    RSA_set_ex_data := @ERR_RSA_set_ex_data;
-    {$ifend}
-    {$if declared(RSA_set_ex_data_introduced)}
-    if LibVersion < RSA_set_ex_data_introduced then
-    begin
-      {$if declared(FC_RSA_set_ex_data)}
-      RSA_set_ex_data := @FC_RSA_set_ex_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_set_ex_data_removed)}
-    if RSA_set_ex_data_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_set_ex_data)}
-      RSA_set_ex_data := @_RSA_set_ex_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_set_ex_data_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_set_ex_data');
-    {$ifend}
+    RSA_set_ex_data :=  @ERROR_RSA_set_ex_data;
   end;
 
-
-  RSA_get_ex_data := LoadLibFunction(ADllHandle, RSA_get_ex_data_procname);
+  RSA_get_ex_data := LoadLibCryptoFunction('RSA_get_ex_data');
   FuncLoadError := not assigned(RSA_get_ex_data);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_get_ex_data_allownil)}
-    RSA_get_ex_data := @ERR_RSA_get_ex_data;
-    {$ifend}
-    {$if declared(RSA_get_ex_data_introduced)}
-    if LibVersion < RSA_get_ex_data_introduced then
-    begin
-      {$if declared(FC_RSA_get_ex_data)}
-      RSA_get_ex_data := @FC_RSA_get_ex_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_get_ex_data_removed)}
-    if RSA_get_ex_data_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_get_ex_data)}
-      RSA_get_ex_data := @_RSA_get_ex_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_get_ex_data_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_get_ex_data');
-    {$ifend}
+    RSA_get_ex_data :=  @ERROR_RSA_get_ex_data;
   end;
 
-
-  RSAPublicKey_dup := LoadLibFunction(ADllHandle, RSAPublicKey_dup_procname);
+  RSAPublicKey_dup := LoadLibCryptoFunction('RSAPublicKey_dup');
   FuncLoadError := not assigned(RSAPublicKey_dup);
   if FuncLoadError then
   begin
-    {$if not defined(RSAPublicKey_dup_allownil)}
-    RSAPublicKey_dup := @ERR_RSAPublicKey_dup;
-    {$ifend}
-    {$if declared(RSAPublicKey_dup_introduced)}
-    if LibVersion < RSAPublicKey_dup_introduced then
-    begin
-      {$if declared(FC_RSAPublicKey_dup)}
-      RSAPublicKey_dup := @FC_RSAPublicKey_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSAPublicKey_dup_removed)}
-    if RSAPublicKey_dup_removed <= LibVersion then
-    begin
-      {$if declared(_RSAPublicKey_dup)}
-      RSAPublicKey_dup := @_RSAPublicKey_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSAPublicKey_dup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSAPublicKey_dup');
-    {$ifend}
+    RSAPublicKey_dup :=  @ERROR_RSAPublicKey_dup;
   end;
 
-
-  RSAPrivateKey_dup := LoadLibFunction(ADllHandle, RSAPrivateKey_dup_procname);
+  RSAPrivateKey_dup := LoadLibCryptoFunction('RSAPrivateKey_dup');
   FuncLoadError := not assigned(RSAPrivateKey_dup);
   if FuncLoadError then
   begin
-    {$if not defined(RSAPrivateKey_dup_allownil)}
-    RSAPrivateKey_dup := @ERR_RSAPrivateKey_dup;
-    {$ifend}
-    {$if declared(RSAPrivateKey_dup_introduced)}
-    if LibVersion < RSAPrivateKey_dup_introduced then
-    begin
-      {$if declared(FC_RSAPrivateKey_dup)}
-      RSAPrivateKey_dup := @FC_RSAPrivateKey_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSAPrivateKey_dup_removed)}
-    if RSAPrivateKey_dup_removed <= LibVersion then
-    begin
-      {$if declared(_RSAPrivateKey_dup)}
-      RSAPrivateKey_dup := @_RSAPrivateKey_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSAPrivateKey_dup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSAPrivateKey_dup');
-    {$ifend}
+    RSAPrivateKey_dup :=  @ERROR_RSAPrivateKey_dup;
   end;
 
-
-  RSA_meth_new := LoadLibFunction(ADllHandle, RSA_meth_new_procname);
+  RSA_meth_new := LoadLibCryptoFunction('RSA_meth_new');
   FuncLoadError := not assigned(RSA_meth_new);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_new_allownil)}
-    RSA_meth_new := @ERR_RSA_meth_new;
-    {$ifend}
-    {$if declared(RSA_meth_new_introduced)}
-    if LibVersion < RSA_meth_new_introduced then
-    begin
-      {$if declared(FC_RSA_meth_new)}
-      RSA_meth_new := @FC_RSA_meth_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_new_removed)}
-    if RSA_meth_new_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_new)}
-      RSA_meth_new := @_RSA_meth_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_new_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_new');
-    {$ifend}
+    RSA_meth_new :=  @ERROR_RSA_meth_new;
   end;
 
-
-  RSA_meth_free := LoadLibFunction(ADllHandle, RSA_meth_free_procname);
+  RSA_meth_free := LoadLibCryptoFunction('RSA_meth_free');
   FuncLoadError := not assigned(RSA_meth_free);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_free_allownil)}
-    RSA_meth_free := @ERR_RSA_meth_free;
-    {$ifend}
-    {$if declared(RSA_meth_free_introduced)}
-    if LibVersion < RSA_meth_free_introduced then
-    begin
-      {$if declared(FC_RSA_meth_free)}
-      RSA_meth_free := @FC_RSA_meth_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_free_removed)}
-    if RSA_meth_free_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_free)}
-      RSA_meth_free := @_RSA_meth_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_free');
-    {$ifend}
+    RSA_meth_free :=  @ERROR_RSA_meth_free;
   end;
 
-
-  RSA_meth_dup := LoadLibFunction(ADllHandle, RSA_meth_dup_procname);
+  RSA_meth_dup := LoadLibCryptoFunction('RSA_meth_dup');
   FuncLoadError := not assigned(RSA_meth_dup);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_dup_allownil)}
-    RSA_meth_dup := @ERR_RSA_meth_dup;
-    {$ifend}
-    {$if declared(RSA_meth_dup_introduced)}
-    if LibVersion < RSA_meth_dup_introduced then
-    begin
-      {$if declared(FC_RSA_meth_dup)}
-      RSA_meth_dup := @FC_RSA_meth_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_dup_removed)}
-    if RSA_meth_dup_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_dup)}
-      RSA_meth_dup := @_RSA_meth_dup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_dup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_dup');
-    {$ifend}
+    RSA_meth_dup :=  @ERROR_RSA_meth_dup;
   end;
 
-
-  RSA_meth_get0_name := LoadLibFunction(ADllHandle, RSA_meth_get0_name_procname);
+  RSA_meth_get0_name := LoadLibCryptoFunction('RSA_meth_get0_name');
   FuncLoadError := not assigned(RSA_meth_get0_name);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_get0_name_allownil)}
-    RSA_meth_get0_name := @ERR_RSA_meth_get0_name;
-    {$ifend}
-    {$if declared(RSA_meth_get0_name_introduced)}
-    if LibVersion < RSA_meth_get0_name_introduced then
-    begin
-      {$if declared(FC_RSA_meth_get0_name)}
-      RSA_meth_get0_name := @FC_RSA_meth_get0_name;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_get0_name_removed)}
-    if RSA_meth_get0_name_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_get0_name)}
-      RSA_meth_get0_name := @_RSA_meth_get0_name;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_get0_name_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_get0_name');
-    {$ifend}
+    RSA_meth_get0_name :=  @ERROR_RSA_meth_get0_name;
   end;
 
-
-  RSA_meth_set1_name := LoadLibFunction(ADllHandle, RSA_meth_set1_name_procname);
+  RSA_meth_set1_name := LoadLibCryptoFunction('RSA_meth_set1_name');
   FuncLoadError := not assigned(RSA_meth_set1_name);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set1_name_allownil)}
-    RSA_meth_set1_name := @ERR_RSA_meth_set1_name;
-    {$ifend}
-    {$if declared(RSA_meth_set1_name_introduced)}
-    if LibVersion < RSA_meth_set1_name_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set1_name)}
-      RSA_meth_set1_name := @FC_RSA_meth_set1_name;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set1_name_removed)}
-    if RSA_meth_set1_name_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set1_name)}
-      RSA_meth_set1_name := @_RSA_meth_set1_name;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set1_name_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set1_name');
-    {$ifend}
+    RSA_meth_set1_name :=  @ERROR_RSA_meth_set1_name;
   end;
 
-
-  RSA_meth_get_flags := LoadLibFunction(ADllHandle, RSA_meth_get_flags_procname);
+  RSA_meth_get_flags := LoadLibCryptoFunction('RSA_meth_get_flags');
   FuncLoadError := not assigned(RSA_meth_get_flags);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_get_flags_allownil)}
-    RSA_meth_get_flags := @ERR_RSA_meth_get_flags;
-    {$ifend}
-    {$if declared(RSA_meth_get_flags_introduced)}
-    if LibVersion < RSA_meth_get_flags_introduced then
-    begin
-      {$if declared(FC_RSA_meth_get_flags)}
-      RSA_meth_get_flags := @FC_RSA_meth_get_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_get_flags_removed)}
-    if RSA_meth_get_flags_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_get_flags)}
-      RSA_meth_get_flags := @_RSA_meth_get_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_get_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_get_flags');
-    {$ifend}
+    RSA_meth_get_flags :=  @ERROR_RSA_meth_get_flags;
   end;
 
-
-  RSA_meth_set_flags := LoadLibFunction(ADllHandle, RSA_meth_set_flags_procname);
+  RSA_meth_set_flags := LoadLibCryptoFunction('RSA_meth_set_flags');
   FuncLoadError := not assigned(RSA_meth_set_flags);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set_flags_allownil)}
-    RSA_meth_set_flags := @ERR_RSA_meth_set_flags;
-    {$ifend}
-    {$if declared(RSA_meth_set_flags_introduced)}
-    if LibVersion < RSA_meth_set_flags_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set_flags)}
-      RSA_meth_set_flags := @FC_RSA_meth_set_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set_flags_removed)}
-    if RSA_meth_set_flags_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set_flags)}
-      RSA_meth_set_flags := @_RSA_meth_set_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set_flags');
-    {$ifend}
+    RSA_meth_set_flags :=  @ERROR_RSA_meth_set_flags;
   end;
 
-
-  RSA_meth_get0_app_data := LoadLibFunction(ADllHandle, RSA_meth_get0_app_data_procname);
+  RSA_meth_get0_app_data := LoadLibCryptoFunction('RSA_meth_get0_app_data');
   FuncLoadError := not assigned(RSA_meth_get0_app_data);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_get0_app_data_allownil)}
-    RSA_meth_get0_app_data := @ERR_RSA_meth_get0_app_data;
-    {$ifend}
-    {$if declared(RSA_meth_get0_app_data_introduced)}
-    if LibVersion < RSA_meth_get0_app_data_introduced then
-    begin
-      {$if declared(FC_RSA_meth_get0_app_data)}
-      RSA_meth_get0_app_data := @FC_RSA_meth_get0_app_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_get0_app_data_removed)}
-    if RSA_meth_get0_app_data_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_get0_app_data)}
-      RSA_meth_get0_app_data := @_RSA_meth_get0_app_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_get0_app_data_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_get0_app_data');
-    {$ifend}
+    RSA_meth_get0_app_data :=  @ERROR_RSA_meth_get0_app_data;
   end;
 
-
-  RSA_meth_set0_app_data := LoadLibFunction(ADllHandle, RSA_meth_set0_app_data_procname);
+  RSA_meth_set0_app_data := LoadLibCryptoFunction('RSA_meth_set0_app_data');
   FuncLoadError := not assigned(RSA_meth_set0_app_data);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set0_app_data_allownil)}
-    RSA_meth_set0_app_data := @ERR_RSA_meth_set0_app_data;
-    {$ifend}
-    {$if declared(RSA_meth_set0_app_data_introduced)}
-    if LibVersion < RSA_meth_set0_app_data_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set0_app_data)}
-      RSA_meth_set0_app_data := @FC_RSA_meth_set0_app_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set0_app_data_removed)}
-    if RSA_meth_set0_app_data_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set0_app_data)}
-      RSA_meth_set0_app_data := @_RSA_meth_set0_app_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set0_app_data_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set0_app_data');
-    {$ifend}
+    RSA_meth_set0_app_data :=  @ERROR_RSA_meth_set0_app_data;
   end;
 
-
-  RSA_meth_set_priv_dec := LoadLibFunction(ADllHandle, RSA_meth_set_priv_dec_procname);
+  RSA_meth_set_priv_dec := LoadLibCryptoFunction('RSA_meth_set_priv_dec');
   FuncLoadError := not assigned(RSA_meth_set_priv_dec);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set_priv_dec_allownil)}
-    RSA_meth_set_priv_dec := @ERR_RSA_meth_set_priv_dec;
-    {$ifend}
-    {$if declared(RSA_meth_set_priv_dec_introduced)}
-    if LibVersion < RSA_meth_set_priv_dec_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set_priv_dec)}
-      RSA_meth_set_priv_dec := @FC_RSA_meth_set_priv_dec;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set_priv_dec_removed)}
-    if RSA_meth_set_priv_dec_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set_priv_dec)}
-      RSA_meth_set_priv_dec := @_RSA_meth_set_priv_dec;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set_priv_dec_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set_priv_dec');
-    {$ifend}
+    RSA_meth_set_priv_dec :=  @ERROR_RSA_meth_set_priv_dec;
   end;
 
-
-  RSA_meth_set_mod_exp := LoadLibFunction(ADllHandle, RSA_meth_set_mod_exp_procname);
+  RSA_meth_set_mod_exp := LoadLibCryptoFunction('RSA_meth_set_mod_exp');
   FuncLoadError := not assigned(RSA_meth_set_mod_exp);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set_mod_exp_allownil)}
-    RSA_meth_set_mod_exp := @ERR_RSA_meth_set_mod_exp;
-    {$ifend}
-    {$if declared(RSA_meth_set_mod_exp_introduced)}
-    if LibVersion < RSA_meth_set_mod_exp_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set_mod_exp)}
-      RSA_meth_set_mod_exp := @FC_RSA_meth_set_mod_exp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set_mod_exp_removed)}
-    if RSA_meth_set_mod_exp_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set_mod_exp)}
-      RSA_meth_set_mod_exp := @_RSA_meth_set_mod_exp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set_mod_exp_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set_mod_exp');
-    {$ifend}
+    RSA_meth_set_mod_exp :=  @ERROR_RSA_meth_set_mod_exp;
   end;
 
-
-  RSA_meth_set_bn_mod_exp := LoadLibFunction(ADllHandle, RSA_meth_set_bn_mod_exp_procname);
+  RSA_meth_set_bn_mod_exp := LoadLibCryptoFunction('RSA_meth_set_bn_mod_exp');
   FuncLoadError := not assigned(RSA_meth_set_bn_mod_exp);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set_bn_mod_exp_allownil)}
-    RSA_meth_set_bn_mod_exp := @ERR_RSA_meth_set_bn_mod_exp;
-    {$ifend}
-    {$if declared(RSA_meth_set_bn_mod_exp_introduced)}
-    if LibVersion < RSA_meth_set_bn_mod_exp_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set_bn_mod_exp)}
-      RSA_meth_set_bn_mod_exp := @FC_RSA_meth_set_bn_mod_exp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set_bn_mod_exp_removed)}
-    if RSA_meth_set_bn_mod_exp_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set_bn_mod_exp)}
-      RSA_meth_set_bn_mod_exp := @_RSA_meth_set_bn_mod_exp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set_bn_mod_exp_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set_bn_mod_exp');
-    {$ifend}
+    RSA_meth_set_bn_mod_exp :=  @ERROR_RSA_meth_set_bn_mod_exp;
   end;
 
-
-  RSA_meth_set_init := LoadLibFunction(ADllHandle, RSA_meth_set_init_procname);
+  RSA_meth_set_init := LoadLibCryptoFunction('RSA_meth_set_init');
   FuncLoadError := not assigned(RSA_meth_set_init);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set_init_allownil)}
-    RSA_meth_set_init := @ERR_RSA_meth_set_init;
-    {$ifend}
-    {$if declared(RSA_meth_set_init_introduced)}
-    if LibVersion < RSA_meth_set_init_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set_init)}
-      RSA_meth_set_init := @FC_RSA_meth_set_init;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set_init_removed)}
-    if RSA_meth_set_init_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set_init)}
-      RSA_meth_set_init := @_RSA_meth_set_init;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set_init_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set_init');
-    {$ifend}
+    RSA_meth_set_init :=  @ERROR_RSA_meth_set_init;
   end;
 
-
-  RSA_meth_set_finish := LoadLibFunction(ADllHandle, RSA_meth_set_finish_procname);
+  RSA_meth_set_finish := LoadLibCryptoFunction('RSA_meth_set_finish');
   FuncLoadError := not assigned(RSA_meth_set_finish);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set_finish_allownil)}
-    RSA_meth_set_finish := @ERR_RSA_meth_set_finish;
-    {$ifend}
-    {$if declared(RSA_meth_set_finish_introduced)}
-    if LibVersion < RSA_meth_set_finish_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set_finish)}
-      RSA_meth_set_finish := @FC_RSA_meth_set_finish;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set_finish_removed)}
-    if RSA_meth_set_finish_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set_finish)}
-      RSA_meth_set_finish := @_RSA_meth_set_finish;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set_finish_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set_finish');
-    {$ifend}
+    RSA_meth_set_finish :=  @ERROR_RSA_meth_set_finish;
   end;
 
-
-  RSA_meth_set_sign := LoadLibFunction(ADllHandle, RSA_meth_set_sign_procname);
+  RSA_meth_set_sign := LoadLibCryptoFunction('RSA_meth_set_sign');
   FuncLoadError := not assigned(RSA_meth_set_sign);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set_sign_allownil)}
-    RSA_meth_set_sign := @ERR_RSA_meth_set_sign;
-    {$ifend}
-    {$if declared(RSA_meth_set_sign_introduced)}
-    if LibVersion < RSA_meth_set_sign_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set_sign)}
-      RSA_meth_set_sign := @FC_RSA_meth_set_sign;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set_sign_removed)}
-    if RSA_meth_set_sign_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set_sign)}
-      RSA_meth_set_sign := @_RSA_meth_set_sign;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set_sign_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set_sign');
-    {$ifend}
+    RSA_meth_set_sign :=  @ERROR_RSA_meth_set_sign;
   end;
 
-
-  RSA_meth_set_verify := LoadLibFunction(ADllHandle, RSA_meth_set_verify_procname);
+  RSA_meth_set_verify := LoadLibCryptoFunction('RSA_meth_set_verify');
   FuncLoadError := not assigned(RSA_meth_set_verify);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set_verify_allownil)}
-    RSA_meth_set_verify := @ERR_RSA_meth_set_verify;
-    {$ifend}
-    {$if declared(RSA_meth_set_verify_introduced)}
-    if LibVersion < RSA_meth_set_verify_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set_verify)}
-      RSA_meth_set_verify := @FC_RSA_meth_set_verify;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set_verify_removed)}
-    if RSA_meth_set_verify_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set_verify)}
-      RSA_meth_set_verify := @_RSA_meth_set_verify;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set_verify_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set_verify');
-    {$ifend}
+    RSA_meth_set_verify :=  @ERROR_RSA_meth_set_verify;
   end;
 
-
-  RSA_meth_set_keygen := LoadLibFunction(ADllHandle, RSA_meth_set_keygen_procname);
+  RSA_meth_set_keygen := LoadLibCryptoFunction('RSA_meth_set_keygen');
   FuncLoadError := not assigned(RSA_meth_set_keygen);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set_keygen_allownil)}
-    RSA_meth_set_keygen := @ERR_RSA_meth_set_keygen;
-    {$ifend}
-    {$if declared(RSA_meth_set_keygen_introduced)}
-    if LibVersion < RSA_meth_set_keygen_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set_keygen)}
-      RSA_meth_set_keygen := @FC_RSA_meth_set_keygen;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set_keygen_removed)}
-    if RSA_meth_set_keygen_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set_keygen)}
-      RSA_meth_set_keygen := @_RSA_meth_set_keygen;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set_keygen_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set_keygen');
-    {$ifend}
+    RSA_meth_set_keygen :=  @ERROR_RSA_meth_set_keygen;
   end;
 
-
-  RSA_meth_set_multi_prime_keygen := LoadLibFunction(ADllHandle, RSA_meth_set_multi_prime_keygen_procname);
+  RSA_meth_set_multi_prime_keygen := LoadLibCryptoFunction('RSA_meth_set_multi_prime_keygen');
   FuncLoadError := not assigned(RSA_meth_set_multi_prime_keygen);
   if FuncLoadError then
   begin
-    {$if not defined(RSA_meth_set_multi_prime_keygen_allownil)}
-    RSA_meth_set_multi_prime_keygen := @ERR_RSA_meth_set_multi_prime_keygen;
-    {$ifend}
-    {$if declared(RSA_meth_set_multi_prime_keygen_introduced)}
-    if LibVersion < RSA_meth_set_multi_prime_keygen_introduced then
-    begin
-      {$if declared(FC_RSA_meth_set_multi_prime_keygen)}
-      RSA_meth_set_multi_prime_keygen := @FC_RSA_meth_set_multi_prime_keygen;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(RSA_meth_set_multi_prime_keygen_removed)}
-    if RSA_meth_set_multi_prime_keygen_removed <= LibVersion then
-    begin
-      {$if declared(_RSA_meth_set_multi_prime_keygen)}
-      RSA_meth_set_multi_prime_keygen := @_RSA_meth_set_multi_prime_keygen;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(RSA_meth_set_multi_prime_keygen_allownil)}
-    if FuncLoadError then
-      AFailed.Add('RSA_meth_set_multi_prime_keygen');
-    {$ifend}
+    RSA_meth_set_multi_prime_keygen :=  @ERROR_RSA_meth_set_multi_prime_keygen;
   end;
-
 
 end;
 
-procedure Unload;
+procedure UnLoad;
 begin
   RSA_new := nil;
   RSA_new_method := nil;
@@ -4685,8 +1782,10 @@ begin
   RSA_padding_check_PKCS1_OAEP := nil;
   RSA_padding_add_PKCS1_OAEP_mgf1 := nil;
   RSA_padding_check_PKCS1_OAEP_mgf1 := nil;
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
   RSA_padding_add_SSLv23 := nil;
   RSA_padding_check_SSLv23 := nil;
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
   RSA_padding_add_none := nil;
   RSA_padding_check_none := nil;
   RSA_padding_add_X931 := nil;
@@ -4719,12 +1818,15 @@ begin
   RSA_meth_set_keygen := nil;
   RSA_meth_set_multi_prime_keygen := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
-  Register_SSLLoader(@Load,'LibCrypto');
-  Register_SSLUnloader(@Unload);
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+Register_SSLLoader(@Load);
+Register_SSLUnloader(@Unload);
 {$ENDIF}
+finalization
+
+
 end.

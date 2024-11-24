@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_err.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_err.h2pas
-     and this file regenerated. IdOpenSSLHeaders_err.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file err.h2pas 
+It should not be modified directly. All changes should be made to err.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_err;
+
 
 interface
 
@@ -39,9 +35,7 @@ interface
 
 
 uses
-  IdCTypes,
-  IdGlobal,
-  IdSSLOpenSSLConsts,
+  IdSSLOpenSSLAPI,
   IdOpenSSLHeaders_ossl_typ;
 
 const
@@ -97,7 +91,7 @@ const
   ERR_LIB_KDF =    52;
   ERR_LIB_SM2 =    53;
   ERR_LIB_USER =    128;
-
+  
 //* OS functions */
   SYS_F_FOPEN = 1;
   SYS_F_CONNECT = 2;
@@ -168,1621 +162,735 @@ const
 
 type
   err_state_st = record
-    err_flags: array[0..ERR_NUM_ERRORS -1] of TIdC_INT;
-    err_buffer: array[0..ERR_NUM_ERRORS -1] of TIdC_ULONG;
-    err_data: array[0..ERR_NUM_ERRORS -1] of PIdAnsiChar;
-    err_data_flags: array[0..ERR_NUM_ERRORS -1] of TIdC_INT;
-    err_file: array[0..ERR_NUM_ERRORS -1] of PIdAnsiChar;
-    err_line: array[0..ERR_NUM_ERRORS -1] of TIdC_INT;
-    top, bottom: TIdC_INT;
+    err_flags: array[0..ERR_NUM_ERRORS -1] of TOpenSSL_C_INT;
+    err_buffer: array[0..ERR_NUM_ERRORS -1] of TOpenSSL_C_ULONG;
+    err_data: array[0..ERR_NUM_ERRORS -1] of PAnsiChar;
+    err_data_flags: array[0..ERR_NUM_ERRORS -1] of TOpenSSL_C_INT;
+    err_file: array[0..ERR_NUM_ERRORS -1] of PAnsiChar;
+    err_line: array[0..ERR_NUM_ERRORS -1] of TOpenSSL_C_INT;
+    top, bottom: TOpenSSL_C_INT;
   end;
   ERR_STATE = err_state_st;
   PERR_STATE = ^ERR_STATE;
 
   ERR_string_data_st = record
-    error: TIdC_ULONG;
-    string_: PIdAnsiChar;
+    error: TOpenSSL_C_ULONG;
+    string_: PAnsiChar;
   end;
   ERR_STRING_DATA = ERR_string_data_st;
   PERR_STRING_DATA = ^ERR_STRING_DATA;
 
-  ERR_print_errors_cb_cb = function(str: PIdAnsiChar; len: TIdC_SIZET; u: Pointer): TIdC_INT; cdecl;
+  ERR_print_errors_cb_cb = function(str: PAnsiChar; len: TOpenSSL_C_SIZET; u: Pointer): TOpenSSL_C_INT; cdecl;
 
 // DEFINE_LHASH_OF(ERR_STRING_DATA);
 
-    { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
-		
-  	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-	  files generated for C++. }
-	  
-  {$EXTERNALSYM ERR_new} {introduced 3.0.0}
-  {$EXTERNALSYM ERR_set_debug}  {introduced 3.0.0}
-  {$EXTERNALSYM ERR_set_error} {introduced 3.0.0}
-  {$EXTERNALSYM ERR_set_error_data}
-  {$EXTERNALSYM ERR_get_error}
-  {$EXTERNALSYM ERR_get_error_line}
-  {$EXTERNALSYM ERR_get_error_line_data}
-  {$EXTERNALSYM ERR_peek_error}
-  {$EXTERNALSYM ERR_peek_error_line}
-  {$EXTERNALSYM ERR_peek_error_line_data}
-  {$EXTERNALSYM ERR_peek_last_error}
-  {$EXTERNALSYM ERR_peek_last_error_line}
-  {$EXTERNALSYM ERR_peek_last_error_line_data}
-  {$EXTERNALSYM ERR_clear_error}
-  {$EXTERNALSYM ERR_error_string}
-  {$EXTERNALSYM ERR_error_string_n}
-  {$EXTERNALSYM ERR_lib_error_string}
-  {$EXTERNALSYM ERR_func_error_string}
-  {$EXTERNALSYM ERR_reason_error_string}
-  {$EXTERNALSYM ERR_print_errors_cb}
-  {$EXTERNALSYM ERR_print_errors}
-  {$EXTERNALSYM ERR_load_strings}
-  {$EXTERNALSYM ERR_load_strings_const} {introduced 1.1.0}
-  {$EXTERNALSYM ERR_unload_strings}
-  {$EXTERNALSYM ERR_load_ERR_strings}
-  {$EXTERNALSYM ERR_get_state}
-  {$EXTERNALSYM ERR_get_next_error_library}
-  {$EXTERNALSYM ERR_set_mark}
-  {$EXTERNALSYM ERR_pop_to_mark}
-  {$EXTERNALSYM ERR_clear_last_mark} {introduced 1.1.0}
-{helper_functions}
-function ERR_GET_LIB(l: TIdC_INT): TIdC_ULONG;
-{\helper_functions}
-
-
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-var
-  {$EXTERNALSYM ERR_put_error} {removed 3.0.0}
-  {$EXTERNALSYM SSLErr} {removed 1.0.0}
-  {$EXTERNALSYM X509err} {removed 1.0.0}
-  {$EXTERNALSYM ERR_GET_REASON} {removed 1.0.0}
-  ERR_put_error: procedure (lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT; file_: PIdAnsiChar; line: TIdC_INT); cdecl = nil; {removed 3.0.0}
-
-{ From 3.0 onwards, replaced by a macro
-  define ERR_put_error(lib, func, reason, file, line)
-    (ERR_new(),
-     ERR_set_debug((file), (line), OPENSSL_FUNC),
-     ERR_set_error((lib), (reason), NULL))}
-
-  ERR_new: procedure ; cdecl = nil; {introduced 3.0.0}
-  ERR_set_debug: procedure (const file_: PIdAnsiChar; line: integer; const func: PIdAnsiChar); cdecl = nil;  {introduced 3.0.0}
-  ERR_set_error: procedure (lib: integer; reason: integer; fmt: PIdAnsiChar; args: array of const); cdecl = nil; {introduced 3.0.0}
-
-
-  ERR_set_error_data: procedure (data: PIdAnsiChar; flags: TIdC_INT); cdecl = nil;
   
-  ERR_get_error: function : TIdC_ULONG; cdecl = nil;
-  ERR_get_error_line: function (file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; cdecl = nil;
-  ERR_get_error_line_data: function (file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; cdecl = nil;
 
-  ERR_peek_error: function : TIdC_ULONG; cdecl = nil;
-  ERR_peek_error_line: function (file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; cdecl = nil;
-  ERR_peek_error_line_data: function (file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; cdecl = nil;
+function ERR_GET_LIB(l: TOpenSSL_C_INT): TOpenSSL_C_ULONG;
 
-  ERR_peek_last_error: function : TIdC_ULONG; cdecl = nil;
-  ERR_peek_last_error_line: function (file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; cdecl = nil;
-  ERR_peek_last_error_line_data: function (file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; cdecl = nil;
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
 
-  ERR_clear_error: procedure ; cdecl = nil;
-  ERR_error_string: function (e: TIdC_ULONG; buf: PIdAnsiChar): PIdAnsiChar; cdecl = nil;
-  ERR_error_string_n: procedure (e: TIdC_ULONG; buf: PIdAnsiChar; len: TIdC_SIZET); cdecl = nil;
-  ERR_lib_error_string: function (e: TIdC_ULONG): PIdAnsiChar; cdecl = nil;
-  ERR_func_error_string: function (e: TIdC_ULONG): PIdAnsiChar; cdecl = nil;
-  ERR_reason_error_string: function (e: TIdC_ULONG): PIdAnsiChar; cdecl = nil;
-  ERR_print_errors_cb: procedure (cb: ERR_print_errors_cb_cb; u: Pointer); cdecl = nil;
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
 
-  ERR_print_errors: procedure (bp: PBIO); cdecl = nil;
-  // void ERR_add_error_data(int num, ...);
-  // procedure ERR_add_error_vdata(num: TIdC_INT; args: va_list);
-  ERR_load_strings: function (lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT; cdecl = nil;
-  ERR_load_strings_const: function (str: PERR_STRING_DATA): TIdC_INT; cdecl = nil; {introduced 1.1.0}
-  ERR_unload_strings: function (lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT; cdecl = nil;
-  ERR_load_ERR_strings: function : TIdC_INT; cdecl = nil;
+{$EXTERNALSYM ERR_new}
+{$EXTERNALSYM ERR_set_debug}
+{$EXTERNALSYM ERR_set_error}
+{$EXTERNALSYM ERR_set_error_data}
+{$EXTERNALSYM ERR_get_error}
+{$EXTERNALSYM ERR_get_error_line}
+{$EXTERNALSYM ERR_get_error_line_data}
+{$EXTERNALSYM ERR_peek_error}
+{$EXTERNALSYM ERR_peek_error_line}
+{$EXTERNALSYM ERR_peek_error_line_data}
+{$EXTERNALSYM ERR_peek_last_error}
+{$EXTERNALSYM ERR_peek_last_error_line}
+{$EXTERNALSYM ERR_peek_last_error_line_data}
+{$EXTERNALSYM ERR_clear_error}
+{$EXTERNALSYM ERR_error_string}
+{$EXTERNALSYM ERR_error_string_n}
+{$EXTERNALSYM ERR_lib_error_string}
+{$EXTERNALSYM ERR_func_error_string}
+{$EXTERNALSYM ERR_reason_error_string}
+{$EXTERNALSYM ERR_print_errors_cb}
+{$EXTERNALSYM ERR_print_errors}
+{$EXTERNALSYM ERR_load_strings}
+{$EXTERNALSYM ERR_load_strings_const}
+{$EXTERNALSYM ERR_unload_strings}
+{$EXTERNALSYM ERR_load_ERR_strings}
+{$EXTERNALSYM ERR_get_state}
+{$EXTERNALSYM ERR_get_next_error_library}
+{$EXTERNALSYM ERR_set_mark}
+{$EXTERNALSYM ERR_pop_to_mark}
+{$EXTERNALSYM ERR_clear_last_mark}
 
-  ERR_get_state: function : PERR_STATE; cdecl = nil;
-  ERR_get_next_error_library: function : TIdC_INT; cdecl = nil;
-  ERR_set_mark: function : TIdC_INT; cdecl = nil;
-  ERR_pop_to_mark: function : TIdC_INT; cdecl = nil;
-  ERR_clear_last_mark: function : TIdC_INT; cdecl = nil; {introduced 1.1.0}
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+procedure ERR_new; cdecl; external CLibCrypto;
+procedure ERR_set_debug(const file_: PAnsiChar; line: integer; const func: PAnsiChar); cdecl; external CLibCrypto;
+procedure ERR_set_error(lib: integer; reason: integer; fmt: PAnsiChar); cdecl; varargs; external CLibCrypto;
+procedure ERR_set_error_data(data: PAnsiChar; flags: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function ERR_get_error: TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+function ERR_get_error_line(file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+function ERR_get_error_line_data(file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+function ERR_peek_error: TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+function ERR_peek_error_line(file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+function ERR_peek_error_line_data(file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+function ERR_peek_last_error: TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+function ERR_peek_last_error_line(file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+function ERR_peek_last_error_line_data(file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
+procedure ERR_clear_error; cdecl; external CLibCrypto;
+function ERR_error_string(e: TOpenSSL_C_ULONG; buf: PAnsiChar): PAnsiChar; cdecl; external CLibCrypto;
+procedure ERR_error_string_n(e: TOpenSSL_C_ULONG; buf: PAnsiChar; len: TOpenSSL_C_SIZET); cdecl; external CLibCrypto;
+function ERR_lib_error_string(e: TOpenSSL_C_ULONG): PAnsiChar; cdecl; external CLibCrypto;
+function ERR_func_error_string(e: TOpenSSL_C_ULONG): PAnsiChar; cdecl; external CLibCrypto;
+function ERR_reason_error_string(e: TOpenSSL_C_ULONG): PAnsiChar; cdecl; external CLibCrypto;
+procedure ERR_print_errors_cb(cb: ERR_print_errors_cb_cb; u: Pointer); cdecl; external CLibCrypto;
+procedure ERR_print_errors(bp: PBIO); cdecl; external CLibCrypto;
+function ERR_load_strings(lib: TOpenSSL_C_INT; str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ERR_load_strings_const(str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ERR_unload_strings(lib: TOpenSSL_C_INT; str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ERR_load_ERR_strings: TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ERR_get_state: PERR_STATE; cdecl; external CLibCrypto;
+function ERR_get_next_error_library: TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ERR_set_mark: TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ERR_pop_to_mark: TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function ERR_clear_last_mark: TOpenSSL_C_INT; cdecl; external CLibCrypto;
 
-  SSLErr: procedure (func: TIdC_INT; reason: TIdC_INT); cdecl = nil; {removed 1.0.0}
-  X509err: procedure (const f,r : TIdC_INT); cdecl = nil; {removed 1.0.0}
-  ERR_GET_REASON: function (const l : TIdC_INT) : TIdC_INT; cdecl = nil; {removed 1.0.0}
 
+
+
+{Removed functions for which legacy support available - use is deprecated}
+
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+procedure ERR_put_error(lib: TOpenSSL_C_INT; func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT; file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl;
+procedure SSLErr(func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT); cdecl;
+procedure X509err(const f,r : TOpenSSL_C_INT); cdecl;
+function ERR_GET_REASON(const l : TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ELSE}
+var
+  ERR_new: procedure ; cdecl = nil; {introduced 3.0.0 }
+  ERR_set_debug: procedure (const file_: PAnsiChar; line: integer; const func: PAnsiChar); cdecl = nil; {introduced 3.0.0 }
+  ERR_set_error: procedure (lib: integer; reason: integer; fmt: PAnsiChar); varargs; cdecl = nil; {introduced 3.0.0 }
+  ERR_set_error_data: procedure (data: PAnsiChar; flags: TOpenSSL_C_INT); cdecl = nil;
+  ERR_get_error: function : TOpenSSL_C_ULONG; cdecl = nil;
+  ERR_get_error_line: function (file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = nil;
+  ERR_get_error_line_data: function (file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = nil;
+  ERR_peek_error: function : TOpenSSL_C_ULONG; cdecl = nil;
+  ERR_peek_error_line: function (file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = nil;
+  ERR_peek_error_line_data: function (file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = nil;
+  ERR_peek_last_error: function : TOpenSSL_C_ULONG; cdecl = nil;
+  ERR_peek_last_error_line: function (file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = nil;
+  ERR_peek_last_error_line_data: function (file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = nil;
+  ERR_clear_error: procedure ; cdecl = nil;
+  ERR_error_string: function (e: TOpenSSL_C_ULONG; buf: PAnsiChar): PAnsiChar; cdecl = nil;
+  ERR_error_string_n: procedure (e: TOpenSSL_C_ULONG; buf: PAnsiChar; len: TOpenSSL_C_SIZET); cdecl = nil;
+  ERR_lib_error_string: function (e: TOpenSSL_C_ULONG): PAnsiChar; cdecl = nil;
+  ERR_func_error_string: function (e: TOpenSSL_C_ULONG): PAnsiChar; cdecl = nil;
+  ERR_reason_error_string: function (e: TOpenSSL_C_ULONG): PAnsiChar; cdecl = nil;
+  ERR_print_errors_cb: procedure (cb: ERR_print_errors_cb_cb; u: Pointer); cdecl = nil;
+  ERR_print_errors: procedure (bp: PBIO); cdecl = nil;
+  ERR_load_strings: function (lib: TOpenSSL_C_INT; str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl = nil;
+  ERR_load_strings_const: function (str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
+  ERR_unload_strings: function (lib: TOpenSSL_C_INT; str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl = nil;
+  ERR_load_ERR_strings: function : TOpenSSL_C_INT; cdecl = nil;
+  ERR_get_state: function : PERR_STATE; cdecl = nil;
+  ERR_get_next_error_library: function : TOpenSSL_C_INT; cdecl = nil;
+  ERR_set_mark: function : TOpenSSL_C_INT; cdecl = nil;
+  ERR_pop_to_mark: function : TOpenSSL_C_INT; cdecl = nil;
+  ERR_clear_last_mark: function : TOpenSSL_C_INT; cdecl = nil; {introduced 1.1.0 }
 
-{ From 3.0 onwards, replaced by a macro
-  define ERR_put_error(lib, func, reason, file, line)
-    (ERR_new(),
-     ERR_set_debug((file), (line), OPENSSL_FUNC),
-     ERR_set_error((lib), (reason), NULL))}
+{Removed functions for which legacy support available - use is deprecated}
 
-  procedure ERR_new cdecl; external CLibCrypto; {introduced 3.0.0}
-  procedure ERR_set_debug(const file_: PIdAnsiChar; line: integer; const func: PIdAnsiChar) cdecl; external CLibCrypto;  {introduced 3.0.0}
-  procedure ERR_set_error(lib: integer; reason: integer; fmt: PIdAnsiChar; args: array of const) cdecl; external CLibCrypto; {introduced 3.0.0}
-
-
-  procedure ERR_set_error_data(data: PIdAnsiChar; flags: TIdC_INT) cdecl; external CLibCrypto;
-  
-  function ERR_get_error: TIdC_ULONG cdecl; external CLibCrypto;
-  function ERR_get_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
-  function ERR_get_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
-
-  function ERR_peek_error: TIdC_ULONG cdecl; external CLibCrypto;
-  function ERR_peek_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
-  function ERR_peek_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
-
-  function ERR_peek_last_error: TIdC_ULONG cdecl; external CLibCrypto;
-  function ERR_peek_last_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
-  function ERR_peek_last_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG cdecl; external CLibCrypto;
-
-  procedure ERR_clear_error cdecl; external CLibCrypto;
-  function ERR_error_string(e: TIdC_ULONG; buf: PIdAnsiChar): PIdAnsiChar cdecl; external CLibCrypto;
-  procedure ERR_error_string_n(e: TIdC_ULONG; buf: PIdAnsiChar; len: TIdC_SIZET) cdecl; external CLibCrypto;
-  function ERR_lib_error_string(e: TIdC_ULONG): PIdAnsiChar cdecl; external CLibCrypto;
-  function ERR_func_error_string(e: TIdC_ULONG): PIdAnsiChar cdecl; external CLibCrypto;
-  function ERR_reason_error_string(e: TIdC_ULONG): PIdAnsiChar cdecl; external CLibCrypto;
-  procedure ERR_print_errors_cb(cb: ERR_print_errors_cb_cb; u: Pointer) cdecl; external CLibCrypto;
-
-  procedure ERR_print_errors(bp: PBIO) cdecl; external CLibCrypto;
-  // void ERR_add_error_data(int num, ...);
-  // procedure ERR_add_error_vdata(num: TIdC_INT; args: va_list);
-  function ERR_load_strings(lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto;
-  function ERR_load_strings_const(str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-  function ERR_unload_strings(lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT cdecl; external CLibCrypto;
-  function ERR_load_ERR_strings: TIdC_INT cdecl; external CLibCrypto;
-
-  function ERR_get_state: PERR_STATE cdecl; external CLibCrypto;
-  function ERR_get_next_error_library: TIdC_INT cdecl; external CLibCrypto;
-  function ERR_set_mark: TIdC_INT cdecl; external CLibCrypto;
-  function ERR_pop_to_mark: TIdC_INT cdecl; external CLibCrypto;
-  function ERR_clear_last_mark: TIdC_INT cdecl; external CLibCrypto; {introduced 1.1.0}
-
-
-  procedure ERR_put_error(lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT; file_: PIdAnsiChar; line: TIdC_INT); {removed 3.0.0}
-  procedure SSLErr(func: TIdC_INT; reason: TIdC_INT); {removed 1.0.0}
-  procedure X509err(const f,r : TIdC_INT); {removed 1.0.0}
-  function ERR_GET_REASON(const l : TIdC_INT) : TIdC_INT; {removed 1.0.0}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  ERR_put_error: procedure (lib: TOpenSSL_C_INT; func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT; file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = nil; {removed 3.0.0}
+  SSLErr: procedure (func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT); cdecl = nil; {removed 1.0.0}
+  X509err: procedure (const f,r : TOpenSSL_C_INT); cdecl = nil; {removed 1.0.0}
+  ERR_GET_REASON: function (const l : TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil; {removed 1.0.0}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF}
+const
+  ERR_put_error_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ERR_new_introduced = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ERR_set_debug_introduced = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ERR_set_error_introduced = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ERR_load_strings_const_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ERR_clear_last_mark_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  SSLErr_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  X509err_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ERR_GET_REASON_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+
 
 implementation
 
-  uses
-    classes, 
-    IdSSLOpenSSLExceptionHandlers, 
-    IdResourceStringsOpenSSL
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    ,IdSSLOpenSSLLoader
-  {$ENDIF};
-  
-const
-  ERR_new_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
-  ERR_set_debug_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
-  ERR_set_error_introduced = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
-  ERR_load_strings_const_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ERR_clear_last_mark_introduced = (byte(1) shl 8 or byte(1)) shl 8 or byte(0);
-  ERR_put_error_removed = (byte(3) shl 8 or byte(0)) shl 8 or byte(0);
-  SSLErr_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  X509err_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
-  ERR_GET_REASON_removed = (byte(1) shl 8 or byte(0)) shl 8 or byte(0);
 
-{helper_functions}
-function ERR_GET_LIB(l: TIdC_INT): TIdC_ULONG;
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
+
+
+function ERR_GET_LIB(l: TOpenSSL_C_INT): TOpenSSL_C_ULONG;
 begin
   Result := (l shr 24) and $ff;
 end;
-{\helper_functions}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-const
-  ERR_put_error_procname = 'ERR_put_error'; {removed 3.0.0}
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
 
-{ From 3.0 onwards, replaced by a macro
-  define ERR_put_error(lib, func, reason, file, line)
-    (ERR_new(),
-     ERR_set_debug((file), (line), OPENSSL_FUNC),
-     ERR_set_error((lib), (reason), NULL))}
+{Legacy Support Functions}
 
-  ERR_new_procname = 'ERR_new'; {introduced 3.0.0}
-  ERR_set_debug_procname = 'ERR_set_debug';  {introduced 3.0.0}
-  ERR_set_error_procname = 'ERR_set_error'; {introduced 3.0.0}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+procedure SSLErr(func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT);
 
-
-  ERR_set_error_data_procname = 'ERR_set_error_data';
-  
-  ERR_get_error_procname = 'ERR_get_error';
-  ERR_get_error_line_procname = 'ERR_get_error_line';
-  ERR_get_error_line_data_procname = 'ERR_get_error_line_data';
-
-  ERR_peek_error_procname = 'ERR_peek_error';
-  ERR_peek_error_line_procname = 'ERR_peek_error_line';
-  ERR_peek_error_line_data_procname = 'ERR_peek_error_line_data';
-
-  ERR_peek_last_error_procname = 'ERR_peek_last_error';
-  ERR_peek_last_error_line_procname = 'ERR_peek_last_error_line';
-  ERR_peek_last_error_line_data_procname = 'ERR_peek_last_error_line_data';
-
-  ERR_clear_error_procname = 'ERR_clear_error';
-  ERR_error_string_procname = 'ERR_error_string';
-  ERR_error_string_n_procname = 'ERR_error_string_n';
-  ERR_lib_error_string_procname = 'ERR_lib_error_string';
-  ERR_func_error_string_procname = 'ERR_func_error_string';
-  ERR_reason_error_string_procname = 'ERR_reason_error_string';
-  ERR_print_errors_cb_procname = 'ERR_print_errors_cb';
-
-  ERR_print_errors_procname = 'ERR_print_errors';
-  // void ERR_add_error_data(int num, ...);
-  // procedure ERR_add_error_vdata(num: TIdC_INT; args: va_list);
-  ERR_load_strings_procname = 'ERR_load_strings';
-  ERR_load_strings_const_procname = 'ERR_load_strings_const'; {introduced 1.1.0}
-  ERR_unload_strings_procname = 'ERR_unload_strings';
-  ERR_load_ERR_strings_procname = 'ERR_load_ERR_strings';
-
-  ERR_get_state_procname = 'ERR_get_state';
-  ERR_get_next_error_library_procname = 'ERR_get_next_error_library';
-  ERR_set_mark_procname = 'ERR_set_mark';
-  ERR_pop_to_mark_procname = 'ERR_pop_to_mark';
-  ERR_clear_last_mark_procname = 'ERR_clear_last_mark'; {introduced 1.1.0}
-
-  SSLErr_procname = 'SSLErr'; {removed 1.0.0}
-  X509err_procname = 'X509err'; {removed 1.0.0}
-  ERR_GET_REASON_procname = 'ERR_GET_REASON'; {removed 1.0.0}
-
-
-procedure  _SSLErr(func: TIdC_INT; reason: TIdC_INT); cdecl;
 begin
   ERR_put_error(ERR_LIB_SSL,func,reason,'',0);
 end; 
 
-procedure  _ERR_put_error(lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT; file_: PIdAnsiChar; line: TIdC_INT); cdecl;
+
+
+procedure ERR_put_error(lib: TOpenSSL_C_INT; func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT; file_: PAnsiChar; line: TOpenSSL_C_INT);
+
 { From 3.0 onwards, replaced by a macro
   define ERR_put_error(lib, func, reason, file, line)
     (ERR_new(),
      ERR_set_debug((file), (line), OPENSSL_FUNC),
-     ERR_set_error((lib), (reason), '',[]))}
+     ERR_set_error((lib), (reason), ''))}
 begin
   ERR_new;
   ERR_set_debug(file_,line, '');
-  ERR_set_error(lib,reason,'',[]);
+  ERR_set_error(lib,reason,'');
 end;
 
-procedure  _X509err(const f,r : TIdC_INT); cdecl;
+
+
+procedure X509err(const f,r : TOpenSSL_C_INT);
+
 begin
   ERR_PUT_error(ERR_LIB_X509,f,r,nil,0);
 end;
 
-function  _ERR_GET_REASON(const l : TIdC_INT) : TIdC_INT; cdecl;
+
+
+function ERR_GET_REASON(const l : TOpenSSL_C_INT): TOpenSSL_C_INT;
+
 begin
   Result := l and $fff;
 end;
 
-{$WARN  NO_RETVAL OFF}
-procedure  ERR_ERR_put_error(lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT; file_: PIdAnsiChar; line: TIdC_INT); 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_put_error_procname);
-end;
 
- 
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ELSE}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+procedure COMPAT_SSLErr(func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT); cdecl;
+
+begin
+  ERR_put_error(ERR_LIB_SSL,func,reason,'',0);
+end; 
+
+
+
+procedure COMPAT_ERR_put_error(lib: TOpenSSL_C_INT; func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT; file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl;
 
 { From 3.0 onwards, replaced by a macro
   define ERR_put_error(lib, func, reason, file, line)
     (ERR_new(),
      ERR_set_debug((file), (line), OPENSSL_FUNC),
-     ERR_set_error((lib), (reason), NULL))}
-
-procedure  ERR_ERR_new; 
+     ERR_set_error((lib), (reason), ''))}
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_new_procname);
-end;
-
- {introduced 3.0.0}
-procedure  ERR_ERR_set_debug(const file_: PIdAnsiChar; line: integer; const func: PIdAnsiChar); 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_set_debug_procname);
-end;
-
-  {introduced 3.0.0}
-procedure  ERR_ERR_set_error(lib: integer; reason: integer; fmt: PIdAnsiChar; args: array of const); 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_set_error_procname);
-end;
-
- {introduced 3.0.0}
-
-
-procedure  ERR_ERR_set_error_data(data: PIdAnsiChar; flags: TIdC_INT); 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_set_error_data_procname);
-end;
-
-
-  
-function  ERR_ERR_get_error: TIdC_ULONG; 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_get_error_procname);
-end;
-
-
-function  ERR_ERR_get_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_get_error_line_procname);
-end;
-
-
-function  ERR_ERR_get_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_get_error_line_data_procname);
+  ERR_new;
+  ERR_set_debug(file_,line, '');
+  ERR_set_error(lib,reason,'');
 end;
 
 
 
-function  ERR_ERR_peek_error: TIdC_ULONG; 
+procedure COMPAT_X509err(const f,r : TOpenSSL_C_INT); cdecl;
+
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_peek_error_procname);
-end;
-
-
-function  ERR_ERR_peek_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_peek_error_line_procname);
-end;
-
-
-function  ERR_ERR_peek_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; 
-begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_peek_error_line_data_procname);
+  ERR_PUT_error(ERR_LIB_X509,f,r,nil,0);
 end;
 
 
 
-function  ERR_ERR_peek_last_error: TIdC_ULONG; 
+function COMPAT_ERR_GET_REASON(const l : TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_peek_last_error_procname);
+  Result := l and $fff;
 end;
 
 
-function  ERR_ERR_peek_last_error_line(file_: PPIdAnsiChar; line: PIdC_INT): TIdC_ULONG; 
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+
+{$WARN  NO_RETVAL OFF}
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+procedure ERROR_ERR_put_error(lib: TOpenSSL_C_INT; func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT; file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_peek_last_error_line_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_put_error');
+end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+
+procedure ERROR_ERR_new; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_new');
 end;
 
-
-function  ERR_ERR_peek_last_error_line_data(file_: PPIdAnsiChar; line: PIdC_INT; data: PPIdAnsiChar; flags: PIdC_INT): TIdC_ULONG; 
+procedure ERROR_ERR_set_debug(const file_: PAnsiChar; line: integer; const func: PAnsiChar); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_peek_last_error_line_data_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_set_debug');
 end;
 
-
-
-procedure  ERR_ERR_clear_error; 
+procedure ERROR_ERR_set_error(lib: integer; reason: integer; fmt: PAnsiChar); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_clear_error_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_set_error');
 end;
 
-
-function  ERR_ERR_error_string(e: TIdC_ULONG; buf: PIdAnsiChar): PIdAnsiChar; 
+procedure ERROR_ERR_set_error_data(data: PAnsiChar; flags: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_error_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_set_error_data');
 end;
 
-
-procedure  ERR_ERR_error_string_n(e: TIdC_ULONG; buf: PIdAnsiChar; len: TIdC_SIZET); 
+function ERROR_ERR_get_error: TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_error_string_n_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_get_error');
 end;
 
-
-function  ERR_ERR_lib_error_string(e: TIdC_ULONG): PIdAnsiChar; 
+function ERROR_ERR_get_error_line(file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_lib_error_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_get_error_line');
 end;
 
-
-function  ERR_ERR_func_error_string(e: TIdC_ULONG): PIdAnsiChar; 
+function ERROR_ERR_get_error_line_data(file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_func_error_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_get_error_line_data');
 end;
 
-
-function  ERR_ERR_reason_error_string(e: TIdC_ULONG): PIdAnsiChar; 
+function ERROR_ERR_peek_error: TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_reason_error_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_peek_error');
 end;
 
-
-procedure  ERR_ERR_print_errors_cb(cb: ERR_print_errors_cb_cb; u: Pointer); 
+function ERROR_ERR_peek_error_line(file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_print_errors_cb_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_peek_error_line');
 end;
 
-
-
-procedure  ERR_ERR_print_errors(bp: PBIO); 
+function ERROR_ERR_peek_error_line_data(file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_print_errors_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_peek_error_line_data');
 end;
 
-
-  // void ERR_add_error_data(int num, ...);
-  // procedure ERR_add_error_vdata(num: TIdC_INT; args: va_list);
-function  ERR_ERR_load_strings(lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT; 
+function ERROR_ERR_peek_last_error: TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_load_strings_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_peek_last_error');
 end;
 
-
-function  ERR_ERR_load_strings_const(str: PERR_STRING_DATA): TIdC_INT; 
+function ERROR_ERR_peek_last_error_line(file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_load_strings_const_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_peek_last_error_line');
 end;
 
- {introduced 1.1.0}
-function  ERR_ERR_unload_strings(lib: TIdC_INT; str: PERR_STRING_DATA): TIdC_INT; 
+function ERROR_ERR_peek_last_error_line_data(file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_unload_strings_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_peek_last_error_line_data');
 end;
 
-
-function  ERR_ERR_load_ERR_strings: TIdC_INT; 
+procedure ERROR_ERR_clear_error; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_load_ERR_strings_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_clear_error');
 end;
 
-
-
-function  ERR_ERR_get_state: PERR_STATE; 
+function ERROR_ERR_error_string(e: TOpenSSL_C_ULONG; buf: PAnsiChar): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_get_state_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_error_string');
 end;
 
-
-function  ERR_ERR_get_next_error_library: TIdC_INT; 
+procedure ERROR_ERR_error_string_n(e: TOpenSSL_C_ULONG; buf: PAnsiChar; len: TOpenSSL_C_SIZET); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_get_next_error_library_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_error_string_n');
 end;
 
-
-function  ERR_ERR_set_mark: TIdC_INT; 
+function ERROR_ERR_lib_error_string(e: TOpenSSL_C_ULONG): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_set_mark_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_lib_error_string');
 end;
 
-
-function  ERR_ERR_pop_to_mark: TIdC_INT; 
+function ERROR_ERR_func_error_string(e: TOpenSSL_C_ULONG): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_pop_to_mark_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_func_error_string');
 end;
 
-
-function  ERR_ERR_clear_last_mark: TIdC_INT; 
+function ERROR_ERR_reason_error_string(e: TOpenSSL_C_ULONG): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_clear_last_mark_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_reason_error_string');
 end;
 
- {introduced 1.1.0}
-
-procedure  ERR_SSLErr(func: TIdC_INT; reason: TIdC_INT); 
+procedure ERROR_ERR_print_errors_cb(cb: ERR_print_errors_cb_cb; u: Pointer); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(SSLErr_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_print_errors_cb');
 end;
 
- 
-procedure  ERR_X509err(const f,r : TIdC_INT); 
+procedure ERROR_ERR_print_errors(bp: PBIO); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509err_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_print_errors');
 end;
 
- 
-function  ERR_ERR_GET_REASON(const l : TIdC_INT) : TIdC_INT; 
+function ERROR_ERR_load_strings(lib: TOpenSSL_C_INT; str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ERR_GET_REASON_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_load_strings');
 end;
 
- 
+function ERROR_ERR_load_strings_const(str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_load_strings_const');
+end;
+
+function ERROR_ERR_unload_strings(lib: TOpenSSL_C_INT; str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_unload_strings');
+end;
+
+function ERROR_ERR_load_ERR_strings: TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_load_ERR_strings');
+end;
+
+function ERROR_ERR_get_state: PERR_STATE; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_get_state');
+end;
+
+function ERROR_ERR_get_next_error_library: TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_get_next_error_library');
+end;
+
+function ERROR_ERR_set_mark: TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_set_mark');
+end;
+
+function ERROR_ERR_pop_to_mark: TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_pop_to_mark');
+end;
+
+function ERROR_ERR_clear_last_mark: TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_clear_last_mark');
+end;
+
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+procedure ERROR_SSLErr(func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT); cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('SSLErr');
+end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+procedure ERROR_X509err(const f,r : TOpenSSL_C_INT); cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509err');
+end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+
+{$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
+function ERROR_ERR_GET_REASON(const l : TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ERR_GET_REASON');
+end;
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
 {$WARN  NO_RETVAL ON}
-
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
-
 begin
-  ERR_put_error := LoadLibFunction(ADllHandle, ERR_put_error_procname);
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  ERR_put_error := LoadLibCryptoFunction('ERR_put_error');
   FuncLoadError := not assigned(ERR_put_error);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_put_error_allownil)}
-    ERR_put_error := @ERR_ERR_put_error;
-    {$ifend}
-    {$if declared(ERR_put_error_introduced)}
-    if LibVersion < ERR_put_error_introduced then
-    begin
-      {$if declared(FC_ERR_put_error)}
-      ERR_put_error := @FC_ERR_put_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_put_error_removed)}
+    ERR_put_error := @COMPAT_ERR_put_error;
     if ERR_put_error_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_put_error)}
-      ERR_put_error := @_ERR_put_error;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_put_error_allownil)}
     if FuncLoadError then
       AFailed.Add('ERR_put_error');
-    {$ifend}
   end;
 
- 
-  ERR_new := LoadLibFunction(ADllHandle, ERR_new_procname);
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
+  ERR_new := LoadLibCryptoFunction('ERR_new');
   FuncLoadError := not assigned(ERR_new);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_new_allownil)}
-    ERR_new := @ERR_ERR_new;
-    {$ifend}
-    {$if declared(ERR_new_introduced)}
+    ERR_new :=  @ERROR_ERR_new;
     if LibVersion < ERR_new_introduced then
-    begin
-      {$if declared(FC_ERR_new)}
-      ERR_new := @FC_ERR_new;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_new_removed)}
-    if ERR_new_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_new)}
-      ERR_new := @_ERR_new;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_new_allownil)}
     if FuncLoadError then
       AFailed.Add('ERR_new');
-    {$ifend}
   end;
 
- {introduced 3.0.0}
-  ERR_set_debug := LoadLibFunction(ADllHandle, ERR_set_debug_procname);
+  ERR_set_debug := LoadLibCryptoFunction('ERR_set_debug');
   FuncLoadError := not assigned(ERR_set_debug);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_set_debug_allownil)}
-    ERR_set_debug := @ERR_ERR_set_debug;
-    {$ifend}
-    {$if declared(ERR_set_debug_introduced)}
+    ERR_set_debug :=  @ERROR_ERR_set_debug;
     if LibVersion < ERR_set_debug_introduced then
-    begin
-      {$if declared(FC_ERR_set_debug)}
-      ERR_set_debug := @FC_ERR_set_debug;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_set_debug_removed)}
-    if ERR_set_debug_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_set_debug)}
-      ERR_set_debug := @_ERR_set_debug;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_set_debug_allownil)}
     if FuncLoadError then
       AFailed.Add('ERR_set_debug');
-    {$ifend}
   end;
 
-  {introduced 3.0.0}
-  ERR_set_error := LoadLibFunction(ADllHandle, ERR_set_error_procname);
+  ERR_set_error := LoadLibCryptoFunction('ERR_set_error');
   FuncLoadError := not assigned(ERR_set_error);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_set_error_allownil)}
-    ERR_set_error := @ERR_ERR_set_error;
-    {$ifend}
-    {$if declared(ERR_set_error_introduced)}
+    ERR_set_error :=  @ERROR_ERR_set_error;
     if LibVersion < ERR_set_error_introduced then
-    begin
-      {$if declared(FC_ERR_set_error)}
-      ERR_set_error := @FC_ERR_set_error;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_set_error_removed)}
-    if ERR_set_error_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_set_error)}
-      ERR_set_error := @_ERR_set_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_set_error_allownil)}
     if FuncLoadError then
       AFailed.Add('ERR_set_error');
-    {$ifend}
   end;
 
- {introduced 3.0.0}
-  ERR_set_error_data := LoadLibFunction(ADllHandle, ERR_set_error_data_procname);
+  ERR_set_error_data := LoadLibCryptoFunction('ERR_set_error_data');
   FuncLoadError := not assigned(ERR_set_error_data);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_set_error_data_allownil)}
-    ERR_set_error_data := @ERR_ERR_set_error_data;
-    {$ifend}
-    {$if declared(ERR_set_error_data_introduced)}
-    if LibVersion < ERR_set_error_data_introduced then
-    begin
-      {$if declared(FC_ERR_set_error_data)}
-      ERR_set_error_data := @FC_ERR_set_error_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_set_error_data_removed)}
-    if ERR_set_error_data_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_set_error_data)}
-      ERR_set_error_data := @_ERR_set_error_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_set_error_data_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_set_error_data');
-    {$ifend}
+    ERR_set_error_data :=  @ERROR_ERR_set_error_data;
   end;
 
-
-  ERR_get_error := LoadLibFunction(ADllHandle, ERR_get_error_procname);
+  ERR_get_error := LoadLibCryptoFunction('ERR_get_error');
   FuncLoadError := not assigned(ERR_get_error);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_get_error_allownil)}
-    ERR_get_error := @ERR_ERR_get_error;
-    {$ifend}
-    {$if declared(ERR_get_error_introduced)}
-    if LibVersion < ERR_get_error_introduced then
-    begin
-      {$if declared(FC_ERR_get_error)}
-      ERR_get_error := @FC_ERR_get_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_get_error_removed)}
-    if ERR_get_error_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_get_error)}
-      ERR_get_error := @_ERR_get_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_get_error_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_get_error');
-    {$ifend}
+    ERR_get_error :=  @ERROR_ERR_get_error;
   end;
 
-
-  ERR_get_error_line := LoadLibFunction(ADllHandle, ERR_get_error_line_procname);
+  ERR_get_error_line := LoadLibCryptoFunction('ERR_get_error_line');
   FuncLoadError := not assigned(ERR_get_error_line);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_get_error_line_allownil)}
-    ERR_get_error_line := @ERR_ERR_get_error_line;
-    {$ifend}
-    {$if declared(ERR_get_error_line_introduced)}
-    if LibVersion < ERR_get_error_line_introduced then
-    begin
-      {$if declared(FC_ERR_get_error_line)}
-      ERR_get_error_line := @FC_ERR_get_error_line;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_get_error_line_removed)}
-    if ERR_get_error_line_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_get_error_line)}
-      ERR_get_error_line := @_ERR_get_error_line;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_get_error_line_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_get_error_line');
-    {$ifend}
+    ERR_get_error_line :=  @ERROR_ERR_get_error_line;
   end;
 
-
-  ERR_get_error_line_data := LoadLibFunction(ADllHandle, ERR_get_error_line_data_procname);
+  ERR_get_error_line_data := LoadLibCryptoFunction('ERR_get_error_line_data');
   FuncLoadError := not assigned(ERR_get_error_line_data);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_get_error_line_data_allownil)}
-    ERR_get_error_line_data := @ERR_ERR_get_error_line_data;
-    {$ifend}
-    {$if declared(ERR_get_error_line_data_introduced)}
-    if LibVersion < ERR_get_error_line_data_introduced then
-    begin
-      {$if declared(FC_ERR_get_error_line_data)}
-      ERR_get_error_line_data := @FC_ERR_get_error_line_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_get_error_line_data_removed)}
-    if ERR_get_error_line_data_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_get_error_line_data)}
-      ERR_get_error_line_data := @_ERR_get_error_line_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_get_error_line_data_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_get_error_line_data');
-    {$ifend}
+    ERR_get_error_line_data :=  @ERROR_ERR_get_error_line_data;
   end;
 
-
-  ERR_peek_error := LoadLibFunction(ADllHandle, ERR_peek_error_procname);
+  ERR_peek_error := LoadLibCryptoFunction('ERR_peek_error');
   FuncLoadError := not assigned(ERR_peek_error);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_peek_error_allownil)}
-    ERR_peek_error := @ERR_ERR_peek_error;
-    {$ifend}
-    {$if declared(ERR_peek_error_introduced)}
-    if LibVersion < ERR_peek_error_introduced then
-    begin
-      {$if declared(FC_ERR_peek_error)}
-      ERR_peek_error := @FC_ERR_peek_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_peek_error_removed)}
-    if ERR_peek_error_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_peek_error)}
-      ERR_peek_error := @_ERR_peek_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_peek_error_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_peek_error');
-    {$ifend}
+    ERR_peek_error :=  @ERROR_ERR_peek_error;
   end;
 
-
-  ERR_peek_error_line := LoadLibFunction(ADllHandle, ERR_peek_error_line_procname);
+  ERR_peek_error_line := LoadLibCryptoFunction('ERR_peek_error_line');
   FuncLoadError := not assigned(ERR_peek_error_line);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_peek_error_line_allownil)}
-    ERR_peek_error_line := @ERR_ERR_peek_error_line;
-    {$ifend}
-    {$if declared(ERR_peek_error_line_introduced)}
-    if LibVersion < ERR_peek_error_line_introduced then
-    begin
-      {$if declared(FC_ERR_peek_error_line)}
-      ERR_peek_error_line := @FC_ERR_peek_error_line;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_peek_error_line_removed)}
-    if ERR_peek_error_line_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_peek_error_line)}
-      ERR_peek_error_line := @_ERR_peek_error_line;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_peek_error_line_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_peek_error_line');
-    {$ifend}
+    ERR_peek_error_line :=  @ERROR_ERR_peek_error_line;
   end;
 
-
-  ERR_peek_error_line_data := LoadLibFunction(ADllHandle, ERR_peek_error_line_data_procname);
+  ERR_peek_error_line_data := LoadLibCryptoFunction('ERR_peek_error_line_data');
   FuncLoadError := not assigned(ERR_peek_error_line_data);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_peek_error_line_data_allownil)}
-    ERR_peek_error_line_data := @ERR_ERR_peek_error_line_data;
-    {$ifend}
-    {$if declared(ERR_peek_error_line_data_introduced)}
-    if LibVersion < ERR_peek_error_line_data_introduced then
-    begin
-      {$if declared(FC_ERR_peek_error_line_data)}
-      ERR_peek_error_line_data := @FC_ERR_peek_error_line_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_peek_error_line_data_removed)}
-    if ERR_peek_error_line_data_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_peek_error_line_data)}
-      ERR_peek_error_line_data := @_ERR_peek_error_line_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_peek_error_line_data_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_peek_error_line_data');
-    {$ifend}
+    ERR_peek_error_line_data :=  @ERROR_ERR_peek_error_line_data;
   end;
 
-
-  ERR_peek_last_error := LoadLibFunction(ADllHandle, ERR_peek_last_error_procname);
+  ERR_peek_last_error := LoadLibCryptoFunction('ERR_peek_last_error');
   FuncLoadError := not assigned(ERR_peek_last_error);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_peek_last_error_allownil)}
-    ERR_peek_last_error := @ERR_ERR_peek_last_error;
-    {$ifend}
-    {$if declared(ERR_peek_last_error_introduced)}
-    if LibVersion < ERR_peek_last_error_introduced then
-    begin
-      {$if declared(FC_ERR_peek_last_error)}
-      ERR_peek_last_error := @FC_ERR_peek_last_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_peek_last_error_removed)}
-    if ERR_peek_last_error_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_peek_last_error)}
-      ERR_peek_last_error := @_ERR_peek_last_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_peek_last_error_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_peek_last_error');
-    {$ifend}
+    ERR_peek_last_error :=  @ERROR_ERR_peek_last_error;
   end;
 
-
-  ERR_peek_last_error_line := LoadLibFunction(ADllHandle, ERR_peek_last_error_line_procname);
+  ERR_peek_last_error_line := LoadLibCryptoFunction('ERR_peek_last_error_line');
   FuncLoadError := not assigned(ERR_peek_last_error_line);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_peek_last_error_line_allownil)}
-    ERR_peek_last_error_line := @ERR_ERR_peek_last_error_line;
-    {$ifend}
-    {$if declared(ERR_peek_last_error_line_introduced)}
-    if LibVersion < ERR_peek_last_error_line_introduced then
-    begin
-      {$if declared(FC_ERR_peek_last_error_line)}
-      ERR_peek_last_error_line := @FC_ERR_peek_last_error_line;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_peek_last_error_line_removed)}
-    if ERR_peek_last_error_line_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_peek_last_error_line)}
-      ERR_peek_last_error_line := @_ERR_peek_last_error_line;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_peek_last_error_line_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_peek_last_error_line');
-    {$ifend}
+    ERR_peek_last_error_line :=  @ERROR_ERR_peek_last_error_line;
   end;
 
-
-  ERR_peek_last_error_line_data := LoadLibFunction(ADllHandle, ERR_peek_last_error_line_data_procname);
+  ERR_peek_last_error_line_data := LoadLibCryptoFunction('ERR_peek_last_error_line_data');
   FuncLoadError := not assigned(ERR_peek_last_error_line_data);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_peek_last_error_line_data_allownil)}
-    ERR_peek_last_error_line_data := @ERR_ERR_peek_last_error_line_data;
-    {$ifend}
-    {$if declared(ERR_peek_last_error_line_data_introduced)}
-    if LibVersion < ERR_peek_last_error_line_data_introduced then
-    begin
-      {$if declared(FC_ERR_peek_last_error_line_data)}
-      ERR_peek_last_error_line_data := @FC_ERR_peek_last_error_line_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_peek_last_error_line_data_removed)}
-    if ERR_peek_last_error_line_data_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_peek_last_error_line_data)}
-      ERR_peek_last_error_line_data := @_ERR_peek_last_error_line_data;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_peek_last_error_line_data_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_peek_last_error_line_data');
-    {$ifend}
+    ERR_peek_last_error_line_data :=  @ERROR_ERR_peek_last_error_line_data;
   end;
 
-
-  ERR_clear_error := LoadLibFunction(ADllHandle, ERR_clear_error_procname);
+  ERR_clear_error := LoadLibCryptoFunction('ERR_clear_error');
   FuncLoadError := not assigned(ERR_clear_error);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_clear_error_allownil)}
-    ERR_clear_error := @ERR_ERR_clear_error;
-    {$ifend}
-    {$if declared(ERR_clear_error_introduced)}
-    if LibVersion < ERR_clear_error_introduced then
-    begin
-      {$if declared(FC_ERR_clear_error)}
-      ERR_clear_error := @FC_ERR_clear_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_clear_error_removed)}
-    if ERR_clear_error_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_clear_error)}
-      ERR_clear_error := @_ERR_clear_error;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_clear_error_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_clear_error');
-    {$ifend}
+    ERR_clear_error :=  @ERROR_ERR_clear_error;
   end;
 
-
-  ERR_error_string := LoadLibFunction(ADllHandle, ERR_error_string_procname);
+  ERR_error_string := LoadLibCryptoFunction('ERR_error_string');
   FuncLoadError := not assigned(ERR_error_string);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_error_string_allownil)}
-    ERR_error_string := @ERR_ERR_error_string;
-    {$ifend}
-    {$if declared(ERR_error_string_introduced)}
-    if LibVersion < ERR_error_string_introduced then
-    begin
-      {$if declared(FC_ERR_error_string)}
-      ERR_error_string := @FC_ERR_error_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_error_string_removed)}
-    if ERR_error_string_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_error_string)}
-      ERR_error_string := @_ERR_error_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_error_string_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_error_string');
-    {$ifend}
+    ERR_error_string :=  @ERROR_ERR_error_string;
   end;
 
-
-  ERR_error_string_n := LoadLibFunction(ADllHandle, ERR_error_string_n_procname);
+  ERR_error_string_n := LoadLibCryptoFunction('ERR_error_string_n');
   FuncLoadError := not assigned(ERR_error_string_n);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_error_string_n_allownil)}
-    ERR_error_string_n := @ERR_ERR_error_string_n;
-    {$ifend}
-    {$if declared(ERR_error_string_n_introduced)}
-    if LibVersion < ERR_error_string_n_introduced then
-    begin
-      {$if declared(FC_ERR_error_string_n)}
-      ERR_error_string_n := @FC_ERR_error_string_n;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_error_string_n_removed)}
-    if ERR_error_string_n_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_error_string_n)}
-      ERR_error_string_n := @_ERR_error_string_n;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_error_string_n_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_error_string_n');
-    {$ifend}
+    ERR_error_string_n :=  @ERROR_ERR_error_string_n;
   end;
 
-
-  ERR_lib_error_string := LoadLibFunction(ADllHandle, ERR_lib_error_string_procname);
+  ERR_lib_error_string := LoadLibCryptoFunction('ERR_lib_error_string');
   FuncLoadError := not assigned(ERR_lib_error_string);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_lib_error_string_allownil)}
-    ERR_lib_error_string := @ERR_ERR_lib_error_string;
-    {$ifend}
-    {$if declared(ERR_lib_error_string_introduced)}
-    if LibVersion < ERR_lib_error_string_introduced then
-    begin
-      {$if declared(FC_ERR_lib_error_string)}
-      ERR_lib_error_string := @FC_ERR_lib_error_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_lib_error_string_removed)}
-    if ERR_lib_error_string_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_lib_error_string)}
-      ERR_lib_error_string := @_ERR_lib_error_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_lib_error_string_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_lib_error_string');
-    {$ifend}
+    ERR_lib_error_string :=  @ERROR_ERR_lib_error_string;
   end;
 
-
-  ERR_func_error_string := LoadLibFunction(ADllHandle, ERR_func_error_string_procname);
+  ERR_func_error_string := LoadLibCryptoFunction('ERR_func_error_string');
   FuncLoadError := not assigned(ERR_func_error_string);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_func_error_string_allownil)}
-    ERR_func_error_string := @ERR_ERR_func_error_string;
-    {$ifend}
-    {$if declared(ERR_func_error_string_introduced)}
-    if LibVersion < ERR_func_error_string_introduced then
-    begin
-      {$if declared(FC_ERR_func_error_string)}
-      ERR_func_error_string := @FC_ERR_func_error_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_func_error_string_removed)}
-    if ERR_func_error_string_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_func_error_string)}
-      ERR_func_error_string := @_ERR_func_error_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_func_error_string_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_func_error_string');
-    {$ifend}
+    ERR_func_error_string :=  @ERROR_ERR_func_error_string;
   end;
 
-
-  ERR_reason_error_string := LoadLibFunction(ADllHandle, ERR_reason_error_string_procname);
+  ERR_reason_error_string := LoadLibCryptoFunction('ERR_reason_error_string');
   FuncLoadError := not assigned(ERR_reason_error_string);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_reason_error_string_allownil)}
-    ERR_reason_error_string := @ERR_ERR_reason_error_string;
-    {$ifend}
-    {$if declared(ERR_reason_error_string_introduced)}
-    if LibVersion < ERR_reason_error_string_introduced then
-    begin
-      {$if declared(FC_ERR_reason_error_string)}
-      ERR_reason_error_string := @FC_ERR_reason_error_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_reason_error_string_removed)}
-    if ERR_reason_error_string_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_reason_error_string)}
-      ERR_reason_error_string := @_ERR_reason_error_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_reason_error_string_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_reason_error_string');
-    {$ifend}
+    ERR_reason_error_string :=  @ERROR_ERR_reason_error_string;
   end;
 
-
-  ERR_print_errors_cb := LoadLibFunction(ADllHandle, ERR_print_errors_cb_procname);
+  ERR_print_errors_cb := LoadLibCryptoFunction('ERR_print_errors_cb');
   FuncLoadError := not assigned(ERR_print_errors_cb);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_print_errors_cb_allownil)}
-    ERR_print_errors_cb := @ERR_ERR_print_errors_cb;
-    {$ifend}
-    {$if declared(ERR_print_errors_cb_introduced)}
-    if LibVersion < ERR_print_errors_cb_introduced then
-    begin
-      {$if declared(FC_ERR_print_errors_cb)}
-      ERR_print_errors_cb := @FC_ERR_print_errors_cb;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_print_errors_cb_removed)}
-    if ERR_print_errors_cb_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_print_errors_cb)}
-      ERR_print_errors_cb := @_ERR_print_errors_cb;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_print_errors_cb_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_print_errors_cb');
-    {$ifend}
+    ERR_print_errors_cb :=  @ERROR_ERR_print_errors_cb;
   end;
 
-
-  ERR_print_errors := LoadLibFunction(ADllHandle, ERR_print_errors_procname);
+  ERR_print_errors := LoadLibCryptoFunction('ERR_print_errors');
   FuncLoadError := not assigned(ERR_print_errors);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_print_errors_allownil)}
-    ERR_print_errors := @ERR_ERR_print_errors;
-    {$ifend}
-    {$if declared(ERR_print_errors_introduced)}
-    if LibVersion < ERR_print_errors_introduced then
-    begin
-      {$if declared(FC_ERR_print_errors)}
-      ERR_print_errors := @FC_ERR_print_errors;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_print_errors_removed)}
-    if ERR_print_errors_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_print_errors)}
-      ERR_print_errors := @_ERR_print_errors;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_print_errors_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_print_errors');
-    {$ifend}
+    ERR_print_errors :=  @ERROR_ERR_print_errors;
   end;
 
-
-  ERR_load_strings := LoadLibFunction(ADllHandle, ERR_load_strings_procname);
+  ERR_load_strings := LoadLibCryptoFunction('ERR_load_strings');
   FuncLoadError := not assigned(ERR_load_strings);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_load_strings_allownil)}
-    ERR_load_strings := @ERR_ERR_load_strings;
-    {$ifend}
-    {$if declared(ERR_load_strings_introduced)}
-    if LibVersion < ERR_load_strings_introduced then
-    begin
-      {$if declared(FC_ERR_load_strings)}
-      ERR_load_strings := @FC_ERR_load_strings;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_load_strings_removed)}
-    if ERR_load_strings_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_load_strings)}
-      ERR_load_strings := @_ERR_load_strings;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_load_strings_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_load_strings');
-    {$ifend}
+    ERR_load_strings :=  @ERROR_ERR_load_strings;
   end;
 
-
-  ERR_load_strings_const := LoadLibFunction(ADllHandle, ERR_load_strings_const_procname);
+  ERR_load_strings_const := LoadLibCryptoFunction('ERR_load_strings_const');
   FuncLoadError := not assigned(ERR_load_strings_const);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_load_strings_const_allownil)}
-    ERR_load_strings_const := @ERR_ERR_load_strings_const;
-    {$ifend}
-    {$if declared(ERR_load_strings_const_introduced)}
+    ERR_load_strings_const :=  @ERROR_ERR_load_strings_const;
     if LibVersion < ERR_load_strings_const_introduced then
-    begin
-      {$if declared(FC_ERR_load_strings_const)}
-      ERR_load_strings_const := @FC_ERR_load_strings_const;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_load_strings_const_removed)}
-    if ERR_load_strings_const_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_load_strings_const)}
-      ERR_load_strings_const := @_ERR_load_strings_const;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_load_strings_const_allownil)}
     if FuncLoadError then
       AFailed.Add('ERR_load_strings_const');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  ERR_unload_strings := LoadLibFunction(ADllHandle, ERR_unload_strings_procname);
+  ERR_unload_strings := LoadLibCryptoFunction('ERR_unload_strings');
   FuncLoadError := not assigned(ERR_unload_strings);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_unload_strings_allownil)}
-    ERR_unload_strings := @ERR_ERR_unload_strings;
-    {$ifend}
-    {$if declared(ERR_unload_strings_introduced)}
-    if LibVersion < ERR_unload_strings_introduced then
-    begin
-      {$if declared(FC_ERR_unload_strings)}
-      ERR_unload_strings := @FC_ERR_unload_strings;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_unload_strings_removed)}
-    if ERR_unload_strings_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_unload_strings)}
-      ERR_unload_strings := @_ERR_unload_strings;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_unload_strings_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_unload_strings');
-    {$ifend}
+    ERR_unload_strings :=  @ERROR_ERR_unload_strings;
   end;
 
-
-  ERR_load_ERR_strings := LoadLibFunction(ADllHandle, ERR_load_ERR_strings_procname);
+  ERR_load_ERR_strings := LoadLibCryptoFunction('ERR_load_ERR_strings');
   FuncLoadError := not assigned(ERR_load_ERR_strings);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_load_ERR_strings_allownil)}
-    ERR_load_ERR_strings := @ERR_ERR_load_ERR_strings;
-    {$ifend}
-    {$if declared(ERR_load_ERR_strings_introduced)}
-    if LibVersion < ERR_load_ERR_strings_introduced then
-    begin
-      {$if declared(FC_ERR_load_ERR_strings)}
-      ERR_load_ERR_strings := @FC_ERR_load_ERR_strings;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_load_ERR_strings_removed)}
-    if ERR_load_ERR_strings_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_load_ERR_strings)}
-      ERR_load_ERR_strings := @_ERR_load_ERR_strings;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_load_ERR_strings_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_load_ERR_strings');
-    {$ifend}
+    ERR_load_ERR_strings :=  @ERROR_ERR_load_ERR_strings;
   end;
 
-
-  ERR_get_state := LoadLibFunction(ADllHandle, ERR_get_state_procname);
+  ERR_get_state := LoadLibCryptoFunction('ERR_get_state');
   FuncLoadError := not assigned(ERR_get_state);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_get_state_allownil)}
-    ERR_get_state := @ERR_ERR_get_state;
-    {$ifend}
-    {$if declared(ERR_get_state_introduced)}
-    if LibVersion < ERR_get_state_introduced then
-    begin
-      {$if declared(FC_ERR_get_state)}
-      ERR_get_state := @FC_ERR_get_state;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_get_state_removed)}
-    if ERR_get_state_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_get_state)}
-      ERR_get_state := @_ERR_get_state;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_get_state_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_get_state');
-    {$ifend}
+    ERR_get_state :=  @ERROR_ERR_get_state;
   end;
 
-
-  ERR_get_next_error_library := LoadLibFunction(ADllHandle, ERR_get_next_error_library_procname);
+  ERR_get_next_error_library := LoadLibCryptoFunction('ERR_get_next_error_library');
   FuncLoadError := not assigned(ERR_get_next_error_library);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_get_next_error_library_allownil)}
-    ERR_get_next_error_library := @ERR_ERR_get_next_error_library;
-    {$ifend}
-    {$if declared(ERR_get_next_error_library_introduced)}
-    if LibVersion < ERR_get_next_error_library_introduced then
-    begin
-      {$if declared(FC_ERR_get_next_error_library)}
-      ERR_get_next_error_library := @FC_ERR_get_next_error_library;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_get_next_error_library_removed)}
-    if ERR_get_next_error_library_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_get_next_error_library)}
-      ERR_get_next_error_library := @_ERR_get_next_error_library;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_get_next_error_library_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_get_next_error_library');
-    {$ifend}
+    ERR_get_next_error_library :=  @ERROR_ERR_get_next_error_library;
   end;
 
-
-  ERR_set_mark := LoadLibFunction(ADllHandle, ERR_set_mark_procname);
+  ERR_set_mark := LoadLibCryptoFunction('ERR_set_mark');
   FuncLoadError := not assigned(ERR_set_mark);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_set_mark_allownil)}
-    ERR_set_mark := @ERR_ERR_set_mark;
-    {$ifend}
-    {$if declared(ERR_set_mark_introduced)}
-    if LibVersion < ERR_set_mark_introduced then
-    begin
-      {$if declared(FC_ERR_set_mark)}
-      ERR_set_mark := @FC_ERR_set_mark;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_set_mark_removed)}
-    if ERR_set_mark_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_set_mark)}
-      ERR_set_mark := @_ERR_set_mark;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_set_mark_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_set_mark');
-    {$ifend}
+    ERR_set_mark :=  @ERROR_ERR_set_mark;
   end;
 
-
-  ERR_pop_to_mark := LoadLibFunction(ADllHandle, ERR_pop_to_mark_procname);
+  ERR_pop_to_mark := LoadLibCryptoFunction('ERR_pop_to_mark');
   FuncLoadError := not assigned(ERR_pop_to_mark);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_pop_to_mark_allownil)}
-    ERR_pop_to_mark := @ERR_ERR_pop_to_mark;
-    {$ifend}
-    {$if declared(ERR_pop_to_mark_introduced)}
-    if LibVersion < ERR_pop_to_mark_introduced then
-    begin
-      {$if declared(FC_ERR_pop_to_mark)}
-      ERR_pop_to_mark := @FC_ERR_pop_to_mark;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_pop_to_mark_removed)}
-    if ERR_pop_to_mark_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_pop_to_mark)}
-      ERR_pop_to_mark := @_ERR_pop_to_mark;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_pop_to_mark_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ERR_pop_to_mark');
-    {$ifend}
+    ERR_pop_to_mark :=  @ERROR_ERR_pop_to_mark;
   end;
 
-
-  ERR_clear_last_mark := LoadLibFunction(ADllHandle, ERR_clear_last_mark_procname);
+  ERR_clear_last_mark := LoadLibCryptoFunction('ERR_clear_last_mark');
   FuncLoadError := not assigned(ERR_clear_last_mark);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_clear_last_mark_allownil)}
-    ERR_clear_last_mark := @ERR_ERR_clear_last_mark;
-    {$ifend}
-    {$if declared(ERR_clear_last_mark_introduced)}
+    ERR_clear_last_mark :=  @ERROR_ERR_clear_last_mark;
     if LibVersion < ERR_clear_last_mark_introduced then
-    begin
-      {$if declared(FC_ERR_clear_last_mark)}
-      ERR_clear_last_mark := @FC_ERR_clear_last_mark;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_clear_last_mark_removed)}
-    if ERR_clear_last_mark_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_clear_last_mark)}
-      ERR_clear_last_mark := @_ERR_clear_last_mark;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_clear_last_mark_allownil)}
     if FuncLoadError then
       AFailed.Add('ERR_clear_last_mark');
-    {$ifend}
   end;
 
- {introduced 1.1.0}
-  SSLErr := LoadLibFunction(ADllHandle, SSLErr_procname);
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  SSLErr := LoadLibCryptoFunction('SSLErr');
   FuncLoadError := not assigned(SSLErr);
   if FuncLoadError then
   begin
-    {$if not defined(SSLErr_allownil)}
-    SSLErr := @ERR_SSLErr;
-    {$ifend}
-    {$if declared(SSLErr_introduced)}
-    if LibVersion < SSLErr_introduced then
-    begin
-      {$if declared(FC_SSLErr)}
-      SSLErr := @FC_SSLErr;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(SSLErr_removed)}
+    SSLErr := @COMPAT_SSLErr;
     if SSLErr_removed <= LibVersion then
-    begin
-      {$if declared(_SSLErr)}
-      SSLErr := @_SSLErr;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(SSLErr_allownil)}
     if FuncLoadError then
       AFailed.Add('SSLErr');
-    {$ifend}
   end;
 
- 
-  X509err := LoadLibFunction(ADllHandle, X509err_procname);
+  X509err := LoadLibCryptoFunction('X509err');
   FuncLoadError := not assigned(X509err);
   if FuncLoadError then
   begin
-    {$if not defined(X509err_allownil)}
-    X509err := @ERR_X509err;
-    {$ifend}
-    {$if declared(X509err_introduced)}
-    if LibVersion < X509err_introduced then
-    begin
-      {$if declared(FC_X509err)}
-      X509err := @FC_X509err;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509err_removed)}
+    X509err := @COMPAT_X509err;
     if X509err_removed <= LibVersion then
-    begin
-      {$if declared(_X509err)}
-      X509err := @_X509err;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509err_allownil)}
     if FuncLoadError then
       AFailed.Add('X509err');
-    {$ifend}
   end;
 
- 
-  ERR_GET_REASON := LoadLibFunction(ADllHandle, ERR_GET_REASON_procname);
+  ERR_GET_REASON := LoadLibCryptoFunction('ERR_GET_REASON');
   FuncLoadError := not assigned(ERR_GET_REASON);
   if FuncLoadError then
   begin
-    {$if not defined(ERR_GET_REASON_allownil)}
-    ERR_GET_REASON := @ERR_ERR_GET_REASON;
-    {$ifend}
-    {$if declared(ERR_GET_REASON_introduced)}
-    if LibVersion < ERR_GET_REASON_introduced then
-    begin
-      {$if declared(FC_ERR_GET_REASON)}
-      ERR_GET_REASON := @FC_ERR_GET_REASON;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ERR_GET_REASON_removed)}
+    ERR_GET_REASON := @COMPAT_ERR_GET_REASON;
     if ERR_GET_REASON_removed <= LibVersion then
-    begin
-      {$if declared(_ERR_GET_REASON)}
-      ERR_GET_REASON := @_ERR_GET_REASON;
-      {$ifend}
       FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ERR_GET_REASON_allownil)}
     if FuncLoadError then
       AFailed.Add('ERR_GET_REASON');
-    {$ifend}
   end;
 
- 
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 end;
 
-procedure Unload;
+procedure UnLoad;
 begin
-  ERR_put_error := nil; {removed 3.0.0}
-  ERR_new := nil; {introduced 3.0.0}
-  ERR_set_debug := nil;  {introduced 3.0.0}
-  ERR_set_error := nil; {introduced 3.0.0}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  ERR_put_error := nil;
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
+  ERR_new := nil;
+  ERR_set_debug := nil;
+  ERR_set_error := nil;
   ERR_set_error_data := nil;
   ERR_get_error := nil;
   ERR_get_error_line := nil;
@@ -1802,51 +910,29 @@ begin
   ERR_print_errors_cb := nil;
   ERR_print_errors := nil;
   ERR_load_strings := nil;
-  ERR_load_strings_const := nil; {introduced 1.1.0}
+  ERR_load_strings_const := nil;
   ERR_unload_strings := nil;
   ERR_load_ERR_strings := nil;
   ERR_get_state := nil;
   ERR_get_next_error_library := nil;
   ERR_set_mark := nil;
   ERR_pop_to_mark := nil;
-  ERR_clear_last_mark := nil; {introduced 1.1.0}
-  SSLErr := nil; {removed 1.0.0}
-  X509err := nil; {removed 1.0.0}
-  ERR_GET_REASON := nil; {removed 1.0.0}
+  ERR_clear_last_mark := nil;
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+  SSLErr := nil;
+  X509err := nil;
+  ERR_GET_REASON := nil;
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 end;
-{$ELSE}
-procedure SSLErr(func: TIdC_INT; reason: TIdC_INT);
-begin
-  ERR_put_error(ERR_LIB_SSL,func,reason,'',0);
-end; 
-
-procedure ERR_put_error(lib: TIdC_INT; func: TIdC_INT; reason: TIdC_INT; file_: PIdAnsiChar; line: TIdC_INT);
-{ From 3.0 onwards, replaced by a macro
-  define ERR_put_error(lib, func, reason, file, line)
-    (ERR_new(),
-     ERR_set_debug((file), (line), OPENSSL_FUNC),
-     ERR_set_error((lib), (reason), '',[]))}
-begin
-  ERR_new;
-  ERR_set_debug(file_,line, '');
-  ERR_set_error(lib,reason,'',[]);
-end;
-
-procedure X509err(const f,r : TIdC_INT);
-begin
-  ERR_PUT_error(ERR_LIB_X509,f,r,nil,0);
-end;
-
-function ERR_GET_REASON(const l : TIdC_INT) : TIdC_INT;
-begin
-  Result := l and $fff;
-end;
-
 {$ENDIF}
+
+initialization
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-initialization
-  Register_SSLLoader(@Load,'LibCrypto');
-  Register_SSLUnloader(@Unload);
+Register_SSLLoader(@Load);
+Register_SSLUnloader(@Unload);
 {$ENDIF}
+finalization
+
+
 end.

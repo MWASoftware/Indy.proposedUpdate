@@ -45,20 +45,8 @@ THIS SOFTWARE IS PROVIDED BY Chad Z. Hower (Kudzu) and the Indy Pit Crew &amp;am
         <UnitName Value="IdSSLOpenSSL"/>
       </Item>
       <Item>
-        <Filename Value="../Lib/OpenSSL/smartLinking/IdSSLOpenSSLConsts.pas"/>
-        <UnitName Value="IdSSLOpenSSLConsts"/>
-      </Item>
-      <Item>
-        <Filename Value="../Lib/OpenSSL/smartLinking/IdSSLOpenSSLExceptionHandlers.pas"/>
-        <UnitName Value="IdSSLOpenSSLExceptionHandlers"/>
-      </Item>
-      <Item>
         <Filename Value="../Lib/OpenSSL/smartLinking/IdSSLOpenSSLFIPS.pas"/>
         <UnitName Value="IdSSLOpenSSLFIPS"/>
-      </Item>
-      <Item>
-        <Filename Value="../Lib/OpenSSL/smartLinking/IdSSLOpenSSLLoader.pas"/>
-        <UnitName Value="IdSSLOpenSSLLoader"/>
       </Item>
       <Item>
         <Filename Value="../Lib/OpenSSL/smartLinking/IdNTLMOpenSSL.pas"/>

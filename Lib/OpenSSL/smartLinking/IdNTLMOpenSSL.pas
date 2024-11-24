@@ -14,33 +14,28 @@ interface
 implementation
 
 uses
-  IdGlobal, IdFIPS, IdSSLOpenSSLLoader, IdHashMessageDigest, IdOpenSSLHeaders_des,
+  IdGlobal, IdFIPS, IdSSLOpenSSLAPI, IdHashMessageDigest, IdOpenSSLHeaders_des,
   SysUtils;
 
 {$I IdCompilerDefines.inc}
-{$i IdSSLOpenSSLDefines.inc}
 {$IFNDEF USE_OPENSSL}
   {$message error Should not compile if USE_OPENSSL is not defined!!!}
 {$ENDIF}
 
 function LoadOpenSSL: Boolean;
 begin
-  {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-  Result := true;
-  {$ELSE}
-  Result := GetOpenSSLLoader.Load;
-  {$ENDIF}
+  Result := GetIOpenSSL.Init;
 end;
 
 function IsNTLMFuncsAvail: Boolean;
 begin
-  {$IFDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if not declared(IOpenSSLDLL)}
   Result := true;
   {$ELSE}
   Result := Assigned(DES_set_odd_parity) and
     Assigned(DES_set_key) and
     Assigned(DES_ecb_encrypt);
-  {$ENDIF}
+  {$ifend}
 end;
 
 type

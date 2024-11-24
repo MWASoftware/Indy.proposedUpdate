@@ -1,41 +1,36 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_core.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_core.h2pas
-     and this file regenerated. IdOpenSSLHeaders_core.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file core.h2pas 
+It should not be modified directly. All changes should be made to core.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 unit IdOpenSSLHeaders_core;
+
 
 interface
 
 uses
-  IdCTypes,
-  IdGlobal
+  IdSSLOpenSSLAPI
   {$IFDEF VCL_XE3_OR_ABOVE},System.Types{$ELSE},Types{$ENDIF};
 
 
@@ -67,7 +62,8 @@ uses
   { Opaque handles to be used with core upcall functions from providers  }
 
 
-    type
+    
+type
       ossl_core_handle_st = record end;
       OSSL_CORE_HANDLE = ossl_core_handle_st;
       POSSL_CORE_HANDLE = ^OSSL_CORE_HANDLE;
@@ -84,7 +80,7 @@ uses
      * An array of these is always terminated by function_id == 0
       }
       ossl_dispatch_st = record
-          function_id : TIdC_LONG;
+          function_id : TOpenSSL_C_LONG;
           _function: procedure;cdecl;
         end;
 
@@ -116,10 +112,10 @@ uses
      * An array of these is always terminated by algorithm_names == NULL
       }
       ossl_algorithm_st = record
-          algorithm_names : PIdAnsiChar;
-          property_definition : PIdAnsiChar;
+          algorithm_names : PAnsiChar;
+          property_definition : PAnsiChar;
           implementation_ : ^OSSL_DISPATCH;
-          algorithm_description : PIdAnsiChar;
+          algorithm_description : PAnsiChar;
         end;
 
       OSSL_ALGORITHM = ossl_algorithm_st;
@@ -136,11 +132,11 @@ uses
     { data size  }
     { returned content size  }
       ossl_param_st = record
-          key : PIdAnsiChar;
+          key : PAnsiChar;
           data_type : dword;
           data : pointer;
-          data_size : TIdC_SSIZET;
-          return_size : TIdC_SSIZET;
+          data_size : TOpenSSL_C_SSIZET;
+          return_size : TOpenSSL_C_SSIZET;
         end;
 
       OSSL_PARAM = ossl_param_st;
@@ -159,25 +155,26 @@ uses
      * example by having the buffer field point at a C integer).
       }
 
-    const
-      OSSL_PARAM_INTEGER = 1;
-      OSSL_PARAM_UNSIGNED_INTEGER = 2;
+    
+const
+      OSSL_PARAM_INTEGER = 1;      
+      OSSL_PARAM_UNSIGNED_INTEGER = 2;      
     {-
      * OSSL_PARAM_REAL
      * is a C binary floating point values in native form and alignment.
       }
-      OSSL_PARAM_REAL = 3;
+      OSSL_PARAM_REAL = 3;      
     {-
      * OSSL_PARAM_UTF8_STRING
      * is a printable string.  It is expected to be printed as it is.
       }
-      OSSL_PARAM_UTF8_STRING = 4;
+      OSSL_PARAM_UTF8_STRING = 4;      
     {-
      * OSSL_PARAM_OCTET_STRING
      * is a string of bytes with no further specification.  It is expected to be
      * printed as a hexdump.
       }
-      OSSL_PARAM_OCTET_STRING = 5;
+      OSSL_PARAM_OCTET_STRING = 5;      
     {-
      * OSSL_PARAM_UTF8_PTR
      * is a pointer to a printable string.  It is expected to be printed as it is.
@@ -195,7 +192,7 @@ uses
      * EXTRA WARNING!  If you are not completely sure you most likely want
      * to use the OSSL_PARAM_UTF8_STRING type.
       }
-      OSSL_PARAM_UTF8_PTR = 6;
+      OSSL_PARAM_UTF8_PTR = 6;      
     {-
      * OSSL_PARAM_OCTET_PTR
      * is a pointer to a string of bytes with no further specification.  It is
@@ -214,7 +211,7 @@ uses
      * EXTRA WARNING!  If you are not completely sure you most likely want
      * to use the OSSL_PARAM_OCTET_STRING type.
       }
-      OSSL_PARAM_OCTET_PTR = 7;
+      OSSL_PARAM_OCTET_PTR = 7;      
     {
      * Typedef for the thread stop handling callback. Used both internally and by
      * providers.
@@ -226,7 +223,8 @@ uses
      * be the provider side context object.
       }
 
-    type
+    
+type
 
       OSSL_thread_stop_handler_fn = procedure (arg:pointer);cdecl;
     {-
@@ -252,7 +250,7 @@ type
       OSSL_provider_init_fn = function (const handle: POSSL_CORE_HANDLE;
                                     const in_: POSSL_DISPATCH;
                                     var out_: POSSL_DISPATCH;
-                                    var provctx: pointer): TIdC_INT cdecl;
+                                    var provctx: pointer): TOpenSSL_C_INT cdecl;
 
 
     OSSL_provider_init = OSSL_provider_init_fn;
@@ -270,10 +268,10 @@ type
      * libcrypto may use the OSSL_PARAM array to create arguments for an
      * application callback it knows about.
       }
-    OSSL_CALLBACK = function(params: array of OSSL_PARAM; arg: pointer): TIdC_INT cdecl;
+    OSSL_CALLBACK = function(params: array of OSSL_PARAM; arg: pointer): TOpenSSL_C_INT cdecl;
 
     OSSL_INOUT_CALLBACK = function(in_params: array of OSSL_PARAM;
-                                  out_params: array of OSSL_PARAM; arg: pointer): TIdC_INT cdecl;
+                                  out_params: array of OSSL_PARAM; arg: pointer): TOpenSSL_C_INT cdecl;
 
     {
      * Passphrase callback function signature
@@ -281,12 +279,42 @@ type
      * This is similar to the generic callback function above, but adds a
      * result parameter.
       }
-    OSSL_PASSPHRASE_CALLBACK = function(pass: PIdAnsiChar; pass_size: TIdC_SSIZET;
-                                       pass_len: PIdC_SSIZET;
-                                       params: array of OSSL_PARAM; arg: pointer): TIdC_INT cdecl;
+    OSSL_PASSPHRASE_CALLBACK = function(pass: PAnsiChar; pass_size: TOpenSSL_C_SSIZET;
+                                       pass_len: POpenSSL_C_SSIZET;
+                                       params: array of OSSL_PARAM; arg: pointer): TOpenSSL_C_INT cdecl;
 
+
+
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
+
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
+
+
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+
+{$ELSE}
+{$ENDIF}
 
 implementation
+
+
+
+
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
+
+initialization
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$ENDIF}
+finalization
 
 
 end.

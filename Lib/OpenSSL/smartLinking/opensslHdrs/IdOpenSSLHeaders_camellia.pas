@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_camellia.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_camellia.h2pas
-     and this file regenerated. IdOpenSSLHeaders_camellia.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file camellia.h2pas 
+It should not be modified directly. All changes should be made to camellia.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_camellia;
+
 
 interface
 
@@ -39,9 +35,7 @@ interface
 
 
 uses
-  IdCTypes,
-  IdGlobal,
-  IdSSLOpenSSLConsts;
+  IdSSLOpenSSLAPI;
 
 const
   // Added '_CONST' to avoid name clashes
@@ -54,17 +48,17 @@ const
   CAMELLIA_TABLE_WORD_LEN = CAMELLIA_TABLE_BYTE_LEN div 4;
 
 type
-  KEY_TABLE_TYPE = array[0 .. CAMELLIA_TABLE_WORD_LEN - 1] of TIdC_UINT;
+  KEY_TABLE_TYPE = array[0 .. CAMELLIA_TABLE_WORD_LEN - 1] of TOpenSSL_C_UINT;
 
   camellia_key_st_u = record
     case Integer of
-    0: (d: TIdC_DOUBLE);
+    0: (d: TOpenSSL_C_DOUBLE);
     1: (rd_key: KEY_TABLE_TYPE);
   end;
 
   camellia_key_st = record
     u: camellia_key_st_u;
-    grand_rounds: TIdC_INT;
+    grand_rounds: TOpenSSL_C_INT;
   end;
 
   CAMELLIA_KEY = camellia_key_st;
@@ -73,474 +67,189 @@ type
   TCamellia_ctr128_encrypt_ivec = array[0 .. CAMELLIA_TABLE_WORD_LEN - 1] of Byte;
   TCamellia_ctr128_encrypt_ecount_buf = array[0 .. CAMELLIA_TABLE_WORD_LEN - 1] of Byte;
 
-    { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
-		
-  	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-	  files generated for C++. }
-	  
-  {$EXTERNALSYM Camellia_set_key}
-  {$EXTERNALSYM Camellia_encrypt}
-  {$EXTERNALSYM Camellia_decrypt}
-  {$EXTERNALSYM Camellia_ecb_encrypt}
-  {$EXTERNALSYM Camellia_cbc_encrypt}
-  {$EXTERNALSYM Camellia_cfb128_encrypt}
-  {$EXTERNALSYM Camellia_cfb1_encrypt}
-  {$EXTERNALSYM Camellia_cfb8_encrypt}
-  {$EXTERNALSYM Camellia_ofb128_encrypt}
-  {$EXTERNALSYM Camellia_ctr128_encrypt}
+  
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-var
-  Camellia_set_key: function (const userKey: PByte; const bits: TIdC_INT; key: PCAMELLIA_KEY): TIdC_INT; cdecl = nil;
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
 
-  Camellia_encrypt: procedure (const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl = nil;
-  Camellia_decrypt: procedure (const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl = nil;
+{$EXTERNALSYM Camellia_set_key}
+{$EXTERNALSYM Camellia_encrypt}
+{$EXTERNALSYM Camellia_decrypt}
+{$EXTERNALSYM Camellia_ecb_encrypt}
+{$EXTERNALSYM Camellia_cbc_encrypt}
+{$EXTERNALSYM Camellia_cfb128_encrypt}
+{$EXTERNALSYM Camellia_cfb1_encrypt}
+{$EXTERNALSYM Camellia_cfb8_encrypt}
+{$EXTERNALSYM Camellia_ofb128_encrypt}
+{$EXTERNALSYM Camellia_ctr128_encrypt}
 
-  Camellia_ecb_encrypt: procedure ( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY; const enc: TIdC_INT); cdecl = nil;
-  Camellia_cbc_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; const enc: TIdC_INT); cdecl = nil;
-  Camellia_cfb128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
-  Camellia_cfb1_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
-  Camellia_cfb8_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); cdecl = nil;
-  Camellia_ofb128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT); cdecl = nil;
-  Camellia_ctr128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: PIdC_INT); cdecl = nil;
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+function Camellia_set_key(const userKey: PByte; const bits: TOpenSSL_C_INT; key: PCAMELLIA_KEY): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure Camellia_encrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl; external CLibCrypto;
+procedure Camellia_decrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl; external CLibCrypto;
+procedure Camellia_ecb_encrypt( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY; const enc: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+procedure Camellia_cbc_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; const enc: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+procedure Camellia_cfb128_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+procedure Camellia_cfb1_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+procedure Camellia_cfb8_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+procedure Camellia_ofb128_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT); cdecl; external CLibCrypto;
+procedure Camellia_ctr128_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: POpenSSL_C_INT); cdecl; external CLibCrypto;
 
 {$ELSE}
-  function Camellia_set_key(const userKey: PByte; const bits: TIdC_INT; key: PCAMELLIA_KEY): TIdC_INT cdecl; external CLibCrypto;
-
-  procedure Camellia_encrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY) cdecl; external CLibCrypto;
-  procedure Camellia_decrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY) cdecl; external CLibCrypto;
-
-  procedure Camellia_ecb_encrypt( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure Camellia_cbc_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure Camellia_cfb128_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure Camellia_cfb1_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure Camellia_cfb8_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT) cdecl; external CLibCrypto;
-  procedure Camellia_ofb128_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT) cdecl; external CLibCrypto;
-  procedure Camellia_ctr128_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: PIdC_INT) cdecl; external CLibCrypto;
-
+var
+  Camellia_set_key: function (const userKey: PByte; const bits: TOpenSSL_C_INT; key: PCAMELLIA_KEY): TOpenSSL_C_INT; cdecl = nil;
+  Camellia_encrypt: procedure (const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl = nil;
+  Camellia_decrypt: procedure (const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl = nil;
+  Camellia_ecb_encrypt: procedure ( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY; const enc: TOpenSSL_C_INT); cdecl = nil;
+  Camellia_cbc_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; const enc: TOpenSSL_C_INT); cdecl = nil;
+  Camellia_cfb128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = nil;
+  Camellia_cfb1_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = nil;
+  Camellia_cfb8_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = nil;
+  Camellia_ofb128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT); cdecl = nil;
+  Camellia_ctr128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: POpenSSL_C_INT); cdecl = nil;
 {$ENDIF}
 
 implementation
 
-  uses
-    classes, 
-    IdSSLOpenSSLExceptionHandlers, 
-    IdResourceStringsOpenSSL
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    ,IdSSLOpenSSLLoader
-  {$ENDIF};
-  
+
+
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-const
-  Camellia_set_key_procname = 'Camellia_set_key';
-
-  Camellia_encrypt_procname = 'Camellia_encrypt';
-  Camellia_decrypt_procname = 'Camellia_decrypt';
-
-  Camellia_ecb_encrypt_procname = 'Camellia_ecb_encrypt';
-  Camellia_cbc_encrypt_procname = 'Camellia_cbc_encrypt';
-  Camellia_cfb128_encrypt_procname = 'Camellia_cfb128_encrypt';
-  Camellia_cfb1_encrypt_procname = 'Camellia_cfb1_encrypt';
-  Camellia_cfb8_encrypt_procname = 'Camellia_cfb8_encrypt';
-  Camellia_ofb128_encrypt_procname = 'Camellia_ofb128_encrypt';
-  Camellia_ctr128_encrypt_procname = 'Camellia_ctr128_encrypt';
-
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
 {$WARN  NO_RETVAL OFF}
-function  ERR_Camellia_set_key(const userKey: PByte; const bits: TIdC_INT; key: PCAMELLIA_KEY): TIdC_INT; 
+function ERROR_Camellia_set_key(const userKey: PByte; const bits: TOpenSSL_C_INT; key: PCAMELLIA_KEY): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(Camellia_set_key_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('Camellia_set_key');
 end;
 
-
-
-procedure  ERR_Camellia_encrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); 
+procedure ERROR_Camellia_encrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(Camellia_encrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('Camellia_encrypt');
 end;
 
-
-procedure  ERR_Camellia_decrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); 
+procedure ERROR_Camellia_decrypt(const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(Camellia_decrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('Camellia_decrypt');
 end;
 
-
-
-procedure  ERR_Camellia_ecb_encrypt( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY; const enc: TIdC_INT); 
+procedure ERROR_Camellia_ecb_encrypt( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY; const enc: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(Camellia_ecb_encrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('Camellia_ecb_encrypt');
 end;
 
-
-procedure  ERR_Camellia_cbc_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; const enc: TIdC_INT); 
+procedure ERROR_Camellia_cbc_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; const enc: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(Camellia_cbc_encrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('Camellia_cbc_encrypt');
 end;
 
-
-procedure  ERR_Camellia_cfb128_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); 
+procedure ERROR_Camellia_cfb128_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(Camellia_cfb128_encrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('Camellia_cfb128_encrypt');
 end;
 
-
-procedure  ERR_Camellia_cfb1_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); 
+procedure ERROR_Camellia_cfb1_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(Camellia_cfb1_encrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('Camellia_cfb1_encrypt');
 end;
 
-
-procedure  ERR_Camellia_cfb8_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT; const enc: TIdC_INT); 
+procedure ERROR_Camellia_cfb8_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(Camellia_cfb8_encrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('Camellia_cfb8_encrypt');
 end;
 
-
-procedure  ERR_Camellia_ofb128_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: PIdC_INT); 
+procedure ERROR_Camellia_ofb128_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(Camellia_ofb128_encrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('Camellia_ofb128_encrypt');
 end;
 
-
-procedure  ERR_Camellia_ctr128_encrypt( const in_: PByte; const out_: PByte; length: TIdC_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: PIdC_INT); 
+procedure ERROR_Camellia_ctr128_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: POpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(Camellia_ctr128_encrypt_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('Camellia_ctr128_encrypt');
 end;
-
-
 
 {$WARN  NO_RETVAL ON}
-
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
-
 begin
-  Camellia_set_key := LoadLibFunction(ADllHandle, Camellia_set_key_procname);
+  Camellia_set_key := LoadLibCryptoFunction('Camellia_set_key');
   FuncLoadError := not assigned(Camellia_set_key);
   if FuncLoadError then
   begin
-    {$if not defined(Camellia_set_key_allownil)}
-    Camellia_set_key := @ERR_Camellia_set_key;
-    {$ifend}
-    {$if declared(Camellia_set_key_introduced)}
-    if LibVersion < Camellia_set_key_introduced then
-    begin
-      {$if declared(FC_Camellia_set_key)}
-      Camellia_set_key := @FC_Camellia_set_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(Camellia_set_key_removed)}
-    if Camellia_set_key_removed <= LibVersion then
-    begin
-      {$if declared(_Camellia_set_key)}
-      Camellia_set_key := @_Camellia_set_key;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(Camellia_set_key_allownil)}
-    if FuncLoadError then
-      AFailed.Add('Camellia_set_key');
-    {$ifend}
+    Camellia_set_key :=  @ERROR_Camellia_set_key;
   end;
 
-
-  Camellia_encrypt := LoadLibFunction(ADllHandle, Camellia_encrypt_procname);
+  Camellia_encrypt := LoadLibCryptoFunction('Camellia_encrypt');
   FuncLoadError := not assigned(Camellia_encrypt);
   if FuncLoadError then
   begin
-    {$if not defined(Camellia_encrypt_allownil)}
-    Camellia_encrypt := @ERR_Camellia_encrypt;
-    {$ifend}
-    {$if declared(Camellia_encrypt_introduced)}
-    if LibVersion < Camellia_encrypt_introduced then
-    begin
-      {$if declared(FC_Camellia_encrypt)}
-      Camellia_encrypt := @FC_Camellia_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(Camellia_encrypt_removed)}
-    if Camellia_encrypt_removed <= LibVersion then
-    begin
-      {$if declared(_Camellia_encrypt)}
-      Camellia_encrypt := @_Camellia_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(Camellia_encrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('Camellia_encrypt');
-    {$ifend}
+    Camellia_encrypt :=  @ERROR_Camellia_encrypt;
   end;
 
-
-  Camellia_decrypt := LoadLibFunction(ADllHandle, Camellia_decrypt_procname);
+  Camellia_decrypt := LoadLibCryptoFunction('Camellia_decrypt');
   FuncLoadError := not assigned(Camellia_decrypt);
   if FuncLoadError then
   begin
-    {$if not defined(Camellia_decrypt_allownil)}
-    Camellia_decrypt := @ERR_Camellia_decrypt;
-    {$ifend}
-    {$if declared(Camellia_decrypt_introduced)}
-    if LibVersion < Camellia_decrypt_introduced then
-    begin
-      {$if declared(FC_Camellia_decrypt)}
-      Camellia_decrypt := @FC_Camellia_decrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(Camellia_decrypt_removed)}
-    if Camellia_decrypt_removed <= LibVersion then
-    begin
-      {$if declared(_Camellia_decrypt)}
-      Camellia_decrypt := @_Camellia_decrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(Camellia_decrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('Camellia_decrypt');
-    {$ifend}
+    Camellia_decrypt :=  @ERROR_Camellia_decrypt;
   end;
 
-
-  Camellia_ecb_encrypt := LoadLibFunction(ADllHandle, Camellia_ecb_encrypt_procname);
+  Camellia_ecb_encrypt := LoadLibCryptoFunction('Camellia_ecb_encrypt');
   FuncLoadError := not assigned(Camellia_ecb_encrypt);
   if FuncLoadError then
   begin
-    {$if not defined(Camellia_ecb_encrypt_allownil)}
-    Camellia_ecb_encrypt := @ERR_Camellia_ecb_encrypt;
-    {$ifend}
-    {$if declared(Camellia_ecb_encrypt_introduced)}
-    if LibVersion < Camellia_ecb_encrypt_introduced then
-    begin
-      {$if declared(FC_Camellia_ecb_encrypt)}
-      Camellia_ecb_encrypt := @FC_Camellia_ecb_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(Camellia_ecb_encrypt_removed)}
-    if Camellia_ecb_encrypt_removed <= LibVersion then
-    begin
-      {$if declared(_Camellia_ecb_encrypt)}
-      Camellia_ecb_encrypt := @_Camellia_ecb_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(Camellia_ecb_encrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('Camellia_ecb_encrypt');
-    {$ifend}
+    Camellia_ecb_encrypt :=  @ERROR_Camellia_ecb_encrypt;
   end;
 
-
-  Camellia_cbc_encrypt := LoadLibFunction(ADllHandle, Camellia_cbc_encrypt_procname);
+  Camellia_cbc_encrypt := LoadLibCryptoFunction('Camellia_cbc_encrypt');
   FuncLoadError := not assigned(Camellia_cbc_encrypt);
   if FuncLoadError then
   begin
-    {$if not defined(Camellia_cbc_encrypt_allownil)}
-    Camellia_cbc_encrypt := @ERR_Camellia_cbc_encrypt;
-    {$ifend}
-    {$if declared(Camellia_cbc_encrypt_introduced)}
-    if LibVersion < Camellia_cbc_encrypt_introduced then
-    begin
-      {$if declared(FC_Camellia_cbc_encrypt)}
-      Camellia_cbc_encrypt := @FC_Camellia_cbc_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(Camellia_cbc_encrypt_removed)}
-    if Camellia_cbc_encrypt_removed <= LibVersion then
-    begin
-      {$if declared(_Camellia_cbc_encrypt)}
-      Camellia_cbc_encrypt := @_Camellia_cbc_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(Camellia_cbc_encrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('Camellia_cbc_encrypt');
-    {$ifend}
+    Camellia_cbc_encrypt :=  @ERROR_Camellia_cbc_encrypt;
   end;
 
-
-  Camellia_cfb128_encrypt := LoadLibFunction(ADllHandle, Camellia_cfb128_encrypt_procname);
+  Camellia_cfb128_encrypt := LoadLibCryptoFunction('Camellia_cfb128_encrypt');
   FuncLoadError := not assigned(Camellia_cfb128_encrypt);
   if FuncLoadError then
   begin
-    {$if not defined(Camellia_cfb128_encrypt_allownil)}
-    Camellia_cfb128_encrypt := @ERR_Camellia_cfb128_encrypt;
-    {$ifend}
-    {$if declared(Camellia_cfb128_encrypt_introduced)}
-    if LibVersion < Camellia_cfb128_encrypt_introduced then
-    begin
-      {$if declared(FC_Camellia_cfb128_encrypt)}
-      Camellia_cfb128_encrypt := @FC_Camellia_cfb128_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(Camellia_cfb128_encrypt_removed)}
-    if Camellia_cfb128_encrypt_removed <= LibVersion then
-    begin
-      {$if declared(_Camellia_cfb128_encrypt)}
-      Camellia_cfb128_encrypt := @_Camellia_cfb128_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(Camellia_cfb128_encrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('Camellia_cfb128_encrypt');
-    {$ifend}
+    Camellia_cfb128_encrypt :=  @ERROR_Camellia_cfb128_encrypt;
   end;
 
-
-  Camellia_cfb1_encrypt := LoadLibFunction(ADllHandle, Camellia_cfb1_encrypt_procname);
+  Camellia_cfb1_encrypt := LoadLibCryptoFunction('Camellia_cfb1_encrypt');
   FuncLoadError := not assigned(Camellia_cfb1_encrypt);
   if FuncLoadError then
   begin
-    {$if not defined(Camellia_cfb1_encrypt_allownil)}
-    Camellia_cfb1_encrypt := @ERR_Camellia_cfb1_encrypt;
-    {$ifend}
-    {$if declared(Camellia_cfb1_encrypt_introduced)}
-    if LibVersion < Camellia_cfb1_encrypt_introduced then
-    begin
-      {$if declared(FC_Camellia_cfb1_encrypt)}
-      Camellia_cfb1_encrypt := @FC_Camellia_cfb1_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(Camellia_cfb1_encrypt_removed)}
-    if Camellia_cfb1_encrypt_removed <= LibVersion then
-    begin
-      {$if declared(_Camellia_cfb1_encrypt)}
-      Camellia_cfb1_encrypt := @_Camellia_cfb1_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(Camellia_cfb1_encrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('Camellia_cfb1_encrypt');
-    {$ifend}
+    Camellia_cfb1_encrypt :=  @ERROR_Camellia_cfb1_encrypt;
   end;
 
-
-  Camellia_cfb8_encrypt := LoadLibFunction(ADllHandle, Camellia_cfb8_encrypt_procname);
+  Camellia_cfb8_encrypt := LoadLibCryptoFunction('Camellia_cfb8_encrypt');
   FuncLoadError := not assigned(Camellia_cfb8_encrypt);
   if FuncLoadError then
   begin
-    {$if not defined(Camellia_cfb8_encrypt_allownil)}
-    Camellia_cfb8_encrypt := @ERR_Camellia_cfb8_encrypt;
-    {$ifend}
-    {$if declared(Camellia_cfb8_encrypt_introduced)}
-    if LibVersion < Camellia_cfb8_encrypt_introduced then
-    begin
-      {$if declared(FC_Camellia_cfb8_encrypt)}
-      Camellia_cfb8_encrypt := @FC_Camellia_cfb8_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(Camellia_cfb8_encrypt_removed)}
-    if Camellia_cfb8_encrypt_removed <= LibVersion then
-    begin
-      {$if declared(_Camellia_cfb8_encrypt)}
-      Camellia_cfb8_encrypt := @_Camellia_cfb8_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(Camellia_cfb8_encrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('Camellia_cfb8_encrypt');
-    {$ifend}
+    Camellia_cfb8_encrypt :=  @ERROR_Camellia_cfb8_encrypt;
   end;
 
-
-  Camellia_ofb128_encrypt := LoadLibFunction(ADllHandle, Camellia_ofb128_encrypt_procname);
+  Camellia_ofb128_encrypt := LoadLibCryptoFunction('Camellia_ofb128_encrypt');
   FuncLoadError := not assigned(Camellia_ofb128_encrypt);
   if FuncLoadError then
   begin
-    {$if not defined(Camellia_ofb128_encrypt_allownil)}
-    Camellia_ofb128_encrypt := @ERR_Camellia_ofb128_encrypt;
-    {$ifend}
-    {$if declared(Camellia_ofb128_encrypt_introduced)}
-    if LibVersion < Camellia_ofb128_encrypt_introduced then
-    begin
-      {$if declared(FC_Camellia_ofb128_encrypt)}
-      Camellia_ofb128_encrypt := @FC_Camellia_ofb128_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(Camellia_ofb128_encrypt_removed)}
-    if Camellia_ofb128_encrypt_removed <= LibVersion then
-    begin
-      {$if declared(_Camellia_ofb128_encrypt)}
-      Camellia_ofb128_encrypt := @_Camellia_ofb128_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(Camellia_ofb128_encrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('Camellia_ofb128_encrypt');
-    {$ifend}
+    Camellia_ofb128_encrypt :=  @ERROR_Camellia_ofb128_encrypt;
   end;
 
-
-  Camellia_ctr128_encrypt := LoadLibFunction(ADllHandle, Camellia_ctr128_encrypt_procname);
+  Camellia_ctr128_encrypt := LoadLibCryptoFunction('Camellia_ctr128_encrypt');
   FuncLoadError := not assigned(Camellia_ctr128_encrypt);
   if FuncLoadError then
   begin
-    {$if not defined(Camellia_ctr128_encrypt_allownil)}
-    Camellia_ctr128_encrypt := @ERR_Camellia_ctr128_encrypt;
-    {$ifend}
-    {$if declared(Camellia_ctr128_encrypt_introduced)}
-    if LibVersion < Camellia_ctr128_encrypt_introduced then
-    begin
-      {$if declared(FC_Camellia_ctr128_encrypt)}
-      Camellia_ctr128_encrypt := @FC_Camellia_ctr128_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(Camellia_ctr128_encrypt_removed)}
-    if Camellia_ctr128_encrypt_removed <= LibVersion then
-    begin
-      {$if declared(_Camellia_ctr128_encrypt)}
-      Camellia_ctr128_encrypt := @_Camellia_ctr128_encrypt;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(Camellia_ctr128_encrypt_allownil)}
-    if FuncLoadError then
-      AFailed.Add('Camellia_ctr128_encrypt');
-    {$ifend}
+    Camellia_ctr128_encrypt :=  @ERROR_Camellia_ctr128_encrypt;
   end;
-
 
 end;
 
-procedure Unload;
+procedure UnLoad;
 begin
   Camellia_set_key := nil;
   Camellia_encrypt := nil;
@@ -553,12 +262,15 @@ begin
   Camellia_ofb128_encrypt := nil;
   Camellia_ctr128_encrypt := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
-  Register_SSLLoader(@Load,'LibCrypto');
-  Register_SSLUnloader(@Unload);
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+Register_SSLLoader(@Load);
+Register_SSLUnloader(@Unload);
 {$ENDIF}
+finalization
+
+
 end.

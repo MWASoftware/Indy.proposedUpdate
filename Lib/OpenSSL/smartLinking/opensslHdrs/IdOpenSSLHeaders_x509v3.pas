@@ -1,36 +1,32 @@
-  (* This unit was generated using the script genOpenSSLHdrs.sh from the source file IdOpenSSLHeaders_x509v3.h2pas
-     It should not be modified directly. All changes should be made to IdOpenSSLHeaders_x509v3.h2pas
-     and this file regenerated. IdOpenSSLHeaders_x509v3.h2pas is distributed with the full Indy
-     Distribution.
-   *)
-   
-{$i IdCompilerDefines.inc} 
-{$i IdSSLOpenSSLDefines.inc} 
-{$IFNDEF USE_OPENSSL}
-  { error Should not compile if USE_OPENSSL is not defined!!!}
-{$ENDIF}
-{******************************************************************************}
-{                                                                              }
-{            Indy (Internet Direct) - Internet Protocols Simplified            }
-{                                                                              }
-{            https://www.indyproject.org/                                      }
-{            https://gitter.im/IndySockets/Indy                                }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{  This file is part of the Indy (Internet Direct) project, and is offered     }
-{  under the dual-licensing agreement described on the Indy website.           }
-{  (https://www.indyproject.org/license/)                                      }
-{                                                                              }
-{  Copyright:                                                                  }
-{   (c) 1993-2020, Chad Z. Hower and the Indy Pit Crew. All rights reserved.   }
-{                                                                              }
-{******************************************************************************}
-{                                                                              }
-{                                                                              }
-{******************************************************************************}
+(* This unit was generated from the source file x509v3.h2pas 
+It should not be modified directly. All changes should be made to x509v3.h2pas
+and this file regenerated *)
+
+{$i IdSSLOpenSSLDefines.inc}
+
+{
+    This file is part of the MWA Software Pascal API for OpenSSL .
+
+    The MWA Software Pascal API for OpenSSL is free software: you can redistribute it
+    and/or modify it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with the MWA Software Pascal API for OpenSSL.  If not, see <https://www.gnu.org/licenses/>.
+
+    This file includes software copied from the Indy (Internet Direct) project, and which is offered
+    under the dual-licensing agreement described on the Indy website. (https://www.indyproject.org/license/)
+    }  
+
 
 unit IdOpenSSLHeaders_x509v3;
+
 
 interface
 
@@ -39,12 +35,12 @@ interface
 
 
 uses
-  IdCTypes,
-  IdGlobal,
-  IdSSLOpenSSLConsts,
+  IdSSLOpenSSLAPI,
   IdOpenSSLHeaders_ossl_typ,
   IdOpenSSLHeaders_asn1,
   IdOpenSSLHeaders_asn1t,
+  IdOpenSSLHeaders_safestack,
+  IdOpenSSLHeaders_stack,
   IdOpenSSLHeaders_x509;
 
 const
@@ -99,7 +95,7 @@ const
   (* onlysomereasons present *)
   IDP_REASONS     = $40;
 
-  EXT_END: array[0..13] of TIdC_INT = (-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  EXT_END: array[0..13] of TOpenSSL_C_INT = (-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
   (* X509_PURPOSE stuff *)
 
@@ -170,25 +166,25 @@ const
 
   (* Flags for X509V3_EXT_print() *)
 
-  X509V3_EXT_UNKNOWN_MASK         = TIdC_LONG($f) shl 16;
+  X509V3_EXT_UNKNOWN_MASK         = TOpenSSL_C_LONG($f) shl 16;
   (* Return error for unknown extensions *)
   X509V3_EXT_DEFAULT              = 0;
   (* Print error for unknown extensions *)
-  X509V3_EXT_ERROR_UNKNOWN        = TIdC_LONG(1) shl 16;
+  X509V3_EXT_ERROR_UNKNOWN        = TOpenSSL_C_LONG(1) shl 16;
   (* ASN1 parse unknown extensions *)
-  X509V3_EXT_PARSE_UNKNOWN        = TIdC_LONG(2) shl 16;
+  X509V3_EXT_PARSE_UNKNOWN        = TOpenSSL_C_LONG(2) shl 16;
   (* BIO_dump unknown extensions *)
-  X509V3_EXT_DUMP_UNKNOWN         = TIdC_LONG(3) shl 16;
+  X509V3_EXT_DUMP_UNKNOWN         = TOpenSSL_C_LONG(3) shl 16;
 
   (* Flags for X509V3_add1_i2d *)
 
-  X509V3_ADD_OP_MASK              = TIdC_LONG($f);
-  X509V3_ADD_DEFAULT              = TIdC_LONG(0);
-  X509V3_ADD_APPEND               = TIdC_LONG(1);
-  X509V3_ADD_REPLACE              = TIdC_LONG(2);
-  X509V3_ADD_REPLACE_EXISTING     = TIdC_LONG(3);
-  X509V3_ADD_KEEP_EXISTING        = TIdC_LONG(4);
-  X509V3_ADD_DELETE               = TIdC_LONG(5);
+  X509V3_ADD_OP_MASK              = TOpenSSL_C_LONG($f);
+  X509V3_ADD_DEFAULT              = TOpenSSL_C_LONG(0);
+  X509V3_ADD_APPEND               = TOpenSSL_C_LONG(1);
+  X509V3_ADD_REPLACE              = TOpenSSL_C_LONG(2);
+  X509V3_ADD_REPLACE_EXISTING     = TOpenSSL_C_LONG(3);
+  X509V3_ADD_KEEP_EXISTING        = TOpenSSL_C_LONG(4);
+  X509V3_ADD_DELETE               = TOpenSSL_C_LONG(5);
   X509V3_ADD_SILENT               = $10;
 
   (* Flags for X509_check_* functions *)
@@ -250,23 +246,23 @@ type
 
   //X509V3_EXT_NEW = function: Pointer; cdecl;
   //X509V3_EXT_FREE = procedure(v1: Pointer); cdecl;
-  //X509V3_EXT_D2I = function(v1: Pointer; v2: PPByte; v3: TIdC_Long): Pointer; cdecl;
-  //X509V3_EXT_I2D = function(v1: Pointer; v2: PPByte): TIdC_INT; cdecl;
+  //X509V3_EXT_D2I = function(v1: Pointer; v2: PPByte; v3: TOpenSSL_C_Long): Pointer; cdecl;
+  //X509V3_EXT_I2D = function(v1: Pointer; v2: PPByte): TOpenSSL_C_INT; cdecl;
 //  typedef STACK_OF(CONF_VALUE) *
 //      (*X509V3_EXT_I2V) (const struct v3_ext_method *method, void *ext,
 //                         STACK_OF(CONF_VALUE) *extlist);
 //  typedef void *(*X509V3_EXT_V2I)(const struct v3_ext_method *method,
 //                                  struct v3_ext_ctx *ctx,
 //                                  STACK_OF(CONF_VALUE) *values);
-  //X509V3_EXT_I2S = function(method: Pv3_ext_method; ext: Pointer): PIdAnsiChar; cdecl;
-  //X509V3_EXT_S2I = function(method: Pv3_ext_method; ctx: Pv3_ext_ctx; const str: PIdAnsiChar): Pointer; cdecl;
-  //X509V3_EXT_I2R = function(const method: Pv3_ext_method; ext: Pointer; out_: PBIO; indent: TIdC_INT): TIdC_INT; cdecl;
-  //X509V3_EXT_R2I = function(const method: Pv3_ext_method; ctx: Pv3_ext_ctx; const str: PIdAnsiChar): Pointer; cdecl;
+  //X509V3_EXT_I2S = function(method: Pv3_ext_method; ext: Pointer): PAnsiChar; cdecl;
+  //X509V3_EXT_S2I = function(method: Pv3_ext_method; ctx: Pv3_ext_ctx; const str: PAnsiChar): Pointer; cdecl;
+  //X509V3_EXT_I2R = function(const method: Pv3_ext_method; ext: Pointer; out_: PBIO; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+  //X509V3_EXT_R2I = function(const method: Pv3_ext_method; ctx: Pv3_ext_ctx; const str: PAnsiChar): Pointer; cdecl;
 
 //  (* V3 extension structure *)
 //  v3_ext_method = record
-//    ext_nid: TIdC_INT;
-//    ext_flags: TIdC_INT;
+//    ext_nid: TOpenSSL_C_INT;
+//    ext_flags: TOpenSSL_C_INT;
 //(* If this is set the following four fields are ignored *)
 //    it: PASN1_ITEM_EXP;
 //(* Old style ASN1 calls *)
@@ -290,16 +286,16 @@ type
 //  DEFINE_STACK_OF(X509V3_EXT_METHOD)
 
 //  typedef struct X509V3_CONF_METHOD_st {
-//      PIdAnsiChar *(*get_string) (void *db, const section: PIdAnsiChar, const value: PIdAnsiChar);
-//      STACK_OF(CONF_VALUE) *(*get_section) (void *db, const section: PIdAnsiChar);
-//      void (*free_string) (void *db, PIdAnsiChar *string);
+//      PAnsiChar *(*get_string) (void *db, const section: PAnsiChar, const value: PAnsiChar);
+//      STACK_OF(CONF_VALUE) *(*get_section) (void *db, const section: PAnsiChar);
+//      void (*free_string) (void *db, PAnsiChar *string);
 //      void (*free_section) (void *db, STACK_OF(CONF_VALUE) *section);
 //  } X509V3_CONF_METHOD;
 
 // Moved to ossl_typ
 //  (* Context specific info *)
 //  v3_ext_ctx = record
-//    flags: TIdC_INT;
+//    flags: TOpenSSL_C_INT;
 //    issuer_cert: PX509;
 //    subject_cert: PX509;
 //    subject_req: PX509_REQ;
@@ -312,7 +308,7 @@ type
   ENUMERATED_NAMES = BIT_STRING_BITNAME;
 
   BASIC_CONSTRAINTS_st = record
-    ca: TIdC_INT;
+    ca: TOpenSSL_C_INT;
     pathlen: PASN1_INTEGER;
   end;
   BASIC_CONSTRAINTS = BASIC_CONSTRAINTS_st;
@@ -340,8 +336,8 @@ type
   PEDIPARTYNAME = ^EDIPARTYNAME;
 
   GENERAL_NAME_st_union = record
-    case TIdC_INT of
-      0: (ptr: PIdAnsiChar);
+    case TOpenSSL_C_INT of
+      0: (ptr: PAnsiChar);
       1: (otherName: POTHERNAME);   (* otherName *)
       2: (rfc822Name: PASN1_IA5STRING);
       3: (dNSName: PASN1_IA5STRING);
@@ -360,11 +356,14 @@ type
       14: (other: PASN1_TYPE);       (* x400Address *)
   end;
   GENERAL_NAME_st = record
-    type_: TIdC_INT;
+    type_: TOpenSSL_C_INT;
     d: GENERAL_NAME_st_union;
   end;
   GENERAL_NAME = GENERAL_NAME_st;
   PGENERAL_NAME = ^GENERAL_NAME;
+
+  PSTACK_OF_GENERAL_NAME = Pointer;
+  PGENERAL_NAMES = PSTACK_OF_GENERAL_NAME;
 
   ACCESS_DESCRIPTION_st = record
     method: PASN1_OBJECT;
@@ -385,12 +384,12 @@ type
 
 //  DEFINE_STACK_OF(ACCESS_DESCRIPTION)
 //  DIST_POINT_NAME_st_union = record
-//    case TIdC_INT of
+//    case TOpenSSL_C_INT of
 //      0: (GENERAL_NAMES *fullname);
 //      1: (STACK_OF(X509_NAME_ENTRY) *relativename);
 //  end;
   DIST_POINT_NAME_st = record
-    type_: TIdC_INT;
+    type_: TOpenSSL_C_INT;
     (* If relativename then this contains the full distribution point name *)
     dpname: PX509_NAME;
   end;
@@ -402,7 +401,7 @@ type
 //      DIST_POINT_NAME *distpoint;
 //      ASN1_BIT_STRING *reasons;
 //      GENERAL_NAMES *CRLissuer;
-//      TIdC_INT dp_reasons;
+//      TOpenSSL_C_INT dp_reasons;
 //  };
 
 //  typedef STACK_OF(DIST_POINT) CRL_DIST_POINTS;
@@ -447,7 +446,7 @@ type
 //  PUSERNOTICE = ^USERNOTICE;
 
 //  POLICYQUALINFO_st_union = record
-//    case TIdC_INT of
+//    case TOpenSSL_C_INT of
 //      0: (cpsuri: PASN1_IA5STRING);
 //      1: (usernotice: PUSERNOTICE);
 //      2: (other: PASN1_TYPE);
@@ -518,11 +517,11 @@ type
 
 //  ISSUING_DIST_POint_st = record
 //    distpoint: PDIST_POINT_NAME;
-//    TIdC_INT onlyuser;
-//    TIdC_INT onlyCA;
+//    TOpenSSL_C_INT onlyuser;
+//    TOpenSSL_C_INT onlyCA;
 //    onlysomereasons: PASN1_BIT_STRING;
-//    TIdC_INT indirectCRL;
-//    TIdC_INT onlyattr;
+//    TOpenSSL_C_INT indirectCRL;
+//    TOpenSSL_C_INT onlyattr;
 //  end;
 
 //  # define X509V3_conf_err(val) ERR_add_error_data(6, \
@@ -547,25 +546,24 @@ type
 //                          (X509V3_EXT_S2I)s2i_ASN1_IA5STRING, \
 //                          0,0,0,0, \
 //                          NULL}
-
+                         
   PX509_PURPOSE = ^X509_PURPOSE;
   x509_purpose_st = record
-    purpose: TIdC_INT;
-    trust: TIdC_INT;                  (* Default trust ID *)
-    flags: TIdC_INT;
-    check_purpose: function(const v1: PX509_PURPOSE; const v2: PX509; v3: TIdC_INT): TIdC_INT; cdecl;
-    name: PIdAnsiChar;
-    sname: PIdAnsiChar;
+    purpose: TOpenSSL_C_INT;
+    trust: TOpenSSL_C_INT;                  (* Default trust ID *)
+    flags: TOpenSSL_C_INT;
+    check_purpose: function(const v1: PX509_PURPOSE; const v2: PX509; v3: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+    name: PAnsiChar;
+    sname: PAnsiChar;
     usr_data: Pointer;
   end;
   X509_PURPOSE = x509_purpose_st;
 //  DEFINE_STACK_OF(X509_PURPOSE)
 
-//  DECLARE_ASN1_FUNCTIONS(BASIC_CONSTRAINTS_st)
-
 //  DECLARE_ASN1_FUNCTIONS(SXNET)
 //  DECLARE_ASN1_FUNCTIONS(SXNETID)
 
+type
   ASRange_st = record
     min, max: PASN1_INTEGER;
   end;
@@ -573,8 +571,8 @@ type
   PASRange = ^ASRange;
 
   ASIdOrRange_st = record
-    type_: TIdC_INT;
-    case u: TIdC_INT of
+    type_: TOpenSSL_C_INT;
+    case u: TOpenSSL_C_INT of
       0: (id: PASN1_INTEGER);
       1: (range: PASRange);
   end;
@@ -584,8 +582,8 @@ type
 //  DEFINE_STACK_OF(ASIdOrRange)
 
 //  ASIdentifierChoice_st = record
-//    type_: TIdC_INT;
-//    case u: TIdC_INT of
+//    type_: TOpenSSL_C_INT;
+//    case u: TOpenSSL_C_INT of
 //      0: (inherit: PASN1_NULL);
 //      1: (asIdsOrRanges: PASIdOrRanges);
 //  end;
@@ -610,8 +608,8 @@ type
   PIPAddressRange = ^IPAddressRange;
 
   IPAddressOrRange_st = record
-    type_: TIdC_INT;
-    case u: TIdC_INT of
+    type_: TOpenSSL_C_INT;
+    case u: TOpenSSL_C_INT of
       0: (addressPrefix: PASN1_BIT_STRING);
       1: (addressRange: PIPAddressRange);
   end;
@@ -622,8 +620,8 @@ type
 //  DEFINE_STACK_OF(IPAddressOrRange)
 
 //  IPAddressChoice_st = record
-//    type_: TIdC_INT;
-//    case u: TIdC_INT of
+//    type_: TOpenSSL_C_INT;
+//    case u: TOpenSSL_C_INT of
 //      0: (inherit: PASN1_NULL);
 //      1: (addressesOrRanges: PIPAddressOrRanges);
 //  end;
@@ -648,15 +646,15 @@ type
   NamingAuthority_st = type Pointer;
   NAMING_AUTHORITY = NamingAuthority_st;
   PNAMING_AUTHORITY = ^NAMING_AUTHORITY;
-
+  
   ProfessionInfo_st = type Pointer;
   PROFESSION_INFO = ProfessionInfo_st;
   PPROFESSION_INFO = ^PROFESSION_INFO;
-
+  
   Admissions_st = type Pointer;
   ADMISSIONS = Admissions_st;
   PADMISSIONS = ^ADMISSIONS;
-
+  
   AdmissionSyntax_st = type Pointer;
   ADMISSION_SYNTAX = AdmissionSyntax_st;
   PADMISSION_SYNTAX = ^ADMISSION_SYNTAX;
@@ -668,4189 +666,1484 @@ type
 //  DEFINE_STACK_OF(PROFESSION_INFO)
 //  typedef STACK_OF(PROFESSION_INFO) PROFESSION_INFOS;
 
-//  function SXNET_add_id_asc(psx: PPSXNET; const zone: PIdAnsiChar; const user: PIdAnsiChar; userlen: TIdC_INT): TIdC_INT;
-//  function SXNET_add_id_ulong(psx: PPSXNET; lzone: TIdC_ULONG; const user: PIdAnsiChar; userlen: TIdC_INT): TIdC_INT;
-//  function SXNET_add_id_INTEGER(psx: PPSXNET; izone: PASN1_INTEGER; const user: PIdAnsiChar; userlen: TIdC_INT): TIdC_INT;
+//  function SXNET_add_id_asc(psx: PPSXNET; const zone: PAnsiChar; const user: PAnsiChar; userlen: TOpenSSL_C_INT): TOpenSSL_C_INT;
+//  function SXNET_add_id_ulong(psx: PPSXNET; lzone: TOpenSSL_C_ULONG; const user: PAnsiChar; userlen: TOpenSSL_C_INT): TOpenSSL_C_INT;
+//  function SXNET_add_id_INTEGER(psx: PPSXNET; izone: PASN1_INTEGER; const user: PAnsiChar; userlen: TOpenSSL_C_INT): TOpenSSL_C_INT;
 
-//  function SXNET_get_id_asc(sx: PSXNET; const zone: PIdAnsiChar): PASN1_OCTET_STRING;
-//  function SXNET_get_id_ulong(sx: PSXNET; lzone: TIdC_ULONG): PASN1_OCTET_STRING;
+//  function SXNET_get_id_asc(sx: PSXNET; const zone: PAnsiChar): PASN1_OCTET_STRING;
+//  function SXNET_get_id_ulong(sx: PSXNET; lzone: TOpenSSL_C_ULONG): PASN1_OCTET_STRING;
 //  function SXNET_get_id_INTEGER(sx: PSXNET; zone: PASN1_INTEGER): PASN1_OCTET_STRING;
 
-//  DECLARE_ASN1_FUNCTIONS(AUTHORITY_KEYID)
+//  DECLARE_ASN1_FUNCTIONS(BASIC_CONSTRAINTS_st)
 
-//  DECLARE_ASN1_FUNCTIONS(PKEY_USAGE_PERIOD)
+{ The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows: 
 
-//  DECLARE_ASN1_FUNCTIONS(GENERAL_NAME)
-//  GENERAL_NAME *GENERAL_NAME_dup(a: PGENERAL_NAME);
-    { The EXTERNALSYM directive is ignored by FPC, however, it is used by Delphi as follows:
-		
-  	  The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
-	  files generated for C++. }
-	  
-  {$EXTERNALSYM GENERAL_NAME_cmp}
-  {$EXTERNALSYM GENERAL_NAME_print}
-  {$EXTERNALSYM OTHERNAME_cmp}
-  {$EXTERNALSYM GENERAL_NAME_set0_value}
-  {$EXTERNALSYM GENERAL_NAME_get0_value}
-  {$EXTERNALSYM GENERAL_NAME_set0_othername}
-  {$EXTERNALSYM GENERAL_NAME_get0_otherName}
-  {$EXTERNALSYM i2a_ACCESS_DESCRIPTION}
-  {$EXTERNALSYM DIST_POINT_set_dpname}
-  {$EXTERNALSYM NAME_CONSTRAINTS_check}
-  {$EXTERNALSYM NAME_CONSTRAINTS_check_CN}
-  {$EXTERNALSYM X509V3_EXT_nconf_nid}
-  {$EXTERNALSYM X509V3_EXT_nconf}
-  {$EXTERNALSYM X509V3_EXT_add_nconf}
-  {$EXTERNALSYM X509V3_EXT_REQ_add_nconf}
-  {$EXTERNALSYM X509V3_EXT_CRL_add_nconf}
-  {$EXTERNALSYM X509V3_EXT_conf_nid}
-  {$EXTERNALSYM X509V3_EXT_conf}
-  {$EXTERNALSYM X509V3_EXT_add_conf}
-  {$EXTERNALSYM X509V3_EXT_REQ_add_conf}
-  {$EXTERNALSYM X509V3_EXT_CRL_add_conf}
-  {$EXTERNALSYM X509V3_set_nconf}
-  {$EXTERNALSYM X509V3_get_string}
-  {$EXTERNALSYM X509V3_string_free}
-  {$EXTERNALSYM X509V3_set_ctx}
-  {$EXTERNALSYM X509V3_EXT_add_alias}
-  {$EXTERNALSYM X509V3_EXT_cleanup}
-  {$EXTERNALSYM X509V3_add_standard_extensions}
-  {$EXTERNALSYM X509V3_EXT_d2i}
-  {$EXTERNALSYM X509V3_EXT_i2d}
-  {$EXTERNALSYM X509V3_EXT_print}
-  {$EXTERNALSYM X509_check_ca}
-  {$EXTERNALSYM X509_check_purpose}
-  {$EXTERNALSYM X509_supported_extension}
-  {$EXTERNALSYM X509_PURPOSE_set}
-  {$EXTERNALSYM X509_check_issued}
-  {$EXTERNALSYM X509_check_akid}
-  {$EXTERNALSYM X509_set_proxy_flag}
-  {$EXTERNALSYM X509_set_proxy_pathlen}
-  {$EXTERNALSYM X509_get_proxy_pathlen}
-  {$EXTERNALSYM X509_get_extension_flags}
-  {$EXTERNALSYM X509_get_key_usage}
-  {$EXTERNALSYM X509_get_extended_key_usage}
-  {$EXTERNALSYM X509_get0_subject_key_id}
-  {$EXTERNALSYM X509_get0_authority_key_id}
-  {$EXTERNALSYM X509_get0_authority_serial}
-  {$EXTERNALSYM X509_PURPOSE_get_count}
-  {$EXTERNALSYM X509_PURPOSE_get0}
-  {$EXTERNALSYM X509_PURPOSE_get_by_sname}
-  {$EXTERNALSYM X509_PURPOSE_get_by_id}
-  {$EXTERNALSYM X509_PURPOSE_get0_name}
-  {$EXTERNALSYM X509_PURPOSE_get0_sname}
-  {$EXTERNALSYM X509_PURPOSE_get_trust}
-  {$EXTERNALSYM X509_PURPOSE_cleanup}
-  {$EXTERNALSYM X509_PURPOSE_get_id}
-  {$EXTERNALSYM X509_check_host}
-  {$EXTERNALSYM X509_check_email}
-  {$EXTERNALSYM X509_check_ip}
-  {$EXTERNALSYM X509_check_ip_asc}
-  {$EXTERNALSYM a2i_IPADDRESS}
-  {$EXTERNALSYM a2i_IPADDRESS_NC}
-  {$EXTERNALSYM X509_POLICY_NODE_print}
-  {$EXTERNALSYM X509v3_addr_get_range}
-  {$EXTERNALSYM X509v3_asid_validate_path}
-  {$EXTERNALSYM X509v3_addr_validate_path}
-  {$EXTERNALSYM NAMING_AUTHORITY_get0_authorityId}
-  {$EXTERNALSYM NAMING_AUTHORITY_get0_authorityURL}
-  {$EXTERNALSYM NAMING_AUTHORITY_get0_authorityText}
-  {$EXTERNALSYM NAMING_AUTHORITY_set0_authorityId}
-  {$EXTERNALSYM NAMING_AUTHORITY_set0_authorityURL}
-  {$EXTERNALSYM NAMING_AUTHORITY_set0_authorityText}
-  {$EXTERNALSYM ADMISSION_SYNTAX_get0_admissionAuthority}
-  {$EXTERNALSYM ADMISSION_SYNTAX_set0_admissionAuthority}
-  {$EXTERNALSYM ADMISSIONS_get0_admissionAuthority}
-  {$EXTERNALSYM ADMISSIONS_set0_admissionAuthority}
-  {$EXTERNALSYM ADMISSIONS_get0_namingAuthority}
-  {$EXTERNALSYM ADMISSIONS_set0_namingAuthority}
-  {$EXTERNALSYM PROFESSION_INFO_get0_addProfessionInfo}
-  {$EXTERNALSYM PROFESSION_INFO_set0_addProfessionInfo}
-  {$EXTERNALSYM PROFESSION_INFO_get0_namingAuthority}
-  {$EXTERNALSYM PROFESSION_INFO_set0_namingAuthority}
-  {$EXTERNALSYM PROFESSION_INFO_get0_registrationNumber}
-  {$EXTERNALSYM PROFESSION_INFO_set0_registrationNumber}
+The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
+files generated for C++. }
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$EXTERNALSYM BASIC_CONSTRAINTS_free}
+{$EXTERNALSYM BASIC_CONSTRAINTS_new}
+{$EXTERNALSYM AUTHORITY_KEYID_free}
+{$EXTERNALSYM AUTHORITY_KEYID_new}
+{$EXTERNALSYM GENERAL_NAME_free}
+{$EXTERNALSYM GENERAL_NAME_new}
+{$EXTERNALSYM GENERAL_NAME_cmp}
+{$EXTERNALSYM GENERAL_NAME_print}
+{$EXTERNALSYM GENERAL_NAMES_free}
+{$EXTERNALSYM GENERAL_NAMES_new}
+{$EXTERNALSYM OTHERNAME_cmp}
+{$EXTERNALSYM GENERAL_NAME_set0_value}
+{$EXTERNALSYM GENERAL_NAME_get0_value}
+{$EXTERNALSYM GENERAL_NAME_set0_othername}
+{$EXTERNALSYM GENERAL_NAME_get0_otherName}
+{$EXTERNALSYM i2a_ACCESS_DESCRIPTION}
+{$EXTERNALSYM DIST_POINT_set_dpname}
+{$EXTERNALSYM NAME_CONSTRAINTS_check}
+{$EXTERNALSYM NAME_CONSTRAINTS_check_CN}
+{$EXTERNALSYM X509V3_EXT_nconf_nid}
+{$EXTERNALSYM X509V3_EXT_nconf}
+{$EXTERNALSYM X509V3_EXT_add_nconf}
+{$EXTERNALSYM X509V3_EXT_REQ_add_nconf}
+{$EXTERNALSYM X509V3_EXT_CRL_add_nconf}
+{$EXTERNALSYM X509V3_EXT_conf_nid}
+{$EXTERNALSYM X509V3_EXT_conf}
+{$EXTERNALSYM X509V3_EXT_add_conf}
+{$EXTERNALSYM X509V3_EXT_REQ_add_conf}
+{$EXTERNALSYM X509V3_EXT_CRL_add_conf}
+{$EXTERNALSYM X509V3_set_nconf}
+{$EXTERNALSYM X509V3_get_string}
+{$EXTERNALSYM X509V3_string_free}
+{$EXTERNALSYM X509V3_set_ctx}
+{$EXTERNALSYM X509V3_EXT_add_alias}
+{$EXTERNALSYM X509V3_EXT_cleanup}
+{$EXTERNALSYM X509V3_add_standard_extensions}
+{$EXTERNALSYM X509V3_EXT_d2i}
+{$EXTERNALSYM X509V3_EXT_i2d}
+{$EXTERNALSYM X509V3_EXT_print}
+{$EXTERNALSYM X509_check_ca}
+{$EXTERNALSYM X509_check_purpose}
+{$EXTERNALSYM X509_supported_extension}
+{$EXTERNALSYM X509_PURPOSE_set}
+{$EXTERNALSYM X509_check_issued}
+{$EXTERNALSYM X509_check_akid}
+{$EXTERNALSYM X509_set_proxy_flag}
+{$EXTERNALSYM X509_set_proxy_pathlen}
+{$EXTERNALSYM X509_get_proxy_pathlen}
+{$EXTERNALSYM X509_get_extension_flags}
+{$EXTERNALSYM X509_get_key_usage}
+{$EXTERNALSYM X509_get_extended_key_usage}
+{$EXTERNALSYM X509_get0_subject_key_id}
+{$EXTERNALSYM X509_get0_authority_key_id}
+{$EXTERNALSYM X509_get0_authority_serial}
+{$EXTERNALSYM X509_PURPOSE_get_count}
+{$EXTERNALSYM X509_PURPOSE_get0}
+{$EXTERNALSYM X509_PURPOSE_get_by_sname}
+{$EXTERNALSYM X509_PURPOSE_get_by_id}
+{$EXTERNALSYM X509_PURPOSE_get0_name}
+{$EXTERNALSYM X509_PURPOSE_get0_sname}
+{$EXTERNALSYM X509_PURPOSE_get_trust}
+{$EXTERNALSYM X509_PURPOSE_cleanup}
+{$EXTERNALSYM X509_PURPOSE_get_id}
+{$EXTERNALSYM X509_get1_email}
+{$EXTERNALSYM X509_REQ_get1_email}
+{$EXTERNALSYM X509_email_free}
+{$EXTERNALSYM X509_get1_ocsp}
+{$EXTERNALSYM X509_check_host}
+{$EXTERNALSYM X509_check_email}
+{$EXTERNALSYM X509_check_ip}
+{$EXTERNALSYM X509_check_ip_asc}
+{$EXTERNALSYM a2i_IPADDRESS}
+{$EXTERNALSYM a2i_IPADDRESS_NC}
+{$EXTERNALSYM X509_POLICY_NODE_print}
+{$EXTERNALSYM X509v3_addr_get_range}
+{$EXTERNALSYM X509v3_asid_validate_path}
+{$EXTERNALSYM X509v3_addr_validate_path}
+{$EXTERNALSYM NAMING_AUTHORITY_get0_authorityId}
+{$EXTERNALSYM NAMING_AUTHORITY_get0_authorityURL}
+{$EXTERNALSYM NAMING_AUTHORITY_get0_authorityText}
+{$EXTERNALSYM NAMING_AUTHORITY_set0_authorityId}
+{$EXTERNALSYM NAMING_AUTHORITY_set0_authorityURL}
+{$EXTERNALSYM NAMING_AUTHORITY_set0_authorityText}
+{$EXTERNALSYM ADMISSION_SYNTAX_get0_admissionAuthority}
+{$EXTERNALSYM ADMISSION_SYNTAX_set0_admissionAuthority}
+{$EXTERNALSYM ADMISSIONS_get0_admissionAuthority}
+{$EXTERNALSYM ADMISSIONS_set0_admissionAuthority}
+{$EXTERNALSYM ADMISSIONS_get0_namingAuthority}
+{$EXTERNALSYM ADMISSIONS_set0_namingAuthority}
+{$EXTERNALSYM PROFESSION_INFO_get0_addProfessionInfo}
+{$EXTERNALSYM PROFESSION_INFO_set0_addProfessionInfo}
+{$EXTERNALSYM PROFESSION_INFO_get0_namingAuthority}
+{$EXTERNALSYM PROFESSION_INFO_set0_namingAuthority}
+{$EXTERNALSYM PROFESSION_INFO_get0_registrationNumber}
+{$EXTERNALSYM PROFESSION_INFO_set0_registrationNumber}
+
+{$IFDEF OPENSSL_STATIC_LINK_MODEL}
+procedure BASIC_CONSTRAINTS_free(bc : PBASIC_CONSTRAINTS); cdecl; external CLibCrypto;
+function BASIC_CONSTRAINTS_new: PBASIC_CONSTRAINTS; cdecl; external CLibCrypto;
+procedure AUTHORITY_KEYID_free(id : AUTHORITY_KEYID); cdecl; external CLibCrypto;
+function AUTHORITY_KEYID_new: AUTHORITY_KEYID; cdecl; external CLibCrypto;
+procedure GENERAL_NAME_free(a: PGENERAL_NAME); cdecl; external CLibCrypto;
+function GENERAL_NAME_new: PGENERAL_NAME; cdecl; external CLibCrypto;
+function GENERAL_NAME_cmp(a: PGENERAL_NAME; b: PGENERAL_NAME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function GENERAL_NAME_print(out_: PBIO; gen: PGENERAL_NAME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure GENERAL_NAMES_free(a: PGENERAL_NAMES); cdecl; external CLibCrypto;
+function GENERAL_NAMES_new: PGENERAL_NAMES; cdecl; external CLibCrypto;
+function OTHERNAME_cmp(a: POTHERNAME; b: POTHERNAME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure GENERAL_NAME_set0_value(a: PGENERAL_NAME; type_: TOpenSSL_C_INT; value: Pointer); cdecl; external CLibCrypto;
+function GENERAL_NAME_get0_value(const a: PGENERAL_NAME; ptype: POpenSSL_C_INT): Pointer; cdecl; external CLibCrypto;
+function GENERAL_NAME_set0_othername(gen: PGENERAL_NAME; oid: PASN1_OBJECT; value: PASN1_TYPE): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function GENERAL_NAME_get0_otherName(const gen: PGENERAL_NAME; poid: PPASN1_OBJECT; pvalue: PPASN1_TYPE): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function i2a_ACCESS_DESCRIPTION(bp: PBIO; const a: PACCESS_DESCRIPTION): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function DIST_POINT_set_dpname(dpn: PDIST_POINT_NAME; iname: PX509_NAME): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function NAME_CONSTRAINTS_check(x: PX509; nc: PNAME_CONSTRAINTS): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function NAME_CONSTRAINTS_check_CN(x: PX509; nc: PNAME_CONSTRAINTS): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509V3_EXT_nconf_nid(conf: PCONF; ctx: PX509V3_CTX; ext_nid: TOpenSSL_C_INT; const value: PAnsiChar): PX509_EXTENSION; cdecl; external CLibCrypto;
+function X509V3_EXT_nconf(conf: PCONF; ctx: PX509V3_CTX; const name: PAnsiChar; const value: PAnsiChar): PX509_EXTENSION; cdecl; external CLibCrypto;
+function X509V3_EXT_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PAnsiChar; cert: PX509): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509V3_EXT_REQ_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PAnsiChar; req: PX509_REQ): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509V3_EXT_CRL_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PAnsiChar; crl: PX509_CRL): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509V3_EXT_conf_nid(conf: Pointer; ctx: PX509V3_CTX; ext_nid: TOpenSSL_C_INT; const value: PAnsiChar): PX509_EXTENSION; cdecl; external CLibCrypto;
+function X509V3_EXT_conf(conf: Pointer; ctx: PX509V3_CTX; const name: PAnsiChar; const value: PAnsiChar): PX509_EXTENSION; cdecl; external CLibCrypto;
+function X509V3_EXT_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PAnsiChar; cert: PX509): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509V3_EXT_REQ_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PAnsiChar; req: PX509_REQ): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509V3_EXT_CRL_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PAnsiChar; crl: PX509_CRL): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure X509V3_set_nconf(ctx: PX509V3_CTX; conf: PCONF); cdecl; external CLibCrypto;
+function X509V3_get_string(ctx: PX509V3_CTX; const name: PAnsiChar; const section: PAnsiChar): PAnsiChar; cdecl; external CLibCrypto;
+procedure X509V3_string_free(ctx: PX509V3_CTX; str: PAnsiChar); cdecl; external CLibCrypto;
+procedure X509V3_set_ctx(ctx: PX509V3_CTX; issuer: PX509; subject: PX509; req: PX509_REQ; crl: PX509_CRL; flags: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function X509V3_EXT_add_alias(nid_to: TOpenSSL_C_INT; nid_from: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure X509V3_EXT_cleanup; cdecl; external CLibCrypto;
+function X509V3_add_standard_extensions: TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509V3_EXT_d2i(ext: PX509_EXTENSION): Pointer; cdecl; external CLibCrypto;
+function X509V3_EXT_i2d(ext_nid: TOpenSSL_C_INT; crit: TOpenSSL_C_INT; ext_struc: Pointer): PX509_EXTENSION; cdecl; external CLibCrypto;
+function X509V3_EXT_print(out_: PBIO; ext: PX509_EXTENSION; flag: TOpenSSL_C_ULONG; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_check_ca(x: PX509): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_check_purpose(x: PX509; id: TOpenSSL_C_INT; ca: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_supported_extension(ex: PX509_EXTENSION): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_PURPOSE_set(p: POpenSSL_C_INT; purpose: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_check_issued(issuer: PX509; subject: PX509): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_check_akid(issuer: PX509; akid: PAUTHORITY_KEYID): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure X509_set_proxy_flag(x: PX509); cdecl; external CLibCrypto;
+procedure X509_set_proxy_pathlen(x: PX509; l: TOpenSSL_C_LONG); cdecl; external CLibCrypto;
+function X509_get_proxy_pathlen(x: PX509): TOpenSSL_C_LONG; cdecl; external CLibCrypto;
+function X509_get_extension_flags(x: PX509): TOpenSSL_C_UINT32; cdecl; external CLibCrypto;
+function X509_get_key_usage(x: PX509): TOpenSSL_C_UINT32; cdecl; external CLibCrypto;
+function X509_get_extended_key_usage(x: PX509): TOpenSSL_C_UINT32; cdecl; external CLibCrypto;
+function X509_get0_subject_key_id(x: PX509): PASN1_OCTET_STRING; cdecl; external CLibCrypto;
+function X509_get0_authority_key_id(x: PX509): PASN1_OCTET_STRING; cdecl; external CLibCrypto;
+function X509_get0_authority_serial(x: PX509): PASN1_INTEGER; cdecl; external CLibCrypto;
+function X509_PURPOSE_get_count: TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_PURPOSE_get0(idx: TOpenSSL_C_INT): PX509_PURPOSE; cdecl; external CLibCrypto;
+function X509_PURPOSE_get_by_sname(const sname: PAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_PURPOSE_get_by_id(id: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_PURPOSE_get0_name(const xp: PX509_PURPOSE): PAnsiChar; cdecl; external CLibCrypto;
+function X509_PURPOSE_get0_sname(const xp: PX509_PURPOSE): PAnsiChar; cdecl; external CLibCrypto;
+function X509_PURPOSE_get_trust(const xp: PX509_PURPOSE): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+procedure X509_PURPOSE_cleanup; cdecl; external CLibCrypto;
+function X509_PURPOSE_get_id(const v1: PX509_PURPOSE): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_get1_email(x: PX509): PSTACK_OF_OPENSSL_STRING; cdecl; external CLibCrypto;
+function X509_REQ_get1_email( x : PX509_REQ): PSTACK_OF_OPENSSL_STRING; cdecl; external CLibCrypto;
+procedure X509_email_free(sk : PSTACK_OF_OPENSSL_STRING); cdecl; external CLibCrypto;
+function X509_get1_ocsp(x: PX509): PSTACK_OF_OPENSSL_STRING; cdecl; external CLibCrypto;
+function X509_check_host(x: PX509; const chk: PAnsiChar; chklen: TOpenSSL_C_SIZET; flags: TOpenSSL_C_UINT; peername: PPAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_check_email(x: PX509; const chk: PAnsiChar; chklen: TOpenSSL_C_SIZET; flags: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_check_ip(x: PX509; const chk: PByte; chklen: TOpenSSL_C_SIZET; flags: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509_check_ip_asc(x: PX509; const ipasc: PAnsiChar; flags: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function a2i_IPADDRESS(const ipasc: PAnsiChar): PASN1_OCTET_STRING; cdecl; external CLibCrypto;
+function a2i_IPADDRESS_NC(const ipasc: PAnsiChar): PASN1_OCTET_STRING; cdecl; external CLibCrypto;
+procedure X509_POLICY_NODE_print(out_: PBIO; node: PX509_POLICY_NODE; indent: TOpenSSL_C_INT); cdecl; external CLibCrypto;
+function X509v3_addr_get_range(aor: PIPAddressOrRange; const afi: TOpenSSL_C_UINT; min: PByte; max: Byte; const length: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509v3_asid_validate_path(v1: PX509_STORE_CTX): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function X509v3_addr_validate_path(v1: PX509_STORE_CTX): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function NAMING_AUTHORITY_get0_authorityId(const n: PNAMING_AUTHORITY): PASN1_OBJECT; cdecl; external CLibCrypto;
+function NAMING_AUTHORITY_get0_authorityURL(const n: PNAMING_AUTHORITY): PASN1_IA5STRING; cdecl; external CLibCrypto;
+function NAMING_AUTHORITY_get0_authorityText(const n: PNAMING_AUTHORITY): PASN1_STRING; cdecl; external CLibCrypto;
+procedure NAMING_AUTHORITY_set0_authorityId(n: PNAMING_AUTHORITY; namingAuthorityId: PASN1_OBJECT); cdecl; external CLibCrypto;
+procedure NAMING_AUTHORITY_set0_authorityURL(n: PNAMING_AUTHORITY; namingAuthorityUrl: PASN1_IA5STRING); cdecl; external CLibCrypto;
+procedure NAMING_AUTHORITY_set0_authorityText(n: PNAMING_AUTHORITY; namingAuthorityText: PASN1_STRING); cdecl; external CLibCrypto;
+function ADMISSION_SYNTAX_get0_admissionAuthority(const as_: ADMISSION_SYNTAX): PGENERAL_NAME; cdecl; external CLibCrypto;
+procedure ADMISSION_SYNTAX_set0_admissionAuthority(as_: ADMISSION_SYNTAX; aa: PGENERAL_NAME); cdecl; external CLibCrypto;
+function ADMISSIONS_get0_admissionAuthority(const a: PADMISSIONS): PGENERAL_NAME; cdecl; external CLibCrypto;
+procedure ADMISSIONS_set0_admissionAuthority(a: PADMISSIONS; aa: PGENERAL_NAME); cdecl; external CLibCrypto;
+function ADMISSIONS_get0_namingAuthority(const a: PADMISSIONS): PNAMING_AUTHORITY; cdecl; external CLibCrypto;
+procedure ADMISSIONS_set0_namingAuthority(a: PADMISSIONS; na: PNAMING_AUTHORITY); cdecl; external CLibCrypto;
+function PROFESSION_INFO_get0_addProfessionInfo(const pi: PPROFESSION_INFO): PASN1_OCTET_STRING; cdecl; external CLibCrypto;
+procedure PROFESSION_INFO_set0_addProfessionInfo(pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING); cdecl; external CLibCrypto;
+function PROFESSION_INFO_get0_namingAuthority(const pi: PPROFESSION_INFO): PNAMING_AUTHORITY; cdecl; external CLibCrypto;
+procedure PROFESSION_INFO_set0_namingAuthority(pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY); cdecl; external CLibCrypto;
+function PROFESSION_INFO_get0_registrationNumber(const pi: PPROFESSION_INFO): PASN1_PRINTABLESTRING; cdecl; external CLibCrypto;
+procedure PROFESSION_INFO_set0_registrationNumber(pi: PPROFESSION_INFO; rn: PASN1_PRINTABLESTRING); cdecl; external CLibCrypto;
+
+{$ELSE}
 var
-  GENERAL_NAME_cmp: function (a: PGENERAL_NAME; b: PGENERAL_NAME): TIdC_INT; cdecl = nil;
-
-//  ASN1_BIT_STRING *v2i_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *nval);
-//  STACK_OF(CONF_VALUE) *i2v_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ASN1_BIT_STRING *bits; STACK_OF(CONF_VALUE) *extlist);
-  //function i2s_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ia5: PASN1_IA5STRING): PIdAnsiChar;
-  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_IA5STRING;
-
-//  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAME(method: PX509V3_EXT_METHOD; gen: PGENERAL_NAME; STACK_OF(CONF_VALUE) *ret);
-  GENERAL_NAME_print: function (out_: PBIO; gen: PGENERAL_NAME): TIdC_INT; cdecl = nil;
-
-//  DECLARE_ASN1_FUNCTIONS(GENERAL_NAMES)
-
-//  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAMES(method: PX509V3_EXT_METHOD, GENERAL_NAMES *gen, STACK_OF(CONF_VALUE) *extlist);
-//  GENERAL_NAMES *v2i_GENERAL_NAMES(const method: PX509V3_EXT_METHOD, ctx: PX509V3_CTX, STACK_OF(CONF_VALUE) *nval);
-
-//  DECLARE_ASN1_FUNCTIONS(OTHERNAME)
-//  DECLARE_ASN1_FUNCTIONS(EDIPARTYNAME)
-  OTHERNAME_cmp: function (a: POTHERNAME; b: POTHERNAME): TIdC_INT; cdecl = nil;
-  GENERAL_NAME_set0_value: procedure (a: PGENERAL_NAME; type_: TIdC_INT; value: Pointer); cdecl = nil;
-  GENERAL_NAME_get0_value: function (const a: PGENERAL_NAME; ptype: PIdC_INT): Pointer; cdecl = nil;
-  GENERAL_NAME_set0_othername: function (gen: PGENERAL_NAME; oid: PASN1_OBJECT; value: PASN1_TYPE): TIdC_INT; cdecl = nil;
-  GENERAL_NAME_get0_otherName: function (const gen: PGENERAL_NAME; poid: PPASN1_OBJECT; pvalue: PPASN1_TYPE): TIdC_INT; cdecl = nil;
-
-  //function i2s_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; const ia5: PASN1_OCTET_STRING): PIdAnsiChar;
-  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_OCTET_STRING;
-
-//  DECLARE_ASN1_FUNCTIONS(EXTENDED_KEY_USAGE)
-  i2a_ACCESS_DESCRIPTION: function (bp: PBIO; const a: PACCESS_DESCRIPTION): TIdC_INT; cdecl = nil;
-
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(TLS_FEATURE)
-
-//  DECLARE_ASN1_FUNCTIONS(CERTIFICATEPOLICIES)
-//  DECLARE_ASN1_FUNCTIONS(POLICYINFO)
-//  DECLARE_ASN1_FUNCTIONS(POLICYQUALINFO)
-//  DECLARE_ASN1_FUNCTIONS(USERNOTICE)
-//  DECLARE_ASN1_FUNCTIONS(NOTICEREF)
-
-//  DECLARE_ASN1_FUNCTIONS(CRL_DIST_POINTS)
-//  DECLARE_ASN1_FUNCTIONS(DIST_POINT)
-//  DECLARE_ASN1_FUNCTIONS(DIST_POINT_NAME)
-//  DECLARE_ASN1_FUNCTIONS(ISSUING_DIST_POINT)
-
-  DIST_POINT_set_dpname: function (dpn: PDIST_POINT_NAME; iname: PX509_NAME): TIdC_INT; cdecl = nil;
-
-  NAME_CONSTRAINTS_check: function (x: PX509; nc: PNAME_CONSTRAINTS): TIdC_INT; cdecl = nil;
-  NAME_CONSTRAINTS_check_CN: function (x: PX509; nc: PNAME_CONSTRAINTS): TIdC_INT; cdecl = nil;
-
-//  DECLARE_ASN1_FUNCTIONS(ACCESS_DESCRIPTION)
-//  DECLARE_ASN1_FUNCTIONS(AUTHORITY_INFO_ACCESS)
-
-//  DECLARE_ASN1_ITEM(POLICY_MAPPING)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(POLICY_MAPPING)
-//  DECLARE_ASN1_ITEM(POLICY_MAPPINGS)
-
-//  DECLARE_ASN1_ITEM(GENERAL_SUBTREE)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(GENERAL_SUBTREE)
-
-//  DECLARE_ASN1_ITEM(NAME_CONSTRAINTS)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(NAME_CONSTRAINTS)
-
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(POLICY_CONSTRAINTS)
-//  DECLARE_ASN1_ITEM(POLICY_CONSTRAINTS)
-
-  //function a2i_GENERAL_NAME(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; TIdC_INT gen_type; const value: PIdAnsiChar; is_nc: TIdC_INT): GENERAL_NAME;
-
-  //function v2i_GENERAL_NAME(const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE): PGENERAL_NAME;
-  //function v2i_GENERAL_NAME_ex(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE; is_nc: TIdC_INT): PGENERAL_NAME;
-  //procedure X509V3_conf_free(val: PCONF_VALUE);
-
-  X509V3_EXT_nconf_nid: function (conf: PCONF; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION; cdecl = nil;
-  X509V3_EXT_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION; cdecl = nil;
-//  TIdC_INT X509V3_EXT_add_nconf_sk(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; STACK_OF(X509_EXTENSION) **sk);
-  X509V3_EXT_add_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509): TIdC_INT; cdecl = nil;
-  X509V3_EXT_REQ_add_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ): TIdC_INT; cdecl = nil;
-  X509V3_EXT_CRL_add_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL): TIdC_INT; cdecl = nil;
-
-  X509V3_EXT_conf_nid: function (conf: Pointer; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION; cdecl = nil;
-//  X509_EXTENSION *X509V3_EXT_conf_nid(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar);
-  X509V3_EXT_conf: function (conf: Pointer; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION; cdecl = nil;
-//  X509_EXTENSION *X509V3_EXT_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar);
-  X509V3_EXT_add_conf: function (conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509): TIdC_INT; cdecl = nil;
-//  TIdC_INT X509V3_EXT_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509);
-  X509V3_EXT_REQ_add_conf: function (conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ): TIdC_INT; cdecl = nil;
-//  TIdC_INT X509V3_EXT_REQ_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ);
-  X509V3_EXT_CRL_add_conf: function (conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL): TIdC_INT; cdecl = nil;
-//  TIdC_INT X509V3_EXT_CRL_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL);
-
-//  TIdC_INT X509V3_add_value_bool_nf(const name: PIdAnsiChar; TIdC_INT asn1_bool; STACK_OF(CONF_VALUE) **extlist);
-  //function X509V3_get_value_bool(const value: PCONF_VALUE; asn1_bool: PIdC_INT): TIdC_INT;
-  //function X509V3_get_value_int(const value: PCONF_VALUE; aint: PPASN1_INTEGER): TIdC_INT;
+  BASIC_CONSTRAINTS_free: procedure (bc : PBASIC_CONSTRAINTS); cdecl = nil;
+  BASIC_CONSTRAINTS_new: function : PBASIC_CONSTRAINTS; cdecl = nil;
+  AUTHORITY_KEYID_free: procedure (id : AUTHORITY_KEYID); cdecl = nil;
+  AUTHORITY_KEYID_new: function : AUTHORITY_KEYID; cdecl = nil;
+  GENERAL_NAME_free: procedure (a: PGENERAL_NAME); cdecl = nil;
+  GENERAL_NAME_new: function : PGENERAL_NAME; cdecl = nil;
+  GENERAL_NAME_cmp: function (a: PGENERAL_NAME; b: PGENERAL_NAME): TOpenSSL_C_INT; cdecl = nil;
+  GENERAL_NAME_print: function (out_: PBIO; gen: PGENERAL_NAME): TOpenSSL_C_INT; cdecl = nil;
+  GENERAL_NAMES_free: procedure (a: PGENERAL_NAMES); cdecl = nil;
+  GENERAL_NAMES_new: function : PGENERAL_NAMES; cdecl = nil;
+  OTHERNAME_cmp: function (a: POTHERNAME; b: POTHERNAME): TOpenSSL_C_INT; cdecl = nil;
+  GENERAL_NAME_set0_value: procedure (a: PGENERAL_NAME; type_: TOpenSSL_C_INT; value: Pointer); cdecl = nil;
+  GENERAL_NAME_get0_value: function (const a: PGENERAL_NAME; ptype: POpenSSL_C_INT): Pointer; cdecl = nil;
+  GENERAL_NAME_set0_othername: function (gen: PGENERAL_NAME; oid: PASN1_OBJECT; value: PASN1_TYPE): TOpenSSL_C_INT; cdecl = nil;
+  GENERAL_NAME_get0_otherName: function (const gen: PGENERAL_NAME; poid: PPASN1_OBJECT; pvalue: PPASN1_TYPE): TOpenSSL_C_INT; cdecl = nil;
+  i2a_ACCESS_DESCRIPTION: function (bp: PBIO; const a: PACCESS_DESCRIPTION): TOpenSSL_C_INT; cdecl = nil;
+  DIST_POINT_set_dpname: function (dpn: PDIST_POINT_NAME; iname: PX509_NAME): TOpenSSL_C_INT; cdecl = nil;
+  NAME_CONSTRAINTS_check: function (x: PX509; nc: PNAME_CONSTRAINTS): TOpenSSL_C_INT; cdecl = nil;
+  NAME_CONSTRAINTS_check_CN: function (x: PX509; nc: PNAME_CONSTRAINTS): TOpenSSL_C_INT; cdecl = nil;
+  X509V3_EXT_nconf_nid: function (conf: PCONF; ctx: PX509V3_CTX; ext_nid: TOpenSSL_C_INT; const value: PAnsiChar): PX509_EXTENSION; cdecl = nil;
+  X509V3_EXT_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const name: PAnsiChar; const value: PAnsiChar): PX509_EXTENSION; cdecl = nil;
+  X509V3_EXT_add_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const section: PAnsiChar; cert: PX509): TOpenSSL_C_INT; cdecl = nil;
+  X509V3_EXT_REQ_add_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const section: PAnsiChar; req: PX509_REQ): TOpenSSL_C_INT; cdecl = nil;
+  X509V3_EXT_CRL_add_nconf: function (conf: PCONF; ctx: PX509V3_CTX; const section: PAnsiChar; crl: PX509_CRL): TOpenSSL_C_INT; cdecl = nil;
+  X509V3_EXT_conf_nid: function (conf: Pointer; ctx: PX509V3_CTX; ext_nid: TOpenSSL_C_INT; const value: PAnsiChar): PX509_EXTENSION; cdecl = nil;
+  X509V3_EXT_conf: function (conf: Pointer; ctx: PX509V3_CTX; const name: PAnsiChar; const value: PAnsiChar): PX509_EXTENSION; cdecl = nil;
+  X509V3_EXT_add_conf: function (conf: Pointer; ctx: PX509V3_CTX; const section: PAnsiChar; cert: PX509): TOpenSSL_C_INT; cdecl = nil;
+  X509V3_EXT_REQ_add_conf: function (conf: Pointer; ctx: PX509V3_CTX; const section: PAnsiChar; req: PX509_REQ): TOpenSSL_C_INT; cdecl = nil;
+  X509V3_EXT_CRL_add_conf: function (conf: Pointer; ctx: PX509V3_CTX; const section: PAnsiChar; crl: PX509_CRL): TOpenSSL_C_INT; cdecl = nil;
   X509V3_set_nconf: procedure (ctx: PX509V3_CTX; conf: PCONF); cdecl = nil;
-//  void X509V3_set_conf_lhash(ctx: PX509V3_CTX; LHASH_OF(CONF_VALUE) *lhash);
-
-  X509V3_get_string: function (ctx: PX509V3_CTX; const name: PIdAnsiChar; const section: PIdAnsiChar): PIdAnsiChar; cdecl = nil;
-//  STACK_OF(CONF_VALUE) *X509V3_get_section(ctx: PX509V3_CTX; const section: PIdAnsiChar);
-  X509V3_string_free: procedure (ctx: PX509V3_CTX; str: PIdAnsiChar); cdecl = nil;
-//  void X509V3_section_free(ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *section);
-  X509V3_set_ctx: procedure (ctx: PX509V3_CTX; issuer: PX509; subject: PX509; req: PX509_REQ; crl: PX509_CRL; flags: TIdC_INT); cdecl = nil;
-
-//  TIdC_INT X509V3_add_value(const name: PIdAnsiChar; const value: PIdAnsiChar; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_uPIdAnsiChar(const name: PIdAnsiChar; const Byte *value; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_bool(const name: PIdAnsiChar; TIdC_INT asn1_bool; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_int(const name: PIdAnsiChar; const aint: PASN1_INTEGER; STACK_OF(CONF_VALUE) **extlist);
-  //function i2s_ASN1_INTEGER(meth: PX509V3_EXT_METHOD; const aint: PASN1_INTEGER): PIdAnsiChar;
-  //function s2i_ASN1_INTEGER(meth: PX509V3_EXT_METHOD; const value: PIdAnsiChar): PASN1_INTEGER;
-  //function i2s_ASN1_ENUMERATED(meth: PX509V3_EXT_METHOD; const aint: PASN1_ENUMERATED): PIdAnsiChar;
-  //function i2s_ASN1_ENUMERATED_TABLE(meth: PX509V3_EXT_METHOD; const aint: PASN1_ENUMERATED): PIdAnsiChar;
-  //function X509V3_EXT_add(ext: PX509V3_EXT_METHOD): TIdC_INT;
-  //function X509V3_EXT_add_list(extlist: PX509V3_EXT_METHOD): TIdC_INT;
-  X509V3_EXT_add_alias: function (nid_to: TIdC_INT; nid_from: TIdC_INT): TIdC_INT; cdecl = nil;
+  X509V3_get_string: function (ctx: PX509V3_CTX; const name: PAnsiChar; const section: PAnsiChar): PAnsiChar; cdecl = nil;
+  X509V3_string_free: procedure (ctx: PX509V3_CTX; str: PAnsiChar); cdecl = nil;
+  X509V3_set_ctx: procedure (ctx: PX509V3_CTX; issuer: PX509; subject: PX509; req: PX509_REQ; crl: PX509_CRL; flags: TOpenSSL_C_INT); cdecl = nil;
+  X509V3_EXT_add_alias: function (nid_to: TOpenSSL_C_INT; nid_from: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
   X509V3_EXT_cleanup: procedure ; cdecl = nil;
-
-  //function X509V3_EXT_get(ext: PX509_EXTENSION): PX509V3_EXT_METHOD;
-  //function X509V3_EXT_get_nid(nid: TIdC_INT): PX509V3_EXT_METHOD;
-  X509V3_add_standard_extensions: function : TIdC_INT; cdecl = nil;
-//  STACK_OF(CONF_VALUE) *X509V3_parse_list(const line: PIdAnsiChar);
+  X509V3_add_standard_extensions: function : TOpenSSL_C_INT; cdecl = nil;
   X509V3_EXT_d2i: function (ext: PX509_EXTENSION): Pointer; cdecl = nil;
-//  void *X509V3_get_d2i(const STACK_OF(X509_EXTENSION) *x; nid: TIdC_INT; TIdC_INT *crit; TIdC_INT *idx);
-
-  X509V3_EXT_i2d: function (ext_nid: TIdC_INT; crit: TIdC_INT; ext_struc: Pointer): PX509_EXTENSION; cdecl = nil;
-//  TIdC_INT X509V3_add1_i2d(STACK_OF(X509_EXTENSION) **x; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; TIdC_ULONG flags);
-
-//  void X509V3_EXT_val_prn(out_: PBIO; STACK_OF(CONF_VALUE) *val; indent: TIdC_INT; TIdC_INT ml);
-  X509V3_EXT_print: function (out_: PBIO; ext: PX509_EXTENSION; flag: TIdC_ULONG; indent: TIdC_INT): TIdC_INT; cdecl = nil;
-//  TIdC_INT X509V3_extensions_print(out_: PBIO; const PIdAnsiChar *title; const STACK_OF(X509_EXTENSION) *exts; flag: TIdC_ULONG; indent: TIdC_INT);
-
-  X509_check_ca: function (x: PX509): TIdC_INT; cdecl = nil;
-  X509_check_purpose: function (x: PX509; id: TIdC_INT; ca: TIdC_INT): TIdC_INT; cdecl = nil;
-  X509_supported_extension: function (ex: PX509_EXTENSION): TIdC_INT; cdecl = nil;
-  X509_PURPOSE_set: function (p: PIdC_INT; purpose: TIdC_INT): TIdC_INT; cdecl = nil;
-  X509_check_issued: function (issuer: PX509; subject: PX509): TIdC_INT; cdecl = nil;
-  X509_check_akid: function (issuer: PX509; akid: PAUTHORITY_KEYID): TIdC_INT; cdecl = nil;
+  X509V3_EXT_i2d: function (ext_nid: TOpenSSL_C_INT; crit: TOpenSSL_C_INT; ext_struc: Pointer): PX509_EXTENSION; cdecl = nil;
+  X509V3_EXT_print: function (out_: PBIO; ext: PX509_EXTENSION; flag: TOpenSSL_C_ULONG; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  X509_check_ca: function (x: PX509): TOpenSSL_C_INT; cdecl = nil;
+  X509_check_purpose: function (x: PX509; id: TOpenSSL_C_INT; ca: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  X509_supported_extension: function (ex: PX509_EXTENSION): TOpenSSL_C_INT; cdecl = nil;
+  X509_PURPOSE_set: function (p: POpenSSL_C_INT; purpose: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  X509_check_issued: function (issuer: PX509; subject: PX509): TOpenSSL_C_INT; cdecl = nil;
+  X509_check_akid: function (issuer: PX509; akid: PAUTHORITY_KEYID): TOpenSSL_C_INT; cdecl = nil;
   X509_set_proxy_flag: procedure (x: PX509); cdecl = nil;
-  X509_set_proxy_pathlen: procedure (x: PX509; l: TIdC_LONG); cdecl = nil;
-  X509_get_proxy_pathlen: function (x: PX509): TIdC_LONG; cdecl = nil;
-
-  X509_get_extension_flags: function (x: PX509): TIdC_UINT32; cdecl = nil;
-  X509_get_key_usage: function (x: PX509): TIdC_UINT32; cdecl = nil;
-  X509_get_extended_key_usage: function (x: PX509): TIdC_UINT32; cdecl = nil;
+  X509_set_proxy_pathlen: procedure (x: PX509; l: TOpenSSL_C_LONG); cdecl = nil;
+  X509_get_proxy_pathlen: function (x: PX509): TOpenSSL_C_LONG; cdecl = nil;
+  X509_get_extension_flags: function (x: PX509): TOpenSSL_C_UINT32; cdecl = nil;
+  X509_get_key_usage: function (x: PX509): TOpenSSL_C_UINT32; cdecl = nil;
+  X509_get_extended_key_usage: function (x: PX509): TOpenSSL_C_UINT32; cdecl = nil;
   X509_get0_subject_key_id: function (x: PX509): PASN1_OCTET_STRING; cdecl = nil;
   X509_get0_authority_key_id: function (x: PX509): PASN1_OCTET_STRING; cdecl = nil;
-  //function X509_get0_authority_issuer(x: PX509): PGENERAL_NAMES;
   X509_get0_authority_serial: function (x: PX509): PASN1_INTEGER; cdecl = nil;
-
-  X509_PURPOSE_get_count: function : TIdC_INT; cdecl = nil;
-  X509_PURPOSE_get0: function (idx: TIdC_INT): PX509_PURPOSE; cdecl = nil;
-  X509_PURPOSE_get_by_sname: function (const sname: PIdAnsiChar): TIdC_INT; cdecl = nil;
-  X509_PURPOSE_get_by_id: function (id: TIdC_INT): TIdC_INT; cdecl = nil;
-//  TIdC_INT X509_PURPOSE_add(id: TIdC_INT, TIdC_INT trust, flags: TIdC_INT, TIdC_INT (*ck) (const X509_PURPOSE *, const X509 *, TIdC_INT), const name: PIdAnsiChar, const sname: PIdAnsiChar, void *arg);
-  X509_PURPOSE_get0_name: function (const xp: PX509_PURPOSE): PIdAnsiChar; cdecl = nil;
-  X509_PURPOSE_get0_sname: function (const xp: PX509_PURPOSE): PIdAnsiChar; cdecl = nil;
-  X509_PURPOSE_get_trust: function (const xp: PX509_PURPOSE): TIdC_INT; cdecl = nil;
+  X509_PURPOSE_get_count: function : TOpenSSL_C_INT; cdecl = nil;
+  X509_PURPOSE_get0: function (idx: TOpenSSL_C_INT): PX509_PURPOSE; cdecl = nil;
+  X509_PURPOSE_get_by_sname: function (const sname: PAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  X509_PURPOSE_get_by_id: function (id: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  X509_PURPOSE_get0_name: function (const xp: PX509_PURPOSE): PAnsiChar; cdecl = nil;
+  X509_PURPOSE_get0_sname: function (const xp: PX509_PURPOSE): PAnsiChar; cdecl = nil;
+  X509_PURPOSE_get_trust: function (const xp: PX509_PURPOSE): TOpenSSL_C_INT; cdecl = nil;
   X509_PURPOSE_cleanup: procedure ; cdecl = nil;
-  X509_PURPOSE_get_id: function (const v1: PX509_PURPOSE): TIdC_INT; cdecl = nil;
-
-//  STACK_OF(OPENSSL_STRING) *X509_get1_email(x: PX509);
-//  STACK_OF(OPENSSL_STRING) *X509_REQ_get1_email(X509_REQ *x);
-//  void X509_email_free(STACK_OF(OPENSSL_STRING) *sk);
-//  STACK_OF(OPENSSL_STRING) *X509_get1_ocsp(x: PX509);
-
-  X509_check_host: function (x: PX509; const chk: PIdAnsiChar; chklen: TIdC_SIZET; flags: TIdC_UINT; peername: PPIdAnsiChar): TIdC_INT; cdecl = nil;
-  X509_check_email: function (x: PX509; const chk: PIdAnsiChar; chklen: TIdC_SIZET; flags: TIdC_UINT): TIdC_INT; cdecl = nil;
-  X509_check_ip: function (x: PX509; const chk: PByte; chklen: TIdC_SIZET; flags: TIdC_UINT): TIdC_INT; cdecl = nil;
-  X509_check_ip_asc: function (x: PX509; const ipasc: PIdAnsiChar; flags: TIdC_UINT): TIdC_INT; cdecl = nil;
-
-  a2i_IPADDRESS: function (const ipasc: PIdAnsiChar): PASN1_OCTET_STRING; cdecl = nil;
-  a2i_IPADDRESS_NC: function (const ipasc: PIdAnsiChar): PASN1_OCTET_STRING; cdecl = nil;
-//  TIdC_INT X509V3_NAME_from_section(X509_NAME *nm; STACK_OF(CONF_VALUE) *dn_sk; TIdC_ULONG chtype);
-
-  X509_POLICY_NODE_print: procedure (out_: PBIO; node: PX509_POLICY_NODE; indent: TIdC_INT); cdecl = nil;
-//  DEFINE_STACK_OF(X509_POLICY_NODE)
-
-  (*
-   * Utilities to construct and extract values from RFC3779 extensions,
-   * since some of the encodings (particularly for IP address prefixes
-   * and ranges) are a bit tedious to work with directly.
-   *)
-  //function X509v3_asid_add_inherit(asid: PASIdentifiers; which: TIdC_INT): TIdC_INT;
-  //function X509v3_asid_add_id_or_range(asid: PASIdentifiers; which: TIdC_INT; min: PASN1_INTEGER; max: PASN1_INTEGER): TIdC_INT;
-  //function X509v3_addr_add_inherit(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
-  //function X509v3_addr_add_prefix(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
-  //function X509v3_addr_add_range(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
-  //function X509v3_addr_get_afi(const f: PIPAddressFamily): TIdC_UINT;
-  X509v3_addr_get_range: function (aor: PIPAddressOrRange; const afi: TIdC_UINT; min: PByte; max: Byte; const length: TIdC_INT): TIdC_INT; cdecl = nil;
-
-  (*
-   * Canonical forms.
-   *)
-  //function X509v3_asid_is_canonical(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_is_canonical(addr: PIPAddrBlocks): TIdC_INT;
-  //function X509v3_asid_canonize(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_canonize(addr: PIPAddrBlocks): TIdC_INT;
-
-  (*
-   * Tests for inheritance and containment.
-   *)
-  //function X509v3_asid_inherits(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_inherits(addr: PIPAddrBlocks): TIdC_INT;
-  //function X509v3_asid_subset(a: PASIdentifiers; b: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_subset(a: PIPAddrBlocks; b: PIPAddrBlocks): TIdC_INT;
-
-  (*
-   * Check whether RFC 3779 extensions nest properly in chains.
-   *)
-  X509v3_asid_validate_path: function (v1: PX509_STORE_CTX): TIdC_INT; cdecl = nil;
-  X509v3_addr_validate_path: function (v1: PX509_STORE_CTX): TIdC_INT; cdecl = nil;
-//  TIdC_INT X509v3_asid_validate_resource_set(STACK_OF(X509) *chain; ASIdentifiers *ext; TIdC_INT allow_inheritance);
-//  TIdC_INT X509v3_addr_validate_resource_set(STACK_OF(X509) *chain; IPAddrBlocks *ext; TIdC_INT allow_inheritance);
-
-
-//  DEFINE_STACK_OF(ASN1_STRING)
-
-  (*
-   * Admission Syntax
-   *)
+  X509_PURPOSE_get_id: function (const v1: PX509_PURPOSE): TOpenSSL_C_INT; cdecl = nil;
+  X509_get1_email: function (x: PX509): PSTACK_OF_OPENSSL_STRING; cdecl = nil;
+  X509_REQ_get1_email: function ( x : PX509_REQ): PSTACK_OF_OPENSSL_STRING; cdecl = nil;
+  X509_email_free: procedure (sk : PSTACK_OF_OPENSSL_STRING); cdecl = nil;
+  X509_get1_ocsp: function (x: PX509): PSTACK_OF_OPENSSL_STRING; cdecl = nil;
+  X509_check_host: function (x: PX509; const chk: PAnsiChar; chklen: TOpenSSL_C_SIZET; flags: TOpenSSL_C_UINT; peername: PPAnsiChar): TOpenSSL_C_INT; cdecl = nil;
+  X509_check_email: function (x: PX509; const chk: PAnsiChar; chklen: TOpenSSL_C_SIZET; flags: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl = nil;
+  X509_check_ip: function (x: PX509; const chk: PByte; chklen: TOpenSSL_C_SIZET; flags: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl = nil;
+  X509_check_ip_asc: function (x: PX509; const ipasc: PAnsiChar; flags: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl = nil;
+  a2i_IPADDRESS: function (const ipasc: PAnsiChar): PASN1_OCTET_STRING; cdecl = nil;
+  a2i_IPADDRESS_NC: function (const ipasc: PAnsiChar): PASN1_OCTET_STRING; cdecl = nil;
+  X509_POLICY_NODE_print: procedure (out_: PBIO; node: PX509_POLICY_NODE; indent: TOpenSSL_C_INT); cdecl = nil;
+  X509v3_addr_get_range: function (aor: PIPAddressOrRange; const afi: TOpenSSL_C_UINT; min: PByte; max: Byte; const length: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = nil;
+  X509v3_asid_validate_path: function (v1: PX509_STORE_CTX): TOpenSSL_C_INT; cdecl = nil;
+  X509v3_addr_validate_path: function (v1: PX509_STORE_CTX): TOpenSSL_C_INT; cdecl = nil;
   NAMING_AUTHORITY_get0_authorityId: function (const n: PNAMING_AUTHORITY): PASN1_OBJECT; cdecl = nil;
   NAMING_AUTHORITY_get0_authorityURL: function (const n: PNAMING_AUTHORITY): PASN1_IA5STRING; cdecl = nil;
   NAMING_AUTHORITY_get0_authorityText: function (const n: PNAMING_AUTHORITY): PASN1_STRING; cdecl = nil;
   NAMING_AUTHORITY_set0_authorityId: procedure (n: PNAMING_AUTHORITY; namingAuthorityId: PASN1_OBJECT); cdecl = nil;
   NAMING_AUTHORITY_set0_authorityURL: procedure (n: PNAMING_AUTHORITY; namingAuthorityUrl: PASN1_IA5STRING); cdecl = nil;
   NAMING_AUTHORITY_set0_authorityText: procedure (n: PNAMING_AUTHORITY; namingAuthorityText: PASN1_STRING); cdecl = nil;
-
   ADMISSION_SYNTAX_get0_admissionAuthority: function (const as_: ADMISSION_SYNTAX): PGENERAL_NAME; cdecl = nil;
   ADMISSION_SYNTAX_set0_admissionAuthority: procedure (as_: ADMISSION_SYNTAX; aa: PGENERAL_NAME); cdecl = nil;
-//  const STACK_OF(ADMISSIONS) *ADMISSION_SYNTAX_get0_contentsOfAdmissions(const as_: ADMISSION_SYNTAX);
-//  void ADMISSION_SYNTAX_set0_contentsOfAdmissions(as_: ADMISSION_SYNTAX; STACK_OF(ADMISSIONS) *a);
   ADMISSIONS_get0_admissionAuthority: function (const a: PADMISSIONS): PGENERAL_NAME; cdecl = nil;
   ADMISSIONS_set0_admissionAuthority: procedure (a: PADMISSIONS; aa: PGENERAL_NAME); cdecl = nil;
   ADMISSIONS_get0_namingAuthority: function (const a: PADMISSIONS): PNAMING_AUTHORITY; cdecl = nil;
   ADMISSIONS_set0_namingAuthority: procedure (a: PADMISSIONS; na: PNAMING_AUTHORITY); cdecl = nil;
-  //function ADMISSIONS_get0_professionInfos(const a: PADMISSIONS): PPROFESSION_INFOS;
-  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; pi: PPROFESSION_INFOS);
   PROFESSION_INFO_get0_addProfessionInfo: function (const pi: PPROFESSION_INFO): PASN1_OCTET_STRING; cdecl = nil;
   PROFESSION_INFO_set0_addProfessionInfo: procedure (pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING); cdecl = nil;
   PROFESSION_INFO_get0_namingAuthority: function (const pi: PPROFESSION_INFO): PNAMING_AUTHORITY; cdecl = nil;
   PROFESSION_INFO_set0_namingAuthority: procedure (pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY); cdecl = nil;
-//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionItems(pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
-//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionOIDs(pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
   PROFESSION_INFO_get0_registrationNumber: function (const pi: PPROFESSION_INFO): PASN1_PRINTABLESTRING; cdecl = nil;
   PROFESSION_INFO_set0_registrationNumber: procedure (pi: PPROFESSION_INFO; rn: PASN1_PRINTABLESTRING); cdecl = nil;
-
-
-{$ELSE}
-  function GENERAL_NAME_cmp(a: PGENERAL_NAME; b: PGENERAL_NAME): TIdC_INT cdecl; external CLibCrypto;
-
-//  ASN1_BIT_STRING *v2i_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *nval);
-//  STACK_OF(CONF_VALUE) *i2v_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ASN1_BIT_STRING *bits; STACK_OF(CONF_VALUE) *extlist);
-  //function i2s_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ia5: PASN1_IA5STRING): PIdAnsiChar;
-  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_IA5STRING;
-
-//  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAME(method: PX509V3_EXT_METHOD; gen: PGENERAL_NAME; STACK_OF(CONF_VALUE) *ret);
-  function GENERAL_NAME_print(out_: PBIO; gen: PGENERAL_NAME): TIdC_INT cdecl; external CLibCrypto;
-
-//  DECLARE_ASN1_FUNCTIONS(GENERAL_NAMES)
-
-//  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAMES(method: PX509V3_EXT_METHOD, GENERAL_NAMES *gen, STACK_OF(CONF_VALUE) *extlist);
-//  GENERAL_NAMES *v2i_GENERAL_NAMES(const method: PX509V3_EXT_METHOD, ctx: PX509V3_CTX, STACK_OF(CONF_VALUE) *nval);
-
-//  DECLARE_ASN1_FUNCTIONS(OTHERNAME)
-//  DECLARE_ASN1_FUNCTIONS(EDIPARTYNAME)
-  function OTHERNAME_cmp(a: POTHERNAME; b: POTHERNAME): TIdC_INT cdecl; external CLibCrypto;
-  procedure GENERAL_NAME_set0_value(a: PGENERAL_NAME; type_: TIdC_INT; value: Pointer) cdecl; external CLibCrypto;
-  function GENERAL_NAME_get0_value(const a: PGENERAL_NAME; ptype: PIdC_INT): Pointer cdecl; external CLibCrypto;
-  function GENERAL_NAME_set0_othername(gen: PGENERAL_NAME; oid: PASN1_OBJECT; value: PASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
-  function GENERAL_NAME_get0_otherName(const gen: PGENERAL_NAME; poid: PPASN1_OBJECT; pvalue: PPASN1_TYPE): TIdC_INT cdecl; external CLibCrypto;
-
-  //function i2s_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; const ia5: PASN1_OCTET_STRING): PIdAnsiChar;
-  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_OCTET_STRING;
-
-//  DECLARE_ASN1_FUNCTIONS(EXTENDED_KEY_USAGE)
-  function i2a_ACCESS_DESCRIPTION(bp: PBIO; const a: PACCESS_DESCRIPTION): TIdC_INT cdecl; external CLibCrypto;
-
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(TLS_FEATURE)
-
-//  DECLARE_ASN1_FUNCTIONS(CERTIFICATEPOLICIES)
-//  DECLARE_ASN1_FUNCTIONS(POLICYINFO)
-//  DECLARE_ASN1_FUNCTIONS(POLICYQUALINFO)
-//  DECLARE_ASN1_FUNCTIONS(USERNOTICE)
-//  DECLARE_ASN1_FUNCTIONS(NOTICEREF)
-
-//  DECLARE_ASN1_FUNCTIONS(CRL_DIST_POINTS)
-//  DECLARE_ASN1_FUNCTIONS(DIST_POINT)
-//  DECLARE_ASN1_FUNCTIONS(DIST_POINT_NAME)
-//  DECLARE_ASN1_FUNCTIONS(ISSUING_DIST_POINT)
-
-  function DIST_POINT_set_dpname(dpn: PDIST_POINT_NAME; iname: PX509_NAME): TIdC_INT cdecl; external CLibCrypto;
-
-  function NAME_CONSTRAINTS_check(x: PX509; nc: PNAME_CONSTRAINTS): TIdC_INT cdecl; external CLibCrypto;
-  function NAME_CONSTRAINTS_check_CN(x: PX509; nc: PNAME_CONSTRAINTS): TIdC_INT cdecl; external CLibCrypto;
-
-//  DECLARE_ASN1_FUNCTIONS(ACCESS_DESCRIPTION)
-//  DECLARE_ASN1_FUNCTIONS(AUTHORITY_INFO_ACCESS)
-
-//  DECLARE_ASN1_ITEM(POLICY_MAPPING)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(POLICY_MAPPING)
-//  DECLARE_ASN1_ITEM(POLICY_MAPPINGS)
-
-//  DECLARE_ASN1_ITEM(GENERAL_SUBTREE)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(GENERAL_SUBTREE)
-
-//  DECLARE_ASN1_ITEM(NAME_CONSTRAINTS)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(NAME_CONSTRAINTS)
-
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(POLICY_CONSTRAINTS)
-//  DECLARE_ASN1_ITEM(POLICY_CONSTRAINTS)
-
-  //function a2i_GENERAL_NAME(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; TIdC_INT gen_type; const value: PIdAnsiChar; is_nc: TIdC_INT): GENERAL_NAME;
-
-  //function v2i_GENERAL_NAME(const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE): PGENERAL_NAME;
-  //function v2i_GENERAL_NAME_ex(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE; is_nc: TIdC_INT): PGENERAL_NAME;
-  //procedure X509V3_conf_free(val: PCONF_VALUE);
-
-  function X509V3_EXT_nconf_nid(conf: PCONF; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION cdecl; external CLibCrypto;
-  function X509V3_EXT_nconf(conf: PCONF; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION cdecl; external CLibCrypto;
-//  TIdC_INT X509V3_EXT_add_nconf_sk(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; STACK_OF(X509_EXTENSION) **sk);
-  function X509V3_EXT_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509): TIdC_INT cdecl; external CLibCrypto;
-  function X509V3_EXT_REQ_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ): TIdC_INT cdecl; external CLibCrypto;
-  function X509V3_EXT_CRL_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL): TIdC_INT cdecl; external CLibCrypto;
-
-  function X509V3_EXT_conf_nid(conf: Pointer; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION cdecl; external CLibCrypto;
-//  X509_EXTENSION *X509V3_EXT_conf_nid(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar);
-  function X509V3_EXT_conf(conf: Pointer; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION cdecl; external CLibCrypto;
-//  X509_EXTENSION *X509V3_EXT_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar);
-  function X509V3_EXT_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509): TIdC_INT cdecl; external CLibCrypto;
-//  TIdC_INT X509V3_EXT_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509);
-  function X509V3_EXT_REQ_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ): TIdC_INT cdecl; external CLibCrypto;
-//  TIdC_INT X509V3_EXT_REQ_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ);
-  function X509V3_EXT_CRL_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL): TIdC_INT cdecl; external CLibCrypto;
-//  TIdC_INT X509V3_EXT_CRL_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL);
-
-//  TIdC_INT X509V3_add_value_bool_nf(const name: PIdAnsiChar; TIdC_INT asn1_bool; STACK_OF(CONF_VALUE) **extlist);
-  //function X509V3_get_value_bool(const value: PCONF_VALUE; asn1_bool: PIdC_INT): TIdC_INT;
-  //function X509V3_get_value_int(const value: PCONF_VALUE; aint: PPASN1_INTEGER): TIdC_INT;
-  procedure X509V3_set_nconf(ctx: PX509V3_CTX; conf: PCONF) cdecl; external CLibCrypto;
-//  void X509V3_set_conf_lhash(ctx: PX509V3_CTX; LHASH_OF(CONF_VALUE) *lhash);
-
-  function X509V3_get_string(ctx: PX509V3_CTX; const name: PIdAnsiChar; const section: PIdAnsiChar): PIdAnsiChar cdecl; external CLibCrypto;
-//  STACK_OF(CONF_VALUE) *X509V3_get_section(ctx: PX509V3_CTX; const section: PIdAnsiChar);
-  procedure X509V3_string_free(ctx: PX509V3_CTX; str: PIdAnsiChar) cdecl; external CLibCrypto;
-//  void X509V3_section_free(ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *section);
-  procedure X509V3_set_ctx(ctx: PX509V3_CTX; issuer: PX509; subject: PX509; req: PX509_REQ; crl: PX509_CRL; flags: TIdC_INT) cdecl; external CLibCrypto;
-
-//  TIdC_INT X509V3_add_value(const name: PIdAnsiChar; const value: PIdAnsiChar; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_uPIdAnsiChar(const name: PIdAnsiChar; const Byte *value; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_bool(const name: PIdAnsiChar; TIdC_INT asn1_bool; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_int(const name: PIdAnsiChar; const aint: PASN1_INTEGER; STACK_OF(CONF_VALUE) **extlist);
-  //function i2s_ASN1_INTEGER(meth: PX509V3_EXT_METHOD; const aint: PASN1_INTEGER): PIdAnsiChar;
-  //function s2i_ASN1_INTEGER(meth: PX509V3_EXT_METHOD; const value: PIdAnsiChar): PASN1_INTEGER;
-  //function i2s_ASN1_ENUMERATED(meth: PX509V3_EXT_METHOD; const aint: PASN1_ENUMERATED): PIdAnsiChar;
-  //function i2s_ASN1_ENUMERATED_TABLE(meth: PX509V3_EXT_METHOD; const aint: PASN1_ENUMERATED): PIdAnsiChar;
-  //function X509V3_EXT_add(ext: PX509V3_EXT_METHOD): TIdC_INT;
-  //function X509V3_EXT_add_list(extlist: PX509V3_EXT_METHOD): TIdC_INT;
-  function X509V3_EXT_add_alias(nid_to: TIdC_INT; nid_from: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  procedure X509V3_EXT_cleanup cdecl; external CLibCrypto;
-
-  //function X509V3_EXT_get(ext: PX509_EXTENSION): PX509V3_EXT_METHOD;
-  //function X509V3_EXT_get_nid(nid: TIdC_INT): PX509V3_EXT_METHOD;
-  function X509V3_add_standard_extensions: TIdC_INT cdecl; external CLibCrypto;
-//  STACK_OF(CONF_VALUE) *X509V3_parse_list(const line: PIdAnsiChar);
-  function X509V3_EXT_d2i(ext: PX509_EXTENSION): Pointer cdecl; external CLibCrypto;
-//  void *X509V3_get_d2i(const STACK_OF(X509_EXTENSION) *x; nid: TIdC_INT; TIdC_INT *crit; TIdC_INT *idx);
-
-  function X509V3_EXT_i2d(ext_nid: TIdC_INT; crit: TIdC_INT; ext_struc: Pointer): PX509_EXTENSION cdecl; external CLibCrypto;
-//  TIdC_INT X509V3_add1_i2d(STACK_OF(X509_EXTENSION) **x; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; TIdC_ULONG flags);
-
-//  void X509V3_EXT_val_prn(out_: PBIO; STACK_OF(CONF_VALUE) *val; indent: TIdC_INT; TIdC_INT ml);
-  function X509V3_EXT_print(out_: PBIO; ext: PX509_EXTENSION; flag: TIdC_ULONG; indent: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-//  TIdC_INT X509V3_extensions_print(out_: PBIO; const PIdAnsiChar *title; const STACK_OF(X509_EXTENSION) *exts; flag: TIdC_ULONG; indent: TIdC_INT);
-
-  function X509_check_ca(x: PX509): TIdC_INT cdecl; external CLibCrypto;
-  function X509_check_purpose(x: PX509; id: TIdC_INT; ca: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function X509_supported_extension(ex: PX509_EXTENSION): TIdC_INT cdecl; external CLibCrypto;
-  function X509_PURPOSE_set(p: PIdC_INT; purpose: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-  function X509_check_issued(issuer: PX509; subject: PX509): TIdC_INT cdecl; external CLibCrypto;
-  function X509_check_akid(issuer: PX509; akid: PAUTHORITY_KEYID): TIdC_INT cdecl; external CLibCrypto;
-  procedure X509_set_proxy_flag(x: PX509) cdecl; external CLibCrypto;
-  procedure X509_set_proxy_pathlen(x: PX509; l: TIdC_LONG) cdecl; external CLibCrypto;
-  function X509_get_proxy_pathlen(x: PX509): TIdC_LONG cdecl; external CLibCrypto;
-
-  function X509_get_extension_flags(x: PX509): TIdC_UINT32 cdecl; external CLibCrypto;
-  function X509_get_key_usage(x: PX509): TIdC_UINT32 cdecl; external CLibCrypto;
-  function X509_get_extended_key_usage(x: PX509): TIdC_UINT32 cdecl; external CLibCrypto;
-  function X509_get0_subject_key_id(x: PX509): PASN1_OCTET_STRING cdecl; external CLibCrypto;
-  function X509_get0_authority_key_id(x: PX509): PASN1_OCTET_STRING cdecl; external CLibCrypto;
-  //function X509_get0_authority_issuer(x: PX509): PGENERAL_NAMES;
-  function X509_get0_authority_serial(x: PX509): PASN1_INTEGER cdecl; external CLibCrypto;
-
-  function X509_PURPOSE_get_count: TIdC_INT cdecl; external CLibCrypto;
-  function X509_PURPOSE_get0(idx: TIdC_INT): PX509_PURPOSE cdecl; external CLibCrypto;
-  function X509_PURPOSE_get_by_sname(const sname: PIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function X509_PURPOSE_get_by_id(id: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-//  TIdC_INT X509_PURPOSE_add(id: TIdC_INT, TIdC_INT trust, flags: TIdC_INT, TIdC_INT (*ck) (const X509_PURPOSE *, const X509 *, TIdC_INT), const name: PIdAnsiChar, const sname: PIdAnsiChar, void *arg);
-  function X509_PURPOSE_get0_name(const xp: PX509_PURPOSE): PIdAnsiChar cdecl; external CLibCrypto;
-  function X509_PURPOSE_get0_sname(const xp: PX509_PURPOSE): PIdAnsiChar cdecl; external CLibCrypto;
-  function X509_PURPOSE_get_trust(const xp: PX509_PURPOSE): TIdC_INT cdecl; external CLibCrypto;
-  procedure X509_PURPOSE_cleanup cdecl; external CLibCrypto;
-  function X509_PURPOSE_get_id(const v1: PX509_PURPOSE): TIdC_INT cdecl; external CLibCrypto;
-
-//  STACK_OF(OPENSSL_STRING) *X509_get1_email(x: PX509);
-//  STACK_OF(OPENSSL_STRING) *X509_REQ_get1_email(X509_REQ *x);
-//  void X509_email_free(STACK_OF(OPENSSL_STRING) *sk);
-//  STACK_OF(OPENSSL_STRING) *X509_get1_ocsp(x: PX509);
-
-  function X509_check_host(x: PX509; const chk: PIdAnsiChar; chklen: TIdC_SIZET; flags: TIdC_UINT; peername: PPIdAnsiChar): TIdC_INT cdecl; external CLibCrypto;
-  function X509_check_email(x: PX509; const chk: PIdAnsiChar; chklen: TIdC_SIZET; flags: TIdC_UINT): TIdC_INT cdecl; external CLibCrypto;
-  function X509_check_ip(x: PX509; const chk: PByte; chklen: TIdC_SIZET; flags: TIdC_UINT): TIdC_INT cdecl; external CLibCrypto;
-  function X509_check_ip_asc(x: PX509; const ipasc: PIdAnsiChar; flags: TIdC_UINT): TIdC_INT cdecl; external CLibCrypto;
-
-  function a2i_IPADDRESS(const ipasc: PIdAnsiChar): PASN1_OCTET_STRING cdecl; external CLibCrypto;
-  function a2i_IPADDRESS_NC(const ipasc: PIdAnsiChar): PASN1_OCTET_STRING cdecl; external CLibCrypto;
-//  TIdC_INT X509V3_NAME_from_section(X509_NAME *nm; STACK_OF(CONF_VALUE) *dn_sk; TIdC_ULONG chtype);
-
-  procedure X509_POLICY_NODE_print(out_: PBIO; node: PX509_POLICY_NODE; indent: TIdC_INT) cdecl; external CLibCrypto;
-//  DEFINE_STACK_OF(X509_POLICY_NODE)
-
-  (*
-   * Utilities to construct and extract values from RFC3779 extensions,
-   * since some of the encodings (particularly for IP address prefixes
-   * and ranges) are a bit tedious to work with directly.
-   *)
-  //function X509v3_asid_add_inherit(asid: PASIdentifiers; which: TIdC_INT): TIdC_INT;
-  //function X509v3_asid_add_id_or_range(asid: PASIdentifiers; which: TIdC_INT; min: PASN1_INTEGER; max: PASN1_INTEGER): TIdC_INT;
-  //function X509v3_addr_add_inherit(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
-  //function X509v3_addr_add_prefix(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
-  //function X509v3_addr_add_range(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
-  //function X509v3_addr_get_afi(const f: PIPAddressFamily): TIdC_UINT;
-  function X509v3_addr_get_range(aor: PIPAddressOrRange; const afi: TIdC_UINT; min: PByte; max: Byte; const length: TIdC_INT): TIdC_INT cdecl; external CLibCrypto;
-
-  (*
-   * Canonical forms.
-   *)
-  //function X509v3_asid_is_canonical(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_is_canonical(addr: PIPAddrBlocks): TIdC_INT;
-  //function X509v3_asid_canonize(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_canonize(addr: PIPAddrBlocks): TIdC_INT;
-
-  (*
-   * Tests for inheritance and containment.
-   *)
-  //function X509v3_asid_inherits(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_inherits(addr: PIPAddrBlocks): TIdC_INT;
-  //function X509v3_asid_subset(a: PASIdentifiers; b: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_subset(a: PIPAddrBlocks; b: PIPAddrBlocks): TIdC_INT;
-
-  (*
-   * Check whether RFC 3779 extensions nest properly in chains.
-   *)
-  function X509v3_asid_validate_path(v1: PX509_STORE_CTX): TIdC_INT cdecl; external CLibCrypto;
-  function X509v3_addr_validate_path(v1: PX509_STORE_CTX): TIdC_INT cdecl; external CLibCrypto;
-//  TIdC_INT X509v3_asid_validate_resource_set(STACK_OF(X509) *chain; ASIdentifiers *ext; TIdC_INT allow_inheritance);
-//  TIdC_INT X509v3_addr_validate_resource_set(STACK_OF(X509) *chain; IPAddrBlocks *ext; TIdC_INT allow_inheritance);
-
-
-//  DEFINE_STACK_OF(ASN1_STRING)
-
-  (*
-   * Admission Syntax
-   *)
-  function NAMING_AUTHORITY_get0_authorityId(const n: PNAMING_AUTHORITY): PASN1_OBJECT cdecl; external CLibCrypto;
-  function NAMING_AUTHORITY_get0_authorityURL(const n: PNAMING_AUTHORITY): PASN1_IA5STRING cdecl; external CLibCrypto;
-  function NAMING_AUTHORITY_get0_authorityText(const n: PNAMING_AUTHORITY): PASN1_STRING cdecl; external CLibCrypto;
-  procedure NAMING_AUTHORITY_set0_authorityId(n: PNAMING_AUTHORITY; namingAuthorityId: PASN1_OBJECT) cdecl; external CLibCrypto;
-  procedure NAMING_AUTHORITY_set0_authorityURL(n: PNAMING_AUTHORITY; namingAuthorityUrl: PASN1_IA5STRING) cdecl; external CLibCrypto;
-  procedure NAMING_AUTHORITY_set0_authorityText(n: PNAMING_AUTHORITY; namingAuthorityText: PASN1_STRING) cdecl; external CLibCrypto;
-
-  function ADMISSION_SYNTAX_get0_admissionAuthority(const as_: ADMISSION_SYNTAX): PGENERAL_NAME cdecl; external CLibCrypto;
-  procedure ADMISSION_SYNTAX_set0_admissionAuthority(as_: ADMISSION_SYNTAX; aa: PGENERAL_NAME) cdecl; external CLibCrypto;
-//  const STACK_OF(ADMISSIONS) *ADMISSION_SYNTAX_get0_contentsOfAdmissions(const as_: ADMISSION_SYNTAX);
-//  void ADMISSION_SYNTAX_set0_contentsOfAdmissions(as_: ADMISSION_SYNTAX; STACK_OF(ADMISSIONS) *a);
-  function ADMISSIONS_get0_admissionAuthority(const a: PADMISSIONS): PGENERAL_NAME cdecl; external CLibCrypto;
-  procedure ADMISSIONS_set0_admissionAuthority(a: PADMISSIONS; aa: PGENERAL_NAME) cdecl; external CLibCrypto;
-  function ADMISSIONS_get0_namingAuthority(const a: PADMISSIONS): PNAMING_AUTHORITY cdecl; external CLibCrypto;
-  procedure ADMISSIONS_set0_namingAuthority(a: PADMISSIONS; na: PNAMING_AUTHORITY) cdecl; external CLibCrypto;
-  //function ADMISSIONS_get0_professionInfos(const a: PADMISSIONS): PPROFESSION_INFOS;
-  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; pi: PPROFESSION_INFOS);
-  function PROFESSION_INFO_get0_addProfessionInfo(const pi: PPROFESSION_INFO): PASN1_OCTET_STRING cdecl; external CLibCrypto;
-  procedure PROFESSION_INFO_set0_addProfessionInfo(pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING) cdecl; external CLibCrypto;
-  function PROFESSION_INFO_get0_namingAuthority(const pi: PPROFESSION_INFO): PNAMING_AUTHORITY cdecl; external CLibCrypto;
-  procedure PROFESSION_INFO_set0_namingAuthority(pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY) cdecl; external CLibCrypto;
-//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionItems(pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
-//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionOIDs(pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
-  function PROFESSION_INFO_get0_registrationNumber(const pi: PPROFESSION_INFO): PASN1_PRINTABLESTRING cdecl; external CLibCrypto;
-  procedure PROFESSION_INFO_set0_registrationNumber(pi: PPROFESSION_INFO; rn: PASN1_PRINTABLESTRING) cdecl; external CLibCrypto;
-
-
 {$ENDIF}
 
 implementation
 
-  uses
-    classes, 
-    IdSSLOpenSSLExceptionHandlers, 
-    IdResourceStringsOpenSSL
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-    ,IdSSLOpenSSLLoader
-  {$ENDIF};
-  
+
+
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-const
-  GENERAL_NAME_cmp_procname = 'GENERAL_NAME_cmp';
-
-//  ASN1_BIT_STRING *v2i_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *nval);
-//  STACK_OF(CONF_VALUE) *i2v_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ASN1_BIT_STRING *bits; STACK_OF(CONF_VALUE) *extlist);
-  //function i2s_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ia5: PASN1_IA5STRING): PIdAnsiChar;
-  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_IA5STRING;
-
-//  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAME(method: PX509V3_EXT_METHOD; gen: PGENERAL_NAME; STACK_OF(CONF_VALUE) *ret);
-  GENERAL_NAME_print_procname = 'GENERAL_NAME_print';
-
-//  DECLARE_ASN1_FUNCTIONS(GENERAL_NAMES)
-
-//  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAMES(method: PX509V3_EXT_METHOD, GENERAL_NAMES *gen, STACK_OF(CONF_VALUE) *extlist);
-//  GENERAL_NAMES *v2i_GENERAL_NAMES(const method: PX509V3_EXT_METHOD, ctx: PX509V3_CTX, STACK_OF(CONF_VALUE) *nval);
-
-//  DECLARE_ASN1_FUNCTIONS(OTHERNAME)
-//  DECLARE_ASN1_FUNCTIONS(EDIPARTYNAME)
-  OTHERNAME_cmp_procname = 'OTHERNAME_cmp';
-  GENERAL_NAME_set0_value_procname = 'GENERAL_NAME_set0_value';
-  GENERAL_NAME_get0_value_procname = 'GENERAL_NAME_get0_value';
-  GENERAL_NAME_set0_othername_procname = 'GENERAL_NAME_set0_othername';
-  GENERAL_NAME_get0_otherName_procname = 'GENERAL_NAME_get0_otherName';
-
-  //function i2s_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; const ia5: PASN1_OCTET_STRING): PIdAnsiChar;
-  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_OCTET_STRING;
-
-//  DECLARE_ASN1_FUNCTIONS(EXTENDED_KEY_USAGE)
-  i2a_ACCESS_DESCRIPTION_procname = 'i2a_ACCESS_DESCRIPTION';
-
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(TLS_FEATURE)
-
-//  DECLARE_ASN1_FUNCTIONS(CERTIFICATEPOLICIES)
-//  DECLARE_ASN1_FUNCTIONS(POLICYINFO)
-//  DECLARE_ASN1_FUNCTIONS(POLICYQUALINFO)
-//  DECLARE_ASN1_FUNCTIONS(USERNOTICE)
-//  DECLARE_ASN1_FUNCTIONS(NOTICEREF)
-
-//  DECLARE_ASN1_FUNCTIONS(CRL_DIST_POINTS)
-//  DECLARE_ASN1_FUNCTIONS(DIST_POINT)
-//  DECLARE_ASN1_FUNCTIONS(DIST_POINT_NAME)
-//  DECLARE_ASN1_FUNCTIONS(ISSUING_DIST_POINT)
-
-  DIST_POINT_set_dpname_procname = 'DIST_POINT_set_dpname';
-
-  NAME_CONSTRAINTS_check_procname = 'NAME_CONSTRAINTS_check';
-  NAME_CONSTRAINTS_check_CN_procname = 'NAME_CONSTRAINTS_check_CN';
-
-//  DECLARE_ASN1_FUNCTIONS(ACCESS_DESCRIPTION)
-//  DECLARE_ASN1_FUNCTIONS(AUTHORITY_INFO_ACCESS)
-
-//  DECLARE_ASN1_ITEM(POLICY_MAPPING)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(POLICY_MAPPING)
-//  DECLARE_ASN1_ITEM(POLICY_MAPPINGS)
-
-//  DECLARE_ASN1_ITEM(GENERAL_SUBTREE)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(GENERAL_SUBTREE)
-
-//  DECLARE_ASN1_ITEM(NAME_CONSTRAINTS)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(NAME_CONSTRAINTS)
-
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(POLICY_CONSTRAINTS)
-//  DECLARE_ASN1_ITEM(POLICY_CONSTRAINTS)
-
-  //function a2i_GENERAL_NAME(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; TIdC_INT gen_type; const value: PIdAnsiChar; is_nc: TIdC_INT): GENERAL_NAME;
-
-  //function v2i_GENERAL_NAME(const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE): PGENERAL_NAME;
-  //function v2i_GENERAL_NAME_ex(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE; is_nc: TIdC_INT): PGENERAL_NAME;
-  //procedure X509V3_conf_free(val: PCONF_VALUE);
-
-  X509V3_EXT_nconf_nid_procname = 'X509V3_EXT_nconf_nid';
-  X509V3_EXT_nconf_procname = 'X509V3_EXT_nconf';
-//  TIdC_INT X509V3_EXT_add_nconf_sk(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; STACK_OF(X509_EXTENSION) **sk);
-  X509V3_EXT_add_nconf_procname = 'X509V3_EXT_add_nconf';
-  X509V3_EXT_REQ_add_nconf_procname = 'X509V3_EXT_REQ_add_nconf';
-  X509V3_EXT_CRL_add_nconf_procname = 'X509V3_EXT_CRL_add_nconf';
-
-  X509V3_EXT_conf_nid_procname = 'X509V3_EXT_conf_nid';
-//  X509_EXTENSION *X509V3_EXT_conf_nid(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar);
-  X509V3_EXT_conf_procname = 'X509V3_EXT_conf';
-//  X509_EXTENSION *X509V3_EXT_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar);
-  X509V3_EXT_add_conf_procname = 'X509V3_EXT_add_conf';
-//  TIdC_INT X509V3_EXT_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509);
-  X509V3_EXT_REQ_add_conf_procname = 'X509V3_EXT_REQ_add_conf';
-//  TIdC_INT X509V3_EXT_REQ_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ);
-  X509V3_EXT_CRL_add_conf_procname = 'X509V3_EXT_CRL_add_conf';
-//  TIdC_INT X509V3_EXT_CRL_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL);
-
-//  TIdC_INT X509V3_add_value_bool_nf(const name: PIdAnsiChar; TIdC_INT asn1_bool; STACK_OF(CONF_VALUE) **extlist);
-  //function X509V3_get_value_bool(const value: PCONF_VALUE; asn1_bool: PIdC_INT): TIdC_INT;
-  //function X509V3_get_value_int(const value: PCONF_VALUE; aint: PPASN1_INTEGER): TIdC_INT;
-  X509V3_set_nconf_procname = 'X509V3_set_nconf';
-//  void X509V3_set_conf_lhash(ctx: PX509V3_CTX; LHASH_OF(CONF_VALUE) *lhash);
-
-  X509V3_get_string_procname = 'X509V3_get_string';
-//  STACK_OF(CONF_VALUE) *X509V3_get_section(ctx: PX509V3_CTX; const section: PIdAnsiChar);
-  X509V3_string_free_procname = 'X509V3_string_free';
-//  void X509V3_section_free(ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *section);
-  X509V3_set_ctx_procname = 'X509V3_set_ctx';
-
-//  TIdC_INT X509V3_add_value(const name: PIdAnsiChar; const value: PIdAnsiChar; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_uPIdAnsiChar(const name: PIdAnsiChar; const Byte *value; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_bool(const name: PIdAnsiChar; TIdC_INT asn1_bool; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_int(const name: PIdAnsiChar; const aint: PASN1_INTEGER; STACK_OF(CONF_VALUE) **extlist);
-  //function i2s_ASN1_INTEGER(meth: PX509V3_EXT_METHOD; const aint: PASN1_INTEGER): PIdAnsiChar;
-  //function s2i_ASN1_INTEGER(meth: PX509V3_EXT_METHOD; const value: PIdAnsiChar): PASN1_INTEGER;
-  //function i2s_ASN1_ENUMERATED(meth: PX509V3_EXT_METHOD; const aint: PASN1_ENUMERATED): PIdAnsiChar;
-  //function i2s_ASN1_ENUMERATED_TABLE(meth: PX509V3_EXT_METHOD; const aint: PASN1_ENUMERATED): PIdAnsiChar;
-  //function X509V3_EXT_add(ext: PX509V3_EXT_METHOD): TIdC_INT;
-  //function X509V3_EXT_add_list(extlist: PX509V3_EXT_METHOD): TIdC_INT;
-  X509V3_EXT_add_alias_procname = 'X509V3_EXT_add_alias';
-  X509V3_EXT_cleanup_procname = 'X509V3_EXT_cleanup';
-
-  //function X509V3_EXT_get(ext: PX509_EXTENSION): PX509V3_EXT_METHOD;
-  //function X509V3_EXT_get_nid(nid: TIdC_INT): PX509V3_EXT_METHOD;
-  X509V3_add_standard_extensions_procname = 'X509V3_add_standard_extensions';
-//  STACK_OF(CONF_VALUE) *X509V3_parse_list(const line: PIdAnsiChar);
-  X509V3_EXT_d2i_procname = 'X509V3_EXT_d2i';
-//  void *X509V3_get_d2i(const STACK_OF(X509_EXTENSION) *x; nid: TIdC_INT; TIdC_INT *crit; TIdC_INT *idx);
-
-  X509V3_EXT_i2d_procname = 'X509V3_EXT_i2d';
-//  TIdC_INT X509V3_add1_i2d(STACK_OF(X509_EXTENSION) **x; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; TIdC_ULONG flags);
-
-//  void X509V3_EXT_val_prn(out_: PBIO; STACK_OF(CONF_VALUE) *val; indent: TIdC_INT; TIdC_INT ml);
-  X509V3_EXT_print_procname = 'X509V3_EXT_print';
-//  TIdC_INT X509V3_extensions_print(out_: PBIO; const PIdAnsiChar *title; const STACK_OF(X509_EXTENSION) *exts; flag: TIdC_ULONG; indent: TIdC_INT);
-
-  X509_check_ca_procname = 'X509_check_ca';
-  X509_check_purpose_procname = 'X509_check_purpose';
-  X509_supported_extension_procname = 'X509_supported_extension';
-  X509_PURPOSE_set_procname = 'X509_PURPOSE_set';
-  X509_check_issued_procname = 'X509_check_issued';
-  X509_check_akid_procname = 'X509_check_akid';
-  X509_set_proxy_flag_procname = 'X509_set_proxy_flag';
-  X509_set_proxy_pathlen_procname = 'X509_set_proxy_pathlen';
-  X509_get_proxy_pathlen_procname = 'X509_get_proxy_pathlen';
-
-  X509_get_extension_flags_procname = 'X509_get_extension_flags';
-  X509_get_key_usage_procname = 'X509_get_key_usage';
-  X509_get_extended_key_usage_procname = 'X509_get_extended_key_usage';
-  X509_get0_subject_key_id_procname = 'X509_get0_subject_key_id';
-  X509_get0_authority_key_id_procname = 'X509_get0_authority_key_id';
-  //function X509_get0_authority_issuer(x: PX509): PGENERAL_NAMES;
-  X509_get0_authority_serial_procname = 'X509_get0_authority_serial';
-
-  X509_PURPOSE_get_count_procname = 'X509_PURPOSE_get_count';
-  X509_PURPOSE_get0_procname = 'X509_PURPOSE_get0';
-  X509_PURPOSE_get_by_sname_procname = 'X509_PURPOSE_get_by_sname';
-  X509_PURPOSE_get_by_id_procname = 'X509_PURPOSE_get_by_id';
-//  TIdC_INT X509_PURPOSE_add(id: TIdC_INT, TIdC_INT trust, flags: TIdC_INT, TIdC_INT (*ck) (const X509_PURPOSE *, const X509 *, TIdC_INT), const name: PIdAnsiChar, const sname: PIdAnsiChar, void *arg);
-  X509_PURPOSE_get0_name_procname = 'X509_PURPOSE_get0_name';
-  X509_PURPOSE_get0_sname_procname = 'X509_PURPOSE_get0_sname';
-  X509_PURPOSE_get_trust_procname = 'X509_PURPOSE_get_trust';
-  X509_PURPOSE_cleanup_procname = 'X509_PURPOSE_cleanup';
-  X509_PURPOSE_get_id_procname = 'X509_PURPOSE_get_id';
-
-//  STACK_OF(OPENSSL_STRING) *X509_get1_email(x: PX509);
-//  STACK_OF(OPENSSL_STRING) *X509_REQ_get1_email(X509_REQ *x);
-//  void X509_email_free(STACK_OF(OPENSSL_STRING) *sk);
-//  STACK_OF(OPENSSL_STRING) *X509_get1_ocsp(x: PX509);
-
-  X509_check_host_procname = 'X509_check_host';
-  X509_check_email_procname = 'X509_check_email';
-  X509_check_ip_procname = 'X509_check_ip';
-  X509_check_ip_asc_procname = 'X509_check_ip_asc';
-
-  a2i_IPADDRESS_procname = 'a2i_IPADDRESS';
-  a2i_IPADDRESS_NC_procname = 'a2i_IPADDRESS_NC';
-//  TIdC_INT X509V3_NAME_from_section(X509_NAME *nm; STACK_OF(CONF_VALUE) *dn_sk; TIdC_ULONG chtype);
-
-  X509_POLICY_NODE_print_procname = 'X509_POLICY_NODE_print';
-//  DEFINE_STACK_OF(X509_POLICY_NODE)
-
-  (*
-   * Utilities to construct and extract values from RFC3779 extensions,
-   * since some of the encodings (particularly for IP address prefixes
-   * and ranges) are a bit tedious to work with directly.
-   *)
-  //function X509v3_asid_add_inherit(asid: PASIdentifiers; which: TIdC_INT): TIdC_INT;
-  //function X509v3_asid_add_id_or_range(asid: PASIdentifiers; which: TIdC_INT; min: PASN1_INTEGER; max: PASN1_INTEGER): TIdC_INT;
-  //function X509v3_addr_add_inherit(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
-  //function X509v3_addr_add_prefix(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
-  //function X509v3_addr_add_range(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
-  //function X509v3_addr_get_afi(const f: PIPAddressFamily): TIdC_UINT;
-  X509v3_addr_get_range_procname = 'X509v3_addr_get_range';
-
-  (*
-   * Canonical forms.
-   *)
-  //function X509v3_asid_is_canonical(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_is_canonical(addr: PIPAddrBlocks): TIdC_INT;
-  //function X509v3_asid_canonize(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_canonize(addr: PIPAddrBlocks): TIdC_INT;
-
-  (*
-   * Tests for inheritance and containment.
-   *)
-  //function X509v3_asid_inherits(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_inherits(addr: PIPAddrBlocks): TIdC_INT;
-  //function X509v3_asid_subset(a: PASIdentifiers; b: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_subset(a: PIPAddrBlocks; b: PIPAddrBlocks): TIdC_INT;
-
-  (*
-   * Check whether RFC 3779 extensions nest properly in chains.
-   *)
-  X509v3_asid_validate_path_procname = 'X509v3_asid_validate_path';
-  X509v3_addr_validate_path_procname = 'X509v3_addr_validate_path';
-//  TIdC_INT X509v3_asid_validate_resource_set(STACK_OF(X509) *chain; ASIdentifiers *ext; TIdC_INT allow_inheritance);
-//  TIdC_INT X509v3_addr_validate_resource_set(STACK_OF(X509) *chain; IPAddrBlocks *ext; TIdC_INT allow_inheritance);
-
-
-//  DEFINE_STACK_OF(ASN1_STRING)
-
-  (*
-   * Admission Syntax
-   *)
-  NAMING_AUTHORITY_get0_authorityId_procname = 'NAMING_AUTHORITY_get0_authorityId';
-  NAMING_AUTHORITY_get0_authorityURL_procname = 'NAMING_AUTHORITY_get0_authorityURL';
-  NAMING_AUTHORITY_get0_authorityText_procname = 'NAMING_AUTHORITY_get0_authorityText';
-  NAMING_AUTHORITY_set0_authorityId_procname = 'NAMING_AUTHORITY_set0_authorityId';
-  NAMING_AUTHORITY_set0_authorityURL_procname = 'NAMING_AUTHORITY_set0_authorityURL';
-  NAMING_AUTHORITY_set0_authorityText_procname = 'NAMING_AUTHORITY_set0_authorityText';
-
-  ADMISSION_SYNTAX_get0_admissionAuthority_procname = 'ADMISSION_SYNTAX_get0_admissionAuthority';
-  ADMISSION_SYNTAX_set0_admissionAuthority_procname = 'ADMISSION_SYNTAX_set0_admissionAuthority';
-//  const STACK_OF(ADMISSIONS) *ADMISSION_SYNTAX_get0_contentsOfAdmissions(const as_: ADMISSION_SYNTAX);
-//  void ADMISSION_SYNTAX_set0_contentsOfAdmissions(as_: ADMISSION_SYNTAX; STACK_OF(ADMISSIONS) *a);
-  ADMISSIONS_get0_admissionAuthority_procname = 'ADMISSIONS_get0_admissionAuthority';
-  ADMISSIONS_set0_admissionAuthority_procname = 'ADMISSIONS_set0_admissionAuthority';
-  ADMISSIONS_get0_namingAuthority_procname = 'ADMISSIONS_get0_namingAuthority';
-  ADMISSIONS_set0_namingAuthority_procname = 'ADMISSIONS_set0_namingAuthority';
-  //function ADMISSIONS_get0_professionInfos(const a: PADMISSIONS): PPROFESSION_INFOS;
-  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; pi: PPROFESSION_INFOS);
-  PROFESSION_INFO_get0_addProfessionInfo_procname = 'PROFESSION_INFO_get0_addProfessionInfo';
-  PROFESSION_INFO_set0_addProfessionInfo_procname = 'PROFESSION_INFO_set0_addProfessionInfo';
-  PROFESSION_INFO_get0_namingAuthority_procname = 'PROFESSION_INFO_get0_namingAuthority';
-  PROFESSION_INFO_set0_namingAuthority_procname = 'PROFESSION_INFO_set0_namingAuthority';
-//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionItems(pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
-//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionOIDs(pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
-  PROFESSION_INFO_get0_registrationNumber_procname = 'PROFESSION_INFO_get0_registrationNumber';
-  PROFESSION_INFO_set0_registrationNumber_procname = 'PROFESSION_INFO_set0_registrationNumber';
-
-
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
 {$WARN  NO_RETVAL OFF}
-function  ERR_GENERAL_NAME_cmp(a: PGENERAL_NAME; b: PGENERAL_NAME): TIdC_INT; 
+procedure ERROR_BASIC_CONSTRAINTS_free(bc : PBASIC_CONSTRAINTS); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(GENERAL_NAME_cmp_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BASIC_CONSTRAINTS_free');
 end;
 
-
-
-//  ASN1_BIT_STRING *v2i_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *nval);
-//  STACK_OF(CONF_VALUE) *i2v_ASN1_BIT_STRING(method: PX509V3_EXT_METHOD; ASN1_BIT_STRING *bits; STACK_OF(CONF_VALUE) *extlist);
-  //function i2s_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ia5: PASN1_IA5STRING): PIdAnsiChar;
-  //function s2i_ASN1_IA5STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_IA5STRING;
-
-//  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAME(method: PX509V3_EXT_METHOD; gen: PGENERAL_NAME; STACK_OF(CONF_VALUE) *ret);
-function  ERR_GENERAL_NAME_print(out_: PBIO; gen: PGENERAL_NAME): TIdC_INT; 
+function ERROR_BASIC_CONSTRAINTS_new: PBASIC_CONSTRAINTS; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(GENERAL_NAME_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('BASIC_CONSTRAINTS_new');
 end;
-
 
-
-//  DECLARE_ASN1_FUNCTIONS(GENERAL_NAMES)
-
-//  STACK_OF(CONF_VALUE) *i2v_GENERAL_NAMES(method: PX509V3_EXT_METHOD, GENERAL_NAMES *gen, STACK_OF(CONF_VALUE) *extlist);
-//  GENERAL_NAMES *v2i_GENERAL_NAMES(const method: PX509V3_EXT_METHOD, ctx: PX509V3_CTX, STACK_OF(CONF_VALUE) *nval);
-
-//  DECLARE_ASN1_FUNCTIONS(OTHERNAME)
-//  DECLARE_ASN1_FUNCTIONS(EDIPARTYNAME)
-function  ERR_OTHERNAME_cmp(a: POTHERNAME; b: POTHERNAME): TIdC_INT; 
+procedure ERROR_AUTHORITY_KEYID_free(id : AUTHORITY_KEYID); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(OTHERNAME_cmp_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('AUTHORITY_KEYID_free');
 end;
-
 
-procedure  ERR_GENERAL_NAME_set0_value(a: PGENERAL_NAME; type_: TIdC_INT; value: Pointer); 
+function ERROR_AUTHORITY_KEYID_new: AUTHORITY_KEYID; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(GENERAL_NAME_set0_value_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('AUTHORITY_KEYID_new');
 end;
 
-
-function  ERR_GENERAL_NAME_get0_value(const a: PGENERAL_NAME; ptype: PIdC_INT): Pointer; 
+procedure ERROR_GENERAL_NAME_free(a: PGENERAL_NAME); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(GENERAL_NAME_get0_value_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('GENERAL_NAME_free');
 end;
-
 
-function  ERR_GENERAL_NAME_set0_othername(gen: PGENERAL_NAME; oid: PASN1_OBJECT; value: PASN1_TYPE): TIdC_INT; 
+function ERROR_GENERAL_NAME_new: PGENERAL_NAME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(GENERAL_NAME_set0_othername_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('GENERAL_NAME_new');
 end;
 
-
-function  ERR_GENERAL_NAME_get0_otherName(const gen: PGENERAL_NAME; poid: PPASN1_OBJECT; pvalue: PPASN1_TYPE): TIdC_INT; 
+function ERROR_GENERAL_NAME_cmp(a: PGENERAL_NAME; b: PGENERAL_NAME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(GENERAL_NAME_get0_otherName_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('GENERAL_NAME_cmp');
 end;
-
 
-
-  //function i2s_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; const ia5: PASN1_OCTET_STRING): PIdAnsiChar;
-  //function s2i_ASN1_OCTET_STRING(method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; const str: PIdAnsiChar): PASN1_OCTET_STRING;
-
-//  DECLARE_ASN1_FUNCTIONS(EXTENDED_KEY_USAGE)
-function  ERR_i2a_ACCESS_DESCRIPTION(bp: PBIO; const a: PACCESS_DESCRIPTION): TIdC_INT; 
+function ERROR_GENERAL_NAME_print(out_: PBIO; gen: PGENERAL_NAME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(i2a_ACCESS_DESCRIPTION_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('GENERAL_NAME_print');
 end;
-
-
-
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(TLS_FEATURE)
 
-//  DECLARE_ASN1_FUNCTIONS(CERTIFICATEPOLICIES)
-//  DECLARE_ASN1_FUNCTIONS(POLICYINFO)
-//  DECLARE_ASN1_FUNCTIONS(POLICYQUALINFO)
-//  DECLARE_ASN1_FUNCTIONS(USERNOTICE)
-//  DECLARE_ASN1_FUNCTIONS(NOTICEREF)
-
-//  DECLARE_ASN1_FUNCTIONS(CRL_DIST_POINTS)
-//  DECLARE_ASN1_FUNCTIONS(DIST_POINT)
-//  DECLARE_ASN1_FUNCTIONS(DIST_POINT_NAME)
-//  DECLARE_ASN1_FUNCTIONS(ISSUING_DIST_POINT)
-
-function  ERR_DIST_POINT_set_dpname(dpn: PDIST_POINT_NAME; iname: PX509_NAME): TIdC_INT; 
+procedure ERROR_GENERAL_NAMES_free(a: PGENERAL_NAMES); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(DIST_POINT_set_dpname_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('GENERAL_NAMES_free');
 end;
-
-
 
-function  ERR_NAME_CONSTRAINTS_check(x: PX509; nc: PNAME_CONSTRAINTS): TIdC_INT; 
+function ERROR_GENERAL_NAMES_new: PGENERAL_NAMES; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(NAME_CONSTRAINTS_check_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('GENERAL_NAMES_new');
 end;
 
-
-function  ERR_NAME_CONSTRAINTS_check_CN(x: PX509; nc: PNAME_CONSTRAINTS): TIdC_INT; 
+function ERROR_OTHERNAME_cmp(a: POTHERNAME; b: POTHERNAME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(NAME_CONSTRAINTS_check_CN_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('OTHERNAME_cmp');
 end;
-
-
-
-//  DECLARE_ASN1_FUNCTIONS(ACCESS_DESCRIPTION)
-//  DECLARE_ASN1_FUNCTIONS(AUTHORITY_INFO_ACCESS)
 
-//  DECLARE_ASN1_ITEM(POLICY_MAPPING)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(POLICY_MAPPING)
-//  DECLARE_ASN1_ITEM(POLICY_MAPPINGS)
-
-//  DECLARE_ASN1_ITEM(GENERAL_SUBTREE)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(GENERAL_SUBTREE)
-
-//  DECLARE_ASN1_ITEM(NAME_CONSTRAINTS)
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(NAME_CONSTRAINTS)
-
-//  DECLARE_ASN1_ALLOC_FUNCTIONS(POLICY_CONSTRAINTS)
-//  DECLARE_ASN1_ITEM(POLICY_CONSTRAINTS)
-
-  //function a2i_GENERAL_NAME(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; TIdC_INT gen_type; const value: PIdAnsiChar; is_nc: TIdC_INT): GENERAL_NAME;
-
-  //function v2i_GENERAL_NAME(const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE): PGENERAL_NAME;
-  //function v2i_GENERAL_NAME_ex(out_: PGENERAL_NAME; const method: PX509V3_EXT_METHOD; ctx: PX509V3_CTX; cnf: PCONF_VALUE; is_nc: TIdC_INT): PGENERAL_NAME;
-  //procedure X509V3_conf_free(val: PCONF_VALUE);
-
-function  ERR_X509V3_EXT_nconf_nid(conf: PCONF; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION; 
+procedure ERROR_GENERAL_NAME_set0_value(a: PGENERAL_NAME; type_: TOpenSSL_C_INT; value: Pointer); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_nconf_nid_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('GENERAL_NAME_set0_value');
 end;
 
-
-function  ERR_X509V3_EXT_nconf(conf: PCONF; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION; 
+function ERROR_GENERAL_NAME_get0_value(const a: PGENERAL_NAME; ptype: POpenSSL_C_INT): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_nconf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('GENERAL_NAME_get0_value');
 end;
 
-
-//  TIdC_INT X509V3_EXT_add_nconf_sk(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; STACK_OF(X509_EXTENSION) **sk);
-function  ERR_X509V3_EXT_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509): TIdC_INT; 
+function ERROR_GENERAL_NAME_set0_othername(gen: PGENERAL_NAME; oid: PASN1_OBJECT; value: PASN1_TYPE): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_add_nconf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('GENERAL_NAME_set0_othername');
 end;
-
 
-function  ERR_X509V3_EXT_REQ_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ): TIdC_INT; 
+function ERROR_GENERAL_NAME_get0_otherName(const gen: PGENERAL_NAME; poid: PPASN1_OBJECT; pvalue: PPASN1_TYPE): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_REQ_add_nconf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('GENERAL_NAME_get0_otherName');
 end;
 
-
-function  ERR_X509V3_EXT_CRL_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL): TIdC_INT; 
+function ERROR_i2a_ACCESS_DESCRIPTION(bp: PBIO; const a: PACCESS_DESCRIPTION): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_CRL_add_nconf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('i2a_ACCESS_DESCRIPTION');
 end;
-
 
-
-function  ERR_X509V3_EXT_conf_nid(conf: Pointer; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar): PX509_EXTENSION; 
+function ERROR_DIST_POINT_set_dpname(dpn: PDIST_POINT_NAME; iname: PX509_NAME): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_conf_nid_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('DIST_POINT_set_dpname');
 end;
-
 
-//  X509_EXTENSION *X509V3_EXT_conf_nid(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; ext_nid: TIdC_INT; const value: PIdAnsiChar);
-function  ERR_X509V3_EXT_conf(conf: Pointer; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar): PX509_EXTENSION; 
+function ERROR_NAME_CONSTRAINTS_check(x: PX509; nc: PNAME_CONSTRAINTS): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_conf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('NAME_CONSTRAINTS_check');
 end;
 
-
-//  X509_EXTENSION *X509V3_EXT_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const name: PIdAnsiChar; const value: PIdAnsiChar);
-function  ERR_X509V3_EXT_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509): TIdC_INT; 
+function ERROR_NAME_CONSTRAINTS_check_CN(x: PX509; nc: PNAME_CONSTRAINTS): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_add_conf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('NAME_CONSTRAINTS_check_CN');
 end;
-
 
-//  TIdC_INT X509V3_EXT_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; cert: PX509);
-function  ERR_X509V3_EXT_REQ_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ): TIdC_INT; 
+function ERROR_X509V3_EXT_nconf_nid(conf: PCONF; ctx: PX509V3_CTX; ext_nid: TOpenSSL_C_INT; const value: PAnsiChar): PX509_EXTENSION; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_REQ_add_conf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_nconf_nid');
 end;
 
-
-//  TIdC_INT X509V3_EXT_REQ_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; req: PX509_REQ);
-function  ERR_X509V3_EXT_CRL_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL): TIdC_INT; 
+function ERROR_X509V3_EXT_nconf(conf: PCONF; ctx: PX509V3_CTX; const name: PAnsiChar; const value: PAnsiChar): PX509_EXTENSION; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_CRL_add_conf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_nconf');
 end;
-
 
-//  TIdC_INT X509V3_EXT_CRL_add_conf(LHASH_OF(CONF_VALUE) *conf; ctx: PX509V3_CTX; const section: PIdAnsiChar; crl: PX509_CRL);
-
-//  TIdC_INT X509V3_add_value_bool_nf(const name: PIdAnsiChar; TIdC_INT asn1_bool; STACK_OF(CONF_VALUE) **extlist);
-  //function X509V3_get_value_bool(const value: PCONF_VALUE; asn1_bool: PIdC_INT): TIdC_INT;
-  //function X509V3_get_value_int(const value: PCONF_VALUE; aint: PPASN1_INTEGER): TIdC_INT;
-procedure  ERR_X509V3_set_nconf(ctx: PX509V3_CTX; conf: PCONF); 
+function ERROR_X509V3_EXT_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PAnsiChar; cert: PX509): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_set_nconf_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_add_nconf');
 end;
-
 
-//  void X509V3_set_conf_lhash(ctx: PX509V3_CTX; LHASH_OF(CONF_VALUE) *lhash);
-
-function  ERR_X509V3_get_string(ctx: PX509V3_CTX; const name: PIdAnsiChar; const section: PIdAnsiChar): PIdAnsiChar; 
+function ERROR_X509V3_EXT_REQ_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PAnsiChar; req: PX509_REQ): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_get_string_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_REQ_add_nconf');
 end;
-
 
-//  STACK_OF(CONF_VALUE) *X509V3_get_section(ctx: PX509V3_CTX; const section: PIdAnsiChar);
-procedure  ERR_X509V3_string_free(ctx: PX509V3_CTX; str: PIdAnsiChar); 
+function ERROR_X509V3_EXT_CRL_add_nconf(conf: PCONF; ctx: PX509V3_CTX; const section: PAnsiChar; crl: PX509_CRL): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_string_free_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_CRL_add_nconf');
 end;
 
-
-//  void X509V3_section_free(ctx: PX509V3_CTX; STACK_OF(CONF_VALUE) *section);
-procedure  ERR_X509V3_set_ctx(ctx: PX509V3_CTX; issuer: PX509; subject: PX509; req: PX509_REQ; crl: PX509_CRL; flags: TIdC_INT); 
+function ERROR_X509V3_EXT_conf_nid(conf: Pointer; ctx: PX509V3_CTX; ext_nid: TOpenSSL_C_INT; const value: PAnsiChar): PX509_EXTENSION; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_set_ctx_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_conf_nid');
 end;
-
 
-
-//  TIdC_INT X509V3_add_value(const name: PIdAnsiChar; const value: PIdAnsiChar; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_uPIdAnsiChar(const name: PIdAnsiChar; const Byte *value; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_bool(const name: PIdAnsiChar; TIdC_INT asn1_bool; STACK_OF(CONF_VALUE) **extlist);
-//  TIdC_INT X509V3_add_value_int(const name: PIdAnsiChar; const aint: PASN1_INTEGER; STACK_OF(CONF_VALUE) **extlist);
-  //function i2s_ASN1_INTEGER(meth: PX509V3_EXT_METHOD; const aint: PASN1_INTEGER): PIdAnsiChar;
-  //function s2i_ASN1_INTEGER(meth: PX509V3_EXT_METHOD; const value: PIdAnsiChar): PASN1_INTEGER;
-  //function i2s_ASN1_ENUMERATED(meth: PX509V3_EXT_METHOD; const aint: PASN1_ENUMERATED): PIdAnsiChar;
-  //function i2s_ASN1_ENUMERATED_TABLE(meth: PX509V3_EXT_METHOD; const aint: PASN1_ENUMERATED): PIdAnsiChar;
-  //function X509V3_EXT_add(ext: PX509V3_EXT_METHOD): TIdC_INT;
-  //function X509V3_EXT_add_list(extlist: PX509V3_EXT_METHOD): TIdC_INT;
-function  ERR_X509V3_EXT_add_alias(nid_to: TIdC_INT; nid_from: TIdC_INT): TIdC_INT; 
+function ERROR_X509V3_EXT_conf(conf: Pointer; ctx: PX509V3_CTX; const name: PAnsiChar; const value: PAnsiChar): PX509_EXTENSION; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_add_alias_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_conf');
 end;
 
-
-procedure  ERR_X509V3_EXT_cleanup; 
+function ERROR_X509V3_EXT_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PAnsiChar; cert: PX509): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_cleanup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_add_conf');
 end;
-
 
-
-  //function X509V3_EXT_get(ext: PX509_EXTENSION): PX509V3_EXT_METHOD;
-  //function X509V3_EXT_get_nid(nid: TIdC_INT): PX509V3_EXT_METHOD;
-function  ERR_X509V3_add_standard_extensions: TIdC_INT; 
+function ERROR_X509V3_EXT_REQ_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PAnsiChar; req: PX509_REQ): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_add_standard_extensions_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_REQ_add_conf');
 end;
-
 
-//  STACK_OF(CONF_VALUE) *X509V3_parse_list(const line: PIdAnsiChar);
-function  ERR_X509V3_EXT_d2i(ext: PX509_EXTENSION): Pointer; 
+function ERROR_X509V3_EXT_CRL_add_conf(conf: Pointer; ctx: PX509V3_CTX; const section: PAnsiChar; crl: PX509_CRL): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_d2i_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_CRL_add_conf');
 end;
-
-
-//  void *X509V3_get_d2i(const STACK_OF(X509_EXTENSION) *x; nid: TIdC_INT; TIdC_INT *crit; TIdC_INT *idx);
 
-function  ERR_X509V3_EXT_i2d(ext_nid: TIdC_INT; crit: TIdC_INT; ext_struc: Pointer): PX509_EXTENSION; 
+procedure ERROR_X509V3_set_nconf(ctx: PX509V3_CTX; conf: PCONF); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_i2d_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_set_nconf');
 end;
 
-
-//  TIdC_INT X509V3_add1_i2d(STACK_OF(X509_EXTENSION) **x; nid: TIdC_INT; value: Pointer; crit: TIdC_INT; TIdC_ULONG flags);
-
-//  void X509V3_EXT_val_prn(out_: PBIO; STACK_OF(CONF_VALUE) *val; indent: TIdC_INT; TIdC_INT ml);
-function  ERR_X509V3_EXT_print(out_: PBIO; ext: PX509_EXTENSION; flag: TIdC_ULONG; indent: TIdC_INT): TIdC_INT; 
+function ERROR_X509V3_get_string(ctx: PX509V3_CTX; const name: PAnsiChar; const section: PAnsiChar): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509V3_EXT_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_get_string');
 end;
 
-
-//  TIdC_INT X509V3_extensions_print(out_: PBIO; const PIdAnsiChar *title; const STACK_OF(X509_EXTENSION) *exts; flag: TIdC_ULONG; indent: TIdC_INT);
-
-function  ERR_X509_check_ca(x: PX509): TIdC_INT; 
+procedure ERROR_X509V3_string_free(ctx: PX509V3_CTX; str: PAnsiChar); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_check_ca_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_string_free');
 end;
-
 
-function  ERR_X509_check_purpose(x: PX509; id: TIdC_INT; ca: TIdC_INT): TIdC_INT; 
+procedure ERROR_X509V3_set_ctx(ctx: PX509V3_CTX; issuer: PX509; subject: PX509; req: PX509_REQ; crl: PX509_CRL; flags: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_check_purpose_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_set_ctx');
 end;
 
-
-function  ERR_X509_supported_extension(ex: PX509_EXTENSION): TIdC_INT; 
+function ERROR_X509V3_EXT_add_alias(nid_to: TOpenSSL_C_INT; nid_from: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_supported_extension_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_add_alias');
 end;
-
 
-function  ERR_X509_PURPOSE_set(p: PIdC_INT; purpose: TIdC_INT): TIdC_INT; 
+procedure ERROR_X509V3_EXT_cleanup; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_PURPOSE_set_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_cleanup');
 end;
 
-
-function  ERR_X509_check_issued(issuer: PX509; subject: PX509): TIdC_INT; 
+function ERROR_X509V3_add_standard_extensions: TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_check_issued_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_add_standard_extensions');
 end;
-
 
-function  ERR_X509_check_akid(issuer: PX509; akid: PAUTHORITY_KEYID): TIdC_INT; 
+function ERROR_X509V3_EXT_d2i(ext: PX509_EXTENSION): Pointer; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_check_akid_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_d2i');
 end;
 
-
-procedure  ERR_X509_set_proxy_flag(x: PX509); 
+function ERROR_X509V3_EXT_i2d(ext_nid: TOpenSSL_C_INT; crit: TOpenSSL_C_INT; ext_struc: Pointer): PX509_EXTENSION; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_set_proxy_flag_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_i2d');
 end;
-
 
-procedure  ERR_X509_set_proxy_pathlen(x: PX509; l: TIdC_LONG); 
+function ERROR_X509V3_EXT_print(out_: PBIO; ext: PX509_EXTENSION; flag: TOpenSSL_C_ULONG; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_set_proxy_pathlen_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509V3_EXT_print');
 end;
 
-
-function  ERR_X509_get_proxy_pathlen(x: PX509): TIdC_LONG; 
+function ERROR_X509_check_ca(x: PX509): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_get_proxy_pathlen_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_check_ca');
 end;
-
-
 
-function  ERR_X509_get_extension_flags(x: PX509): TIdC_UINT32; 
+function ERROR_X509_check_purpose(x: PX509; id: TOpenSSL_C_INT; ca: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_get_extension_flags_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_check_purpose');
 end;
 
-
-function  ERR_X509_get_key_usage(x: PX509): TIdC_UINT32; 
+function ERROR_X509_supported_extension(ex: PX509_EXTENSION): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_get_key_usage_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_supported_extension');
 end;
-
 
-function  ERR_X509_get_extended_key_usage(x: PX509): TIdC_UINT32; 
+function ERROR_X509_PURPOSE_set(p: POpenSSL_C_INT; purpose: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_get_extended_key_usage_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_PURPOSE_set');
 end;
 
-
-function  ERR_X509_get0_subject_key_id(x: PX509): PASN1_OCTET_STRING; 
+function ERROR_X509_check_issued(issuer: PX509; subject: PX509): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_get0_subject_key_id_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_check_issued');
 end;
-
 
-function  ERR_X509_get0_authority_key_id(x: PX509): PASN1_OCTET_STRING; 
+function ERROR_X509_check_akid(issuer: PX509; akid: PAUTHORITY_KEYID): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_get0_authority_key_id_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_check_akid');
 end;
 
-
-  //function X509_get0_authority_issuer(x: PX509): PGENERAL_NAMES;
-function  ERR_X509_get0_authority_serial(x: PX509): PASN1_INTEGER; 
+procedure ERROR_X509_set_proxy_flag(x: PX509); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_get0_authority_serial_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_set_proxy_flag');
 end;
-
 
-
-function  ERR_X509_PURPOSE_get_count: TIdC_INT; 
+procedure ERROR_X509_set_proxy_pathlen(x: PX509; l: TOpenSSL_C_LONG); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_PURPOSE_get_count_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_set_proxy_pathlen');
 end;
-
 
-function  ERR_X509_PURPOSE_get0(idx: TIdC_INT): PX509_PURPOSE; 
+function ERROR_X509_get_proxy_pathlen(x: PX509): TOpenSSL_C_LONG; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_PURPOSE_get0_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_get_proxy_pathlen');
 end;
 
-
-function  ERR_X509_PURPOSE_get_by_sname(const sname: PIdAnsiChar): TIdC_INT; 
+function ERROR_X509_get_extension_flags(x: PX509): TOpenSSL_C_UINT32; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_PURPOSE_get_by_sname_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_get_extension_flags');
 end;
-
 
-function  ERR_X509_PURPOSE_get_by_id(id: TIdC_INT): TIdC_INT; 
+function ERROR_X509_get_key_usage(x: PX509): TOpenSSL_C_UINT32; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_PURPOSE_get_by_id_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_get_key_usage');
 end;
 
-
-//  TIdC_INT X509_PURPOSE_add(id: TIdC_INT, TIdC_INT trust, flags: TIdC_INT, TIdC_INT (*ck) (const X509_PURPOSE *, const X509 *, TIdC_INT), const name: PIdAnsiChar, const sname: PIdAnsiChar, void *arg);
-function  ERR_X509_PURPOSE_get0_name(const xp: PX509_PURPOSE): PIdAnsiChar; 
+function ERROR_X509_get_extended_key_usage(x: PX509): TOpenSSL_C_UINT32; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_PURPOSE_get0_name_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_get_extended_key_usage');
 end;
-
 
-function  ERR_X509_PURPOSE_get0_sname(const xp: PX509_PURPOSE): PIdAnsiChar; 
+function ERROR_X509_get0_subject_key_id(x: PX509): PASN1_OCTET_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_PURPOSE_get0_sname_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_get0_subject_key_id');
 end;
 
-
-function  ERR_X509_PURPOSE_get_trust(const xp: PX509_PURPOSE): TIdC_INT; 
+function ERROR_X509_get0_authority_key_id(x: PX509): PASN1_OCTET_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_PURPOSE_get_trust_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_get0_authority_key_id');
 end;
-
 
-procedure  ERR_X509_PURPOSE_cleanup; 
+function ERROR_X509_get0_authority_serial(x: PX509): PASN1_INTEGER; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_PURPOSE_cleanup_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_get0_authority_serial');
 end;
 
-
-function  ERR_X509_PURPOSE_get_id(const v1: PX509_PURPOSE): TIdC_INT; 
+function ERROR_X509_PURPOSE_get_count: TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_PURPOSE_get_id_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_PURPOSE_get_count');
 end;
-
-
 
-//  STACK_OF(OPENSSL_STRING) *X509_get1_email(x: PX509);
-//  STACK_OF(OPENSSL_STRING) *X509_REQ_get1_email(X509_REQ *x);
-//  void X509_email_free(STACK_OF(OPENSSL_STRING) *sk);
-//  STACK_OF(OPENSSL_STRING) *X509_get1_ocsp(x: PX509);
-
-function  ERR_X509_check_host(x: PX509; const chk: PIdAnsiChar; chklen: TIdC_SIZET; flags: TIdC_UINT; peername: PPIdAnsiChar): TIdC_INT; 
+function ERROR_X509_PURPOSE_get0(idx: TOpenSSL_C_INT): PX509_PURPOSE; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_check_host_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_PURPOSE_get0');
 end;
-
 
-function  ERR_X509_check_email(x: PX509; const chk: PIdAnsiChar; chklen: TIdC_SIZET; flags: TIdC_UINT): TIdC_INT; 
+function ERROR_X509_PURPOSE_get_by_sname(const sname: PAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_check_email_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_PURPOSE_get_by_sname');
 end;
 
-
-function  ERR_X509_check_ip(x: PX509; const chk: PByte; chklen: TIdC_SIZET; flags: TIdC_UINT): TIdC_INT; 
+function ERROR_X509_PURPOSE_get_by_id(id: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_check_ip_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_PURPOSE_get_by_id');
 end;
-
 
-function  ERR_X509_check_ip_asc(x: PX509; const ipasc: PIdAnsiChar; flags: TIdC_UINT): TIdC_INT; 
+function ERROR_X509_PURPOSE_get0_name(const xp: PX509_PURPOSE): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_check_ip_asc_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_PURPOSE_get0_name');
 end;
 
-
-
-function  ERR_a2i_IPADDRESS(const ipasc: PIdAnsiChar): PASN1_OCTET_STRING; 
+function ERROR_X509_PURPOSE_get0_sname(const xp: PX509_PURPOSE): PAnsiChar; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(a2i_IPADDRESS_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_PURPOSE_get0_sname');
 end;
 
-
-function  ERR_a2i_IPADDRESS_NC(const ipasc: PIdAnsiChar): PASN1_OCTET_STRING; 
+function ERROR_X509_PURPOSE_get_trust(const xp: PX509_PURPOSE): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(a2i_IPADDRESS_NC_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_PURPOSE_get_trust');
 end;
-
-
-//  TIdC_INT X509V3_NAME_from_section(X509_NAME *nm; STACK_OF(CONF_VALUE) *dn_sk; TIdC_ULONG chtype);
 
-procedure  ERR_X509_POLICY_NODE_print(out_: PBIO; node: PX509_POLICY_NODE; indent: TIdC_INT); 
+procedure ERROR_X509_PURPOSE_cleanup; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509_POLICY_NODE_print_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_PURPOSE_cleanup');
 end;
 
-
-//  DEFINE_STACK_OF(X509_POLICY_NODE)
-
-  (*
-   * Utilities to construct and extract values from RFC3779 extensions,
-   * since some of the encodings (particularly for IP address prefixes
-   * and ranges) are a bit tedious to work with directly.
-   *)
-  //function X509v3_asid_add_inherit(asid: PASIdentifiers; which: TIdC_INT): TIdC_INT;
-  //function X509v3_asid_add_id_or_range(asid: PASIdentifiers; which: TIdC_INT; min: PASN1_INTEGER; max: PASN1_INTEGER): TIdC_INT;
-  //function X509v3_addr_add_inherit(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT): TIdC_INT;
-  //function X509v3_addr_add_prefix(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; a: PByte; const prefixlen: TIdC_INT): TIdC_INT;
-  //function X509v3_addr_add_range(addr: PIPAddrBlocks; const afi: TIdC_UINT; const safi: PIdC_UINT; min: PByte; max: PByte): TIdC_INT;
-  //function X509v3_addr_get_afi(const f: PIPAddressFamily): TIdC_UINT;
-function  ERR_X509v3_addr_get_range(aor: PIPAddressOrRange; const afi: TIdC_UINT; min: PByte; max: Byte; const length: TIdC_INT): TIdC_INT; 
+function ERROR_X509_PURPOSE_get_id(const v1: PX509_PURPOSE): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509v3_addr_get_range_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_PURPOSE_get_id');
 end;
-
-
 
-  (*
-   * Canonical forms.
-   *)
-  //function X509v3_asid_is_canonical(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_is_canonical(addr: PIPAddrBlocks): TIdC_INT;
-  //function X509v3_asid_canonize(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_canonize(addr: PIPAddrBlocks): TIdC_INT;
-
-  (*
-   * Tests for inheritance and containment.
-   *)
-  //function X509v3_asid_inherits(asid: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_inherits(addr: PIPAddrBlocks): TIdC_INT;
-  //function X509v3_asid_subset(a: PASIdentifiers; b: PASIdentifiers): TIdC_INT;
-  //function X509v3_addr_subset(a: PIPAddrBlocks; b: PIPAddrBlocks): TIdC_INT;
-
-  (*
-   * Check whether RFC 3779 extensions nest properly in chains.
-   *)
-function  ERR_X509v3_asid_validate_path(v1: PX509_STORE_CTX): TIdC_INT; 
+function ERROR_X509_get1_email(x: PX509): PSTACK_OF_OPENSSL_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509v3_asid_validate_path_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_get1_email');
 end;
 
-
-function  ERR_X509v3_addr_validate_path(v1: PX509_STORE_CTX): TIdC_INT; 
+function ERROR_X509_REQ_get1_email( x : PX509_REQ): PSTACK_OF_OPENSSL_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(X509v3_addr_validate_path_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_REQ_get1_email');
 end;
-
-
-//  TIdC_INT X509v3_asid_validate_resource_set(STACK_OF(X509) *chain; ASIdentifiers *ext; TIdC_INT allow_inheritance);
-//  TIdC_INT X509v3_addr_validate_resource_set(STACK_OF(X509) *chain; IPAddrBlocks *ext; TIdC_INT allow_inheritance);
 
-
-//  DEFINE_STACK_OF(ASN1_STRING)
-
-  (*
-   * Admission Syntax
-   *)
-function  ERR_NAMING_AUTHORITY_get0_authorityId(const n: PNAMING_AUTHORITY): PASN1_OBJECT; 
+procedure ERROR_X509_email_free(sk : PSTACK_OF_OPENSSL_STRING); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(NAMING_AUTHORITY_get0_authorityId_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_email_free');
 end;
 
-
-function  ERR_NAMING_AUTHORITY_get0_authorityURL(const n: PNAMING_AUTHORITY): PASN1_IA5STRING; 
+function ERROR_X509_get1_ocsp(x: PX509): PSTACK_OF_OPENSSL_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(NAMING_AUTHORITY_get0_authorityURL_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_get1_ocsp');
 end;
-
 
-function  ERR_NAMING_AUTHORITY_get0_authorityText(const n: PNAMING_AUTHORITY): PASN1_STRING; 
+function ERROR_X509_check_host(x: PX509; const chk: PAnsiChar; chklen: TOpenSSL_C_SIZET; flags: TOpenSSL_C_UINT; peername: PPAnsiChar): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(NAMING_AUTHORITY_get0_authorityText_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_check_host');
 end;
 
-
-procedure  ERR_NAMING_AUTHORITY_set0_authorityId(n: PNAMING_AUTHORITY; namingAuthorityId: PASN1_OBJECT); 
+function ERROR_X509_check_email(x: PX509; const chk: PAnsiChar; chklen: TOpenSSL_C_SIZET; flags: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(NAMING_AUTHORITY_set0_authorityId_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_check_email');
 end;
-
 
-procedure  ERR_NAMING_AUTHORITY_set0_authorityURL(n: PNAMING_AUTHORITY; namingAuthorityUrl: PASN1_IA5STRING); 
+function ERROR_X509_check_ip(x: PX509; const chk: PByte; chklen: TOpenSSL_C_SIZET; flags: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(NAMING_AUTHORITY_set0_authorityURL_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_check_ip');
 end;
 
-
-procedure  ERR_NAMING_AUTHORITY_set0_authorityText(n: PNAMING_AUTHORITY; namingAuthorityText: PASN1_STRING); 
+function ERROR_X509_check_ip_asc(x: PX509; const ipasc: PAnsiChar; flags: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(NAMING_AUTHORITY_set0_authorityText_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_check_ip_asc');
 end;
-
 
-
-function  ERR_ADMISSION_SYNTAX_get0_admissionAuthority(const as_: ADMISSION_SYNTAX): PGENERAL_NAME; 
+function ERROR_a2i_IPADDRESS(const ipasc: PAnsiChar): PASN1_OCTET_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ADMISSION_SYNTAX_get0_admissionAuthority_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('a2i_IPADDRESS');
 end;
-
 
-procedure  ERR_ADMISSION_SYNTAX_set0_admissionAuthority(as_: ADMISSION_SYNTAX; aa: PGENERAL_NAME); 
+function ERROR_a2i_IPADDRESS_NC(const ipasc: PAnsiChar): PASN1_OCTET_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ADMISSION_SYNTAX_set0_admissionAuthority_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('a2i_IPADDRESS_NC');
 end;
 
-
-//  const STACK_OF(ADMISSIONS) *ADMISSION_SYNTAX_get0_contentsOfAdmissions(const as_: ADMISSION_SYNTAX);
-//  void ADMISSION_SYNTAX_set0_contentsOfAdmissions(as_: ADMISSION_SYNTAX; STACK_OF(ADMISSIONS) *a);
-function  ERR_ADMISSIONS_get0_admissionAuthority(const a: PADMISSIONS): PGENERAL_NAME; 
+procedure ERROR_X509_POLICY_NODE_print(out_: PBIO; node: PX509_POLICY_NODE; indent: TOpenSSL_C_INT); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ADMISSIONS_get0_admissionAuthority_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509_POLICY_NODE_print');
 end;
 
+function ERROR_X509v3_addr_get_range(aor: PIPAddressOrRange; const afi: TOpenSSL_C_UINT; min: PByte; max: Byte; const length: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509v3_addr_get_range');
+end;
 
-procedure  ERR_ADMISSIONS_set0_admissionAuthority(a: PADMISSIONS; aa: PGENERAL_NAME); 
+function ERROR_X509v3_asid_validate_path(v1: PX509_STORE_CTX): TOpenSSL_C_INT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ADMISSIONS_set0_admissionAuthority_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509v3_asid_validate_path');
 end;
 
+function ERROR_X509v3_addr_validate_path(v1: PX509_STORE_CTX): TOpenSSL_C_INT; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('X509v3_addr_validate_path');
+end;
 
-function  ERR_ADMISSIONS_get0_namingAuthority(const a: PADMISSIONS): PNAMING_AUTHORITY; 
+function ERROR_NAMING_AUTHORITY_get0_authorityId(const n: PNAMING_AUTHORITY): PASN1_OBJECT; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ADMISSIONS_get0_namingAuthority_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('NAMING_AUTHORITY_get0_authorityId');
 end;
 
+function ERROR_NAMING_AUTHORITY_get0_authorityURL(const n: PNAMING_AUTHORITY): PASN1_IA5STRING; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('NAMING_AUTHORITY_get0_authorityURL');
+end;
 
-procedure  ERR_ADMISSIONS_set0_namingAuthority(a: PADMISSIONS; na: PNAMING_AUTHORITY); 
+function ERROR_NAMING_AUTHORITY_get0_authorityText(const n: PNAMING_AUTHORITY): PASN1_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(ADMISSIONS_set0_namingAuthority_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('NAMING_AUTHORITY_get0_authorityText');
 end;
 
+procedure ERROR_NAMING_AUTHORITY_set0_authorityId(n: PNAMING_AUTHORITY; namingAuthorityId: PASN1_OBJECT); cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('NAMING_AUTHORITY_set0_authorityId');
+end;
 
-  //function ADMISSIONS_get0_professionInfos(const a: PADMISSIONS): PPROFESSION_INFOS;
-  //procedure ADMISSIONS_set0_professionInfos(a: PADMISSIONS; pi: PPROFESSION_INFOS);
-function  ERR_PROFESSION_INFO_get0_addProfessionInfo(const pi: PPROFESSION_INFO): PASN1_OCTET_STRING; 
+procedure ERROR_NAMING_AUTHORITY_set0_authorityURL(n: PNAMING_AUTHORITY; namingAuthorityUrl: PASN1_IA5STRING); cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_get0_addProfessionInfo_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('NAMING_AUTHORITY_set0_authorityURL');
 end;
 
+procedure ERROR_NAMING_AUTHORITY_set0_authorityText(n: PNAMING_AUTHORITY; namingAuthorityText: PASN1_STRING); cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('NAMING_AUTHORITY_set0_authorityText');
+end;
 
-procedure  ERR_PROFESSION_INFO_set0_addProfessionInfo(pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING); 
+function ERROR_ADMISSION_SYNTAX_get0_admissionAuthority(const as_: ADMISSION_SYNTAX): PGENERAL_NAME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_set0_addProfessionInfo_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ADMISSION_SYNTAX_get0_admissionAuthority');
 end;
 
+procedure ERROR_ADMISSION_SYNTAX_set0_admissionAuthority(as_: ADMISSION_SYNTAX; aa: PGENERAL_NAME); cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ADMISSION_SYNTAX_set0_admissionAuthority');
+end;
 
-function  ERR_PROFESSION_INFO_get0_namingAuthority(const pi: PPROFESSION_INFO): PNAMING_AUTHORITY; 
+function ERROR_ADMISSIONS_get0_admissionAuthority(const a: PADMISSIONS): PGENERAL_NAME; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_get0_namingAuthority_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ADMISSIONS_get0_admissionAuthority');
 end;
 
+procedure ERROR_ADMISSIONS_set0_admissionAuthority(a: PADMISSIONS; aa: PGENERAL_NAME); cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ADMISSIONS_set0_admissionAuthority');
+end;
 
-procedure  ERR_PROFESSION_INFO_set0_namingAuthority(pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY); 
+function ERROR_ADMISSIONS_get0_namingAuthority(const a: PADMISSIONS): PNAMING_AUTHORITY; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_set0_namingAuthority_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ADMISSIONS_get0_namingAuthority');
 end;
 
+procedure ERROR_ADMISSIONS_set0_namingAuthority(a: PADMISSIONS; na: PNAMING_AUTHORITY); cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('ADMISSIONS_set0_namingAuthority');
+end;
 
-//  const STACK_OF(ASN1_STRING) *PROFESSION_INFO_get0_professionItems(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionItems(pi: PPROFESSION_INFO; STACK_OF(ASN1_STRING) *as);
-//  const STACK_OF(ASN1_OBJECT) *PROFESSION_INFO_get0_professionOIDs(const pi: PPROFESSION_INFO);
-//  void PROFESSION_INFO_set0_professionOIDs(pi: PPROFESSION_INFO; STACK_OF(ASN1_OBJECT) *po);
-function  ERR_PROFESSION_INFO_get0_registrationNumber(const pi: PPROFESSION_INFO): PASN1_PRINTABLESTRING; 
+function ERROR_PROFESSION_INFO_get0_addProfessionInfo(const pi: PPROFESSION_INFO): PASN1_OCTET_STRING; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_get0_registrationNumber_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('PROFESSION_INFO_get0_addProfessionInfo');
 end;
 
+procedure ERROR_PROFESSION_INFO_set0_addProfessionInfo(pi: PPROFESSION_INFO; aos: PASN1_OCTET_STRING); cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('PROFESSION_INFO_set0_addProfessionInfo');
+end;
 
-procedure  ERR_PROFESSION_INFO_set0_registrationNumber(pi: PPROFESSION_INFO; rn: PASN1_PRINTABLESTRING); 
+function ERROR_PROFESSION_INFO_get0_namingAuthority(const pi: PPROFESSION_INFO): PNAMING_AUTHORITY; cdecl;
 begin
-  EIdAPIFunctionNotPresent.RaiseException(PROFESSION_INFO_set0_registrationNumber_procname);
+  EOpenSSLAPIFunctionNotPresent.RaiseException('PROFESSION_INFO_get0_namingAuthority');
 end;
 
+procedure ERROR_PROFESSION_INFO_set0_namingAuthority(pi: PPROFESSION_INFO; na: PNAMING_AUTHORITY); cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('PROFESSION_INFO_set0_namingAuthority');
+end;
 
+function ERROR_PROFESSION_INFO_get0_registrationNumber(const pi: PPROFESSION_INFO): PASN1_PRINTABLESTRING; cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('PROFESSION_INFO_get0_registrationNumber');
+end;
 
+procedure ERROR_PROFESSION_INFO_set0_registrationNumber(pi: PPROFESSION_INFO; rn: PASN1_PRINTABLESTRING); cdecl;
+begin
+  EOpenSSLAPIFunctionNotPresent.RaiseException('PROFESSION_INFO_set0_registrationNumber');
+end;
 
 {$WARN  NO_RETVAL ON}
-
-procedure Load(const ADllHandle: TIdLibHandle; LibVersion: TIdC_UINT; const AFailed: TStringList);
-
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
-
 begin
-  GENERAL_NAME_cmp := LoadLibFunction(ADllHandle, GENERAL_NAME_cmp_procname);
+  BASIC_CONSTRAINTS_free := LoadLibCryptoFunction('BASIC_CONSTRAINTS_free');
+  FuncLoadError := not assigned(BASIC_CONSTRAINTS_free);
+  if FuncLoadError then
+  begin
+    BASIC_CONSTRAINTS_free :=  @ERROR_BASIC_CONSTRAINTS_free;
+  end;
+
+  BASIC_CONSTRAINTS_new := LoadLibCryptoFunction('BASIC_CONSTRAINTS_new');
+  FuncLoadError := not assigned(BASIC_CONSTRAINTS_new);
+  if FuncLoadError then
+  begin
+    BASIC_CONSTRAINTS_new :=  @ERROR_BASIC_CONSTRAINTS_new;
+  end;
+
+  AUTHORITY_KEYID_free := LoadLibCryptoFunction('AUTHORITY_KEYID_free');
+  FuncLoadError := not assigned(AUTHORITY_KEYID_free);
+  if FuncLoadError then
+  begin
+    AUTHORITY_KEYID_free :=  @ERROR_AUTHORITY_KEYID_free;
+  end;
+
+  AUTHORITY_KEYID_new := LoadLibCryptoFunction('AUTHORITY_KEYID_new');
+  FuncLoadError := not assigned(AUTHORITY_KEYID_new);
+  if FuncLoadError then
+  begin
+    AUTHORITY_KEYID_new :=  @ERROR_AUTHORITY_KEYID_new;
+  end;
+
+  GENERAL_NAME_free := LoadLibCryptoFunction('GENERAL_NAME_free');
+  FuncLoadError := not assigned(GENERAL_NAME_free);
+  if FuncLoadError then
+  begin
+    GENERAL_NAME_free :=  @ERROR_GENERAL_NAME_free;
+  end;
+
+  GENERAL_NAME_new := LoadLibCryptoFunction('GENERAL_NAME_new');
+  FuncLoadError := not assigned(GENERAL_NAME_new);
+  if FuncLoadError then
+  begin
+    GENERAL_NAME_new :=  @ERROR_GENERAL_NAME_new;
+  end;
+
+  GENERAL_NAME_cmp := LoadLibCryptoFunction('GENERAL_NAME_cmp');
   FuncLoadError := not assigned(GENERAL_NAME_cmp);
   if FuncLoadError then
   begin
-    {$if not defined(GENERAL_NAME_cmp_allownil)}
-    GENERAL_NAME_cmp := @ERR_GENERAL_NAME_cmp;
-    {$ifend}
-    {$if declared(GENERAL_NAME_cmp_introduced)}
-    if LibVersion < GENERAL_NAME_cmp_introduced then
-    begin
-      {$if declared(FC_GENERAL_NAME_cmp)}
-      GENERAL_NAME_cmp := @FC_GENERAL_NAME_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(GENERAL_NAME_cmp_removed)}
-    if GENERAL_NAME_cmp_removed <= LibVersion then
-    begin
-      {$if declared(_GENERAL_NAME_cmp)}
-      GENERAL_NAME_cmp := @_GENERAL_NAME_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(GENERAL_NAME_cmp_allownil)}
-    if FuncLoadError then
-      AFailed.Add('GENERAL_NAME_cmp');
-    {$ifend}
+    GENERAL_NAME_cmp :=  @ERROR_GENERAL_NAME_cmp;
   end;
 
-
-  GENERAL_NAME_print := LoadLibFunction(ADllHandle, GENERAL_NAME_print_procname);
+  GENERAL_NAME_print := LoadLibCryptoFunction('GENERAL_NAME_print');
   FuncLoadError := not assigned(GENERAL_NAME_print);
   if FuncLoadError then
   begin
-    {$if not defined(GENERAL_NAME_print_allownil)}
-    GENERAL_NAME_print := @ERR_GENERAL_NAME_print;
-    {$ifend}
-    {$if declared(GENERAL_NAME_print_introduced)}
-    if LibVersion < GENERAL_NAME_print_introduced then
-    begin
-      {$if declared(FC_GENERAL_NAME_print)}
-      GENERAL_NAME_print := @FC_GENERAL_NAME_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(GENERAL_NAME_print_removed)}
-    if GENERAL_NAME_print_removed <= LibVersion then
-    begin
-      {$if declared(_GENERAL_NAME_print)}
-      GENERAL_NAME_print := @_GENERAL_NAME_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(GENERAL_NAME_print_allownil)}
-    if FuncLoadError then
-      AFailed.Add('GENERAL_NAME_print');
-    {$ifend}
+    GENERAL_NAME_print :=  @ERROR_GENERAL_NAME_print;
   end;
 
+  GENERAL_NAMES_free := LoadLibCryptoFunction('GENERAL_NAMES_free');
+  FuncLoadError := not assigned(GENERAL_NAMES_free);
+  if FuncLoadError then
+  begin
+    GENERAL_NAMES_free :=  @ERROR_GENERAL_NAMES_free;
+  end;
 
-  OTHERNAME_cmp := LoadLibFunction(ADllHandle, OTHERNAME_cmp_procname);
+  GENERAL_NAMES_new := LoadLibCryptoFunction('GENERAL_NAMES_new');
+  FuncLoadError := not assigned(GENERAL_NAMES_new);
+  if FuncLoadError then
+  begin
+    GENERAL_NAMES_new :=  @ERROR_GENERAL_NAMES_new;
+  end;
+
+  OTHERNAME_cmp := LoadLibCryptoFunction('OTHERNAME_cmp');
   FuncLoadError := not assigned(OTHERNAME_cmp);
   if FuncLoadError then
   begin
-    {$if not defined(OTHERNAME_cmp_allownil)}
-    OTHERNAME_cmp := @ERR_OTHERNAME_cmp;
-    {$ifend}
-    {$if declared(OTHERNAME_cmp_introduced)}
-    if LibVersion < OTHERNAME_cmp_introduced then
-    begin
-      {$if declared(FC_OTHERNAME_cmp)}
-      OTHERNAME_cmp := @FC_OTHERNAME_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(OTHERNAME_cmp_removed)}
-    if OTHERNAME_cmp_removed <= LibVersion then
-    begin
-      {$if declared(_OTHERNAME_cmp)}
-      OTHERNAME_cmp := @_OTHERNAME_cmp;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(OTHERNAME_cmp_allownil)}
-    if FuncLoadError then
-      AFailed.Add('OTHERNAME_cmp');
-    {$ifend}
+    OTHERNAME_cmp :=  @ERROR_OTHERNAME_cmp;
   end;
 
-
-  GENERAL_NAME_set0_value := LoadLibFunction(ADllHandle, GENERAL_NAME_set0_value_procname);
+  GENERAL_NAME_set0_value := LoadLibCryptoFunction('GENERAL_NAME_set0_value');
   FuncLoadError := not assigned(GENERAL_NAME_set0_value);
   if FuncLoadError then
   begin
-    {$if not defined(GENERAL_NAME_set0_value_allownil)}
-    GENERAL_NAME_set0_value := @ERR_GENERAL_NAME_set0_value;
-    {$ifend}
-    {$if declared(GENERAL_NAME_set0_value_introduced)}
-    if LibVersion < GENERAL_NAME_set0_value_introduced then
-    begin
-      {$if declared(FC_GENERAL_NAME_set0_value)}
-      GENERAL_NAME_set0_value := @FC_GENERAL_NAME_set0_value;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(GENERAL_NAME_set0_value_removed)}
-    if GENERAL_NAME_set0_value_removed <= LibVersion then
-    begin
-      {$if declared(_GENERAL_NAME_set0_value)}
-      GENERAL_NAME_set0_value := @_GENERAL_NAME_set0_value;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(GENERAL_NAME_set0_value_allownil)}
-    if FuncLoadError then
-      AFailed.Add('GENERAL_NAME_set0_value');
-    {$ifend}
+    GENERAL_NAME_set0_value :=  @ERROR_GENERAL_NAME_set0_value;
   end;
 
-
-  GENERAL_NAME_get0_value := LoadLibFunction(ADllHandle, GENERAL_NAME_get0_value_procname);
+  GENERAL_NAME_get0_value := LoadLibCryptoFunction('GENERAL_NAME_get0_value');
   FuncLoadError := not assigned(GENERAL_NAME_get0_value);
   if FuncLoadError then
   begin
-    {$if not defined(GENERAL_NAME_get0_value_allownil)}
-    GENERAL_NAME_get0_value := @ERR_GENERAL_NAME_get0_value;
-    {$ifend}
-    {$if declared(GENERAL_NAME_get0_value_introduced)}
-    if LibVersion < GENERAL_NAME_get0_value_introduced then
-    begin
-      {$if declared(FC_GENERAL_NAME_get0_value)}
-      GENERAL_NAME_get0_value := @FC_GENERAL_NAME_get0_value;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(GENERAL_NAME_get0_value_removed)}
-    if GENERAL_NAME_get0_value_removed <= LibVersion then
-    begin
-      {$if declared(_GENERAL_NAME_get0_value)}
-      GENERAL_NAME_get0_value := @_GENERAL_NAME_get0_value;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(GENERAL_NAME_get0_value_allownil)}
-    if FuncLoadError then
-      AFailed.Add('GENERAL_NAME_get0_value');
-    {$ifend}
+    GENERAL_NAME_get0_value :=  @ERROR_GENERAL_NAME_get0_value;
   end;
 
-
-  GENERAL_NAME_set0_othername := LoadLibFunction(ADllHandle, GENERAL_NAME_set0_othername_procname);
+  GENERAL_NAME_set0_othername := LoadLibCryptoFunction('GENERAL_NAME_set0_othername');
   FuncLoadError := not assigned(GENERAL_NAME_set0_othername);
   if FuncLoadError then
   begin
-    {$if not defined(GENERAL_NAME_set0_othername_allownil)}
-    GENERAL_NAME_set0_othername := @ERR_GENERAL_NAME_set0_othername;
-    {$ifend}
-    {$if declared(GENERAL_NAME_set0_othername_introduced)}
-    if LibVersion < GENERAL_NAME_set0_othername_introduced then
-    begin
-      {$if declared(FC_GENERAL_NAME_set0_othername)}
-      GENERAL_NAME_set0_othername := @FC_GENERAL_NAME_set0_othername;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(GENERAL_NAME_set0_othername_removed)}
-    if GENERAL_NAME_set0_othername_removed <= LibVersion then
-    begin
-      {$if declared(_GENERAL_NAME_set0_othername)}
-      GENERAL_NAME_set0_othername := @_GENERAL_NAME_set0_othername;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(GENERAL_NAME_set0_othername_allownil)}
-    if FuncLoadError then
-      AFailed.Add('GENERAL_NAME_set0_othername');
-    {$ifend}
+    GENERAL_NAME_set0_othername :=  @ERROR_GENERAL_NAME_set0_othername;
   end;
 
-
-  GENERAL_NAME_get0_otherName := LoadLibFunction(ADllHandle, GENERAL_NAME_get0_otherName_procname);
+  GENERAL_NAME_get0_otherName := LoadLibCryptoFunction('GENERAL_NAME_get0_otherName');
   FuncLoadError := not assigned(GENERAL_NAME_get0_otherName);
   if FuncLoadError then
   begin
-    {$if not defined(GENERAL_NAME_get0_otherName_allownil)}
-    GENERAL_NAME_get0_otherName := @ERR_GENERAL_NAME_get0_otherName;
-    {$ifend}
-    {$if declared(GENERAL_NAME_get0_otherName_introduced)}
-    if LibVersion < GENERAL_NAME_get0_otherName_introduced then
-    begin
-      {$if declared(FC_GENERAL_NAME_get0_otherName)}
-      GENERAL_NAME_get0_otherName := @FC_GENERAL_NAME_get0_otherName;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(GENERAL_NAME_get0_otherName_removed)}
-    if GENERAL_NAME_get0_otherName_removed <= LibVersion then
-    begin
-      {$if declared(_GENERAL_NAME_get0_otherName)}
-      GENERAL_NAME_get0_otherName := @_GENERAL_NAME_get0_otherName;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(GENERAL_NAME_get0_otherName_allownil)}
-    if FuncLoadError then
-      AFailed.Add('GENERAL_NAME_get0_otherName');
-    {$ifend}
+    GENERAL_NAME_get0_otherName :=  @ERROR_GENERAL_NAME_get0_otherName;
   end;
 
-
-  i2a_ACCESS_DESCRIPTION := LoadLibFunction(ADllHandle, i2a_ACCESS_DESCRIPTION_procname);
+  i2a_ACCESS_DESCRIPTION := LoadLibCryptoFunction('i2a_ACCESS_DESCRIPTION');
   FuncLoadError := not assigned(i2a_ACCESS_DESCRIPTION);
   if FuncLoadError then
   begin
-    {$if not defined(i2a_ACCESS_DESCRIPTION_allownil)}
-    i2a_ACCESS_DESCRIPTION := @ERR_i2a_ACCESS_DESCRIPTION;
-    {$ifend}
-    {$if declared(i2a_ACCESS_DESCRIPTION_introduced)}
-    if LibVersion < i2a_ACCESS_DESCRIPTION_introduced then
-    begin
-      {$if declared(FC_i2a_ACCESS_DESCRIPTION)}
-      i2a_ACCESS_DESCRIPTION := @FC_i2a_ACCESS_DESCRIPTION;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(i2a_ACCESS_DESCRIPTION_removed)}
-    if i2a_ACCESS_DESCRIPTION_removed <= LibVersion then
-    begin
-      {$if declared(_i2a_ACCESS_DESCRIPTION)}
-      i2a_ACCESS_DESCRIPTION := @_i2a_ACCESS_DESCRIPTION;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(i2a_ACCESS_DESCRIPTION_allownil)}
-    if FuncLoadError then
-      AFailed.Add('i2a_ACCESS_DESCRIPTION');
-    {$ifend}
+    i2a_ACCESS_DESCRIPTION :=  @ERROR_i2a_ACCESS_DESCRIPTION;
   end;
 
-
-  DIST_POINT_set_dpname := LoadLibFunction(ADllHandle, DIST_POINT_set_dpname_procname);
+  DIST_POINT_set_dpname := LoadLibCryptoFunction('DIST_POINT_set_dpname');
   FuncLoadError := not assigned(DIST_POINT_set_dpname);
   if FuncLoadError then
   begin
-    {$if not defined(DIST_POINT_set_dpname_allownil)}
-    DIST_POINT_set_dpname := @ERR_DIST_POINT_set_dpname;
-    {$ifend}
-    {$if declared(DIST_POINT_set_dpname_introduced)}
-    if LibVersion < DIST_POINT_set_dpname_introduced then
-    begin
-      {$if declared(FC_DIST_POINT_set_dpname)}
-      DIST_POINT_set_dpname := @FC_DIST_POINT_set_dpname;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(DIST_POINT_set_dpname_removed)}
-    if DIST_POINT_set_dpname_removed <= LibVersion then
-    begin
-      {$if declared(_DIST_POINT_set_dpname)}
-      DIST_POINT_set_dpname := @_DIST_POINT_set_dpname;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(DIST_POINT_set_dpname_allownil)}
-    if FuncLoadError then
-      AFailed.Add('DIST_POINT_set_dpname');
-    {$ifend}
+    DIST_POINT_set_dpname :=  @ERROR_DIST_POINT_set_dpname;
   end;
 
-
-  NAME_CONSTRAINTS_check := LoadLibFunction(ADllHandle, NAME_CONSTRAINTS_check_procname);
+  NAME_CONSTRAINTS_check := LoadLibCryptoFunction('NAME_CONSTRAINTS_check');
   FuncLoadError := not assigned(NAME_CONSTRAINTS_check);
   if FuncLoadError then
   begin
-    {$if not defined(NAME_CONSTRAINTS_check_allownil)}
-    NAME_CONSTRAINTS_check := @ERR_NAME_CONSTRAINTS_check;
-    {$ifend}
-    {$if declared(NAME_CONSTRAINTS_check_introduced)}
-    if LibVersion < NAME_CONSTRAINTS_check_introduced then
-    begin
-      {$if declared(FC_NAME_CONSTRAINTS_check)}
-      NAME_CONSTRAINTS_check := @FC_NAME_CONSTRAINTS_check;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(NAME_CONSTRAINTS_check_removed)}
-    if NAME_CONSTRAINTS_check_removed <= LibVersion then
-    begin
-      {$if declared(_NAME_CONSTRAINTS_check)}
-      NAME_CONSTRAINTS_check := @_NAME_CONSTRAINTS_check;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(NAME_CONSTRAINTS_check_allownil)}
-    if FuncLoadError then
-      AFailed.Add('NAME_CONSTRAINTS_check');
-    {$ifend}
+    NAME_CONSTRAINTS_check :=  @ERROR_NAME_CONSTRAINTS_check;
   end;
 
-
-  NAME_CONSTRAINTS_check_CN := LoadLibFunction(ADllHandle, NAME_CONSTRAINTS_check_CN_procname);
+  NAME_CONSTRAINTS_check_CN := LoadLibCryptoFunction('NAME_CONSTRAINTS_check_CN');
   FuncLoadError := not assigned(NAME_CONSTRAINTS_check_CN);
   if FuncLoadError then
   begin
-    {$if not defined(NAME_CONSTRAINTS_check_CN_allownil)}
-    NAME_CONSTRAINTS_check_CN := @ERR_NAME_CONSTRAINTS_check_CN;
-    {$ifend}
-    {$if declared(NAME_CONSTRAINTS_check_CN_introduced)}
-    if LibVersion < NAME_CONSTRAINTS_check_CN_introduced then
-    begin
-      {$if declared(FC_NAME_CONSTRAINTS_check_CN)}
-      NAME_CONSTRAINTS_check_CN := @FC_NAME_CONSTRAINTS_check_CN;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(NAME_CONSTRAINTS_check_CN_removed)}
-    if NAME_CONSTRAINTS_check_CN_removed <= LibVersion then
-    begin
-      {$if declared(_NAME_CONSTRAINTS_check_CN)}
-      NAME_CONSTRAINTS_check_CN := @_NAME_CONSTRAINTS_check_CN;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(NAME_CONSTRAINTS_check_CN_allownil)}
-    if FuncLoadError then
-      AFailed.Add('NAME_CONSTRAINTS_check_CN');
-    {$ifend}
+    NAME_CONSTRAINTS_check_CN :=  @ERROR_NAME_CONSTRAINTS_check_CN;
   end;
 
-
-  X509V3_EXT_nconf_nid := LoadLibFunction(ADllHandle, X509V3_EXT_nconf_nid_procname);
+  X509V3_EXT_nconf_nid := LoadLibCryptoFunction('X509V3_EXT_nconf_nid');
   FuncLoadError := not assigned(X509V3_EXT_nconf_nid);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_nconf_nid_allownil)}
-    X509V3_EXT_nconf_nid := @ERR_X509V3_EXT_nconf_nid;
-    {$ifend}
-    {$if declared(X509V3_EXT_nconf_nid_introduced)}
-    if LibVersion < X509V3_EXT_nconf_nid_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_nconf_nid)}
-      X509V3_EXT_nconf_nid := @FC_X509V3_EXT_nconf_nid;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_nconf_nid_removed)}
-    if X509V3_EXT_nconf_nid_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_nconf_nid)}
-      X509V3_EXT_nconf_nid := @_X509V3_EXT_nconf_nid;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_nconf_nid_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_nconf_nid');
-    {$ifend}
+    X509V3_EXT_nconf_nid :=  @ERROR_X509V3_EXT_nconf_nid;
   end;
 
-
-  X509V3_EXT_nconf := LoadLibFunction(ADllHandle, X509V3_EXT_nconf_procname);
+  X509V3_EXT_nconf := LoadLibCryptoFunction('X509V3_EXT_nconf');
   FuncLoadError := not assigned(X509V3_EXT_nconf);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_nconf_allownil)}
-    X509V3_EXT_nconf := @ERR_X509V3_EXT_nconf;
-    {$ifend}
-    {$if declared(X509V3_EXT_nconf_introduced)}
-    if LibVersion < X509V3_EXT_nconf_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_nconf)}
-      X509V3_EXT_nconf := @FC_X509V3_EXT_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_nconf_removed)}
-    if X509V3_EXT_nconf_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_nconf)}
-      X509V3_EXT_nconf := @_X509V3_EXT_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_nconf_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_nconf');
-    {$ifend}
+    X509V3_EXT_nconf :=  @ERROR_X509V3_EXT_nconf;
   end;
 
-
-  X509V3_EXT_add_nconf := LoadLibFunction(ADllHandle, X509V3_EXT_add_nconf_procname);
+  X509V3_EXT_add_nconf := LoadLibCryptoFunction('X509V3_EXT_add_nconf');
   FuncLoadError := not assigned(X509V3_EXT_add_nconf);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_add_nconf_allownil)}
-    X509V3_EXT_add_nconf := @ERR_X509V3_EXT_add_nconf;
-    {$ifend}
-    {$if declared(X509V3_EXT_add_nconf_introduced)}
-    if LibVersion < X509V3_EXT_add_nconf_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_add_nconf)}
-      X509V3_EXT_add_nconf := @FC_X509V3_EXT_add_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_add_nconf_removed)}
-    if X509V3_EXT_add_nconf_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_add_nconf)}
-      X509V3_EXT_add_nconf := @_X509V3_EXT_add_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_add_nconf_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_add_nconf');
-    {$ifend}
+    X509V3_EXT_add_nconf :=  @ERROR_X509V3_EXT_add_nconf;
   end;
 
-
-  X509V3_EXT_REQ_add_nconf := LoadLibFunction(ADllHandle, X509V3_EXT_REQ_add_nconf_procname);
+  X509V3_EXT_REQ_add_nconf := LoadLibCryptoFunction('X509V3_EXT_REQ_add_nconf');
   FuncLoadError := not assigned(X509V3_EXT_REQ_add_nconf);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_REQ_add_nconf_allownil)}
-    X509V3_EXT_REQ_add_nconf := @ERR_X509V3_EXT_REQ_add_nconf;
-    {$ifend}
-    {$if declared(X509V3_EXT_REQ_add_nconf_introduced)}
-    if LibVersion < X509V3_EXT_REQ_add_nconf_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_REQ_add_nconf)}
-      X509V3_EXT_REQ_add_nconf := @FC_X509V3_EXT_REQ_add_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_REQ_add_nconf_removed)}
-    if X509V3_EXT_REQ_add_nconf_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_REQ_add_nconf)}
-      X509V3_EXT_REQ_add_nconf := @_X509V3_EXT_REQ_add_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_REQ_add_nconf_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_REQ_add_nconf');
-    {$ifend}
+    X509V3_EXT_REQ_add_nconf :=  @ERROR_X509V3_EXT_REQ_add_nconf;
   end;
 
-
-  X509V3_EXT_CRL_add_nconf := LoadLibFunction(ADllHandle, X509V3_EXT_CRL_add_nconf_procname);
+  X509V3_EXT_CRL_add_nconf := LoadLibCryptoFunction('X509V3_EXT_CRL_add_nconf');
   FuncLoadError := not assigned(X509V3_EXT_CRL_add_nconf);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_CRL_add_nconf_allownil)}
-    X509V3_EXT_CRL_add_nconf := @ERR_X509V3_EXT_CRL_add_nconf;
-    {$ifend}
-    {$if declared(X509V3_EXT_CRL_add_nconf_introduced)}
-    if LibVersion < X509V3_EXT_CRL_add_nconf_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_CRL_add_nconf)}
-      X509V3_EXT_CRL_add_nconf := @FC_X509V3_EXT_CRL_add_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_CRL_add_nconf_removed)}
-    if X509V3_EXT_CRL_add_nconf_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_CRL_add_nconf)}
-      X509V3_EXT_CRL_add_nconf := @_X509V3_EXT_CRL_add_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_CRL_add_nconf_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_CRL_add_nconf');
-    {$ifend}
+    X509V3_EXT_CRL_add_nconf :=  @ERROR_X509V3_EXT_CRL_add_nconf;
   end;
 
-
-  X509V3_EXT_conf_nid := LoadLibFunction(ADllHandle, X509V3_EXT_conf_nid_procname);
+  X509V3_EXT_conf_nid := LoadLibCryptoFunction('X509V3_EXT_conf_nid');
   FuncLoadError := not assigned(X509V3_EXT_conf_nid);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_conf_nid_allownil)}
-    X509V3_EXT_conf_nid := @ERR_X509V3_EXT_conf_nid;
-    {$ifend}
-    {$if declared(X509V3_EXT_conf_nid_introduced)}
-    if LibVersion < X509V3_EXT_conf_nid_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_conf_nid)}
-      X509V3_EXT_conf_nid := @FC_X509V3_EXT_conf_nid;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_conf_nid_removed)}
-    if X509V3_EXT_conf_nid_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_conf_nid)}
-      X509V3_EXT_conf_nid := @_X509V3_EXT_conf_nid;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_conf_nid_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_conf_nid');
-    {$ifend}
+    X509V3_EXT_conf_nid :=  @ERROR_X509V3_EXT_conf_nid;
   end;
 
-
-  X509V3_EXT_conf := LoadLibFunction(ADllHandle, X509V3_EXT_conf_procname);
+  X509V3_EXT_conf := LoadLibCryptoFunction('X509V3_EXT_conf');
   FuncLoadError := not assigned(X509V3_EXT_conf);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_conf_allownil)}
-    X509V3_EXT_conf := @ERR_X509V3_EXT_conf;
-    {$ifend}
-    {$if declared(X509V3_EXT_conf_introduced)}
-    if LibVersion < X509V3_EXT_conf_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_conf)}
-      X509V3_EXT_conf := @FC_X509V3_EXT_conf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_conf_removed)}
-    if X509V3_EXT_conf_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_conf)}
-      X509V3_EXT_conf := @_X509V3_EXT_conf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_conf_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_conf');
-    {$ifend}
+    X509V3_EXT_conf :=  @ERROR_X509V3_EXT_conf;
   end;
 
-
-  X509V3_EXT_add_conf := LoadLibFunction(ADllHandle, X509V3_EXT_add_conf_procname);
+  X509V3_EXT_add_conf := LoadLibCryptoFunction('X509V3_EXT_add_conf');
   FuncLoadError := not assigned(X509V3_EXT_add_conf);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_add_conf_allownil)}
-    X509V3_EXT_add_conf := @ERR_X509V3_EXT_add_conf;
-    {$ifend}
-    {$if declared(X509V3_EXT_add_conf_introduced)}
-    if LibVersion < X509V3_EXT_add_conf_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_add_conf)}
-      X509V3_EXT_add_conf := @FC_X509V3_EXT_add_conf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_add_conf_removed)}
-    if X509V3_EXT_add_conf_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_add_conf)}
-      X509V3_EXT_add_conf := @_X509V3_EXT_add_conf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_add_conf_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_add_conf');
-    {$ifend}
+    X509V3_EXT_add_conf :=  @ERROR_X509V3_EXT_add_conf;
   end;
 
-
-  X509V3_EXT_REQ_add_conf := LoadLibFunction(ADllHandle, X509V3_EXT_REQ_add_conf_procname);
+  X509V3_EXT_REQ_add_conf := LoadLibCryptoFunction('X509V3_EXT_REQ_add_conf');
   FuncLoadError := not assigned(X509V3_EXT_REQ_add_conf);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_REQ_add_conf_allownil)}
-    X509V3_EXT_REQ_add_conf := @ERR_X509V3_EXT_REQ_add_conf;
-    {$ifend}
-    {$if declared(X509V3_EXT_REQ_add_conf_introduced)}
-    if LibVersion < X509V3_EXT_REQ_add_conf_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_REQ_add_conf)}
-      X509V3_EXT_REQ_add_conf := @FC_X509V3_EXT_REQ_add_conf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_REQ_add_conf_removed)}
-    if X509V3_EXT_REQ_add_conf_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_REQ_add_conf)}
-      X509V3_EXT_REQ_add_conf := @_X509V3_EXT_REQ_add_conf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_REQ_add_conf_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_REQ_add_conf');
-    {$ifend}
+    X509V3_EXT_REQ_add_conf :=  @ERROR_X509V3_EXT_REQ_add_conf;
   end;
 
-
-  X509V3_EXT_CRL_add_conf := LoadLibFunction(ADllHandle, X509V3_EXT_CRL_add_conf_procname);
+  X509V3_EXT_CRL_add_conf := LoadLibCryptoFunction('X509V3_EXT_CRL_add_conf');
   FuncLoadError := not assigned(X509V3_EXT_CRL_add_conf);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_CRL_add_conf_allownil)}
-    X509V3_EXT_CRL_add_conf := @ERR_X509V3_EXT_CRL_add_conf;
-    {$ifend}
-    {$if declared(X509V3_EXT_CRL_add_conf_introduced)}
-    if LibVersion < X509V3_EXT_CRL_add_conf_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_CRL_add_conf)}
-      X509V3_EXT_CRL_add_conf := @FC_X509V3_EXT_CRL_add_conf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_CRL_add_conf_removed)}
-    if X509V3_EXT_CRL_add_conf_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_CRL_add_conf)}
-      X509V3_EXT_CRL_add_conf := @_X509V3_EXT_CRL_add_conf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_CRL_add_conf_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_CRL_add_conf');
-    {$ifend}
+    X509V3_EXT_CRL_add_conf :=  @ERROR_X509V3_EXT_CRL_add_conf;
   end;
 
-
-  X509V3_set_nconf := LoadLibFunction(ADllHandle, X509V3_set_nconf_procname);
+  X509V3_set_nconf := LoadLibCryptoFunction('X509V3_set_nconf');
   FuncLoadError := not assigned(X509V3_set_nconf);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_set_nconf_allownil)}
-    X509V3_set_nconf := @ERR_X509V3_set_nconf;
-    {$ifend}
-    {$if declared(X509V3_set_nconf_introduced)}
-    if LibVersion < X509V3_set_nconf_introduced then
-    begin
-      {$if declared(FC_X509V3_set_nconf)}
-      X509V3_set_nconf := @FC_X509V3_set_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_set_nconf_removed)}
-    if X509V3_set_nconf_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_set_nconf)}
-      X509V3_set_nconf := @_X509V3_set_nconf;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_set_nconf_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_set_nconf');
-    {$ifend}
+    X509V3_set_nconf :=  @ERROR_X509V3_set_nconf;
   end;
 
-
-  X509V3_get_string := LoadLibFunction(ADllHandle, X509V3_get_string_procname);
+  X509V3_get_string := LoadLibCryptoFunction('X509V3_get_string');
   FuncLoadError := not assigned(X509V3_get_string);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_get_string_allownil)}
-    X509V3_get_string := @ERR_X509V3_get_string;
-    {$ifend}
-    {$if declared(X509V3_get_string_introduced)}
-    if LibVersion < X509V3_get_string_introduced then
-    begin
-      {$if declared(FC_X509V3_get_string)}
-      X509V3_get_string := @FC_X509V3_get_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_get_string_removed)}
-    if X509V3_get_string_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_get_string)}
-      X509V3_get_string := @_X509V3_get_string;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_get_string_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_get_string');
-    {$ifend}
+    X509V3_get_string :=  @ERROR_X509V3_get_string;
   end;
 
-
-  X509V3_string_free := LoadLibFunction(ADllHandle, X509V3_string_free_procname);
+  X509V3_string_free := LoadLibCryptoFunction('X509V3_string_free');
   FuncLoadError := not assigned(X509V3_string_free);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_string_free_allownil)}
-    X509V3_string_free := @ERR_X509V3_string_free;
-    {$ifend}
-    {$if declared(X509V3_string_free_introduced)}
-    if LibVersion < X509V3_string_free_introduced then
-    begin
-      {$if declared(FC_X509V3_string_free)}
-      X509V3_string_free := @FC_X509V3_string_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_string_free_removed)}
-    if X509V3_string_free_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_string_free)}
-      X509V3_string_free := @_X509V3_string_free;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_string_free_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_string_free');
-    {$ifend}
+    X509V3_string_free :=  @ERROR_X509V3_string_free;
   end;
 
-
-  X509V3_set_ctx := LoadLibFunction(ADllHandle, X509V3_set_ctx_procname);
+  X509V3_set_ctx := LoadLibCryptoFunction('X509V3_set_ctx');
   FuncLoadError := not assigned(X509V3_set_ctx);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_set_ctx_allownil)}
-    X509V3_set_ctx := @ERR_X509V3_set_ctx;
-    {$ifend}
-    {$if declared(X509V3_set_ctx_introduced)}
-    if LibVersion < X509V3_set_ctx_introduced then
-    begin
-      {$if declared(FC_X509V3_set_ctx)}
-      X509V3_set_ctx := @FC_X509V3_set_ctx;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_set_ctx_removed)}
-    if X509V3_set_ctx_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_set_ctx)}
-      X509V3_set_ctx := @_X509V3_set_ctx;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_set_ctx_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_set_ctx');
-    {$ifend}
+    X509V3_set_ctx :=  @ERROR_X509V3_set_ctx;
   end;
 
-
-  X509V3_EXT_add_alias := LoadLibFunction(ADllHandle, X509V3_EXT_add_alias_procname);
+  X509V3_EXT_add_alias := LoadLibCryptoFunction('X509V3_EXT_add_alias');
   FuncLoadError := not assigned(X509V3_EXT_add_alias);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_add_alias_allownil)}
-    X509V3_EXT_add_alias := @ERR_X509V3_EXT_add_alias;
-    {$ifend}
-    {$if declared(X509V3_EXT_add_alias_introduced)}
-    if LibVersion < X509V3_EXT_add_alias_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_add_alias)}
-      X509V3_EXT_add_alias := @FC_X509V3_EXT_add_alias;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_add_alias_removed)}
-    if X509V3_EXT_add_alias_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_add_alias)}
-      X509V3_EXT_add_alias := @_X509V3_EXT_add_alias;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_add_alias_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_add_alias');
-    {$ifend}
+    X509V3_EXT_add_alias :=  @ERROR_X509V3_EXT_add_alias;
   end;
 
-
-  X509V3_EXT_cleanup := LoadLibFunction(ADllHandle, X509V3_EXT_cleanup_procname);
+  X509V3_EXT_cleanup := LoadLibCryptoFunction('X509V3_EXT_cleanup');
   FuncLoadError := not assigned(X509V3_EXT_cleanup);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_cleanup_allownil)}
-    X509V3_EXT_cleanup := @ERR_X509V3_EXT_cleanup;
-    {$ifend}
-    {$if declared(X509V3_EXT_cleanup_introduced)}
-    if LibVersion < X509V3_EXT_cleanup_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_cleanup)}
-      X509V3_EXT_cleanup := @FC_X509V3_EXT_cleanup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_cleanup_removed)}
-    if X509V3_EXT_cleanup_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_cleanup)}
-      X509V3_EXT_cleanup := @_X509V3_EXT_cleanup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_cleanup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_cleanup');
-    {$ifend}
+    X509V3_EXT_cleanup :=  @ERROR_X509V3_EXT_cleanup;
   end;
 
-
-  X509V3_add_standard_extensions := LoadLibFunction(ADllHandle, X509V3_add_standard_extensions_procname);
+  X509V3_add_standard_extensions := LoadLibCryptoFunction('X509V3_add_standard_extensions');
   FuncLoadError := not assigned(X509V3_add_standard_extensions);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_add_standard_extensions_allownil)}
-    X509V3_add_standard_extensions := @ERR_X509V3_add_standard_extensions;
-    {$ifend}
-    {$if declared(X509V3_add_standard_extensions_introduced)}
-    if LibVersion < X509V3_add_standard_extensions_introduced then
-    begin
-      {$if declared(FC_X509V3_add_standard_extensions)}
-      X509V3_add_standard_extensions := @FC_X509V3_add_standard_extensions;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_add_standard_extensions_removed)}
-    if X509V3_add_standard_extensions_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_add_standard_extensions)}
-      X509V3_add_standard_extensions := @_X509V3_add_standard_extensions;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_add_standard_extensions_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_add_standard_extensions');
-    {$ifend}
+    X509V3_add_standard_extensions :=  @ERROR_X509V3_add_standard_extensions;
   end;
 
-
-  X509V3_EXT_d2i := LoadLibFunction(ADllHandle, X509V3_EXT_d2i_procname);
+  X509V3_EXT_d2i := LoadLibCryptoFunction('X509V3_EXT_d2i');
   FuncLoadError := not assigned(X509V3_EXT_d2i);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_d2i_allownil)}
-    X509V3_EXT_d2i := @ERR_X509V3_EXT_d2i;
-    {$ifend}
-    {$if declared(X509V3_EXT_d2i_introduced)}
-    if LibVersion < X509V3_EXT_d2i_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_d2i)}
-      X509V3_EXT_d2i := @FC_X509V3_EXT_d2i;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_d2i_removed)}
-    if X509V3_EXT_d2i_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_d2i)}
-      X509V3_EXT_d2i := @_X509V3_EXT_d2i;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_d2i_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_d2i');
-    {$ifend}
+    X509V3_EXT_d2i :=  @ERROR_X509V3_EXT_d2i;
   end;
 
-
-  X509V3_EXT_i2d := LoadLibFunction(ADllHandle, X509V3_EXT_i2d_procname);
+  X509V3_EXT_i2d := LoadLibCryptoFunction('X509V3_EXT_i2d');
   FuncLoadError := not assigned(X509V3_EXT_i2d);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_i2d_allownil)}
-    X509V3_EXT_i2d := @ERR_X509V3_EXT_i2d;
-    {$ifend}
-    {$if declared(X509V3_EXT_i2d_introduced)}
-    if LibVersion < X509V3_EXT_i2d_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_i2d)}
-      X509V3_EXT_i2d := @FC_X509V3_EXT_i2d;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_i2d_removed)}
-    if X509V3_EXT_i2d_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_i2d)}
-      X509V3_EXT_i2d := @_X509V3_EXT_i2d;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_i2d_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_i2d');
-    {$ifend}
+    X509V3_EXT_i2d :=  @ERROR_X509V3_EXT_i2d;
   end;
 
-
-  X509V3_EXT_print := LoadLibFunction(ADllHandle, X509V3_EXT_print_procname);
+  X509V3_EXT_print := LoadLibCryptoFunction('X509V3_EXT_print');
   FuncLoadError := not assigned(X509V3_EXT_print);
   if FuncLoadError then
   begin
-    {$if not defined(X509V3_EXT_print_allownil)}
-    X509V3_EXT_print := @ERR_X509V3_EXT_print;
-    {$ifend}
-    {$if declared(X509V3_EXT_print_introduced)}
-    if LibVersion < X509V3_EXT_print_introduced then
-    begin
-      {$if declared(FC_X509V3_EXT_print)}
-      X509V3_EXT_print := @FC_X509V3_EXT_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509V3_EXT_print_removed)}
-    if X509V3_EXT_print_removed <= LibVersion then
-    begin
-      {$if declared(_X509V3_EXT_print)}
-      X509V3_EXT_print := @_X509V3_EXT_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509V3_EXT_print_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509V3_EXT_print');
-    {$ifend}
+    X509V3_EXT_print :=  @ERROR_X509V3_EXT_print;
   end;
 
-
-  X509_check_ca := LoadLibFunction(ADllHandle, X509_check_ca_procname);
+  X509_check_ca := LoadLibCryptoFunction('X509_check_ca');
   FuncLoadError := not assigned(X509_check_ca);
   if FuncLoadError then
   begin
-    {$if not defined(X509_check_ca_allownil)}
-    X509_check_ca := @ERR_X509_check_ca;
-    {$ifend}
-    {$if declared(X509_check_ca_introduced)}
-    if LibVersion < X509_check_ca_introduced then
-    begin
-      {$if declared(FC_X509_check_ca)}
-      X509_check_ca := @FC_X509_check_ca;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_check_ca_removed)}
-    if X509_check_ca_removed <= LibVersion then
-    begin
-      {$if declared(_X509_check_ca)}
-      X509_check_ca := @_X509_check_ca;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_check_ca_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_check_ca');
-    {$ifend}
+    X509_check_ca :=  @ERROR_X509_check_ca;
   end;
 
-
-  X509_check_purpose := LoadLibFunction(ADllHandle, X509_check_purpose_procname);
+  X509_check_purpose := LoadLibCryptoFunction('X509_check_purpose');
   FuncLoadError := not assigned(X509_check_purpose);
   if FuncLoadError then
   begin
-    {$if not defined(X509_check_purpose_allownil)}
-    X509_check_purpose := @ERR_X509_check_purpose;
-    {$ifend}
-    {$if declared(X509_check_purpose_introduced)}
-    if LibVersion < X509_check_purpose_introduced then
-    begin
-      {$if declared(FC_X509_check_purpose)}
-      X509_check_purpose := @FC_X509_check_purpose;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_check_purpose_removed)}
-    if X509_check_purpose_removed <= LibVersion then
-    begin
-      {$if declared(_X509_check_purpose)}
-      X509_check_purpose := @_X509_check_purpose;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_check_purpose_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_check_purpose');
-    {$ifend}
+    X509_check_purpose :=  @ERROR_X509_check_purpose;
   end;
 
-
-  X509_supported_extension := LoadLibFunction(ADllHandle, X509_supported_extension_procname);
+  X509_supported_extension := LoadLibCryptoFunction('X509_supported_extension');
   FuncLoadError := not assigned(X509_supported_extension);
   if FuncLoadError then
   begin
-    {$if not defined(X509_supported_extension_allownil)}
-    X509_supported_extension := @ERR_X509_supported_extension;
-    {$ifend}
-    {$if declared(X509_supported_extension_introduced)}
-    if LibVersion < X509_supported_extension_introduced then
-    begin
-      {$if declared(FC_X509_supported_extension)}
-      X509_supported_extension := @FC_X509_supported_extension;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_supported_extension_removed)}
-    if X509_supported_extension_removed <= LibVersion then
-    begin
-      {$if declared(_X509_supported_extension)}
-      X509_supported_extension := @_X509_supported_extension;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_supported_extension_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_supported_extension');
-    {$ifend}
+    X509_supported_extension :=  @ERROR_X509_supported_extension;
   end;
 
-
-  X509_PURPOSE_set := LoadLibFunction(ADllHandle, X509_PURPOSE_set_procname);
+  X509_PURPOSE_set := LoadLibCryptoFunction('X509_PURPOSE_set');
   FuncLoadError := not assigned(X509_PURPOSE_set);
   if FuncLoadError then
   begin
-    {$if not defined(X509_PURPOSE_set_allownil)}
-    X509_PURPOSE_set := @ERR_X509_PURPOSE_set;
-    {$ifend}
-    {$if declared(X509_PURPOSE_set_introduced)}
-    if LibVersion < X509_PURPOSE_set_introduced then
-    begin
-      {$if declared(FC_X509_PURPOSE_set)}
-      X509_PURPOSE_set := @FC_X509_PURPOSE_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_PURPOSE_set_removed)}
-    if X509_PURPOSE_set_removed <= LibVersion then
-    begin
-      {$if declared(_X509_PURPOSE_set)}
-      X509_PURPOSE_set := @_X509_PURPOSE_set;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_PURPOSE_set_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_PURPOSE_set');
-    {$ifend}
+    X509_PURPOSE_set :=  @ERROR_X509_PURPOSE_set;
   end;
 
-
-  X509_check_issued := LoadLibFunction(ADllHandle, X509_check_issued_procname);
+  X509_check_issued := LoadLibCryptoFunction('X509_check_issued');
   FuncLoadError := not assigned(X509_check_issued);
   if FuncLoadError then
   begin
-    {$if not defined(X509_check_issued_allownil)}
-    X509_check_issued := @ERR_X509_check_issued;
-    {$ifend}
-    {$if declared(X509_check_issued_introduced)}
-    if LibVersion < X509_check_issued_introduced then
-    begin
-      {$if declared(FC_X509_check_issued)}
-      X509_check_issued := @FC_X509_check_issued;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_check_issued_removed)}
-    if X509_check_issued_removed <= LibVersion then
-    begin
-      {$if declared(_X509_check_issued)}
-      X509_check_issued := @_X509_check_issued;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_check_issued_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_check_issued');
-    {$ifend}
+    X509_check_issued :=  @ERROR_X509_check_issued;
   end;
 
-
-  X509_check_akid := LoadLibFunction(ADllHandle, X509_check_akid_procname);
+  X509_check_akid := LoadLibCryptoFunction('X509_check_akid');
   FuncLoadError := not assigned(X509_check_akid);
   if FuncLoadError then
   begin
-    {$if not defined(X509_check_akid_allownil)}
-    X509_check_akid := @ERR_X509_check_akid;
-    {$ifend}
-    {$if declared(X509_check_akid_introduced)}
-    if LibVersion < X509_check_akid_introduced then
-    begin
-      {$if declared(FC_X509_check_akid)}
-      X509_check_akid := @FC_X509_check_akid;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_check_akid_removed)}
-    if X509_check_akid_removed <= LibVersion then
-    begin
-      {$if declared(_X509_check_akid)}
-      X509_check_akid := @_X509_check_akid;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_check_akid_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_check_akid');
-    {$ifend}
+    X509_check_akid :=  @ERROR_X509_check_akid;
   end;
 
-
-  X509_set_proxy_flag := LoadLibFunction(ADllHandle, X509_set_proxy_flag_procname);
+  X509_set_proxy_flag := LoadLibCryptoFunction('X509_set_proxy_flag');
   FuncLoadError := not assigned(X509_set_proxy_flag);
   if FuncLoadError then
   begin
-    {$if not defined(X509_set_proxy_flag_allownil)}
-    X509_set_proxy_flag := @ERR_X509_set_proxy_flag;
-    {$ifend}
-    {$if declared(X509_set_proxy_flag_introduced)}
-    if LibVersion < X509_set_proxy_flag_introduced then
-    begin
-      {$if declared(FC_X509_set_proxy_flag)}
-      X509_set_proxy_flag := @FC_X509_set_proxy_flag;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_set_proxy_flag_removed)}
-    if X509_set_proxy_flag_removed <= LibVersion then
-    begin
-      {$if declared(_X509_set_proxy_flag)}
-      X509_set_proxy_flag := @_X509_set_proxy_flag;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_set_proxy_flag_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_set_proxy_flag');
-    {$ifend}
+    X509_set_proxy_flag :=  @ERROR_X509_set_proxy_flag;
   end;
 
-
-  X509_set_proxy_pathlen := LoadLibFunction(ADllHandle, X509_set_proxy_pathlen_procname);
+  X509_set_proxy_pathlen := LoadLibCryptoFunction('X509_set_proxy_pathlen');
   FuncLoadError := not assigned(X509_set_proxy_pathlen);
   if FuncLoadError then
   begin
-    {$if not defined(X509_set_proxy_pathlen_allownil)}
-    X509_set_proxy_pathlen := @ERR_X509_set_proxy_pathlen;
-    {$ifend}
-    {$if declared(X509_set_proxy_pathlen_introduced)}
-    if LibVersion < X509_set_proxy_pathlen_introduced then
-    begin
-      {$if declared(FC_X509_set_proxy_pathlen)}
-      X509_set_proxy_pathlen := @FC_X509_set_proxy_pathlen;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_set_proxy_pathlen_removed)}
-    if X509_set_proxy_pathlen_removed <= LibVersion then
-    begin
-      {$if declared(_X509_set_proxy_pathlen)}
-      X509_set_proxy_pathlen := @_X509_set_proxy_pathlen;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_set_proxy_pathlen_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_set_proxy_pathlen');
-    {$ifend}
+    X509_set_proxy_pathlen :=  @ERROR_X509_set_proxy_pathlen;
   end;
 
-
-  X509_get_proxy_pathlen := LoadLibFunction(ADllHandle, X509_get_proxy_pathlen_procname);
+  X509_get_proxy_pathlen := LoadLibCryptoFunction('X509_get_proxy_pathlen');
   FuncLoadError := not assigned(X509_get_proxy_pathlen);
   if FuncLoadError then
   begin
-    {$if not defined(X509_get_proxy_pathlen_allownil)}
-    X509_get_proxy_pathlen := @ERR_X509_get_proxy_pathlen;
-    {$ifend}
-    {$if declared(X509_get_proxy_pathlen_introduced)}
-    if LibVersion < X509_get_proxy_pathlen_introduced then
-    begin
-      {$if declared(FC_X509_get_proxy_pathlen)}
-      X509_get_proxy_pathlen := @FC_X509_get_proxy_pathlen;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_get_proxy_pathlen_removed)}
-    if X509_get_proxy_pathlen_removed <= LibVersion then
-    begin
-      {$if declared(_X509_get_proxy_pathlen)}
-      X509_get_proxy_pathlen := @_X509_get_proxy_pathlen;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_get_proxy_pathlen_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_get_proxy_pathlen');
-    {$ifend}
+    X509_get_proxy_pathlen :=  @ERROR_X509_get_proxy_pathlen;
   end;
 
-
-  X509_get_extension_flags := LoadLibFunction(ADllHandle, X509_get_extension_flags_procname);
+  X509_get_extension_flags := LoadLibCryptoFunction('X509_get_extension_flags');
   FuncLoadError := not assigned(X509_get_extension_flags);
   if FuncLoadError then
   begin
-    {$if not defined(X509_get_extension_flags_allownil)}
-    X509_get_extension_flags := @ERR_X509_get_extension_flags;
-    {$ifend}
-    {$if declared(X509_get_extension_flags_introduced)}
-    if LibVersion < X509_get_extension_flags_introduced then
-    begin
-      {$if declared(FC_X509_get_extension_flags)}
-      X509_get_extension_flags := @FC_X509_get_extension_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_get_extension_flags_removed)}
-    if X509_get_extension_flags_removed <= LibVersion then
-    begin
-      {$if declared(_X509_get_extension_flags)}
-      X509_get_extension_flags := @_X509_get_extension_flags;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_get_extension_flags_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_get_extension_flags');
-    {$ifend}
+    X509_get_extension_flags :=  @ERROR_X509_get_extension_flags;
   end;
 
-
-  X509_get_key_usage := LoadLibFunction(ADllHandle, X509_get_key_usage_procname);
+  X509_get_key_usage := LoadLibCryptoFunction('X509_get_key_usage');
   FuncLoadError := not assigned(X509_get_key_usage);
   if FuncLoadError then
   begin
-    {$if not defined(X509_get_key_usage_allownil)}
-    X509_get_key_usage := @ERR_X509_get_key_usage;
-    {$ifend}
-    {$if declared(X509_get_key_usage_introduced)}
-    if LibVersion < X509_get_key_usage_introduced then
-    begin
-      {$if declared(FC_X509_get_key_usage)}
-      X509_get_key_usage := @FC_X509_get_key_usage;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_get_key_usage_removed)}
-    if X509_get_key_usage_removed <= LibVersion then
-    begin
-      {$if declared(_X509_get_key_usage)}
-      X509_get_key_usage := @_X509_get_key_usage;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_get_key_usage_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_get_key_usage');
-    {$ifend}
+    X509_get_key_usage :=  @ERROR_X509_get_key_usage;
   end;
 
-
-  X509_get_extended_key_usage := LoadLibFunction(ADllHandle, X509_get_extended_key_usage_procname);
+  X509_get_extended_key_usage := LoadLibCryptoFunction('X509_get_extended_key_usage');
   FuncLoadError := not assigned(X509_get_extended_key_usage);
   if FuncLoadError then
   begin
-    {$if not defined(X509_get_extended_key_usage_allownil)}
-    X509_get_extended_key_usage := @ERR_X509_get_extended_key_usage;
-    {$ifend}
-    {$if declared(X509_get_extended_key_usage_introduced)}
-    if LibVersion < X509_get_extended_key_usage_introduced then
-    begin
-      {$if declared(FC_X509_get_extended_key_usage)}
-      X509_get_extended_key_usage := @FC_X509_get_extended_key_usage;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_get_extended_key_usage_removed)}
-    if X509_get_extended_key_usage_removed <= LibVersion then
-    begin
-      {$if declared(_X509_get_extended_key_usage)}
-      X509_get_extended_key_usage := @_X509_get_extended_key_usage;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_get_extended_key_usage_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_get_extended_key_usage');
-    {$ifend}
+    X509_get_extended_key_usage :=  @ERROR_X509_get_extended_key_usage;
   end;
 
-
-  X509_get0_subject_key_id := LoadLibFunction(ADllHandle, X509_get0_subject_key_id_procname);
+  X509_get0_subject_key_id := LoadLibCryptoFunction('X509_get0_subject_key_id');
   FuncLoadError := not assigned(X509_get0_subject_key_id);
   if FuncLoadError then
   begin
-    {$if not defined(X509_get0_subject_key_id_allownil)}
-    X509_get0_subject_key_id := @ERR_X509_get0_subject_key_id;
-    {$ifend}
-    {$if declared(X509_get0_subject_key_id_introduced)}
-    if LibVersion < X509_get0_subject_key_id_introduced then
-    begin
-      {$if declared(FC_X509_get0_subject_key_id)}
-      X509_get0_subject_key_id := @FC_X509_get0_subject_key_id;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_get0_subject_key_id_removed)}
-    if X509_get0_subject_key_id_removed <= LibVersion then
-    begin
-      {$if declared(_X509_get0_subject_key_id)}
-      X509_get0_subject_key_id := @_X509_get0_subject_key_id;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_get0_subject_key_id_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_get0_subject_key_id');
-    {$ifend}
+    X509_get0_subject_key_id :=  @ERROR_X509_get0_subject_key_id;
   end;
 
-
-  X509_get0_authority_key_id := LoadLibFunction(ADllHandle, X509_get0_authority_key_id_procname);
+  X509_get0_authority_key_id := LoadLibCryptoFunction('X509_get0_authority_key_id');
   FuncLoadError := not assigned(X509_get0_authority_key_id);
   if FuncLoadError then
   begin
-    {$if not defined(X509_get0_authority_key_id_allownil)}
-    X509_get0_authority_key_id := @ERR_X509_get0_authority_key_id;
-    {$ifend}
-    {$if declared(X509_get0_authority_key_id_introduced)}
-    if LibVersion < X509_get0_authority_key_id_introduced then
-    begin
-      {$if declared(FC_X509_get0_authority_key_id)}
-      X509_get0_authority_key_id := @FC_X509_get0_authority_key_id;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_get0_authority_key_id_removed)}
-    if X509_get0_authority_key_id_removed <= LibVersion then
-    begin
-      {$if declared(_X509_get0_authority_key_id)}
-      X509_get0_authority_key_id := @_X509_get0_authority_key_id;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_get0_authority_key_id_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_get0_authority_key_id');
-    {$ifend}
+    X509_get0_authority_key_id :=  @ERROR_X509_get0_authority_key_id;
   end;
 
-
-  X509_get0_authority_serial := LoadLibFunction(ADllHandle, X509_get0_authority_serial_procname);
+  X509_get0_authority_serial := LoadLibCryptoFunction('X509_get0_authority_serial');
   FuncLoadError := not assigned(X509_get0_authority_serial);
   if FuncLoadError then
   begin
-    {$if not defined(X509_get0_authority_serial_allownil)}
-    X509_get0_authority_serial := @ERR_X509_get0_authority_serial;
-    {$ifend}
-    {$if declared(X509_get0_authority_serial_introduced)}
-    if LibVersion < X509_get0_authority_serial_introduced then
-    begin
-      {$if declared(FC_X509_get0_authority_serial)}
-      X509_get0_authority_serial := @FC_X509_get0_authority_serial;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_get0_authority_serial_removed)}
-    if X509_get0_authority_serial_removed <= LibVersion then
-    begin
-      {$if declared(_X509_get0_authority_serial)}
-      X509_get0_authority_serial := @_X509_get0_authority_serial;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_get0_authority_serial_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_get0_authority_serial');
-    {$ifend}
+    X509_get0_authority_serial :=  @ERROR_X509_get0_authority_serial;
   end;
 
-
-  X509_PURPOSE_get_count := LoadLibFunction(ADllHandle, X509_PURPOSE_get_count_procname);
+  X509_PURPOSE_get_count := LoadLibCryptoFunction('X509_PURPOSE_get_count');
   FuncLoadError := not assigned(X509_PURPOSE_get_count);
   if FuncLoadError then
   begin
-    {$if not defined(X509_PURPOSE_get_count_allownil)}
-    X509_PURPOSE_get_count := @ERR_X509_PURPOSE_get_count;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get_count_introduced)}
-    if LibVersion < X509_PURPOSE_get_count_introduced then
-    begin
-      {$if declared(FC_X509_PURPOSE_get_count)}
-      X509_PURPOSE_get_count := @FC_X509_PURPOSE_get_count;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get_count_removed)}
-    if X509_PURPOSE_get_count_removed <= LibVersion then
-    begin
-      {$if declared(_X509_PURPOSE_get_count)}
-      X509_PURPOSE_get_count := @_X509_PURPOSE_get_count;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_PURPOSE_get_count_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_PURPOSE_get_count');
-    {$ifend}
+    X509_PURPOSE_get_count :=  @ERROR_X509_PURPOSE_get_count;
   end;
 
-
-  X509_PURPOSE_get0 := LoadLibFunction(ADllHandle, X509_PURPOSE_get0_procname);
+  X509_PURPOSE_get0 := LoadLibCryptoFunction('X509_PURPOSE_get0');
   FuncLoadError := not assigned(X509_PURPOSE_get0);
   if FuncLoadError then
   begin
-    {$if not defined(X509_PURPOSE_get0_allownil)}
-    X509_PURPOSE_get0 := @ERR_X509_PURPOSE_get0;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get0_introduced)}
-    if LibVersion < X509_PURPOSE_get0_introduced then
-    begin
-      {$if declared(FC_X509_PURPOSE_get0)}
-      X509_PURPOSE_get0 := @FC_X509_PURPOSE_get0;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get0_removed)}
-    if X509_PURPOSE_get0_removed <= LibVersion then
-    begin
-      {$if declared(_X509_PURPOSE_get0)}
-      X509_PURPOSE_get0 := @_X509_PURPOSE_get0;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_PURPOSE_get0_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_PURPOSE_get0');
-    {$ifend}
+    X509_PURPOSE_get0 :=  @ERROR_X509_PURPOSE_get0;
   end;
 
-
-  X509_PURPOSE_get_by_sname := LoadLibFunction(ADllHandle, X509_PURPOSE_get_by_sname_procname);
+  X509_PURPOSE_get_by_sname := LoadLibCryptoFunction('X509_PURPOSE_get_by_sname');
   FuncLoadError := not assigned(X509_PURPOSE_get_by_sname);
   if FuncLoadError then
   begin
-    {$if not defined(X509_PURPOSE_get_by_sname_allownil)}
-    X509_PURPOSE_get_by_sname := @ERR_X509_PURPOSE_get_by_sname;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get_by_sname_introduced)}
-    if LibVersion < X509_PURPOSE_get_by_sname_introduced then
-    begin
-      {$if declared(FC_X509_PURPOSE_get_by_sname)}
-      X509_PURPOSE_get_by_sname := @FC_X509_PURPOSE_get_by_sname;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get_by_sname_removed)}
-    if X509_PURPOSE_get_by_sname_removed <= LibVersion then
-    begin
-      {$if declared(_X509_PURPOSE_get_by_sname)}
-      X509_PURPOSE_get_by_sname := @_X509_PURPOSE_get_by_sname;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_PURPOSE_get_by_sname_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_PURPOSE_get_by_sname');
-    {$ifend}
+    X509_PURPOSE_get_by_sname :=  @ERROR_X509_PURPOSE_get_by_sname;
   end;
 
-
-  X509_PURPOSE_get_by_id := LoadLibFunction(ADllHandle, X509_PURPOSE_get_by_id_procname);
+  X509_PURPOSE_get_by_id := LoadLibCryptoFunction('X509_PURPOSE_get_by_id');
   FuncLoadError := not assigned(X509_PURPOSE_get_by_id);
   if FuncLoadError then
   begin
-    {$if not defined(X509_PURPOSE_get_by_id_allownil)}
-    X509_PURPOSE_get_by_id := @ERR_X509_PURPOSE_get_by_id;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get_by_id_introduced)}
-    if LibVersion < X509_PURPOSE_get_by_id_introduced then
-    begin
-      {$if declared(FC_X509_PURPOSE_get_by_id)}
-      X509_PURPOSE_get_by_id := @FC_X509_PURPOSE_get_by_id;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get_by_id_removed)}
-    if X509_PURPOSE_get_by_id_removed <= LibVersion then
-    begin
-      {$if declared(_X509_PURPOSE_get_by_id)}
-      X509_PURPOSE_get_by_id := @_X509_PURPOSE_get_by_id;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_PURPOSE_get_by_id_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_PURPOSE_get_by_id');
-    {$ifend}
+    X509_PURPOSE_get_by_id :=  @ERROR_X509_PURPOSE_get_by_id;
   end;
 
-
-  X509_PURPOSE_get0_name := LoadLibFunction(ADllHandle, X509_PURPOSE_get0_name_procname);
+  X509_PURPOSE_get0_name := LoadLibCryptoFunction('X509_PURPOSE_get0_name');
   FuncLoadError := not assigned(X509_PURPOSE_get0_name);
   if FuncLoadError then
   begin
-    {$if not defined(X509_PURPOSE_get0_name_allownil)}
-    X509_PURPOSE_get0_name := @ERR_X509_PURPOSE_get0_name;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get0_name_introduced)}
-    if LibVersion < X509_PURPOSE_get0_name_introduced then
-    begin
-      {$if declared(FC_X509_PURPOSE_get0_name)}
-      X509_PURPOSE_get0_name := @FC_X509_PURPOSE_get0_name;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get0_name_removed)}
-    if X509_PURPOSE_get0_name_removed <= LibVersion then
-    begin
-      {$if declared(_X509_PURPOSE_get0_name)}
-      X509_PURPOSE_get0_name := @_X509_PURPOSE_get0_name;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_PURPOSE_get0_name_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_PURPOSE_get0_name');
-    {$ifend}
+    X509_PURPOSE_get0_name :=  @ERROR_X509_PURPOSE_get0_name;
   end;
 
-
-  X509_PURPOSE_get0_sname := LoadLibFunction(ADllHandle, X509_PURPOSE_get0_sname_procname);
+  X509_PURPOSE_get0_sname := LoadLibCryptoFunction('X509_PURPOSE_get0_sname');
   FuncLoadError := not assigned(X509_PURPOSE_get0_sname);
   if FuncLoadError then
   begin
-    {$if not defined(X509_PURPOSE_get0_sname_allownil)}
-    X509_PURPOSE_get0_sname := @ERR_X509_PURPOSE_get0_sname;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get0_sname_introduced)}
-    if LibVersion < X509_PURPOSE_get0_sname_introduced then
-    begin
-      {$if declared(FC_X509_PURPOSE_get0_sname)}
-      X509_PURPOSE_get0_sname := @FC_X509_PURPOSE_get0_sname;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get0_sname_removed)}
-    if X509_PURPOSE_get0_sname_removed <= LibVersion then
-    begin
-      {$if declared(_X509_PURPOSE_get0_sname)}
-      X509_PURPOSE_get0_sname := @_X509_PURPOSE_get0_sname;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_PURPOSE_get0_sname_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_PURPOSE_get0_sname');
-    {$ifend}
+    X509_PURPOSE_get0_sname :=  @ERROR_X509_PURPOSE_get0_sname;
   end;
 
-
-  X509_PURPOSE_get_trust := LoadLibFunction(ADllHandle, X509_PURPOSE_get_trust_procname);
+  X509_PURPOSE_get_trust := LoadLibCryptoFunction('X509_PURPOSE_get_trust');
   FuncLoadError := not assigned(X509_PURPOSE_get_trust);
   if FuncLoadError then
   begin
-    {$if not defined(X509_PURPOSE_get_trust_allownil)}
-    X509_PURPOSE_get_trust := @ERR_X509_PURPOSE_get_trust;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get_trust_introduced)}
-    if LibVersion < X509_PURPOSE_get_trust_introduced then
-    begin
-      {$if declared(FC_X509_PURPOSE_get_trust)}
-      X509_PURPOSE_get_trust := @FC_X509_PURPOSE_get_trust;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get_trust_removed)}
-    if X509_PURPOSE_get_trust_removed <= LibVersion then
-    begin
-      {$if declared(_X509_PURPOSE_get_trust)}
-      X509_PURPOSE_get_trust := @_X509_PURPOSE_get_trust;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_PURPOSE_get_trust_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_PURPOSE_get_trust');
-    {$ifend}
+    X509_PURPOSE_get_trust :=  @ERROR_X509_PURPOSE_get_trust;
   end;
 
-
-  X509_PURPOSE_cleanup := LoadLibFunction(ADllHandle, X509_PURPOSE_cleanup_procname);
+  X509_PURPOSE_cleanup := LoadLibCryptoFunction('X509_PURPOSE_cleanup');
   FuncLoadError := not assigned(X509_PURPOSE_cleanup);
   if FuncLoadError then
   begin
-    {$if not defined(X509_PURPOSE_cleanup_allownil)}
-    X509_PURPOSE_cleanup := @ERR_X509_PURPOSE_cleanup;
-    {$ifend}
-    {$if declared(X509_PURPOSE_cleanup_introduced)}
-    if LibVersion < X509_PURPOSE_cleanup_introduced then
-    begin
-      {$if declared(FC_X509_PURPOSE_cleanup)}
-      X509_PURPOSE_cleanup := @FC_X509_PURPOSE_cleanup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_PURPOSE_cleanup_removed)}
-    if X509_PURPOSE_cleanup_removed <= LibVersion then
-    begin
-      {$if declared(_X509_PURPOSE_cleanup)}
-      X509_PURPOSE_cleanup := @_X509_PURPOSE_cleanup;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_PURPOSE_cleanup_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_PURPOSE_cleanup');
-    {$ifend}
+    X509_PURPOSE_cleanup :=  @ERROR_X509_PURPOSE_cleanup;
   end;
 
-
-  X509_PURPOSE_get_id := LoadLibFunction(ADllHandle, X509_PURPOSE_get_id_procname);
+  X509_PURPOSE_get_id := LoadLibCryptoFunction('X509_PURPOSE_get_id');
   FuncLoadError := not assigned(X509_PURPOSE_get_id);
   if FuncLoadError then
   begin
-    {$if not defined(X509_PURPOSE_get_id_allownil)}
-    X509_PURPOSE_get_id := @ERR_X509_PURPOSE_get_id;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get_id_introduced)}
-    if LibVersion < X509_PURPOSE_get_id_introduced then
-    begin
-      {$if declared(FC_X509_PURPOSE_get_id)}
-      X509_PURPOSE_get_id := @FC_X509_PURPOSE_get_id;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_PURPOSE_get_id_removed)}
-    if X509_PURPOSE_get_id_removed <= LibVersion then
-    begin
-      {$if declared(_X509_PURPOSE_get_id)}
-      X509_PURPOSE_get_id := @_X509_PURPOSE_get_id;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_PURPOSE_get_id_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_PURPOSE_get_id');
-    {$ifend}
+    X509_PURPOSE_get_id :=  @ERROR_X509_PURPOSE_get_id;
   end;
 
+  X509_get1_email := LoadLibCryptoFunction('X509_get1_email');
+  FuncLoadError := not assigned(X509_get1_email);
+  if FuncLoadError then
+  begin
+    X509_get1_email :=  @ERROR_X509_get1_email;
+  end;
 
-  X509_check_host := LoadLibFunction(ADllHandle, X509_check_host_procname);
+  X509_REQ_get1_email := LoadLibCryptoFunction('X509_REQ_get1_email');
+  FuncLoadError := not assigned(X509_REQ_get1_email);
+  if FuncLoadError then
+  begin
+    X509_REQ_get1_email :=  @ERROR_X509_REQ_get1_email;
+  end;
+
+  X509_email_free := LoadLibCryptoFunction('X509_email_free');
+  FuncLoadError := not assigned(X509_email_free);
+  if FuncLoadError then
+  begin
+    X509_email_free :=  @ERROR_X509_email_free;
+  end;
+
+  X509_get1_ocsp := LoadLibCryptoFunction('X509_get1_ocsp');
+  FuncLoadError := not assigned(X509_get1_ocsp);
+  if FuncLoadError then
+  begin
+    X509_get1_ocsp :=  @ERROR_X509_get1_ocsp;
+  end;
+
+  X509_check_host := LoadLibCryptoFunction('X509_check_host');
   FuncLoadError := not assigned(X509_check_host);
   if FuncLoadError then
   begin
-    {$if not defined(X509_check_host_allownil)}
-    X509_check_host := @ERR_X509_check_host;
-    {$ifend}
-    {$if declared(X509_check_host_introduced)}
-    if LibVersion < X509_check_host_introduced then
-    begin
-      {$if declared(FC_X509_check_host)}
-      X509_check_host := @FC_X509_check_host;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_check_host_removed)}
-    if X509_check_host_removed <= LibVersion then
-    begin
-      {$if declared(_X509_check_host)}
-      X509_check_host := @_X509_check_host;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_check_host_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_check_host');
-    {$ifend}
+    X509_check_host :=  @ERROR_X509_check_host;
   end;
 
-
-  X509_check_email := LoadLibFunction(ADllHandle, X509_check_email_procname);
+  X509_check_email := LoadLibCryptoFunction('X509_check_email');
   FuncLoadError := not assigned(X509_check_email);
   if FuncLoadError then
   begin
-    {$if not defined(X509_check_email_allownil)}
-    X509_check_email := @ERR_X509_check_email;
-    {$ifend}
-    {$if declared(X509_check_email_introduced)}
-    if LibVersion < X509_check_email_introduced then
-    begin
-      {$if declared(FC_X509_check_email)}
-      X509_check_email := @FC_X509_check_email;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_check_email_removed)}
-    if X509_check_email_removed <= LibVersion then
-    begin
-      {$if declared(_X509_check_email)}
-      X509_check_email := @_X509_check_email;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_check_email_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_check_email');
-    {$ifend}
+    X509_check_email :=  @ERROR_X509_check_email;
   end;
 
-
-  X509_check_ip := LoadLibFunction(ADllHandle, X509_check_ip_procname);
+  X509_check_ip := LoadLibCryptoFunction('X509_check_ip');
   FuncLoadError := not assigned(X509_check_ip);
   if FuncLoadError then
   begin
-    {$if not defined(X509_check_ip_allownil)}
-    X509_check_ip := @ERR_X509_check_ip;
-    {$ifend}
-    {$if declared(X509_check_ip_introduced)}
-    if LibVersion < X509_check_ip_introduced then
-    begin
-      {$if declared(FC_X509_check_ip)}
-      X509_check_ip := @FC_X509_check_ip;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_check_ip_removed)}
-    if X509_check_ip_removed <= LibVersion then
-    begin
-      {$if declared(_X509_check_ip)}
-      X509_check_ip := @_X509_check_ip;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_check_ip_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_check_ip');
-    {$ifend}
+    X509_check_ip :=  @ERROR_X509_check_ip;
   end;
 
-
-  X509_check_ip_asc := LoadLibFunction(ADllHandle, X509_check_ip_asc_procname);
+  X509_check_ip_asc := LoadLibCryptoFunction('X509_check_ip_asc');
   FuncLoadError := not assigned(X509_check_ip_asc);
   if FuncLoadError then
   begin
-    {$if not defined(X509_check_ip_asc_allownil)}
-    X509_check_ip_asc := @ERR_X509_check_ip_asc;
-    {$ifend}
-    {$if declared(X509_check_ip_asc_introduced)}
-    if LibVersion < X509_check_ip_asc_introduced then
-    begin
-      {$if declared(FC_X509_check_ip_asc)}
-      X509_check_ip_asc := @FC_X509_check_ip_asc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_check_ip_asc_removed)}
-    if X509_check_ip_asc_removed <= LibVersion then
-    begin
-      {$if declared(_X509_check_ip_asc)}
-      X509_check_ip_asc := @_X509_check_ip_asc;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_check_ip_asc_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_check_ip_asc');
-    {$ifend}
+    X509_check_ip_asc :=  @ERROR_X509_check_ip_asc;
   end;
 
-
-  a2i_IPADDRESS := LoadLibFunction(ADllHandle, a2i_IPADDRESS_procname);
+  a2i_IPADDRESS := LoadLibCryptoFunction('a2i_IPADDRESS');
   FuncLoadError := not assigned(a2i_IPADDRESS);
   if FuncLoadError then
   begin
-    {$if not defined(a2i_IPADDRESS_allownil)}
-    a2i_IPADDRESS := @ERR_a2i_IPADDRESS;
-    {$ifend}
-    {$if declared(a2i_IPADDRESS_introduced)}
-    if LibVersion < a2i_IPADDRESS_introduced then
-    begin
-      {$if declared(FC_a2i_IPADDRESS)}
-      a2i_IPADDRESS := @FC_a2i_IPADDRESS;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(a2i_IPADDRESS_removed)}
-    if a2i_IPADDRESS_removed <= LibVersion then
-    begin
-      {$if declared(_a2i_IPADDRESS)}
-      a2i_IPADDRESS := @_a2i_IPADDRESS;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(a2i_IPADDRESS_allownil)}
-    if FuncLoadError then
-      AFailed.Add('a2i_IPADDRESS');
-    {$ifend}
+    a2i_IPADDRESS :=  @ERROR_a2i_IPADDRESS;
   end;
 
-
-  a2i_IPADDRESS_NC := LoadLibFunction(ADllHandle, a2i_IPADDRESS_NC_procname);
+  a2i_IPADDRESS_NC := LoadLibCryptoFunction('a2i_IPADDRESS_NC');
   FuncLoadError := not assigned(a2i_IPADDRESS_NC);
   if FuncLoadError then
   begin
-    {$if not defined(a2i_IPADDRESS_NC_allownil)}
-    a2i_IPADDRESS_NC := @ERR_a2i_IPADDRESS_NC;
-    {$ifend}
-    {$if declared(a2i_IPADDRESS_NC_introduced)}
-    if LibVersion < a2i_IPADDRESS_NC_introduced then
-    begin
-      {$if declared(FC_a2i_IPADDRESS_NC)}
-      a2i_IPADDRESS_NC := @FC_a2i_IPADDRESS_NC;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(a2i_IPADDRESS_NC_removed)}
-    if a2i_IPADDRESS_NC_removed <= LibVersion then
-    begin
-      {$if declared(_a2i_IPADDRESS_NC)}
-      a2i_IPADDRESS_NC := @_a2i_IPADDRESS_NC;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(a2i_IPADDRESS_NC_allownil)}
-    if FuncLoadError then
-      AFailed.Add('a2i_IPADDRESS_NC');
-    {$ifend}
+    a2i_IPADDRESS_NC :=  @ERROR_a2i_IPADDRESS_NC;
   end;
 
-
-  X509_POLICY_NODE_print := LoadLibFunction(ADllHandle, X509_POLICY_NODE_print_procname);
+  X509_POLICY_NODE_print := LoadLibCryptoFunction('X509_POLICY_NODE_print');
   FuncLoadError := not assigned(X509_POLICY_NODE_print);
   if FuncLoadError then
   begin
-    {$if not defined(X509_POLICY_NODE_print_allownil)}
-    X509_POLICY_NODE_print := @ERR_X509_POLICY_NODE_print;
-    {$ifend}
-    {$if declared(X509_POLICY_NODE_print_introduced)}
-    if LibVersion < X509_POLICY_NODE_print_introduced then
-    begin
-      {$if declared(FC_X509_POLICY_NODE_print)}
-      X509_POLICY_NODE_print := @FC_X509_POLICY_NODE_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509_POLICY_NODE_print_removed)}
-    if X509_POLICY_NODE_print_removed <= LibVersion then
-    begin
-      {$if declared(_X509_POLICY_NODE_print)}
-      X509_POLICY_NODE_print := @_X509_POLICY_NODE_print;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509_POLICY_NODE_print_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509_POLICY_NODE_print');
-    {$ifend}
+    X509_POLICY_NODE_print :=  @ERROR_X509_POLICY_NODE_print;
   end;
 
-
-  X509v3_addr_get_range := LoadLibFunction(ADllHandle, X509v3_addr_get_range_procname);
+  X509v3_addr_get_range := LoadLibCryptoFunction('X509v3_addr_get_range');
   FuncLoadError := not assigned(X509v3_addr_get_range);
   if FuncLoadError then
   begin
-    {$if not defined(X509v3_addr_get_range_allownil)}
-    X509v3_addr_get_range := @ERR_X509v3_addr_get_range;
-    {$ifend}
-    {$if declared(X509v3_addr_get_range_introduced)}
-    if LibVersion < X509v3_addr_get_range_introduced then
-    begin
-      {$if declared(FC_X509v3_addr_get_range)}
-      X509v3_addr_get_range := @FC_X509v3_addr_get_range;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509v3_addr_get_range_removed)}
-    if X509v3_addr_get_range_removed <= LibVersion then
-    begin
-      {$if declared(_X509v3_addr_get_range)}
-      X509v3_addr_get_range := @_X509v3_addr_get_range;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509v3_addr_get_range_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509v3_addr_get_range');
-    {$ifend}
+    X509v3_addr_get_range :=  @ERROR_X509v3_addr_get_range;
   end;
 
-
-  X509v3_asid_validate_path := LoadLibFunction(ADllHandle, X509v3_asid_validate_path_procname);
+  X509v3_asid_validate_path := LoadLibCryptoFunction('X509v3_asid_validate_path');
   FuncLoadError := not assigned(X509v3_asid_validate_path);
   if FuncLoadError then
   begin
-    {$if not defined(X509v3_asid_validate_path_allownil)}
-    X509v3_asid_validate_path := @ERR_X509v3_asid_validate_path;
-    {$ifend}
-    {$if declared(X509v3_asid_validate_path_introduced)}
-    if LibVersion < X509v3_asid_validate_path_introduced then
-    begin
-      {$if declared(FC_X509v3_asid_validate_path)}
-      X509v3_asid_validate_path := @FC_X509v3_asid_validate_path;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509v3_asid_validate_path_removed)}
-    if X509v3_asid_validate_path_removed <= LibVersion then
-    begin
-      {$if declared(_X509v3_asid_validate_path)}
-      X509v3_asid_validate_path := @_X509v3_asid_validate_path;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509v3_asid_validate_path_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509v3_asid_validate_path');
-    {$ifend}
+    X509v3_asid_validate_path :=  @ERROR_X509v3_asid_validate_path;
   end;
 
-
-  X509v3_addr_validate_path := LoadLibFunction(ADllHandle, X509v3_addr_validate_path_procname);
+  X509v3_addr_validate_path := LoadLibCryptoFunction('X509v3_addr_validate_path');
   FuncLoadError := not assigned(X509v3_addr_validate_path);
   if FuncLoadError then
   begin
-    {$if not defined(X509v3_addr_validate_path_allownil)}
-    X509v3_addr_validate_path := @ERR_X509v3_addr_validate_path;
-    {$ifend}
-    {$if declared(X509v3_addr_validate_path_introduced)}
-    if LibVersion < X509v3_addr_validate_path_introduced then
-    begin
-      {$if declared(FC_X509v3_addr_validate_path)}
-      X509v3_addr_validate_path := @FC_X509v3_addr_validate_path;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(X509v3_addr_validate_path_removed)}
-    if X509v3_addr_validate_path_removed <= LibVersion then
-    begin
-      {$if declared(_X509v3_addr_validate_path)}
-      X509v3_addr_validate_path := @_X509v3_addr_validate_path;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(X509v3_addr_validate_path_allownil)}
-    if FuncLoadError then
-      AFailed.Add('X509v3_addr_validate_path');
-    {$ifend}
+    X509v3_addr_validate_path :=  @ERROR_X509v3_addr_validate_path;
   end;
 
-
-  NAMING_AUTHORITY_get0_authorityId := LoadLibFunction(ADllHandle, NAMING_AUTHORITY_get0_authorityId_procname);
+  NAMING_AUTHORITY_get0_authorityId := LoadLibCryptoFunction('NAMING_AUTHORITY_get0_authorityId');
   FuncLoadError := not assigned(NAMING_AUTHORITY_get0_authorityId);
   if FuncLoadError then
   begin
-    {$if not defined(NAMING_AUTHORITY_get0_authorityId_allownil)}
-    NAMING_AUTHORITY_get0_authorityId := @ERR_NAMING_AUTHORITY_get0_authorityId;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_get0_authorityId_introduced)}
-    if LibVersion < NAMING_AUTHORITY_get0_authorityId_introduced then
-    begin
-      {$if declared(FC_NAMING_AUTHORITY_get0_authorityId)}
-      NAMING_AUTHORITY_get0_authorityId := @FC_NAMING_AUTHORITY_get0_authorityId;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_get0_authorityId_removed)}
-    if NAMING_AUTHORITY_get0_authorityId_removed <= LibVersion then
-    begin
-      {$if declared(_NAMING_AUTHORITY_get0_authorityId)}
-      NAMING_AUTHORITY_get0_authorityId := @_NAMING_AUTHORITY_get0_authorityId;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(NAMING_AUTHORITY_get0_authorityId_allownil)}
-    if FuncLoadError then
-      AFailed.Add('NAMING_AUTHORITY_get0_authorityId');
-    {$ifend}
+    NAMING_AUTHORITY_get0_authorityId :=  @ERROR_NAMING_AUTHORITY_get0_authorityId;
   end;
 
-
-  NAMING_AUTHORITY_get0_authorityURL := LoadLibFunction(ADllHandle, NAMING_AUTHORITY_get0_authorityURL_procname);
+  NAMING_AUTHORITY_get0_authorityURL := LoadLibCryptoFunction('NAMING_AUTHORITY_get0_authorityURL');
   FuncLoadError := not assigned(NAMING_AUTHORITY_get0_authorityURL);
   if FuncLoadError then
   begin
-    {$if not defined(NAMING_AUTHORITY_get0_authorityURL_allownil)}
-    NAMING_AUTHORITY_get0_authorityURL := @ERR_NAMING_AUTHORITY_get0_authorityURL;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_get0_authorityURL_introduced)}
-    if LibVersion < NAMING_AUTHORITY_get0_authorityURL_introduced then
-    begin
-      {$if declared(FC_NAMING_AUTHORITY_get0_authorityURL)}
-      NAMING_AUTHORITY_get0_authorityURL := @FC_NAMING_AUTHORITY_get0_authorityURL;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_get0_authorityURL_removed)}
-    if NAMING_AUTHORITY_get0_authorityURL_removed <= LibVersion then
-    begin
-      {$if declared(_NAMING_AUTHORITY_get0_authorityURL)}
-      NAMING_AUTHORITY_get0_authorityURL := @_NAMING_AUTHORITY_get0_authorityURL;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(NAMING_AUTHORITY_get0_authorityURL_allownil)}
-    if FuncLoadError then
-      AFailed.Add('NAMING_AUTHORITY_get0_authorityURL');
-    {$ifend}
+    NAMING_AUTHORITY_get0_authorityURL :=  @ERROR_NAMING_AUTHORITY_get0_authorityURL;
   end;
 
-
-  NAMING_AUTHORITY_get0_authorityText := LoadLibFunction(ADllHandle, NAMING_AUTHORITY_get0_authorityText_procname);
+  NAMING_AUTHORITY_get0_authorityText := LoadLibCryptoFunction('NAMING_AUTHORITY_get0_authorityText');
   FuncLoadError := not assigned(NAMING_AUTHORITY_get0_authorityText);
   if FuncLoadError then
   begin
-    {$if not defined(NAMING_AUTHORITY_get0_authorityText_allownil)}
-    NAMING_AUTHORITY_get0_authorityText := @ERR_NAMING_AUTHORITY_get0_authorityText;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_get0_authorityText_introduced)}
-    if LibVersion < NAMING_AUTHORITY_get0_authorityText_introduced then
-    begin
-      {$if declared(FC_NAMING_AUTHORITY_get0_authorityText)}
-      NAMING_AUTHORITY_get0_authorityText := @FC_NAMING_AUTHORITY_get0_authorityText;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_get0_authorityText_removed)}
-    if NAMING_AUTHORITY_get0_authorityText_removed <= LibVersion then
-    begin
-      {$if declared(_NAMING_AUTHORITY_get0_authorityText)}
-      NAMING_AUTHORITY_get0_authorityText := @_NAMING_AUTHORITY_get0_authorityText;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(NAMING_AUTHORITY_get0_authorityText_allownil)}
-    if FuncLoadError then
-      AFailed.Add('NAMING_AUTHORITY_get0_authorityText');
-    {$ifend}
+    NAMING_AUTHORITY_get0_authorityText :=  @ERROR_NAMING_AUTHORITY_get0_authorityText;
   end;
 
-
-  NAMING_AUTHORITY_set0_authorityId := LoadLibFunction(ADllHandle, NAMING_AUTHORITY_set0_authorityId_procname);
+  NAMING_AUTHORITY_set0_authorityId := LoadLibCryptoFunction('NAMING_AUTHORITY_set0_authorityId');
   FuncLoadError := not assigned(NAMING_AUTHORITY_set0_authorityId);
   if FuncLoadError then
   begin
-    {$if not defined(NAMING_AUTHORITY_set0_authorityId_allownil)}
-    NAMING_AUTHORITY_set0_authorityId := @ERR_NAMING_AUTHORITY_set0_authorityId;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_set0_authorityId_introduced)}
-    if LibVersion < NAMING_AUTHORITY_set0_authorityId_introduced then
-    begin
-      {$if declared(FC_NAMING_AUTHORITY_set0_authorityId)}
-      NAMING_AUTHORITY_set0_authorityId := @FC_NAMING_AUTHORITY_set0_authorityId;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_set0_authorityId_removed)}
-    if NAMING_AUTHORITY_set0_authorityId_removed <= LibVersion then
-    begin
-      {$if declared(_NAMING_AUTHORITY_set0_authorityId)}
-      NAMING_AUTHORITY_set0_authorityId := @_NAMING_AUTHORITY_set0_authorityId;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(NAMING_AUTHORITY_set0_authorityId_allownil)}
-    if FuncLoadError then
-      AFailed.Add('NAMING_AUTHORITY_set0_authorityId');
-    {$ifend}
+    NAMING_AUTHORITY_set0_authorityId :=  @ERROR_NAMING_AUTHORITY_set0_authorityId;
   end;
 
-
-  NAMING_AUTHORITY_set0_authorityURL := LoadLibFunction(ADllHandle, NAMING_AUTHORITY_set0_authorityURL_procname);
+  NAMING_AUTHORITY_set0_authorityURL := LoadLibCryptoFunction('NAMING_AUTHORITY_set0_authorityURL');
   FuncLoadError := not assigned(NAMING_AUTHORITY_set0_authorityURL);
   if FuncLoadError then
   begin
-    {$if not defined(NAMING_AUTHORITY_set0_authorityURL_allownil)}
-    NAMING_AUTHORITY_set0_authorityURL := @ERR_NAMING_AUTHORITY_set0_authorityURL;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_set0_authorityURL_introduced)}
-    if LibVersion < NAMING_AUTHORITY_set0_authorityURL_introduced then
-    begin
-      {$if declared(FC_NAMING_AUTHORITY_set0_authorityURL)}
-      NAMING_AUTHORITY_set0_authorityURL := @FC_NAMING_AUTHORITY_set0_authorityURL;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_set0_authorityURL_removed)}
-    if NAMING_AUTHORITY_set0_authorityURL_removed <= LibVersion then
-    begin
-      {$if declared(_NAMING_AUTHORITY_set0_authorityURL)}
-      NAMING_AUTHORITY_set0_authorityURL := @_NAMING_AUTHORITY_set0_authorityURL;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(NAMING_AUTHORITY_set0_authorityURL_allownil)}
-    if FuncLoadError then
-      AFailed.Add('NAMING_AUTHORITY_set0_authorityURL');
-    {$ifend}
+    NAMING_AUTHORITY_set0_authorityURL :=  @ERROR_NAMING_AUTHORITY_set0_authorityURL;
   end;
 
-
-  NAMING_AUTHORITY_set0_authorityText := LoadLibFunction(ADllHandle, NAMING_AUTHORITY_set0_authorityText_procname);
+  NAMING_AUTHORITY_set0_authorityText := LoadLibCryptoFunction('NAMING_AUTHORITY_set0_authorityText');
   FuncLoadError := not assigned(NAMING_AUTHORITY_set0_authorityText);
   if FuncLoadError then
   begin
-    {$if not defined(NAMING_AUTHORITY_set0_authorityText_allownil)}
-    NAMING_AUTHORITY_set0_authorityText := @ERR_NAMING_AUTHORITY_set0_authorityText;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_set0_authorityText_introduced)}
-    if LibVersion < NAMING_AUTHORITY_set0_authorityText_introduced then
-    begin
-      {$if declared(FC_NAMING_AUTHORITY_set0_authorityText)}
-      NAMING_AUTHORITY_set0_authorityText := @FC_NAMING_AUTHORITY_set0_authorityText;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(NAMING_AUTHORITY_set0_authorityText_removed)}
-    if NAMING_AUTHORITY_set0_authorityText_removed <= LibVersion then
-    begin
-      {$if declared(_NAMING_AUTHORITY_set0_authorityText)}
-      NAMING_AUTHORITY_set0_authorityText := @_NAMING_AUTHORITY_set0_authorityText;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(NAMING_AUTHORITY_set0_authorityText_allownil)}
-    if FuncLoadError then
-      AFailed.Add('NAMING_AUTHORITY_set0_authorityText');
-    {$ifend}
+    NAMING_AUTHORITY_set0_authorityText :=  @ERROR_NAMING_AUTHORITY_set0_authorityText;
   end;
 
-
-  ADMISSION_SYNTAX_get0_admissionAuthority := LoadLibFunction(ADllHandle, ADMISSION_SYNTAX_get0_admissionAuthority_procname);
+  ADMISSION_SYNTAX_get0_admissionAuthority := LoadLibCryptoFunction('ADMISSION_SYNTAX_get0_admissionAuthority');
   FuncLoadError := not assigned(ADMISSION_SYNTAX_get0_admissionAuthority);
   if FuncLoadError then
   begin
-    {$if not defined(ADMISSION_SYNTAX_get0_admissionAuthority_allownil)}
-    ADMISSION_SYNTAX_get0_admissionAuthority := @ERR_ADMISSION_SYNTAX_get0_admissionAuthority;
-    {$ifend}
-    {$if declared(ADMISSION_SYNTAX_get0_admissionAuthority_introduced)}
-    if LibVersion < ADMISSION_SYNTAX_get0_admissionAuthority_introduced then
-    begin
-      {$if declared(FC_ADMISSION_SYNTAX_get0_admissionAuthority)}
-      ADMISSION_SYNTAX_get0_admissionAuthority := @FC_ADMISSION_SYNTAX_get0_admissionAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ADMISSION_SYNTAX_get0_admissionAuthority_removed)}
-    if ADMISSION_SYNTAX_get0_admissionAuthority_removed <= LibVersion then
-    begin
-      {$if declared(_ADMISSION_SYNTAX_get0_admissionAuthority)}
-      ADMISSION_SYNTAX_get0_admissionAuthority := @_ADMISSION_SYNTAX_get0_admissionAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ADMISSION_SYNTAX_get0_admissionAuthority_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ADMISSION_SYNTAX_get0_admissionAuthority');
-    {$ifend}
+    ADMISSION_SYNTAX_get0_admissionAuthority :=  @ERROR_ADMISSION_SYNTAX_get0_admissionAuthority;
   end;
 
-
-  ADMISSION_SYNTAX_set0_admissionAuthority := LoadLibFunction(ADllHandle, ADMISSION_SYNTAX_set0_admissionAuthority_procname);
+  ADMISSION_SYNTAX_set0_admissionAuthority := LoadLibCryptoFunction('ADMISSION_SYNTAX_set0_admissionAuthority');
   FuncLoadError := not assigned(ADMISSION_SYNTAX_set0_admissionAuthority);
   if FuncLoadError then
   begin
-    {$if not defined(ADMISSION_SYNTAX_set0_admissionAuthority_allownil)}
-    ADMISSION_SYNTAX_set0_admissionAuthority := @ERR_ADMISSION_SYNTAX_set0_admissionAuthority;
-    {$ifend}
-    {$if declared(ADMISSION_SYNTAX_set0_admissionAuthority_introduced)}
-    if LibVersion < ADMISSION_SYNTAX_set0_admissionAuthority_introduced then
-    begin
-      {$if declared(FC_ADMISSION_SYNTAX_set0_admissionAuthority)}
-      ADMISSION_SYNTAX_set0_admissionAuthority := @FC_ADMISSION_SYNTAX_set0_admissionAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ADMISSION_SYNTAX_set0_admissionAuthority_removed)}
-    if ADMISSION_SYNTAX_set0_admissionAuthority_removed <= LibVersion then
-    begin
-      {$if declared(_ADMISSION_SYNTAX_set0_admissionAuthority)}
-      ADMISSION_SYNTAX_set0_admissionAuthority := @_ADMISSION_SYNTAX_set0_admissionAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ADMISSION_SYNTAX_set0_admissionAuthority_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ADMISSION_SYNTAX_set0_admissionAuthority');
-    {$ifend}
+    ADMISSION_SYNTAX_set0_admissionAuthority :=  @ERROR_ADMISSION_SYNTAX_set0_admissionAuthority;
   end;
 
-
-  ADMISSIONS_get0_admissionAuthority := LoadLibFunction(ADllHandle, ADMISSIONS_get0_admissionAuthority_procname);
+  ADMISSIONS_get0_admissionAuthority := LoadLibCryptoFunction('ADMISSIONS_get0_admissionAuthority');
   FuncLoadError := not assigned(ADMISSIONS_get0_admissionAuthority);
   if FuncLoadError then
   begin
-    {$if not defined(ADMISSIONS_get0_admissionAuthority_allownil)}
-    ADMISSIONS_get0_admissionAuthority := @ERR_ADMISSIONS_get0_admissionAuthority;
-    {$ifend}
-    {$if declared(ADMISSIONS_get0_admissionAuthority_introduced)}
-    if LibVersion < ADMISSIONS_get0_admissionAuthority_introduced then
-    begin
-      {$if declared(FC_ADMISSIONS_get0_admissionAuthority)}
-      ADMISSIONS_get0_admissionAuthority := @FC_ADMISSIONS_get0_admissionAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ADMISSIONS_get0_admissionAuthority_removed)}
-    if ADMISSIONS_get0_admissionAuthority_removed <= LibVersion then
-    begin
-      {$if declared(_ADMISSIONS_get0_admissionAuthority)}
-      ADMISSIONS_get0_admissionAuthority := @_ADMISSIONS_get0_admissionAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ADMISSIONS_get0_admissionAuthority_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ADMISSIONS_get0_admissionAuthority');
-    {$ifend}
+    ADMISSIONS_get0_admissionAuthority :=  @ERROR_ADMISSIONS_get0_admissionAuthority;
   end;
 
-
-  ADMISSIONS_set0_admissionAuthority := LoadLibFunction(ADllHandle, ADMISSIONS_set0_admissionAuthority_procname);
+  ADMISSIONS_set0_admissionAuthority := LoadLibCryptoFunction('ADMISSIONS_set0_admissionAuthority');
   FuncLoadError := not assigned(ADMISSIONS_set0_admissionAuthority);
   if FuncLoadError then
   begin
-    {$if not defined(ADMISSIONS_set0_admissionAuthority_allownil)}
-    ADMISSIONS_set0_admissionAuthority := @ERR_ADMISSIONS_set0_admissionAuthority;
-    {$ifend}
-    {$if declared(ADMISSIONS_set0_admissionAuthority_introduced)}
-    if LibVersion < ADMISSIONS_set0_admissionAuthority_introduced then
-    begin
-      {$if declared(FC_ADMISSIONS_set0_admissionAuthority)}
-      ADMISSIONS_set0_admissionAuthority := @FC_ADMISSIONS_set0_admissionAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ADMISSIONS_set0_admissionAuthority_removed)}
-    if ADMISSIONS_set0_admissionAuthority_removed <= LibVersion then
-    begin
-      {$if declared(_ADMISSIONS_set0_admissionAuthority)}
-      ADMISSIONS_set0_admissionAuthority := @_ADMISSIONS_set0_admissionAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ADMISSIONS_set0_admissionAuthority_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ADMISSIONS_set0_admissionAuthority');
-    {$ifend}
+    ADMISSIONS_set0_admissionAuthority :=  @ERROR_ADMISSIONS_set0_admissionAuthority;
   end;
 
-
-  ADMISSIONS_get0_namingAuthority := LoadLibFunction(ADllHandle, ADMISSIONS_get0_namingAuthority_procname);
+  ADMISSIONS_get0_namingAuthority := LoadLibCryptoFunction('ADMISSIONS_get0_namingAuthority');
   FuncLoadError := not assigned(ADMISSIONS_get0_namingAuthority);
   if FuncLoadError then
   begin
-    {$if not defined(ADMISSIONS_get0_namingAuthority_allownil)}
-    ADMISSIONS_get0_namingAuthority := @ERR_ADMISSIONS_get0_namingAuthority;
-    {$ifend}
-    {$if declared(ADMISSIONS_get0_namingAuthority_introduced)}
-    if LibVersion < ADMISSIONS_get0_namingAuthority_introduced then
-    begin
-      {$if declared(FC_ADMISSIONS_get0_namingAuthority)}
-      ADMISSIONS_get0_namingAuthority := @FC_ADMISSIONS_get0_namingAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ADMISSIONS_get0_namingAuthority_removed)}
-    if ADMISSIONS_get0_namingAuthority_removed <= LibVersion then
-    begin
-      {$if declared(_ADMISSIONS_get0_namingAuthority)}
-      ADMISSIONS_get0_namingAuthority := @_ADMISSIONS_get0_namingAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ADMISSIONS_get0_namingAuthority_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ADMISSIONS_get0_namingAuthority');
-    {$ifend}
+    ADMISSIONS_get0_namingAuthority :=  @ERROR_ADMISSIONS_get0_namingAuthority;
   end;
 
-
-  ADMISSIONS_set0_namingAuthority := LoadLibFunction(ADllHandle, ADMISSIONS_set0_namingAuthority_procname);
+  ADMISSIONS_set0_namingAuthority := LoadLibCryptoFunction('ADMISSIONS_set0_namingAuthority');
   FuncLoadError := not assigned(ADMISSIONS_set0_namingAuthority);
   if FuncLoadError then
   begin
-    {$if not defined(ADMISSIONS_set0_namingAuthority_allownil)}
-    ADMISSIONS_set0_namingAuthority := @ERR_ADMISSIONS_set0_namingAuthority;
-    {$ifend}
-    {$if declared(ADMISSIONS_set0_namingAuthority_introduced)}
-    if LibVersion < ADMISSIONS_set0_namingAuthority_introduced then
-    begin
-      {$if declared(FC_ADMISSIONS_set0_namingAuthority)}
-      ADMISSIONS_set0_namingAuthority := @FC_ADMISSIONS_set0_namingAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(ADMISSIONS_set0_namingAuthority_removed)}
-    if ADMISSIONS_set0_namingAuthority_removed <= LibVersion then
-    begin
-      {$if declared(_ADMISSIONS_set0_namingAuthority)}
-      ADMISSIONS_set0_namingAuthority := @_ADMISSIONS_set0_namingAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(ADMISSIONS_set0_namingAuthority_allownil)}
-    if FuncLoadError then
-      AFailed.Add('ADMISSIONS_set0_namingAuthority');
-    {$ifend}
+    ADMISSIONS_set0_namingAuthority :=  @ERROR_ADMISSIONS_set0_namingAuthority;
   end;
 
-
-  PROFESSION_INFO_get0_addProfessionInfo := LoadLibFunction(ADllHandle, PROFESSION_INFO_get0_addProfessionInfo_procname);
+  PROFESSION_INFO_get0_addProfessionInfo := LoadLibCryptoFunction('PROFESSION_INFO_get0_addProfessionInfo');
   FuncLoadError := not assigned(PROFESSION_INFO_get0_addProfessionInfo);
   if FuncLoadError then
   begin
-    {$if not defined(PROFESSION_INFO_get0_addProfessionInfo_allownil)}
-    PROFESSION_INFO_get0_addProfessionInfo := @ERR_PROFESSION_INFO_get0_addProfessionInfo;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_get0_addProfessionInfo_introduced)}
-    if LibVersion < PROFESSION_INFO_get0_addProfessionInfo_introduced then
-    begin
-      {$if declared(FC_PROFESSION_INFO_get0_addProfessionInfo)}
-      PROFESSION_INFO_get0_addProfessionInfo := @FC_PROFESSION_INFO_get0_addProfessionInfo;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_get0_addProfessionInfo_removed)}
-    if PROFESSION_INFO_get0_addProfessionInfo_removed <= LibVersion then
-    begin
-      {$if declared(_PROFESSION_INFO_get0_addProfessionInfo)}
-      PROFESSION_INFO_get0_addProfessionInfo := @_PROFESSION_INFO_get0_addProfessionInfo;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(PROFESSION_INFO_get0_addProfessionInfo_allownil)}
-    if FuncLoadError then
-      AFailed.Add('PROFESSION_INFO_get0_addProfessionInfo');
-    {$ifend}
+    PROFESSION_INFO_get0_addProfessionInfo :=  @ERROR_PROFESSION_INFO_get0_addProfessionInfo;
   end;
 
-
-  PROFESSION_INFO_set0_addProfessionInfo := LoadLibFunction(ADllHandle, PROFESSION_INFO_set0_addProfessionInfo_procname);
+  PROFESSION_INFO_set0_addProfessionInfo := LoadLibCryptoFunction('PROFESSION_INFO_set0_addProfessionInfo');
   FuncLoadError := not assigned(PROFESSION_INFO_set0_addProfessionInfo);
   if FuncLoadError then
   begin
-    {$if not defined(PROFESSION_INFO_set0_addProfessionInfo_allownil)}
-    PROFESSION_INFO_set0_addProfessionInfo := @ERR_PROFESSION_INFO_set0_addProfessionInfo;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_set0_addProfessionInfo_introduced)}
-    if LibVersion < PROFESSION_INFO_set0_addProfessionInfo_introduced then
-    begin
-      {$if declared(FC_PROFESSION_INFO_set0_addProfessionInfo)}
-      PROFESSION_INFO_set0_addProfessionInfo := @FC_PROFESSION_INFO_set0_addProfessionInfo;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_set0_addProfessionInfo_removed)}
-    if PROFESSION_INFO_set0_addProfessionInfo_removed <= LibVersion then
-    begin
-      {$if declared(_PROFESSION_INFO_set0_addProfessionInfo)}
-      PROFESSION_INFO_set0_addProfessionInfo := @_PROFESSION_INFO_set0_addProfessionInfo;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(PROFESSION_INFO_set0_addProfessionInfo_allownil)}
-    if FuncLoadError then
-      AFailed.Add('PROFESSION_INFO_set0_addProfessionInfo');
-    {$ifend}
+    PROFESSION_INFO_set0_addProfessionInfo :=  @ERROR_PROFESSION_INFO_set0_addProfessionInfo;
   end;
 
-
-  PROFESSION_INFO_get0_namingAuthority := LoadLibFunction(ADllHandle, PROFESSION_INFO_get0_namingAuthority_procname);
+  PROFESSION_INFO_get0_namingAuthority := LoadLibCryptoFunction('PROFESSION_INFO_get0_namingAuthority');
   FuncLoadError := not assigned(PROFESSION_INFO_get0_namingAuthority);
   if FuncLoadError then
   begin
-    {$if not defined(PROFESSION_INFO_get0_namingAuthority_allownil)}
-    PROFESSION_INFO_get0_namingAuthority := @ERR_PROFESSION_INFO_get0_namingAuthority;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_get0_namingAuthority_introduced)}
-    if LibVersion < PROFESSION_INFO_get0_namingAuthority_introduced then
-    begin
-      {$if declared(FC_PROFESSION_INFO_get0_namingAuthority)}
-      PROFESSION_INFO_get0_namingAuthority := @FC_PROFESSION_INFO_get0_namingAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_get0_namingAuthority_removed)}
-    if PROFESSION_INFO_get0_namingAuthority_removed <= LibVersion then
-    begin
-      {$if declared(_PROFESSION_INFO_get0_namingAuthority)}
-      PROFESSION_INFO_get0_namingAuthority := @_PROFESSION_INFO_get0_namingAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(PROFESSION_INFO_get0_namingAuthority_allownil)}
-    if FuncLoadError then
-      AFailed.Add('PROFESSION_INFO_get0_namingAuthority');
-    {$ifend}
+    PROFESSION_INFO_get0_namingAuthority :=  @ERROR_PROFESSION_INFO_get0_namingAuthority;
   end;
 
-
-  PROFESSION_INFO_set0_namingAuthority := LoadLibFunction(ADllHandle, PROFESSION_INFO_set0_namingAuthority_procname);
+  PROFESSION_INFO_set0_namingAuthority := LoadLibCryptoFunction('PROFESSION_INFO_set0_namingAuthority');
   FuncLoadError := not assigned(PROFESSION_INFO_set0_namingAuthority);
   if FuncLoadError then
   begin
-    {$if not defined(PROFESSION_INFO_set0_namingAuthority_allownil)}
-    PROFESSION_INFO_set0_namingAuthority := @ERR_PROFESSION_INFO_set0_namingAuthority;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_set0_namingAuthority_introduced)}
-    if LibVersion < PROFESSION_INFO_set0_namingAuthority_introduced then
-    begin
-      {$if declared(FC_PROFESSION_INFO_set0_namingAuthority)}
-      PROFESSION_INFO_set0_namingAuthority := @FC_PROFESSION_INFO_set0_namingAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_set0_namingAuthority_removed)}
-    if PROFESSION_INFO_set0_namingAuthority_removed <= LibVersion then
-    begin
-      {$if declared(_PROFESSION_INFO_set0_namingAuthority)}
-      PROFESSION_INFO_set0_namingAuthority := @_PROFESSION_INFO_set0_namingAuthority;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(PROFESSION_INFO_set0_namingAuthority_allownil)}
-    if FuncLoadError then
-      AFailed.Add('PROFESSION_INFO_set0_namingAuthority');
-    {$ifend}
+    PROFESSION_INFO_set0_namingAuthority :=  @ERROR_PROFESSION_INFO_set0_namingAuthority;
   end;
 
-
-  PROFESSION_INFO_get0_registrationNumber := LoadLibFunction(ADllHandle, PROFESSION_INFO_get0_registrationNumber_procname);
+  PROFESSION_INFO_get0_registrationNumber := LoadLibCryptoFunction('PROFESSION_INFO_get0_registrationNumber');
   FuncLoadError := not assigned(PROFESSION_INFO_get0_registrationNumber);
   if FuncLoadError then
   begin
-    {$if not defined(PROFESSION_INFO_get0_registrationNumber_allownil)}
-    PROFESSION_INFO_get0_registrationNumber := @ERR_PROFESSION_INFO_get0_registrationNumber;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_get0_registrationNumber_introduced)}
-    if LibVersion < PROFESSION_INFO_get0_registrationNumber_introduced then
-    begin
-      {$if declared(FC_PROFESSION_INFO_get0_registrationNumber)}
-      PROFESSION_INFO_get0_registrationNumber := @FC_PROFESSION_INFO_get0_registrationNumber;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_get0_registrationNumber_removed)}
-    if PROFESSION_INFO_get0_registrationNumber_removed <= LibVersion then
-    begin
-      {$if declared(_PROFESSION_INFO_get0_registrationNumber)}
-      PROFESSION_INFO_get0_registrationNumber := @_PROFESSION_INFO_get0_registrationNumber;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(PROFESSION_INFO_get0_registrationNumber_allownil)}
-    if FuncLoadError then
-      AFailed.Add('PROFESSION_INFO_get0_registrationNumber');
-    {$ifend}
+    PROFESSION_INFO_get0_registrationNumber :=  @ERROR_PROFESSION_INFO_get0_registrationNumber;
   end;
 
-
-  PROFESSION_INFO_set0_registrationNumber := LoadLibFunction(ADllHandle, PROFESSION_INFO_set0_registrationNumber_procname);
+  PROFESSION_INFO_set0_registrationNumber := LoadLibCryptoFunction('PROFESSION_INFO_set0_registrationNumber');
   FuncLoadError := not assigned(PROFESSION_INFO_set0_registrationNumber);
   if FuncLoadError then
   begin
-    {$if not defined(PROFESSION_INFO_set0_registrationNumber_allownil)}
-    PROFESSION_INFO_set0_registrationNumber := @ERR_PROFESSION_INFO_set0_registrationNumber;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_set0_registrationNumber_introduced)}
-    if LibVersion < PROFESSION_INFO_set0_registrationNumber_introduced then
-    begin
-      {$if declared(FC_PROFESSION_INFO_set0_registrationNumber)}
-      PROFESSION_INFO_set0_registrationNumber := @FC_PROFESSION_INFO_set0_registrationNumber;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if declared(PROFESSION_INFO_set0_registrationNumber_removed)}
-    if PROFESSION_INFO_set0_registrationNumber_removed <= LibVersion then
-    begin
-      {$if declared(_PROFESSION_INFO_set0_registrationNumber)}
-      PROFESSION_INFO_set0_registrationNumber := @_PROFESSION_INFO_set0_registrationNumber;
-      {$ifend}
-      FuncLoadError := false;
-    end;
-    {$ifend}
-    {$if not defined(PROFESSION_INFO_set0_registrationNumber_allownil)}
-    if FuncLoadError then
-      AFailed.Add('PROFESSION_INFO_set0_registrationNumber');
-    {$ifend}
+    PROFESSION_INFO_set0_registrationNumber :=  @ERROR_PROFESSION_INFO_set0_registrationNumber;
   end;
-
 
 end;
 
-procedure Unload;
+procedure UnLoad;
 begin
+  BASIC_CONSTRAINTS_free := nil;
+  BASIC_CONSTRAINTS_new := nil;
+  AUTHORITY_KEYID_free := nil;
+  AUTHORITY_KEYID_new := nil;
+  GENERAL_NAME_free := nil;
+  GENERAL_NAME_new := nil;
   GENERAL_NAME_cmp := nil;
   GENERAL_NAME_print := nil;
+  GENERAL_NAMES_free := nil;
+  GENERAL_NAMES_new := nil;
   OTHERNAME_cmp := nil;
   GENERAL_NAME_set0_value := nil;
   GENERAL_NAME_get0_value := nil;
@@ -4904,6 +2197,10 @@ begin
   X509_PURPOSE_get_trust := nil;
   X509_PURPOSE_cleanup := nil;
   X509_PURPOSE_get_id := nil;
+  X509_get1_email := nil;
+  X509_REQ_get1_email := nil;
+  X509_email_free := nil;
+  X509_get1_ocsp := nil;
   X509_check_host := nil;
   X509_check_email := nil;
   X509_check_ip := nil;
@@ -4933,12 +2230,15 @@ begin
   PROFESSION_INFO_get0_registrationNumber := nil;
   PROFESSION_INFO_set0_registrationNumber := nil;
 end;
-{$ELSE}
 {$ENDIF}
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 initialization
-  Register_SSLLoader(@Load,'LibCrypto');
-  Register_SSLUnloader(@Unload);
+
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+Register_SSLLoader(@Load);
+Register_SSLUnloader(@Unload);
 {$ENDIF}
+finalization
+
+
 end.
