@@ -22,7 +22,7 @@ interface
 
 uses
   Classes, SysUtils, {$IFDEF FPC}CustApp,{$ENDIF}IdIOHandler, IdHTTP,
-  IdSSL, IdSSLOpenSSL, IdSSLOpenSSLLoader, IdHeaderList, IdContext,
+  IdSSL, IdSSLOpenSSL,  IdHeaderList, IdContext,
   IdCustomHTTPServer, IdHTTPServer, IdServerIOHandler, IdGlobal;
 
 const
@@ -102,6 +102,8 @@ type
 
 
 implementation
+
+uses IdSSLOpenSSLAPI;
 
 {$IFDEF LOCAL_TCUSTOMAPP}
 function TCustomApplication.Exename: string;
@@ -375,17 +377,19 @@ begin
       Inc(i);
    end;
 
-    if GetOpenSSLLoader <> nil then
-    begin
+    {$if declared(GetIOpenSSLDDL)}
+    if GetIOpenSSLDDL <> nil then
+     begin
       if (FOpenSSLLibDir = '') or not IsDirectoryEmpty(FOpenSSLLibDir) then
       begin
-        GetOpenSSLLoader.OpenSSLPath := FOpenSSLLibDir;
+        GetIOpenSSLDDL.SetOpenSSLPath(FOpenSSLLibDir);
         RunTest;
       end
       else
         writeln('Directory ',FOpenSSLLibDir,' is empty!');
     end
     else
+    {$ENDIF}
       RunTest;
 
 

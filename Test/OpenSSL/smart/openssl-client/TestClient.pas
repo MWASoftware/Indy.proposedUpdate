@@ -102,7 +102,7 @@ type
 
 implementation
 
-uses IdSSLOpenSSLLoader;
+uses IdSSLOpenSSLAPI;
 
 {$IFDEF LOCAL_TCUSTOMAPP}
 function TCustomApplication.Exename: string;
@@ -359,12 +359,12 @@ begin
        Inc(i);
     end;
 
-    {$IFNDEF LEGACY_VERSION}
-    if GetOpenSSLLoader <> nil then
+    {$if declared(GetIOpenSSLDDL)}
+    if GetIOpenSSLDDL <> nil then
     begin
       if (FOpenSSLLibDir = '') or not IsDirectoryEmpty(FOpenSSLLibDir) then
       begin
-        GetOpenSSLLoader.OpenSSLPath := FOpenSSLLibDir;
+        GetIOpenSSLDDL.SetOpenSSLPath(FOpenSSLLibDir);
         RunTest;
       end
       else
