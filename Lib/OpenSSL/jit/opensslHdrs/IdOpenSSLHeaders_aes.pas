@@ -118,21 +118,21 @@ function Load_AES_wrap_key(key: PAES_KEY; const iv: PByte; out_: PByte; const in
 function Load_AES_unwrap_key(key: PAES_KEY; const iv: PByte; out_: PByte; const in_: PByte; inlen: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl;
 
 var
-  AES_options: function : PAnsiChar; cdecl = @Load_AES_options;
-  AES_set_encrypt_key: function (const userKey: PByte; const bits: TOpenSSL_C_INT; const key: PAES_KEY): TOpenSSL_C_INT; cdecl = @Load_AES_set_encrypt_key;
-  AES_set_decrypt_key: function (const userKey: PByte; const bits: TOpenSSL_C_INT; const key: PAES_KEY): TOpenSSL_C_INT; cdecl = @Load_AES_set_decrypt_key;
-  AES_encrypt: procedure (const in_: PByte; out_: PByte; const key: PAES_KEY); cdecl = @Load_AES_encrypt;
-  AES_decrypt: procedure (const in_: PByte; out_: PByte; const key: PAES_KEY); cdecl = @Load_AES_decrypt;
-  AES_ecb_encrypt: procedure (const in_: PByte; out_: PByte; const key: PAES_KEY; const enc: TOpenSSL_C_INT); cdecl = @Load_AES_ecb_encrypt;
-  AES_cbc_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TOpenSSL_C_INT); cdecl = @Load_AES_cbc_encrypt;
-  AES_cfb128_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = @Load_AES_cfb128_encrypt;
-  AES_cfb1_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = @Load_AES_cfb1_encrypt;
-  AES_cfb8_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = @Load_AES_cfb8_encrypt;
-  AES_ofb128_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; num: POpenSSL_C_INT); cdecl = @Load_AES_ofb128_encrypt;
-  AES_ige_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TOpenSSL_C_INT); cdecl = @Load_AES_ige_encrypt;
-  AES_bi_ige_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; const key2: PAES_KEY; ivec: PByte; const enc: TOpenSSL_C_INT); cdecl = @Load_AES_bi_ige_encrypt;
-  AES_wrap_key: function (key: PAES_KEY; const iv: PByte; out_: PByte; const in_: PByte; inlen: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl = @Load_AES_wrap_key;
-  AES_unwrap_key: function (key: PAES_KEY; const iv: PByte; out_: PByte; const in_: PByte; inlen: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl = @Load_AES_unwrap_key;
+  AES_options: function : PAnsiChar; cdecl = Load_AES_options;
+  AES_set_encrypt_key: function (const userKey: PByte; const bits: TOpenSSL_C_INT; const key: PAES_KEY): TOpenSSL_C_INT; cdecl = Load_AES_set_encrypt_key;
+  AES_set_decrypt_key: function (const userKey: PByte; const bits: TOpenSSL_C_INT; const key: PAES_KEY): TOpenSSL_C_INT; cdecl = Load_AES_set_decrypt_key;
+  AES_encrypt: procedure (const in_: PByte; out_: PByte; const key: PAES_KEY); cdecl = Load_AES_encrypt;
+  AES_decrypt: procedure (const in_: PByte; out_: PByte; const key: PAES_KEY); cdecl = Load_AES_decrypt;
+  AES_ecb_encrypt: procedure (const in_: PByte; out_: PByte; const key: PAES_KEY; const enc: TOpenSSL_C_INT); cdecl = Load_AES_ecb_encrypt;
+  AES_cbc_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TOpenSSL_C_INT); cdecl = Load_AES_cbc_encrypt;
+  AES_cfb128_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = Load_AES_cfb128_encrypt;
+  AES_cfb1_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = Load_AES_cfb1_encrypt;
+  AES_cfb8_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = Load_AES_cfb8_encrypt;
+  AES_ofb128_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; num: POpenSSL_C_INT); cdecl = Load_AES_ofb128_encrypt;
+  AES_ige_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; ivec: PByte; const enc: TOpenSSL_C_INT); cdecl = Load_AES_ige_encrypt;
+  AES_bi_ige_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_SIZET; const key: PAES_KEY; const key2: PAES_KEY; ivec: PByte; const enc: TOpenSSL_C_INT); cdecl = Load_AES_bi_ige_encrypt;
+  AES_wrap_key: function (key: PAES_KEY; const iv: PByte; out_: PByte; const in_: PByte; inlen: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl = Load_AES_wrap_key;
+  AES_unwrap_key: function (key: PAES_KEY; const iv: PByte; out_: PByte; const in_: PByte; inlen: TOpenSSL_C_UINT): TOpenSSL_C_INT; cdecl = Load_AES_unwrap_key;
 {$ENDIF}
 
 implementation
@@ -269,21 +269,21 @@ end;
 
 procedure UnLoad;
 begin
-  AES_options := @Load_AES_options;
-  AES_set_encrypt_key := @Load_AES_set_encrypt_key;
-  AES_set_decrypt_key := @Load_AES_set_decrypt_key;
-  AES_encrypt := @Load_AES_encrypt;
-  AES_decrypt := @Load_AES_decrypt;
-  AES_ecb_encrypt := @Load_AES_ecb_encrypt;
-  AES_cbc_encrypt := @Load_AES_cbc_encrypt;
-  AES_cfb128_encrypt := @Load_AES_cfb128_encrypt;
-  AES_cfb1_encrypt := @Load_AES_cfb1_encrypt;
-  AES_cfb8_encrypt := @Load_AES_cfb8_encrypt;
-  AES_ofb128_encrypt := @Load_AES_ofb128_encrypt;
-  AES_ige_encrypt := @Load_AES_ige_encrypt;
-  AES_bi_ige_encrypt := @Load_AES_bi_ige_encrypt;
-  AES_wrap_key := @Load_AES_wrap_key;
-  AES_unwrap_key := @Load_AES_unwrap_key;
+  AES_options := Load_AES_options;
+  AES_set_encrypt_key := Load_AES_set_encrypt_key;
+  AES_set_decrypt_key := Load_AES_set_decrypt_key;
+  AES_encrypt := Load_AES_encrypt;
+  AES_decrypt := Load_AES_decrypt;
+  AES_ecb_encrypt := Load_AES_ecb_encrypt;
+  AES_cbc_encrypt := Load_AES_cbc_encrypt;
+  AES_cfb128_encrypt := Load_AES_cfb128_encrypt;
+  AES_cfb1_encrypt := Load_AES_cfb1_encrypt;
+  AES_cfb8_encrypt := Load_AES_cfb8_encrypt;
+  AES_ofb128_encrypt := Load_AES_ofb128_encrypt;
+  AES_ige_encrypt := Load_AES_ige_encrypt;
+  AES_bi_ige_encrypt := Load_AES_bi_ige_encrypt;
+  AES_wrap_key := Load_AES_wrap_key;
+  AES_unwrap_key := Load_AES_unwrap_key;
 end;
 {$ENDIF}
 

@@ -1143,21 +1143,21 @@ function Load_SSL_get_sigalgs(s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_IN
 function Load_SSL_get_shared_sigalgs(s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_INT; phash: POpenSSL_C_INT; psignandhash: POpenSSL_C_INT; rsig: PByte; rhash: PByte): TOpenSSL_C_INT; cdecl;
 
 var
-  SSL_CTX_set_tlsext_max_fragment_length: function (ctx: PSSL_CTx; mode: TOpenSSL_C_UINT8): TOpenSSL_C_INT; cdecl = @Load_SSL_CTX_set_tlsext_max_fragment_length; {introduced 1.1.0 }
-  SSL_set_tlsext_max_fragment_length: function (ssl: PSSL; mode: TOpenSSL_C_UINT8): TOpenSSL_C_INT; cdecl = @Load_SSL_set_tlsext_max_fragment_length; {introduced 1.1.0 }
-  SSL_get_servername: function (const s: PSSL; const type_: TOpenSSL_C_INT): PAnsiChar; cdecl = @Load_SSL_get_servername;
-  SSL_get_servername_type: function (const s: PSSL): TOpenSSL_C_INT; cdecl = @Load_SSL_get_servername_type;
-  SSL_export_keying_material: function (s: PSSL; out_: PByte; olen: TOpenSSL_C_SIZET; const label_: PAnsiChar; llen: TOpenSSL_C_SIZET; const context: PByte; contextlen: TOpenSSL_C_SIZET; use_context: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = @Load_SSL_export_keying_material;
-  SSL_export_keying_material_early: function (s: PSSL; out_: PByte; olen: TOpenSSL_C_SIZET; const label_: PAnsiChar; llen: TOpenSSL_C_SIZET; const context: PByte; contextlen: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_SSL_export_keying_material_early; {introduced 1.1.0 }
-  SSL_get_peer_signature_type_nid: function (const s: PSSl; pnid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = @Load_SSL_get_peer_signature_type_nid; {introduced 1.1.0 }
-  SSL_get_signature_type_nid: function (const s: PSSl; pnid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = @Load_SSL_get_signature_type_nid; {introduced 1.1.0 }
-  SSL_get_sigalgs: function (s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_INT; phash: POpenSSL_C_INT; psignandhash: POpenSSL_C_INT; rsig: PByte; rhash: PByte): TOpenSSL_C_INT; cdecl = @Load_SSL_get_sigalgs;
-  SSL_get_shared_sigalgs: function (s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_INT; phash: POpenSSL_C_INT; psignandhash: POpenSSL_C_INT; rsig: PByte; rhash: PByte): TOpenSSL_C_INT; cdecl = @Load_SSL_get_shared_sigalgs;
+  SSL_CTX_set_tlsext_max_fragment_length: function (ctx: PSSL_CTx; mode: TOpenSSL_C_UINT8): TOpenSSL_C_INT; cdecl = Load_SSL_CTX_set_tlsext_max_fragment_length; {introduced 1.1.0 }
+  SSL_set_tlsext_max_fragment_length: function (ssl: PSSL; mode: TOpenSSL_C_UINT8): TOpenSSL_C_INT; cdecl = Load_SSL_set_tlsext_max_fragment_length; {introduced 1.1.0 }
+  SSL_get_servername: function (const s: PSSL; const type_: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_SSL_get_servername;
+  SSL_get_servername_type: function (const s: PSSL): TOpenSSL_C_INT; cdecl = Load_SSL_get_servername_type;
+  SSL_export_keying_material: function (s: PSSL; out_: PByte; olen: TOpenSSL_C_SIZET; const label_: PAnsiChar; llen: TOpenSSL_C_SIZET; const context: PByte; contextlen: TOpenSSL_C_SIZET; use_context: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_SSL_export_keying_material;
+  SSL_export_keying_material_early: function (s: PSSL; out_: PByte; olen: TOpenSSL_C_SIZET; const label_: PAnsiChar; llen: TOpenSSL_C_SIZET; const context: PByte; contextlen: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_SSL_export_keying_material_early; {introduced 1.1.0 }
+  SSL_get_peer_signature_type_nid: function (const s: PSSl; pnid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_SSL_get_peer_signature_type_nid; {introduced 1.1.0 }
+  SSL_get_signature_type_nid: function (const s: PSSl; pnid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_SSL_get_signature_type_nid; {introduced 1.1.0 }
+  SSL_get_sigalgs: function (s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_INT; phash: POpenSSL_C_INT; psignandhash: POpenSSL_C_INT; rsig: PByte; rhash: PByte): TOpenSSL_C_INT; cdecl = Load_SSL_get_sigalgs;
+  SSL_get_shared_sigalgs: function (s: PSSl; idx: TOpenSSL_C_INT; psign: POpenSSL_C_INT; phash: POpenSSL_C_INT; psignandhash: POpenSSL_C_INT; rsig: PByte; rhash: PByte): TOpenSSL_C_INT; cdecl = Load_SSL_get_shared_sigalgs;
 
 {Removed functions for which legacy support available - use is deprecated}
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  SSL_set_tlsext_host_name: function (s: PSSL; const name: PAnsiChar): TOpenSSL_C_LONG; cdecl = @Load_SSL_set_tlsext_host_name; {removed 1.0.0}
+  SSL_set_tlsext_host_name: function (s: PSSL; const name: PAnsiChar): TOpenSSL_C_LONG; cdecl = Load_SSL_set_tlsext_host_name; {removed 1.0.0}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF}
 const
@@ -1300,18 +1300,18 @@ end;
 procedure UnLoad;
 begin
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  SSL_set_tlsext_host_name := @Load_SSL_set_tlsext_host_name;
+  SSL_set_tlsext_host_name := Load_SSL_set_tlsext_host_name;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
-  SSL_CTX_set_tlsext_max_fragment_length := @Load_SSL_CTX_set_tlsext_max_fragment_length;
-  SSL_set_tlsext_max_fragment_length := @Load_SSL_set_tlsext_max_fragment_length;
-  SSL_get_servername := @Load_SSL_get_servername;
-  SSL_get_servername_type := @Load_SSL_get_servername_type;
-  SSL_export_keying_material := @Load_SSL_export_keying_material;
-  SSL_export_keying_material_early := @Load_SSL_export_keying_material_early;
-  SSL_get_peer_signature_type_nid := @Load_SSL_get_peer_signature_type_nid;
-  SSL_get_signature_type_nid := @Load_SSL_get_signature_type_nid;
-  SSL_get_sigalgs := @Load_SSL_get_sigalgs;
-  SSL_get_shared_sigalgs := @Load_SSL_get_shared_sigalgs;
+  SSL_CTX_set_tlsext_max_fragment_length := Load_SSL_CTX_set_tlsext_max_fragment_length;
+  SSL_set_tlsext_max_fragment_length := Load_SSL_set_tlsext_max_fragment_length;
+  SSL_get_servername := Load_SSL_get_servername;
+  SSL_get_servername_type := Load_SSL_get_servername_type;
+  SSL_export_keying_material := Load_SSL_export_keying_material;
+  SSL_export_keying_material_early := Load_SSL_export_keying_material_early;
+  SSL_get_peer_signature_type_nid := Load_SSL_get_peer_signature_type_nid;
+  SSL_get_signature_type_nid := Load_SSL_get_signature_type_nid;
+  SSL_get_sigalgs := Load_SSL_get_sigalgs;
+  SSL_get_shared_sigalgs := Load_SSL_get_shared_sigalgs;
 end;
 {$ENDIF}
 

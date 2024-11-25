@@ -171,30 +171,30 @@ function Load_sk_is_sorted(st:POPENSSL_STACK): longint; cdecl;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 
 var
-  OPENSSL_sk_num: function (_para1:POPENSSL_STACK): longint; cdecl = @Load_OPENSSL_sk_num; {introduced 1.1.0 }
-  OPENSSL_sk_value: function (_para1:POPENSSL_STACK; _para2:longint): pointer; cdecl = @Load_OPENSSL_sk_value; {introduced 1.1.0 }
-  OPENSSL_sk_set: function (st:POPENSSL_STACK; i:longint; data:pointer): pointer; cdecl = @Load_OPENSSL_sk_set; {introduced 1.1.0 }
-  OPENSSL_sk_new: function (cmp:TOPENSSL_sk_compfunc): POPENSSL_STACK; cdecl = @Load_OPENSSL_sk_new; {introduced 1.1.0 }
-  OPENSSL_sk_new_null: function : POPENSSL_STACK; cdecl = @Load_OPENSSL_sk_new_null; {introduced 1.1.0 }
-  OPENSSL_sk_new_reserve: function (c:TOPENSSL_sk_compfunc; n:longint): POPENSSL_STACK; cdecl = @Load_OPENSSL_sk_new_reserve; {introduced 1.1.0 }
-  OPENSSL_sk_reserve: function (st:POPENSSL_STACK; n:longint): longint; cdecl = @Load_OPENSSL_sk_reserve; {introduced 1.1.0 }
-  OPENSSL_sk_free: procedure (_para1:POPENSSL_STACK); cdecl = @Load_OPENSSL_sk_free; {introduced 1.1.0 }
-  OPENSSL_sk_pop_free: procedure (st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc); cdecl = @Load_OPENSSL_sk_pop_free; {introduced 1.1.0 }
-  OPENSSL_sk_deep_copy: function (_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc): POPENSSL_STACK; cdecl = @Load_OPENSSL_sk_deep_copy; {introduced 1.1.0 }
-  OPENSSL_sk_insert: function (sk:POPENSSL_STACK; data:pointer; where:longint): longint; cdecl = @Load_OPENSSL_sk_insert; {introduced 1.1.0 }
-  OPENSSL_sk_delete: function (st:POPENSSL_STACK; loc:longint): pointer; cdecl = @Load_OPENSSL_sk_delete; {introduced 1.1.0 }
-  OPENSSL_sk_delete_ptr: function (st:POPENSSL_STACK; p:pointer): pointer; cdecl = @Load_OPENSSL_sk_delete_ptr; {introduced 1.1.0 }
-  OPENSSL_sk_find: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = @Load_OPENSSL_sk_find; {introduced 1.1.0 }
-  OPENSSL_sk_find_ex: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = @Load_OPENSSL_sk_find_ex; {introduced 1.1.0 }
-  OPENSSL_sk_push: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = @Load_OPENSSL_sk_push; {introduced 1.1.0 }
-  OPENSSL_sk_unshift: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = @Load_OPENSSL_sk_unshift; {introduced 1.1.0 }
-  OPENSSL_sk_shift: function (st:POPENSSL_STACK): pointer; cdecl = @Load_OPENSSL_sk_shift; {introduced 1.1.0 }
-  OPENSSL_sk_pop: function (st:POPENSSL_STACK): pointer; cdecl = @Load_OPENSSL_sk_pop; {introduced 1.1.0 }
-  OPENSSL_sk_zero: procedure (st:POPENSSL_STACK); cdecl = @Load_OPENSSL_sk_zero; {introduced 1.1.0 }
-  OPENSSL_sk_set_cmp_func: function (sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc): TOPENSSL_sk_compfunc; cdecl = @Load_OPENSSL_sk_set_cmp_func; {introduced 1.1.0 }
-  OPENSSL_sk_dup: function (st:POPENSSL_STACK): POPENSSL_STACK; cdecl = @Load_OPENSSL_sk_dup; {introduced 1.1.0 }
-  OPENSSL_sk_sort: procedure (st:POPENSSL_STACK); cdecl = @Load_OPENSSL_sk_sort; {introduced 1.1.0 }
-  OPENSSL_sk_is_sorted: function (st:POPENSSL_STACK): longint; cdecl = @Load_OPENSSL_sk_is_sorted; {introduced 1.1.0 }
+  OPENSSL_sk_num: function (_para1:POPENSSL_STACK): longint; cdecl = Load_OPENSSL_sk_num; {introduced 1.1.0 }
+  OPENSSL_sk_value: function (_para1:POPENSSL_STACK; _para2:longint): pointer; cdecl = Load_OPENSSL_sk_value; {introduced 1.1.0 }
+  OPENSSL_sk_set: function (st:POPENSSL_STACK; i:longint; data:pointer): pointer; cdecl = Load_OPENSSL_sk_set; {introduced 1.1.0 }
+  OPENSSL_sk_new: function (cmp:TOPENSSL_sk_compfunc): POPENSSL_STACK; cdecl = Load_OPENSSL_sk_new; {introduced 1.1.0 }
+  OPENSSL_sk_new_null: function : POPENSSL_STACK; cdecl = Load_OPENSSL_sk_new_null; {introduced 1.1.0 }
+  OPENSSL_sk_new_reserve: function (c:TOPENSSL_sk_compfunc; n:longint): POPENSSL_STACK; cdecl = Load_OPENSSL_sk_new_reserve; {introduced 1.1.0 }
+  OPENSSL_sk_reserve: function (st:POPENSSL_STACK; n:longint): longint; cdecl = Load_OPENSSL_sk_reserve; {introduced 1.1.0 }
+  OPENSSL_sk_free: procedure (_para1:POPENSSL_STACK); cdecl = Load_OPENSSL_sk_free; {introduced 1.1.0 }
+  OPENSSL_sk_pop_free: procedure (st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc); cdecl = Load_OPENSSL_sk_pop_free; {introduced 1.1.0 }
+  OPENSSL_sk_deep_copy: function (_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc): POPENSSL_STACK; cdecl = Load_OPENSSL_sk_deep_copy; {introduced 1.1.0 }
+  OPENSSL_sk_insert: function (sk:POPENSSL_STACK; data:pointer; where:longint): longint; cdecl = Load_OPENSSL_sk_insert; {introduced 1.1.0 }
+  OPENSSL_sk_delete: function (st:POPENSSL_STACK; loc:longint): pointer; cdecl = Load_OPENSSL_sk_delete; {introduced 1.1.0 }
+  OPENSSL_sk_delete_ptr: function (st:POPENSSL_STACK; p:pointer): pointer; cdecl = Load_OPENSSL_sk_delete_ptr; {introduced 1.1.0 }
+  OPENSSL_sk_find: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = Load_OPENSSL_sk_find; {introduced 1.1.0 }
+  OPENSSL_sk_find_ex: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = Load_OPENSSL_sk_find_ex; {introduced 1.1.0 }
+  OPENSSL_sk_push: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = Load_OPENSSL_sk_push; {introduced 1.1.0 }
+  OPENSSL_sk_unshift: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = Load_OPENSSL_sk_unshift; {introduced 1.1.0 }
+  OPENSSL_sk_shift: function (st:POPENSSL_STACK): pointer; cdecl = Load_OPENSSL_sk_shift; {introduced 1.1.0 }
+  OPENSSL_sk_pop: function (st:POPENSSL_STACK): pointer; cdecl = Load_OPENSSL_sk_pop; {introduced 1.1.0 }
+  OPENSSL_sk_zero: procedure (st:POPENSSL_STACK); cdecl = Load_OPENSSL_sk_zero; {introduced 1.1.0 }
+  OPENSSL_sk_set_cmp_func: function (sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc): TOPENSSL_sk_compfunc; cdecl = Load_OPENSSL_sk_set_cmp_func; {introduced 1.1.0 }
+  OPENSSL_sk_dup: function (st:POPENSSL_STACK): POPENSSL_STACK; cdecl = Load_OPENSSL_sk_dup; {introduced 1.1.0 }
+  OPENSSL_sk_sort: procedure (st:POPENSSL_STACK); cdecl = Load_OPENSSL_sk_sort; {introduced 1.1.0 }
+  OPENSSL_sk_is_sorted: function (st:POPENSSL_STACK): longint; cdecl = Load_OPENSSL_sk_is_sorted; {introduced 1.1.0 }
 {$ENDIF}
 const
   OPENSSL_sk_num_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
@@ -258,30 +258,30 @@ uses classes,
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 
 var
-  sk_num: function (_para1:POPENSSL_STACK): longint; cdecl = @Load_sk_num; {removed 1.1.0}
-  sk_value: function (_para1:POPENSSL_STACK; _para2:longint): pointer; cdecl = @Load_sk_value; {removed 1.1.0}
-  sk_set: function (st:POPENSSL_STACK; i:longint; data:pointer): pointer; cdecl = @Load_sk_set; {removed 1.1.0}
-  sk_new: function (cmp:TOPENSSL_sk_compfunc): POPENSSL_STACK; cdecl = @Load_sk_new; {removed 1.1.0}
-  sk_new_null: function : POPENSSL_STACK; cdecl = @Load_sk_new_null; {removed 1.1.0}
-  sk_new_reserve: function (c:TOPENSSL_sk_compfunc; n:longint): POPENSSL_STACK; cdecl = @Load_sk_new_reserve; {removed 1.0.0}
-  sk_reserve: function (st:POPENSSL_STACK; n:longint): longint; cdecl = @Load_sk_reserve; {removed 1.0.0}
-  sk_free: procedure (_para1:POPENSSL_STACK); cdecl = @Load_sk_free; {removed 1.1.0}
-  sk_pop_free: procedure (st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc); cdecl = @Load_sk_pop_free; {removed 1.1.0}
-  sk_deep_copy: function (_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc): POPENSSL_STACK; cdecl = @Load_sk_deep_copy; {removed 1.1.0}
-  sk_insert: function (sk:POPENSSL_STACK; data:pointer; where:longint): longint; cdecl = @Load_sk_insert; {removed 1.1.0}
-  sk_delete: function (st:POPENSSL_STACK; loc:longint): pointer; cdecl = @Load_sk_delete; {removed 1.1.0}
-  sk_delete_ptr: function (st:POPENSSL_STACK; p:pointer): pointer; cdecl = @Load_sk_delete_ptr; {removed 1.1.0}
-  sk_find: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = @Load_sk_find; {removed 1.1.0}
-  sk_find_ex: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = @Load_sk_find_ex; {removed 1.1.0}
-  sk_push: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = @Load_sk_push; {removed 1.1.0}
-  sk_unshift: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = @Load_sk_unshift; {removed 1.1.0}
-  sk_shift: function (st:POPENSSL_STACK): pointer; cdecl = @Load_sk_shift; {removed 1.1.0}
-  sk_pop: function (st:POPENSSL_STACK): pointer; cdecl = @Load_sk_pop; {removed 1.1.0}
-  sk_zero: procedure (st:POPENSSL_STACK); cdecl = @Load_sk_zero; {removed 1.1.0}
-  sk_set_cmp_func: function (sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc): TOPENSSL_sk_compfunc; cdecl = @Load_sk_set_cmp_func; {removed 1.1.0}
-  sk_dup: function (st:POPENSSL_STACK): POPENSSL_STACK; cdecl = @Load_sk_dup; {removed 1.1.0}
-  sk_sort: procedure (st:POPENSSL_STACK); cdecl = @Load_sk_sort; {removed 1.1.0}
-  sk_is_sorted: function (st:POPENSSL_STACK): longint; cdecl = @Load_sk_is_sorted; {removed 1.1.0}
+  sk_num: function (_para1:POPENSSL_STACK): longint; cdecl = Load_sk_num; {removed 1.1.0}
+  sk_value: function (_para1:POPENSSL_STACK; _para2:longint): pointer; cdecl = Load_sk_value; {removed 1.1.0}
+  sk_set: function (st:POPENSSL_STACK; i:longint; data:pointer): pointer; cdecl = Load_sk_set; {removed 1.1.0}
+  sk_new: function (cmp:TOPENSSL_sk_compfunc): POPENSSL_STACK; cdecl = Load_sk_new; {removed 1.1.0}
+  sk_new_null: function : POPENSSL_STACK; cdecl = Load_sk_new_null; {removed 1.1.0}
+  sk_new_reserve: function (c:TOPENSSL_sk_compfunc; n:longint): POPENSSL_STACK; cdecl = Load_sk_new_reserve; {removed 1.0.0}
+  sk_reserve: function (st:POPENSSL_STACK; n:longint): longint; cdecl = Load_sk_reserve; {removed 1.0.0}
+  sk_free: procedure (_para1:POPENSSL_STACK); cdecl = Load_sk_free; {removed 1.1.0}
+  sk_pop_free: procedure (st:POPENSSL_STACK; func:TOPENSSL_sk_freefunc); cdecl = Load_sk_pop_free; {removed 1.1.0}
+  sk_deep_copy: function (_para1:POPENSSL_STACK; c:TOPENSSL_sk_copyfunc; f:TOPENSSL_sk_freefunc): POPENSSL_STACK; cdecl = Load_sk_deep_copy; {removed 1.1.0}
+  sk_insert: function (sk:POPENSSL_STACK; data:pointer; where:longint): longint; cdecl = Load_sk_insert; {removed 1.1.0}
+  sk_delete: function (st:POPENSSL_STACK; loc:longint): pointer; cdecl = Load_sk_delete; {removed 1.1.0}
+  sk_delete_ptr: function (st:POPENSSL_STACK; p:pointer): pointer; cdecl = Load_sk_delete_ptr; {removed 1.1.0}
+  sk_find: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = Load_sk_find; {removed 1.1.0}
+  sk_find_ex: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = Load_sk_find_ex; {removed 1.1.0}
+  sk_push: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = Load_sk_push; {removed 1.1.0}
+  sk_unshift: function (st:POPENSSL_STACK; data:pointer): longint; cdecl = Load_sk_unshift; {removed 1.1.0}
+  sk_shift: function (st:POPENSSL_STACK): pointer; cdecl = Load_sk_shift; {removed 1.1.0}
+  sk_pop: function (st:POPENSSL_STACK): pointer; cdecl = Load_sk_pop; {removed 1.1.0}
+  sk_zero: procedure (st:POPENSSL_STACK); cdecl = Load_sk_zero; {removed 1.1.0}
+  sk_set_cmp_func: function (sk:POPENSSL_STACK; cmp:TOPENSSL_sk_compfunc): TOPENSSL_sk_compfunc; cdecl = Load_sk_set_cmp_func; {removed 1.1.0}
+  sk_dup: function (st:POPENSSL_STACK): POPENSSL_STACK; cdecl = Load_sk_dup; {removed 1.1.0}
+  sk_sort: procedure (st:POPENSSL_STACK); cdecl = Load_sk_sort; {removed 1.1.0}
+  sk_is_sorted: function (st:POPENSSL_STACK): longint; cdecl = Load_sk_is_sorted; {removed 1.1.0}
 
 function COMPAT_OPENSSL_sk_num(_para1:POPENSSL_STACK): longint; cdecl;
 
@@ -964,55 +964,55 @@ end;
 
 procedure UnLoad;
 begin
-  OPENSSL_sk_num := @Load_OPENSSL_sk_num;
-  OPENSSL_sk_value := @Load_OPENSSL_sk_value;
-  OPENSSL_sk_set := @Load_OPENSSL_sk_set;
-  OPENSSL_sk_new := @Load_OPENSSL_sk_new;
-  OPENSSL_sk_new_null := @Load_OPENSSL_sk_new_null;
-  OPENSSL_sk_new_reserve := @Load_OPENSSL_sk_new_reserve;
-  OPENSSL_sk_reserve := @Load_OPENSSL_sk_reserve;
-  OPENSSL_sk_free := @Load_OPENSSL_sk_free;
-  OPENSSL_sk_pop_free := @Load_OPENSSL_sk_pop_free;
-  OPENSSL_sk_deep_copy := @Load_OPENSSL_sk_deep_copy;
-  OPENSSL_sk_insert := @Load_OPENSSL_sk_insert;
-  OPENSSL_sk_delete := @Load_OPENSSL_sk_delete;
-  OPENSSL_sk_delete_ptr := @Load_OPENSSL_sk_delete_ptr;
-  OPENSSL_sk_find := @Load_OPENSSL_sk_find;
-  OPENSSL_sk_find_ex := @Load_OPENSSL_sk_find_ex;
-  OPENSSL_sk_push := @Load_OPENSSL_sk_push;
-  OPENSSL_sk_unshift := @Load_OPENSSL_sk_unshift;
-  OPENSSL_sk_shift := @Load_OPENSSL_sk_shift;
-  OPENSSL_sk_pop := @Load_OPENSSL_sk_pop;
-  OPENSSL_sk_zero := @Load_OPENSSL_sk_zero;
-  OPENSSL_sk_set_cmp_func := @Load_OPENSSL_sk_set_cmp_func;
-  OPENSSL_sk_dup := @Load_OPENSSL_sk_dup;
-  OPENSSL_sk_sort := @Load_OPENSSL_sk_sort;
-  OPENSSL_sk_is_sorted := @Load_OPENSSL_sk_is_sorted;
+  OPENSSL_sk_num := Load_OPENSSL_sk_num;
+  OPENSSL_sk_value := Load_OPENSSL_sk_value;
+  OPENSSL_sk_set := Load_OPENSSL_sk_set;
+  OPENSSL_sk_new := Load_OPENSSL_sk_new;
+  OPENSSL_sk_new_null := Load_OPENSSL_sk_new_null;
+  OPENSSL_sk_new_reserve := Load_OPENSSL_sk_new_reserve;
+  OPENSSL_sk_reserve := Load_OPENSSL_sk_reserve;
+  OPENSSL_sk_free := Load_OPENSSL_sk_free;
+  OPENSSL_sk_pop_free := Load_OPENSSL_sk_pop_free;
+  OPENSSL_sk_deep_copy := Load_OPENSSL_sk_deep_copy;
+  OPENSSL_sk_insert := Load_OPENSSL_sk_insert;
+  OPENSSL_sk_delete := Load_OPENSSL_sk_delete;
+  OPENSSL_sk_delete_ptr := Load_OPENSSL_sk_delete_ptr;
+  OPENSSL_sk_find := Load_OPENSSL_sk_find;
+  OPENSSL_sk_find_ex := Load_OPENSSL_sk_find_ex;
+  OPENSSL_sk_push := Load_OPENSSL_sk_push;
+  OPENSSL_sk_unshift := Load_OPENSSL_sk_unshift;
+  OPENSSL_sk_shift := Load_OPENSSL_sk_shift;
+  OPENSSL_sk_pop := Load_OPENSSL_sk_pop;
+  OPENSSL_sk_zero := Load_OPENSSL_sk_zero;
+  OPENSSL_sk_set_cmp_func := Load_OPENSSL_sk_set_cmp_func;
+  OPENSSL_sk_dup := Load_OPENSSL_sk_dup;
+  OPENSSL_sk_sort := Load_OPENSSL_sk_sort;
+  OPENSSL_sk_is_sorted := Load_OPENSSL_sk_is_sorted;
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  sk_num := @Load_sk_num;
-  sk_value := @Load_sk_value;
-  sk_set := @Load_sk_set;
-  sk_new := @Load_sk_new;
-  sk_new_null := @Load_sk_new_null;
-  sk_new_reserve := @Load_sk_new_reserve;
-  sk_reserve := @Load_sk_reserve;
-  sk_free := @Load_sk_free;
-  sk_pop_free := @Load_sk_pop_free;
-  sk_deep_copy := @Load_sk_deep_copy;
-  sk_insert := @Load_sk_insert;
-  sk_delete := @Load_sk_delete;
-  sk_delete_ptr := @Load_sk_delete_ptr;
-  sk_find := @Load_sk_find;
-  sk_find_ex := @Load_sk_find_ex;
-  sk_push := @Load_sk_push;
-  sk_unshift := @Load_sk_unshift;
-  sk_shift := @Load_sk_shift;
-  sk_pop := @Load_sk_pop;
-  sk_zero := @Load_sk_zero;
-  sk_set_cmp_func := @Load_sk_set_cmp_func;
-  sk_dup := @Load_sk_dup;
-  sk_sort := @Load_sk_sort;
-  sk_is_sorted := @Load_sk_is_sorted;
+  sk_num := Load_sk_num;
+  sk_value := Load_sk_value;
+  sk_set := Load_sk_set;
+  sk_new := Load_sk_new;
+  sk_new_null := Load_sk_new_null;
+  sk_new_reserve := Load_sk_new_reserve;
+  sk_reserve := Load_sk_reserve;
+  sk_free := Load_sk_free;
+  sk_pop_free := Load_sk_pop_free;
+  sk_deep_copy := Load_sk_deep_copy;
+  sk_insert := Load_sk_insert;
+  sk_delete := Load_sk_delete;
+  sk_delete_ptr := Load_sk_delete_ptr;
+  sk_find := Load_sk_find;
+  sk_find_ex := Load_sk_find_ex;
+  sk_push := Load_sk_push;
+  sk_unshift := Load_sk_unshift;
+  sk_shift := Load_sk_shift;
+  sk_pop := Load_sk_pop;
+  sk_zero := Load_sk_zero;
+  sk_set_cmp_func := Load_sk_set_cmp_func;
+  sk_dup := Load_sk_dup;
+  sk_sort := Load_sk_sort;
+  sk_is_sorted := Load_sk_is_sorted;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 end;
 {$ENDIF}

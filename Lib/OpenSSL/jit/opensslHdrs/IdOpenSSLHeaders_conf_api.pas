@@ -75,13 +75,13 @@ function Load__CONF_new_data(conf: PCONF): TOpenSSL_C_INT; cdecl;
 procedure Load__CONF_free_data(conf: PCONF); cdecl;
 
 var
-  _CONF_new_section: function (conf: PCONF; const section: PAnsiChar): PCONF_VALUE; cdecl = @Load__CONF_new_section;
-  _CONF_get_section: function (const conf: PCONF; const section: PAnsiChar): PCONF_VALUE; cdecl = @Load__CONF_get_section;
-  _CONF_add_string: function (conf: PCONF; section: PCONF_VALUE; value: PCONF_VALUE): TOpenSSL_C_INT; cdecl = @Load__CONF_add_string;
-  _CONF_get_string: function (const conf: PCONF; const section: PAnsiChar; const name: PAnsiChar): PAnsiChar; cdecl = @Load__CONF_get_string;
-  _CONF_get_number: function (const conf: PCONF; const section: PAnsiChar; const name: PAnsiChar): TOpenSSL_C_LONG; cdecl = @Load__CONF_get_number;
-  _CONF_new_data: function (conf: PCONF): TOpenSSL_C_INT; cdecl = @Load__CONF_new_data;
-  _CONF_free_data: procedure (conf: PCONF); cdecl = @Load__CONF_free_data;
+  _CONF_new_section: function (conf: PCONF; const section: PAnsiChar): PCONF_VALUE; cdecl = Load__CONF_new_section;
+  _CONF_get_section: function (const conf: PCONF; const section: PAnsiChar): PCONF_VALUE; cdecl = Load__CONF_get_section;
+  _CONF_add_string: function (conf: PCONF; section: PCONF_VALUE; value: PCONF_VALUE): TOpenSSL_C_INT; cdecl = Load__CONF_add_string;
+  _CONF_get_string: function (const conf: PCONF; const section: PAnsiChar; const name: PAnsiChar): PAnsiChar; cdecl = Load__CONF_get_string;
+  _CONF_get_number: function (const conf: PCONF; const section: PAnsiChar; const name: PAnsiChar): TOpenSSL_C_LONG; cdecl = Load__CONF_get_number;
+  _CONF_new_data: function (conf: PCONF): TOpenSSL_C_INT; cdecl = Load__CONF_new_data;
+  _CONF_free_data: procedure (conf: PCONF); cdecl = Load__CONF_free_data;
 {$ENDIF}
 
 implementation
@@ -154,13 +154,13 @@ end;
 
 procedure UnLoad;
 begin
-  _CONF_new_section := @Load__CONF_new_section;
-  _CONF_get_section := @Load__CONF_get_section;
-  _CONF_add_string := @Load__CONF_add_string;
-  _CONF_get_string := @Load__CONF_get_string;
-  _CONF_get_number := @Load__CONF_get_number;
-  _CONF_new_data := @Load__CONF_new_data;
-  _CONF_free_data := @Load__CONF_free_data;
+  _CONF_new_section := Load__CONF_new_section;
+  _CONF_get_section := Load__CONF_get_section;
+  _CONF_add_string := Load__CONF_add_string;
+  _CONF_get_string := Load__CONF_get_string;
+  _CONF_get_number := Load__CONF_get_number;
+  _CONF_new_data := Load__CONF_new_data;
+  _CONF_free_data := Load__CONF_free_data;
 end;
 {$ENDIF}
 

@@ -303,7 +303,7 @@ function ERR_load_EC_strings: TOpenSSL_C_INT; cdecl; external CLibCrypto;
 function Load_ERR_load_EC_strings: TOpenSSL_C_INT; cdecl;
 
 var
-  ERR_load_EC_strings: function : TOpenSSL_C_INT; cdecl = @Load_ERR_load_EC_strings;
+  ERR_load_EC_strings: function : TOpenSSL_C_INT; cdecl = Load_ERR_load_EC_strings;
 {$ENDIF}
 
 implementation
@@ -328,7 +328,7 @@ end;
 
 procedure UnLoad;
 begin
-  ERR_load_EC_strings := @Load_ERR_load_EC_strings;
+  ERR_load_EC_strings := Load_ERR_load_EC_strings;
 end;
 {$ENDIF}
 

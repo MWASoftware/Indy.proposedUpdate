@@ -123,22 +123,22 @@ procedure Load_ASYNC_block_pause; cdecl;
 procedure Load_ASYNC_unblock_pause; cdecl;
 
 var
-  ASYNC_init_thread: function (max_size: TOpenSSL_C_SIZET; init_size: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_ASYNC_init_thread; {introduced 1.1.0 }
-  ASYNC_cleanup_thread: procedure ; cdecl = @Load_ASYNC_cleanup_thread; {introduced 1.1.0 }
-  ASYNC_WAIT_CTX_new: function : PASYNC_WAIT_CTX; cdecl = @Load_ASYNC_WAIT_CTX_new; {introduced 1.1.0 }
-  ASYNC_WAIT_CTX_free: procedure (ctx: PASYNC_WAIT_CTX); cdecl = @Load_ASYNC_WAIT_CTX_free; {introduced 1.1.0 }
-  ASYNC_WAIT_CTX_set_wait_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: OSSL_ASYNC_FD; custom_data: Pointer; cleanup_cb: ASYNC_WAIT_CTX_set_wait_fd_cleanup): TOpenSSL_C_INT; cdecl = @Load_ASYNC_WAIT_CTX_set_wait_fd; {introduced 1.1.0 }
-  ASYNC_WAIT_CTX_get_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: POSSL_ASYNC_FD; custom_data: PPointer): TOpenSSL_C_INT; cdecl = @Load_ASYNC_WAIT_CTX_get_fd; {introduced 1.1.0 }
-  ASYNC_WAIT_CTX_get_all_fds: function (ctx: PASYNC_WAIT_CTX; fd: POSSL_ASYNC_FD; numfds: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_ASYNC_WAIT_CTX_get_all_fds; {introduced 1.1.0 }
-  ASYNC_WAIT_CTX_get_changed_fds: function (ctx: PASYNC_WAIT_CTX; addfd: POSSL_ASYNC_FD; numaddfds: POpenSSL_C_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_ASYNC_WAIT_CTX_get_changed_fds; {introduced 1.1.0 }
-  ASYNC_WAIT_CTX_clear_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer): TOpenSSL_C_INT; cdecl = @Load_ASYNC_WAIT_CTX_clear_fd; {introduced 1.1.0 }
-  ASYNC_is_capable: function : TOpenSSL_C_INT; cdecl = @Load_ASYNC_is_capable; {introduced 1.1.0 }
-  ASYNC_start_job: function (job: PPASYNC_JOB; ctx: PASYNC_WAIT_CTX; ret: POpenSSL_C_INT; func: ASYNC_start_job_cb; args: Pointer; size: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_ASYNC_start_job; {introduced 1.1.0 }
-  ASYNC_pause_job: function : TOpenSSL_C_INT; cdecl = @Load_ASYNC_pause_job; {introduced 1.1.0 }
-  ASYNC_get_current_job: function : PASYNC_JOB; cdecl = @Load_ASYNC_get_current_job; {introduced 1.1.0 }
-  ASYNC_get_wait_ctx: function (job: PASYNC_JOB): PASYNC_WAIT_CTX; cdecl = @Load_ASYNC_get_wait_ctx; {introduced 1.1.0 }
-  ASYNC_block_pause: procedure ; cdecl = @Load_ASYNC_block_pause; {introduced 1.1.0 }
-  ASYNC_unblock_pause: procedure ; cdecl = @Load_ASYNC_unblock_pause; {introduced 1.1.0 }
+  ASYNC_init_thread: function (max_size: TOpenSSL_C_SIZET; init_size: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_init_thread; {introduced 1.1.0 }
+  ASYNC_cleanup_thread: procedure ; cdecl = Load_ASYNC_cleanup_thread; {introduced 1.1.0 }
+  ASYNC_WAIT_CTX_new: function : PASYNC_WAIT_CTX; cdecl = Load_ASYNC_WAIT_CTX_new; {introduced 1.1.0 }
+  ASYNC_WAIT_CTX_free: procedure (ctx: PASYNC_WAIT_CTX); cdecl = Load_ASYNC_WAIT_CTX_free; {introduced 1.1.0 }
+  ASYNC_WAIT_CTX_set_wait_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: OSSL_ASYNC_FD; custom_data: Pointer; cleanup_cb: ASYNC_WAIT_CTX_set_wait_fd_cleanup): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_set_wait_fd; {introduced 1.1.0 }
+  ASYNC_WAIT_CTX_get_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: POSSL_ASYNC_FD; custom_data: PPointer): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_get_fd; {introduced 1.1.0 }
+  ASYNC_WAIT_CTX_get_all_fds: function (ctx: PASYNC_WAIT_CTX; fd: POSSL_ASYNC_FD; numfds: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_get_all_fds; {introduced 1.1.0 }
+  ASYNC_WAIT_CTX_get_changed_fds: function (ctx: PASYNC_WAIT_CTX; addfd: POSSL_ASYNC_FD; numaddfds: POpenSSL_C_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_get_changed_fds; {introduced 1.1.0 }
+  ASYNC_WAIT_CTX_clear_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_clear_fd; {introduced 1.1.0 }
+  ASYNC_is_capable: function : TOpenSSL_C_INT; cdecl = Load_ASYNC_is_capable; {introduced 1.1.0 }
+  ASYNC_start_job: function (job: PPASYNC_JOB; ctx: PASYNC_WAIT_CTX; ret: POpenSSL_C_INT; func: ASYNC_start_job_cb; args: Pointer; size: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_start_job; {introduced 1.1.0 }
+  ASYNC_pause_job: function : TOpenSSL_C_INT; cdecl = Load_ASYNC_pause_job; {introduced 1.1.0 }
+  ASYNC_get_current_job: function : PASYNC_JOB; cdecl = Load_ASYNC_get_current_job; {introduced 1.1.0 }
+  ASYNC_get_wait_ctx: function (job: PASYNC_JOB): PASYNC_WAIT_CTX; cdecl = Load_ASYNC_get_wait_ctx; {introduced 1.1.0 }
+  ASYNC_block_pause: procedure ; cdecl = Load_ASYNC_block_pause; {introduced 1.1.0 }
+  ASYNC_unblock_pause: procedure ; cdecl = Load_ASYNC_unblock_pause; {introduced 1.1.0 }
 {$ENDIF}
 const
   ASYNC_init_thread_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
@@ -301,22 +301,22 @@ end;
 
 procedure UnLoad;
 begin
-  ASYNC_init_thread := @Load_ASYNC_init_thread;
-  ASYNC_cleanup_thread := @Load_ASYNC_cleanup_thread;
-  ASYNC_WAIT_CTX_new := @Load_ASYNC_WAIT_CTX_new;
-  ASYNC_WAIT_CTX_free := @Load_ASYNC_WAIT_CTX_free;
-  ASYNC_WAIT_CTX_set_wait_fd := @Load_ASYNC_WAIT_CTX_set_wait_fd;
-  ASYNC_WAIT_CTX_get_fd := @Load_ASYNC_WAIT_CTX_get_fd;
-  ASYNC_WAIT_CTX_get_all_fds := @Load_ASYNC_WAIT_CTX_get_all_fds;
-  ASYNC_WAIT_CTX_get_changed_fds := @Load_ASYNC_WAIT_CTX_get_changed_fds;
-  ASYNC_WAIT_CTX_clear_fd := @Load_ASYNC_WAIT_CTX_clear_fd;
-  ASYNC_is_capable := @Load_ASYNC_is_capable;
-  ASYNC_start_job := @Load_ASYNC_start_job;
-  ASYNC_pause_job := @Load_ASYNC_pause_job;
-  ASYNC_get_current_job := @Load_ASYNC_get_current_job;
-  ASYNC_get_wait_ctx := @Load_ASYNC_get_wait_ctx;
-  ASYNC_block_pause := @Load_ASYNC_block_pause;
-  ASYNC_unblock_pause := @Load_ASYNC_unblock_pause;
+  ASYNC_init_thread := Load_ASYNC_init_thread;
+  ASYNC_cleanup_thread := Load_ASYNC_cleanup_thread;
+  ASYNC_WAIT_CTX_new := Load_ASYNC_WAIT_CTX_new;
+  ASYNC_WAIT_CTX_free := Load_ASYNC_WAIT_CTX_free;
+  ASYNC_WAIT_CTX_set_wait_fd := Load_ASYNC_WAIT_CTX_set_wait_fd;
+  ASYNC_WAIT_CTX_get_fd := Load_ASYNC_WAIT_CTX_get_fd;
+  ASYNC_WAIT_CTX_get_all_fds := Load_ASYNC_WAIT_CTX_get_all_fds;
+  ASYNC_WAIT_CTX_get_changed_fds := Load_ASYNC_WAIT_CTX_get_changed_fds;
+  ASYNC_WAIT_CTX_clear_fd := Load_ASYNC_WAIT_CTX_clear_fd;
+  ASYNC_is_capable := Load_ASYNC_is_capable;
+  ASYNC_start_job := Load_ASYNC_start_job;
+  ASYNC_pause_job := Load_ASYNC_pause_job;
+  ASYNC_get_current_job := Load_ASYNC_get_current_job;
+  ASYNC_get_wait_ctx := Load_ASYNC_get_wait_ctx;
+  ASYNC_block_pause := Load_ASYNC_block_pause;
+  ASYNC_unblock_pause := Load_ASYNC_unblock_pause;
 end;
 {$ENDIF}
 

@@ -175,29 +175,29 @@ function Load_SHA512(const d: PByte; n: TOpenSSL_C_SIZET; md: PByte): PByte; cde
 procedure Load_SHA512_Transform(c: PSHA512_CTX; const data: PByte); cdecl;
 
 var
-  SHA1_Init: function (c: PSHA_CTX): TOpenSSL_C_INT; cdecl = @Load_SHA1_Init;
-  SHA1_Update: function (c: PSHA_CTX; const data: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_SHA1_Update;
-  SHA1_Final: function (md: PByte; c: PSHA_CTX): TOpenSSL_C_INT; cdecl = @Load_SHA1_Final;
-  SHA1: function (const d: PByte; n: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = @Load_SHA1;
-  SHA1_Transform: procedure (c: PSHA_CTX; const data: PByte); cdecl = @Load_SHA1_Transform;
-  SHA224_Init: function (c: PSHA256_CTX): TOpenSSL_C_INT; cdecl = @Load_SHA224_Init;
-  SHA224_Update: function (c: PSHA256_CTX; const data: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_SHA224_Update;
-  SHA224_Final: function (md: PByte; c: PSHA256_CTX): TOpenSSL_C_INT; cdecl = @Load_SHA224_Final;
-  SHA224: function (const d: PByte; n: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = @Load_SHA224;
-  SHA256_Init: function (c: PSHA256_CTX): TOpenSSL_C_INT; cdecl = @Load_SHA256_Init;
-  SHA256_Update: function (c: PSHA256_CTX; const data: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_SHA256_Update;
-  SHA256_Final: function (md: PByte; c: PSHA256_CTX): TOpenSSL_C_INT; cdecl = @Load_SHA256_Final;
-  SHA256: function (const d: PByte; n: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = @Load_SHA256;
-  SHA256_Transform: procedure (c: PSHA256_CTX; const data: PByte); cdecl = @Load_SHA256_Transform;
-  SHA384_Init: function (c: PSHA512_CTX): TOpenSSL_C_INT; cdecl = @Load_SHA384_Init;
-  SHA384_Update: function (c: PSHA512_CTX; const data: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_SHA384_Update;
-  SHA384_Final: function (md: PByte; c: PSHA512_CTX): TOpenSSL_C_INT; cdecl = @Load_SHA384_Final;
-  SHA384: function (const d: PByte; n: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = @Load_SHA384;
-  SHA512_Init: function (c: PSHA512_CTX): TOpenSSL_C_INT; cdecl = @Load_SHA512_Init;
-  SHA512_Update: function (c: PSHA512_CTX; const data: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_SHA512_Update;
-  SHA512_Final: function (md: PByte; c: PSHA512_CTX): TOpenSSL_C_INT; cdecl = @Load_SHA512_Final;
-  SHA512: function (const d: PByte; n: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = @Load_SHA512;
-  SHA512_Transform: procedure (c: PSHA512_CTX; const data: PByte); cdecl = @Load_SHA512_Transform;
+  SHA1_Init: function (c: PSHA_CTX): TOpenSSL_C_INT; cdecl = Load_SHA1_Init;
+  SHA1_Update: function (c: PSHA_CTX; const data: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_SHA1_Update;
+  SHA1_Final: function (md: PByte; c: PSHA_CTX): TOpenSSL_C_INT; cdecl = Load_SHA1_Final;
+  SHA1: function (const d: PByte; n: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = Load_SHA1;
+  SHA1_Transform: procedure (c: PSHA_CTX; const data: PByte); cdecl = Load_SHA1_Transform;
+  SHA224_Init: function (c: PSHA256_CTX): TOpenSSL_C_INT; cdecl = Load_SHA224_Init;
+  SHA224_Update: function (c: PSHA256_CTX; const data: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_SHA224_Update;
+  SHA224_Final: function (md: PByte; c: PSHA256_CTX): TOpenSSL_C_INT; cdecl = Load_SHA224_Final;
+  SHA224: function (const d: PByte; n: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = Load_SHA224;
+  SHA256_Init: function (c: PSHA256_CTX): TOpenSSL_C_INT; cdecl = Load_SHA256_Init;
+  SHA256_Update: function (c: PSHA256_CTX; const data: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_SHA256_Update;
+  SHA256_Final: function (md: PByte; c: PSHA256_CTX): TOpenSSL_C_INT; cdecl = Load_SHA256_Final;
+  SHA256: function (const d: PByte; n: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = Load_SHA256;
+  SHA256_Transform: procedure (c: PSHA256_CTX; const data: PByte); cdecl = Load_SHA256_Transform;
+  SHA384_Init: function (c: PSHA512_CTX): TOpenSSL_C_INT; cdecl = Load_SHA384_Init;
+  SHA384_Update: function (c: PSHA512_CTX; const data: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_SHA384_Update;
+  SHA384_Final: function (md: PByte; c: PSHA512_CTX): TOpenSSL_C_INT; cdecl = Load_SHA384_Final;
+  SHA384: function (const d: PByte; n: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = Load_SHA384;
+  SHA512_Init: function (c: PSHA512_CTX): TOpenSSL_C_INT; cdecl = Load_SHA512_Init;
+  SHA512_Update: function (c: PSHA512_CTX; const data: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_SHA512_Update;
+  SHA512_Final: function (md: PByte; c: PSHA512_CTX): TOpenSSL_C_INT; cdecl = Load_SHA512_Final;
+  SHA512: function (const d: PByte; n: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = Load_SHA512;
+  SHA512_Transform: procedure (c: PSHA512_CTX; const data: PByte); cdecl = Load_SHA512_Transform;
 {$ENDIF}
 
 implementation
@@ -398,29 +398,29 @@ end;
 
 procedure UnLoad;
 begin
-  SHA1_Init := @Load_SHA1_Init;
-  SHA1_Update := @Load_SHA1_Update;
-  SHA1_Final := @Load_SHA1_Final;
-  SHA1 := @Load_SHA1;
-  SHA1_Transform := @Load_SHA1_Transform;
-  SHA224_Init := @Load_SHA224_Init;
-  SHA224_Update := @Load_SHA224_Update;
-  SHA224_Final := @Load_SHA224_Final;
-  SHA224 := @Load_SHA224;
-  SHA256_Init := @Load_SHA256_Init;
-  SHA256_Update := @Load_SHA256_Update;
-  SHA256_Final := @Load_SHA256_Final;
-  SHA256 := @Load_SHA256;
-  SHA256_Transform := @Load_SHA256_Transform;
-  SHA384_Init := @Load_SHA384_Init;
-  SHA384_Update := @Load_SHA384_Update;
-  SHA384_Final := @Load_SHA384_Final;
-  SHA384 := @Load_SHA384;
-  SHA512_Init := @Load_SHA512_Init;
-  SHA512_Update := @Load_SHA512_Update;
-  SHA512_Final := @Load_SHA512_Final;
-  SHA512 := @Load_SHA512;
-  SHA512_Transform := @Load_SHA512_Transform;
+  SHA1_Init := Load_SHA1_Init;
+  SHA1_Update := Load_SHA1_Update;
+  SHA1_Final := Load_SHA1_Final;
+  SHA1 := Load_SHA1;
+  SHA1_Transform := Load_SHA1_Transform;
+  SHA224_Init := Load_SHA224_Init;
+  SHA224_Update := Load_SHA224_Update;
+  SHA224_Final := Load_SHA224_Final;
+  SHA224 := Load_SHA224;
+  SHA256_Init := Load_SHA256_Init;
+  SHA256_Update := Load_SHA256_Update;
+  SHA256_Final := Load_SHA256_Final;
+  SHA256 := Load_SHA256;
+  SHA256_Transform := Load_SHA256_Transform;
+  SHA384_Init := Load_SHA384_Init;
+  SHA384_Update := Load_SHA384_Update;
+  SHA384_Final := Load_SHA384_Final;
+  SHA384 := Load_SHA384;
+  SHA512_Init := Load_SHA512_Init;
+  SHA512_Update := Load_SHA512_Update;
+  SHA512_Final := Load_SHA512_Final;
+  SHA512 := Load_SHA512;
+  SHA512_Transform := Load_SHA512_Transform;
 end;
 {$ENDIF}
 

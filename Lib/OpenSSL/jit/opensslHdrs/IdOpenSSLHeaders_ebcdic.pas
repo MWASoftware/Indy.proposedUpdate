@@ -62,8 +62,8 @@ function Load_ebcdic2ascii(dest: Pointer; const srce: Pointer; count: TOpenSSL_C
 function Load_ascii2ebcdic(dest: Pointer; const srce: Pointer; count: TOpenSSL_C_SIZET): Pointer; cdecl;
 
 var
-  ebcdic2ascii: function (dest: Pointer; const srce: Pointer; count: TOpenSSL_C_SIZET): Pointer; cdecl = @Load_ebcdic2ascii;
-  ascii2ebcdic: function (dest: Pointer; const srce: Pointer; count: TOpenSSL_C_SIZET): Pointer; cdecl = @Load_ascii2ebcdic;
+  ebcdic2ascii: function (dest: Pointer; const srce: Pointer; count: TOpenSSL_C_SIZET): Pointer; cdecl = Load_ebcdic2ascii;
+  ascii2ebcdic: function (dest: Pointer; const srce: Pointer; count: TOpenSSL_C_SIZET): Pointer; cdecl = Load_ascii2ebcdic;
 {$ENDIF}
 
 implementation
@@ -96,8 +96,8 @@ end;
 
 procedure UnLoad;
 begin
-  ebcdic2ascii := @Load_ebcdic2ascii;
-  ascii2ebcdic := @Load_ascii2ebcdic;
+  ebcdic2ascii := Load_ebcdic2ascii;
+  ascii2ebcdic := Load_ascii2ebcdic;
 end;
 {$ENDIF}
 

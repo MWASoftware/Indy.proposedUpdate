@@ -88,7 +88,7 @@ function ERR_load_KDF_strings: TOpenSSL_C_INT; cdecl; external CLibCrypto;
 function Load_ERR_load_KDF_strings: TOpenSSL_C_INT; cdecl;
 
 var
-  ERR_load_KDF_strings: function : TOpenSSL_C_INT; cdecl = @Load_ERR_load_KDF_strings;
+  ERR_load_KDF_strings: function : TOpenSSL_C_INT; cdecl = Load_ERR_load_KDF_strings;
 {$ENDIF}
 
 implementation
@@ -113,7 +113,7 @@ end;
 
 procedure UnLoad;
 begin
-  ERR_load_KDF_strings := @Load_ERR_load_KDF_strings;
+  ERR_load_KDF_strings := Load_ERR_load_KDF_strings;
 end;
 {$ENDIF}
 

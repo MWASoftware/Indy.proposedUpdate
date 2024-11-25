@@ -93,17 +93,17 @@ procedure Load_HMAC_CTX_set_flags(ctx: PHMAC_CTX; flags: TOpenSSL_C_ULONG); cdec
 function Load_HMAC_CTX_get_md(const ctx: PHMAC_CTX): PEVP_MD; cdecl;
 
 var
-  HMAC_size: function (const e: PHMAC_CTX): TOpenSSL_C_SIZET; cdecl = @Load_HMAC_size; {introduced 1.1.0 }
-  HMAC_CTX_new: function : PHMAC_CTX; cdecl = @Load_HMAC_CTX_new; {introduced 1.1.0 }
-  HMAC_CTX_reset: function (ctx: PHMAC_CTX): TOpenSSL_C_INT; cdecl = @Load_HMAC_CTX_reset; {introduced 1.1.0 }
-  HMAC_CTX_free: procedure (ctx: PHMAC_CTX); cdecl = @Load_HMAC_CTX_free; {introduced 1.1.0 }
-  HMAC_Init_ex: function (ctx: PHMAC_CTX; const key: Pointer; len: TOpenSSL_C_INT; const md: PEVP_MD; impl: PENGINE): TOpenSSL_C_INT; cdecl = @Load_HMAC_Init_ex;
-  HMAC_Update: function (ctx: PHMAC_CTX; const data: PByte; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_HMAC_Update;
-  HMAC_Final: function (ctx: PHMAC_CTX; md: PByte; len: PByte): TOpenSSL_C_INT; cdecl = @Load_HMAC_Final;
-  HMAC: function (const evp_md: PEVP_MD; const key: Pointer; key_len: TOpenSSL_C_INT; const d: PByte; n: TOpenSSL_C_SIZET; md: PByte; md_len: POpenSSL_C_INT): PByte; cdecl = @Load_HMAC;
-  HMAC_CTX_copy: function (dctx: PHMAC_CTX; sctx: PHMAC_CTX): TOpenSSL_C_INT; cdecl = @Load_HMAC_CTX_copy;
-  HMAC_CTX_set_flags: procedure (ctx: PHMAC_CTX; flags: TOpenSSL_C_ULONG); cdecl = @Load_HMAC_CTX_set_flags;
-  HMAC_CTX_get_md: function (const ctx: PHMAC_CTX): PEVP_MD; cdecl = @Load_HMAC_CTX_get_md; {introduced 1.1.0 }
+  HMAC_size: function (const e: PHMAC_CTX): TOpenSSL_C_SIZET; cdecl = Load_HMAC_size; {introduced 1.1.0 }
+  HMAC_CTX_new: function : PHMAC_CTX; cdecl = Load_HMAC_CTX_new; {introduced 1.1.0 }
+  HMAC_CTX_reset: function (ctx: PHMAC_CTX): TOpenSSL_C_INT; cdecl = Load_HMAC_CTX_reset; {introduced 1.1.0 }
+  HMAC_CTX_free: procedure (ctx: PHMAC_CTX); cdecl = Load_HMAC_CTX_free; {introduced 1.1.0 }
+  HMAC_Init_ex: function (ctx: PHMAC_CTX; const key: Pointer; len: TOpenSSL_C_INT; const md: PEVP_MD; impl: PENGINE): TOpenSSL_C_INT; cdecl = Load_HMAC_Init_ex;
+  HMAC_Update: function (ctx: PHMAC_CTX; const data: PByte; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_HMAC_Update;
+  HMAC_Final: function (ctx: PHMAC_CTX; md: PByte; len: PByte): TOpenSSL_C_INT; cdecl = Load_HMAC_Final;
+  HMAC: function (const evp_md: PEVP_MD; const key: Pointer; key_len: TOpenSSL_C_INT; const d: PByte; n: TOpenSSL_C_SIZET; md: PByte; md_len: POpenSSL_C_INT): PByte; cdecl = Load_HMAC;
+  HMAC_CTX_copy: function (dctx: PHMAC_CTX; sctx: PHMAC_CTX): TOpenSSL_C_INT; cdecl = Load_HMAC_CTX_copy;
+  HMAC_CTX_set_flags: procedure (ctx: PHMAC_CTX; flags: TOpenSSL_C_ULONG); cdecl = Load_HMAC_CTX_set_flags;
+  HMAC_CTX_get_md: function (const ctx: PHMAC_CTX): PEVP_MD; cdecl = Load_HMAC_CTX_get_md; {introduced 1.1.0 }
 {$ENDIF}
 const
   HMAC_CTX_init_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
@@ -143,8 +143,8 @@ type
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 
 var
-  HMAC_CTX_init: procedure (ctx : PHMAC_CTX); cdecl = @Load_HMAC_CTX_init; {removed 1.1.0}
-  HMAC_CTX_cleanup: procedure (ctx : PHMAC_CTX); cdecl = @Load_HMAC_CTX_cleanup; {removed 1.1.0}
+  HMAC_CTX_init: procedure (ctx : PHMAC_CTX); cdecl = Load_HMAC_CTX_init; {removed 1.1.0}
+  HMAC_CTX_cleanup: procedure (ctx : PHMAC_CTX); cdecl = Load_HMAC_CTX_cleanup; {removed 1.1.0}
 
 function COMPAT_HMAC_CTX_new: PHMAC_CTX; cdecl;
 
@@ -315,22 +315,22 @@ end;
 procedure UnLoad;
 begin
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  HMAC_CTX_init := @Load_HMAC_CTX_init;
+  HMAC_CTX_init := Load_HMAC_CTX_init;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
-  HMAC_size := @Load_HMAC_size;
-  HMAC_CTX_new := @Load_HMAC_CTX_new;
-  HMAC_CTX_reset := @Load_HMAC_CTX_reset;
+  HMAC_size := Load_HMAC_size;
+  HMAC_CTX_new := Load_HMAC_CTX_new;
+  HMAC_CTX_reset := Load_HMAC_CTX_reset;
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  HMAC_CTX_cleanup := @Load_HMAC_CTX_cleanup;
+  HMAC_CTX_cleanup := Load_HMAC_CTX_cleanup;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
-  HMAC_CTX_free := @Load_HMAC_CTX_free;
-  HMAC_Init_ex := @Load_HMAC_Init_ex;
-  HMAC_Update := @Load_HMAC_Update;
-  HMAC_Final := @Load_HMAC_Final;
-  HMAC := @Load_HMAC;
-  HMAC_CTX_copy := @Load_HMAC_CTX_copy;
-  HMAC_CTX_set_flags := @Load_HMAC_CTX_set_flags;
-  HMAC_CTX_get_md := @Load_HMAC_CTX_get_md;
+  HMAC_CTX_free := Load_HMAC_CTX_free;
+  HMAC_Init_ex := Load_HMAC_Init_ex;
+  HMAC_Update := Load_HMAC_Update;
+  HMAC_Final := Load_HMAC_Final;
+  HMAC := Load_HMAC;
+  HMAC_CTX_copy := Load_HMAC_CTX_copy;
+  HMAC_CTX_set_flags := Load_HMAC_CTX_set_flags;
+  HMAC_CTX_get_md := Load_HMAC_CTX_get_md;
 end;
 {$ENDIF}
 

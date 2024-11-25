@@ -91,13 +91,13 @@ procedure Load_CAST_cfb64_encrypt(const in_: PByte; out_: PByte; length: TOpenSS
 procedure Load_CAST_ofb64_encrypt(const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; const schedule: PCast_Key; ivec: PByte; num: POpenSSL_C_INT); cdecl;
 
 var
-  CAST_set_key: procedure (key: PCast_Key; len: TOpenSSL_C_INT; const data: PByte); cdecl = @Load_CAST_set_key;
-  CAST_ecb_encrypt: procedure (const in_: PByte; out_: PByte; const key: PCast_Key; enc: TOpenSSL_C_INT); cdecl = @Load_CAST_ecb_encrypt;
-  CAST_encrypt: procedure (data: PCAST_LONG; const key: PCast_Key); cdecl = @Load_CAST_encrypt;
-  CAST_decrypt: procedure (data: PCAST_LONG; const key: PCast_Key); cdecl = @Load_CAST_decrypt;
-  CAST_cbc_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; const ks: PCast_Key; iv: PByte; enc: TOpenSSL_C_INT); cdecl = @Load_CAST_cbc_encrypt;
-  CAST_cfb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; const schedule: PCast_Key; ivec: PByte; num: POpenSSL_C_INT; enc: TOpenSSL_C_INT); cdecl = @Load_CAST_cfb64_encrypt;
-  CAST_ofb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; const schedule: PCast_Key; ivec: PByte; num: POpenSSL_C_INT); cdecl = @Load_CAST_ofb64_encrypt;
+  CAST_set_key: procedure (key: PCast_Key; len: TOpenSSL_C_INT; const data: PByte); cdecl = Load_CAST_set_key;
+  CAST_ecb_encrypt: procedure (const in_: PByte; out_: PByte; const key: PCast_Key; enc: TOpenSSL_C_INT); cdecl = Load_CAST_ecb_encrypt;
+  CAST_encrypt: procedure (data: PCAST_LONG; const key: PCast_Key); cdecl = Load_CAST_encrypt;
+  CAST_decrypt: procedure (data: PCAST_LONG; const key: PCast_Key); cdecl = Load_CAST_decrypt;
+  CAST_cbc_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; const ks: PCast_Key; iv: PByte; enc: TOpenSSL_C_INT); cdecl = Load_CAST_cbc_encrypt;
+  CAST_cfb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; const schedule: PCast_Key; ivec: PByte; num: POpenSSL_C_INT; enc: TOpenSSL_C_INT); cdecl = Load_CAST_cfb64_encrypt;
+  CAST_ofb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; const schedule: PCast_Key; ivec: PByte; num: POpenSSL_C_INT); cdecl = Load_CAST_ofb64_encrypt;
 {$ENDIF}
 
 implementation
@@ -170,13 +170,13 @@ end;
 
 procedure UnLoad;
 begin
-  CAST_set_key := @Load_CAST_set_key;
-  CAST_ecb_encrypt := @Load_CAST_ecb_encrypt;
-  CAST_encrypt := @Load_CAST_encrypt;
-  CAST_decrypt := @Load_CAST_decrypt;
-  CAST_cbc_encrypt := @Load_CAST_cbc_encrypt;
-  CAST_cfb64_encrypt := @Load_CAST_cfb64_encrypt;
-  CAST_ofb64_encrypt := @Load_CAST_ofb64_encrypt;
+  CAST_set_key := Load_CAST_set_key;
+  CAST_ecb_encrypt := Load_CAST_ecb_encrypt;
+  CAST_encrypt := Load_CAST_encrypt;
+  CAST_decrypt := Load_CAST_decrypt;
+  CAST_cbc_encrypt := Load_CAST_cbc_encrypt;
+  CAST_cfb64_encrypt := Load_CAST_cfb64_encrypt;
+  CAST_ofb64_encrypt := Load_CAST_ofb64_encrypt;
 end;
 {$ENDIF}
 

@@ -97,11 +97,11 @@ function Load_TXT_DB_get_by_index(db: PTXT_DB; idx: TOpenSSL_C_INT; value: POPEN
 function Load_TXT_DB_insert(db: PTXT_DB; value: POPENSSL_STRING): TOpenSSL_C_INT; cdecl;
 
 var
-  TXT_DB_read: function (in_: PBIO; num: TOpenSSL_C_INT): PTXT_DB; cdecl = @Load_TXT_DB_read;
-  TXT_DB_write: function (out_: PBIO; db: PTXT_DB): TOpenSSL_C_LONG; cdecl = @Load_TXT_DB_write;
-  TXT_DB_free: procedure (db: PTXT_DB); cdecl = @Load_TXT_DB_free;
-  TXT_DB_get_by_index: function (db: PTXT_DB; idx: TOpenSSL_C_INT; value: POPENSSL_STRING): POPENSSL_STRING; cdecl = @Load_TXT_DB_get_by_index;
-  TXT_DB_insert: function (db: PTXT_DB; value: POPENSSL_STRING): TOpenSSL_C_INT; cdecl = @Load_TXT_DB_insert;
+  TXT_DB_read: function (in_: PBIO; num: TOpenSSL_C_INT): PTXT_DB; cdecl = Load_TXT_DB_read;
+  TXT_DB_write: function (out_: PBIO; db: PTXT_DB): TOpenSSL_C_LONG; cdecl = Load_TXT_DB_write;
+  TXT_DB_free: procedure (db: PTXT_DB); cdecl = Load_TXT_DB_free;
+  TXT_DB_get_by_index: function (db: PTXT_DB; idx: TOpenSSL_C_INT; value: POPENSSL_STRING): POPENSSL_STRING; cdecl = Load_TXT_DB_get_by_index;
+  TXT_DB_insert: function (db: PTXT_DB; value: POPENSSL_STRING): TOpenSSL_C_INT; cdecl = Load_TXT_DB_insert;
 {$ENDIF}
 
 implementation
@@ -158,11 +158,11 @@ end;
 
 procedure UnLoad;
 begin
-  TXT_DB_read := @Load_TXT_DB_read;
-  TXT_DB_write := @Load_TXT_DB_write;
-  TXT_DB_free := @Load_TXT_DB_free;
-  TXT_DB_get_by_index := @Load_TXT_DB_get_by_index;
-  TXT_DB_insert := @Load_TXT_DB_insert;
+  TXT_DB_read := Load_TXT_DB_read;
+  TXT_DB_write := Load_TXT_DB_write;
+  TXT_DB_free := Load_TXT_DB_free;
+  TXT_DB_get_by_index := Load_TXT_DB_get_by_index;
+  TXT_DB_insert := Load_TXT_DB_insert;
 end;
 {$ENDIF}
 

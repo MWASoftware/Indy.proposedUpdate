@@ -84,16 +84,16 @@ function Load_COMP_zlib: PCOMP_METHOD; cdecl;
 function Load_BIO_f_zlib: PBIO_METHOD; cdecl;
 
 var
-  COMP_CTX_new: function (meth: PCOMP_METHOD): PCOMP_CTX; cdecl = @Load_COMP_CTX_new;
-  COMP_CTX_get_method: function (const ctx: PCOMP_CTX): PCOMP_METHOD; cdecl = @Load_COMP_CTX_get_method;
-  COMP_CTX_get_type: function (const comp: PCOMP_CTX): TOpenSSL_C_INT; cdecl = @Load_COMP_CTX_get_type;
-  COMP_get_type: function (const meth: PCOMP_METHOD): TOpenSSL_C_INT; cdecl = @Load_COMP_get_type;
-  COMP_get_name: function (const meth: PCOMP_METHOD): PAnsiChar; cdecl = @Load_COMP_get_name;
-  COMP_CTX_free: procedure (ctx: PCOMP_CTX); cdecl = @Load_COMP_CTX_free;
-  COMP_compress_block: function (ctx: PCOMP_CTX; out_: PByte; olen: TOpenSSL_C_INT; in_: PByte; ilen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = @Load_COMP_compress_block;
-  COMP_expand_block: function (ctx: PCOMP_CTX; out_: PByte; olen: TOpenSSL_C_INT; in_: PByte; ilen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = @Load_COMP_expand_block;
-  COMP_zlib: function : PCOMP_METHOD; cdecl = @Load_COMP_zlib;
-  BIO_f_zlib: function : PBIO_METHOD; cdecl = @Load_BIO_f_zlib;
+  COMP_CTX_new: function (meth: PCOMP_METHOD): PCOMP_CTX; cdecl = Load_COMP_CTX_new;
+  COMP_CTX_get_method: function (const ctx: PCOMP_CTX): PCOMP_METHOD; cdecl = Load_COMP_CTX_get_method;
+  COMP_CTX_get_type: function (const comp: PCOMP_CTX): TOpenSSL_C_INT; cdecl = Load_COMP_CTX_get_type;
+  COMP_get_type: function (const meth: PCOMP_METHOD): TOpenSSL_C_INT; cdecl = Load_COMP_get_type;
+  COMP_get_name: function (const meth: PCOMP_METHOD): PAnsiChar; cdecl = Load_COMP_get_name;
+  COMP_CTX_free: procedure (ctx: PCOMP_CTX); cdecl = Load_COMP_CTX_free;
+  COMP_compress_block: function (ctx: PCOMP_CTX; out_: PByte; olen: TOpenSSL_C_INT; in_: PByte; ilen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_COMP_compress_block;
+  COMP_expand_block: function (ctx: PCOMP_CTX; out_: PByte; olen: TOpenSSL_C_INT; in_: PByte; ilen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_COMP_expand_block;
+  COMP_zlib: function : PCOMP_METHOD; cdecl = Load_COMP_zlib;
+  BIO_f_zlib: function : PBIO_METHOD; cdecl = Load_BIO_f_zlib;
 {$ENDIF}
 
 implementation
@@ -190,16 +190,16 @@ end;
 
 procedure UnLoad;
 begin
-  COMP_CTX_new := @Load_COMP_CTX_new;
-  COMP_CTX_get_method := @Load_COMP_CTX_get_method;
-  COMP_CTX_get_type := @Load_COMP_CTX_get_type;
-  COMP_get_type := @Load_COMP_get_type;
-  COMP_get_name := @Load_COMP_get_name;
-  COMP_CTX_free := @Load_COMP_CTX_free;
-  COMP_compress_block := @Load_COMP_compress_block;
-  COMP_expand_block := @Load_COMP_expand_block;
-  COMP_zlib := @Load_COMP_zlib;
-  BIO_f_zlib := @Load_BIO_f_zlib;
+  COMP_CTX_new := Load_COMP_CTX_new;
+  COMP_CTX_get_method := Load_COMP_CTX_get_method;
+  COMP_CTX_get_type := Load_COMP_CTX_get_type;
+  COMP_get_type := Load_COMP_get_type;
+  COMP_get_name := Load_COMP_get_name;
+  COMP_CTX_free := Load_COMP_CTX_free;
+  COMP_compress_block := Load_COMP_compress_block;
+  COMP_expand_block := Load_COMP_expand_block;
+  COMP_zlib := Load_COMP_zlib;
+  BIO_f_zlib := Load_BIO_f_zlib;
 end;
 {$ENDIF}
 

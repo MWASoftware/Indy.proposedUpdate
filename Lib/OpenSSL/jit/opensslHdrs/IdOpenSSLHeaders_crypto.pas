@@ -402,88 +402,88 @@ function Load_SSLeay: TOpenSSL_C_ULONG; cdecl;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 
 var
-  CRYPTO_THREAD_lock_new: function : PCRYPTO_RWLOCK; cdecl = @Load_CRYPTO_THREAD_lock_new; {introduced 1.1.0 }
-  CRYPTO_THREAD_read_lock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_THREAD_read_lock; {introduced 1.1.0 }
-  CRYPTO_THREAD_write_lock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_THREAD_write_lock; {introduced 1.1.0 }
-  CRYPTO_THREAD_unlock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_THREAD_unlock; {introduced 1.1.0 }
-  CRYPTO_THREAD_lock_free: procedure (lock: PCRYPTO_RWLOCK); cdecl = @Load_CRYPTO_THREAD_lock_free; {introduced 1.1.0 }
-  CRYPTO_atomic_add: function (val: POpenSSL_C_INT; amount: TOpenSSL_C_INT; ret: POpenSSL_C_INT; lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_atomic_add; {introduced 1.1.0 }
-  OPENSSL_strlcpy: function (dst: PAnsiChar; const src: PAnsiChar; siz: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = @Load_OPENSSL_strlcpy; {introduced 1.1.0 }
-  OPENSSL_strlcat: function (dst: PAnsiChar; const src: PAnsiChar; siz: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = @Load_OPENSSL_strlcat; {introduced 1.1.0 }
-  OPENSSL_strnlen: function (const str: PAnsiChar; maxlen: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = @Load_OPENSSL_strnlen; {introduced 1.1.0 }
-  OPENSSL_buf2hexstr: function (const buffer: PByte; len: TOpenSSL_C_LONG): PAnsiChar; cdecl = @Load_OPENSSL_buf2hexstr; {introduced 1.1.0 }
-  OPENSSL_hexstr2buf: function (const str: PAnsiChar; len: POpenSSL_C_LONG): PByte; cdecl = @Load_OPENSSL_hexstr2buf; {introduced 1.1.0 }
-  OPENSSL_hexchar2int: function (c: Byte): TOpenSSL_C_INT; cdecl = @Load_OPENSSL_hexchar2int; {introduced 1.1.0 }
-  OpenSSL_version_num: function : TOpenSSL_C_ULONG; cdecl = @Load_OpenSSL_version_num; {introduced 1.1.0 }
-  OpenSSL_version: function (type_: TOpenSSL_C_INT): PAnsiChar; cdecl = @Load_OpenSSL_version; {introduced 1.1.0 }
-  OPENSSL_issetugid: function : TOpenSSL_C_INT; cdecl = @Load_OPENSSL_issetugid;
-  CRYPTO_new_ex_data: function (class_index: TOpenSSL_C_INT; obj: Pointer; ad: PCRYPTO_EX_DATA): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_new_ex_data;
-  CRYPTO_dup_ex_data: function (class_index: TOpenSSL_C_INT; to_: PCRYPTO_EX_DATA; const from: PCRYPTO_EX_DATA): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_dup_ex_data;
-  CRYPTO_free_ex_data: procedure (class_index: TOpenSSL_C_INT; obj: Pointer; ad: PCRYPTO_EX_DATA); cdecl = @Load_CRYPTO_free_ex_data;
-  CRYPTO_set_ex_data: function (ad: PCRYPTO_EX_DATA; idx: TOpenSSL_C_INT; val: Pointer): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_set_ex_data;
-  CRYPTO_get_ex_data: function (const ad: PCRYPTO_EX_DATA; idx: TOpenSSL_C_INT): Pointer; cdecl = @Load_CRYPTO_get_ex_data;
-  CRYPTO_set_mem_functions: function (m: CRYPTO_set_mem_functions_m; r: CRYPTO_set_mem_functions_r; f: CRYPTO_set_mem_functions_f): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_set_mem_functions;
-  CRYPTO_malloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = @Load_CRYPTO_malloc;
-  CRYPTO_zalloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = @Load_CRYPTO_zalloc; {introduced 1.1.0 }
-  CRYPTO_memdup: function (const str: Pointer; siz: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = @Load_CRYPTO_memdup; {introduced 1.1.0 }
-  CRYPTO_strdup: function (const str: PAnsiChar; const file_: PAnsiChar; line: TOpenSSL_C_INT): PAnsiChar; cdecl = @Load_CRYPTO_strdup;
-  CRYPTO_strndup: function (const str: PAnsiChar; s: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): PAnsiChar; cdecl = @Load_CRYPTO_strndup; {introduced 1.1.0 }
-  CRYPTO_free: procedure (ptr: Pointer; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = @Load_CRYPTO_free;
-  CRYPTO_clear_free: procedure (ptr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = @Load_CRYPTO_clear_free; {introduced 1.1.0 }
-  CRYPTO_realloc: function (addr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = @Load_CRYPTO_realloc;
-  CRYPTO_clear_realloc: function (addr: Pointer; old_num: TOpenSSL_C_SIZET; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = @Load_CRYPTO_clear_realloc; {introduced 1.1.0 }
-  CRYPTO_secure_malloc_init: function (sz: TOpenSSL_C_SIZET; minsize: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_secure_malloc_init; {introduced 1.1.0 }
-  CRYPTO_secure_malloc_done: function : TOpenSSL_C_INT; cdecl = @Load_CRYPTO_secure_malloc_done; {introduced 1.1.0 }
-  CRYPTO_secure_malloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = @Load_CRYPTO_secure_malloc; {introduced 1.1.0 }
-  CRYPTO_secure_zalloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = @Load_CRYPTO_secure_zalloc; {introduced 1.1.0 }
-  CRYPTO_secure_free: procedure (ptr: Pointer; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = @Load_CRYPTO_secure_free; {introduced 1.1.0 }
-  CRYPTO_secure_clear_free: procedure (ptr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = @Load_CRYPTO_secure_clear_free; {introduced 1.1.0 }
-  CRYPTO_secure_allocated: function (const ptr: Pointer): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_secure_allocated; {introduced 1.1.0 }
-  CRYPTO_secure_malloc_initialized: function : TOpenSSL_C_INT; cdecl = @Load_CRYPTO_secure_malloc_initialized; {introduced 1.1.0 }
-  CRYPTO_secure_actual_size: function (ptr: Pointer): TOpenSSL_C_SIZET; cdecl = @Load_CRYPTO_secure_actual_size; {introduced 1.1.0 }
-  CRYPTO_secure_used: function : TOpenSSL_C_SIZET; cdecl = @Load_CRYPTO_secure_used; {introduced 1.1.0 }
-  OPENSSL_cleanse: procedure (ptr: Pointer; len: TOpenSSL_C_SIZET); cdecl = @Load_OPENSSL_cleanse;
-  OPENSSL_isservice: function : TOpenSSL_C_INT; cdecl = @Load_OPENSSL_isservice;
-  OPENSSL_init: procedure ; cdecl = @Load_OPENSSL_init;
-  CRYPTO_memcmp: function (const in_a: Pointer; const in_b: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_memcmp;
-  OPENSSL_cleanup: procedure ; cdecl = @Load_OPENSSL_cleanup; {introduced 1.1.0 }
-  OPENSSL_init_crypto: function (opts: TOpenSSL_C_UINT64; const settings: POPENSSL_INIT_SETTINGS): TOpenSSL_C_INT; cdecl = @Load_OPENSSL_init_crypto; {introduced 1.1.0 }
-  OPENSSL_thread_stop: procedure ; cdecl = @Load_OPENSSL_thread_stop; {introduced 1.1.0 }
-  OPENSSL_INIT_new: function : POPENSSL_INIT_SETTINGS; cdecl = @Load_OPENSSL_INIT_new; {introduced 1.1.0 }
-  OPENSSL_INIT_free: procedure (settings: POPENSSL_INIT_SETTINGS); cdecl = @Load_OPENSSL_INIT_free; {introduced 1.1.0 }
-  CRYPTO_THREAD_run_once: function (once: PCRYPTO_ONCE; init: CRYPTO_THREAD_run_once_init): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_THREAD_run_once; {introduced 1.1.0 }
-  CRYPTO_THREAD_get_local: function (key: PCRYPTO_THREAD_LOCAL): Pointer; cdecl = @Load_CRYPTO_THREAD_get_local; {introduced 1.1.0 }
-  CRYPTO_THREAD_set_local: function (key: PCRYPTO_THREAD_LOCAL; val: Pointer): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_THREAD_set_local; {introduced 1.1.0 }
-  CRYPTO_THREAD_cleanup_local: function (key: PCRYPTO_THREAD_LOCAL): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_THREAD_cleanup_local; {introduced 1.1.0 }
-  CRYPTO_THREAD_get_current_id: function : CRYPTO_THREAD_ID; cdecl = @Load_CRYPTO_THREAD_get_current_id; {introduced 1.1.0 }
-  CRYPTO_THREAD_compare_id: function (a: CRYPTO_THREAD_ID; b: CRYPTO_THREAD_ID): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_THREAD_compare_id; {introduced 1.1.0 }
+  CRYPTO_THREAD_lock_new: function : PCRYPTO_RWLOCK; cdecl = Load_CRYPTO_THREAD_lock_new; {introduced 1.1.0 }
+  CRYPTO_THREAD_read_lock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_read_lock; {introduced 1.1.0 }
+  CRYPTO_THREAD_write_lock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_write_lock; {introduced 1.1.0 }
+  CRYPTO_THREAD_unlock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_unlock; {introduced 1.1.0 }
+  CRYPTO_THREAD_lock_free: procedure (lock: PCRYPTO_RWLOCK); cdecl = Load_CRYPTO_THREAD_lock_free; {introduced 1.1.0 }
+  CRYPTO_atomic_add: function (val: POpenSSL_C_INT; amount: TOpenSSL_C_INT; ret: POpenSSL_C_INT; lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_atomic_add; {introduced 1.1.0 }
+  OPENSSL_strlcpy: function (dst: PAnsiChar; const src: PAnsiChar; siz: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_strlcpy; {introduced 1.1.0 }
+  OPENSSL_strlcat: function (dst: PAnsiChar; const src: PAnsiChar; siz: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_strlcat; {introduced 1.1.0 }
+  OPENSSL_strnlen: function (const str: PAnsiChar; maxlen: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_strnlen; {introduced 1.1.0 }
+  OPENSSL_buf2hexstr: function (const buffer: PByte; len: TOpenSSL_C_LONG): PAnsiChar; cdecl = Load_OPENSSL_buf2hexstr; {introduced 1.1.0 }
+  OPENSSL_hexstr2buf: function (const str: PAnsiChar; len: POpenSSL_C_LONG): PByte; cdecl = Load_OPENSSL_hexstr2buf; {introduced 1.1.0 }
+  OPENSSL_hexchar2int: function (c: Byte): TOpenSSL_C_INT; cdecl = Load_OPENSSL_hexchar2int; {introduced 1.1.0 }
+  OpenSSL_version_num: function : TOpenSSL_C_ULONG; cdecl = Load_OpenSSL_version_num; {introduced 1.1.0 }
+  OpenSSL_version: function (type_: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OpenSSL_version; {introduced 1.1.0 }
+  OPENSSL_issetugid: function : TOpenSSL_C_INT; cdecl = Load_OPENSSL_issetugid;
+  CRYPTO_new_ex_data: function (class_index: TOpenSSL_C_INT; obj: Pointer; ad: PCRYPTO_EX_DATA): TOpenSSL_C_INT; cdecl = Load_CRYPTO_new_ex_data;
+  CRYPTO_dup_ex_data: function (class_index: TOpenSSL_C_INT; to_: PCRYPTO_EX_DATA; const from: PCRYPTO_EX_DATA): TOpenSSL_C_INT; cdecl = Load_CRYPTO_dup_ex_data;
+  CRYPTO_free_ex_data: procedure (class_index: TOpenSSL_C_INT; obj: Pointer; ad: PCRYPTO_EX_DATA); cdecl = Load_CRYPTO_free_ex_data;
+  CRYPTO_set_ex_data: function (ad: PCRYPTO_EX_DATA; idx: TOpenSSL_C_INT; val: Pointer): TOpenSSL_C_INT; cdecl = Load_CRYPTO_set_ex_data;
+  CRYPTO_get_ex_data: function (const ad: PCRYPTO_EX_DATA; idx: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_get_ex_data;
+  CRYPTO_set_mem_functions: function (m: CRYPTO_set_mem_functions_m; r: CRYPTO_set_mem_functions_r; f: CRYPTO_set_mem_functions_f): TOpenSSL_C_INT; cdecl = Load_CRYPTO_set_mem_functions;
+  CRYPTO_malloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_malloc;
+  CRYPTO_zalloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_zalloc; {introduced 1.1.0 }
+  CRYPTO_memdup: function (const str: Pointer; siz: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_memdup; {introduced 1.1.0 }
+  CRYPTO_strdup: function (const str: PAnsiChar; const file_: PAnsiChar; line: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_CRYPTO_strdup;
+  CRYPTO_strndup: function (const str: PAnsiChar; s: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_CRYPTO_strndup; {introduced 1.1.0 }
+  CRYPTO_free: procedure (ptr: Pointer; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_free;
+  CRYPTO_clear_free: procedure (ptr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_clear_free; {introduced 1.1.0 }
+  CRYPTO_realloc: function (addr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_realloc;
+  CRYPTO_clear_realloc: function (addr: Pointer; old_num: TOpenSSL_C_SIZET; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_clear_realloc; {introduced 1.1.0 }
+  CRYPTO_secure_malloc_init: function (sz: TOpenSSL_C_SIZET; minsize: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_malloc_init; {introduced 1.1.0 }
+  CRYPTO_secure_malloc_done: function : TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_malloc_done; {introduced 1.1.0 }
+  CRYPTO_secure_malloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_secure_malloc; {introduced 1.1.0 }
+  CRYPTO_secure_zalloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_secure_zalloc; {introduced 1.1.0 }
+  CRYPTO_secure_free: procedure (ptr: Pointer; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_secure_free; {introduced 1.1.0 }
+  CRYPTO_secure_clear_free: procedure (ptr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_secure_clear_free; {introduced 1.1.0 }
+  CRYPTO_secure_allocated: function (const ptr: Pointer): TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_allocated; {introduced 1.1.0 }
+  CRYPTO_secure_malloc_initialized: function : TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_malloc_initialized; {introduced 1.1.0 }
+  CRYPTO_secure_actual_size: function (ptr: Pointer): TOpenSSL_C_SIZET; cdecl = Load_CRYPTO_secure_actual_size; {introduced 1.1.0 }
+  CRYPTO_secure_used: function : TOpenSSL_C_SIZET; cdecl = Load_CRYPTO_secure_used; {introduced 1.1.0 }
+  OPENSSL_cleanse: procedure (ptr: Pointer; len: TOpenSSL_C_SIZET); cdecl = Load_OPENSSL_cleanse;
+  OPENSSL_isservice: function : TOpenSSL_C_INT; cdecl = Load_OPENSSL_isservice;
+  OPENSSL_init: procedure ; cdecl = Load_OPENSSL_init;
+  CRYPTO_memcmp: function (const in_a: Pointer; const in_b: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_CRYPTO_memcmp;
+  OPENSSL_cleanup: procedure ; cdecl = Load_OPENSSL_cleanup; {introduced 1.1.0 }
+  OPENSSL_init_crypto: function (opts: TOpenSSL_C_UINT64; const settings: POPENSSL_INIT_SETTINGS): TOpenSSL_C_INT; cdecl = Load_OPENSSL_init_crypto; {introduced 1.1.0 }
+  OPENSSL_thread_stop: procedure ; cdecl = Load_OPENSSL_thread_stop; {introduced 1.1.0 }
+  OPENSSL_INIT_new: function : POPENSSL_INIT_SETTINGS; cdecl = Load_OPENSSL_INIT_new; {introduced 1.1.0 }
+  OPENSSL_INIT_free: procedure (settings: POPENSSL_INIT_SETTINGS); cdecl = Load_OPENSSL_INIT_free; {introduced 1.1.0 }
+  CRYPTO_THREAD_run_once: function (once: PCRYPTO_ONCE; init: CRYPTO_THREAD_run_once_init): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_run_once; {introduced 1.1.0 }
+  CRYPTO_THREAD_get_local: function (key: PCRYPTO_THREAD_LOCAL): Pointer; cdecl = Load_CRYPTO_THREAD_get_local; {introduced 1.1.0 }
+  CRYPTO_THREAD_set_local: function (key: PCRYPTO_THREAD_LOCAL; val: Pointer): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_set_local; {introduced 1.1.0 }
+  CRYPTO_THREAD_cleanup_local: function (key: PCRYPTO_THREAD_LOCAL): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_cleanup_local; {introduced 1.1.0 }
+  CRYPTO_THREAD_get_current_id: function : CRYPTO_THREAD_ID; cdecl = Load_CRYPTO_THREAD_get_current_id; {introduced 1.1.0 }
+  CRYPTO_THREAD_compare_id: function (a: CRYPTO_THREAD_ID; b: CRYPTO_THREAD_ID): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_compare_id; {introduced 1.1.0 }
 
 {Removed functions for which legacy support available - use is deprecated}
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  OPENSSL_malloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = @Load_OPENSSL_malloc; {removed 1.0.0}
-  OPENSSL_zalloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = @Load_OPENSSL_zalloc; {removed 1.0.0}
-  OPENSSL_realloc: function (addr: Pointer; num: TOpenSSL_C_SIZET): Pointer; cdecl = @Load_OPENSSL_realloc; {removed 1.0.0}
-  OPENSSL_clear_realloc: function (addr: Pointer; old_num: TOpenSSL_C_SIZET; num: TOpenSSL_C_SIZET): Pointer; cdecl = @Load_OPENSSL_clear_realloc; {removed 1.0.0}
-  OPENSSL_clear_free: procedure (addr: Pointer; num: TOpenSSL_C_SIZET); cdecl = @Load_OPENSSL_clear_free; {removed 1.0.0}
-  OPENSSL_free: procedure (addr: Pointer); cdecl = @Load_OPENSSL_free; {removed 1.0.0}
-  OPENSSL_memdup: function (const str: Pointer; s: TOpenSSL_C_SIZET): Pointer; cdecl = @Load_OPENSSL_memdup; {removed 1.0.0}
-  OPENSSL_strdup: function (const str: PAnsiChar): PAnsiChar; cdecl = @Load_OPENSSL_strdup; {removed 1.0.0}
-  OPENSSL_strndup: function (const str: PAnsiChar; n: TOpenSSL_C_SIZET): PAnsiChar; cdecl = @Load_OPENSSL_strndup; {removed 1.0.0}
-  OPENSSL_secure_malloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = @Load_OPENSSL_secure_malloc; {removed 1.0.0}
-  OPENSSL_secure_zalloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = @Load_OPENSSL_secure_zalloc; {removed 1.0.0}
-  OPENSSL_secure_free: procedure (addr: Pointer); cdecl = @Load_OPENSSL_secure_free; {removed 1.0.0}
-  OPENSSL_secure_clear_free: procedure (addr: Pointer; num: TOpenSSL_C_SIZET); cdecl = @Load_OPENSSL_secure_clear_free; {removed 1.0.0}
-  OPENSSL_secure_actual_size: function (ptr: Pointer): TOpenSSL_C_SIZET; cdecl = @Load_OPENSSL_secure_actual_size; {removed 1.0.0}
-  CRYPTO_num_locks: function : TOpenSSL_C_INT; cdecl = @Load_CRYPTO_num_locks; {removed 1.1.0}
-  CRYPTO_set_locking_callback: procedure (func: TIdSslLockingCallback); cdecl = @Load_CRYPTO_set_locking_callback; {removed 1.1.0}
-  CRYPTO_THREADID_set_numeric: procedure (id : PCRYPTO_THREADID; val: TOpenSSL_C_ULONG); cdecl = @Load_CRYPTO_THREADID_set_numeric; {removed 1.1.0}
-  CRYPTO_THREADID_set_callback: procedure (threadid_func: Tthreadid_func); cdecl = @Load_CRYPTO_THREADID_set_callback; {removed 1.1.0}
-  CRYPTO_set_id_callback: procedure (func: TIdSslIdCallback); cdecl = @Load_CRYPTO_set_id_callback; {removed 1.1.0}
-  FIPS_mode: function : TOpenSSL_C_INT; cdecl = @Load_FIPS_mode; {removed 3.0.0}
-  FIPS_mode_set: function (r: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = @Load_FIPS_mode_set; {removed 3.0.0}
-  SSLeay_version: function (type_ : TOpenSSL_C_INT): PAnsiChar; cdecl = @Load_SSLeay_version; {removed 1.1.0}
-  SSLeay: function : TOpenSSL_C_ULONG; cdecl = @Load_SSLeay; {removed 1.1.0}
+  OPENSSL_malloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_malloc; {removed 1.0.0}
+  OPENSSL_zalloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_zalloc; {removed 1.0.0}
+  OPENSSL_realloc: function (addr: Pointer; num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_realloc; {removed 1.0.0}
+  OPENSSL_clear_realloc: function (addr: Pointer; old_num: TOpenSSL_C_SIZET; num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_clear_realloc; {removed 1.0.0}
+  OPENSSL_clear_free: procedure (addr: Pointer; num: TOpenSSL_C_SIZET); cdecl = Load_OPENSSL_clear_free; {removed 1.0.0}
+  OPENSSL_free: procedure (addr: Pointer); cdecl = Load_OPENSSL_free; {removed 1.0.0}
+  OPENSSL_memdup: function (const str: Pointer; s: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_memdup; {removed 1.0.0}
+  OPENSSL_strdup: function (const str: PAnsiChar): PAnsiChar; cdecl = Load_OPENSSL_strdup; {removed 1.0.0}
+  OPENSSL_strndup: function (const str: PAnsiChar; n: TOpenSSL_C_SIZET): PAnsiChar; cdecl = Load_OPENSSL_strndup; {removed 1.0.0}
+  OPENSSL_secure_malloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_secure_malloc; {removed 1.0.0}
+  OPENSSL_secure_zalloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_secure_zalloc; {removed 1.0.0}
+  OPENSSL_secure_free: procedure (addr: Pointer); cdecl = Load_OPENSSL_secure_free; {removed 1.0.0}
+  OPENSSL_secure_clear_free: procedure (addr: Pointer; num: TOpenSSL_C_SIZET); cdecl = Load_OPENSSL_secure_clear_free; {removed 1.0.0}
+  OPENSSL_secure_actual_size: function (ptr: Pointer): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_secure_actual_size; {removed 1.0.0}
+  CRYPTO_num_locks: function : TOpenSSL_C_INT; cdecl = Load_CRYPTO_num_locks; {removed 1.1.0}
+  CRYPTO_set_locking_callback: procedure (func: TIdSslLockingCallback); cdecl = Load_CRYPTO_set_locking_callback; {removed 1.1.0}
+  CRYPTO_THREADID_set_numeric: procedure (id : PCRYPTO_THREADID; val: TOpenSSL_C_ULONG); cdecl = Load_CRYPTO_THREADID_set_numeric; {removed 1.1.0}
+  CRYPTO_THREADID_set_callback: procedure (threadid_func: Tthreadid_func); cdecl = Load_CRYPTO_THREADID_set_callback; {removed 1.1.0}
+  CRYPTO_set_id_callback: procedure (func: TIdSslIdCallback); cdecl = Load_CRYPTO_set_id_callback; {removed 1.1.0}
+  FIPS_mode: function : TOpenSSL_C_INT; cdecl = Load_FIPS_mode; {removed 3.0.0}
+  FIPS_mode_set: function (r: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_FIPS_mode_set; {removed 3.0.0}
+  SSLeay_version: function (type_ : TOpenSSL_C_INT): PAnsiChar; cdecl = Load_SSLeay_version; {removed 1.1.0}
+  SSLeay: function : TOpenSSL_C_ULONG; cdecl = Load_SSLeay; {removed 1.1.0}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF}
 const
@@ -804,8 +804,8 @@ end;
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 
 var
-  CRYPTO_mem_ctrl: function (mode: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_mem_ctrl; {removed 3.0.0}
-  CRYPTO_set_mem_debug: function (flag: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = @Load_CRYPTO_set_mem_debug; {introduced 1.1.0 removed 3.0.0}
+  CRYPTO_mem_ctrl: function (mode: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_CRYPTO_mem_ctrl; {removed 3.0.0}
+  CRYPTO_set_mem_debug: function (flag: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_CRYPTO_set_mem_debug; {introduced 1.1.0 removed 3.0.0}
 
 function COMPAT_OPENSSL_malloc(num: TOpenSSL_C_SIZET): Pointer; cdecl;
 
@@ -1754,96 +1754,96 @@ end;
 procedure UnLoad;
 begin
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  OPENSSL_malloc := @Load_OPENSSL_malloc;
-  OPENSSL_zalloc := @Load_OPENSSL_zalloc;
-  OPENSSL_realloc := @Load_OPENSSL_realloc;
-  OPENSSL_clear_realloc := @Load_OPENSSL_clear_realloc;
-  OPENSSL_clear_free := @Load_OPENSSL_clear_free;
-  OPENSSL_free := @Load_OPENSSL_free;
-  OPENSSL_memdup := @Load_OPENSSL_memdup;
-  OPENSSL_strdup := @Load_OPENSSL_strdup;
-  OPENSSL_strndup := @Load_OPENSSL_strndup;
-  OPENSSL_secure_malloc := @Load_OPENSSL_secure_malloc;
-  OPENSSL_secure_zalloc := @Load_OPENSSL_secure_zalloc;
-  OPENSSL_secure_free := @Load_OPENSSL_secure_free;
-  OPENSSL_secure_clear_free := @Load_OPENSSL_secure_clear_free;
-  OPENSSL_secure_actual_size := @Load_OPENSSL_secure_actual_size;
+  OPENSSL_malloc := Load_OPENSSL_malloc;
+  OPENSSL_zalloc := Load_OPENSSL_zalloc;
+  OPENSSL_realloc := Load_OPENSSL_realloc;
+  OPENSSL_clear_realloc := Load_OPENSSL_clear_realloc;
+  OPENSSL_clear_free := Load_OPENSSL_clear_free;
+  OPENSSL_free := Load_OPENSSL_free;
+  OPENSSL_memdup := Load_OPENSSL_memdup;
+  OPENSSL_strdup := Load_OPENSSL_strdup;
+  OPENSSL_strndup := Load_OPENSSL_strndup;
+  OPENSSL_secure_malloc := Load_OPENSSL_secure_malloc;
+  OPENSSL_secure_zalloc := Load_OPENSSL_secure_zalloc;
+  OPENSSL_secure_free := Load_OPENSSL_secure_free;
+  OPENSSL_secure_clear_free := Load_OPENSSL_secure_clear_free;
+  OPENSSL_secure_actual_size := Load_OPENSSL_secure_actual_size;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
-  CRYPTO_THREAD_lock_new := @Load_CRYPTO_THREAD_lock_new;
-  CRYPTO_THREAD_read_lock := @Load_CRYPTO_THREAD_read_lock;
-  CRYPTO_THREAD_write_lock := @Load_CRYPTO_THREAD_write_lock;
-  CRYPTO_THREAD_unlock := @Load_CRYPTO_THREAD_unlock;
-  CRYPTO_THREAD_lock_free := @Load_CRYPTO_THREAD_lock_free;
-  CRYPTO_atomic_add := @Load_CRYPTO_atomic_add;
+  CRYPTO_THREAD_lock_new := Load_CRYPTO_THREAD_lock_new;
+  CRYPTO_THREAD_read_lock := Load_CRYPTO_THREAD_read_lock;
+  CRYPTO_THREAD_write_lock := Load_CRYPTO_THREAD_write_lock;
+  CRYPTO_THREAD_unlock := Load_CRYPTO_THREAD_unlock;
+  CRYPTO_THREAD_lock_free := Load_CRYPTO_THREAD_lock_free;
+  CRYPTO_atomic_add := Load_CRYPTO_atomic_add;
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  CRYPTO_mem_ctrl := @Load_CRYPTO_mem_ctrl;
+  CRYPTO_mem_ctrl := Load_CRYPTO_mem_ctrl;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
-  OPENSSL_strlcpy := @Load_OPENSSL_strlcpy;
-  OPENSSL_strlcat := @Load_OPENSSL_strlcat;
-  OPENSSL_strnlen := @Load_OPENSSL_strnlen;
-  OPENSSL_buf2hexstr := @Load_OPENSSL_buf2hexstr;
-  OPENSSL_hexstr2buf := @Load_OPENSSL_hexstr2buf;
-  OPENSSL_hexchar2int := @Load_OPENSSL_hexchar2int;
-  OpenSSL_version_num := @Load_OpenSSL_version_num;
-  OpenSSL_version := @Load_OpenSSL_version;
-  OPENSSL_issetugid := @Load_OPENSSL_issetugid;
-  CRYPTO_new_ex_data := @Load_CRYPTO_new_ex_data;
-  CRYPTO_dup_ex_data := @Load_CRYPTO_dup_ex_data;
-  CRYPTO_free_ex_data := @Load_CRYPTO_free_ex_data;
-  CRYPTO_set_ex_data := @Load_CRYPTO_set_ex_data;
-  CRYPTO_get_ex_data := @Load_CRYPTO_get_ex_data;
+  OPENSSL_strlcpy := Load_OPENSSL_strlcpy;
+  OPENSSL_strlcat := Load_OPENSSL_strlcat;
+  OPENSSL_strnlen := Load_OPENSSL_strnlen;
+  OPENSSL_buf2hexstr := Load_OPENSSL_buf2hexstr;
+  OPENSSL_hexstr2buf := Load_OPENSSL_hexstr2buf;
+  OPENSSL_hexchar2int := Load_OPENSSL_hexchar2int;
+  OpenSSL_version_num := Load_OpenSSL_version_num;
+  OpenSSL_version := Load_OpenSSL_version;
+  OPENSSL_issetugid := Load_OPENSSL_issetugid;
+  CRYPTO_new_ex_data := Load_CRYPTO_new_ex_data;
+  CRYPTO_dup_ex_data := Load_CRYPTO_dup_ex_data;
+  CRYPTO_free_ex_data := Load_CRYPTO_free_ex_data;
+  CRYPTO_set_ex_data := Load_CRYPTO_set_ex_data;
+  CRYPTO_get_ex_data := Load_CRYPTO_get_ex_data;
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  CRYPTO_num_locks := @Load_CRYPTO_num_locks;
-  CRYPTO_set_locking_callback := @Load_CRYPTO_set_locking_callback;
-  CRYPTO_THREADID_set_numeric := @Load_CRYPTO_THREADID_set_numeric;
-  CRYPTO_THREADID_set_callback := @Load_CRYPTO_THREADID_set_callback;
-  CRYPTO_set_id_callback := @Load_CRYPTO_set_id_callback;
+  CRYPTO_num_locks := Load_CRYPTO_num_locks;
+  CRYPTO_set_locking_callback := Load_CRYPTO_set_locking_callback;
+  CRYPTO_THREADID_set_numeric := Load_CRYPTO_THREADID_set_numeric;
+  CRYPTO_THREADID_set_callback := Load_CRYPTO_THREADID_set_callback;
+  CRYPTO_set_id_callback := Load_CRYPTO_set_id_callback;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
-  CRYPTO_set_mem_functions := @Load_CRYPTO_set_mem_functions;
+  CRYPTO_set_mem_functions := Load_CRYPTO_set_mem_functions;
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  CRYPTO_set_mem_debug := @Load_CRYPTO_set_mem_debug;
+  CRYPTO_set_mem_debug := Load_CRYPTO_set_mem_debug;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
-  CRYPTO_malloc := @Load_CRYPTO_malloc;
-  CRYPTO_zalloc := @Load_CRYPTO_zalloc;
-  CRYPTO_memdup := @Load_CRYPTO_memdup;
-  CRYPTO_strdup := @Load_CRYPTO_strdup;
-  CRYPTO_strndup := @Load_CRYPTO_strndup;
-  CRYPTO_free := @Load_CRYPTO_free;
-  CRYPTO_clear_free := @Load_CRYPTO_clear_free;
-  CRYPTO_realloc := @Load_CRYPTO_realloc;
-  CRYPTO_clear_realloc := @Load_CRYPTO_clear_realloc;
-  CRYPTO_secure_malloc_init := @Load_CRYPTO_secure_malloc_init;
-  CRYPTO_secure_malloc_done := @Load_CRYPTO_secure_malloc_done;
-  CRYPTO_secure_malloc := @Load_CRYPTO_secure_malloc;
-  CRYPTO_secure_zalloc := @Load_CRYPTO_secure_zalloc;
-  CRYPTO_secure_free := @Load_CRYPTO_secure_free;
-  CRYPTO_secure_clear_free := @Load_CRYPTO_secure_clear_free;
-  CRYPTO_secure_allocated := @Load_CRYPTO_secure_allocated;
-  CRYPTO_secure_malloc_initialized := @Load_CRYPTO_secure_malloc_initialized;
-  CRYPTO_secure_actual_size := @Load_CRYPTO_secure_actual_size;
-  CRYPTO_secure_used := @Load_CRYPTO_secure_used;
-  OPENSSL_cleanse := @Load_OPENSSL_cleanse;
-  OPENSSL_isservice := @Load_OPENSSL_isservice;
+  CRYPTO_malloc := Load_CRYPTO_malloc;
+  CRYPTO_zalloc := Load_CRYPTO_zalloc;
+  CRYPTO_memdup := Load_CRYPTO_memdup;
+  CRYPTO_strdup := Load_CRYPTO_strdup;
+  CRYPTO_strndup := Load_CRYPTO_strndup;
+  CRYPTO_free := Load_CRYPTO_free;
+  CRYPTO_clear_free := Load_CRYPTO_clear_free;
+  CRYPTO_realloc := Load_CRYPTO_realloc;
+  CRYPTO_clear_realloc := Load_CRYPTO_clear_realloc;
+  CRYPTO_secure_malloc_init := Load_CRYPTO_secure_malloc_init;
+  CRYPTO_secure_malloc_done := Load_CRYPTO_secure_malloc_done;
+  CRYPTO_secure_malloc := Load_CRYPTO_secure_malloc;
+  CRYPTO_secure_zalloc := Load_CRYPTO_secure_zalloc;
+  CRYPTO_secure_free := Load_CRYPTO_secure_free;
+  CRYPTO_secure_clear_free := Load_CRYPTO_secure_clear_free;
+  CRYPTO_secure_allocated := Load_CRYPTO_secure_allocated;
+  CRYPTO_secure_malloc_initialized := Load_CRYPTO_secure_malloc_initialized;
+  CRYPTO_secure_actual_size := Load_CRYPTO_secure_actual_size;
+  CRYPTO_secure_used := Load_CRYPTO_secure_used;
+  OPENSSL_cleanse := Load_OPENSSL_cleanse;
+  OPENSSL_isservice := Load_OPENSSL_isservice;
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  FIPS_mode := @Load_FIPS_mode;
-  FIPS_mode_set := @Load_FIPS_mode_set;
+  FIPS_mode := Load_FIPS_mode;
+  FIPS_mode_set := Load_FIPS_mode_set;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
-  OPENSSL_init := @Load_OPENSSL_init;
-  CRYPTO_memcmp := @Load_CRYPTO_memcmp;
-  OPENSSL_cleanup := @Load_OPENSSL_cleanup;
-  OPENSSL_init_crypto := @Load_OPENSSL_init_crypto;
-  OPENSSL_thread_stop := @Load_OPENSSL_thread_stop;
-  OPENSSL_INIT_new := @Load_OPENSSL_INIT_new;
-  OPENSSL_INIT_free := @Load_OPENSSL_INIT_free;
-  CRYPTO_THREAD_run_once := @Load_CRYPTO_THREAD_run_once;
-  CRYPTO_THREAD_get_local := @Load_CRYPTO_THREAD_get_local;
-  CRYPTO_THREAD_set_local := @Load_CRYPTO_THREAD_set_local;
-  CRYPTO_THREAD_cleanup_local := @Load_CRYPTO_THREAD_cleanup_local;
-  CRYPTO_THREAD_get_current_id := @Load_CRYPTO_THREAD_get_current_id;
-  CRYPTO_THREAD_compare_id := @Load_CRYPTO_THREAD_compare_id;
+  OPENSSL_init := Load_OPENSSL_init;
+  CRYPTO_memcmp := Load_CRYPTO_memcmp;
+  OPENSSL_cleanup := Load_OPENSSL_cleanup;
+  OPENSSL_init_crypto := Load_OPENSSL_init_crypto;
+  OPENSSL_thread_stop := Load_OPENSSL_thread_stop;
+  OPENSSL_INIT_new := Load_OPENSSL_INIT_new;
+  OPENSSL_INIT_free := Load_OPENSSL_INIT_free;
+  CRYPTO_THREAD_run_once := Load_CRYPTO_THREAD_run_once;
+  CRYPTO_THREAD_get_local := Load_CRYPTO_THREAD_get_local;
+  CRYPTO_THREAD_set_local := Load_CRYPTO_THREAD_set_local;
+  CRYPTO_THREAD_cleanup_local := Load_CRYPTO_THREAD_cleanup_local;
+  CRYPTO_THREAD_get_current_id := Load_CRYPTO_THREAD_get_current_id;
+  CRYPTO_THREAD_compare_id := Load_CRYPTO_THREAD_compare_id;
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  SSLeay_version := @Load_SSLeay_version;
-  SSLeay := @Load_SSLeay;
+  SSLeay_version := Load_SSLeay_version;
+  SSLeay := Load_SSLeay;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 end;
 {$ENDIF}

@@ -100,7 +100,7 @@ function ERR_load_DSA_strings: TOpenSSL_C_INT; cdecl; external CLibCrypto;
 function Load_ERR_load_DSA_strings: TOpenSSL_C_INT; cdecl;
 
 var
-  ERR_load_DSA_strings: function : TOpenSSL_C_INT; cdecl = @Load_ERR_load_DSA_strings;
+  ERR_load_DSA_strings: function : TOpenSSL_C_INT; cdecl = Load_ERR_load_DSA_strings;
 {$ENDIF}
 
 implementation
@@ -125,7 +125,7 @@ end;
 
 procedure UnLoad;
 begin
-  ERR_load_DSA_strings := @Load_ERR_load_DSA_strings;
+  ERR_load_DSA_strings := Load_ERR_load_DSA_strings;
 end;
 {$ENDIF}
 
