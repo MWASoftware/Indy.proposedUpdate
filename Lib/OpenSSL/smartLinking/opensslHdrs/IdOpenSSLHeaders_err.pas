@@ -227,7 +227,7 @@ files generated for C++. }
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
 procedure ERR_new; cdecl; external CLibCrypto;
 procedure ERR_set_debug(const file_: PAnsiChar; line: integer; const func: PAnsiChar); cdecl; external CLibCrypto;
-procedure ERR_set_error(lib: integer; reason: integer; fmt: PAnsiChar); cdecl; varargs; external CLibCrypto;
+procedure ERR_set_error(lib: integer; reason: integer; fmt: PAnsiChar); cdecl varargs; external CLibCrypto;
 procedure ERR_set_error_data(data: PAnsiChar; flags: TOpenSSL_C_INT); cdecl; external CLibCrypto;
 function ERR_get_error: TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
 function ERR_get_error_line(file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl; external CLibCrypto;
@@ -271,7 +271,7 @@ function ERR_GET_REASON(const l : TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 var
   ERR_new: procedure ; cdecl = nil; {introduced 3.0.0 }
   ERR_set_debug: procedure (const file_: PAnsiChar; line: integer; const func: PAnsiChar); cdecl = nil; {introduced 3.0.0 }
-  ERR_set_error: procedure (lib: integer; reason: integer; fmt: PAnsiChar); varargs; cdecl = nil; {introduced 3.0.0 }
+  ERR_set_error: procedure (lib: integer; reason: integer; fmt: PAnsiChar); cdecl varargs = nil; {introduced 3.0.0 }
   ERR_set_error_data: procedure (data: PAnsiChar; flags: TOpenSSL_C_INT); cdecl = nil;
   ERR_get_error: function : TOpenSSL_C_ULONG; cdecl = nil;
   ERR_get_error_line: function (file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = nil;

@@ -22,7 +22,9 @@
 
 unit IdSSLOpenSSLAPI;
 
+{$IFDEF FPC}
 {$INTERFACES COM}
+{$ENDIF}
 
 interface
 
@@ -97,6 +99,10 @@ const
     {$ENDIF}
   {$ENDIF}
 
+{$if not declared(TLibHandle)}
+type
+  TLibHandle = THandle;
+{$ifend}
 {$if not declared(NilHandle)}
 const
   NilHandle = TLibHandle(0);
@@ -168,6 +174,7 @@ type
   {$ifend}
 
 {$ELSE}
+  PPByte           = ^PByte;
   TOpenSSL_C_LONG  = LongInt;
   TOpenSSL_C_ULONG = LongWord;
   TOpenSSL_C_INT   = Integer;
@@ -176,7 +183,7 @@ type
   TOpenSSL_C_UINT8 = Byte;
   TOpenSSL_C_UINT16 = SmallInt;
   TOpenSSL_C_UINT32 = Cardinal;
-  TOpenSSL_C_UINT64 = QWord;
+  TOpenSSL_C_UINT64 = UINT64;
   TOpenSSL_C_SHORT = Smallint;
   TOpenSSL_C_USHORT = Word;
   TOpenSSL_C_DOUBLE = Double;
@@ -195,7 +202,7 @@ type
     {$ifend}
   {$ifend}
 
-  {$if declared(NativeInt)}
+  {$if declared(NatiPPByte           = ^PByte;veInt)}
 TOpenSSL_C_SSIZET = NativeInt;
   {$ELSE}
     {$IFDEF CPU32}

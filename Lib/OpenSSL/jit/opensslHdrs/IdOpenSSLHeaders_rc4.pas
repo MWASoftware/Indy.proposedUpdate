@@ -118,10 +118,12 @@ type
 The EXTERNALSYM directive prevents the specified Delphi symbol from appearing in header 
 files generated for C++. }
 
+{$IFNDEF OPENSSL_NO_RC4}
 {$EXTERNALSYM RC4_options}
 {$EXTERNALSYM RC4_set_key}
 {$EXTERNALSYM private_RC4_set_key}
 {$EXTERNALSYM RC4}
+{$ENDIF}
 
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_RC4}

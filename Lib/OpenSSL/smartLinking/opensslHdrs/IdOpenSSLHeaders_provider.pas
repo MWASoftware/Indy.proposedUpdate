@@ -86,9 +86,11 @@ files generated for C++. }
 {$EXTERNALSYM OSSL_PROVIDER_get0_dispatch}
 {$EXTERNALSYM OSSL_PROVIDER_add_builtin}
 {$EXTERNALSYM OSSL_PROVIDER_get0_name}
+{$IFDEF OPENSSL_3_2_ORLATER}
 {$EXTERNALSYM OSSL_PROVIDER_get0_default_search_path}
 {$EXTERNALSYM OSSL_PROVIDER_try_load_ex}
 {$EXTERNALSYM OSSL_PROVIDER_load_ex}
+{$ENDIF}
 
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
 function OSSL_PROVIDER_set_default_search_path(ctx: POSSL_LIB_CTX; path: PAnsiChar): TOpenSSL_C_INT; cdecl; external CLibCrypto;
