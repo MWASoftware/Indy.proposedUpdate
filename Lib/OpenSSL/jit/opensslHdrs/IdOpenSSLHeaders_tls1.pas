@@ -1041,47 +1041,47 @@ const
 //  (*
 //   * client finished
 //   *)
-//  TLS_MD_CLIENT_FINISH_CONST = TAnsiChar($63) + TAnsiChar($6c) + TAnsiChar($69) + TAnsiChar($65) + TAnsiChar($6e) + TAnsiChar($74) + TAnsiChar($20) + TAnsiChar($66) + TAnsiChar($69) + TAnsiChar($6e) + TAnsiChar($69) + TAnsiChar($73) + TAnsiChar($68) + TAnsiChar($65) + TAnsiChar($64);
+//  TLS_MD_CLIENT_FINISH_CONST = AnsiChar($63) + AnsiChar($6c) + AnsiChar($69) + AnsiChar($65) + AnsiChar($6e) + AnsiChar($74) + AnsiChar($20) + AnsiChar($66) + AnsiChar($69) + AnsiChar($6e) + AnsiChar($69) + AnsiChar($73) + AnsiChar($68) + AnsiChar($65) + AnsiChar($64);
 //
 //  (*
 //   * server finished
 //   *)
-//  TLS_MD_SERVER_FINISH_CONST = TAnsiChar($73) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($76) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($20) + TAnsiChar($66) + TAnsiChar($69) + TAnsiChar($6e) + TAnsiChar($69) + TAnsiChar($73) + TAnsiChar($68) + TAnsiChar($65) + TAnsiChar($64);
+//  TLS_MD_SERVER_FINISH_CONST = AnsiChar($73) + AnsiChar($65) + AnsiChar($72) + AnsiChar($76) + AnsiChar($65) + AnsiChar($72) + AnsiChar($20) + AnsiChar($66) + AnsiChar($69) + AnsiChar($6e) + AnsiChar($69) + AnsiChar($73) + AnsiChar($68) + AnsiChar($65) + AnsiChar($64);
 //
 //  (*
 //   * server write key
 //   *)
-//  TLS_MD_SERVER_WRITE_KEY_CONST = TAnsiChar($73) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($76) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($20) + TAnsiChar($77) + TAnsiChar($72) + TAnsiChar($69) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($20) + TAnsiChar($6b) + TAnsiChar($65) + TAnsiChar($79);
+//  TLS_MD_SERVER_WRITE_KEY_CONST = AnsiChar($73) + AnsiChar($65) + AnsiChar($72) + AnsiChar($76) + AnsiChar($65) + AnsiChar($72) + AnsiChar($20) + AnsiChar($77) + AnsiChar($72) + AnsiChar($69) + AnsiChar($74) + AnsiChar($65) + AnsiChar($20) + AnsiChar($6b) + AnsiChar($65) + AnsiChar($79);
 //
 //  (*
 //   * key expansion
 //   *)
-//  TLS_MD_KEY_EXPANSION_CONST = TAnsiChar($6b) + TAnsiChar($65) + TAnsiChar($79) + TAnsiChar($20) + TAnsiChar($65) + TAnsiChar($78) + TAnsiChar($70) + TAnsiChar($61) + TAnsiChar($6e) + TAnsiChar($73) + TAnsiChar($69) + TAnsiChar($6f) + TAnsiChar($6e);
+//  TLS_MD_KEY_EXPANSION_CONST = AnsiChar($6b) + AnsiChar($65) + AnsiChar($79) + AnsiChar($20) + AnsiChar($65) + AnsiChar($78) + AnsiChar($70) + AnsiChar($61) + AnsiChar($6e) + AnsiChar($73) + AnsiChar($69) + AnsiChar($6f) + AnsiChar($6e);
 //
 //  (*
 //   * client write key
 //   *)
-//  TLS_MD_CLIENT_WRITE_KEY_CONST = TAnsiChar($63) + TAnsiChar($6c) + TAnsiChar($69) + TAnsiChar($65) + TAnsiChar($6e) + TAnsiChar($74) + TAnsiChar($20) + TAnsiChar($77) + TAnsiChar($72) + TAnsiChar($69) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($20) + TAnsiChar($6b) + TAnsiChar($65) + TAnsiChar($79);
+//  TLS_MD_CLIENT_WRITE_KEY_CONST = AnsiChar($63) + AnsiChar($6c) + AnsiChar($69) + AnsiChar($65) + AnsiChar($6e) + AnsiChar($74) + AnsiChar($20) + AnsiChar($77) + AnsiChar($72) + AnsiChar($69) + AnsiChar($74) + AnsiChar($65) + AnsiChar($20) + AnsiChar($6b) + AnsiChar($65) + AnsiChar($79);
 //
 //  (*
 //   * server write key
 //   *)
-//  TLS_MD_SERVER_WRITE_KEY_CONST = TAnsiChar($73) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($76) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($20) + TAnsiChar($77) + TAnsiChar($72) + TAnsiChar($69) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($20) + TAnsiChar($6b) + TAnsiChar($65) + TAnsiChar($79);
+//  TLS_MD_SERVER_WRITE_KEY_CONST = AnsiChar($73) + AnsiChar($65) + AnsiChar($72) + AnsiChar($76) + AnsiChar($65) + AnsiChar($72) + AnsiChar($20) + AnsiChar($77) + AnsiChar($72) + AnsiChar($69) + AnsiChar($74) + AnsiChar($65) + AnsiChar($20) + AnsiChar($6b) + AnsiChar($65) + AnsiChar($79);
 //
 //  (*
 //   * IV block
 //   *)
-//  TLS_MD_IV_BLOCK_CONST = TAnsiChar($49) + TAnsiChar($56) + TAnsiChar($20) + TAnsiChar($62) + TAnsiChar($6c) + TAnsiChar($6f) + TAnsiChar($63) + TAnsiChar($6b);
+//  TLS_MD_IV_BLOCK_CONST = AnsiChar($49) + AnsiChar($56) + AnsiChar($20) + AnsiChar($62) + AnsiChar($6c) + AnsiChar($6f) + AnsiChar($63) + AnsiChar($6b);
 //
 //  (*
 //   * master secret
 //   *)
-//  TLS_MD_MASTER_SECRET_CONST = TAnsiChar($6d) + TAnsiChar($61) + TAnsiChar($73) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($20) + TAnsiChar($73) + TAnsiChar($65) + TAnsiChar($63) + TAnsiChar($72) + TAnsiChar($65) + TAnsiChar($74);
+//  TLS_MD_MASTER_SECRET_CONST = AnsiChar($6d) + AnsiChar($61) + AnsiChar($73) + AnsiChar($74) + AnsiChar($65) + AnsiChar($72) + AnsiChar($20) + AnsiChar($73) + AnsiChar($65) + AnsiChar($63) + AnsiChar($72) + AnsiChar($65) + AnsiChar($74);
 //
 //  (*
 //   * extended master secret
 //   *)
-//  TLS_MD_EXTENDED_MASTER_SECRET_CONST = TAnsiChar($65) + TAnsiChar($78) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($6e) + TAnsiChar($64) + TAnsiChar($65) + TAnsiChar($64) + TAnsiChar($20) + TAnsiChar($6d) + TAnsiChar($61) + TAnsiChar($73) + TAnsiChar($74) + TAnsiChar($65) + TAnsiChar($72) + TAnsiChar($20) + TAnsiChar($73) + TAnsiChar($65) + TAnsiChar($63) + TAnsiChar($72) + TAnsiChar($65) + TAnsiChar($74);
+//  TLS_MD_EXTENDED_MASTER_SECRET_CONST = AnsiChar($65) + AnsiChar($78) + AnsiChar($74) + AnsiChar($65) + AnsiChar($6e) + AnsiChar($64) + AnsiChar($65) + AnsiChar($64) + AnsiChar($20) + AnsiChar($6d) + AnsiChar($61) + AnsiChar($73) + AnsiChar($74) + AnsiChar($65) + AnsiChar($72) + AnsiChar($20) + AnsiChar($73) + AnsiChar($65) + AnsiChar($63) + AnsiChar($72) + AnsiChar($65) + AnsiChar($74);
 
 type
   (* TLS Session Ticket extension struct *)

@@ -202,7 +202,7 @@ type
     {$ifend}
   {$ifend}
 
-  {$if declared(NatiPPByte           = ^PByte;veInt)}
+  {$if declared(NativeInt)}
 TOpenSSL_C_SSIZET = NativeInt;
   {$ELSE}
     {$IFDEF CPU32}

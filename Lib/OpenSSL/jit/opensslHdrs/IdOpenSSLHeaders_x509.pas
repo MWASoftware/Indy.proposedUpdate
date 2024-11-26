@@ -2100,7 +2100,7 @@ X509 = record
     rfc3779_asid : PASIdentifiers;
     {$ENDIF}
     {$IFNDEF OPENSSL_NO_SHA}
-    sha1_hash : array [0..SHA_DIGEST_LENGTH-1] of TAnsiChar;
+    sha1_hash : array [0..SHA_DIGEST_LENGTH-1] of AnsiChar;
     {$ENDIF}
     aux : PX509_CERT_AUX;
   end;   

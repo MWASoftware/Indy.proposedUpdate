@@ -2979,7 +2979,7 @@ type
     msg_callback_arg : Pointer;
     verify_mode : TOpenSSL_C_INT;
     sid_ctx_length : TOpenSSL_C_UINT;
-    sid_ctx : array[0..SSL_MAX_SID_CTX_LENGTH - 1] of TAnsiChar;
+    sid_ctx : array[0..SSL_MAX_SID_CTX_LENGTH - 1] of AnsiChar;
     default_verify_callback : function(ok : TOpenSSL_C_INT; ctx : PX509_STORE_CTX) : TOpenSSL_C_INT; cdecl; // called 'verify_callback' in the SSL
     // Default generate session ID callback.
     generate_session_id : PGEN_SESSION_CB;
@@ -3005,9 +3005,9 @@ type
     tlsext_servername_callback : PSSL_CTEX_tlsext_servername_callback;
     tlsext_servername_arg : Pointer;
     //* RFC 4507 session ticket keys */
-    tlsext_tick_key_name : array [0..(16-1)] of TAnsiChar;
-    tlsext_tick_hmac_key : array [0..(16-1)] of TAnsiChar;
-    tlsext_tick_aes_key : array [0..(16-1)] of TAnsiChar;
+    tlsext_tick_key_name : array [0..(16-1)] of AnsiChar;
+    tlsext_tick_hmac_key : array [0..(16-1)] of AnsiChar;
+    tlsext_tick_aes_key : array [0..(16-1)] of AnsiChar;
 	//* Callback to support customisation of ticket key setting */
  //	int (*tlsext_ticket_key_cb)(SSL *ssl,
  //					unsigned char *name, unsigned char *iv,
