@@ -33,7 +33,8 @@ procedure RemoveLegacyCallbacks;
 implementation
 
 uses SyncObjs,
-     IdOpenSSLHeaders_crypto;
+     IdOpenSSLHeaders_crypto
+     {$IFNDEF FPC}, Windows{$ENDIF};
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 type
@@ -96,7 +97,7 @@ begin
   if (mode and CRYPTO_LOCK) = CRYPTO_LOCK then
     Lock.Acquire
   else
-    Lock.Release;
+    Lock.Release;                                                                                    {$IFNDEF FPC}, Windows{$ENDIF}
 end;
 
 constructor TOpenSSLLegacyCallbacks.Create;
@@ -145,7 +146,9 @@ begin
   {$ENDIF}
 end;
 
-finalization
+Initialization
+
+Finalization
   RemoveLegacyCallbacks;
 
 end.

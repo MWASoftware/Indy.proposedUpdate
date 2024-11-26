@@ -25,6 +25,7 @@ unit IdSSLOpenSSLAPI;
 {$IFDEF FPC}
 {$INTERFACES COM}
 {$ENDIF}
+{J+}
 
 interface
 
@@ -175,6 +176,7 @@ type
 
 {$ELSE}
   PPByte           = ^PByte;
+  PPPAnsiChar      = ^PAnsiChar;
   TOpenSSL_C_LONG  = LongInt;
   TOpenSSL_C_ULONG = LongWord;
   TOpenSSL_C_INT   = Integer;
@@ -194,7 +196,7 @@ type
   TOpenSSL_C_SIZET = NativeUInt;
   {$else}
       {$IFDEF CPU32}
-  TOpenSSL_C_SIZET = TOpenSSL_C_UINT32;
+  TOpenSSL_C_SIZET = TOp/OpenSSLPackageSplitTake3enSSL_C_UINT32;
       {$ENDIF}
       {$IFDEF CPU64}
   TOpenSSL_C_SIZET = TOpenSSL_C_UINT64;
@@ -212,7 +214,7 @@ TOpenSSL_C_SSIZET = TOpenSSL_C_INT32;
 TOpenSSL_C_SSIZET = TOpenSSL_C_INT64;
     {$ENDIF}
   {$ENDIF}
-
+                        /OpenSSLPackageSplitTake3
   {$if declared(time_t))}
     TOpenSSL_C_TIMET = time_t;
     {$ELSE}
@@ -523,12 +525,14 @@ end;
 
 function LoadLibCryptoFunction(const AProcName: AnsiString): Pointer;
 begin
-  Result := GetProcAddress(TOpenSSLDynamicLibProvider.FOpenSSLDDL.GetLibCryptoHandle, AProcName);
+  Result := GetProcAddress(TOpenSSLDynamicLibProvider.FOpenSSLDDL.GetLibCryptoHandle,
+             {$IFDEF FPC}AProcName{$ELSE}PAnsiChar(AProcName){$ENDIF});
 end;
 
 function LoadLibSSLFunction(const AProcName: AnsiString): Pointer;
 begin
-  Result := GetProcAddress(TOpenSSLDynamicLibProvider.FOpenSSLDDL.GetLibSSLHandle, AProcName);
+  Result := GetProcAddress(TOpenSSLDynamicLibProvider.FOpenSSLDDL.GetLibSSLHandle,
+             {$IFDEF FPC}AProcName{$ELSE}PAnsiChar(AProcName){$ENDIF});
 end;
 
 procedure TOpenSSLDynamicLibProvider.SetOpenSSLPath(const Value : string);
@@ -585,7 +589,7 @@ begin
         {try the legacy dll names}
         FLibCrypto := FindLibrary(LegacyLibCrypto,'');
         FLibSSL := FindLibrary(LegacyLibssl,'');
-        Result := not (FLibCrypto = IdNilHandle) and not (FLibSSL = IdNilHandle);
+        Result := not (FLibCrypto = NilHandle) and not (FLibSSL = NilHandle);
       end;
       {$ENDIF}
       if not Result then
