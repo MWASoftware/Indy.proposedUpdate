@@ -97,7 +97,7 @@ begin
   if (mode and CRYPTO_LOCK) = CRYPTO_LOCK then
     Lock.Acquire
   else
-    Lock.Release;                                                                                    {$IFNDEF FPC}, Windows{$ENDIF}
+    Lock.Release;
 end;
 
 constructor TOpenSSLLegacyCallbacks.Create;

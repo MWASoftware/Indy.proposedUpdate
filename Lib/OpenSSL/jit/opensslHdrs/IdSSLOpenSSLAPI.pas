@@ -214,7 +214,7 @@ TOpenSSL_C_SSIZET = TOpenSSL_C_INT32;
 TOpenSSL_C_SSIZET = TOpenSSL_C_INT64;
     {$ENDIF}
   {$ENDIF}
-                        /OpenSSLPackageSplitTake3
+
   {$if declared(time_t))}
     TOpenSSL_C_TIMET = time_t;
     {$ELSE}
