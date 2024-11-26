@@ -229,7 +229,7 @@ begin
   Result := Assigned(EVP_sha224);
   {$ELSE}
   Result := true;
-  {$ENDIF}
+  {$IFEND}
   {$ENDIF}
 end;
 
