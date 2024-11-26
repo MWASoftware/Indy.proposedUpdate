@@ -1558,8 +1558,8 @@ begin
     Exit;
   end;
   try
-    for i := 0 to sk_X509_INFO_num(Linf) - 1 do begin
-      Litmp := PX509_INFO(sk_X509_INFO_value(Linf, i));
+    for i := 0 to OPENSSL_sk_num(Linf) - 1 do begin
+      Litmp := PX509_INFO(OPENSSL_sk_value(Linf, i));
       if Assigned(Litmp^.x509) then begin
         X509_STORE_add_cert(X509_LOOKUP_get_store(ctx), Litmp^.x509);
         Inc(count);
@@ -1570,7 +1570,7 @@ begin
       end;
     end;
   finally
-    sk_X509_INFO_pop_free(Linf, @X509_INFO_free);
+    OPENSSL_sk_pop_free(Linf, @X509_INFO_free);
   end;
   Result := count;
 end;
@@ -1579,7 +1579,7 @@ procedure IndySSL_load_client_CA_file_err(var VRes: PSTACK_OF_X509_NAME);
 {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
   if Assigned(VRes) then begin
-    sk_X509_NAME_pop_free(VRes, @X509_NAME_free);
+    OPENSSL_sk_pop_free(VRes, @X509_NAME_free);
     VRes := nil;
   end;
 end;
@@ -1601,7 +1601,7 @@ begin
   Result := nil;
   Failed := False;
   LX := nil;
-  Lsk := sk_X509_NAME_new(@xname_cmp);
+  Lsk := OPENSSL_sk_new(@xname_cmp);
   if Assigned(Lsk) then begin
     try
       LM := nil;
@@ -1626,7 +1626,7 @@ begin
                   Break;
                 end;
                 if not Assigned(Result) then begin
-                  Result := sk_X509_NAME_new_null;
+                  Result := OPENSSL_sk_new_null;
                   if not Assigned(Result) then begin
                     SSLerr(SSL_F_SSL_LOAD_CLIENT_CA_FILE, ERR_R_MALLOC_FAILURE);
                     Failed := True;
@@ -1648,11 +1648,11 @@ begin
                   Failed := True;
                   Exit;
                 end;
-                if (sk_X509_NAME_find(Lsk, LXNDup) >= 0) then begin
+                if (OPENSSL_sk_find(Lsk, LXNDup) >= 0) then begin
                   X509_NAME_free(LXNDup);
                 end else begin
-                  sk_X509_NAME_push(Lsk, LXNDup);
-                  sk_X509_NAME_push(Result, LXNDup);
+                  OPENSSL_sk_push(Lsk, LXNDup);
+                  OPENSSL_sk_push(Result, LXNDup);
                 end;
                 X509_free(LX);
                 LX := nil;
@@ -1662,7 +1662,7 @@ begin
                 X509_free(LX);
               end;
               if Failed and Assigned(Result) then begin
-                sk_X509_NAME_pop_free(Result, @X509_NAME_free);
+                OPENSSL_sk_pop_free(Result, @X509_NAME_free);
                 Result := nil;
               end;
             end;
@@ -1677,7 +1677,7 @@ begin
         FreeAndNil(LM);
       end;
     finally
-      sk_X509_NAME_free(Lsk);
+      OPENSSL_sk_free(Lsk);
     end;
   end
   else begin
