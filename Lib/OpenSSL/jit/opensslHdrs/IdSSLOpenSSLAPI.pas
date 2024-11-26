@@ -25,7 +25,7 @@ unit IdSSLOpenSSLAPI;
 {$IFDEF FPC}
 {$INTERFACES COM}
 {$ENDIF}
-{J+}
+{$J+}
 
 interface
 
