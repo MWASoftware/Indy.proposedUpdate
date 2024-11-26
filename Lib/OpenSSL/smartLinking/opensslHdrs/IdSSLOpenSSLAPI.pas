@@ -30,16 +30,15 @@ unit IdSSLOpenSSLAPI;
 interface
 
 uses
-  Classes , SysUtils
+  Classes
+  {$IFDEF WINDOWS} ,windows {$ENDIF}
   {$IFDEF FPC}
   ,ctypes
   {$IFDEF UNIX}
   , UnixType
   {$ENDIF}
-  {$ELSE}
-  {$IFDEF WINDOWS} ,windows {$ENDIF}
   {$ENDIF}
-  ;
+  , SysUtils;
 
 const
   {The default SSLLibraryPath is empty. You can override this by setting the
@@ -526,13 +525,13 @@ end;
 function LoadLibCryptoFunction(const AProcName: AnsiString): Pointer;
 begin
   Result := GetProcAddress(TOpenSSLDynamicLibProvider.FOpenSSLDDL.GetLibCryptoHandle,
-             {$IFDEF FPC}AProcName{$ELSE}PAnsiChar(AProcName){$ENDIF});
+             {$IFDEF UNIX}AProcName{$ELSE}PAnsiChar(AProcName){$ENDIF});
 end;
 
 function LoadLibSSLFunction(const AProcName: AnsiString): Pointer;
 begin
   Result := GetProcAddress(TOpenSSLDynamicLibProvider.FOpenSSLDDL.GetLibSSLHandle,
-             {$IFDEF FPC}AProcName{$ELSE}PAnsiChar(AProcName){$ENDIF});
+             {$IFDEF UNIX}AProcName{$ELSE}PAnsiChar(AProcName){$ENDIF});
 end;
 
 procedure TOpenSSLDynamicLibProvider.SetOpenSSLPath(const Value : string);

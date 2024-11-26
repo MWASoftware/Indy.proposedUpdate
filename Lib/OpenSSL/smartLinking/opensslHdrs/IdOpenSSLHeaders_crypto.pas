@@ -461,16 +461,18 @@ const
 
 implementation
 
+uses classes,
+     IdSSLOpenSSLExceptionHandlers,
+     IdSSLOpenSSLResourceStrings;
+
+const OpenSSLVersionCount: integer = 0; {used to avoid recursion}
+
 // OPENSSL_FILE = __FILE__ = C preprocessor macro
 // OPENSSL_LINE = __LINE__ = C preprocessor macro
 // FPC hase an equivalent with {$I %FILE%} and {$I %LINENUM%}, see https://www.freepascal.org/docs-html/prog/progsu41.html#x47-460001.1.41
 // Delphi has nothing :(
 
 //# define OPENSSL_malloc(num) CRYPTO_malloc(num, OPENSSL_FILE, OPENSSL_LINE)
-
-uses classes,
-     IdSSLOpenSSLExceptionHandlers,
-     IdSSLOpenSSLResourceStrings;
 
 var fips_provider: POSSL_PROVIDER;
     base_provider: POSSL_PROVIDER;
@@ -631,6 +633,9 @@ end;
 function SSLeay_version(type_ : TOpenSSL_C_INT): PAnsiChar;
 
 begin
+  if OpenSSLVersionCount > 0 then
+    EOpenSSLUnknownError.RaiseException(RSONoVersionInfo);
+  Inc(OpenSSLVersionCount);
   Result := OpenSSL_version(type_);
 end;
 
@@ -861,6 +866,9 @@ end;
 function COMPAT_SSLeay_version(type_ : TOpenSSL_C_INT): PAnsiChar; cdecl;
 
 begin
+  if OpenSSLVersionCount > 0 then
+    EOpenSSLUnknownError.RaiseException(RSONoVersionInfo);
+  Inc(OpenSSLVersionCount);
   Result := OpenSSL_version(type_);
 end;
 
@@ -869,6 +877,9 @@ end;
 function COMPAT_OpenSSL_version(type_ : TOpenSSL_C_INT): PAnsiChar; cdecl;
 
 begin
+  if OpenSSLVersionCount > 0 then
+    EOpenSSLUnknownError.RaiseException(RSONoVersionInfo);
+  Inc(OpenSSLVersionCount);
   Result := SSLeay_version(type_);
 end;
 
