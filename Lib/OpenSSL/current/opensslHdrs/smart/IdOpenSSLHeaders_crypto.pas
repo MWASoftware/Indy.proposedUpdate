@@ -648,7 +648,14 @@ end;
 function SSLeay: TOpenSSL_C_ULONG;
 
 begin
-  Result := OpenSSL_version_num();
+  if OpenSSLVersionCount > 0 then
+    EOpenSSLUnknownError.RaiseException(RSONoVersionInfo);
+  Inc(OpenSSLVersionCount);
+  try
+    Result := OpenSSL_version_num();
+  finally
+    Dec(OpenSSLVersionCount);
+  end;
 end;
 
 
@@ -900,7 +907,14 @@ end;
 function COMPAT_SSLeay: TOpenSSL_C_ULONG; cdecl;
 
 begin
-  Result := OpenSSL_version_num();
+  if OpenSSLVersionCount > 0 then
+    EOpenSSLUnknownError.RaiseException(RSONoVersionInfo);
+  Inc(OpenSSLVersionCount);
+  try
+    Result := OpenSSL_version_num();
+  finally
+    Dec(OpenSSLVersionCount);
+  end;
 end;
 
 
@@ -908,7 +922,14 @@ end;
 function COMPAT_OpenSSL_version_num: TOpenSSL_C_ULONG; cdecl;
 
 begin
-  Result := SSLeay;
+  if OpenSSLVersionCount > 0 then
+    EOpenSSLUnknownError.RaiseException(RSONoVersionInfo);
+  Inc(OpenSSLVersionCount);
+  try
+    Result := SSLeay;
+  finally
+    Dec(OpenSSLVersionCount);
+  end;
 end;
 
 
