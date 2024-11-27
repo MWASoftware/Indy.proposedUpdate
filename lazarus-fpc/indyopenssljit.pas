@@ -8,7 +8,7 @@ unit indyopenssljit;
 interface
 
 uses
-  IdNTLMOpenSSL, IdSSLOpenSSL, IdSSLOpenSSLFIPS;
+  IdNTLMOpenSSL, IdResourceStringsOpenSSL, IdSSLOpenSSL, IdSSLOpenSSLFIPS;
 
 implementation
 

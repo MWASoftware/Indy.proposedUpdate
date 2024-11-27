@@ -6,9 +6,9 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <IncludeFiles Value="../Lib/OpenSSL/jit;../Lib/OpenSSL/jit/opensslHdrs"/>
-        <OtherUnitFiles Value="../Lib/OpenSSL/jit;../Lib/OpenSSL/jit/opensslHdrs"/>
-        <UnitOutputDirectory Value="../Lib/OpenSSL/jit/lib/$(TargetCPU)-$(TargetOS)"/>
+        <IncludeFiles Value="../Lib/OpenSSL/current;../Lib/OpenSSL/current/opensslHdrs/jit"/>
+        <OtherUnitFiles Value="../Lib/OpenSSL/current;../Lib/OpenSSL/current/opensslHdrs/jit"/>
+        <UnitOutputDirectory Value="../Lib/OpenSSL/current/lib/jit/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
         <OtherDefines Count="3">
@@ -20,15 +20,19 @@
     </CompilerOptions>
     <Files>
       <Item>
-        <Filename Value="../Lib/OpenSSL/jit/IdNTLMOpenSSL.pas"/>
+        <Filename Value="../Lib/OpenSSL/current/IdNTLMOpenSSL.pas"/>
         <UnitName Value="IdNTLMOpenSSL"/>
       </Item>
       <Item>
-        <Filename Value="../Lib/OpenSSL/jit/IdSSLOpenSSL.pas"/>
+        <Filename Value="../Lib/OpenSSL/current/IdResourceStringsOpenSSL.pas"/>
+        <UnitName Value="IdResourceStringsOpenSSL"/>
+      </Item>
+      <Item>
+        <Filename Value="../Lib/OpenSSL/current/IdSSLOpenSSL.pas"/>
         <UnitName Value="IdSSLOpenSSL"/>
       </Item>
       <Item>
-        <Filename Value="../Lib/OpenSSL/jit/IdSSLOpenSSLFIPS.pas"/>
+        <Filename Value="../Lib/OpenSSL/current/IdSSLOpenSSLFIPS.pas"/>
         <UnitName Value="IdSSLOpenSSLFIPS"/>
       </Item>
     </Files>

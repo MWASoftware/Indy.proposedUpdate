@@ -6,9 +6,9 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <IncludeFiles Value="../Lib/OpenSSL/smartLinking"/>
-        <OtherUnitFiles Value="../Lib/OpenSSL/smartLinking;../Lib/OpenSSL/smartLinking/opensslHdrs"/>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+        <IncludeFiles Value="../Lib/OpenSSL/current;../Lib/OpenSSL/current/opensslHdrs/smart"/>
+        <OtherUnitFiles Value="../Lib/OpenSSL/current;../Lib/OpenSSL/current/opensslHdrs/smart"/>
+        <UnitOutputDirectory Value="lib/smart/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
         <CustomOptions Value="-Ur"/>
@@ -37,20 +37,20 @@ THIS SOFTWARE IS PROVIDED BY Chad Z. Hower (Kudzu) and the Indy Pit Crew &amp;am
     <Version Major="10" Minor="6" Release="3"/>
     <Files>
       <Item>
-        <Filename Value="../Lib/OpenSSL/smartLinking/IdResourceStringsOpenSSL.pas"/>
+        <Filename Value="../Lib/OpenSSL/current/IdNTLMOpenSSL.pas"/>
+        <UnitName Value="IdNTLMOpenSSL"/>
+      </Item>
+      <Item>
+        <Filename Value="../Lib/OpenSSL/current/IdResourceStringsOpenSSL.pas"/>
         <UnitName Value="IdResourceStringsOpenSSL"/>
       </Item>
       <Item>
-        <Filename Value="../Lib/OpenSSL/smartLinking/IdSSLOpenSSL.pas"/>
+        <Filename Value="../Lib/OpenSSL/current/IdSSLOpenSSL.pas"/>
         <UnitName Value="IdSSLOpenSSL"/>
       </Item>
       <Item>
-        <Filename Value="../Lib/OpenSSL/smartLinking/IdSSLOpenSSLFIPS.pas"/>
+        <Filename Value="../Lib/OpenSSL/current/IdSSLOpenSSLFIPS.pas"/>
         <UnitName Value="IdSSLOpenSSLFIPS"/>
-      </Item>
-      <Item>
-        <Filename Value="../Lib/OpenSSL/smartLinking/IdNTLMOpenSSL.pas"/>
-        <UnitName Value="IdNTLMOpenSSL"/>
       </Item>
     </Files>
     <RequiredPkgs>
