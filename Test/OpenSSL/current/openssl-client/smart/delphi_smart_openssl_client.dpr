@@ -1,4 +1,4 @@
-program delphi_openssl_client;
+program delphi_smart_openssl_client;
 
 {$APPTYPE CONSOLE}
 
@@ -6,7 +6,7 @@ program delphi_openssl_client;
 
 uses
   System.SysUtils,
-  TestClient in 'TestClient.pas';
+  TestClient in '..\TestClient.pas';
 
 var
   Application: TBasicHttpsClient;

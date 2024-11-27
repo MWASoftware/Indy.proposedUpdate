@@ -1,4 +1,4 @@
-program delphi_openssl_server;
+program delphi_jit_openssl_server;
 
 {$APPTYPE CONSOLE}
 
@@ -6,7 +6,7 @@ program delphi_openssl_server;
 
 uses
   System.SysUtils,
-  testserver in 'testserver.pas';
+  testserver in '..\testserver.pas';
 
 var
   Application: TOpenSSLServerTest;

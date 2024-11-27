@@ -32,7 +32,7 @@ interface
 
 // Headers for OpenSSL 1.1.1
 // crypto.h
-
+{$J+}
 
 uses
   IdSSLOpenSSLAPI,

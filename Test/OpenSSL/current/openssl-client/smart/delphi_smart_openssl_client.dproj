@@ -1,9 +1,9 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{5A8CD527-7B80-4061-A9D5-6FB19B77DF32}</ProjectGuid>
+        <ProjectGuid>{04CF3EA1-2EE1-4D33-8D85-8D8D28CF1F19}</ProjectGuid>
         <ProjectVersion>18.1</ProjectVersion>
         <FrameworkType>None</FrameworkType>
-        <MainSource>delphi_openssl_client.dpr</MainSource>
+        <MainSource>delphi_smart_openssl_client.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -35,7 +35,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <SanitizedProjectName>delphi_openssl_client</SanitizedProjectName>
+        <SanitizedProjectName>delphi_smart_openssl_client</SanitizedProjectName>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
         <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
         <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
@@ -61,9 +61,10 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <DCC_DcuOutput>$(Platform)\$(Config)</DCC_DcuOutput>
         <DCC_UsePackage>IndySystem290;IndyCore290;IndyProtocols290;IndyOpenSSLSmart290;$(DCC_UsePackage)</DCC_UsePackage>
         <UsePackages>true</UsePackages>
-        <DCC_ExeOutput>.</DCC_ExeOutput>
+        <DCC_ExeOutput>..</DCC_ExeOutput>
         <Debugger_HostApplication>C:\Users\A User\projects\Indy\test\openssl\openssl-client\Win32\Debug\Project1.exe</Debugger_HostApplication>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>(None)</Manifest_File>
@@ -79,7 +80,7 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="TestClient.pas"/>
+        <DCCReference Include="..\TestClient.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -98,9 +99,12 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">delphi_openssl_client.dpr</Source>
+                    <Source Name="MainSource">delphi_smart_openssl_client.dpr</Source>
                 </Source>
-                <Excluded_Packages/>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclIndyCore240.bpl">Indy 10 Core Design Time</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclIndyProtocols240.bpl">Indy 10 Protocols Design Time</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Platforms>
                 <Platform value="Win32">True</Platform>

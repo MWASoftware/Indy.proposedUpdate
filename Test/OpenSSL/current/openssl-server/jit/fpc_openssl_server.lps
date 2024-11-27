@@ -12,6 +12,14 @@
         <Loaded Value="True"/>
       </Unit>
       <Unit>
+        <Filename Value="../testserver.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="31"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
         <Filename Value="../openssl-client/fpc_openssl_client.lpr"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="9"/>
@@ -482,43 +490,46 @@
         <UsageCount Value="10"/>
       </Unit>
       <Unit>
-        <Filename Value="../testserver.pas"/>
-        <IsPartOfProject Value="True"/>
+        <Filename Value="../../../../../Lib/OpenSSL/current/opensslHdrs/jit/IdOpenSSLHeaders_crypto.pas"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="31"/>
-        <UsageCount Value="20"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="982"/>
+        <CursorPos Y="999"/>
+        <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory>
+      <Position>
+        <Filename Value="../testserver.pas"/>
+        <Caret TopLine="31"/>
+      </Position>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="default">
-        <Mode Name="default">
-          <local>
-            <CommandLineParams Value="../libs/1.0/x86_64"/>
-          </local>
-        </Mode>
+        <Mode Name="default"/>
       </Modes>
     </RunParams>
     <HistoryLists>
-      <List Name="CommandLineParameters" Count="11">
-        <Item1 Value="../libs/1.0/x86_64 "/>
-        <Item2 Value="../../libs/1.0/x86_64"/>
-        <Item3 Value="../libs/3.2/x86_64"/>
-        <Item4 Value="../libs/3.0/x86_64"/>
-        <Item5 Value="../libs/1.0/x86_64 -L"/>
-        <Item6 Value="../libs/3.3/x86_64"/>
-        <Item7 Value="../libs/3.3/x86_64 "/>
-        <Item8 Value="../libs/3.3/x86_64 -L"/>
-        <Item9 Value="-h"/>
-        <Item10 Value="../libs/1.0/x86_64"/>
-        <Item11 Value="../3.2/x86_64"/>
+      <List Name="CommandLineParameters" Count="14">
+        <Item2 Value="..\libs"/>
+        <Item3 Value="../libs/1.0/x86_64 "/>
+        <Item4 Value="../../libs/1.0/x86_64"/>
+        <Item5 Value="../libs/3.2/x86_64"/>
+        <Item6 Value="../libs/3.0/x86_64"/>
+        <Item7 Value="../libs/1.0/x86_64 -L"/>
+        <Item8 Value="../libs/3.3/x86_64"/>
+        <Item9 Value="../libs/3.3/x86_64 "/>
+        <Item10 Value="../libs/3.3/x86_64 -L"/>
+        <Item11 Value="-h"/>
+        <Item12 Value="../libs/1.0/x86_64"/>
+        <Item13 Value="../3.2/x86_64"/>
+        <Item14 Value="..\libs\1.0\x86_64"/>
       </List>
       <List Name="LaunchingApplication" Type="File" Count="3">
-        <Item1 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
-        <Item2 Value="C:\Windows\system32\cmd.exe \C ${TargetCmdLine}"/>
+        <Item1 Value="C:\Windows\system32\cmd.exe \C ${TargetCmdLine}"/>
+        <Item2 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
         <Item3 Value="C:\Windows\system32\cmd.exe /C ${TargetCmdLine}"/>
       </List>
       <List Name="WorkingDirectory" Type="File" Count="1"/>
