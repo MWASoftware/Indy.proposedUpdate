@@ -2,7 +2,14 @@ This is a "strawman" proposal to demonstrate a possible package split. That is
 separating out the OpenSSL Indy components into a separate package. This
 version is based on the current (2024-08-17) "master" branch on GitHub for IndySockets/Indy.
 
-Two OpenSSL package variations are provided for both Delphi and Lazarus.
+Three link models are supported.
+   Dynamic Library Load (the default and the approach used in previous versions)
+   compile time linkage to a shared (.so or .dll) library (OpenSSL 3.x only)
+   compile time linkage to a static library (FPC only with gcc compiled 
+OpenSSL).
+
+For Dynamic Library load, three OpenSSL package variations are provided for both Delphi and Lazarus.
+
 
 1. IndyOpenSSLLegacy (see Lib/OpenSSL/legacy)
 
@@ -19,20 +26,35 @@ IdSSLOpenSSLHeaders_static.pas
 IdSSLOpenSSL.pas
 IdSSLOpenSSLUtils.pas
 
-2. Smart Linking (see Lib/OpenSSL/smartLinking)
+Note. compile time linkage is not supported by this strategy.
 
-The OpenSSL units in this directory are taken from my original proposed update to Indy and uses the "smart 
-linking strategy". This creates an "all singing all dancing" OpenSSL package that supports 
-OpenSSL 1.0.2, 1.1.1 and 3.x and which dynamically adjusts to the version it finds. It is intended as a 
-"drop in" replacement for the legacy package..
+2. Smart Linking (see Lib/OpenSSL/current and Lib/OpenSSL/current/opensslHdrs/smart)
+
+The OpenSSL units in this directory are taken from my original proposed update to Indy. The OpenSSLHdrs
+and support units in Lib/OpenSSL/current/opensslHdrs/smart are generated from template header files which
+use the "smart" loading strategy. That is an attempt is made to load all OpenSSL API calls at load time
+and uses the "smart" linking strategy where a failure to load an API call results it being replaced by
+a compatibility function (if available) or an exception handler, or set to nil, depending on the approach selected
+in the template per API call.
+
+This creates an "all singing all dancing" OpenSSL package that supports 
+OpenSSL 1.0.2, 1.1.1 and 3.x and which dynamically adjusts to the version it finds. It is intended as an 
+almost "drop in" replacement for the legacy package. The main changes to the IdSSLOpenSSL unit are to 
+use OpenSSL 3.0 calls instead of exposed data structures - which are unavailable in OpenSSL 1.1.1 onwards.
 
 It probably works with earlier versions - but not tested.
 
-Three link models are supported.
-   Dynamic Library Load (the default and the approach used in previous versions)
-   compile time linkage to a shared (.so or .dll) library (OpenSSL 3.x only)
-   compile time linkage to a static library (FPC only with gcc compiled 
-OpenSSL).
+3. Just in Time Linking (see Lib/OpenSSL/current and Lib/OpenSSL/current/opensslHdrs/jit)
+
+This is a variation on Smart Linking where each API call is initialised to a local proc "loader" function.
+The intent is that on the first call a given API function, the actual entry point in the OpenSSL function
+is loaded and the API call is set to the loaded entry point. The API function is now called on the user's
+behalf. If the call fails to load then it is replaced by a compatibility function (if one exists). If none exists 
+then an exception is raised. If an API function is allowed to be nil (as set in the template), then the function
+is loaded at library load time as for the smart linking strategy.
+
+The intent of JIT is faster loading (only used API calls are loaded) and with a similar footprint for the library
+loader to the smart strategy.
 
 I have tested this package under the following scenarios:
 
@@ -42,12 +64,18 @@ I have tested this package under the following scenarios:
 
 3. Dynamic Load and Link. Delphi and Lazarus (Windows and Linux). OpenSSL 1.0.2, 1.1.1. and 3.x
 
-The different link strategies are selected at compile time by a "defined symbol" set in the OpenSSL
+For (2) and (3) above, the different link strategies are selected at compile time by a "defined symbol" set in the OpenSSL
 package options (not the using program), as follows:
 
 - OPENSSL_USE_STATIC_LIBRARY (Static Linking to Static Library)
 - OPENSSL_USE_SHARED_LIBRARY (Static Linking to Shared Library)
 - Neither of the above (Dynamic Load and Link).
+
+Note that (2) and (3) behave identically for Static and Shared library linking).
+
+The defined synbol OPENSSL_NO_LEGACY_SUPPORT may also be set at compile time and applies to Dynamic
+loading. If set, no compatibility functions are compile in to the executeable. Only 3.0 or later
+API calls may be used.
 
 
 Delphi Builds
@@ -69,42 +97,48 @@ To use OpenSSL in a given project, the IndyOpenSSLLegacy290 package must now be 
 
 Similarly, the packages
 
-IndyOpenSSLSmart290 and
+IndyOpenSSLSmart290
 dclIndyOpenSSLSmart290
+IndyOpenSSLJIT290
+dclIndyOpenSSLJIT290
 
-may be found in  Lib\OpenSSL\smartLinking
+may be found in  Lib\OpenSSL\current
 
-Smart Linking is selected for a given project by including the IndyOpenSSLSmart290 packing
-as a progect dependency instead of IndyOpenSSLLegacy290.
+Smart Linking is selected for a given project by including the IndyOpenSSLSmart290 package
+as a project dependency instead of IndyOpenSSLLegacy290.
+
+Alternatively, JIT linking is selected for a given project by including the IndyOpenSSLJIT290.
 
 Lib\Indy290.groupproj has been updated to include the new packages in the project group.
 
 icons\makedcr.bat has been updated to generate a .dcr package for the OpenSSL packages.
 
-Note that there are no conflicts when compiling the two as they output to different unit
+Note that there are no conflicts when compiling the three packages as they output to different unit
 directories. However, only one of the SSL design time packages may be added to the IDE
-at the same time, or add as a project dependency.
+at the same time, or added as a project dependency.
 
 
 Lazarus/FPC Builds
 ==================
 
-All lazaarus packages may be found in the lazarus-fpc top level folder. These are:
+All lazaarus packages may be found in the "lazarus-fpc/" top level folder. These are:
 
 indysystem.lpk
 indycore.lpk
 indyprotocols.lpk
 indyopenssllegacy.lpk
 indyopensslsmart.lpk
+indyopenssljit.lpk
 
 and the design time only packages
 
 indylaz.lpk
 indylaz_openssllegacy.lpk
 indylaz_indyopensslsmart
+indylaz_indyopenssljit
 
 In order to install this strawman branch for Lazarus (Windows and Linux), Open first 
-that package indylaz.lpk and click on install. Then Open indylaz_openssllegacy.lpk and 
+that package indylaz.lpk and click on install. Then Open the appropriate indylaz_opensslxxx.lpk and 
 click on install. The Indy Library should now be available for use.
 
 Test Programs
@@ -114,7 +148,9 @@ Two test programs are available with variants for Delphi and Lazarus, and set up
 These may be found in:
 
 1. Test/OpenSSL/legacy/openssl-client and Test/OpenSSL/legacy/openssl-server.
-1. Test/OpenSSL/smart/openssl-client and Test/OpenSSL/smart/openssl-server.
+2. Test/OpenSSL/current/openssl-client and Test/OpenSSL/current/openssl-server.
+
+Note the smart and jit test programs are located in the smart and jit sub-directories of 2 above.
 
 openssl-client uses an HTTP Client to issue an http Get on an https target and returns 
 the result. The server certificate is also verified (Linux only for legacy version).
@@ -122,10 +158,13 @@ the result. The server certificate is also verified (Linux only for legacy versi
 openssl-server provides both and a server and uses a local PKI to retrieve a web page 
 from the server, with both client and server certificate verification and to return the result.
 
+Note: in all cases the compiled programs are placed in the openssl-client or openssl-server
+directories and their name includes the link strategy used.
+
 Note that for Delphi, two convenience project groups are provided:
 
 Test\OpenSSL\legacy\OpenSSLTests.groupprog and
-Test\OpenSSL\smart\OpenSSLTests.groupprog
+Test\OpenSSL\current\OpenSSLTests.groupprog
 
 These build both test programs and their supporting packages as a single project group. You do
 not have to install the design time packages in order to use the test programs.
