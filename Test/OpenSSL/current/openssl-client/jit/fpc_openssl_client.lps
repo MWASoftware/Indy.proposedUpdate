@@ -7,7 +7,6 @@
       <Unit>
         <Filename Value="fpc_openssl_client.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos X="32" Y="9"/>
         <UsageCount Value="107"/>
         <Loaded Value="True"/>
@@ -1565,8 +1564,8 @@
       </Unit>
       <Unit>
         <Filename Value="../../../../../Lib/OpenSSL/current/opensslHdrs/jit/IdOpenSSLHeaders_crypto.pas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="770"/>
         <CursorPos X="14" Y="777"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -1587,37 +1586,37 @@
       <Modes ActiveMode="default">
         <Mode Name="default">
           <local>
-            <CommandLineParams Value="../libs"/>
+            <CommandLineParams Value="-L"/>
           </local>
         </Mode>
       </Modes>
     </RunParams>
     <HistoryLists>
       <List Name="LaunchingApplication" Type="File" Count="3">
-        <Item1 Value="C:\Windows\system32\cmd.exe \C ${TargetCmdLine}"/>
-        <Item2 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+        <Item1 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+        <Item2 Value="C:\Windows\system32\cmd.exe \C ${TargetCmdLine}"/>
         <Item3 Value="C:\Windows\system32\cmd.exe /C ${TargetCmdLine}"/>
       </List>
-      <List Name="CommandLineParameters" Count="20">
-        <Item1 Value="../libs"/>
-        <Item3 Value="../libs/1.1/x86_64 -L"/>
-        <Item4 Value="../../libs/3.3/x86_64 -L"/>
-        <Item5 Value="../libs/3.3/x86_64 -L"/>
+      <List Name="CommandLineParameters" Count="19">
+        <Item1 Value="-L"/>
+        <Item2 Value="../libs/3.3/x86_64 -L"/>
+        <Item3 Value="../libs"/>
+        <Item4 Value="../libs/1.1/x86_64 -L"/>
+        <Item5 Value="../../libs/3.3/x86_64 -L"/>
         <Item6 Value="../libs/3.3/x86_64"/>
         <Item7 Value="../libs/1.0/x86_64 -L"/>
         <Item8 Value="../libs/3.0/x86_64 -L"/>
-        <Item9 Value="-L"/>
-        <Item10 Value="../libs/3.1/x86_64 -L"/>
-        <Item11 Value="-L /home/tony/Indy/svn/test/openssl/libs/1.0/x86_64"/>
-        <Item12 Value="../libs/3.2/x86_64 -L"/>
-        <Item13 Value="-n"/>
-        <Item14 Value="-X"/>
-        <Item15 Value="../libs/1.0/x86_64"/>
-        <Item16 Value="-h"/>
-        <Item17 Value="../libs/3.2/x86_64"/>
-        <Item18 Value="../libs/3.2/x86_64 -l /etc/ssl/certs"/>
-        <Item19 Value="../libs/3.0/x86_64"/>
-        <Item20 Value="..\libs\3.0\x86_64"/>
+        <Item9 Value="../libs/3.1/x86_64 -L"/>
+        <Item10 Value="-L /home/tony/Indy/svn/test/openssl/libs/1.0/x86_64"/>
+        <Item11 Value="../libs/3.2/x86_64 -L"/>
+        <Item12 Value="-n"/>
+        <Item13 Value="-X"/>
+        <Item14 Value="../libs/1.0/x86_64"/>
+        <Item15 Value="-h"/>
+        <Item16 Value="../libs/3.2/x86_64"/>
+        <Item17 Value="../libs/3.2/x86_64 -l /etc/ssl/certs"/>
+        <Item18 Value="../libs/3.0/x86_64"/>
+        <Item19 Value="..\libs\3.0\x86_64"/>
       </List>
       <List Name="WorkingDirectory" Type="File" Count="1"/>
     </HistoryLists>

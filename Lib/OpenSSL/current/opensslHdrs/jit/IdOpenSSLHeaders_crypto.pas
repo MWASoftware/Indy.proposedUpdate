@@ -32,6 +32,8 @@ interface
 
 // Headers for OpenSSL 1.1.1
 // crypto.h
+
+{$J+}
 {$J+}
 
 uses
@@ -1795,10 +1797,17 @@ end;
 
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 
+{$WARN  NO_RETVAL OFF}
+{$J+}
+{$WARN  NO_RETVAL ON}
+
 procedure UnLoad;
 begin
+{$J+}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
   OPENSSL_malloc := Load_OPENSSL_malloc;
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
   OPENSSL_zalloc := Load_OPENSSL_zalloc;
   OPENSSL_realloc := Load_OPENSSL_realloc;
   OPENSSL_clear_realloc := Load_OPENSSL_clear_realloc;

@@ -32,6 +32,8 @@ interface
 
 // Headers for OpenSSL 1.1.1
 // crypto.h
+
+{$J+}
 {$J+}
 
 uses
@@ -1032,6 +1034,7 @@ end;
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 
 {$WARN  NO_RETVAL OFF}
+{$J+}
 {$IFDEF OPENSSL_NO_LEGACY_SUPPORT}
 function ERROR_OPENSSL_malloc(num: TOpenSSL_C_SIZET): Pointer; cdecl;
 begin
@@ -1490,6 +1493,7 @@ end;
 procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
 var FuncLoadError: boolean;
 begin
+{$J+}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
   OPENSSL_malloc := LoadLibCryptoFunction('OPENSSL_malloc');
   FuncLoadError := not assigned(OPENSSL_malloc);
@@ -1501,7 +1505,9 @@ begin
     if FuncLoadError then
       AFailed.Add('OPENSSL_malloc');
   end;
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
   OPENSSL_zalloc := LoadLibCryptoFunction('OPENSSL_zalloc');
   FuncLoadError := not assigned(OPENSSL_zalloc);
   if FuncLoadError then
@@ -2342,8 +2348,11 @@ end;
 
 procedure UnLoad;
 begin
+{$J+}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
   OPENSSL_malloc := nil;
+{$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
   OPENSSL_zalloc := nil;
   OPENSSL_realloc := nil;
   OPENSSL_clear_realloc := nil;
