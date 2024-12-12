@@ -2,15 +2,15 @@
 <CONFIG>
   <Package Version="5">
     <Name Value="indyopenssl"/>
-    <Type Value="RunTimeOnly"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
         <IncludeFiles Value="../Lib/OpenSSL;../Lib/OpenSSL/opensslHdrs"/>
         <OtherUnitFiles Value="../Lib/OpenSSL;../Lib/OpenSSL/opensslHdrs"/>
-        <UnitOutputDirectory Value="../Lib/OpenSSL/lib/$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
+        <CustomOptions Value="-dOPENSSL_USE_SHARED_LIBRARY"/>
         <OtherDefines Count="3">
           <Define0 Value="OPENSSL_USE_STATIC_LIBRARY"/>
           <Define1 Value="OPENSSL_USE_SHARED_LIBRARY"/>

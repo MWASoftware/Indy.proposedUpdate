@@ -18,22 +18,10 @@
         <Projects Include="Protocols\dclIndyProtocols290.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="OpenSSL\legacy\IndyOpenSSLLegacy290.dproj">
+        <Projects Include="OpenSSL\IndyOpenSSL290.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="OpenSSL\legacy\dclIndyOpenSSLLegacy290.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="OpenSSL\current\IndyOpenSSLSmart290.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="OpenSSL\current\dclIndyOpenSSLSmart290.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="OpenSSL\current\IndyOpenSSLJIT290.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="OpenSSL\current\dclIndyOpenSSLJIT290.dproj">
+        <Projects Include="OpenSSL\dclIndyOpenSSL290.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -89,68 +77,32 @@
     <Target Name="dclIndyProtocols290:Make">
         <MSBuild Projects="Protocols\dclIndyProtocols290.dproj" Targets="Make"/>
     </Target>
-    <Target Name="IndyOpenSSLLegacy290">
-        <MSBuild Projects="OpenSSL\legacy\IndyOpenSSLLegacy290.dproj"/>
+    <Target Name="IndyOpenSSL290">
+        <MSBuild Projects="OpenSSL\IndyOpenSSL290.dproj"/>
     </Target>
-    <Target Name="IndyOpenSSLLegacy290:Clean">
-        <MSBuild Projects="OpenSSL\legacy\IndyOpenSSLLegacy290.dproj" Targets="Clean"/>
+    <Target Name="IndyOpenSSL290:Clean">
+        <MSBuild Projects="OpenSSL\IndyOpenSSL290.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="IndyOpenSSLLegacy290:Make">
-        <MSBuild Projects="OpenSSL\legacy\IndyOpenSSLLegacy290.dproj" Targets="Make"/>
+    <Target Name="IndyOpenSSL290:Make">
+        <MSBuild Projects="OpenSSL\IndyOpenSSL290.dproj" Targets="Make"/>
     </Target>
-    <Target Name="dclIndyOpenSSLLegacy290">
-        <MSBuild Projects="OpenSSL\legacy\dclIndyOpenSSLLegacy290.dproj"/>
+    <Target Name="dclIndyOpenSSL290">
+        <MSBuild Projects="OpenSSL\dclIndyOpenSSL290.dproj"/>
     </Target>
-    <Target Name="dclIndyOpenSSLLegacy290:Clean">
-        <MSBuild Projects="OpenSSL\legacy\dclIndyOpenSSLLegacy290.dproj" Targets="Clean"/>
+    <Target Name="dclIndyOpenSSL290:Clean">
+        <MSBuild Projects="OpenSSL\dclIndyOpenSSL290.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="dclIndyOpenSSLLegacy290:Make">
-        <MSBuild Projects="OpenSSL\legacy\dclIndyOpenSSLLegacy290.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="IndyOpenSSLSmart290">
-        <MSBuild Projects="OpenSSL\current\IndyOpenSSLSmart290.dproj"/>
-    </Target>
-    <Target Name="IndyOpenSSLSmart290:Clean">
-        <MSBuild Projects="OpenSSL\current\IndyOpenSSLSmart290.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="IndyOpenSSLSmart290:Make">
-        <MSBuild Projects="OpenSSL\current\IndyOpenSSLSmart290.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="dclIndyOpenSSLSmart290">
-        <MSBuild Projects="OpenSSL\current\dclIndyOpenSSLSmart290.dproj"/>
-    </Target>
-    <Target Name="dclIndyOpenSSLSmart290:Clean">
-        <MSBuild Projects="OpenSSL\current\dclIndyOpenSSLSmart290.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="dclIndyOpenSSLSmart290:Make">
-        <MSBuild Projects="OpenSSL\current\dclIndyOpenSSLSmart290.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="IndyOpenSSLJIT290">
-        <MSBuild Projects="OpenSSL\current\IndyOpenSSLJIT290.dproj"/>
-    </Target>
-    <Target Name="IndyOpenSSLJIT290:Clean">
-        <MSBuild Projects="OpenSSL\current\IndyOpenSSLJIT290.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="IndyOpenSSLJIT290:Make">
-        <MSBuild Projects="OpenSSL\current\IndyOpenSSLJIT290.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="dclIndyOpenSSLJIT290">
-        <MSBuild Projects="OpenSSL\current\dclIndyOpenSSLJIT290.dproj"/>
-    </Target>
-    <Target Name="dclIndyOpenSSLJIT290:Clean">
-        <MSBuild Projects="OpenSSL\current\dclIndyOpenSSLJIT290.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="dclIndyOpenSSLJIT290:Make">
-        <MSBuild Projects="OpenSSL\current\dclIndyOpenSSLJIT290.dproj" Targets="Make"/>
+    <Target Name="dclIndyOpenSSL290:Make">
+        <MSBuild Projects="OpenSSL\dclIndyOpenSSL290.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="IndySystem290;IndyCore290;IndyProtocols290;dclIndyCore290;dclIndyProtocols290;IndyOpenSSLLegacy290;dclIndyOpenSSLLegacy290;IndyOpenSSLSmart290;dclIndyOpenSSLSmart290;IndyOpenSSLJIT290;dclIndyOpenSSLJIT290"/>
+        <CallTarget Targets="IndySystem290;IndyCore290;IndyProtocols290;dclIndyCore290;dclIndyProtocols290;IndyOpenSSL290;dclIndyOpenSSL290"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="IndySystem290:Clean;IndyCore290:Clean;IndyProtocols290:Clean;dclIndyCore290:Clean;dclIndyProtocols290:Clean;IndyOpenSSLLegacy290:Clean;dclIndyOpenSSLLegacy290:Clean;IndyOpenSSLSmart290:Clean;dclIndyOpenSSLSmart290:Clean;IndyOpenSSLJIT290:Clean;dclIndyOpenSSLJIT290:Clean"/>
+        <CallTarget Targets="IndySystem290:Clean;IndyCore290:Clean;IndyProtocols290:Clean;dclIndyCore290:Clean;dclIndyProtocols290:Clean;IndyOpenSSL290:Clean;dclIndyOpenSSL290:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="IndySystem290:Make;IndyCore290:Make;IndyProtocols290:Make;dclIndyCore290:Make;dclIndyProtocols290:Make;IndyOpenSSLLegacy290:Make;dclIndyOpenSSLLegacy290:Make;IndyOpenSSLSmart290:Make;dclIndyOpenSSLSmart290:Make;IndyOpenSSLJIT290:Make;dclIndyOpenSSLJIT290:Make"/>
+        <CallTarget Targets="IndySystem290:Make;IndyCore290:Make;IndyProtocols290:Make;dclIndyCore290:Make;dclIndyProtocols290:Make;IndyOpenSSL290:Make;dclIndyOpenSSL290:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

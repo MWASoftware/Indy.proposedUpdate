@@ -3,31 +3,22 @@
         <ProjectGuid>{C6B0A5B7-110A-44BE-869E-60EA969EEB9D}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="..\..\..\Lib\System\IndySystem290.dproj">
+        <Projects Include="..\..\Lib\System\IndySystem290.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\Lib\Core\IndyCore290.dproj">
+        <Projects Include="..\..\Lib\Core\IndyCore290.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\Lib\Protocols\IndyProtocols290.dproj">
+        <Projects Include="..\..\Lib\Protocols\IndyProtocols290.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\Lib\OpenSSL\current\IndyOpenSSLJIT290.dproj">
+        <Projects Include="..\..\Lib\OpenSSL\IndyOpenSSL290.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\Lib\OpenSSL\current\IndyOpenSSLSmart290.dproj">
+        <Projects Include="openssl-client\delphi_openssl_client.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="openssl-client\jit\delphi_jit_openssl_client.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="openssl-server\jit\delphi_jit_openssl_server.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="openssl-client\smart\delphi_smart_openssl_client.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="openssl-server\smart\delphi_smart_openssl_server.dproj">
+        <Projects Include="openssl-server\delphi_openssl_server.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -39,94 +30,67 @@
         </BorlandProject>
     </ProjectExtensions>
     <Target Name="IndySystem290">
-        <MSBuild Projects="..\..\..\Lib\System\IndySystem290.dproj"/>
+        <MSBuild Projects="..\..\Lib\System\IndySystem290.dproj"/>
     </Target>
     <Target Name="IndySystem290:Clean">
         <MSBuild Projects="..\..\..\Lib\System\IndySystem290.dproj" Targets="Clean"/>
     </Target>
     <Target Name="IndySystem290:Make">
-        <MSBuild Projects="..\..\..\Lib\System\IndySystem290.dproj" Targets="Make"/>
+        <MSBuild Projects="..\..\Lib\System\IndySystem290.dproj" Targets="Make"/>
     </Target>
     <Target Name="IndyCore290">
-        <MSBuild Projects="..\..\..\Lib\Core\IndyCore290.dproj"/>
+        <MSBuild Projects="..\..\Lib\Core\IndyCore290.dproj"/>
     </Target>
     <Target Name="IndyCore290:Clean">
-        <MSBuild Projects="..\..\..\Lib\Core\IndyCore290.dproj" Targets="Clean"/>
+        <MSBuild Projects="..\..\Lib\Core\IndyCore290.dproj" Targets="Clean"/>
     </Target>
     <Target Name="IndyCore290:Make">
-        <MSBuild Projects="..\..\..\Lib\Core\IndyCore290.dproj" Targets="Make"/>
+        <MSBuild Projects="..\..\Lib\Core\IndyCore290.dproj" Targets="Make"/>
     </Target>
     <Target Name="IndyProtocols290">
-        <MSBuild Projects="..\..\..\Lib\Protocols\IndyProtocols290.dproj"/>
+        <MSBuild Projects="..\..\Lib\Protocols\IndyProtocols290.dproj"/>
     </Target>
     <Target Name="IndyProtocols290:Clean">
-        <MSBuild Projects="..\..\..\Lib\Protocols\IndyProtocols290.dproj" Targets="Clean"/>
+        <MSBuild Projects="..\..\Lib\Protocols\IndyProtocols290.dproj" Targets="Clean"/>
     </Target>
     <Target Name="IndyProtocols290:Make">
-        <MSBuild Projects="..\..\..\Lib\Protocols\IndyProtocols290.dproj" Targets="Make"/>
+        <MSBuild Projects="..\Lib\Protocols\IndyProtocols290.dproj" Targets="Make"/>
     </Target>
-    <Target Name="IndyOpenSSLJIT290">
-        <MSBuild Projects="..\..\..\Lib\OpenSSL\current\IndyOpenSSLJIT290.dproj"/>
+    <Target Name="IndyOpenSSL290">
+        <MSBuild Projects="..\..\Lib\OpenSSL\IndyOpenSSL290.dproj"/>
     </Target>
-    <Target Name="IndyOpenSSLJIT290:Clean">
-        <MSBuild Projects="..\..\..\Lib\OpenSSL\current\IndyOpenSSLJIT290.dproj" Targets="Clean"/>
+    <Target Name="IndyOpenSSL290:Clean">
+        <MSBuild Projects="..\..\Lib\OpenSSL\IndyOpenSSL290.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="IndyOpenSSLJIT290:Make">
-        <MSBuild Projects="..\..\..\Lib\OpenSSL\current\IndyOpenSSLJIT290.dproj" Targets="Make"/>
+    <Target Name="IndyOpenSSL290:Make">
+        <MSBuild Projects="..\..\Lib\OpenSSL\IndyOpenSSL290.dproj" Targets="Make"/>
     </Target>
-    <Target Name="IndyOpenSSLSmart290">
-        <MSBuild Projects="..\..\..\Lib\OpenSSL\current\IndyOpenSSLSmart290.dproj"/>
+    <Target Name="delphi_openssl_client">
+        <MSBuild Projects="openssl-client\delphi_openssl_client.dproj"/>
     </Target>
-    <Target Name="IndyOpenSSLSmart290:Clean">
-        <MSBuild Projects="..\..\..\Lib\OpenSSL\current\IndyOpenSSLSmart290.dproj" Targets="Clean"/>
+    <Target Name="delphi_openssl_client:Clean">
+        <MSBuild Projects="openssl-client\delphi_openssl_client.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="IndyOpenSSLSmart290:Make">
-        <MSBuild Projects="..\..\..\Lib\OpenSSL\current\IndyOpenSSLSmart290.dproj" Targets="Make"/>
+    <Target Name="delphi_openssl_client:Make">
+        <MSBuild Projects="openssl-client\delphi_openssl_client.dproj" Targets="Make"/>
     </Target>
-    <Target Name="delphi_jit_openssl_client">
-        <MSBuild Projects="openssl-client\jit\delphi_jit_openssl_client.dproj"/>
+    <Target Name="delphi_openssl_server">
+        <MSBuild Projects="openssl-server\delphi_openssl_server.dproj"/>
     </Target>
-    <Target Name="delphi_jit_openssl_client:Clean">
-        <MSBuild Projects="openssl-client\jit\delphi_jit_openssl_client.dproj" Targets="Clean"/>
+    <Target Name="delphi_openssl_server:Clean">
+        <MSBuild Projects="openssl-server\delphi_openssl_server.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="delphi_jit_openssl_client:Make">
-        <MSBuild Projects="openssl-client\jit\delphi_jit_openssl_client.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="delphi_jit_openssl_server">
-        <MSBuild Projects="openssl-server\jit\delphi_jit_openssl_server.dproj"/>
-    </Target>
-    <Target Name="delphi_jit_openssl_server:Clean">
-        <MSBuild Projects="openssl-server\jit\delphi_jit_openssl_server.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="delphi_jit_openssl_server:Make">
-        <MSBuild Projects="openssl-server\jit\delphi_jit_openssl_server.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="delphi_smart_openssl_client">
-        <MSBuild Projects="openssl-client\smart\delphi_smart_openssl_client.dproj"/>
-    </Target>
-    <Target Name="delphi_smart_openssl_client:Clean">
-        <MSBuild Projects="openssl-client\smart\delphi_smart_openssl_client.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="delphi_smart_openssl_client:Make">
-        <MSBuild Projects="openssl-client\smart\delphi_smart_openssl_client.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="delphi_smart_openssl_server">
-        <MSBuild Projects="openssl-server\smart\delphi_smart_openssl_server.dproj"/>
-    </Target>
-    <Target Name="delphi_smart_openssl_server:Clean">
-        <MSBuild Projects="openssl-server\smart\delphi_smart_openssl_server.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="delphi_smart_openssl_server:Make">
-        <MSBuild Projects="openssl-server\smart\delphi_smart_openssl_server.dproj" Targets="Make"/>
+    <Target Name="delphi_openssl_server:Make">
+        <MSBuild Projects="openssl-server\delphi_openssl_server.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="IndySystem290;IndyCore290;IndyProtocols290;IndyOpenSSLJIT290;IndyOpenSSLSmart290;delphi_jit_openssl_client;delphi_jit_openssl_server;delphi_smart_openssl_client;delphi_smart_openssl_server"/>
+        <CallTarget Targets="IndySystem290;IndyCore290;IndyProtocols290;IndyOpenSSL290;delphi_openssl_client;delphi_openssl_server;delphi_smart_openssl_client;delphi_smart_openssl_server"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="IndySystem290:Clean;IndyCore290:Clean;IndyProtocols290:Clean;IndyOpenSSLJIT290:Clean;IndyOpenSSLSmart290:Clean;delphi_jit_openssl_client:Clean;delphi_jit_openssl_server:Clean;delphi_smart_openssl_client:Clean;delphi_smart_openssl_server:Clean"/>
+        <CallTarget Targets="IndySystem290:Clean;IndyCore290:Clean;IndyProtocols290:Clean;IndyOpenSSL290:Clean;delphi_openssl_client:Clean;delphi_openssl_server:Clean;delphi_smart_openssl_client:Clean;delphi_smart_openssl_server:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="IndySystem290:Make;IndyCore290:Make;IndyProtocols290:Make;IndyOpenSSLJIT290:Make;IndyOpenSSLSmart290:Make;delphi_jit_openssl_client:Make;delphi_jit_openssl_server:Make;delphi_smart_openssl_client:Make;delphi_smart_openssl_server:Make"/>
+        <CallTarget Targets="IndySystem290:Make;IndyCore290:Make;IndyProtocols290:Make;IndyOpenSSL290:Make;delphi_openssl_client:Make;delphi_openssl_server:Make;delphi_smart_openssl_client:Make;delphi_smart_openssl_server:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

@@ -7,7 +7,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <OtherUnitFiles Value="../src/OpenSSL/"/>
+        <OtherUnitFiles Value="../Lib/OpenSSL"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
@@ -30,7 +30,7 @@ THIS SOFTWARE IS PROVIDED BY Chad Z. Hower (Kudzu) and the Indy Pit Crew &amp;am
     <Version Major="10" Minor="6" Release="3"/>
     <Files>
       <Item>
-        <Filename Value="../src/OpenSSL/IdRegisterSSL.pas"/>
+        <Filename Value="../Lib/OpenSSL/IdRegisterSSL.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="IdRegisterSSL"/>
       </Item>

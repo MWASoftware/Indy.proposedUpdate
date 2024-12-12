@@ -42,7 +42,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="../fpc_openssl_server"/>
+      <Filename Value="fpc_openssl_server"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
