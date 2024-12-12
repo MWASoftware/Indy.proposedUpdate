@@ -10,7 +10,6 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
-        <CustomOptions Value="-dOPENSSL_USE_SHARED_LIBRARY"/>
         <OtherDefines Count="3">
           <Define0 Value="OPENSSL_USE_STATIC_LIBRARY"/>
           <Define1 Value="OPENSSL_USE_SHARED_LIBRARY"/>
