@@ -1,4 +1,6 @@
-# Indy - Internet Direct
+# Indy - Internet Direct - Proposed Update
+
+This is a proposed update to Indy adding support for OpenSSL 3.x. See Readme.OpenSSL for more information.
 
 Indy is a well-known internet component suite for **Delphi**, **C++Builder**, and **Free Pascal** providing both low-level 
 support (TCP, UDP, raw sockets) and over a 120 higher level protocols (SMTP, POP3, NNT, HTTP, FTP) for building both client and server applications.
