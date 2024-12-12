@@ -106,5 +106,18 @@ When testing under Lazarus, similarly you do not need to have installed the desi
 However, you need to at least "open" the dependent packages so that the IDE knows where to find
 them.
 
+Test program command line arguments:
+
+Usage: fpc_openssl_client [-h] [-n] [-l <cacerts dir>] [-L] [OpenSSL lib dir]
+
+Usage: fpc_openssl_client [-h] [-n] [-l <cacerts dir>] [-L] [OpenSSL lib dir]
+
+-L is useful under Linux when the OpenSSL Library used has not been installed and 
+   hence does not know where to find its X.509 certificate store. When -L is
+   given, the program searches a list of possible locations.
+
+
+
+
 
 
