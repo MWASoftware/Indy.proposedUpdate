@@ -43,6 +43,13 @@ uses
   IdOpenSSLHeaders_objects,
   IdOpenSSLHeaders_ossl_typ;
 
+// the following emits are a workaround to a
+// name conflict with Win32 API header files
+{$IFDEF SYS_WIN}
+(*$HPPEMIT '#undef X509_EXTENSIONS'*)
+(*$HPPEMIT '#undef X509_CERT_PAIR'*)
+{$ENDIF}
+
 type
   X509_ALGORS = type Pointer;
 

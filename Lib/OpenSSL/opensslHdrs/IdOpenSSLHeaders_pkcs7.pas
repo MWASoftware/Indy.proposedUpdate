@@ -38,6 +38,13 @@ uses
   IdSSLOpenSSLAPI,
   IdOpenSSLHeaders_ossl_typ;
 
+// the following emits are a workaround to a
+// name conflict with Win32 API header files
+{$IFDEF SYS_WIN}
+(*$HPPEMIT '#undef PKCS7_ISSUER_AND_SERIAL'*)
+(*$HPPEMIT '#undef PKCS7_SIGNER_INFO'*)
+{$ENDIF}
+
 const
   PKCS7_S_HEADER = 0;
   PKCS7_S_BODY   = 1;

@@ -37,6 +37,15 @@ interface
 uses
   IdSSLOpenSSLAPI;
 
+// the following emits are a workaround to a
+// name conflict with Win32 API header files
+(*$HPPEMIT '#include <time.h>'*)
+{$IFDEF SYS_WIN}
+(*$HPPEMIT '#undef X509_NAME'*)
+(*$HPPEMIT '#undef OCSP_RESPONSE'*)
+(*$HPPEMIT '#undef OCSP_REQUEST'*)
+{$ENDIF}
+
 type
 // moved from unit "asn1" to prevent circular references
   asn1_string_st = record
