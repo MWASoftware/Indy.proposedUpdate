@@ -146,10 +146,10 @@ procedure RC4(key:PRC4_KEY; len: TOpenSSL_C_SIZET; const indata: Pbyte; outdata:
 {$IFNDEF OPENSSL_NO_RC4}
   
 var
-  RC4_options: function : PAnsiChar; cdecl = nil;
-  RC4_set_key: procedure (key:PRC4_KEY; len: TOpenSSL_C_LONG; const data:Pbyte); cdecl = nil;
-  private_RC4_set_key: procedure (key:PRC4_KEY; len: TOpenSSL_C_LONG; const data:Pbyte); cdecl = nil;
-  RC4: procedure (key:PRC4_KEY; len: TOpenSSL_C_SIZET; const indata: Pbyte; outdata: Pbyte); cdecl = nil;
+  RC4_options: function : PAnsiChar; cdecl = nil; { allow_nil}
+  RC4_set_key: procedure (key:PRC4_KEY; len: TOpenSSL_C_LONG; const data:Pbyte); cdecl = nil; { allow_nil}
+  private_RC4_set_key: procedure (key:PRC4_KEY; len: TOpenSSL_C_LONG; const data:Pbyte); cdecl = nil; { allow_nil}
+  RC4: procedure (key:PRC4_KEY; len: TOpenSSL_C_SIZET; const indata: Pbyte; outdata: Pbyte); cdecl = nil; { allow_nil}
 {$ENDIF}
 {$ENDIF}
 
@@ -164,6 +164,12 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$IFNDEF OPENSSL_NO_RC4}
+{$ENDIF}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

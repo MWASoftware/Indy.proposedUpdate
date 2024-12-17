@@ -53,7 +53,7 @@ type
     type_: TOpenSSL_C_INT;
     data: PByte;
     (*
-     * The value of the following field depends on the type being held.  It
+     * The value of the following field depends on the type being held.  Itocsp_response
      * is mostly being used for BIT_STRING so if the input data has a
      * non-zero 'unused bits' value, it will be handled correctly
      *)
@@ -567,6 +567,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

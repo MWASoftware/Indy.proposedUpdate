@@ -566,24 +566,24 @@ procedure BIO_copy_next_retry(b: PBIO); cdecl; external CLibCrypto;
 {Removed functions for which legacy support available - use is deprecated}
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-function BIO_get_flags(const b: PBIO): TOpenSSL_C_INT; cdecl;
-procedure BIO_set_retry_special(b: PBIO); cdecl;
-procedure BIO_set_retry_read(b: PBIO); cdecl;
-procedure BIO_set_retry_write(b: PBIO); cdecl;
-procedure BIO_clear_retry_flags(b: PBIO); cdecl;
-function BIO_get_retry_flags(b: PBIO): TOpenSSL_C_INT; cdecl;
-function BIO_should_read(b: PBIO): TOpenSSL_C_INT; cdecl;
-function BIO_should_write(b: PBIO): TOpenSSL_C_INT; cdecl;
-function BIO_should_io_special(b: PBIO): TOpenSSL_C_INT; cdecl;
-function BIO_retry_type(b: PBIO): TOpenSSL_C_INT; cdecl;
-function BIO_should_retry(b: PBIO): TOpenSSL_C_INT; cdecl;
-function BIO_do_connect(b: PBIO): TOpenSSL_C_LONG; cdecl;
-function BIO_do_accept(b: PBIO): TOpenSSL_C_LONG; cdecl;
-function BIO_do_handshake(b: PBIO): TOpenSSL_C_LONG; cdecl;
-function BIO_get_mem_data(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl;
-function BIO_set_mem_buf(b: PBIO; bm: PAnsiChar; c: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
-function BIO_get_mem_ptr(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl;
-function BIO_set_mem_eof_return(b: PBIO; v: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
+function BIO_get_flags(const b: PBIO): TOpenSSL_C_INT; {removed 1.0.0}
+procedure BIO_set_retry_special(b: PBIO); {removed 1.0.0}
+procedure BIO_set_retry_read(b: PBIO); {removed 1.0.0}
+procedure BIO_set_retry_write(b: PBIO); {removed 1.0.0}
+procedure BIO_clear_retry_flags(b: PBIO); {removed 1.0.0}
+function BIO_get_retry_flags(b: PBIO): TOpenSSL_C_INT; {removed 1.0.0}
+function BIO_should_read(b: PBIO): TOpenSSL_C_INT; {removed 1.0.0}
+function BIO_should_write(b: PBIO): TOpenSSL_C_INT; {removed 1.0.0}
+function BIO_should_io_special(b: PBIO): TOpenSSL_C_INT; {removed 1.0.0}
+function BIO_retry_type(b: PBIO): TOpenSSL_C_INT; {removed 1.0.0}
+function BIO_should_retry(b: PBIO): TOpenSSL_C_INT; {removed 1.0.0}
+function BIO_do_connect(b: PBIO): TOpenSSL_C_LONG; {removed 1.0.0}
+function BIO_do_accept(b: PBIO): TOpenSSL_C_LONG; {removed 1.0.0}
+function BIO_do_handshake(b: PBIO): TOpenSSL_C_LONG; {removed 1.0.0}
+function BIO_get_mem_data(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; {removed 1.0.0}
+function BIO_set_mem_buf(b: PBIO; bm: PAnsiChar; c: TOpenSSL_C_INT): TOpenSSL_C_INT; {removed 1.0.0}
+function BIO_get_mem_ptr(b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; {removed 1.0.0}
+function BIO_set_mem_eof_return(b: PBIO; v: TOpenSSL_C_INT): TOpenSSL_C_INT; {removed 1.0.0}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ELSE}
 
@@ -731,148 +731,149 @@ function Load_BIO_new_bio_pair(bio1: PPBIO; writebuf1: TOpenSSL_C_SIZET; bio2: P
 procedure Load_BIO_copy_next_retry(b: PBIO); cdecl;
 
 var
-  BIO_get_new_index: function : TOpenSSL_C_INT; cdecl = Load_BIO_get_new_index; {introduced 1.1.0 }
-  BIO_set_flags: procedure (b: PBIO; flags: TOpenSSL_C_INT); cdecl = Load_BIO_set_flags;
-  BIO_test_flags: function (const b: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_test_flags;
-  BIO_clear_flags: procedure (b: PBIO; flags: TOpenSSL_C_INT); cdecl = Load_BIO_clear_flags;
-  BIO_get_callback: function (b: PBIO): BIO_callback_fn; cdecl = Load_BIO_get_callback;
-  BIO_set_callback: procedure (b: PBIO; callback: BIO_callback_fn); cdecl = Load_BIO_set_callback;
-  BIO_get_callback_ex: function (b: PBIO): BIO_callback_fn_ex; cdecl = Load_BIO_get_callback_ex; {introduced 1.1.0 }
-  BIO_set_callback_ex: procedure (b: PBIO; callback: BIO_callback_fn_ex); cdecl = Load_BIO_set_callback_ex; {introduced 1.1.0 }
-  BIO_get_callback_arg: function (const b: PBIO): PAnsiChar; cdecl = Load_BIO_get_callback_arg;
-  BIO_set_callback_arg: procedure (var b: PBIO; arg: PAnsiChar); cdecl = Load_BIO_set_callback_arg;
-  BIO_method_name: function (const b: PBIO): PAnsiChar; cdecl = Load_BIO_method_name;
-  BIO_method_type: function (const b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_method_type;
-  BIO_ctrl_pending: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = Load_BIO_ctrl_pending;
-  BIO_ctrl_wpending: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = Load_BIO_ctrl_wpending;
-  BIO_ctrl_get_write_guarantee: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = Load_BIO_ctrl_get_write_guarantee;
-  BIO_ctrl_get_read_request: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = Load_BIO_ctrl_get_read_request;
-  BIO_ctrl_reset_read_request: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_ctrl_reset_read_request;
-  BIO_set_ex_data: function (bio: PBIO; idx: TOpenSSL_C_INT; data: Pointer): TOpenSSL_C_INT; cdecl = Load_BIO_set_ex_data;
-  BIO_get_ex_data: function (bio: PBIO; idx: TOpenSSL_C_INT): Pointer; cdecl = Load_BIO_get_ex_data;
-  BIO_number_read: function (bio: PBIO): TOpenSSL_C_UINT64; cdecl = Load_BIO_number_read;
-  BIO_number_written: function (bio: PBIO): TOpenSSL_C_UINT64; cdecl = Load_BIO_number_written;
-  BIO_s_file: function : PBIO_METHOD; cdecl = Load_BIO_s_file;
-  BIO_new_file: function (const filename: PAnsiChar; const mode: PAnsiChar): PBIO; cdecl = Load_BIO_new_file;
-  BIO_new: function (const cType: PBIO_METHOD): PBIO; cdecl = Load_BIO_new;
-  BIO_free: function (a: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_free;
-  BIO_set_data: procedure (a: PBIO; ptr: Pointer); cdecl = Load_BIO_set_data; {introduced 1.1.0 }
-  BIO_get_data: function (a: PBIO): Pointer; cdecl = Load_BIO_get_data; {introduced 1.1.0 }
-  BIO_set_init: procedure (a: PBIO; init: TOpenSSL_C_INT); cdecl = Load_BIO_set_init; {introduced 1.1.0 }
-  BIO_get_init: function (a: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_get_init; {introduced 1.1.0 }
-  BIO_set_shutdown: procedure (a: PBIO; shut: TOpenSSL_C_INT); cdecl = Load_BIO_set_shutdown; {introduced 1.1.0 }
-  BIO_get_shutdown: function (a: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_get_shutdown; {introduced 1.1.0 }
-  BIO_vfree: procedure (a: PBIO); cdecl = Load_BIO_vfree;
-  BIO_up_ref: function (a: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_up_ref; {introduced 1.1.0 }
-  BIO_read: function (b: PBIO; data: Pointer; dlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_read;
-  BIO_read_ex: function (b: PBIO; data: Pointer; dlen: TOpenSSL_C_SIZET; readbytes: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_BIO_read_ex; {introduced 1.1.0 }
-  BIO_gets: function ( bp: PBIO; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_gets;
-  BIO_write: function (b: PBIO; const data: Pointer; dlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_write;
-  BIO_write_ex: function (b: PBIO; const data: Pointer; dlen: TOpenSSL_C_SIZET; written: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_BIO_write_ex; {introduced 1.1.0 }
-  BIO_puts: function (bp: PBIO; const buf: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_BIO_puts;
-  BIO_indent: function (b: PBIO; indent: TOpenSSL_C_INT; max: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_indent;
-  BIO_ctrl: function (bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; parg: Pointer): TOpenSSL_C_LONG; cdecl = Load_BIO_ctrl;
-  BIO_callback_ctrl: function (b: PBIO; cmd: TOpenSSL_C_INT; fp: PBIO_info_cb): TOpenSSL_C_LONG; cdecl = Load_BIO_callback_ctrl;
-  BIO_ptr_ctrl: function (bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG): Pointer; cdecl = Load_BIO_ptr_ctrl;
-  BIO_int_ctrl: function (bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; iarg: TOpenSSL_C_INT): TOpenSSL_C_LONG; cdecl = Load_BIO_int_ctrl;
-  BIO_push: function (b: PBIO; append: PBIO): PBIO; cdecl = Load_BIO_push;
-  BIO_pop: function (b: PBIO): PBIO; cdecl = Load_BIO_pop;
-  BIO_free_all: procedure (a: PBIO); cdecl = Load_BIO_free_all;
-  BIO_find_type: function (b: PBIO; bio_type: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_find_type;
-  BIO_next: function (b: PBIO): PBIO; cdecl = Load_BIO_next;
-  BIO_set_next: procedure (b: PBIO; next: PBIO); cdecl = Load_BIO_set_next; {introduced 1.1.0 }
-  BIO_get_retry_BIO: function (bio: PBIO; reason: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_get_retry_BIO;
-  BIO_get_retry_reason: function (bio: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_get_retry_reason;
-  BIO_set_retry_reason: procedure (bio: PBIO; reason: TOpenSSL_C_INT); cdecl = Load_BIO_set_retry_reason; {introduced 1.1.0 }
-  BIO_dup_chain: function (in_: PBIO): PBIO; cdecl = Load_BIO_dup_chain;
-  BIO_nread0: function (bio: PBIO; buf: PPAnsiChar): TOpenSSL_C_INT; cdecl = Load_BIO_nread0;
-  BIO_nread: function (bio: PBIO; buf: PPAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_nread;
-  BIO_nwrite0: function (bio: PBIO; buf: PPAnsiChar): TOpenSSL_C_INT; cdecl = Load_BIO_nwrite0;
-  BIO_nwrite: function (bio: PBIO; buf: PPAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_nwrite;
-  BIO_debug_callback: function (bio: PBIO; cmd: TOpenSSL_C_INT; const argp: PAnsiChar; argi: TOpenSSL_C_INT; argl: TOpenSSL_C_LONG; ret: TOpenSSL_C_LONG): TOpenSSL_C_LONG; cdecl = Load_BIO_debug_callback;
-  BIO_s_mem: function : PBIO_METHOD; cdecl = Load_BIO_s_mem;
-  BIO_s_secmem: function : PBIO_METHOD; cdecl = Load_BIO_s_secmem; {introduced 1.1.0 }
-  BIO_new_mem_buf: function (const buf: Pointer; len: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_new_mem_buf;
-  BIO_s_socket: function : PBIO_METHOD; cdecl = Load_BIO_s_socket;
-  BIO_s_connect: function : PBIO_METHOD; cdecl = Load_BIO_s_connect;
-  BIO_s_accept: function : PBIO_METHOD; cdecl = Load_BIO_s_accept;
-  BIO_s_fd: function : PBIO_METHOD; cdecl = Load_BIO_s_fd;
-  BIO_s_log: function : PBIO_METHOD; cdecl = Load_BIO_s_log;
-  BIO_s_bio: function : PBIO_METHOD; cdecl = Load_BIO_s_bio;
-  BIO_s_null: function : PBIO_METHOD; cdecl = Load_BIO_s_null;
-  BIO_f_null: function : PBIO_METHOD; cdecl = Load_BIO_f_null;
-  BIO_f_buffer: function : PBIO_METHOD; cdecl = Load_BIO_f_buffer;
-  BIO_f_linebuffer: function : PBIO_METHOD; cdecl = Load_BIO_f_linebuffer; {introduced 1.1.0 }
-  BIO_f_nbio_test: function : PBIO_METHOD; cdecl = Load_BIO_f_nbio_test;
-  BIO_s_datagram: function : PBIO_METHOD; cdecl = Load_BIO_s_datagram;
-  BIO_dgram_non_fatal_error: function (error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_dgram_non_fatal_error;
-  BIO_new_dgram: function (fd: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_new_dgram;
-  BIO_sock_should_retry: function (i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_sock_should_retry;
-  BIO_sock_non_fatal_error: function (error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_sock_non_fatal_error;
-  BIO_fd_should_retry: function (i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_fd_should_retry;
-  BIO_fd_non_fatal_error: function (error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_fd_non_fatal_error;
-  BIO_dump: function (b: PBIO; const bytes: PAnsiChar; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_dump;
-  BIO_dump_indent: function (b: PBIO; const bytes: PAnsiChar; len: TOpenSSL_C_INT; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_dump_indent;
-  BIO_hex_string: function (out_: PBIO; indent: TOpenSSL_C_INT; width: TOpenSSL_C_INT; data: PByte; datalen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_hex_string;
-  BIO_ADDR_new: function : PBIO_ADDR; cdecl = Load_BIO_ADDR_new; {introduced 1.1.0 }
-  BIO_ADDR_rawmake: function (ap: PBIO_ADDR; familiy: TOpenSSL_C_INT; const where: Pointer; wherelen: TOpenSSL_C_SIZET; port: TOpenSSL_C_SHORT): TOpenSSL_C_INT; cdecl = Load_BIO_ADDR_rawmake; {introduced 1.1.0 }
-  BIO_ADDR_free: procedure (a: PBIO_ADDR); cdecl = Load_BIO_ADDR_free; {introduced 1.1.0 }
-  BIO_ADDR_clear: procedure (ap: PBIO_ADDR); cdecl = Load_BIO_ADDR_clear; {introduced 1.1.0 }
-  BIO_ADDR_family: function (const ap: PBIO_ADDR): TOpenSSL_C_INT; cdecl = Load_BIO_ADDR_family; {introduced 1.1.0 }
-  BIO_ADDR_rawaddress: function (const ap: PBIO_ADDR; p: Pointer; l: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_BIO_ADDR_rawaddress; {introduced 1.1.0 }
-  BIO_ADDR_rawport: function (const ap: PBIO_ADDR): TOpenSSL_C_SHORT; cdecl = Load_BIO_ADDR_rawport; {introduced 1.1.0 }
-  BIO_ADDR_hostname_string: function (const ap: PBIO_ADDR; numeric: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_BIO_ADDR_hostname_string; {introduced 1.1.0 }
-  BIO_ADDR_service_string: function (const ap: PBIO_ADDR; numeric: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_BIO_ADDR_service_string; {introduced 1.1.0 }
-  BIO_ADDR_path_string: function (const ap: PBIO_ADDR): PAnsiChar; cdecl = Load_BIO_ADDR_path_string; {introduced 1.1.0 }
-  BIO_ADDRINFO_next: function (const bai: PBIO_ADDRINFO): PBIO_ADDRINFO; cdecl = Load_BIO_ADDRINFO_next; {introduced 1.1.0 }
-  BIO_ADDRINFO_family: function (const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = Load_BIO_ADDRINFO_family; {introduced 1.1.0 }
-  BIO_ADDRINFO_socktype: function (const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = Load_BIO_ADDRINFO_socktype; {introduced 1.1.0 }
-  BIO_ADDRINFO_protocol: function (const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = Load_BIO_ADDRINFO_protocol; {introduced 1.1.0 }
-  BIO_ADDRINFO_address: function (const bai: PBIO_ADDRINFO): PBIO_ADDR; cdecl = Load_BIO_ADDRINFO_address; {introduced 1.1.0 }
-  BIO_ADDRINFO_free: procedure (bai: PBIO_ADDRINFO); cdecl = Load_BIO_ADDRINFO_free; {introduced 1.1.0 }
-  BIO_parse_hostserv: function (const hostserv: PAnsiChar; host: PPAnsiChar; service: PPAnsiChar; hostserv_prio: BIO_hostserv_priorities): TOpenSSL_C_INT; cdecl = Load_BIO_parse_hostserv; {introduced 1.1.0 }
-  BIO_lookup: function (const host: PAnsiChar; const service: PAnsiChar; lookup_type: BIO_lookup_type; family: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; res: PPBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = Load_BIO_lookup; {introduced 1.1.0 }
-  BIO_lookup_ex: function (const host: PAnsiChar; const service: PAnsiChar; lookup_type: TOpenSSL_C_INT; family: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; protocol: TOpenSSL_C_INT; res: PPBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = Load_BIO_lookup_ex; {introduced 1.1.0 }
-  BIO_sock_error: function (sock: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_sock_error;
-  BIO_socket_ioctl: function (fd: TOpenSSL_C_INT; cType: TOpenSSL_C_LONG; arg: Pointer): TOpenSSL_C_INT; cdecl = Load_BIO_socket_ioctl;
-  BIO_socket_nbio: function (fd: TOpenSSL_C_INT; mode: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_socket_nbio;
-  BIO_sock_init: function : TOpenSSL_C_INT; cdecl = Load_BIO_sock_init;
-  BIO_set_tcp_ndelay: function (sock: TOpenSSL_C_INT; turn_on: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_set_tcp_ndelay;
-  BIO_sock_info: function (sock: TOpenSSL_C_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TOpenSSL_C_INT; cdecl = Load_BIO_sock_info; {introduced 1.1.0 }
-  BIO_socket: function (domain: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; protocol: TOpenSSL_C_INT; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_socket; {introduced 1.1.0 }
-  BIO_connect: function (sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_connect; {introduced 1.1.0 }
-  BIO_bind: function (sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_bind; {introduced 1.1.0 }
-  BIO_listen: function (sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_listen; {introduced 1.1.0 }
-  BIO_accept_ex: function (accept_sock: TOpenSSL_C_INT; addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_accept_ex; {introduced 1.1.0 }
-  BIO_closesocket: function (sock: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_closesocket; {introduced 1.1.0 }
-  BIO_new_socket: function (sock: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_new_socket;
-  BIO_new_connect: function (const host_port: PAnsiChar): PBIO; cdecl = Load_BIO_new_connect;
-  BIO_new_accept: function (const host_port: PAnsiChar): PBIO; cdecl = Load_BIO_new_accept;
-  BIO_new_fd: function (fd: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_new_fd;
-  BIO_new_bio_pair: function (bio1: PPBIO; writebuf1: TOpenSSL_C_SIZET; bio2: PPBIO; writebuf2: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_BIO_new_bio_pair;
-  BIO_copy_next_retry: procedure (b: PBIO); cdecl = Load_BIO_copy_next_retry;
+  BIO_get_new_index: function : TOpenSSL_C_INT; cdecl = Load_BIO_get_new_index; {}
+  BIO_set_flags: procedure (b: PBIO; flags: TOpenSSL_C_INT); cdecl = Load_BIO_set_flags; {}
+  BIO_test_flags: function (const b: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_test_flags; {}
+  BIO_clear_flags: procedure (b: PBIO; flags: TOpenSSL_C_INT); cdecl = Load_BIO_clear_flags; {}
+  BIO_get_callback: function (b: PBIO): BIO_callback_fn; cdecl = Load_BIO_get_callback; {}
+  BIO_set_callback: procedure (b: PBIO; callback: BIO_callback_fn); cdecl = Load_BIO_set_callback; {}
+  BIO_get_callback_ex: function (b: PBIO): BIO_callback_fn_ex; cdecl = Load_BIO_get_callback_ex; {}
+  BIO_set_callback_ex: procedure (b: PBIO; callback: BIO_callback_fn_ex); cdecl = Load_BIO_set_callback_ex; {}
+  BIO_get_callback_arg: function (const b: PBIO): PAnsiChar; cdecl = Load_BIO_get_callback_arg; {}
+  BIO_set_callback_arg: procedure (var b: PBIO; arg: PAnsiChar); cdecl = Load_BIO_set_callback_arg; {}
+  BIO_method_name: function (const b: PBIO): PAnsiChar; cdecl = Load_BIO_method_name; {}
+  BIO_method_type: function (const b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_method_type; {}
+  BIO_ctrl_pending: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = Load_BIO_ctrl_pending; {}
+  BIO_ctrl_wpending: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = Load_BIO_ctrl_wpending; {}
+  BIO_ctrl_get_write_guarantee: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = Load_BIO_ctrl_get_write_guarantee; {}
+  BIO_ctrl_get_read_request: function (b: PBIO): TOpenSSL_C_SIZET; cdecl = Load_BIO_ctrl_get_read_request; {}
+  BIO_ctrl_reset_read_request: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_ctrl_reset_read_request; {}
+  BIO_set_ex_data: function (bio: PBIO; idx: TOpenSSL_C_INT; data: Pointer): TOpenSSL_C_INT; cdecl = Load_BIO_set_ex_data; {}
+  BIO_get_ex_data: function (bio: PBIO; idx: TOpenSSL_C_INT): Pointer; cdecl = Load_BIO_get_ex_data; {}
+  BIO_number_read: function (bio: PBIO): TOpenSSL_C_UINT64; cdecl = Load_BIO_number_read; {}
+  BIO_number_written: function (bio: PBIO): TOpenSSL_C_UINT64; cdecl = Load_BIO_number_written; {}
+  BIO_s_file: function : PBIO_METHOD; cdecl = Load_BIO_s_file; {}
+  BIO_new_file: function (const filename: PAnsiChar; const mode: PAnsiChar): PBIO; cdecl = Load_BIO_new_file; {}
+  BIO_new: function (const cType: PBIO_METHOD): PBIO; cdecl = Load_BIO_new; {}
+  BIO_free: function (a: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_free; {}
+  BIO_set_data: procedure (a: PBIO; ptr: Pointer); cdecl = Load_BIO_set_data; {}
+  BIO_get_data: function (a: PBIO): Pointer; cdecl = Load_BIO_get_data; {}
+  BIO_set_init: procedure (a: PBIO; init: TOpenSSL_C_INT); cdecl = Load_BIO_set_init; {}
+  BIO_get_init: function (a: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_get_init; {}
+  BIO_set_shutdown: procedure (a: PBIO; shut: TOpenSSL_C_INT); cdecl = Load_BIO_set_shutdown; {}
+  BIO_get_shutdown: function (a: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_get_shutdown; {}
+  BIO_vfree: procedure (a: PBIO); cdecl = Load_BIO_vfree; {}
+  BIO_up_ref: function (a: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_up_ref; {}
+  BIO_read: function (b: PBIO; data: Pointer; dlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_read; {}
+  BIO_read_ex: function (b: PBIO; data: Pointer; dlen: TOpenSSL_C_SIZET; readbytes: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_BIO_read_ex; {}
+  BIO_gets: function ( bp: PBIO; buf: PAnsiChar; size: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_gets; {}
+  BIO_write: function (b: PBIO; const data: Pointer; dlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_write; {}
+  BIO_write_ex: function (b: PBIO; const data: Pointer; dlen: TOpenSSL_C_SIZET; written: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_BIO_write_ex; {}
+  BIO_puts: function (bp: PBIO; const buf: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_BIO_puts; {}
+  BIO_indent: function (b: PBIO; indent: TOpenSSL_C_INT; max: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_indent; {}
+  BIO_ctrl: function (bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; parg: Pointer): TOpenSSL_C_LONG; cdecl = Load_BIO_ctrl; {}
+  BIO_callback_ctrl: function (b: PBIO; cmd: TOpenSSL_C_INT; fp: PBIO_info_cb): TOpenSSL_C_LONG; cdecl = Load_BIO_callback_ctrl; {}
+  BIO_ptr_ctrl: function (bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG): Pointer; cdecl = Load_BIO_ptr_ctrl; {}
+  BIO_int_ctrl: function (bp: PBIO; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; iarg: TOpenSSL_C_INT): TOpenSSL_C_LONG; cdecl = Load_BIO_int_ctrl; {}
+  BIO_push: function (b: PBIO; append: PBIO): PBIO; cdecl = Load_BIO_push; {}
+  BIO_pop: function (b: PBIO): PBIO; cdecl = Load_BIO_pop; {}
+  BIO_free_all: procedure (a: PBIO); cdecl = Load_BIO_free_all; {}
+  BIO_find_type: function (b: PBIO; bio_type: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_find_type; {}
+  BIO_next: function (b: PBIO): PBIO; cdecl = Load_BIO_next; {}
+  BIO_set_next: procedure (b: PBIO; next: PBIO); cdecl = Load_BIO_set_next; {}
+  BIO_get_retry_BIO: function (bio: PBIO; reason: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_get_retry_BIO; {}
+  BIO_get_retry_reason: function (bio: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_get_retry_reason; {}
+  BIO_set_retry_reason: procedure (bio: PBIO; reason: TOpenSSL_C_INT); cdecl = Load_BIO_set_retry_reason; {}
+  BIO_dup_chain: function (in_: PBIO): PBIO; cdecl = Load_BIO_dup_chain; {}
+  BIO_nread0: function (bio: PBIO; buf: PPAnsiChar): TOpenSSL_C_INT; cdecl = Load_BIO_nread0; {}
+  BIO_nread: function (bio: PBIO; buf: PPAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_nread; {}
+  BIO_nwrite0: function (bio: PBIO; buf: PPAnsiChar): TOpenSSL_C_INT; cdecl = Load_BIO_nwrite0; {}
+  BIO_nwrite: function (bio: PBIO; buf: PPAnsiChar; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_nwrite; {}
+  BIO_debug_callback: function (bio: PBIO; cmd: TOpenSSL_C_INT; const argp: PAnsiChar; argi: TOpenSSL_C_INT; argl: TOpenSSL_C_LONG; ret: TOpenSSL_C_LONG): TOpenSSL_C_LONG; cdecl = Load_BIO_debug_callback; {}
+  BIO_s_mem: function : PBIO_METHOD; cdecl = Load_BIO_s_mem; {}
+  BIO_s_secmem: function : PBIO_METHOD; cdecl = Load_BIO_s_secmem; {}
+  BIO_new_mem_buf: function (const buf: Pointer; len: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_new_mem_buf; {}
+  BIO_s_socket: function : PBIO_METHOD; cdecl = Load_BIO_s_socket; {}
+  BIO_s_connect: function : PBIO_METHOD; cdecl = Load_BIO_s_connect; {}
+  BIO_s_accept: function : PBIO_METHOD; cdecl = Load_BIO_s_accept; {}
+  BIO_s_fd: function : PBIO_METHOD; cdecl = Load_BIO_s_fd; {}
+  BIO_s_log: function : PBIO_METHOD; cdecl = Load_BIO_s_log; {}
+  BIO_s_bio: function : PBIO_METHOD; cdecl = Load_BIO_s_bio; {}
+  BIO_s_null: function : PBIO_METHOD; cdecl = Load_BIO_s_null; {}
+  BIO_f_null: function : PBIO_METHOD; cdecl = Load_BIO_f_null; {}
+  BIO_f_buffer: function : PBIO_METHOD; cdecl = Load_BIO_f_buffer; {}
+  BIO_f_linebuffer: function : PBIO_METHOD; cdecl = Load_BIO_f_linebuffer; {}
+  BIO_f_nbio_test: function : PBIO_METHOD; cdecl = Load_BIO_f_nbio_test; {}
+  BIO_s_datagram: function : PBIO_METHOD; cdecl = Load_BIO_s_datagram; {}
+  BIO_dgram_non_fatal_error: function (error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_dgram_non_fatal_error; {}
+  BIO_new_dgram: function (fd: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_new_dgram; {}
+  BIO_sock_should_retry: function (i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_sock_should_retry; {}
+  BIO_sock_non_fatal_error: function (error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_sock_non_fatal_error; {}
+  BIO_fd_should_retry: function (i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_fd_should_retry; {}
+  BIO_fd_non_fatal_error: function (error: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_fd_non_fatal_error; {}
+  BIO_dump: function (b: PBIO; const bytes: PAnsiChar; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_dump; {}
+  BIO_dump_indent: function (b: PBIO; const bytes: PAnsiChar; len: TOpenSSL_C_INT; indent: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_dump_indent; {}
+  BIO_hex_string: function (out_: PBIO; indent: TOpenSSL_C_INT; width: TOpenSSL_C_INT; data: PByte; datalen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_hex_string; {}
+  BIO_ADDR_new: function : PBIO_ADDR; cdecl = Load_BIO_ADDR_new; {}
+  BIO_ADDR_rawmake: function (ap: PBIO_ADDR; familiy: TOpenSSL_C_INT; const where: Pointer; wherelen: TOpenSSL_C_SIZET; port: TOpenSSL_C_SHORT): TOpenSSL_C_INT; cdecl = Load_BIO_ADDR_rawmake; {}
+  BIO_ADDR_free: procedure (a: PBIO_ADDR); cdecl = Load_BIO_ADDR_free; {}
+  BIO_ADDR_clear: procedure (ap: PBIO_ADDR); cdecl = Load_BIO_ADDR_clear; {}
+  BIO_ADDR_family: function (const ap: PBIO_ADDR): TOpenSSL_C_INT; cdecl = Load_BIO_ADDR_family; {}
+  BIO_ADDR_rawaddress: function (const ap: PBIO_ADDR; p: Pointer; l: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_BIO_ADDR_rawaddress; {}
+  BIO_ADDR_rawport: function (const ap: PBIO_ADDR): TOpenSSL_C_SHORT; cdecl = Load_BIO_ADDR_rawport; {}
+  BIO_ADDR_hostname_string: function (const ap: PBIO_ADDR; numeric: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_BIO_ADDR_hostname_string; {}
+  BIO_ADDR_service_string: function (const ap: PBIO_ADDR; numeric: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_BIO_ADDR_service_string; {}
+  BIO_ADDR_path_string: function (const ap: PBIO_ADDR): PAnsiChar; cdecl = Load_BIO_ADDR_path_string; {}
+  BIO_ADDRINFO_next: function (const bai: PBIO_ADDRINFO): PBIO_ADDRINFO; cdecl = Load_BIO_ADDRINFO_next; {}
+  BIO_ADDRINFO_family: function (const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = Load_BIO_ADDRINFO_family; {}
+  BIO_ADDRINFO_socktype: function (const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = Load_BIO_ADDRINFO_socktype; {}
+  BIO_ADDRINFO_protocol: function (const bai: PBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = Load_BIO_ADDRINFO_protocol; {}
+  BIO_ADDRINFO_address: function (const bai: PBIO_ADDRINFO): PBIO_ADDR; cdecl = Load_BIO_ADDRINFO_address; {}
+  BIO_ADDRINFO_free: procedure (bai: PBIO_ADDRINFO); cdecl = Load_BIO_ADDRINFO_free; {}
+  BIO_parse_hostserv: function (const hostserv: PAnsiChar; host: PPAnsiChar; service: PPAnsiChar; hostserv_prio: BIO_hostserv_priorities): TOpenSSL_C_INT; cdecl = Load_BIO_parse_hostserv; {}
+  BIO_lookup: function (const host: PAnsiChar; const service: PAnsiChar; lookup_type: BIO_lookup_type; family: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; res: PPBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = Load_BIO_lookup; {}
+  BIO_lookup_ex: function (const host: PAnsiChar; const service: PAnsiChar; lookup_type: TOpenSSL_C_INT; family: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; protocol: TOpenSSL_C_INT; res: PPBIO_ADDRINFO): TOpenSSL_C_INT; cdecl = Load_BIO_lookup_ex; {}
+  BIO_sock_error: function (sock: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_sock_error; {}
+  BIO_socket_ioctl: function (fd: TOpenSSL_C_INT; cType: TOpenSSL_C_LONG; arg: Pointer): TOpenSSL_C_INT; cdecl = Load_BIO_socket_ioctl; {}
+  BIO_socket_nbio: function (fd: TOpenSSL_C_INT; mode: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_socket_nbio; {}
+  BIO_sock_init: function : TOpenSSL_C_INT; cdecl = Load_BIO_sock_init; {}
+  BIO_set_tcp_ndelay: function (sock: TOpenSSL_C_INT; turn_on: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_set_tcp_ndelay; {}
+  BIO_sock_info: function (sock: TOpenSSL_C_INT; type_: BIO_sock_info_type; info: PBIO_sock_info_u): TOpenSSL_C_INT; cdecl = Load_BIO_sock_info; {}
+  BIO_socket: function (domain: TOpenSSL_C_INT; socktype: TOpenSSL_C_INT; protocol: TOpenSSL_C_INT; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_socket; {}
+  BIO_connect: function (sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_connect; {}
+  BIO_bind: function (sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_bind; {}
+  BIO_listen: function (sock: TOpenSSL_C_INT; const addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_listen; {}
+  BIO_accept_ex: function (accept_sock: TOpenSSL_C_INT; addr: PBIO_ADDR; options: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_accept_ex; {}
+  BIO_closesocket: function (sock: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_closesocket; {}
+  BIO_new_socket: function (sock: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_new_socket; {}
+  BIO_new_connect: function (const host_port: PAnsiChar): PBIO; cdecl = Load_BIO_new_connect; {}
+  BIO_new_accept: function (const host_port: PAnsiChar): PBIO; cdecl = Load_BIO_new_accept; {}
+  BIO_new_fd: function (fd: TOpenSSL_C_INT; close_flag: TOpenSSL_C_INT): PBIO; cdecl = Load_BIO_new_fd; {}
+  BIO_new_bio_pair: function (bio1: PPBIO; writebuf1: TOpenSSL_C_SIZET; bio2: PPBIO; writebuf2: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_BIO_new_bio_pair; {}
+  BIO_copy_next_retry: procedure (b: PBIO); cdecl = Load_BIO_copy_next_retry; {}
 
 {Removed functions for which legacy support available - use is deprecated}
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  BIO_get_flags: function (const b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_get_flags; {removed 1.0.0}
-  BIO_set_retry_special: procedure (b: PBIO); cdecl = Load_BIO_set_retry_special; {removed 1.0.0}
-  BIO_set_retry_read: procedure (b: PBIO); cdecl = Load_BIO_set_retry_read; {removed 1.0.0}
-  BIO_set_retry_write: procedure (b: PBIO); cdecl = Load_BIO_set_retry_write; {removed 1.0.0}
-  BIO_clear_retry_flags: procedure (b: PBIO); cdecl = Load_BIO_clear_retry_flags; {removed 1.0.0}
-  BIO_get_retry_flags: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_get_retry_flags; {removed 1.0.0}
-  BIO_should_read: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_should_read; {removed 1.0.0}
-  BIO_should_write: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_should_write; {removed 1.0.0}
-  BIO_should_io_special: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_should_io_special; {removed 1.0.0}
-  BIO_retry_type: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_retry_type; {removed 1.0.0}
-  BIO_should_retry: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_should_retry; {removed 1.0.0}
-  BIO_do_connect: function (b: PBIO): TOpenSSL_C_LONG; cdecl = Load_BIO_do_connect; {removed 1.0.0}
-  BIO_do_accept: function (b: PBIO): TOpenSSL_C_LONG; cdecl = Load_BIO_do_accept; {removed 1.0.0}
-  BIO_do_handshake: function (b: PBIO): TOpenSSL_C_LONG; cdecl = Load_BIO_do_handshake; {removed 1.0.0}
-  BIO_get_mem_data: function (b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_BIO_get_mem_data; {removed 1.0.0}
-  BIO_set_mem_buf: function (b: PBIO; bm: PAnsiChar; c: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_set_mem_buf; {removed 1.0.0}
-  BIO_get_mem_ptr: function (b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_BIO_get_mem_ptr; {removed 1.0.0}
-  BIO_set_mem_eof_return: function (b: PBIO; v: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_set_mem_eof_return; {removed 1.0.0}
+var
+  BIO_get_flags: function (const b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_get_flags; {removed 1.0.0} {removed 1.0.0}
+  BIO_set_retry_special: procedure (b: PBIO); cdecl = Load_BIO_set_retry_special; {removed 1.0.0} {removed 1.0.0}
+  BIO_set_retry_read: procedure (b: PBIO); cdecl = Load_BIO_set_retry_read; {removed 1.0.0} {removed 1.0.0}
+  BIO_set_retry_write: procedure (b: PBIO); cdecl = Load_BIO_set_retry_write; {removed 1.0.0} {removed 1.0.0}
+  BIO_clear_retry_flags: procedure (b: PBIO); cdecl = Load_BIO_clear_retry_flags; {removed 1.0.0} {removed 1.0.0}
+  BIO_get_retry_flags: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_get_retry_flags; {removed 1.0.0} {removed 1.0.0}
+  BIO_should_read: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_should_read; {removed 1.0.0} {removed 1.0.0}
+  BIO_should_write: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_should_write; {removed 1.0.0} {removed 1.0.0}
+  BIO_should_io_special: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_should_io_special; {removed 1.0.0} {removed 1.0.0}
+  BIO_retry_type: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_retry_type; {removed 1.0.0} {removed 1.0.0}
+  BIO_should_retry: function (b: PBIO): TOpenSSL_C_INT; cdecl = Load_BIO_should_retry; {removed 1.0.0} {removed 1.0.0}
+  BIO_do_connect: function (b: PBIO): TOpenSSL_C_LONG; cdecl = Load_BIO_do_connect; {removed 1.0.0} {removed 1.0.0}
+  BIO_do_accept: function (b: PBIO): TOpenSSL_C_LONG; cdecl = Load_BIO_do_accept; {removed 1.0.0} {removed 1.0.0}
+  BIO_do_handshake: function (b: PBIO): TOpenSSL_C_LONG; cdecl = Load_BIO_do_handshake; {removed 1.0.0} {removed 1.0.0}
+  BIO_get_mem_data: function (b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_BIO_get_mem_data; {removed 1.0.0} {removed 1.0.0}
+  BIO_set_mem_buf: function (b: PBIO; bm: PAnsiChar; c: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_set_mem_buf; {removed 1.0.0} {removed 1.0.0}
+  BIO_get_mem_ptr: function (b: PBIO; pp: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_BIO_get_mem_ptr; {removed 1.0.0} {removed 1.0.0}
+  BIO_set_mem_eof_return: function (b: PBIO; v: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_BIO_set_mem_eof_return; {removed 1.0.0} {removed 1.0.0}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF}
 const
@@ -946,6 +947,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFDEF OPENSSL_STATIC_LINK_MODEL}
 
 {Legacy Support Functions}

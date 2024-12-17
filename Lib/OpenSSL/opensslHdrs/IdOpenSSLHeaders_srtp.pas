@@ -75,9 +75,9 @@ function Load_SSL_set_tlsext_use_srtp(ctx: PSSL_CTX; const profiles: PAnsiChar):
 function Load_SSL_get_selected_srtp_profile(s: PSSL): PSRTP_PROTECTION_PROFILE; cdecl;
 
 var
-  SSL_CTX_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_SSL_CTX_set_tlsext_use_srtp;
-  SSL_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_SSL_set_tlsext_use_srtp;
-  SSL_get_selected_srtp_profile: function (s: PSSL): PSRTP_PROTECTION_PROFILE; cdecl = Load_SSL_get_selected_srtp_profile;
+  SSL_CTX_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_SSL_CTX_set_tlsext_use_srtp; {}
+  SSL_set_tlsext_use_srtp: function (ctx: PSSL_CTX; const profiles: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_SSL_set_tlsext_use_srtp; {}
+  SSL_get_selected_srtp_profile: function (s: PSSL): PSRTP_PROTECTION_PROFILE; cdecl = Load_SSL_get_selected_srtp_profile; {}
 {$ENDIF}
 
 implementation
@@ -88,6 +88,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

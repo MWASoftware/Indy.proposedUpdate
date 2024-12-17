@@ -285,7 +285,8 @@ uses
 
 type
   TIdSSLVersion = (sslUnknown,sslvSSLv2, sslvSSLv23, sslvSSLv3, sslvTLSv1,sslvTLSv1_1,
-    sslvTLSv1_2, sslvTLSv1_3); {May need to update constants below if adding to this set}
+                      sslvTLSv1_2, sslvTLSv1_3);
+                      {This list must be identical to TOpenSSL_Version as defined in IdOpenSSLHeaders_ssl}
   TIdSSLVersions = set of TIdSSLVersion;
   TIdSSLMode = (sslmUnassigned, sslmClient, sslmServer, sslmBoth);
   TIdSSLVerifyMode = (sslvrfPeer, sslvrfFailIfNoPeerCert, sslvrfClientOnce);
@@ -3434,7 +3435,6 @@ begin
   end
   else
   begin
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   {legacy code 1.0.2 and earlier}
 
       if IsOpenSSL_SSLv2_Available then begin
@@ -3483,7 +3483,6 @@ begin
           SSL_CTX_clear_options(fContext, SSL_OP_NO_TLSv1_2);
         end;
       end;
-  {$ENDIF}
   end;
 
   SSL_CTX_set_mode(fContext, SSL_MODE_AUTO_RETRY);
@@ -3609,40 +3608,19 @@ begin
 end;
 }
 
-{$if declared(IOpenSSLDLL)}
-function SelectTLS1Method(const AMode : TIdSSLMode) : PSSL_METHOD;
-{$IFDEF USE_INLINE} inline; {$ENDIF}
-begin
-  Result := nil;
-  case AMode of
-    sslmServer : begin
-      if Assigned(TLSv1_server_method) then begin
-        Result := TLSv1_server_method();
-      end;
-    end;
-    sslmClient : begin
-      if Assigned(TLSv1_client_method) then begin
-        Result := TLSv1_client_method();
-      end;
-    end;
-  else
-    if Assigned(TLSv1_method) then begin
-      Result := TLSv1_method();
-    end;
-  end;
-end;
-{$ifend}
-
 function TIdSSLContext.SetSSLMethod: PSSL_METHOD;
 begin
   Result := nil;
   if fMode = sslmUnassigned then begin
     raise EIdOSSLModeNotSet.Create(RSOSSLModeNotSet);
   end;
-    if HasTLS_method then
-    {We are running with OpenSSL 1.1.1 or later. OpenSSL will negotiate the best
+
+  OpenSSL_SetMethod(TOpenSSL_Version(fMethod));
+
+    {For OpenSSL 1.1.1 or later. OpenSSL will negotiate the best
      available SSL/TLS version and there is not much that we can do to influence this.
-     Hence, we ignore fMethod.
+     Hence, OpenSSL_SetMethod is ignored. Only if we are using an earlier version
+     of OpenSSL will OpenSSL_SetMethod be used to help select the appropriate SSLMethod.
 
      Quoting from the OpenSSL man page:
 
@@ -3655,8 +3633,7 @@ begin
     and avoid the version-specific methods described below [e.g. SSLv2_method),
     which are deprecated.
 }
-    begin
-      case fMode of
+    case fMode of
       sslmClient:
           Result := TLS_client_method();
 
@@ -3666,131 +3643,10 @@ begin
       sslmBoth:
         Result := TLS_Method();
 
-      end;
-      Exit;
     end;
 
-  {$if declared(IOpenSSLDLL)}
-  {we are using a legacy OpenSSL Library 1.0.2 or earlier and hence have to select
-   the SSL method the old way :(}
-
-  case fMethod of
-    sslvSSLv2:
-      case fMode of
-        sslmServer : begin
-          if Assigned(SSLv2_server_method) then begin
-            Result := SSLv2_server_method();
-          end;
-        end;
-        sslmClient : begin
-          if Assigned(SSLv2_client_method) then begin
-            Result := SSLv2_client_method();
-          end;
-        end;
-      else
-        if Assigned(SSLv2_method) then begin
-          Result := SSLv2_method();
-        end;
-      end;
-    sslvSSLv23:
-      case fMode of
-        sslmServer : begin
-          if Assigned(SSLv23_server_method) then begin
-            Result := SSLv23_server_method();
-          end;
-        end;
-        sslmClient : begin
-          if Assigned(SSLv23_client_method) then begin
-            Result := SSLv23_client_method();
-          end;
-        end;
-      else
-        if Assigned(SSLv23_method) then begin
-          Result := SSLv23_method();
-        end;
-      end;
-    sslvSSLv3:
-      case fMode of
-        sslmServer : begin
-          if Assigned(SSLv3_server_method) then begin
-            Result := SSLv3_server_method();
-          end;
-        end;
-        sslmClient : begin
-          if Assigned(SSLv3_client_method) then begin
-            Result := SSLv3_client_method();
-          end;
-        end;
-      else
-        if Assigned(SSLv3_method) then begin
-          Result := SSLv3_method();
-        end;
-      end;
-      {IMPORTANT!!!  fallback to TLS 1.0 if TLS 1.1 or 1.2 is not available.
-      This is important because OpenSSL earlier than 1.0.1 does not support this
-      functionality.
-
-      Todo:  Figure out a better fallback.
-      }
-      // TODO: get rid of this fallack!  If the user didn't choose TLS 1.0, then
-      // don't falback to it, just fail instead, like with all of the other SSL/TLS
-      // versions...
-    sslvTLSv1:
-      Result := SelectTLS1Method(fMode);
-    sslvTLSv1_1:
-      case fMode of
-        sslmServer : begin
-          if Assigned(TLSv1_1_server_method) then begin
-            Result := TLSv1_1_server_method();
-          end else begin
-            Result := SelectTLS1Method(fMode);
-          end;
-        end;
-        sslmClient : begin
-          if Assigned(TLSv1_1_client_method) then begin
-            Result := TLSv1_1_client_method();
-          end else begin
-            Result := SelectTLS1Method(fMode);
-          end;
-        end;
-      else
-        if Assigned(TLSv1_1_method) then begin
-          Result := TLSv1_1_method();
-        end else begin
-          Result := SelectTLS1Method(fMode);
-        end;
-      end;
-    sslvTLSv1_2:
-      case fMode of
-        sslmServer : begin
-          if Assigned(TLSv1_2_server_method) then begin
-            Result := TLSv1_2_server_method();
-          end else begin
-            // TODO: fallback to TLSv1.1 if available?
-            Result := SelectTLS1Method(fMode);
-          end;
-        end;
-        sslmClient : begin
-          if Assigned(TLSv1_2_client_method) then begin
-            Result := TLSv1_2_client_method();
-          end else begin
-            // TODO: fallback to TLSv1.1 if available?
-            Result := SelectTLS1Method(fMode);
-          end;
-        end;
-      else
-        if Assigned(TLSv1_2_method) then begin
-          Result := TLSv1_2_method();
-        end else begin
-          // TODO: fallback to TLSv1.1 if available?
-          Result := SelectTLS1Method(fMode);
-        end;
-      end;
-  end;
-  if Result = nil then begin
+  if Result = nil then
     raise EIdOSSLGetMethodError.Create(RSSSLGetMethodError);
-  end;
-  {$ifend}
 end;
 
 function TIdSSLContext.LoadRootCert: Boolean;

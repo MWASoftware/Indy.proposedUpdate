@@ -112,9 +112,9 @@ function OSSL_PROVIDER_get0_name(prov:POSSL_PROVIDER): PAnsiChar; cdecl; externa
 {$IFDEF OPENSSL_3_2_ORLATER}
 {$IFDEF OPENSSL_3_2_ORLATER}
     
-function OSSL_PROVIDER_get0_default_search_path(libctx: POSSL_LIB_CTX): PAnsiChar; cdecl; external CLibCrypto;
-function OSSL_PROVIDER_try_load_ex(_para1:POSSL_LIB_CTX; name: PAnsiChar; params:POSSL_PARAM; retain_fallbacks:TOpenSSL_C_LONG): POSSL_PROVIDER; cdecl; external CLibCrypto;
-function OSSL_PROVIDER_load_ex(_para1:POSSL_LIB_CTX; name: PAnsiChar; params: POSSL_PARAM): POSSL_PROVIDER; cdecl; external CLibCrypto;
+function OSSL_PROVIDER_get0_default_search_path(libctx: POSSL_LIB_CTX): PAnsiChar; cdecl; {introduced 3.2.0 } external CLibCrypto;
+function OSSL_PROVIDER_try_load_ex(_para1:POSSL_LIB_CTX; name: PAnsiChar; params:POSSL_PARAM; retain_fallbacks:TOpenSSL_C_LONG): POSSL_PROVIDER; cdecl; {introduced 3.2.0 } external CLibCrypto;
+function OSSL_PROVIDER_load_ex(_para1:POSSL_LIB_CTX; name: PAnsiChar; params: POSSL_PARAM): POSSL_PROVIDER; cdecl; {introduced 3.2.0 } external CLibCrypto;
 {$ENDIF}
 {$ENDIF}
 
@@ -147,28 +147,28 @@ function Load_OSSL_PROVIDER_load_ex(_para1:POSSL_LIB_CTX; name: PAnsiChar; param
 {$ENDIF}
 
 var
-  OSSL_PROVIDER_set_default_search_path: function (ctx: POSSL_LIB_CTX; path: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OSSL_PROVIDER_set_default_search_path; {introduced 3.0.0 }
-  OSSL_PROVIDER_load: function (_para1:POSSL_LIB_CTX; name: PAnsiChar): POSSL_PROVIDER; cdecl = Load_OSSL_PROVIDER_load; {introduced 3.0.0 }
-  OSSL_PROVIDER_try_load: function (_para1:POSSL_LIB_CTX; name: PAnsiChar; retain_fallbacks: TOpenSSL_C_LONG): POSSL_PROVIDER; cdecl = Load_OSSL_PROVIDER_try_load; {introduced 3.0.0 }
-  OSSL_PROVIDER_unload: function (prov:POSSL_PROVIDER): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_unload; {introduced 3.0.0 }
-  OSSL_PROVIDER_available: function (_para1:POSSL_LIB_CTX; name:PAnsiChar): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_available; {introduced 3.0.0 }
-  OSSL_PROVIDER_do_all: function (ctx:POSSL_LIB_CTX; cb:TDo_AllCallback; cbdata:pointer): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_do_all; {introduced 3.0.0 }
-  OSSL_PROVIDER_gettable_params: function (prov:POSSL_PROVIDER): POSSL_PARAM; cdecl = Load_OSSL_PROVIDER_gettable_params; {introduced 3.0.0 }
-  OSSL_PROVIDER_get_params: function (prov:POSSL_PROVIDER; params:POSSL_PARAM): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_get_params; {introduced 3.0.0 }
-  OSSL_PROVIDER_self_test: function (prov:POSSL_PROVIDER): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_self_test; {introduced 3.0.0 }
-  OSSL_PROVIDER_get_capabilities: function (prov:POSSL_PROVIDER; capability:PAnsiChar; cb:POSSL_CALLBACK; arg:pointer): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_get_capabilities; {introduced 3.0.0 }
-  OSSL_PROVIDER_query_operation: function (prov:POSSL_PROVIDER; operation_id:TOpenSSL_C_LONG; no_cache:POpenSSL_C_LONG): POSSL_ALGORITHM; cdecl = Load_OSSL_PROVIDER_query_operation; {introduced 3.0.0 }
-  OSSL_PROVIDER_unquery_operation: procedure (prov:POSSL_PROVIDER; operation_id:TOpenSSL_C_LONG; algs:POSSL_ALGORITHM); cdecl = Load_OSSL_PROVIDER_unquery_operation; {introduced 3.0.0 }
-  OSSL_PROVIDER_get0_provider_ctx: function (prov:POSSL_PROVIDER): pointer; cdecl = Load_OSSL_PROVIDER_get0_provider_ctx; {introduced 3.0.0 }
-  OSSL_PROVIDER_get0_dispatch: function (prov:POSSL_PROVIDER): POSSL_DISPATCH; cdecl = Load_OSSL_PROVIDER_get0_dispatch; {introduced 3.0.0 }
-  OSSL_PROVIDER_add_builtin: function (_para1:POSSL_LIB_CTX; name:PAnsiChar; init_fn:POSSL_provider_init_fn): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_add_builtin; {introduced 3.0.0 }
-  OSSL_PROVIDER_get0_name: function (prov:POSSL_PROVIDER): PAnsiChar; cdecl = Load_OSSL_PROVIDER_get0_name; {introduced 3.0.0 }
+  OSSL_PROVIDER_set_default_search_path: function (ctx: POSSL_LIB_CTX; path: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OSSL_PROVIDER_set_default_search_path; {}
+  OSSL_PROVIDER_load: function (_para1:POSSL_LIB_CTX; name: PAnsiChar): POSSL_PROVIDER; cdecl = Load_OSSL_PROVIDER_load; {}
+  OSSL_PROVIDER_try_load: function (_para1:POSSL_LIB_CTX; name: PAnsiChar; retain_fallbacks: TOpenSSL_C_LONG): POSSL_PROVIDER; cdecl = Load_OSSL_PROVIDER_try_load; {}
+  OSSL_PROVIDER_unload: function (prov:POSSL_PROVIDER): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_unload; {}
+  OSSL_PROVIDER_available: function (_para1:POSSL_LIB_CTX; name:PAnsiChar): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_available; {}
+  OSSL_PROVIDER_do_all: function (ctx:POSSL_LIB_CTX; cb:TDo_AllCallback; cbdata:pointer): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_do_all; {}
+  OSSL_PROVIDER_gettable_params: function (prov:POSSL_PROVIDER): POSSL_PARAM; cdecl = Load_OSSL_PROVIDER_gettable_params; {}
+  OSSL_PROVIDER_get_params: function (prov:POSSL_PROVIDER; params:POSSL_PARAM): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_get_params; {}
+  OSSL_PROVIDER_self_test: function (prov:POSSL_PROVIDER): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_self_test; {}
+  OSSL_PROVIDER_get_capabilities: function (prov:POSSL_PROVIDER; capability:PAnsiChar; cb:POSSL_CALLBACK; arg:pointer): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_get_capabilities; {}
+  OSSL_PROVIDER_query_operation: function (prov:POSSL_PROVIDER; operation_id:TOpenSSL_C_LONG; no_cache:POpenSSL_C_LONG): POSSL_ALGORITHM; cdecl = Load_OSSL_PROVIDER_query_operation; {}
+  OSSL_PROVIDER_unquery_operation: procedure (prov:POSSL_PROVIDER; operation_id:TOpenSSL_C_LONG; algs:POSSL_ALGORITHM); cdecl = Load_OSSL_PROVIDER_unquery_operation; {}
+  OSSL_PROVIDER_get0_provider_ctx: function (prov:POSSL_PROVIDER): pointer; cdecl = Load_OSSL_PROVIDER_get0_provider_ctx; {}
+  OSSL_PROVIDER_get0_dispatch: function (prov:POSSL_PROVIDER): POSSL_DISPATCH; cdecl = Load_OSSL_PROVIDER_get0_dispatch; {}
+  OSSL_PROVIDER_add_builtin: function (_para1:POSSL_LIB_CTX; name:PAnsiChar; init_fn:POSSL_provider_init_fn): TOpenSSL_C_LONG; cdecl = Load_OSSL_PROVIDER_add_builtin; {}
+  OSSL_PROVIDER_get0_name: function (prov:POSSL_PROVIDER): PAnsiChar; cdecl = Load_OSSL_PROVIDER_get0_name; {}
 {$IFDEF OPENSSL_3_2_ORLATER}
 {$IFDEF OPENSSL_3_2_ORLATER}
     
-  OSSL_PROVIDER_get0_default_search_path: function (libctx: POSSL_LIB_CTX): PAnsiChar; cdecl = Load_OSSL_PROVIDER_get0_default_search_path; {introduced 3.2.0 }
-  OSSL_PROVIDER_try_load_ex: function (_para1:POSSL_LIB_CTX; name: PAnsiChar; params:POSSL_PARAM; retain_fallbacks:TOpenSSL_C_LONG): POSSL_PROVIDER; cdecl = Load_OSSL_PROVIDER_try_load_ex; {introduced 3.2.0 }
-  OSSL_PROVIDER_load_ex: function (_para1:POSSL_LIB_CTX; name: PAnsiChar; params: POSSL_PARAM): POSSL_PROVIDER; cdecl = Load_OSSL_PROVIDER_load_ex; {introduced 3.2.0 }
+  OSSL_PROVIDER_get0_default_search_path: function (libctx: POSSL_LIB_CTX): PAnsiChar; cdecl = Load_OSSL_PROVIDER_get0_default_search_path; {introduced 3.2.0 } {introduced 3.2.0 }
+  OSSL_PROVIDER_try_load_ex: function (_para1:POSSL_LIB_CTX; name: PAnsiChar; params:POSSL_PARAM; retain_fallbacks:TOpenSSL_C_LONG): POSSL_PROVIDER; cdecl = Load_OSSL_PROVIDER_try_load_ex; {introduced 3.2.0 } {introduced 3.2.0 }
+  OSSL_PROVIDER_load_ex: function (_para1:POSSL_LIB_CTX; name: PAnsiChar; params: POSSL_PARAM): POSSL_PROVIDER; cdecl = Load_OSSL_PROVIDER_load_ex; {introduced 3.2.0 } {introduced 3.2.0 }
 {$ENDIF}
 {$ENDIF}
 
@@ -203,6 +203,12 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$IFDEF OPENSSL_3_2_ORLATER}
+{$ENDIF}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

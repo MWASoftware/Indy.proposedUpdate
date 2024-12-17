@@ -94,14 +94,14 @@ procedure Load_IDEA_ofb64_encrypt(const in_: PByte; out_: PByte; length: TOpenSS
 procedure Load_IDEA_encrypt(in_: POpenSSL_C_LONG; ks: PIDEA_KEY_SCHEDULE); cdecl;
 
 var
-  IDEA_options: function : PAnsiChar; cdecl = Load_IDEA_options;
-  IDEA_ecb_encrypt: procedure (const in_: PByte; out_: PByte; ks: PIDEA_KEY_SCHEDULE); cdecl = Load_IDEA_ecb_encrypt;
-  IDEA_set_encrypt_key: procedure (const key: PByte; ks: PIDEA_KEY_SCHEDULE); cdecl = Load_IDEA_set_encrypt_key;
-  IDEA_set_decrypt_key: procedure (ek: PIDEA_KEY_SCHEDULE; dk: PIDEA_KEY_SCHEDULE); cdecl = Load_IDEA_set_decrypt_key;
-  IDEA_cbc_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; enc: TOpenSSL_C_INT); cdecl = Load_IDEA_cbc_encrypt;
-  IDEA_cfb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; num: POpenSSL_C_INT; enc: TOpenSSL_C_INT); cdecl = Load_IDEA_cfb64_encrypt;
-  IDEA_ofb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; num: POpenSSL_C_INT); cdecl = Load_IDEA_ofb64_encrypt;
-  IDEA_encrypt: procedure (in_: POpenSSL_C_LONG; ks: PIDEA_KEY_SCHEDULE); cdecl = Load_IDEA_encrypt;
+  IDEA_options: function : PAnsiChar; cdecl = Load_IDEA_options; {}
+  IDEA_ecb_encrypt: procedure (const in_: PByte; out_: PByte; ks: PIDEA_KEY_SCHEDULE); cdecl = Load_IDEA_ecb_encrypt; {}
+  IDEA_set_encrypt_key: procedure (const key: PByte; ks: PIDEA_KEY_SCHEDULE); cdecl = Load_IDEA_set_encrypt_key; {}
+  IDEA_set_decrypt_key: procedure (ek: PIDEA_KEY_SCHEDULE; dk: PIDEA_KEY_SCHEDULE); cdecl = Load_IDEA_set_decrypt_key; {}
+  IDEA_cbc_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; enc: TOpenSSL_C_INT); cdecl = Load_IDEA_cbc_encrypt; {}
+  IDEA_cfb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; num: POpenSSL_C_INT; enc: TOpenSSL_C_INT); cdecl = Load_IDEA_cfb64_encrypt; {}
+  IDEA_ofb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; ks: PIDEA_KEY_SCHEDULE; iv: PByte; num: POpenSSL_C_INT); cdecl = Load_IDEA_ofb64_encrypt; {}
+  IDEA_encrypt: procedure (in_: POpenSSL_C_LONG; ks: PIDEA_KEY_SCHEDULE); cdecl = Load_IDEA_encrypt; {}
 {$ENDIF}
 
 implementation
@@ -112,6 +112,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

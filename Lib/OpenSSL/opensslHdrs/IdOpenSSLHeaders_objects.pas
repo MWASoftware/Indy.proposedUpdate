@@ -143,32 +143,32 @@ function Load_OBJ_add_sigid(signid: TOpenSSL_C_INT; dig_id: TOpenSSL_C_INT; pkey
 procedure Load_OBJ_sigid_free; cdecl;
 
 var
-  OBJ_NAME_init: function : TOpenSSL_C_INT; cdecl = Load_OBJ_NAME_init;
-  OBJ_NAME_get: function (const name: PAnsiChar; type_: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OBJ_NAME_get;
-  OBJ_NAME_add: function (const name: PAnsiChar; type_: TOpenSSL_C_INT; const data: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OBJ_NAME_add;
-  OBJ_NAME_remove: function (const name: PAnsiChar; type_: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_NAME_remove;
-  OBJ_NAME_cleanup: procedure (type_: TOpenSSL_C_INT); cdecl = Load_OBJ_NAME_cleanup;
-  OBJ_dup: function (const o: PASN1_OBJECT): PASN1_OBJECT; cdecl = Load_OBJ_dup;
-  OBJ_nid2obj: function (n: TOpenSSL_C_INT): PASN1_OBJECT; cdecl = Load_OBJ_nid2obj;
-  OBJ_nid2ln: function (n: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OBJ_nid2ln;
-  OBJ_nid2sn: function (n: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OBJ_nid2sn;
-  OBJ_obj2nid: function (const o: PASN1_OBJECT): TOpenSSL_C_INT; cdecl = Load_OBJ_obj2nid;
-  OBJ_txt2obj: function (const s: PAnsiChar; no_name: TOpenSSL_C_INT): PASN1_OBJECT; cdecl = Load_OBJ_txt2obj;
-  OBJ_obj2txt: function (buf: PAnsiChar; buf_len: TOpenSSL_C_INT; const a: PASN1_OBJECT; no_name: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_obj2txt;
-  OBJ_txt2nid: function (const s: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OBJ_txt2nid;
-  OBJ_ln2nid: function (const s: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OBJ_ln2nid;
-  OBJ_sn2nid: function (const s: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OBJ_sn2nid;
-  OBJ_cmp: function (const a: PASN1_OBJECT; const b: PASN1_OBJECT): TOpenSSL_C_INT; cdecl = Load_OBJ_cmp;
-  OBJ_new_nid: function (num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_new_nid;
-  OBJ_add_object: function (const obj: PASN1_OBJECT): TOpenSSL_C_INT; cdecl = Load_OBJ_add_object;
-  OBJ_create: function (const oid: PAnsiChar; const sn: PAnsiChar; const ln: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OBJ_create;
-  OBJ_create_objects: function (in_: PBIO): TOpenSSL_C_INT; cdecl = Load_OBJ_create_objects;
-  OBJ_length: function (const obj: PASN1_OBJECT): TOpenSSL_C_SIZET; cdecl = Load_OBJ_length; {introduced 1.1.0 }
-  OBJ_get0_data: function (const obj: PASN1_OBJECT): PByte; cdecl = Load_OBJ_get0_data; {introduced 1.1.0 }
-  OBJ_find_sigid_algs: function (signid: TOpenSSL_C_INT; pdig_nid: POpenSSL_C_INT; ppkey_nid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_find_sigid_algs;
-  OBJ_find_sigid_by_algs: function (psignid: POpenSSL_C_INT; dig_nid: TOpenSSL_C_INT; pkey_nid: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_find_sigid_by_algs;
-  OBJ_add_sigid: function (signid: TOpenSSL_C_INT; dig_id: TOpenSSL_C_INT; pkey_id: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_add_sigid;
-  OBJ_sigid_free: procedure ; cdecl = Load_OBJ_sigid_free;
+  OBJ_NAME_init: function : TOpenSSL_C_INT; cdecl = Load_OBJ_NAME_init; {}
+  OBJ_NAME_get: function (const name: PAnsiChar; type_: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OBJ_NAME_get; {}
+  OBJ_NAME_add: function (const name: PAnsiChar; type_: TOpenSSL_C_INT; const data: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OBJ_NAME_add; {}
+  OBJ_NAME_remove: function (const name: PAnsiChar; type_: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_NAME_remove; {}
+  OBJ_NAME_cleanup: procedure (type_: TOpenSSL_C_INT); cdecl = Load_OBJ_NAME_cleanup; {}
+  OBJ_dup: function (const o: PASN1_OBJECT): PASN1_OBJECT; cdecl = Load_OBJ_dup; {}
+  OBJ_nid2obj: function (n: TOpenSSL_C_INT): PASN1_OBJECT; cdecl = Load_OBJ_nid2obj; {}
+  OBJ_nid2ln: function (n: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OBJ_nid2ln; {}
+  OBJ_nid2sn: function (n: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OBJ_nid2sn; {}
+  OBJ_obj2nid: function (const o: PASN1_OBJECT): TOpenSSL_C_INT; cdecl = Load_OBJ_obj2nid; {}
+  OBJ_txt2obj: function (const s: PAnsiChar; no_name: TOpenSSL_C_INT): PASN1_OBJECT; cdecl = Load_OBJ_txt2obj; {}
+  OBJ_obj2txt: function (buf: PAnsiChar; buf_len: TOpenSSL_C_INT; const a: PASN1_OBJECT; no_name: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_obj2txt; {}
+  OBJ_txt2nid: function (const s: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OBJ_txt2nid; {}
+  OBJ_ln2nid: function (const s: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OBJ_ln2nid; {}
+  OBJ_sn2nid: function (const s: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OBJ_sn2nid; {}
+  OBJ_cmp: function (const a: PASN1_OBJECT; const b: PASN1_OBJECT): TOpenSSL_C_INT; cdecl = Load_OBJ_cmp; {}
+  OBJ_new_nid: function (num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_new_nid; {}
+  OBJ_add_object: function (const obj: PASN1_OBJECT): TOpenSSL_C_INT; cdecl = Load_OBJ_add_object; {}
+  OBJ_create: function (const oid: PAnsiChar; const sn: PAnsiChar; const ln: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_OBJ_create; {}
+  OBJ_create_objects: function (in_: PBIO): TOpenSSL_C_INT; cdecl = Load_OBJ_create_objects; {}
+  OBJ_length: function (const obj: PASN1_OBJECT): TOpenSSL_C_SIZET; cdecl = Load_OBJ_length; {}
+  OBJ_get0_data: function (const obj: PASN1_OBJECT): PByte; cdecl = Load_OBJ_get0_data; {}
+  OBJ_find_sigid_algs: function (signid: TOpenSSL_C_INT; pdig_nid: POpenSSL_C_INT; ppkey_nid: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_find_sigid_algs; {}
+  OBJ_find_sigid_by_algs: function (psignid: POpenSSL_C_INT; dig_nid: TOpenSSL_C_INT; pkey_nid: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_find_sigid_by_algs; {}
+  OBJ_add_sigid: function (signid: TOpenSSL_C_INT; dig_id: TOpenSSL_C_INT; pkey_id: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_OBJ_add_sigid; {}
+  OBJ_sigid_free: procedure ; cdecl = Load_OBJ_sigid_free; {}
 {$ENDIF}
 const
   OBJ_length_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
@@ -183,6 +183,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

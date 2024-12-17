@@ -1005,10 +1005,10 @@ function Load_ASN1_item_ex_d2i(pval: PPASN1_VALUE; const AIn: PPByte; len: TOpen
 function Load_ASN1_item_ex_i2d(pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 
 var
-  ASN1_item_ex_new: function (pval: PPASN1_VALUE; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl = Load_ASN1_item_ex_new;
-  ASN1_item_ex_free: procedure (pval: PPASN1_VALUE; const it: PASN1_ITEM); cdecl = Load_ASN1_item_ex_free;
-  ASN1_item_ex_d2i: function (pval: PPASN1_VALUE; const AIn: PPByte; len: TOpenSSL_C_LONG; const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT; opt: AnsiChar; ctx: PASN1_TLC): TOpenSSL_C_INT; cdecl = Load_ASN1_item_ex_d2i;
-  ASN1_item_ex_i2d: function (pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_ASN1_item_ex_i2d;
+  ASN1_item_ex_new: function (pval: PPASN1_VALUE; const it: PASN1_ITEM): TOpenSSL_C_INT; cdecl = Load_ASN1_item_ex_new; {}
+  ASN1_item_ex_free: procedure (pval: PPASN1_VALUE; const it: PASN1_ITEM); cdecl = Load_ASN1_item_ex_free; {}
+  ASN1_item_ex_d2i: function (pval: PPASN1_VALUE; const AIn: PPByte; len: TOpenSSL_C_LONG; const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT; opt: AnsiChar; ctx: PASN1_TLC): TOpenSSL_C_INT; cdecl = Load_ASN1_item_ex_d2i; {}
+  ASN1_item_ex_i2d: function (pval: PPASN1_VALUE; AOut: PPByte; const it: PASN1_ITEM; tag: TOpenSSL_C_INT; aclass: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_ASN1_item_ex_i2d; {}
 {$ENDIF}
 
 implementation
@@ -1019,6 +1019,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

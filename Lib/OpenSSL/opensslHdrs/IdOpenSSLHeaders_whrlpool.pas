@@ -87,11 +87,11 @@ function Load_WHIRLPOOL_Final(md: PByte; c: PWHIRLPOOL_CTX): TOpenSSL_C_INT; cde
 function Load_WHIRLPOOL(inp: Pointer; bytes: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl;
 
 var
-  WHIRLPOOL_Init: function (c: PWHIRLPOOL_CTX): TOpenSSL_C_INT; cdecl = Load_WHIRLPOOL_Init;
-  WHIRLPOOL_Update: function (c: PWHIRLPOOL_CTX; inp: Pointer; bytes: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_WHIRLPOOL_Update;
-  WHIRLPOOL_BitUpdate: procedure (c: PWHIRLPOOL_CTX; inp: Pointer; bits: TOpenSSL_C_SIZET); cdecl = Load_WHIRLPOOL_BitUpdate;
-  WHIRLPOOL_Final: function (md: PByte; c: PWHIRLPOOL_CTX): TOpenSSL_C_INT; cdecl = Load_WHIRLPOOL_Final;
-  WHIRLPOOL: function (inp: Pointer; bytes: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = Load_WHIRLPOOL;
+  WHIRLPOOL_Init: function (c: PWHIRLPOOL_CTX): TOpenSSL_C_INT; cdecl = Load_WHIRLPOOL_Init; {}
+  WHIRLPOOL_Update: function (c: PWHIRLPOOL_CTX; inp: Pointer; bytes: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_WHIRLPOOL_Update; {}
+  WHIRLPOOL_BitUpdate: procedure (c: PWHIRLPOOL_CTX; inp: Pointer; bits: TOpenSSL_C_SIZET); cdecl = Load_WHIRLPOOL_BitUpdate; {}
+  WHIRLPOOL_Final: function (md: PByte; c: PWHIRLPOOL_CTX): TOpenSSL_C_INT; cdecl = Load_WHIRLPOOL_Final; {}
+  WHIRLPOOL: function (inp: Pointer; bytes: TOpenSSL_C_SIZET; md: PByte): PByte; cdecl = Load_WHIRLPOOL; {}
 {$ENDIF}
 
 implementation
@@ -102,6 +102,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

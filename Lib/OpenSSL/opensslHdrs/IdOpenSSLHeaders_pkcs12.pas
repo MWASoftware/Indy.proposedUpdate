@@ -311,75 +311,75 @@ function Load_d2i_PKCS12_bio(bp: PBIO; p12: PPPKCS12): PPKCS12; cdecl;
 function Load_PKCS12_newpass(p12: PPKCS12; const oldpass: PAnsiChar; const newpass: PAnsiChar): TOpenSSL_C_INT; cdecl;
 
 var
-  PKCS12_mac_present: function (const p12: PPKCS12): TOpenSSL_C_INT; cdecl = Load_PKCS12_mac_present; {introduced 1.1.0 }
-  PKCS12_get0_mac: procedure (const pmac: PPASN1_OCTET_STRING; const pmacalg: PPX509_ALGOR; const psalt: PPASN1_OCTET_STRING; const piter: PPASN1_INTEGER; const p12: PPKCS12); cdecl = Load_PKCS12_get0_mac; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_get0_attr: function (const bag: PPKCS12_SAFEBAG; attr_nid: TOpenSSL_C_INT): PASN1_TYPE; cdecl = Load_PKCS12_SAFEBAG_get0_attr; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_get0_type: function (const bag: PPKCS12_SAFEBAG): PASN1_OBJECT; cdecl = Load_PKCS12_SAFEBAG_get0_type; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_get_nid: function (const bag: PPKCS12_SAFEBAG): TOpenSSL_C_INT; cdecl = Load_PKCS12_SAFEBAG_get_nid; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_get_bag_nid: function (const bag: PPKCS12_SAFEBAG): TOpenSSL_C_INT; cdecl = Load_PKCS12_SAFEBAG_get_bag_nid; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_get1_cert: function (const bag: PPKCS12_SAFEBAG): PX509; cdecl = Load_PKCS12_SAFEBAG_get1_cert; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_get1_crl: function (const bag: PPKCS12_SAFEBAG): PX509_CRL; cdecl = Load_PKCS12_SAFEBAG_get1_crl; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_get0_p8inf: function (const bag: PPKCS12_SAFEBAG): PPKCS8_PRIV_KEY_INFO; cdecl = Load_PKCS12_SAFEBAG_get0_p8inf; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_get0_pkcs8: function (const bag: PPKCS12_SAFEBAG): PX509_SIG; cdecl = Load_PKCS12_SAFEBAG_get0_pkcs8; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_create_cert: function (x509: PX509): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_create_cert; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_create_crl: function (crl: PX509_CRL): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_create_crl; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_create0_p8inf: function (p8: PPKCS8_PRIV_KEY_INFO): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_create0_p8inf; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_create0_pkcs8: function (p8: PX509_SIG): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_create0_pkcs8; {introduced 1.1.0 }
-  PKCS12_SAFEBAG_create_pkcs8_encrypt: function (pbe_nid: TOpenSSL_C_INT; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; p8inf: PPKCS8_PRIV_KEY_INFO): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_create_pkcs8_encrypt; {introduced 1.1.0 }
-  PKCS12_item_pack_safebag: function (obj: Pointer; const it: PASN1_ITEM; nid1: TOpenSSL_C_INT; nid2: TOpenSSL_C_INT): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_item_pack_safebag;
-  PKCS8_decrypt: function (const p8: PX509_SIG; const pass: PAnsiChar; passlen: TOpenSSL_C_INT): PPKCS8_PRIV_KEY_INFO; cdecl = Load_PKCS8_decrypt;
-  PKCS12_decrypt_skey: function (const bag: PPKCS12_SAFEBAG; const pass: PAnsiChar; passlen: TOpenSSL_C_INT): PPKCS8_PRIV_KEY_INFO; cdecl = Load_PKCS12_decrypt_skey;
-  PKCS8_encrypt: function (pbe_nid: TOpenSSL_C_INT; const cipher: PEVP_CIPHER; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; p8: PPKCS8_PRIV_KEY_INFO): PX509_SIG; cdecl = Load_PKCS8_encrypt;
-  PKCS8_set0_pbe: function (const pass: PAnsiChar; passlen: TOpenSSL_C_INT; p8inf: PPKCS8_PRIV_KEY_INFO; pbe: PX509_ALGOR): PX509_SIG; cdecl = Load_PKCS8_set0_pbe; {introduced 1.1.0 }
-  PKCS12_add_localkeyid: function (bag: PPKCS12_SAFEBAG; name: PByte; namelen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_add_localkeyid;
-  PKCS12_add_friendlyname_asc: function (bag: PPKCS12_SAFEBAG; const name: PAnsiChar; namelen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_add_friendlyname_asc;
-  PKCS12_add_friendlyname_utf8: function (bag: PPKCS12_SAFEBAG; const name: PAnsiChar; namelen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_add_friendlyname_utf8; {introduced 1.1.0 }
-  PKCS12_add_CSPName_asc: function (bag: PPKCS12_SAFEBAG; const name: PAnsiChar; namelen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_add_CSPName_asc;
-  PKCS12_add_friendlyname_uni: function (bag: PPKCS12_SAFEBAG; const name: PByte; namelen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_add_friendlyname_uni;
-  PKCS8_add_keyusage: function (p8: PPKCS8_PRIV_KEY_INFO; usage: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS8_add_keyusage;
-  PKCS12_get_friendlyname: function (bag: PPKCS12_SAFEBAG): PAnsiChar; cdecl = Load_PKCS12_get_friendlyname;
-  PKCS12_pbe_crypt: function (const algor: PX509_ALGOR; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; const in_: PByte; inlen: TOpenSSL_C_INT; data: PPByte; datalen: POpenSSL_C_INT; en_de: TOpenSSL_C_INT): PByte; cdecl = Load_PKCS12_pbe_crypt;
-  PKCS12_item_decrypt_d2i: function (const algor: PX509_ALGOR; const it: PASN1_ITEM; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; const oct: PASN1_OCTET_STRING; zbuf: TOpenSSL_C_INT): Pointer; cdecl = Load_PKCS12_item_decrypt_d2i;
-  PKCS12_item_i2d_encrypt: function (algor: PX509_ALGOR; const it: PASN1_ITEM; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; obj: Pointer; zbuf: TOpenSSL_C_INT): PASN1_OCTET_STRING; cdecl = Load_PKCS12_item_i2d_encrypt;
-  PKCS12_init: function (mode: TOpenSSL_C_INT): PPKCS12; cdecl = Load_PKCS12_init;
-  PKCS12_key_gen_asc: function (const pass: PAnsiChar; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; id: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; n: TOpenSSL_C_INT; out_: PByte; const md_type: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS12_key_gen_asc;
-  PKCS12_key_gen_uni: function (pass: PByte; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; id: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; n: TOpenSSL_C_INT; out_: PByte; const md_type: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS12_key_gen_uni;
-  PKCS12_key_gen_utf8: function (const pass: PAnsiChar; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; id: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; n: TOpenSSL_C_INT; out_: PByte; const md_type: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS12_key_gen_utf8; {introduced 1.1.0 }
-  PKCS12_PBE_keyivgen: function (ctx: PEVP_CIPHER_CTX; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; param: PASN1_TYPE; const cipher: PEVP_CIPHER; const md_type: PEVP_MD; en_de: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_PBE_keyivgen;
-  PKCS12_gen_mac: function (p12: PPKCS12; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; mac: PByte; maclen: POpenSSL_C_UINT): TOpenSSL_C_INT; cdecl = Load_PKCS12_gen_mac;
-  PKCS12_verify_mac: function (p12: PPKCS12; const pass: PAnsiChar; passlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_verify_mac;
-  PKCS12_set_mac: function (p12: PPKCS12; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; const md_type: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS12_set_mac;
-  PKCS12_setup_mac: function (p12: PPKCS12; iter: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; const md_type: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS12_setup_mac;
-  OPENSSL_asc2uni: function (const asc: PAnsiChar; asclen: TOpenSSL_C_INT; uni: PPByte; unilen: POpenSSL_C_INT): PByte; cdecl = Load_OPENSSL_asc2uni;
-  OPENSSL_uni2asc: function (const uni: PByte; unilen: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OPENSSL_uni2asc;
-  OPENSSL_utf82uni: function (const asc: PAnsiChar; asclen: TOpenSSL_C_INT; uni: PPByte; unilen: POpenSSL_C_INT): PByte; cdecl = Load_OPENSSL_utf82uni; {introduced 1.1.0 }
-  OPENSSL_uni2utf8: function (const uni: PByte; unilen: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OPENSSL_uni2utf8; {introduced 1.1.0 }
-  PKCS12_new: function : PPKCS12; cdecl = Load_PKCS12_new;
-  PKCS12_free: procedure (a: PPKCS12); cdecl = Load_PKCS12_free;
-  d2i_PKCS12: function (a: PPPKCS12; const in_: PPByte; len: TOpenSSL_C_LONG): PPKCS12; cdecl = Load_d2i_PKCS12;
-  i2d_PKCS12: function (a: PPKCS12; out_: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS12;
-  PKCS12_it: function : PASN1_ITEM; cdecl = Load_PKCS12_it;
-  PKCS12_MAC_DATA_new: function : PPKCS12_MAC_DATA; cdecl = Load_PKCS12_MAC_DATA_new;
-  PKCS12_MAC_DATA_free: procedure (a: PPKCS12_MAC_DATA); cdecl = Load_PKCS12_MAC_DATA_free;
-  d2i_PKCS12_MAC_DATA: function (a: PPPKCS12_MAC_DATA; const in_: PPByte; len: TOpenSSL_C_LONG): PPKCS12_MAC_DATA; cdecl = Load_d2i_PKCS12_MAC_DATA;
-  i2d_PKCS12_MAC_DATA: function (a: PPKCS12_MAC_DATA; out_: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS12_MAC_DATA;
-  PKCS12_MAC_DATA_it: function : PASN1_ITEM; cdecl = Load_PKCS12_MAC_DATA_it;
-  PKCS12_SAFEBAG_new: function : PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_new;
-  PKCS12_SAFEBAG_free: procedure (a: PPKCS12_SAFEBAG); cdecl = Load_PKCS12_SAFEBAG_free;
-  d2i_PKCS12_SAFEBAG: function (a: PPPKCS12_SAFEBAG; const in_: PPByte; len: TOpenSSL_C_LONG): PPKCS12_SAFEBAG; cdecl = Load_d2i_PKCS12_SAFEBAG;
-  i2d_PKCS12_SAFEBAG: function (a: PPKCS12_SAFEBAG; out_: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS12_SAFEBAG;
-  PKCS12_SAFEBAG_it: function : PASN1_ITEM; cdecl = Load_PKCS12_SAFEBAG_it;
-  PKCS12_BAGS_new: function : PPKCS12_BAGS; cdecl = Load_PKCS12_BAGS_new;
-  PKCS12_BAGS_free: procedure (a: PPKCS12_BAGS); cdecl = Load_PKCS12_BAGS_free;
-  d2i_PKCS12_BAGS: function (a: PPPKCS12_BAGS; const in_: PPByte; len: TOpenSSL_C_LONG): PPKCS12_BAGS; cdecl = Load_d2i_PKCS12_BAGS;
-  i2d_PKCS12_BAGS: function (a: PPKCS12_BAGS; out_: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS12_BAGS;
-  PKCS12_BAGS_it: function : PASN1_ITEM; cdecl = Load_PKCS12_BAGS_it;
-  PKCS12_PBE_add: procedure (v: Pointer); cdecl = Load_PKCS12_PBE_add;
-  PKCS12_parse: function (p12: PPKCS12; const pass: PAnsiChar; out pkey: PEVP_PKEY; out cert: PX509; ca: PPStack_Of_X509): TOpenSSL_C_INT; cdecl = Load_PKCS12_parse;
-  PKCS12_create: function (const pass: PAnsiChar; const name: PAnsiChar; pkey: PEVP_PKEY; cert: PX509; ca: PStack_Of_X509; nid_key: TOpenSSL_C_INT; nid_cert: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; mac_iter: TOpenSSL_C_INT; keytype: TOpenSSL_C_INT): PPKCS12; cdecl = Load_PKCS12_create;
-  i2d_PKCS12_bio: function (bp: PBIO; p12: PPKCS12): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS12_bio;
-  d2i_PKCS12_bio: function (bp: PBIO; p12: PPPKCS12): PPKCS12; cdecl = Load_d2i_PKCS12_bio;
-  PKCS12_newpass: function (p12: PPKCS12; const oldpass: PAnsiChar; const newpass: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_PKCS12_newpass;
+  PKCS12_mac_present: function (const p12: PPKCS12): TOpenSSL_C_INT; cdecl = Load_PKCS12_mac_present; {}
+  PKCS12_get0_mac: procedure (const pmac: PPASN1_OCTET_STRING; const pmacalg: PPX509_ALGOR; const psalt: PPASN1_OCTET_STRING; const piter: PPASN1_INTEGER; const p12: PPKCS12); cdecl = Load_PKCS12_get0_mac; {}
+  PKCS12_SAFEBAG_get0_attr: function (const bag: PPKCS12_SAFEBAG; attr_nid: TOpenSSL_C_INT): PASN1_TYPE; cdecl = Load_PKCS12_SAFEBAG_get0_attr; {}
+  PKCS12_SAFEBAG_get0_type: function (const bag: PPKCS12_SAFEBAG): PASN1_OBJECT; cdecl = Load_PKCS12_SAFEBAG_get0_type; {}
+  PKCS12_SAFEBAG_get_nid: function (const bag: PPKCS12_SAFEBAG): TOpenSSL_C_INT; cdecl = Load_PKCS12_SAFEBAG_get_nid; {}
+  PKCS12_SAFEBAG_get_bag_nid: function (const bag: PPKCS12_SAFEBAG): TOpenSSL_C_INT; cdecl = Load_PKCS12_SAFEBAG_get_bag_nid; {}
+  PKCS12_SAFEBAG_get1_cert: function (const bag: PPKCS12_SAFEBAG): PX509; cdecl = Load_PKCS12_SAFEBAG_get1_cert; {}
+  PKCS12_SAFEBAG_get1_crl: function (const bag: PPKCS12_SAFEBAG): PX509_CRL; cdecl = Load_PKCS12_SAFEBAG_get1_crl; {}
+  PKCS12_SAFEBAG_get0_p8inf: function (const bag: PPKCS12_SAFEBAG): PPKCS8_PRIV_KEY_INFO; cdecl = Load_PKCS12_SAFEBAG_get0_p8inf; {}
+  PKCS12_SAFEBAG_get0_pkcs8: function (const bag: PPKCS12_SAFEBAG): PX509_SIG; cdecl = Load_PKCS12_SAFEBAG_get0_pkcs8; {}
+  PKCS12_SAFEBAG_create_cert: function (x509: PX509): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_create_cert; {}
+  PKCS12_SAFEBAG_create_crl: function (crl: PX509_CRL): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_create_crl; {}
+  PKCS12_SAFEBAG_create0_p8inf: function (p8: PPKCS8_PRIV_KEY_INFO): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_create0_p8inf; {}
+  PKCS12_SAFEBAG_create0_pkcs8: function (p8: PX509_SIG): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_create0_pkcs8; {}
+  PKCS12_SAFEBAG_create_pkcs8_encrypt: function (pbe_nid: TOpenSSL_C_INT; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; p8inf: PPKCS8_PRIV_KEY_INFO): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_create_pkcs8_encrypt; {}
+  PKCS12_item_pack_safebag: function (obj: Pointer; const it: PASN1_ITEM; nid1: TOpenSSL_C_INT; nid2: TOpenSSL_C_INT): PPKCS12_SAFEBAG; cdecl = Load_PKCS12_item_pack_safebag; {}
+  PKCS8_decrypt: function (const p8: PX509_SIG; const pass: PAnsiChar; passlen: TOpenSSL_C_INT): PPKCS8_PRIV_KEY_INFO; cdecl = Load_PKCS8_decrypt; {}
+  PKCS12_decrypt_skey: function (const bag: PPKCS12_SAFEBAG; const pass: PAnsiChar; passlen: TOpenSSL_C_INT): PPKCS8_PRIV_KEY_INFO; cdecl = Load_PKCS12_decrypt_skey; {}
+  PKCS8_encrypt: function (pbe_nid: TOpenSSL_C_INT; const cipher: PEVP_CIPHER; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; p8: PPKCS8_PRIV_KEY_INFO): PX509_SIG; cdecl = Load_PKCS8_encrypt; {}
+  PKCS8_set0_pbe: function (const pass: PAnsiChar; passlen: TOpenSSL_C_INT; p8inf: PPKCS8_PRIV_KEY_INFO; pbe: PX509_ALGOR): PX509_SIG; cdecl = Load_PKCS8_set0_pbe; {}
+  PKCS12_add_localkeyid: function (bag: PPKCS12_SAFEBAG; name: PByte; namelen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_add_localkeyid; {}
+  PKCS12_add_friendlyname_asc: function (bag: PPKCS12_SAFEBAG; const name: PAnsiChar; namelen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_add_friendlyname_asc; {}
+  PKCS12_add_friendlyname_utf8: function (bag: PPKCS12_SAFEBAG; const name: PAnsiChar; namelen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_add_friendlyname_utf8; {}
+  PKCS12_add_CSPName_asc: function (bag: PPKCS12_SAFEBAG; const name: PAnsiChar; namelen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_add_CSPName_asc; {}
+  PKCS12_add_friendlyname_uni: function (bag: PPKCS12_SAFEBAG; const name: PByte; namelen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_add_friendlyname_uni; {}
+  PKCS8_add_keyusage: function (p8: PPKCS8_PRIV_KEY_INFO; usage: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS8_add_keyusage; {}
+  PKCS12_get_friendlyname: function (bag: PPKCS12_SAFEBAG): PAnsiChar; cdecl = Load_PKCS12_get_friendlyname; {}
+  PKCS12_pbe_crypt: function (const algor: PX509_ALGOR; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; const in_: PByte; inlen: TOpenSSL_C_INT; data: PPByte; datalen: POpenSSL_C_INT; en_de: TOpenSSL_C_INT): PByte; cdecl = Load_PKCS12_pbe_crypt; {}
+  PKCS12_item_decrypt_d2i: function (const algor: PX509_ALGOR; const it: PASN1_ITEM; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; const oct: PASN1_OCTET_STRING; zbuf: TOpenSSL_C_INT): Pointer; cdecl = Load_PKCS12_item_decrypt_d2i; {}
+  PKCS12_item_i2d_encrypt: function (algor: PX509_ALGOR; const it: PASN1_ITEM; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; obj: Pointer; zbuf: TOpenSSL_C_INT): PASN1_OCTET_STRING; cdecl = Load_PKCS12_item_i2d_encrypt; {}
+  PKCS12_init: function (mode: TOpenSSL_C_INT): PPKCS12; cdecl = Load_PKCS12_init; {}
+  PKCS12_key_gen_asc: function (const pass: PAnsiChar; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; id: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; n: TOpenSSL_C_INT; out_: PByte; const md_type: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS12_key_gen_asc; {}
+  PKCS12_key_gen_uni: function (pass: PByte; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; id: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; n: TOpenSSL_C_INT; out_: PByte; const md_type: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS12_key_gen_uni; {}
+  PKCS12_key_gen_utf8: function (const pass: PAnsiChar; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; id: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; n: TOpenSSL_C_INT; out_: PByte; const md_type: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS12_key_gen_utf8; {}
+  PKCS12_PBE_keyivgen: function (ctx: PEVP_CIPHER_CTX; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; param: PASN1_TYPE; const cipher: PEVP_CIPHER; const md_type: PEVP_MD; en_de: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_PBE_keyivgen; {}
+  PKCS12_gen_mac: function (p12: PPKCS12; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; mac: PByte; maclen: POpenSSL_C_UINT): TOpenSSL_C_INT; cdecl = Load_PKCS12_gen_mac; {}
+  PKCS12_verify_mac: function (p12: PPKCS12; const pass: PAnsiChar; passlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS12_verify_mac; {}
+  PKCS12_set_mac: function (p12: PPKCS12; const pass: PAnsiChar; passlen: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; const md_type: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS12_set_mac; {}
+  PKCS12_setup_mac: function (p12: PPKCS12; iter: TOpenSSL_C_INT; salt: PByte; saltlen: TOpenSSL_C_INT; const md_type: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS12_setup_mac; {}
+  OPENSSL_asc2uni: function (const asc: PAnsiChar; asclen: TOpenSSL_C_INT; uni: PPByte; unilen: POpenSSL_C_INT): PByte; cdecl = Load_OPENSSL_asc2uni; {}
+  OPENSSL_uni2asc: function (const uni: PByte; unilen: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OPENSSL_uni2asc; {}
+  OPENSSL_utf82uni: function (const asc: PAnsiChar; asclen: TOpenSSL_C_INT; uni: PPByte; unilen: POpenSSL_C_INT): PByte; cdecl = Load_OPENSSL_utf82uni; {}
+  OPENSSL_uni2utf8: function (const uni: PByte; unilen: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OPENSSL_uni2utf8; {}
+  PKCS12_new: function : PPKCS12; cdecl = Load_PKCS12_new; {}
+  PKCS12_free: procedure (a: PPKCS12); cdecl = Load_PKCS12_free; {}
+  d2i_PKCS12: function (a: PPPKCS12; const in_: PPByte; len: TOpenSSL_C_LONG): PPKCS12; cdecl = Load_d2i_PKCS12; {}
+  i2d_PKCS12: function (a: PPKCS12; out_: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS12; {}
+  PKCS12_it: function : PASN1_ITEM; cdecl = Load_PKCS12_it; {}
+  PKCS12_MAC_DATA_new: function : PPKCS12_MAC_DATA; cdecl = Load_PKCS12_MAC_DATA_new; {}
+  PKCS12_MAC_DATA_free: procedure (a: PPKCS12_MAC_DATA); cdecl = Load_PKCS12_MAC_DATA_free; {}
+  d2i_PKCS12_MAC_DATA: function (a: PPPKCS12_MAC_DATA; const in_: PPByte; len: TOpenSSL_C_LONG): PPKCS12_MAC_DATA; cdecl = Load_d2i_PKCS12_MAC_DATA; {}
+  i2d_PKCS12_MAC_DATA: function (a: PPKCS12_MAC_DATA; out_: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS12_MAC_DATA; {}
+  PKCS12_MAC_DATA_it: function : PASN1_ITEM; cdecl = Load_PKCS12_MAC_DATA_it; {}
+  PKCS12_SAFEBAG_new: function : PPKCS12_SAFEBAG; cdecl = Load_PKCS12_SAFEBAG_new; {}
+  PKCS12_SAFEBAG_free: procedure (a: PPKCS12_SAFEBAG); cdecl = Load_PKCS12_SAFEBAG_free; {}
+  d2i_PKCS12_SAFEBAG: function (a: PPPKCS12_SAFEBAG; const in_: PPByte; len: TOpenSSL_C_LONG): PPKCS12_SAFEBAG; cdecl = Load_d2i_PKCS12_SAFEBAG; {}
+  i2d_PKCS12_SAFEBAG: function (a: PPKCS12_SAFEBAG; out_: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS12_SAFEBAG; {}
+  PKCS12_SAFEBAG_it: function : PASN1_ITEM; cdecl = Load_PKCS12_SAFEBAG_it; {}
+  PKCS12_BAGS_new: function : PPKCS12_BAGS; cdecl = Load_PKCS12_BAGS_new; {}
+  PKCS12_BAGS_free: procedure (a: PPKCS12_BAGS); cdecl = Load_PKCS12_BAGS_free; {}
+  d2i_PKCS12_BAGS: function (a: PPPKCS12_BAGS; const in_: PPByte; len: TOpenSSL_C_LONG): PPKCS12_BAGS; cdecl = Load_d2i_PKCS12_BAGS; {}
+  i2d_PKCS12_BAGS: function (a: PPKCS12_BAGS; out_: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS12_BAGS; {}
+  PKCS12_BAGS_it: function : PASN1_ITEM; cdecl = Load_PKCS12_BAGS_it; {}
+  PKCS12_PBE_add: procedure (v: Pointer); cdecl = Load_PKCS12_PBE_add; {}
+  PKCS12_parse: function (p12: PPKCS12; const pass: PAnsiChar; out pkey: PEVP_PKEY; out cert: PX509; ca: PPStack_Of_X509): TOpenSSL_C_INT; cdecl = Load_PKCS12_parse; {}
+  PKCS12_create: function (const pass: PAnsiChar; const name: PAnsiChar; pkey: PEVP_PKEY; cert: PX509; ca: PStack_Of_X509; nid_key: TOpenSSL_C_INT; nid_cert: TOpenSSL_C_INT; iter: TOpenSSL_C_INT; mac_iter: TOpenSSL_C_INT; keytype: TOpenSSL_C_INT): PPKCS12; cdecl = Load_PKCS12_create; {}
+  i2d_PKCS12_bio: function (bp: PBIO; p12: PPKCS12): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS12_bio; {}
+  d2i_PKCS12_bio: function (bp: PBIO; p12: PPPKCS12): PPKCS12; cdecl = Load_d2i_PKCS12_bio; {}
+  PKCS12_newpass: function (p12: PPKCS12; const oldpass: PAnsiChar; const newpass: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_PKCS12_newpass; {}
 {$ENDIF}
 const
   PKCS12_mac_present_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
@@ -412,6 +412,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

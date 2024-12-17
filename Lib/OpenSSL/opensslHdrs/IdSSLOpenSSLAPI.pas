@@ -306,8 +306,7 @@ uses SyncObjs,
      IdOpenSSLHeaders_ssl,
      IdOpenSSLHeaders_crypto,
      IdSSLOpenSSLExceptionHandlers,
-     IdSSLOpenSSLResourceStrings,
-     IdSSLOpenSSLLegacySupport;
+     IdSSLOpenSSLResourceStrings;
 
 type
 

@@ -160,7 +160,7 @@ function ERR_load_TS_strings: TOpenSSL_C_INT; cdecl; external CLibCrypto;
 function Load_ERR_load_TS_strings: TOpenSSL_C_INT; cdecl;
 
 var
-  ERR_load_TS_strings: function : TOpenSSL_C_INT; cdecl = Load_ERR_load_TS_strings;
+  ERR_load_TS_strings: function : TOpenSSL_C_INT; cdecl = Load_ERR_load_TS_strings; {}
 {$ENDIF}
 
 implementation
@@ -171,6 +171,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

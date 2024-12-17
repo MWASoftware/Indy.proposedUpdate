@@ -88,15 +88,15 @@ function Load_CMAC_Final(ctx: PCMAC_CTX; out_: PByte; poutlen: POpenSSL_C_SIZET)
 function Load_CMAC_resume(ctx: PCMAC_CTX): TOpenSSL_C_INT; cdecl;
 
 var
-  CMAC_CTX_new: function : PCMAC_CTX; cdecl = Load_CMAC_CTX_new;
-  CMAC_CTX_cleanup: procedure (ctx: PCMAC_CTX); cdecl = Load_CMAC_CTX_cleanup;
-  CMAC_CTX_free: procedure (ctx: PCMAC_CTX); cdecl = Load_CMAC_CTX_free;
-  CMAC_CTX_get0_cipher_ctx: function (ctx: PCMAC_CTX): PEVP_CIPHER_CTX; cdecl = Load_CMAC_CTX_get0_cipher_ctx;
-  CMAC_CTX_copy: function (out_: PCMAC_CTX; const in_: PCMAC_CTX): TOpenSSL_C_INT; cdecl = Load_CMAC_CTX_copy;
-  CMAC_Init: function (ctx: PCMAC_CTX; const key: Pointer; keylen: TOpenSSL_C_SIZET; const cipher: PEVP_Cipher; impl: PENGINe): TOpenSSL_C_INT; cdecl = Load_CMAC_Init;
-  CMAC_Update: function (ctx: PCMAC_CTX; const data: Pointer; dlen: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_CMAC_Update;
-  CMAC_Final: function (ctx: PCMAC_CTX; out_: PByte; poutlen: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_CMAC_Final;
-  CMAC_resume: function (ctx: PCMAC_CTX): TOpenSSL_C_INT; cdecl = Load_CMAC_resume;
+  CMAC_CTX_new: function : PCMAC_CTX; cdecl = Load_CMAC_CTX_new; {}
+  CMAC_CTX_cleanup: procedure (ctx: PCMAC_CTX); cdecl = Load_CMAC_CTX_cleanup; {}
+  CMAC_CTX_free: procedure (ctx: PCMAC_CTX); cdecl = Load_CMAC_CTX_free; {}
+  CMAC_CTX_get0_cipher_ctx: function (ctx: PCMAC_CTX): PEVP_CIPHER_CTX; cdecl = Load_CMAC_CTX_get0_cipher_ctx; {}
+  CMAC_CTX_copy: function (out_: PCMAC_CTX; const in_: PCMAC_CTX): TOpenSSL_C_INT; cdecl = Load_CMAC_CTX_copy; {}
+  CMAC_Init: function (ctx: PCMAC_CTX; const key: Pointer; keylen: TOpenSSL_C_SIZET; const cipher: PEVP_Cipher; impl: PENGINe): TOpenSSL_C_INT; cdecl = Load_CMAC_Init; {}
+  CMAC_Update: function (ctx: PCMAC_CTX; const data: Pointer; dlen: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_CMAC_Update; {}
+  CMAC_Final: function (ctx: PCMAC_CTX; out_: PByte; poutlen: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_CMAC_Final; {}
+  CMAC_resume: function (ctx: PCMAC_CTX): TOpenSSL_C_INT; cdecl = Load_CMAC_resume; {}
 {$ENDIF}
 
 implementation
@@ -107,6 +107,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

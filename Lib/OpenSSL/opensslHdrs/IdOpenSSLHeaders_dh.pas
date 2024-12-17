@@ -356,77 +356,77 @@ function Load_DH_meth_get_generate_params(const dhm: PDH_Method): DH_meth_genera
 function Load_DH_meth_set_generate_params(const dhm: PDH_Method; generate_params: DH_meth_generate_params_cb): TOpenSSL_C_INT; cdecl;
 
 var
-  DHparams_dup: function (dh: PDH): PDH; cdecl = Load_DHparams_dup;
-  DH_OpenSSL: function : PDH_Method; cdecl = Load_DH_OpenSSL;
-  DH_set_default_method: procedure (const meth: PDH_Method); cdecl = Load_DH_set_default_method;
-  DH_get_default_method: function : PDH_Method; cdecl = Load_DH_get_default_method;
-  DH_set_method: function (dh: PDH; const meth: PDH_Method): TOpenSSL_C_INT; cdecl = Load_DH_set_method;
-  DH_new_method: function (engine: PENGINE): PDH; cdecl = Load_DH_new_method;
-  DH_new: function : PDH; cdecl = Load_DH_new;
-  DH_free: procedure (dh: PDH); cdecl = Load_DH_free;
-  DH_up_ref: function (dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_up_ref;
-  DH_bits: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_bits; {introduced 1.1.0 }
-  DH_size: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_size;
-  DH_security_bits: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_security_bits; {introduced 1.1.0 }
-  DH_set_ex_data: function (d: PDH; idx: TOpenSSL_C_INT; arg: Pointer): TOpenSSL_C_INT; cdecl = Load_DH_set_ex_data;
-  DH_get_ex_data: function (d: PDH; idx: TOpenSSL_C_INT): Pointer; cdecl = Load_DH_get_ex_data;
-  DH_generate_parameters_ex: function (dh: PDH; prime_len: TOpenSSL_C_INT; generator: TOpenSSL_C_INT; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl = Load_DH_generate_parameters_ex;
-  DH_check_params_ex: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_check_params_ex; {introduced 1.1.0 }
-  DH_check_ex: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_check_ex; {introduced 1.1.0 }
-  DH_check_pub_key_ex: function (const dh: PDH; const pub_key: PBIGNUM): TOpenSSL_C_INT; cdecl = Load_DH_check_pub_key_ex; {introduced 1.1.0 }
-  DH_check_params: function (const dh: PDH; ret: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_DH_check_params; {introduced 1.1.0 }
-  DH_check: function (const dh: PDH; codes: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_DH_check;
-  DH_check_pub_key: function (const dh: PDH; const pub_key: PBIGNUM; codes: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_DH_check_pub_key;
-  DH_generate_key: function (dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_generate_key;
-  DH_compute_key: function (key: PByte; const pub_key: PBIGNUM; dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_compute_key;
-  DH_compute_key_padded: function (key: PByte; const pub_key: PBIGNUM; dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_compute_key_padded;
-  d2i_DHparams: function (a: PPDH; const pp: PPByte; length: TOpenSSL_C_LONG): PDH; cdecl = Load_d2i_DHparams;
-  i2d_DHparams: function (const a: PDH; pp: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_DHparams;
-  d2i_DHxparams: function (a: PPDH; const pp: PPByte; length: TOpenSSL_C_LONG): PDH; cdecl = Load_d2i_DHxparams;
-  i2d_DHxparams: function (const a: PDH; pp: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_DHxparams;
-  DHparams_print: function (bp: PBIO; const x: PDH): TOpenSSL_C_INT; cdecl = Load_DHparams_print;
-  DH_get_1024_160: function : PDH; cdecl = Load_DH_get_1024_160;
-  DH_get_2048_224: function : PDH; cdecl = Load_DH_get_2048_224;
-  DH_get_2048_256: function : PDH; cdecl = Load_DH_get_2048_256;
-  DH_new_by_nid: function (nid: TOpenSSL_C_INT): PDH; cdecl = Load_DH_new_by_nid; {introduced 1.1.0 }
-  DH_get_nid: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_get_nid; {introduced 1.1.0 }
-  DH_KDF_X9_42: function ( out_: PByte; outlen: TOpenSSL_C_SIZET; const Z: PByte; Zlen: TOpenSSL_C_SIZET; key_oid: PASN1_OBJECT; const ukm: PByte; ukmlen: TOpenSSL_C_SIZET; const md: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_DH_KDF_X9_42;
-  DH_get0_pqg: procedure (const dh: PDH; const p: PPBIGNUM; const q: PPBIGNUM; const g: PPBIGNUM); cdecl = Load_DH_get0_pqg; {introduced 1.1.0 }
-  DH_set0_pqg: function (dh: PDH; p: PBIGNUM; q: PBIGNUM; g: PBIGNUM): TOpenSSL_C_INT; cdecl = Load_DH_set0_pqg; {introduced 1.1.0 }
-  DH_get0_key: procedure (const dh: PDH; const pub_key: PPBIGNUM; const priv_key: PPBIGNUM); cdecl = Load_DH_get0_key; {introduced 1.1.0 }
-  DH_set0_key: function (dh: PDH; pub_key: PBIGNUM; priv_key: PBIGNUM): TOpenSSL_C_INT; cdecl = Load_DH_set0_key; {introduced 1.1.0 }
-  DH_get0_p: function (const dh: PDH): PBIGNUM; cdecl = Load_DH_get0_p; {introduced 1.1.0 }
-  DH_get0_q: function (const dh: PDH): PBIGNUM; cdecl = Load_DH_get0_q; {introduced 1.1.0 }
-  DH_get0_g: function (const dh: PDH): PBIGNUM; cdecl = Load_DH_get0_g; {introduced 1.1.0 }
-  DH_get0_priv_key: function (const dh: PDH): PBIGNUM; cdecl = Load_DH_get0_priv_key; {introduced 1.1.0 }
-  DH_get0_pub_key: function (const dh: PDH): PBIGNUM; cdecl = Load_DH_get0_pub_key; {introduced 1.1.0 }
-  DH_clear_flags: procedure (dh: PDH; flags: TOpenSSL_C_INT); cdecl = Load_DH_clear_flags; {introduced 1.1.0 }
-  DH_test_flags: function (const dh: PDH; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_DH_test_flags; {introduced 1.1.0 }
-  DH_set_flags: procedure (dh: PDH; flags: TOpenSSL_C_INT); cdecl = Load_DH_set_flags; {introduced 1.1.0 }
-  DH_get0_engine: function (d: PDH): PENGINE; cdecl = Load_DH_get0_engine; {introduced 1.1.0 }
-  DH_get_length: function (const dh: PDH): TOpenSSL_C_LONG; cdecl = Load_DH_get_length; {introduced 1.1.0 }
-  DH_set_length: function (dh: PDH; length: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = Load_DH_set_length; {introduced 1.1.0 }
-  DH_meth_new: function (const name: PAnsiChar; flags: TOpenSSL_C_INT): PDH_Method; cdecl = Load_DH_meth_new; {introduced 1.1.0 }
-  DH_meth_free: procedure (dhm: PDH_Method); cdecl = Load_DH_meth_free; {introduced 1.1.0 }
-  DH_meth_dup: function (const dhm: PDH_Method): PDH_Method; cdecl = Load_DH_meth_dup; {introduced 1.1.0 }
-  DH_meth_get0_name: function (const dhm: PDH_Method): PAnsiChar; cdecl = Load_DH_meth_get0_name; {introduced 1.1.0 }
-  DH_meth_set1_name: function (dhm: PDH_Method; const name: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_DH_meth_set1_name; {introduced 1.1.0 }
-  DH_meth_get_flags: function (const dhm: PDH_Method): TOpenSSL_C_INT; cdecl = Load_DH_meth_get_flags; {introduced 1.1.0 }
-  DH_meth_set_flags: function (const dhm: PDH_Method; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_flags; {introduced 1.1.0 }
-  DH_meth_get0_app_data: function (const dhm: PDH_Method): Pointer; cdecl = Load_DH_meth_get0_app_data; {introduced 1.1.0 }
-  DH_meth_set0_app_data: function (const dhm: PDH_Method; app_data: Pointer): TOpenSSL_C_INT; cdecl = Load_DH_meth_set0_app_data; {introduced 1.1.0 }
-  DH_meth_get_generate_key: function (const dhm: PDH_Method): DH_meth_generate_key_cb; cdecl = Load_DH_meth_get_generate_key; {introduced 1.1.0 }
-  DH_meth_set_generate_key: function (const dhm: PDH_Method; generate_key: DH_meth_generate_key_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_generate_key; {introduced 1.1.0 }
-  DH_meth_get_compute_key: function (const dhm: PDH_Method): DH_meth_compute_key_cb; cdecl = Load_DH_meth_get_compute_key; {introduced 1.1.0 }
-  DH_meth_set_compute_key: function (const dhm: PDH_Method; compute_key: DH_meth_compute_key_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_compute_key; {introduced 1.1.0 }
-  DH_meth_get_bn_mod_exp: function (const dhm: PDH_Method): DH_meth_bn_mod_exp_cb; cdecl = Load_DH_meth_get_bn_mod_exp; {introduced 1.1.0 }
-  DH_meth_set_bn_mod_exp: function (const dhm: PDH_Method; bn_mod_expr: DH_meth_bn_mod_exp_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_bn_mod_exp; {introduced 1.1.0 }
-  DH_meth_get_init: function (const dhm: PDH_Method): DH_meth_init_cb; cdecl = Load_DH_meth_get_init; {introduced 1.1.0 }
-  DH_meth_set_init: function (const dhm: PDH_Method; init: DH_meth_init_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_init; {introduced 1.1.0 }
-  DH_meth_get_finish: function (const dhm: PDH_Method): DH_meth_finish_cb; cdecl = Load_DH_meth_get_finish; {introduced 1.1.0 }
-  DH_meth_set_finish: function (const dhm: PDH_Method; finish: DH_meth_finish_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_finish; {introduced 1.1.0 }
-  DH_meth_get_generate_params: function (const dhm: PDH_Method): DH_meth_generate_params_cb; cdecl = Load_DH_meth_get_generate_params; {introduced 1.1.0 }
-  DH_meth_set_generate_params: function (const dhm: PDH_Method; generate_params: DH_meth_generate_params_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_generate_params; {introduced 1.1.0 }
+  DHparams_dup: function (dh: PDH): PDH; cdecl = Load_DHparams_dup; {}
+  DH_OpenSSL: function : PDH_Method; cdecl = Load_DH_OpenSSL; {}
+  DH_set_default_method: procedure (const meth: PDH_Method); cdecl = Load_DH_set_default_method; {}
+  DH_get_default_method: function : PDH_Method; cdecl = Load_DH_get_default_method; {}
+  DH_set_method: function (dh: PDH; const meth: PDH_Method): TOpenSSL_C_INT; cdecl = Load_DH_set_method; {}
+  DH_new_method: function (engine: PENGINE): PDH; cdecl = Load_DH_new_method; {}
+  DH_new: function : PDH; cdecl = Load_DH_new; {}
+  DH_free: procedure (dh: PDH); cdecl = Load_DH_free; {}
+  DH_up_ref: function (dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_up_ref; {}
+  DH_bits: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_bits; {}
+  DH_size: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_size; {}
+  DH_security_bits: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_security_bits; {}
+  DH_set_ex_data: function (d: PDH; idx: TOpenSSL_C_INT; arg: Pointer): TOpenSSL_C_INT; cdecl = Load_DH_set_ex_data; {}
+  DH_get_ex_data: function (d: PDH; idx: TOpenSSL_C_INT): Pointer; cdecl = Load_DH_get_ex_data; {}
+  DH_generate_parameters_ex: function (dh: PDH; prime_len: TOpenSSL_C_INT; generator: TOpenSSL_C_INT; cb: PBN_GENCB): TOpenSSL_C_INT; cdecl = Load_DH_generate_parameters_ex; {}
+  DH_check_params_ex: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_check_params_ex; {}
+  DH_check_ex: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_check_ex; {}
+  DH_check_pub_key_ex: function (const dh: PDH; const pub_key: PBIGNUM): TOpenSSL_C_INT; cdecl = Load_DH_check_pub_key_ex; {}
+  DH_check_params: function (const dh: PDH; ret: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_DH_check_params; {}
+  DH_check: function (const dh: PDH; codes: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_DH_check; {}
+  DH_check_pub_key: function (const dh: PDH; const pub_key: PBIGNUM; codes: POpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_DH_check_pub_key; {}
+  DH_generate_key: function (dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_generate_key; {}
+  DH_compute_key: function (key: PByte; const pub_key: PBIGNUM; dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_compute_key; {}
+  DH_compute_key_padded: function (key: PByte; const pub_key: PBIGNUM; dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_compute_key_padded; {}
+  d2i_DHparams: function (a: PPDH; const pp: PPByte; length: TOpenSSL_C_LONG): PDH; cdecl = Load_d2i_DHparams; {}
+  i2d_DHparams: function (const a: PDH; pp: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_DHparams; {}
+  d2i_DHxparams: function (a: PPDH; const pp: PPByte; length: TOpenSSL_C_LONG): PDH; cdecl = Load_d2i_DHxparams; {}
+  i2d_DHxparams: function (const a: PDH; pp: PPByte): TOpenSSL_C_INT; cdecl = Load_i2d_DHxparams; {}
+  DHparams_print: function (bp: PBIO; const x: PDH): TOpenSSL_C_INT; cdecl = Load_DHparams_print; {}
+  DH_get_1024_160: function : PDH; cdecl = Load_DH_get_1024_160; {}
+  DH_get_2048_224: function : PDH; cdecl = Load_DH_get_2048_224; {}
+  DH_get_2048_256: function : PDH; cdecl = Load_DH_get_2048_256; {}
+  DH_new_by_nid: function (nid: TOpenSSL_C_INT): PDH; cdecl = Load_DH_new_by_nid; {}
+  DH_get_nid: function (const dh: PDH): TOpenSSL_C_INT; cdecl = Load_DH_get_nid; {}
+  DH_KDF_X9_42: function ( out_: PByte; outlen: TOpenSSL_C_SIZET; const Z: PByte; Zlen: TOpenSSL_C_SIZET; key_oid: PASN1_OBJECT; const ukm: PByte; ukmlen: TOpenSSL_C_SIZET; const md: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_DH_KDF_X9_42; {}
+  DH_get0_pqg: procedure (const dh: PDH; const p: PPBIGNUM; const q: PPBIGNUM; const g: PPBIGNUM); cdecl = Load_DH_get0_pqg; {}
+  DH_set0_pqg: function (dh: PDH; p: PBIGNUM; q: PBIGNUM; g: PBIGNUM): TOpenSSL_C_INT; cdecl = Load_DH_set0_pqg; {}
+  DH_get0_key: procedure (const dh: PDH; const pub_key: PPBIGNUM; const priv_key: PPBIGNUM); cdecl = Load_DH_get0_key; {}
+  DH_set0_key: function (dh: PDH; pub_key: PBIGNUM; priv_key: PBIGNUM): TOpenSSL_C_INT; cdecl = Load_DH_set0_key; {}
+  DH_get0_p: function (const dh: PDH): PBIGNUM; cdecl = Load_DH_get0_p; {}
+  DH_get0_q: function (const dh: PDH): PBIGNUM; cdecl = Load_DH_get0_q; {}
+  DH_get0_g: function (const dh: PDH): PBIGNUM; cdecl = Load_DH_get0_g; {}
+  DH_get0_priv_key: function (const dh: PDH): PBIGNUM; cdecl = Load_DH_get0_priv_key; {}
+  DH_get0_pub_key: function (const dh: PDH): PBIGNUM; cdecl = Load_DH_get0_pub_key; {}
+  DH_clear_flags: procedure (dh: PDH; flags: TOpenSSL_C_INT); cdecl = Load_DH_clear_flags; {}
+  DH_test_flags: function (const dh: PDH; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_DH_test_flags; {}
+  DH_set_flags: procedure (dh: PDH; flags: TOpenSSL_C_INT); cdecl = Load_DH_set_flags; {}
+  DH_get0_engine: function (d: PDH): PENGINE; cdecl = Load_DH_get0_engine; {}
+  DH_get_length: function (const dh: PDH): TOpenSSL_C_LONG; cdecl = Load_DH_get_length; {}
+  DH_set_length: function (dh: PDH; length: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = Load_DH_set_length; {}
+  DH_meth_new: function (const name: PAnsiChar; flags: TOpenSSL_C_INT): PDH_Method; cdecl = Load_DH_meth_new; {}
+  DH_meth_free: procedure (dhm: PDH_Method); cdecl = Load_DH_meth_free; {}
+  DH_meth_dup: function (const dhm: PDH_Method): PDH_Method; cdecl = Load_DH_meth_dup; {}
+  DH_meth_get0_name: function (const dhm: PDH_Method): PAnsiChar; cdecl = Load_DH_meth_get0_name; {}
+  DH_meth_set1_name: function (dhm: PDH_Method; const name: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_DH_meth_set1_name; {}
+  DH_meth_get_flags: function (const dhm: PDH_Method): TOpenSSL_C_INT; cdecl = Load_DH_meth_get_flags; {}
+  DH_meth_set_flags: function (const dhm: PDH_Method; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_flags; {}
+  DH_meth_get0_app_data: function (const dhm: PDH_Method): Pointer; cdecl = Load_DH_meth_get0_app_data; {}
+  DH_meth_set0_app_data: function (const dhm: PDH_Method; app_data: Pointer): TOpenSSL_C_INT; cdecl = Load_DH_meth_set0_app_data; {}
+  DH_meth_get_generate_key: function (const dhm: PDH_Method): DH_meth_generate_key_cb; cdecl = Load_DH_meth_get_generate_key; {}
+  DH_meth_set_generate_key: function (const dhm: PDH_Method; generate_key: DH_meth_generate_key_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_generate_key; {}
+  DH_meth_get_compute_key: function (const dhm: PDH_Method): DH_meth_compute_key_cb; cdecl = Load_DH_meth_get_compute_key; {}
+  DH_meth_set_compute_key: function (const dhm: PDH_Method; compute_key: DH_meth_compute_key_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_compute_key; {}
+  DH_meth_get_bn_mod_exp: function (const dhm: PDH_Method): DH_meth_bn_mod_exp_cb; cdecl = Load_DH_meth_get_bn_mod_exp; {}
+  DH_meth_set_bn_mod_exp: function (const dhm: PDH_Method; bn_mod_expr: DH_meth_bn_mod_exp_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_bn_mod_exp; {}
+  DH_meth_get_init: function (const dhm: PDH_Method): DH_meth_init_cb; cdecl = Load_DH_meth_get_init; {}
+  DH_meth_set_init: function (const dhm: PDH_Method; init: DH_meth_init_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_init; {}
+  DH_meth_get_finish: function (const dhm: PDH_Method): DH_meth_finish_cb; cdecl = Load_DH_meth_get_finish; {}
+  DH_meth_set_finish: function (const dhm: PDH_Method; finish: DH_meth_finish_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_finish; {}
+  DH_meth_get_generate_params: function (const dhm: PDH_Method): DH_meth_generate_params_cb; cdecl = Load_DH_meth_get_generate_params; {}
+  DH_meth_set_generate_params: function (const dhm: PDH_Method; generate_params: DH_meth_generate_params_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_generate_params; {}
 {$ENDIF}
 const
   DH_bits_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
@@ -490,6 +490,10 @@ end;
 
 
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

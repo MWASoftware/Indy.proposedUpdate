@@ -332,68 +332,68 @@ function Load_UI_UTIL_read_pw(buf: PAnsiChar; buff: PAnsiChar; size: TOpenSSL_C_
 function Load_UI_UTIL_wrap_read_pem_callback(cb: pem_password_cb; rwflag: TOpenSSL_C_INT): PUI_Method; cdecl;
 
 var
-  UI_new: function : PUI; cdecl = Load_UI_new;
-  UI_new_method: function (const method: PUI_Method): PUI; cdecl = Load_UI_new_method;
-  UI_free: procedure (ui: PUI); cdecl = Load_UI_free;
-  UI_add_input_string: function (ui: PUI; const prompt: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar; minsize: TOpenSSL_C_INT; maxsize: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_add_input_string;
-  UI_dup_input_string: function (ui: PUI; const prompt: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar; minsize: TOpenSSL_C_INT; maxsize: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_dup_input_string;
-  UI_add_verify_string: function (ui: PUI; const prompt: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar; minsize: TOpenSSL_C_INT; maxsize: TOpenSSL_C_INT; const test_buf: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_add_verify_string;
-  UI_dup_verify_string: function (ui: PUI; const prompt: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar; minsize: TOpenSSL_C_INT; maxsize: TOpenSSL_C_INT; const test_buf: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_dup_verify_string;
-  UI_add_input_boolean: function (ui: PUI; const prompt: PAnsiChar; const action_desc: PAnsiChar; const ok_chars: PAnsiChar; const cancel_chars: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_add_input_boolean;
-  UI_dup_input_boolean: function (ui: PUI; const prompt: PAnsiChar; const action_desc: PAnsiChar; const ok_chars: PAnsiChar; const cancel_chars: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_dup_input_boolean;
-  UI_add_info_string: function (ui: PUI; const text: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_add_info_string;
-  UI_dup_info_string: function (ui: PUI; const text: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_dup_info_string;
-  UI_add_error_string: function (ui: PUI; const text: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_add_error_string;
-  UI_dup_error_string: function (ui: PUI; const text: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_dup_error_string;
-  UI_construct_prompt: function (ui_method: PUI; const object_desc: PAnsiChar; const object_name: PAnsiChar): PAnsiChar; cdecl = Load_UI_construct_prompt;
-  UI_add_user_data: function (ui: PUI; user_data: Pointer): Pointer; cdecl = Load_UI_add_user_data;
-  UI_dup_user_data: function (ui: PUI; user_data: Pointer): TOpenSSL_C_INT; cdecl = Load_UI_dup_user_data;
-  UI_get0_user_data: function (ui: PUI): Pointer; cdecl = Load_UI_get0_user_data;
-  UI_get0_result: function (ui: PUI; i: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_UI_get0_result;
-  UI_get_result_length: function (ui: PUI; i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_get_result_length;
-  UI_process: function (ui: PUI): TOpenSSL_C_INT; cdecl = Load_UI_process;
-  UI_ctrl: function (ui: PUI; cmd: TOpenSSL_C_INT; i: TOpenSSL_C_LONG; p: Pointer; f: UI_ctrl_f): TOpenSSL_C_INT; cdecl = Load_UI_ctrl;
-  UI_set_ex_data: function (r: PUI; idx: TOpenSSL_C_INT; arg: Pointer): TOpenSSL_C_INT; cdecl = Load_UI_set_ex_data;
-  UI_get_ex_data: function (r: PUI; idx: TOpenSSL_C_INT): Pointer; cdecl = Load_UI_get_ex_data;
-  UI_set_default_method: procedure (const meth: PUI_Method); cdecl = Load_UI_set_default_method;
-  UI_get_default_method: function : PUI_METHOD; cdecl = Load_UI_get_default_method;
-  UI_get_method: function (ui: PUI): PUI_METHOD; cdecl = Load_UI_get_method;
-  UI_set_method: function (ui: PUI; const meth: PUI_METHOD): PUI_METHOD; cdecl = Load_UI_set_method;
-  UI_OpenSSL: function : PUI_Method; cdecl = Load_UI_OpenSSL;
-  UI_null: function : PUI_METHOD; cdecl = Load_UI_null;
-  UI_create_method: function (const name: PAnsiChar): PUI_Method; cdecl = Load_UI_create_method;
-  UI_destroy_method: procedure (ui_method: PUI_Method); cdecl = Load_UI_destroy_method;
-  UI_method_set_opener: function (method: PUI_Method; opener: UI_method_opener_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_opener;
-  UI_method_set_writer: function (method: PUI_Method; writer: UI_method_writer_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_writer;
-  UI_method_set_flusher: function (method: PUI_Method; flusher: UI_method_flusher_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_flusher;
-  UI_method_set_reader: function (method: PUI_Method; reader: UI_method_reader_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_reader;
-  UI_method_set_closer: function (method: PUI_Method; closer: UI_method_closer_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_closer;
-  UI_method_set_data_duplicator: function (method: PUI_Method; duplicator: UI_method_data_duplicator_cb; destructor_: UI_method_data_destructor_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_data_duplicator;
-  UI_method_set_prompt_constructor: function (method: PUI_Method; prompt_constructor: UI_method_prompt_constructor_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_prompt_constructor;
-  UI_method_set_ex_data: function (method: PUI_Method; idx: TOpenSSL_C_INT; data: Pointer): TOpenSSL_C_INT; cdecl = Load_UI_method_set_ex_data;
-  UI_method_get_opener: function (const method: PUI_METHOD): UI_method_opener_cb; cdecl = Load_UI_method_get_opener;
-  UI_method_get_writer: function (const method: PUI_METHOD): UI_method_writer_cb; cdecl = Load_UI_method_get_writer;
-  UI_method_get_flusher: function (const method: PUI_METHOD): UI_method_flusher_cb; cdecl = Load_UI_method_get_flusher;
-  UI_method_get_reader: function (const method: PUI_METHOD): UI_method_reader_cb; cdecl = Load_UI_method_get_reader;
-  UI_method_get_closer: function (const method: PUI_METHOD): UI_method_closer_cb; cdecl = Load_UI_method_get_closer;
-  UI_method_get_prompt_constructor: function (const method: PUI_METHOD): UI_method_prompt_constructor_cb; cdecl = Load_UI_method_get_prompt_constructor;
-  UI_method_get_data_duplicator: function (const method: PUI_METHOD): UI_method_data_duplicator_cb; cdecl = Load_UI_method_get_data_duplicator;
-  UI_method_get_data_destructor: function (const method: PUI_METHOD): UI_method_data_destructor_cb; cdecl = Load_UI_method_get_data_destructor;
-  UI_method_get_ex_data: function (const method: PUI_METHOD; idx: TOpenSSL_C_INT): Pointer; cdecl = Load_UI_method_get_ex_data;
-  UI_get_string_type: function (uis: PUI_String): UI_string_types; cdecl = Load_UI_get_string_type;
-  UI_get_input_flags: function (uis: PUI_String): TOpenSSL_C_INT; cdecl = Load_UI_get_input_flags;
-  UI_get0_output_string: function (uis: PUI_String): PAnsiChar; cdecl = Load_UI_get0_output_string;
-  UI_get0_action_string: function (uis: PUI_String): PAnsiChar; cdecl = Load_UI_get0_action_string;
-  UI_get0_result_string: function (uis: PUI_String): PAnsiChar; cdecl = Load_UI_get0_result_string;
-  UI_get_result_string_length: function (uis: PUI_String): TOpenSSL_C_INT; cdecl = Load_UI_get_result_string_length;
-  UI_get0_test_string: function (uis: PUI_String): PAnsiChar; cdecl = Load_UI_get0_test_string;
-  UI_get_result_minsize: function (uis: PUI_String): TOpenSSL_C_INT; cdecl = Load_UI_get_result_minsize;
-  UI_get_result_maxsize: function (uis: PUI_String): TOpenSSL_C_INT; cdecl = Load_UI_get_result_maxsize;
-  UI_set_result: function (ui: PUI; uis: PUI_String; const result_: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_set_result;
-  UI_set_result_ex: function (ui: PUI; uis: PUI_String; const result_: PAnsiChar; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_set_result_ex;
-  UI_UTIL_read_pw_string: function (buf: PAnsiChar; length: TOpenSSL_C_INT; const prompt: PAnsiChar; verify: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_UTIL_read_pw_string;
-  UI_UTIL_read_pw: function (buf: PAnsiChar; buff: PAnsiChar; size: TOpenSSL_C_INT; const prompt: PAnsiChar; verify: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_UTIL_read_pw;
-  UI_UTIL_wrap_read_pem_callback: function (cb: pem_password_cb; rwflag: TOpenSSL_C_INT): PUI_Method; cdecl = Load_UI_UTIL_wrap_read_pem_callback;
+  UI_new: function : PUI; cdecl = Load_UI_new; {}
+  UI_new_method: function (const method: PUI_Method): PUI; cdecl = Load_UI_new_method; {}
+  UI_free: procedure (ui: PUI); cdecl = Load_UI_free; {}
+  UI_add_input_string: function (ui: PUI; const prompt: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar; minsize: TOpenSSL_C_INT; maxsize: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_add_input_string; {}
+  UI_dup_input_string: function (ui: PUI; const prompt: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar; minsize: TOpenSSL_C_INT; maxsize: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_dup_input_string; {}
+  UI_add_verify_string: function (ui: PUI; const prompt: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar; minsize: TOpenSSL_C_INT; maxsize: TOpenSSL_C_INT; const test_buf: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_add_verify_string; {}
+  UI_dup_verify_string: function (ui: PUI; const prompt: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar; minsize: TOpenSSL_C_INT; maxsize: TOpenSSL_C_INT; const test_buf: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_dup_verify_string; {}
+  UI_add_input_boolean: function (ui: PUI; const prompt: PAnsiChar; const action_desc: PAnsiChar; const ok_chars: PAnsiChar; const cancel_chars: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_add_input_boolean; {}
+  UI_dup_input_boolean: function (ui: PUI; const prompt: PAnsiChar; const action_desc: PAnsiChar; const ok_chars: PAnsiChar; const cancel_chars: PAnsiChar; flags: TOpenSSL_C_INT; result_buf: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_dup_input_boolean; {}
+  UI_add_info_string: function (ui: PUI; const text: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_add_info_string; {}
+  UI_dup_info_string: function (ui: PUI; const text: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_dup_info_string; {}
+  UI_add_error_string: function (ui: PUI; const text: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_add_error_string; {}
+  UI_dup_error_string: function (ui: PUI; const text: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_dup_error_string; {}
+  UI_construct_prompt: function (ui_method: PUI; const object_desc: PAnsiChar; const object_name: PAnsiChar): PAnsiChar; cdecl = Load_UI_construct_prompt; {}
+  UI_add_user_data: function (ui: PUI; user_data: Pointer): Pointer; cdecl = Load_UI_add_user_data; {}
+  UI_dup_user_data: function (ui: PUI; user_data: Pointer): TOpenSSL_C_INT; cdecl = Load_UI_dup_user_data; {}
+  UI_get0_user_data: function (ui: PUI): Pointer; cdecl = Load_UI_get0_user_data; {}
+  UI_get0_result: function (ui: PUI; i: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_UI_get0_result; {}
+  UI_get_result_length: function (ui: PUI; i: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_get_result_length; {}
+  UI_process: function (ui: PUI): TOpenSSL_C_INT; cdecl = Load_UI_process; {}
+  UI_ctrl: function (ui: PUI; cmd: TOpenSSL_C_INT; i: TOpenSSL_C_LONG; p: Pointer; f: UI_ctrl_f): TOpenSSL_C_INT; cdecl = Load_UI_ctrl; {}
+  UI_set_ex_data: function (r: PUI; idx: TOpenSSL_C_INT; arg: Pointer): TOpenSSL_C_INT; cdecl = Load_UI_set_ex_data; {}
+  UI_get_ex_data: function (r: PUI; idx: TOpenSSL_C_INT): Pointer; cdecl = Load_UI_get_ex_data; {}
+  UI_set_default_method: procedure (const meth: PUI_Method); cdecl = Load_UI_set_default_method; {}
+  UI_get_default_method: function : PUI_METHOD; cdecl = Load_UI_get_default_method; {}
+  UI_get_method: function (ui: PUI): PUI_METHOD; cdecl = Load_UI_get_method; {}
+  UI_set_method: function (ui: PUI; const meth: PUI_METHOD): PUI_METHOD; cdecl = Load_UI_set_method; {}
+  UI_OpenSSL: function : PUI_Method; cdecl = Load_UI_OpenSSL; {}
+  UI_null: function : PUI_METHOD; cdecl = Load_UI_null; {}
+  UI_create_method: function (const name: PAnsiChar): PUI_Method; cdecl = Load_UI_create_method; {}
+  UI_destroy_method: procedure (ui_method: PUI_Method); cdecl = Load_UI_destroy_method; {}
+  UI_method_set_opener: function (method: PUI_Method; opener: UI_method_opener_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_opener; {}
+  UI_method_set_writer: function (method: PUI_Method; writer: UI_method_writer_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_writer; {}
+  UI_method_set_flusher: function (method: PUI_Method; flusher: UI_method_flusher_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_flusher; {}
+  UI_method_set_reader: function (method: PUI_Method; reader: UI_method_reader_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_reader; {}
+  UI_method_set_closer: function (method: PUI_Method; closer: UI_method_closer_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_closer; {}
+  UI_method_set_data_duplicator: function (method: PUI_Method; duplicator: UI_method_data_duplicator_cb; destructor_: UI_method_data_destructor_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_data_duplicator; {}
+  UI_method_set_prompt_constructor: function (method: PUI_Method; prompt_constructor: UI_method_prompt_constructor_cb): TOpenSSL_C_INT; cdecl = Load_UI_method_set_prompt_constructor; {}
+  UI_method_set_ex_data: function (method: PUI_Method; idx: TOpenSSL_C_INT; data: Pointer): TOpenSSL_C_INT; cdecl = Load_UI_method_set_ex_data; {}
+  UI_method_get_opener: function (const method: PUI_METHOD): UI_method_opener_cb; cdecl = Load_UI_method_get_opener; {}
+  UI_method_get_writer: function (const method: PUI_METHOD): UI_method_writer_cb; cdecl = Load_UI_method_get_writer; {}
+  UI_method_get_flusher: function (const method: PUI_METHOD): UI_method_flusher_cb; cdecl = Load_UI_method_get_flusher; {}
+  UI_method_get_reader: function (const method: PUI_METHOD): UI_method_reader_cb; cdecl = Load_UI_method_get_reader; {}
+  UI_method_get_closer: function (const method: PUI_METHOD): UI_method_closer_cb; cdecl = Load_UI_method_get_closer; {}
+  UI_method_get_prompt_constructor: function (const method: PUI_METHOD): UI_method_prompt_constructor_cb; cdecl = Load_UI_method_get_prompt_constructor; {}
+  UI_method_get_data_duplicator: function (const method: PUI_METHOD): UI_method_data_duplicator_cb; cdecl = Load_UI_method_get_data_duplicator; {}
+  UI_method_get_data_destructor: function (const method: PUI_METHOD): UI_method_data_destructor_cb; cdecl = Load_UI_method_get_data_destructor; {}
+  UI_method_get_ex_data: function (const method: PUI_METHOD; idx: TOpenSSL_C_INT): Pointer; cdecl = Load_UI_method_get_ex_data; {}
+  UI_get_string_type: function (uis: PUI_String): UI_string_types; cdecl = Load_UI_get_string_type; {}
+  UI_get_input_flags: function (uis: PUI_String): TOpenSSL_C_INT; cdecl = Load_UI_get_input_flags; {}
+  UI_get0_output_string: function (uis: PUI_String): PAnsiChar; cdecl = Load_UI_get0_output_string; {}
+  UI_get0_action_string: function (uis: PUI_String): PAnsiChar; cdecl = Load_UI_get0_action_string; {}
+  UI_get0_result_string: function (uis: PUI_String): PAnsiChar; cdecl = Load_UI_get0_result_string; {}
+  UI_get_result_string_length: function (uis: PUI_String): TOpenSSL_C_INT; cdecl = Load_UI_get_result_string_length; {}
+  UI_get0_test_string: function (uis: PUI_String): PAnsiChar; cdecl = Load_UI_get0_test_string; {}
+  UI_get_result_minsize: function (uis: PUI_String): TOpenSSL_C_INT; cdecl = Load_UI_get_result_minsize; {}
+  UI_get_result_maxsize: function (uis: PUI_String): TOpenSSL_C_INT; cdecl = Load_UI_get_result_maxsize; {}
+  UI_set_result: function (ui: PUI; uis: PUI_String; const result_: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_UI_set_result; {}
+  UI_set_result_ex: function (ui: PUI; uis: PUI_String; const result_: PAnsiChar; len: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_set_result_ex; {}
+  UI_UTIL_read_pw_string: function (buf: PAnsiChar; length: TOpenSSL_C_INT; const prompt: PAnsiChar; verify: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_UTIL_read_pw_string; {}
+  UI_UTIL_read_pw: function (buf: PAnsiChar; buff: PAnsiChar; size: TOpenSSL_C_INT; const prompt: PAnsiChar; verify: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_UI_UTIL_read_pw; {}
+  UI_UTIL_wrap_read_pem_callback: function (cb: pem_password_cb; rwflag: TOpenSSL_C_INT): PUI_Method; cdecl = Load_UI_UTIL_wrap_read_pem_callback; {}
 {$ENDIF}
 
 implementation
@@ -404,6 +404,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

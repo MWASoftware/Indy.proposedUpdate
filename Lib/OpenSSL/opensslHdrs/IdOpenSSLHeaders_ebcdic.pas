@@ -62,8 +62,8 @@ function Load_ebcdic2ascii(dest: Pointer; const srce: Pointer; count: TOpenSSL_C
 function Load_ascii2ebcdic(dest: Pointer; const srce: Pointer; count: TOpenSSL_C_SIZET): Pointer; cdecl;
 
 var
-  ebcdic2ascii: function (dest: Pointer; const srce: Pointer; count: TOpenSSL_C_SIZET): Pointer; cdecl = Load_ebcdic2ascii;
-  ascii2ebcdic: function (dest: Pointer; const srce: Pointer; count: TOpenSSL_C_SIZET): Pointer; cdecl = Load_ascii2ebcdic;
+  ebcdic2ascii: function (dest: Pointer; const srce: Pointer; count: TOpenSSL_C_SIZET): Pointer; cdecl = Load_ebcdic2ascii; {}
+  ascii2ebcdic: function (dest: Pointer; const srce: Pointer; count: TOpenSSL_C_SIZET): Pointer; cdecl = Load_ascii2ebcdic; {}
 {$ENDIF}
 
 implementation
@@ -74,6 +74,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

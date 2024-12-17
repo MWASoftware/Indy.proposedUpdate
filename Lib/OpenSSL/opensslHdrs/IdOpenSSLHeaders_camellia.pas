@@ -112,16 +112,16 @@ procedure Load_Camellia_ofb128_encrypt( const in_: PByte; const out_: PByte; len
 procedure Load_Camellia_ctr128_encrypt( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: POpenSSL_C_INT); cdecl;
 
 var
-  Camellia_set_key: function (const userKey: PByte; const bits: TOpenSSL_C_INT; key: PCAMELLIA_KEY): TOpenSSL_C_INT; cdecl = Load_Camellia_set_key;
-  Camellia_encrypt: procedure (const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl = Load_Camellia_encrypt;
-  Camellia_decrypt: procedure (const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl = Load_Camellia_decrypt;
-  Camellia_ecb_encrypt: procedure ( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY; const enc: TOpenSSL_C_INT); cdecl = Load_Camellia_ecb_encrypt;
-  Camellia_cbc_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; const enc: TOpenSSL_C_INT); cdecl = Load_Camellia_cbc_encrypt;
-  Camellia_cfb128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = Load_Camellia_cfb128_encrypt;
-  Camellia_cfb1_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = Load_Camellia_cfb1_encrypt;
-  Camellia_cfb8_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = Load_Camellia_cfb8_encrypt;
-  Camellia_ofb128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT); cdecl = Load_Camellia_ofb128_encrypt;
-  Camellia_ctr128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: POpenSSL_C_INT); cdecl = Load_Camellia_ctr128_encrypt;
+  Camellia_set_key: function (const userKey: PByte; const bits: TOpenSSL_C_INT; key: PCAMELLIA_KEY): TOpenSSL_C_INT; cdecl = Load_Camellia_set_key; {}
+  Camellia_encrypt: procedure (const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl = Load_Camellia_encrypt; {}
+  Camellia_decrypt: procedure (const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY); cdecl = Load_Camellia_decrypt; {}
+  Camellia_ecb_encrypt: procedure ( const in_: PByte; const out_: PByte; const key: PCAMELLIA_KEY; const enc: TOpenSSL_C_INT); cdecl = Load_Camellia_ecb_encrypt; {}
+  Camellia_cbc_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; const enc: TOpenSSL_C_INT); cdecl = Load_Camellia_cbc_encrypt; {}
+  Camellia_cfb128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = Load_Camellia_cfb128_encrypt; {}
+  Camellia_cfb1_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = Load_Camellia_cfb1_encrypt; {}
+  Camellia_cfb8_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT; const enc: TOpenSSL_C_INT); cdecl = Load_Camellia_cfb8_encrypt; {}
+  Camellia_ofb128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: PByte; num: POpenSSL_C_INT); cdecl = Load_Camellia_ofb128_encrypt; {}
+  Camellia_ctr128_encrypt: procedure ( const in_: PByte; const out_: PByte; length: TOpenSSL_C_SIZET; const key: PCAMELLIA_KEY; ivec: TCamellia_ctr128_encrypt_ivec; ecount_buf: TCamellia_ctr128_encrypt_ecount_buf; num: POpenSSL_C_INT); cdecl = Load_Camellia_ctr128_encrypt; {}
 {$ENDIF}
 
 implementation
@@ -132,6 +132,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

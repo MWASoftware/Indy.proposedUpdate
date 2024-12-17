@@ -276,7 +276,7 @@ function i2d_PKCS7_bio_stream(out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TOpenSSL
 function PEM_write_bio_PKCS7_stream(out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
 function PKCS7_ctrl(p7: PPKCS7; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; parg: PAnsiChar): TOpenSSL_C_LONG; cdecl; external CLibCrypto;
 function PKCS7_set_type(p7: PPKCS7; type_: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl; external CLibCrypto;
-function PKCS7_set0_type_other(p7: PPKCS7; type_: TOpenSSL_C_INT; other: PASN1_TYPE): TOpenSSL_C_INT; cdecl; external CLibCrypto;
+function PKCS7_set0_type_other(p7: PPKCS7; typepkcs7_signer_info_: TOpenSSL_C_INT; other: PASN1_TYPE): TOpenSSL_C_INT; cdecl; external CLibCrypto;
 function PKCS7_set_content(p7: PPKCS7; p7_data: PPKCS7): TOpenSSL_C_INT; cdecl; external CLibCrypto;
 function PKCS7_SIGNER_INFO_set(p7i: PPKCS7_SIGNER_INFO; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): TOpenSSL_C_INT; cdecl; external CLibCrypto;
 function PKCS7_SIGNER_INFO_sign(si: PPKCS7_SIGNER_INFO): TOpenSSL_C_INT; cdecl; external CLibCrypto;
@@ -326,7 +326,7 @@ function Load_i2d_PKCS7_bio_stream(out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TOp
 function Load_PEM_write_bio_PKCS7_stream(out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 function Load_PKCS7_ctrl(p7: PPKCS7; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; parg: PAnsiChar): TOpenSSL_C_LONG; cdecl;
 function Load_PKCS7_set_type(p7: PPKCS7; type_: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
-function Load_PKCS7_set0_type_other(p7: PPKCS7; type_: TOpenSSL_C_INT; other: PASN1_TYPE): TOpenSSL_C_INT; cdecl;
+function Load_PKCS7_set0_type_other(p7: PPKCS7; typepkcs7_signer_info_: TOpenSSL_C_INT; other: PASN1_TYPE): TOpenSSL_C_INT; cdecl;
 function Load_PKCS7_set_content(p7: PPKCS7; p7_data: PPKCS7): TOpenSSL_C_INT; cdecl;
 function Load_PKCS7_SIGNER_INFO_set(p7i: PPKCS7_SIGNER_INFO; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): TOpenSSL_C_INT; cdecl;
 function Load_PKCS7_SIGNER_INFO_sign(si: PPKCS7_SIGNER_INFO): TOpenSSL_C_INT; cdecl;
@@ -365,51 +365,51 @@ function Load_SMIME_read_PKCS7(bio: PBIO; bcont: PPBIO): PPKCS7; cdecl;
 function Load_BIO_new_PKCS7(out_: PBIO; p7: PPKCS7): PBIO; cdecl;
 
 var
-  PKCS7_ISSUER_AND_SERIAL_digest: function (data: PPKCS7_ISSUER_AND_SERIAL; const type_: PEVP_MD; md: PByte; len: POpenSSL_C_UINT): TOpenSSL_C_INT; cdecl = Load_PKCS7_ISSUER_AND_SERIAL_digest;
-  PKCS7_dup: function (p7: PPKCS7): PPKCS7; cdecl = Load_PKCS7_dup;
-  d2i_PKCS7_bio: function (bp: PBIO; p7: PPPKCS7): PPKCS7; cdecl = Load_d2i_PKCS7_bio;
-  i2d_PKCS7_bio: function (bp: PBIO; p7: PPKCS7): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS7_bio;
-  i2d_PKCS7_bio_stream: function (out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS7_bio_stream;
-  PEM_write_bio_PKCS7_stream: function (out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PEM_write_bio_PKCS7_stream;
-  PKCS7_ctrl: function (p7: PPKCS7; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; parg: PAnsiChar): TOpenSSL_C_LONG; cdecl = Load_PKCS7_ctrl;
-  PKCS7_set_type: function (p7: PPKCS7; type_: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS7_set_type;
-  PKCS7_set0_type_other: function (p7: PPKCS7; type_: TOpenSSL_C_INT; other: PASN1_TYPE): TOpenSSL_C_INT; cdecl = Load_PKCS7_set0_type_other;
-  PKCS7_set_content: function (p7: PPKCS7; p7_data: PPKCS7): TOpenSSL_C_INT; cdecl = Load_PKCS7_set_content;
-  PKCS7_SIGNER_INFO_set: function (p7i: PPKCS7_SIGNER_INFO; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS7_SIGNER_INFO_set;
-  PKCS7_SIGNER_INFO_sign: function (si: PPKCS7_SIGNER_INFO): TOpenSSL_C_INT; cdecl = Load_PKCS7_SIGNER_INFO_sign;
-  PKCS7_add_signer: function (p7: PPKCS7; p7i: PPKCS7_SIGNER_INFO): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_signer;
-  PKCS7_add_certificate: function (p7: PPKCS7; x509: PX509): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_certificate;
-  PKCS7_add_crl: function (p7: PPKCS7; x509: PX509_CRL): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_crl;
-  PKCS7_content_new: function (p7: PPKCS7; nid: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS7_content_new;
-  PKCS7_dataVerify: function (cert_store: PX509_STORE; ctx: PX509_STORE_CTX; bio: PBIO; p7: PPKCS7; si: PPKCS7_SIGNER_INFO): TOpenSSL_C_INT; cdecl = Load_PKCS7_dataVerify;
-  PKCS7_signatureVerify: function (bio: PBIO; p7: PPKCS7; si: PPKCS7_SIGNER_INFO; x509: PX509): TOpenSSL_C_INT; cdecl = Load_PKCS7_signatureVerify;
-  PKCS7_dataInit: function (p7: PPKCS7; bio: PBIO): PBIO; cdecl = Load_PKCS7_dataInit;
-  PKCS7_dataFinal: function (p7: PPKCS7; bio: PBIO): TOpenSSL_C_INT; cdecl = Load_PKCS7_dataFinal;
-  PKCS7_dataDecode: function (p7: PPKCS7; pkey: PEVP_PKEY; in_bio: PBIO; pcert: PX509): PBIO; cdecl = Load_PKCS7_dataDecode;
-  PKCS7_add_signature: function (p7: PPKCS7; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): PPKCS7_SIGNER_INFO; cdecl = Load_PKCS7_add_signature;
-  PKCS7_cert_from_signer_info: function (p7: PPKCS7; si: PPKCS7_SIGNER_INFO): PX509; cdecl = Load_PKCS7_cert_from_signer_info;
-  PKCS7_set_digest: function (p7: PPKCS7; const md: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS7_set_digest;
-  PKCS7_add_recipient: function (p7: PPKCS7; x509: PX509): PPKCS7_RECIP_INFO; cdecl = Load_PKCS7_add_recipient;
-  PKCS7_SIGNER_INFO_get0_algs: procedure (si: PPKCS7_SIGNER_INFO; pk: PPEVP_PKEY; pdig: PPX509_ALGOR; psig: PPX509_ALGOR); cdecl = Load_PKCS7_SIGNER_INFO_get0_algs;
-  PKCS7_RECIP_INFO_get0_alg: procedure (ri: PPKCS7_RECIP_INFO; penc: PPX509_ALGOR); cdecl = Load_PKCS7_RECIP_INFO_get0_alg;
-  PKCS7_add_recipient_info: function (p7: PPKCS7; ri: PPKCS7_RECIP_INFO): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_recipient_info;
-  PKCS7_RECIP_INFO_set: function (p7i: PPKCS7_RECIP_INFO; x509: PX509): TOpenSSL_C_INT; cdecl = Load_PKCS7_RECIP_INFO_set;
-  PKCS7_set_cipher: function (p7: PPKCS7; const cipher: PEVP_CIPHER): TOpenSSL_C_INT; cdecl = Load_PKCS7_set_cipher;
-  PKCS7_stream: function (boundary: PPPByte; p7: PPKCS7): TOpenSSL_C_INT; cdecl = Load_PKCS7_stream;
-  PKCS7_get_issuer_and_serial: function (p7: PPKCS7; idx: TOpenSSL_C_INT): PPKCS7_ISSUER_AND_SERIAL; cdecl = Load_PKCS7_get_issuer_and_serial;
-  PKCS7_add_signed_attribute: function (p7si: PPKCS7_SIGNER_INFO; nid: TOpenSSL_C_INT; type_: TOpenSSL_C_INT; data: Pointer): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_signed_attribute;
-  PKCS7_add_attribute: function (p7si: PPKCS7_SIGNER_INFO; nid: TOpenSSL_C_INT; atrtype: TOpenSSL_C_INT; value: Pointer): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_attribute;
-  PKCS7_get_attribute: function (si: PPKCS7_SIGNER_INFO; nid: TOpenSSL_C_INT): PASN1_TYPE; cdecl = Load_PKCS7_get_attribute;
-  PKCS7_get_signed_attribute: function (si: PPKCS7_SIGNER_INFO; nid: TOpenSSL_C_INT): PASN1_TYPE; cdecl = Load_PKCS7_get_signed_attribute;
-  PKCS7_sign_add_signer: function (p7: PPKCS7; signcert: PX509; pkey: PEVP_PKEY; const md: PEVP_MD; flags: TOpenSSL_C_INT): PPKCS7_SIGNER_INFO; cdecl = Load_PKCS7_sign_add_signer;
-  PKCS7_final: function (p7: PPKCS7; data: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS7_final;
-  PKCS7_decrypt: function (p7: PPKCS7; pkey: PEVP_PKEY; cert: PX509; data: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS7_decrypt;
-  PKCS7_add_attrib_content_type: function (si: PPKCS7_SIGNER_INFO; coid: PASN1_OBJECT): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_attrib_content_type;
-  PKCS7_add0_attrib_signing_time: function (si: PPKCS7_SIGNER_INFO; t: PASN1_TIME): TOpenSSL_C_INT; cdecl = Load_PKCS7_add0_attrib_signing_time;
-  PKCS7_add1_attrib_digest: function (si: PPKCS7_SIGNER_INFO; const md: PByte; mdlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS7_add1_attrib_digest;
-  SMIME_write_PKCS7: function (bio: PBIO; p7: PPKCS7; data: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_SMIME_write_PKCS7;
-  SMIME_read_PKCS7: function (bio: PBIO; bcont: PPBIO): PPKCS7; cdecl = Load_SMIME_read_PKCS7;
-  BIO_new_PKCS7: function (out_: PBIO; p7: PPKCS7): PBIO; cdecl = Load_BIO_new_PKCS7;
+  PKCS7_ISSUER_AND_SERIAL_digest: function (data: PPKCS7_ISSUER_AND_SERIAL; const type_: PEVP_MD; md: PByte; len: POpenSSL_C_UINT): TOpenSSL_C_INT; cdecl = Load_PKCS7_ISSUER_AND_SERIAL_digest; {}
+  PKCS7_dup: function (p7: PPKCS7): PPKCS7; cdecl = Load_PKCS7_dup; {}
+  d2i_PKCS7_bio: function (bp: PBIO; p7: PPPKCS7): PPKCS7; cdecl = Load_d2i_PKCS7_bio; {}
+  i2d_PKCS7_bio: function (bp: PBIO; p7: PPKCS7): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS7_bio; {}
+  i2d_PKCS7_bio_stream: function (out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_i2d_PKCS7_bio_stream; {}
+  PEM_write_bio_PKCS7_stream: function (out_: PBIO; p7: PPKCS7; in_: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PEM_write_bio_PKCS7_stream; {}
+  PKCS7_ctrl: function (p7: PPKCS7; cmd: TOpenSSL_C_INT; larg: TOpenSSL_C_LONG; parg: PAnsiChar): TOpenSSL_C_LONG; cdecl = Load_PKCS7_ctrl; {}
+  PKCS7_set_type: function (p7: PPKCS7; type_: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS7_set_type; {}
+  PKCS7_set0_type_other: function (p7: PPKCS7; typepkcs7_signer_info_: TOpenSSL_C_INT; other: PASN1_TYPE): TOpenSSL_C_INT; cdecl = Load_PKCS7_set0_type_other; {}
+  PKCS7_set_content: function (p7: PPKCS7; p7_data: PPKCS7): TOpenSSL_C_INT; cdecl = Load_PKCS7_set_content; {}
+  PKCS7_SIGNER_INFO_set: function (p7i: PPKCS7_SIGNER_INFO; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS7_SIGNER_INFO_set; {}
+  PKCS7_SIGNER_INFO_sign: function (si: PPKCS7_SIGNER_INFO): TOpenSSL_C_INT; cdecl = Load_PKCS7_SIGNER_INFO_sign; {}
+  PKCS7_add_signer: function (p7: PPKCS7; p7i: PPKCS7_SIGNER_INFO): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_signer; {}
+  PKCS7_add_certificate: function (p7: PPKCS7; x509: PX509): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_certificate; {}
+  PKCS7_add_crl: function (p7: PPKCS7; x509: PX509_CRL): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_crl; {}
+  PKCS7_content_new: function (p7: PPKCS7; nid: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS7_content_new; {}
+  PKCS7_dataVerify: function (cert_store: PX509_STORE; ctx: PX509_STORE_CTX; bio: PBIO; p7: PPKCS7; si: PPKCS7_SIGNER_INFO): TOpenSSL_C_INT; cdecl = Load_PKCS7_dataVerify; {}
+  PKCS7_signatureVerify: function (bio: PBIO; p7: PPKCS7; si: PPKCS7_SIGNER_INFO; x509: PX509): TOpenSSL_C_INT; cdecl = Load_PKCS7_signatureVerify; {}
+  PKCS7_dataInit: function (p7: PPKCS7; bio: PBIO): PBIO; cdecl = Load_PKCS7_dataInit; {}
+  PKCS7_dataFinal: function (p7: PPKCS7; bio: PBIO): TOpenSSL_C_INT; cdecl = Load_PKCS7_dataFinal; {}
+  PKCS7_dataDecode: function (p7: PPKCS7; pkey: PEVP_PKEY; in_bio: PBIO; pcert: PX509): PBIO; cdecl = Load_PKCS7_dataDecode; {}
+  PKCS7_add_signature: function (p7: PPKCS7; x509: PX509; pkey: PEVP_PKEY; const dgst: PEVP_MD): PPKCS7_SIGNER_INFO; cdecl = Load_PKCS7_add_signature; {}
+  PKCS7_cert_from_signer_info: function (p7: PPKCS7; si: PPKCS7_SIGNER_INFO): PX509; cdecl = Load_PKCS7_cert_from_signer_info; {}
+  PKCS7_set_digest: function (p7: PPKCS7; const md: PEVP_MD): TOpenSSL_C_INT; cdecl = Load_PKCS7_set_digest; {}
+  PKCS7_add_recipient: function (p7: PPKCS7; x509: PX509): PPKCS7_RECIP_INFO; cdecl = Load_PKCS7_add_recipient; {}
+  PKCS7_SIGNER_INFO_get0_algs: procedure (si: PPKCS7_SIGNER_INFO; pk: PPEVP_PKEY; pdig: PPX509_ALGOR; psig: PPX509_ALGOR); cdecl = Load_PKCS7_SIGNER_INFO_get0_algs; {}
+  PKCS7_RECIP_INFO_get0_alg: procedure (ri: PPKCS7_RECIP_INFO; penc: PPX509_ALGOR); cdecl = Load_PKCS7_RECIP_INFO_get0_alg; {}
+  PKCS7_add_recipient_info: function (p7: PPKCS7; ri: PPKCS7_RECIP_INFO): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_recipient_info; {}
+  PKCS7_RECIP_INFO_set: function (p7i: PPKCS7_RECIP_INFO; x509: PX509): TOpenSSL_C_INT; cdecl = Load_PKCS7_RECIP_INFO_set; {}
+  PKCS7_set_cipher: function (p7: PPKCS7; const cipher: PEVP_CIPHER): TOpenSSL_C_INT; cdecl = Load_PKCS7_set_cipher; {}
+  PKCS7_stream: function (boundary: PPPByte; p7: PPKCS7): TOpenSSL_C_INT; cdecl = Load_PKCS7_stream; {}
+  PKCS7_get_issuer_and_serial: function (p7: PPKCS7; idx: TOpenSSL_C_INT): PPKCS7_ISSUER_AND_SERIAL; cdecl = Load_PKCS7_get_issuer_and_serial; {}
+  PKCS7_add_signed_attribute: function (p7si: PPKCS7_SIGNER_INFO; nid: TOpenSSL_C_INT; type_: TOpenSSL_C_INT; data: Pointer): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_signed_attribute; {}
+  PKCS7_add_attribute: function (p7si: PPKCS7_SIGNER_INFO; nid: TOpenSSL_C_INT; atrtype: TOpenSSL_C_INT; value: Pointer): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_attribute; {}
+  PKCS7_get_attribute: function (si: PPKCS7_SIGNER_INFO; nid: TOpenSSL_C_INT): PASN1_TYPE; cdecl = Load_PKCS7_get_attribute; {}
+  PKCS7_get_signed_attribute: function (si: PPKCS7_SIGNER_INFO; nid: TOpenSSL_C_INT): PASN1_TYPE; cdecl = Load_PKCS7_get_signed_attribute; {}
+  PKCS7_sign_add_signer: function (p7: PPKCS7; signcert: PX509; pkey: PEVP_PKEY; const md: PEVP_MD; flags: TOpenSSL_C_INT): PPKCS7_SIGNER_INFO; cdecl = Load_PKCS7_sign_add_signer; {}
+  PKCS7_final: function (p7: PPKCS7; data: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS7_final; {}
+  PKCS7_decrypt: function (p7: PPKCS7; pkey: PEVP_PKEY; cert: PX509; data: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS7_decrypt; {}
+  PKCS7_add_attrib_content_type: function (si: PPKCS7_SIGNER_INFO; coid: PASN1_OBJECT): TOpenSSL_C_INT; cdecl = Load_PKCS7_add_attrib_content_type; {}
+  PKCS7_add0_attrib_signing_time: function (si: PPKCS7_SIGNER_INFO; t: PASN1_TIME): TOpenSSL_C_INT; cdecl = Load_PKCS7_add0_attrib_signing_time; {}
+  PKCS7_add1_attrib_digest: function (si: PPKCS7_SIGNER_INFO; const md: PByte; mdlen: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_PKCS7_add1_attrib_digest; {}
+  SMIME_write_PKCS7: function (bio: PBIO; p7: PPKCS7; data: PBIO; flags: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_SMIME_write_PKCS7; {}
+  SMIME_read_PKCS7: function (bio: PBIO; bcont: PPBIO): PPKCS7; cdecl = Load_SMIME_read_PKCS7; {}
+  BIO_new_PKCS7: function (out_: PBIO; p7: PPKCS7): PBIO; cdecl = Load_BIO_new_PKCS7; {}
 {$ENDIF}
 
 implementation
@@ -420,6 +420,10 @@ uses classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
+{$ENDIF}
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
@@ -487,12 +491,12 @@ begin
   Result := PKCS7_set_type(p7,type_);
 end;
 
-function Load_PKCS7_set0_type_other(p7: PPKCS7; type_: TOpenSSL_C_INT; other: PASN1_TYPE): TOpenSSL_C_INT; cdecl;
+function Load_PKCS7_set0_type_other(p7: PPKCS7; typepkcs7_signer_info_: TOpenSSL_C_INT; other: PASN1_TYPE): TOpenSSL_C_INT; cdecl;
 begin
   PKCS7_set0_type_other := LoadLibCryptoFunction('PKCS7_set0_type_other');
   if not assigned(PKCS7_set0_type_other) then
     EOpenSSLAPIFunctionNotPresent.RaiseException('PKCS7_set0_type_other');
-  Result := PKCS7_set0_type_other(p7,type_,other);
+  Result := PKCS7_set0_type_other(p7,typepkcs7_signer_info_,other);
 end;
 
 function Load_PKCS7_set_content(p7: PPKCS7; p7_data: PPKCS7): TOpenSSL_C_INT; cdecl;
