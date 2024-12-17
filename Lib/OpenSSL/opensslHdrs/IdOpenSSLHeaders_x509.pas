@@ -45,7 +45,7 @@ uses
 
 // the following emits are a workaround to a
 // name conflict with Win32 API header files
-{$IFDEF SYS_WIN}
+{$IFDEF WINDOWS}
 (*$HPPEMIT '#undef X509_EXTENSIONS'*)
 (*$HPPEMIT '#undef X509_CERT_PAIR'*)
 {$ENDIF}

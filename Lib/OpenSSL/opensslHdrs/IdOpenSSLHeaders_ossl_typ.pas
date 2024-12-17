@@ -40,7 +40,7 @@ uses
 // the following emits are a workaround to a
 // name conflict with Win32 API header files
 (*$HPPEMIT '#include <time.h>'*)
-{$IFDEF SYS_WIN}
+{$IFDEF WINDOWS}
 (*$HPPEMIT '#undef X509_NAME'*)
 (*$HPPEMIT '#undef OCSP_RESPONSE'*)
 (*$HPPEMIT '#undef OCSP_REQUEST'*)

@@ -40,7 +40,7 @@ uses
 
 // the following emits are a workaround to a
 // name conflict with Win32 API header files
-{$IFDEF SYS_WIN}
+{$IFDEF WINDOWS}
 (*$HPPEMIT '#undef PKCS7_ISSUER_AND_SERIAL'*)
 (*$HPPEMIT '#undef PKCS7_SIGNER_INFO'*)
 {$ENDIF}
