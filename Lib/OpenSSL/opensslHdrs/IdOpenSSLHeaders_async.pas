@@ -123,40 +123,40 @@ procedure Load_ASYNC_block_pause; cdecl;
 procedure Load_ASYNC_unblock_pause; cdecl;
 
 var
-  ASYNC_init_thread: function (max_size: TOpenSSL_C_SIZET; init_size: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_init_thread; {}
-  ASYNC_cleanup_thread: procedure ; cdecl = Load_ASYNC_cleanup_thread; {}
-  ASYNC_WAIT_CTX_new: function : PASYNC_WAIT_CTX; cdecl = Load_ASYNC_WAIT_CTX_new; {}
-  ASYNC_WAIT_CTX_free: procedure (ctx: PASYNC_WAIT_CTX); cdecl = Load_ASYNC_WAIT_CTX_free; {}
-  ASYNC_WAIT_CTX_set_wait_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: OSSL_ASYNC_FD; custom_data: Pointer; cleanup_cb: ASYNC_WAIT_CTX_set_wait_fd_cleanup): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_set_wait_fd; {}
-  ASYNC_WAIT_CTX_get_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: POSSL_ASYNC_FD; custom_data: PPointer): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_get_fd; {}
-  ASYNC_WAIT_CTX_get_all_fds: function (ctx: PASYNC_WAIT_CTX; fd: POSSL_ASYNC_FD; numfds: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_get_all_fds; {}
-  ASYNC_WAIT_CTX_get_changed_fds: function (ctx: PASYNC_WAIT_CTX; addfd: POSSL_ASYNC_FD; numaddfds: POpenSSL_C_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_get_changed_fds; {}
-  ASYNC_WAIT_CTX_clear_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_clear_fd; {}
-  ASYNC_is_capable: function : TOpenSSL_C_INT; cdecl = Load_ASYNC_is_capable; {}
-  ASYNC_start_job: function (job: PPASYNC_JOB; ctx: PASYNC_WAIT_CTX; ret: POpenSSL_C_INT; func: ASYNC_start_job_cb; args: Pointer; size: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_start_job; {}
-  ASYNC_pause_job: function : TOpenSSL_C_INT; cdecl = Load_ASYNC_pause_job; {}
-  ASYNC_get_current_job: function : PASYNC_JOB; cdecl = Load_ASYNC_get_current_job; {}
-  ASYNC_get_wait_ctx: function (job: PASYNC_JOB): PASYNC_WAIT_CTX; cdecl = Load_ASYNC_get_wait_ctx; {}
-  ASYNC_block_pause: procedure ; cdecl = Load_ASYNC_block_pause; {}
-  ASYNC_unblock_pause: procedure ; cdecl = Load_ASYNC_unblock_pause; {}
+  ASYNC_init_thread: function (max_size: TOpenSSL_C_SIZET; init_size: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_init_thread;
+  ASYNC_cleanup_thread: procedure ; cdecl = Load_ASYNC_cleanup_thread;
+  ASYNC_WAIT_CTX_new: function : PASYNC_WAIT_CTX; cdecl = Load_ASYNC_WAIT_CTX_new;
+  ASYNC_WAIT_CTX_free: procedure (ctx: PASYNC_WAIT_CTX); cdecl = Load_ASYNC_WAIT_CTX_free;
+  ASYNC_WAIT_CTX_set_wait_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: OSSL_ASYNC_FD; custom_data: Pointer; cleanup_cb: ASYNC_WAIT_CTX_set_wait_fd_cleanup): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_set_wait_fd;
+  ASYNC_WAIT_CTX_get_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer; fd: POSSL_ASYNC_FD; custom_data: PPointer): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_get_fd;
+  ASYNC_WAIT_CTX_get_all_fds: function (ctx: PASYNC_WAIT_CTX; fd: POSSL_ASYNC_FD; numfds: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_get_all_fds;
+  ASYNC_WAIT_CTX_get_changed_fds: function (ctx: PASYNC_WAIT_CTX; addfd: POSSL_ASYNC_FD; numaddfds: POpenSSL_C_SIZET; delfd: POSSL_ASYNC_FD; numdelfds: POpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_get_changed_fds;
+  ASYNC_WAIT_CTX_clear_fd: function (ctx: PASYNC_WAIT_CTX; const key: Pointer): TOpenSSL_C_INT; cdecl = Load_ASYNC_WAIT_CTX_clear_fd;
+  ASYNC_is_capable: function : TOpenSSL_C_INT; cdecl = Load_ASYNC_is_capable;
+  ASYNC_start_job: function (job: PPASYNC_JOB; ctx: PASYNC_WAIT_CTX; ret: POpenSSL_C_INT; func: ASYNC_start_job_cb; args: Pointer; size: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_ASYNC_start_job;
+  ASYNC_pause_job: function : TOpenSSL_C_INT; cdecl = Load_ASYNC_pause_job;
+  ASYNC_get_current_job: function : PASYNC_JOB; cdecl = Load_ASYNC_get_current_job;
+  ASYNC_get_wait_ctx: function (job: PASYNC_JOB): PASYNC_WAIT_CTX; cdecl = Load_ASYNC_get_wait_ctx;
+  ASYNC_block_pause: procedure ; cdecl = Load_ASYNC_block_pause;
+  ASYNC_unblock_pause: procedure ; cdecl = Load_ASYNC_unblock_pause;
 {$ENDIF}
 const
-  ASYNC_init_thread_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_cleanup_thread_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_WAIT_CTX_new_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_WAIT_CTX_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_WAIT_CTX_set_wait_fd_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_WAIT_CTX_get_fd_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_WAIT_CTX_get_all_fds_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_WAIT_CTX_get_changed_fds_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_WAIT_CTX_clear_fd_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_is_capable_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_start_job_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_pause_job_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_get_current_job_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_get_wait_ctx_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_block_pause_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ASYNC_unblock_pause_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ASYNC_init_thread_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_cleanup_thread_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_WAIT_CTX_new_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_WAIT_CTX_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_WAIT_CTX_set_wait_fd_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_WAIT_CTX_get_fd_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_WAIT_CTX_get_all_fds_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_WAIT_CTX_get_changed_fds_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_WAIT_CTX_clear_fd_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_is_capable_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_start_job_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_pause_job_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_get_current_job_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_get_wait_ctx_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_block_pause_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ASYNC_unblock_pause_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
 
 
 implementation

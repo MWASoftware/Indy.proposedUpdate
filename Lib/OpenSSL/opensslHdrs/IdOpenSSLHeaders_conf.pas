@@ -189,32 +189,32 @@ function Load_CONF_parse_list(const list: PAnsiChar; sep: TOpenSSL_C_INT; nospc:
 procedure Load_OPENSSL_load_builtin_modules; cdecl;
 
 var
-  CONF_set_default_method: function (meth: PCONF_METHOD): TOpenSSL_C_INT; cdecl = Load_CONF_set_default_method; {}
-  NCONF_new: function (meth: PCONF_METHOD): PCONF; cdecl = Load_NCONF_new; {}
-  NCONF_default: function : PCONF_METHOD; cdecl = Load_NCONF_default; {}
-  NCONF_WIN32: function : PCONF_METHOD; cdecl = Load_NCONF_WIN32; {}
-  NCONF_free: procedure (conf: PCONF); cdecl = Load_NCONF_free; {}
-  NCONF_free_data: procedure (conf: PCONF); cdecl = Load_NCONF_free_data; {}
-  NCONF_load: function (conf: PCONF; const file_: PAnsiChar; eline: POpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = Load_NCONF_load; {}
-  NCONF_load_bio: function (conf: PCONF; bp: PBIO; eline: POpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = Load_NCONF_load_bio; {}
-  NCONF_get_string: function (const conf: PCONF; const group: PAnsiChar; const name: PAnsiChar): PAnsiChar; cdecl = Load_NCONF_get_string; {}
-  NCONF_get_number_e: function (const conf: PCONF; const group: PAnsiChar; const name: PAnsiChar; result_: POpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = Load_NCONF_get_number_e; {}
-  NCONF_dump_bio: function (const conf: PCONf; out_: PBIO): TOpenSSL_C_INT; cdecl = Load_NCONF_dump_bio; {}
-  CONF_modules_load: function (const cnf: PCONF; const appname: PAnsiChar; flags: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = Load_CONF_modules_load; {}
-  CONF_modules_load_file: function (const filename: PAnsiChar; const appname: PAnsiChar; flags: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = Load_CONF_modules_load_file; {}
-  CONF_modules_unload: procedure (all: TOpenSSL_C_INT); cdecl = Load_CONF_modules_unload; {}
-  CONF_modules_finish: procedure ; cdecl = Load_CONF_modules_finish; {}
-  CONF_module_add: function (const name: PAnsiChar; ifunc: conf_init_func; ffunc: conf_finish_func): TOpenSSL_C_INT; cdecl = Load_CONF_module_add; {}
-  CONF_imodule_get_usr_data: function (const md: PCONF_IMODULE): Pointer; cdecl = Load_CONF_imodule_get_usr_data; {}
-  CONF_imodule_set_usr_data: procedure (md: PCONF_IMODULE; usr_data: Pointer); cdecl = Load_CONF_imodule_set_usr_data; {}
-  CONF_imodule_get_module: function (const md: PCONF_IMODULE): PCONF_MODULE; cdecl = Load_CONF_imodule_get_module; {}
-  CONF_imodule_get_flags: function (const md: PCONF_IMODULE): TOpenSSL_C_ULONG; cdecl = Load_CONF_imodule_get_flags; {}
-  CONF_imodule_set_flags: procedure (md: PCONF_IMODULE; flags: TOpenSSL_C_ULONG); cdecl = Load_CONF_imodule_set_flags; {}
-  CONF_module_get_usr_data: function (pmod: PCONF_MODULE): Pointer; cdecl = Load_CONF_module_get_usr_data; {}
-  CONF_module_set_usr_data: procedure (pmod: PCONF_MODULE; usr_data: Pointer); cdecl = Load_CONF_module_set_usr_data; {}
-  CONF_get1_default_config_file: function : PAnsiChar; cdecl = Load_CONF_get1_default_config_file; {}
-  CONF_parse_list: function (const list: PAnsiChar; sep: TOpenSSL_C_INT; nospc: TOpenSSL_C_INT; list_cb: CONF_parse_list_list_cb; arg: Pointer): TOpenSSL_C_INT; cdecl = Load_CONF_parse_list; {}
-  OPENSSL_load_builtin_modules: procedure ; cdecl = Load_OPENSSL_load_builtin_modules; {}
+  CONF_set_default_method: function (meth: PCONF_METHOD): TOpenSSL_C_INT; cdecl = Load_CONF_set_default_method;
+  NCONF_new: function (meth: PCONF_METHOD): PCONF; cdecl = Load_NCONF_new;
+  NCONF_default: function : PCONF_METHOD; cdecl = Load_NCONF_default;
+  NCONF_WIN32: function : PCONF_METHOD; cdecl = Load_NCONF_WIN32;
+  NCONF_free: procedure (conf: PCONF); cdecl = Load_NCONF_free;
+  NCONF_free_data: procedure (conf: PCONF); cdecl = Load_NCONF_free_data;
+  NCONF_load: function (conf: PCONF; const file_: PAnsiChar; eline: POpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = Load_NCONF_load;
+  NCONF_load_bio: function (conf: PCONF; bp: PBIO; eline: POpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = Load_NCONF_load_bio;
+  NCONF_get_string: function (const conf: PCONF; const group: PAnsiChar; const name: PAnsiChar): PAnsiChar; cdecl = Load_NCONF_get_string;
+  NCONF_get_number_e: function (const conf: PCONF; const group: PAnsiChar; const name: PAnsiChar; result_: POpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = Load_NCONF_get_number_e;
+  NCONF_dump_bio: function (const conf: PCONf; out_: PBIO): TOpenSSL_C_INT; cdecl = Load_NCONF_dump_bio;
+  CONF_modules_load: function (const cnf: PCONF; const appname: PAnsiChar; flags: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = Load_CONF_modules_load;
+  CONF_modules_load_file: function (const filename: PAnsiChar; const appname: PAnsiChar; flags: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = Load_CONF_modules_load_file;
+  CONF_modules_unload: procedure (all: TOpenSSL_C_INT); cdecl = Load_CONF_modules_unload;
+  CONF_modules_finish: procedure ; cdecl = Load_CONF_modules_finish;
+  CONF_module_add: function (const name: PAnsiChar; ifunc: conf_init_func; ffunc: conf_finish_func): TOpenSSL_C_INT; cdecl = Load_CONF_module_add;
+  CONF_imodule_get_usr_data: function (const md: PCONF_IMODULE): Pointer; cdecl = Load_CONF_imodule_get_usr_data;
+  CONF_imodule_set_usr_data: procedure (md: PCONF_IMODULE; usr_data: Pointer); cdecl = Load_CONF_imodule_set_usr_data;
+  CONF_imodule_get_module: function (const md: PCONF_IMODULE): PCONF_MODULE; cdecl = Load_CONF_imodule_get_module;
+  CONF_imodule_get_flags: function (const md: PCONF_IMODULE): TOpenSSL_C_ULONG; cdecl = Load_CONF_imodule_get_flags;
+  CONF_imodule_set_flags: procedure (md: PCONF_IMODULE; flags: TOpenSSL_C_ULONG); cdecl = Load_CONF_imodule_set_flags;
+  CONF_module_get_usr_data: function (pmod: PCONF_MODULE): Pointer; cdecl = Load_CONF_module_get_usr_data;
+  CONF_module_set_usr_data: procedure (pmod: PCONF_MODULE; usr_data: Pointer); cdecl = Load_CONF_module_set_usr_data;
+  CONF_get1_default_config_file: function : PAnsiChar; cdecl = Load_CONF_get1_default_config_file;
+  CONF_parse_list: function (const list: PAnsiChar; sep: TOpenSSL_C_INT; nospc: TOpenSSL_C_INT; list_cb: CONF_parse_list_list_cb; arg: Pointer): TOpenSSL_C_INT; cdecl = Load_CONF_parse_list;
+  OPENSSL_load_builtin_modules: procedure ; cdecl = Load_OPENSSL_load_builtin_modules;
 {$ENDIF}
 
 implementation

@@ -163,7 +163,7 @@ function ERR_load_X509_strings: TOpenSSL_C_INT; cdecl; external CLibCrypto;
 function Load_ERR_load_X509_strings: TOpenSSL_C_INT; cdecl;
 
 var
-  ERR_load_X509_strings: function : TOpenSSL_C_INT; cdecl = Load_ERR_load_X509_strings; {}
+  ERR_load_X509_strings: function : TOpenSSL_C_INT; cdecl = Load_ERR_load_X509_strings;
 {$ENDIF}
 
 implementation

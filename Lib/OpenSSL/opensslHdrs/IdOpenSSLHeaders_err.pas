@@ -311,57 +311,57 @@ function Load_ERR_GET_REASON(const l : TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 
 var
-  ERR_new: procedure ; cdecl = Load_ERR_new; {}
-  ERR_set_debug: procedure (const file_: PAnsiChar; line: integer; const func: PAnsiChar); cdecl = Load_ERR_set_debug; {}
-  ERR_set_error: procedure (lib: integer; reason: integer; fmt: PAnsiChar); cdecl varargs = Load_ERR_set_error; {}
-  ERR_set_error_data: procedure (data: PAnsiChar; flags: TOpenSSL_C_INT); cdecl = Load_ERR_set_error_data; {}
-  ERR_get_error: function : TOpenSSL_C_ULONG; cdecl = Load_ERR_get_error; {}
-  ERR_get_error_line: function (file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_get_error_line; {}
-  ERR_get_error_line_data: function (file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_get_error_line_data; {}
-  ERR_peek_error: function : TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_error; {}
-  ERR_peek_error_line: function (file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_error_line; {}
-  ERR_peek_error_line_data: function (file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_error_line_data; {}
-  ERR_peek_last_error: function : TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_last_error; {}
-  ERR_peek_last_error_line: function (file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_last_error_line; {}
-  ERR_peek_last_error_line_data: function (file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_last_error_line_data; {}
-  ERR_clear_error: procedure ; cdecl = Load_ERR_clear_error; {}
-  ERR_error_string: function (e: TOpenSSL_C_ULONG; buf: PAnsiChar): PAnsiChar; cdecl = Load_ERR_error_string; {}
-  ERR_error_string_n: procedure (e: TOpenSSL_C_ULONG; buf: PAnsiChar; len: TOpenSSL_C_SIZET); cdecl = Load_ERR_error_string_n; {}
-  ERR_lib_error_string: function (e: TOpenSSL_C_ULONG): PAnsiChar; cdecl = Load_ERR_lib_error_string; {}
-  ERR_func_error_string: function (e: TOpenSSL_C_ULONG): PAnsiChar; cdecl = Load_ERR_func_error_string; {}
-  ERR_reason_error_string: function (e: TOpenSSL_C_ULONG): PAnsiChar; cdecl = Load_ERR_reason_error_string; {}
-  ERR_print_errors_cb: procedure (cb: ERR_print_errors_cb_cb; u: Pointer); cdecl = Load_ERR_print_errors_cb; {}
-  ERR_print_errors: procedure (bp: PBIO); cdecl = Load_ERR_print_errors; {}
-  ERR_load_strings: function (lib: TOpenSSL_C_INT; str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl = Load_ERR_load_strings; {}
-  ERR_load_strings_const: function (str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl = Load_ERR_load_strings_const; {}
-  ERR_unload_strings: function (lib: TOpenSSL_C_INT; str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl = Load_ERR_unload_strings; {}
-  ERR_load_ERR_strings: function : TOpenSSL_C_INT; cdecl = Load_ERR_load_ERR_strings; {}
-  ERR_get_state: function : PERR_STATE; cdecl = Load_ERR_get_state; {}
-  ERR_get_next_error_library: function : TOpenSSL_C_INT; cdecl = Load_ERR_get_next_error_library; {}
-  ERR_set_mark: function : TOpenSSL_C_INT; cdecl = Load_ERR_set_mark; {}
-  ERR_pop_to_mark: function : TOpenSSL_C_INT; cdecl = Load_ERR_pop_to_mark; {}
-  ERR_clear_last_mark: function : TOpenSSL_C_INT; cdecl = Load_ERR_clear_last_mark; {}
+  ERR_new: procedure ; cdecl = Load_ERR_new;
+  ERR_set_debug: procedure (const file_: PAnsiChar; line: integer; const func: PAnsiChar); cdecl = Load_ERR_set_debug;
+  ERR_set_error: procedure (lib: integer; reason: integer; fmt: PAnsiChar); cdecl varargs = Load_ERR_set_error;
+  ERR_set_error_data: procedure (data: PAnsiChar; flags: TOpenSSL_C_INT); cdecl = Load_ERR_set_error_data;
+  ERR_get_error: function : TOpenSSL_C_ULONG; cdecl = Load_ERR_get_error;
+  ERR_get_error_line: function (file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_get_error_line;
+  ERR_get_error_line_data: function (file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_get_error_line_data;
+  ERR_peek_error: function : TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_error;
+  ERR_peek_error_line: function (file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_error_line;
+  ERR_peek_error_line_data: function (file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_error_line_data;
+  ERR_peek_last_error: function : TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_last_error;
+  ERR_peek_last_error_line: function (file_: PPAnsiChar; line: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_last_error_line;
+  ERR_peek_last_error_line_data: function (file_: PPAnsiChar; line: POpenSSL_C_INT; data: PPAnsiChar; flags: POpenSSL_C_INT): TOpenSSL_C_ULONG; cdecl = Load_ERR_peek_last_error_line_data;
+  ERR_clear_error: procedure ; cdecl = Load_ERR_clear_error;
+  ERR_error_string: function (e: TOpenSSL_C_ULONG; buf: PAnsiChar): PAnsiChar; cdecl = Load_ERR_error_string;
+  ERR_error_string_n: procedure (e: TOpenSSL_C_ULONG; buf: PAnsiChar; len: TOpenSSL_C_SIZET); cdecl = Load_ERR_error_string_n;
+  ERR_lib_error_string: function (e: TOpenSSL_C_ULONG): PAnsiChar; cdecl = Load_ERR_lib_error_string;
+  ERR_func_error_string: function (e: TOpenSSL_C_ULONG): PAnsiChar; cdecl = Load_ERR_func_error_string;
+  ERR_reason_error_string: function (e: TOpenSSL_C_ULONG): PAnsiChar; cdecl = Load_ERR_reason_error_string;
+  ERR_print_errors_cb: procedure (cb: ERR_print_errors_cb_cb; u: Pointer); cdecl = Load_ERR_print_errors_cb;
+  ERR_print_errors: procedure (bp: PBIO); cdecl = Load_ERR_print_errors;
+  ERR_load_strings: function (lib: TOpenSSL_C_INT; str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl = Load_ERR_load_strings;
+  ERR_load_strings_const: function (str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl = Load_ERR_load_strings_const;
+  ERR_unload_strings: function (lib: TOpenSSL_C_INT; str: PERR_STRING_DATA): TOpenSSL_C_INT; cdecl = Load_ERR_unload_strings;
+  ERR_load_ERR_strings: function : TOpenSSL_C_INT; cdecl = Load_ERR_load_ERR_strings;
+  ERR_get_state: function : PERR_STATE; cdecl = Load_ERR_get_state;
+  ERR_get_next_error_library: function : TOpenSSL_C_INT; cdecl = Load_ERR_get_next_error_library;
+  ERR_set_mark: function : TOpenSSL_C_INT; cdecl = Load_ERR_set_mark;
+  ERR_pop_to_mark: function : TOpenSSL_C_INT; cdecl = Load_ERR_pop_to_mark;
+  ERR_clear_last_mark: function : TOpenSSL_C_INT; cdecl = Load_ERR_clear_last_mark;
 
 {Removed functions for which legacy support available - use is deprecated}
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 var
-  ERR_put_error: procedure (lib: TOpenSSL_C_INT; func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT; file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_ERR_put_error; {removed 3.0.0} {removed 3.0.0}
-  SSLErr: procedure (func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT); cdecl = Load_SSLErr; {removed 1.0.0} {removed 1.0.0}
-  X509err: procedure (const f,r : TOpenSSL_C_INT); cdecl = Load_X509err; {removed 1.0.0} {removed 1.0.0}
-  ERR_GET_REASON: function (const l : TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_ERR_GET_REASON; {removed 1.0.0} {removed 1.0.0}
+  ERR_put_error: procedure (lib: TOpenSSL_C_INT; func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT; file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_ERR_put_error; {removed 3.0.0}
+  SSLErr: procedure (func: TOpenSSL_C_INT; reason: TOpenSSL_C_INT); cdecl = Load_SSLErr; {removed 1.0.0}
+  X509err: procedure (const f,r : TOpenSSL_C_INT); cdecl = Load_X509err; {removed 1.0.0}
+  ERR_GET_REASON: function (const l : TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_ERR_GET_REASON; {removed 1.0.0}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF}
 const
-  ERR_put_error_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ERR_new_introduced = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ERR_set_debug_introduced = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ERR_set_error_introduced = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ERR_load_strings_const_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ERR_clear_last_mark_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  SSLErr_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  X509err_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  ERR_GET_REASON_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  ERR_put_error_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 3.0.0}
+  ERR_new_introduced = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 3.0.0}
+  ERR_set_debug_introduced = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 3.0.0}
+  ERR_set_error_introduced = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 3.0.0}
+  ERR_load_strings_const_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  ERR_clear_last_mark_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  SSLErr_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  X509err_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  ERR_GET_REASON_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
 
 
 implementation

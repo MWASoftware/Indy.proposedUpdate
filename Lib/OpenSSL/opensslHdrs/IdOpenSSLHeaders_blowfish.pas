@@ -96,14 +96,14 @@ procedure Load_BF_ofb64_encrypt(const in_: PByte; out_: PByte; length: TOpenSSL_
 function Load_BF_options: PAnsiChar; cdecl;
 
 var
-  BF_set_key: procedure (key: PBF_KEY; len: TOpenSSL_C_INT; const data: PByte); cdecl = Load_BF_set_key; {}
-  BF_encrypt: procedure (data: PBF_LONG; const key: PBF_KEY); cdecl = Load_BF_encrypt; {}
-  BF_decrypt: procedure (data: PBF_LONG; const key: PBF_KEY); cdecl = Load_BF_decrypt; {}
-  BF_ecb_encrypt: procedure (const in_: PByte; out_: PByte; key: PBF_KEY; enc: TOpenSSL_C_INT); cdecl = Load_BF_ecb_encrypt; {}
-  BF_cbc_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; schedule: PBF_KEY; ivec: PByte; enc: TOpenSSL_C_INT); cdecl = Load_BF_cbc_encrypt; {}
-  BF_cfb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; schedule: PBF_KEY; ivec: PByte; num: POpenSSL_C_INT; enc: TOpenSSL_C_INT); cdecl = Load_BF_cfb64_encrypt; {}
-  BF_ofb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; schedule: PBF_KEY; ivec: PByte; num: POpenSSL_C_INT); cdecl = Load_BF_ofb64_encrypt; {}
-  BF_options: function : PAnsiChar; cdecl = Load_BF_options; {}
+  BF_set_key: procedure (key: PBF_KEY; len: TOpenSSL_C_INT; const data: PByte); cdecl = Load_BF_set_key;
+  BF_encrypt: procedure (data: PBF_LONG; const key: PBF_KEY); cdecl = Load_BF_encrypt;
+  BF_decrypt: procedure (data: PBF_LONG; const key: PBF_KEY); cdecl = Load_BF_decrypt;
+  BF_ecb_encrypt: procedure (const in_: PByte; out_: PByte; key: PBF_KEY; enc: TOpenSSL_C_INT); cdecl = Load_BF_ecb_encrypt;
+  BF_cbc_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; schedule: PBF_KEY; ivec: PByte; enc: TOpenSSL_C_INT); cdecl = Load_BF_cbc_encrypt;
+  BF_cfb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; schedule: PBF_KEY; ivec: PByte; num: POpenSSL_C_INT; enc: TOpenSSL_C_INT); cdecl = Load_BF_cfb64_encrypt;
+  BF_ofb64_encrypt: procedure (const in_: PByte; out_: PByte; length: TOpenSSL_C_LONG; schedule: PBF_KEY; ivec: PByte; num: POpenSSL_C_INT); cdecl = Load_BF_ofb64_encrypt;
+  BF_options: function : PAnsiChar; cdecl = Load_BF_options;
 {$ENDIF}
 
 implementation

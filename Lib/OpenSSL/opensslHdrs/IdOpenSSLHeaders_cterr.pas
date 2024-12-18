@@ -109,7 +109,7 @@ function ERR_load_CT_strings: TOpenSSL_C_INT; cdecl; external CLibCrypto;
 function Load_ERR_load_CT_strings: TOpenSSL_C_INT; cdecl;
 
 var
-  ERR_load_CT_strings: function : TOpenSSL_C_INT; cdecl = Load_ERR_load_CT_strings; {}
+  ERR_load_CT_strings: function : TOpenSSL_C_INT; cdecl = Load_ERR_load_CT_strings;
 {$ENDIF}
 
 implementation

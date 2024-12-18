@@ -213,57 +213,57 @@ procedure Load_DES_fixup_key_parity(key: PDES_cblock); cdecl;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 
 var
-  DES_options: function : PAnsiChar; cdecl = Load_DES_options; {}
-  DES_ecb3_encrypt: procedure (input:Pconst_DES_cblock; output:PDES_cblock; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule; enc:longint); cdecl = Load_DES_ecb3_encrypt; {}
-  DES_cbc_cksum: function (input:Pbyte; output:PDES_cblock; length:longint; schedule:PDES_key_schedule; ivec:Pconst_DES_cblock): DES_LONG; cdecl = Load_DES_cbc_cksum; {}
-  DES_cbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_cbc_encrypt; {}
-  DES_ncbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_ncbc_encrypt; {}
-  DES_xcbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; inw:Pconst_DES_cblock; outw:Pconst_DES_cblock; enc:longint); cdecl = Load_DES_xcbc_encrypt; {}
-  DES_cfb_encrypt: procedure (in_:Pbyte; out_:Pbyte; numbits:longint; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_cfb_encrypt; {}
-  DES_ecb_encrypt: procedure (input:Pconst_DES_cblock; output:PDES_cblock; ks:PDES_key_schedule; enc:longint); cdecl = Load_DES_ecb_encrypt; {}
-  DES_encrypt1: procedure (data:PDES_LONG; ks:PDES_key_schedule; enc:longint); cdecl = Load_DES_encrypt1; {}
-  DES_encrypt2: procedure (data:PDES_LONG; ks:PDES_key_schedule; enc:longint); cdecl = Load_DES_encrypt2; {}
-  DES_encrypt3: procedure (data:PDES_LONG; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule); cdecl = Load_DES_encrypt3; {}
-  DES_decrypt3: procedure (data:PDES_LONG; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule); cdecl = Load_DES_decrypt3; {}
-  DES_ede3_cbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_ede3_cbc_encrypt; {}
-  DES_ede3_cfb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule; ivec:PDES_cblock; num:Plongint; enc:longint); cdecl = Load_DES_ede3_cfb64_encrypt; {}
-  DES_ede3_cfb_encrypt: procedure (in_:Pbyte; out_:Pbyte; numbits:longint; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_ede3_cfb_encrypt; {}
-  DES_ede3_ofb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule; ivec:PDES_cblock; num:Plongint); cdecl = Load_DES_ede3_ofb64_encrypt; {}
-  DES_fcrypt: function (buf:PAnsiChar; salt:PAnsiChar; ret:PAnsiChar): PAnsiChar; cdecl = Load_DES_fcrypt; {}
-  DES_crypt: function (buf:PAnsiChar; salt:PAnsiChar): PAnsiChar; cdecl = Load_DES_crypt; {}
-  DES_ofb_encrypt: procedure (in_:Pbyte; out_:Pbyte; numbits:longint; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock); cdecl = Load_DES_ofb_encrypt; {}
-  DES_pcbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_pcbc_encrypt; {}
-  DES_quad_cksum: function (input:Pbyte; output:PDES_cblock; length:longint; out_count:longint; seed:PDES_cblock): DES_LONG; cdecl = Load_DES_quad_cksum; {}
-  DES_random_key: function (ret:PDES_cblock): longint; cdecl = Load_DES_random_key; {}
-  DES_set_odd_parity: procedure (key:PDES_cblock); cdecl = Load_DES_set_odd_parity; {}
-  DES_check_key_parity: function (key:Pconst_DES_cblock): longint; cdecl = Load_DES_check_key_parity; {}
-  DES_is_weak_key: function (key:Pconst_DES_cblock): longint; cdecl = Load_DES_is_weak_key; {}
-  DES_set_key: function (key:Pconst_DES_cblock; var schedule: DES_key_schedule): longint; cdecl = Load_DES_set_key; {}
-  DES_key_sched: function (key:Pconst_DES_cblock; schedule:PDES_key_schedule): longint; cdecl = Load_DES_key_sched; {}
-  DES_set_key_checked: function (key:Pconst_DES_cblock; schedule:PDES_key_schedule): longint; cdecl = Load_DES_set_key_checked; {}
-  DES_set_key_unchecked: procedure (key:Pconst_DES_cblock; schedule:PDES_key_schedule); cdecl = Load_DES_set_key_unchecked; {}
-  DES_string_to_key: procedure (str:PAnsiChar; key:PDES_cblock); cdecl = Load_DES_string_to_key; {}
-  DES_string_to_2keys: procedure (str:PAnsiChar; key1:PDES_cblock; key2:PDES_cblock); cdecl = Load_DES_string_to_2keys; {}
-  DES_cfb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; num:Plongint; enc:longint); cdecl = Load_DES_cfb64_encrypt; {}
-  DES_ofb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; num:Plongint); cdecl = Load_DES_ofb64_encrypt; {}
+  DES_options: function : PAnsiChar; cdecl = Load_DES_options;
+  DES_ecb3_encrypt: procedure (input:Pconst_DES_cblock; output:PDES_cblock; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule; enc:longint); cdecl = Load_DES_ecb3_encrypt;
+  DES_cbc_cksum: function (input:Pbyte; output:PDES_cblock; length:longint; schedule:PDES_key_schedule; ivec:Pconst_DES_cblock): DES_LONG; cdecl = Load_DES_cbc_cksum;
+  DES_cbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_cbc_encrypt;
+  DES_ncbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_ncbc_encrypt;
+  DES_xcbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; inw:Pconst_DES_cblock; outw:Pconst_DES_cblock; enc:longint); cdecl = Load_DES_xcbc_encrypt;
+  DES_cfb_encrypt: procedure (in_:Pbyte; out_:Pbyte; numbits:longint; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_cfb_encrypt;
+  DES_ecb_encrypt: procedure (input:Pconst_DES_cblock; output:PDES_cblock; ks:PDES_key_schedule; enc:longint); cdecl = Load_DES_ecb_encrypt;
+  DES_encrypt1: procedure (data:PDES_LONG; ks:PDES_key_schedule; enc:longint); cdecl = Load_DES_encrypt1;
+  DES_encrypt2: procedure (data:PDES_LONG; ks:PDES_key_schedule; enc:longint); cdecl = Load_DES_encrypt2;
+  DES_encrypt3: procedure (data:PDES_LONG; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule); cdecl = Load_DES_encrypt3;
+  DES_decrypt3: procedure (data:PDES_LONG; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule); cdecl = Load_DES_decrypt3;
+  DES_ede3_cbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_ede3_cbc_encrypt;
+  DES_ede3_cfb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule; ivec:PDES_cblock; num:Plongint; enc:longint); cdecl = Load_DES_ede3_cfb64_encrypt;
+  DES_ede3_cfb_encrypt: procedure (in_:Pbyte; out_:Pbyte; numbits:longint; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_ede3_cfb_encrypt;
+  DES_ede3_ofb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ks3:PDES_key_schedule; ivec:PDES_cblock; num:Plongint); cdecl = Load_DES_ede3_ofb64_encrypt;
+  DES_fcrypt: function (buf:PAnsiChar; salt:PAnsiChar; ret:PAnsiChar): PAnsiChar; cdecl = Load_DES_fcrypt;
+  DES_crypt: function (buf:PAnsiChar; salt:PAnsiChar): PAnsiChar; cdecl = Load_DES_crypt;
+  DES_ofb_encrypt: procedure (in_:Pbyte; out_:Pbyte; numbits:longint; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock); cdecl = Load_DES_ofb_encrypt;
+  DES_pcbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_pcbc_encrypt;
+  DES_quad_cksum: function (input:Pbyte; output:PDES_cblock; length:longint; out_count:longint; seed:PDES_cblock): DES_LONG; cdecl = Load_DES_quad_cksum;
+  DES_random_key: function (ret:PDES_cblock): longint; cdecl = Load_DES_random_key;
+  DES_set_odd_parity: procedure (key:PDES_cblock); cdecl = Load_DES_set_odd_parity;
+  DES_check_key_parity: function (key:Pconst_DES_cblock): longint; cdecl = Load_DES_check_key_parity;
+  DES_is_weak_key: function (key:Pconst_DES_cblock): longint; cdecl = Load_DES_is_weak_key;
+  DES_set_key: function (key:Pconst_DES_cblock; var schedule: DES_key_schedule): longint; cdecl = Load_DES_set_key;
+  DES_key_sched: function (key:Pconst_DES_cblock; schedule:PDES_key_schedule): longint; cdecl = Load_DES_key_sched;
+  DES_set_key_checked: function (key:Pconst_DES_cblock; schedule:PDES_key_schedule): longint; cdecl = Load_DES_set_key_checked;
+  DES_set_key_unchecked: procedure (key:Pconst_DES_cblock; schedule:PDES_key_schedule); cdecl = Load_DES_set_key_unchecked;
+  DES_string_to_key: procedure (str:PAnsiChar; key:PDES_cblock); cdecl = Load_DES_string_to_key;
+  DES_string_to_2keys: procedure (str:PAnsiChar; key1:PDES_cblock; key2:PDES_cblock); cdecl = Load_DES_string_to_2keys;
+  DES_cfb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; num:Plongint; enc:longint); cdecl = Load_DES_cfb64_encrypt;
+  DES_ofb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; num:Plongint); cdecl = Load_DES_ofb64_encrypt;
 
 {Removed functions for which legacy support available - use is deprecated}
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 var
-  DES_ecb2_encrypt: procedure (input:Pconst_DES_cblock; output:PDES_cblock; ks1:PDES_key_schedule; ks2:PDES_key_schedule; enc:longint); cdecl = Load_DES_ecb2_encrypt; {removed 1.0.0} {removed 1.0.0}
-  DES_ede2_cbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_ede2_cbc_encrypt; {removed 1.0.0} {removed 1.0.0}
-  DES_ede2_cfb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ivec:PDES_cblock; num:Plongint; enc:longint); cdecl = Load_DES_ede2_cfb64_encrypt; {removed 1.0.0} {removed 1.0.0}
-  DES_ede2_ofb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ivec:PDES_cblock; num:Plongint); cdecl = Load_DES_ede2_ofb64_encrypt; {removed 1.0.0} {removed 1.0.0}
-  DES_fixup_key_parity: procedure (key: PDES_cblock); cdecl = Load_DES_fixup_key_parity; {removed 1.0.0} {removed 1.0.0}
+  DES_ecb2_encrypt: procedure (input:Pconst_DES_cblock; output:PDES_cblock; ks1:PDES_key_schedule; ks2:PDES_key_schedule; enc:longint); cdecl = Load_DES_ecb2_encrypt; {removed 1.0.0}
+  DES_ede2_cbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_ede2_cbc_encrypt; {removed 1.0.0}
+  DES_ede2_cfb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ivec:PDES_cblock; num:Plongint; enc:longint); cdecl = Load_DES_ede2_cfb64_encrypt; {removed 1.0.0}
+  DES_ede2_ofb64_encrypt: procedure (in_:Pbyte; out_:Pbyte; length:longint; ks1:PDES_key_schedule; ks2:PDES_key_schedule; ivec:PDES_cblock; num:Plongint); cdecl = Load_DES_ede2_ofb64_encrypt; {removed 1.0.0}
+  DES_fixup_key_parity: procedure (key: PDES_cblock); cdecl = Load_DES_fixup_key_parity; {removed 1.0.0}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF}
 const
-  DES_ecb2_encrypt_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  DES_ede2_cbc_encrypt_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  DES_ede2_cfb64_encrypt_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  DES_ede2_ofb64_encrypt_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  DES_fixup_key_parity_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  DES_ecb2_encrypt_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  DES_ede2_cbc_encrypt_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  DES_ede2_cfb64_encrypt_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  DES_ede2_ofb64_encrypt_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  DES_fixup_key_parity_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
 
 
 implementation

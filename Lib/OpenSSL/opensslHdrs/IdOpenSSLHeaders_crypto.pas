@@ -404,151 +404,151 @@ function Load_SSLeay: TOpenSSL_C_ULONG; cdecl;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 
 var
-  CRYPTO_THREAD_lock_new: function : PCRYPTO_RWLOCK; cdecl = Load_CRYPTO_THREAD_lock_new; {}
-  CRYPTO_THREAD_read_lock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_read_lock; {}
-  CRYPTO_THREAD_write_lock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_write_lock; {}
-  CRYPTO_THREAD_unlock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_unlock; {}
-  CRYPTO_THREAD_lock_free: procedure (lock: PCRYPTO_RWLOCK); cdecl = Load_CRYPTO_THREAD_lock_free; {}
-  CRYPTO_atomic_add: function (val: POpenSSL_C_INT; amount: TOpenSSL_C_INT; ret: POpenSSL_C_INT; lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_atomic_add; {}
-  OPENSSL_strlcpy: function (dst: PAnsiChar; const src: PAnsiChar; siz: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_strlcpy; {}
-  OPENSSL_strlcat: function (dst: PAnsiChar; const src: PAnsiChar; siz: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_strlcat; {}
-  OPENSSL_strnlen: function (const str: PAnsiChar; maxlen: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_strnlen; {}
-  OPENSSL_buf2hexstr: function (const buffer: PByte; len: TOpenSSL_C_LONG): PAnsiChar; cdecl = Load_OPENSSL_buf2hexstr; {}
-  OPENSSL_hexstr2buf: function (const str: PAnsiChar; len: POpenSSL_C_LONG): PByte; cdecl = Load_OPENSSL_hexstr2buf; {}
-  OPENSSL_hexchar2int: function (c: Byte): TOpenSSL_C_INT; cdecl = Load_OPENSSL_hexchar2int; {}
-  OpenSSL_version_num: function : TOpenSSL_C_ULONG; cdecl = Load_OpenSSL_version_num; {}
-  OpenSSL_version: function (type_: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OpenSSL_version; {}
-  OPENSSL_issetugid: function : TOpenSSL_C_INT; cdecl = Load_OPENSSL_issetugid; {}
-  CRYPTO_new_ex_data: function (class_index: TOpenSSL_C_INT; obj: Pointer; ad: PCRYPTO_EX_DATA): TOpenSSL_C_INT; cdecl = Load_CRYPTO_new_ex_data; {}
-  CRYPTO_dup_ex_data: function (class_index: TOpenSSL_C_INT; to_: PCRYPTO_EX_DATA; const from: PCRYPTO_EX_DATA): TOpenSSL_C_INT; cdecl = Load_CRYPTO_dup_ex_data; {}
-  CRYPTO_free_ex_data: procedure (class_index: TOpenSSL_C_INT; obj: Pointer; ad: PCRYPTO_EX_DATA); cdecl = Load_CRYPTO_free_ex_data; {}
-  CRYPTO_set_ex_data: function (ad: PCRYPTO_EX_DATA; idx: TOpenSSL_C_INT; val: Pointer): TOpenSSL_C_INT; cdecl = Load_CRYPTO_set_ex_data; {}
-  CRYPTO_get_ex_data: function (const ad: PCRYPTO_EX_DATA; idx: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_get_ex_data; {}
-  CRYPTO_set_mem_functions: function (m: CRYPTO_set_mem_functions_m; r: CRYPTO_set_mem_functions_r; f: CRYPTO_set_mem_functions_f): TOpenSSL_C_INT; cdecl = Load_CRYPTO_set_mem_functions; {}
-  CRYPTO_malloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_malloc; {}
-  CRYPTO_zalloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_zalloc; {}
-  CRYPTO_memdup: function (const str: Pointer; siz: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_memdup; {}
-  CRYPTO_strdup: function (const str: PAnsiChar; const file_: PAnsiChar; line: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_CRYPTO_strdup; {}
-  CRYPTO_strndup: function (const str: PAnsiChar; s: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_CRYPTO_strndup; {}
-  CRYPTO_free: procedure (ptr: Pointer; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_free; {}
-  CRYPTO_clear_free: procedure (ptr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_clear_free; {}
-  CRYPTO_realloc: function (addr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_realloc; {}
-  CRYPTO_clear_realloc: function (addr: Pointer; old_num: TOpenSSL_C_SIZET; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_clear_realloc; {}
-  CRYPTO_secure_malloc_init: function (sz: TOpenSSL_C_SIZET; minsize: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_malloc_init; {}
-  CRYPTO_secure_malloc_done: function : TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_malloc_done; {}
-  CRYPTO_secure_malloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_secure_malloc; {}
-  CRYPTO_secure_zalloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_secure_zalloc; {}
-  CRYPTO_secure_free: procedure (ptr: Pointer; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_secure_free; {}
-  CRYPTO_secure_clear_free: procedure (ptr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_secure_clear_free; {}
-  CRYPTO_secure_allocated: function (const ptr: Pointer): TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_allocated; {}
-  CRYPTO_secure_malloc_initialized: function : TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_malloc_initialized; {}
-  CRYPTO_secure_actual_size: function (ptr: Pointer): TOpenSSL_C_SIZET; cdecl = Load_CRYPTO_secure_actual_size; {}
-  CRYPTO_secure_used: function : TOpenSSL_C_SIZET; cdecl = Load_CRYPTO_secure_used; {}
-  OPENSSL_cleanse: procedure (ptr: Pointer; len: TOpenSSL_C_SIZET); cdecl = Load_OPENSSL_cleanse; {}
-  OPENSSL_isservice: function : TOpenSSL_C_INT; cdecl = Load_OPENSSL_isservice; {}
-  OPENSSL_init: procedure ; cdecl = Load_OPENSSL_init; {}
-  CRYPTO_memcmp: function (const in_a: Pointer; const in_b: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_CRYPTO_memcmp; {}
-  OPENSSL_cleanup: procedure ; cdecl = Load_OPENSSL_cleanup; {}
-  OPENSSL_init_crypto: function (opts: TOpenSSL_C_UINT64; const settings: POPENSSL_INIT_SETTINGS): TOpenSSL_C_INT; cdecl = Load_OPENSSL_init_crypto; {}
-  OPENSSL_thread_stop: procedure ; cdecl = Load_OPENSSL_thread_stop; {}
-  OPENSSL_INIT_new: function : POPENSSL_INIT_SETTINGS; cdecl = Load_OPENSSL_INIT_new; {}
-  OPENSSL_INIT_free: procedure (settings: POPENSSL_INIT_SETTINGS); cdecl = Load_OPENSSL_INIT_free; {}
-  CRYPTO_THREAD_run_once: function (once: PCRYPTO_ONCE; init: CRYPTO_THREAD_run_once_init): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_run_once; {}
-  CRYPTO_THREAD_get_local: function (key: PCRYPTO_THREAD_LOCAL): Pointer; cdecl = Load_CRYPTO_THREAD_get_local; {}
-  CRYPTO_THREAD_set_local: function (key: PCRYPTO_THREAD_LOCAL; val: Pointer): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_set_local; {}
-  CRYPTO_THREAD_cleanup_local: function (key: PCRYPTO_THREAD_LOCAL): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_cleanup_local; {}
-  CRYPTO_THREAD_get_current_id: function : CRYPTO_THREAD_ID; cdecl = Load_CRYPTO_THREAD_get_current_id; {}
-  CRYPTO_THREAD_compare_id: function (a: CRYPTO_THREAD_ID; b: CRYPTO_THREAD_ID): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_compare_id; {}
+  CRYPTO_THREAD_lock_new: function : PCRYPTO_RWLOCK; cdecl = Load_CRYPTO_THREAD_lock_new;
+  CRYPTO_THREAD_read_lock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_read_lock;
+  CRYPTO_THREAD_write_lock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_write_lock;
+  CRYPTO_THREAD_unlock: function (lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_unlock;
+  CRYPTO_THREAD_lock_free: procedure (lock: PCRYPTO_RWLOCK); cdecl = Load_CRYPTO_THREAD_lock_free;
+  CRYPTO_atomic_add: function (val: POpenSSL_C_INT; amount: TOpenSSL_C_INT; ret: POpenSSL_C_INT; lock: PCRYPTO_RWLOCK): TOpenSSL_C_INT; cdecl = Load_CRYPTO_atomic_add;
+  OPENSSL_strlcpy: function (dst: PAnsiChar; const src: PAnsiChar; siz: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_strlcpy;
+  OPENSSL_strlcat: function (dst: PAnsiChar; const src: PAnsiChar; siz: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_strlcat;
+  OPENSSL_strnlen: function (const str: PAnsiChar; maxlen: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_strnlen;
+  OPENSSL_buf2hexstr: function (const buffer: PByte; len: TOpenSSL_C_LONG): PAnsiChar; cdecl = Load_OPENSSL_buf2hexstr;
+  OPENSSL_hexstr2buf: function (const str: PAnsiChar; len: POpenSSL_C_LONG): PByte; cdecl = Load_OPENSSL_hexstr2buf;
+  OPENSSL_hexchar2int: function (c: Byte): TOpenSSL_C_INT; cdecl = Load_OPENSSL_hexchar2int;
+  OpenSSL_version_num: function : TOpenSSL_C_ULONG; cdecl = Load_OpenSSL_version_num;
+  OpenSSL_version: function (type_: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_OpenSSL_version;
+  OPENSSL_issetugid: function : TOpenSSL_C_INT; cdecl = Load_OPENSSL_issetugid;
+  CRYPTO_new_ex_data: function (class_index: TOpenSSL_C_INT; obj: Pointer; ad: PCRYPTO_EX_DATA): TOpenSSL_C_INT; cdecl = Load_CRYPTO_new_ex_data;
+  CRYPTO_dup_ex_data: function (class_index: TOpenSSL_C_INT; to_: PCRYPTO_EX_DATA; const from: PCRYPTO_EX_DATA): TOpenSSL_C_INT; cdecl = Load_CRYPTO_dup_ex_data;
+  CRYPTO_free_ex_data: procedure (class_index: TOpenSSL_C_INT; obj: Pointer; ad: PCRYPTO_EX_DATA); cdecl = Load_CRYPTO_free_ex_data;
+  CRYPTO_set_ex_data: function (ad: PCRYPTO_EX_DATA; idx: TOpenSSL_C_INT; val: Pointer): TOpenSSL_C_INT; cdecl = Load_CRYPTO_set_ex_data;
+  CRYPTO_get_ex_data: function (const ad: PCRYPTO_EX_DATA; idx: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_get_ex_data;
+  CRYPTO_set_mem_functions: function (m: CRYPTO_set_mem_functions_m; r: CRYPTO_set_mem_functions_r; f: CRYPTO_set_mem_functions_f): TOpenSSL_C_INT; cdecl = Load_CRYPTO_set_mem_functions;
+  CRYPTO_malloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_malloc;
+  CRYPTO_zalloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_zalloc;
+  CRYPTO_memdup: function (const str: Pointer; siz: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_memdup;
+  CRYPTO_strdup: function (const str: PAnsiChar; const file_: PAnsiChar; line: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_CRYPTO_strdup;
+  CRYPTO_strndup: function (const str: PAnsiChar; s: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): PAnsiChar; cdecl = Load_CRYPTO_strndup;
+  CRYPTO_free: procedure (ptr: Pointer; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_free;
+  CRYPTO_clear_free: procedure (ptr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_clear_free;
+  CRYPTO_realloc: function (addr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_realloc;
+  CRYPTO_clear_realloc: function (addr: Pointer; old_num: TOpenSSL_C_SIZET; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_clear_realloc;
+  CRYPTO_secure_malloc_init: function (sz: TOpenSSL_C_SIZET; minsize: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_malloc_init;
+  CRYPTO_secure_malloc_done: function : TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_malloc_done;
+  CRYPTO_secure_malloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_secure_malloc;
+  CRYPTO_secure_zalloc: function (num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT): Pointer; cdecl = Load_CRYPTO_secure_zalloc;
+  CRYPTO_secure_free: procedure (ptr: Pointer; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_secure_free;
+  CRYPTO_secure_clear_free: procedure (ptr: Pointer; num: TOpenSSL_C_SIZET; const file_: PAnsiChar; line: TOpenSSL_C_INT); cdecl = Load_CRYPTO_secure_clear_free;
+  CRYPTO_secure_allocated: function (const ptr: Pointer): TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_allocated;
+  CRYPTO_secure_malloc_initialized: function : TOpenSSL_C_INT; cdecl = Load_CRYPTO_secure_malloc_initialized;
+  CRYPTO_secure_actual_size: function (ptr: Pointer): TOpenSSL_C_SIZET; cdecl = Load_CRYPTO_secure_actual_size;
+  CRYPTO_secure_used: function : TOpenSSL_C_SIZET; cdecl = Load_CRYPTO_secure_used;
+  OPENSSL_cleanse: procedure (ptr: Pointer; len: TOpenSSL_C_SIZET); cdecl = Load_OPENSSL_cleanse;
+  OPENSSL_isservice: function : TOpenSSL_C_INT; cdecl = Load_OPENSSL_isservice;
+  OPENSSL_init: procedure ; cdecl = Load_OPENSSL_init;
+  CRYPTO_memcmp: function (const in_a: Pointer; const in_b: Pointer; len: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl = Load_CRYPTO_memcmp;
+  OPENSSL_cleanup: procedure ; cdecl = Load_OPENSSL_cleanup;
+  OPENSSL_init_crypto: function (opts: TOpenSSL_C_UINT64; const settings: POPENSSL_INIT_SETTINGS): TOpenSSL_C_INT; cdecl = Load_OPENSSL_init_crypto;
+  OPENSSL_thread_stop: procedure ; cdecl = Load_OPENSSL_thread_stop;
+  OPENSSL_INIT_new: function : POPENSSL_INIT_SETTINGS; cdecl = Load_OPENSSL_INIT_new;
+  OPENSSL_INIT_free: procedure (settings: POPENSSL_INIT_SETTINGS); cdecl = Load_OPENSSL_INIT_free;
+  CRYPTO_THREAD_run_once: function (once: PCRYPTO_ONCE; init: CRYPTO_THREAD_run_once_init): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_run_once;
+  CRYPTO_THREAD_get_local: function (key: PCRYPTO_THREAD_LOCAL): Pointer; cdecl = Load_CRYPTO_THREAD_get_local;
+  CRYPTO_THREAD_set_local: function (key: PCRYPTO_THREAD_LOCAL; val: Pointer): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_set_local;
+  CRYPTO_THREAD_cleanup_local: function (key: PCRYPTO_THREAD_LOCAL): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_cleanup_local;
+  CRYPTO_THREAD_get_current_id: function : CRYPTO_THREAD_ID; cdecl = Load_CRYPTO_THREAD_get_current_id;
+  CRYPTO_THREAD_compare_id: function (a: CRYPTO_THREAD_ID; b: CRYPTO_THREAD_ID): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_compare_id;
 
 {Removed functions for which legacy support available - use is deprecated}
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 var
-  OPENSSL_malloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_malloc; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_zalloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_zalloc; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_realloc: function (addr: Pointer; num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_realloc; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_clear_realloc: function (addr: Pointer; old_num: TOpenSSL_C_SIZET; num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_clear_realloc; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_clear_free: procedure (addr: Pointer; num: TOpenSSL_C_SIZET); cdecl = Load_OPENSSL_clear_free; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_free: procedure (addr: Pointer); cdecl = Load_OPENSSL_free; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_memdup: function (const str: Pointer; s: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_memdup; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_strdup: function (const str: PAnsiChar): PAnsiChar; cdecl = Load_OPENSSL_strdup; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_strndup: function (const str: PAnsiChar; n: TOpenSSL_C_SIZET): PAnsiChar; cdecl = Load_OPENSSL_strndup; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_secure_malloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_secure_malloc; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_secure_zalloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_secure_zalloc; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_secure_free: procedure (addr: Pointer); cdecl = Load_OPENSSL_secure_free; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_secure_clear_free: procedure (addr: Pointer; num: TOpenSSL_C_SIZET); cdecl = Load_OPENSSL_secure_clear_free; {removed 1.0.0} {removed 1.0.0}
-  OPENSSL_secure_actual_size: function (ptr: Pointer): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_secure_actual_size; {removed 1.0.0} {removed 1.0.0}
-  FIPS_mode: function : TOpenSSL_C_INT; cdecl = Load_FIPS_mode; {removed 3.0.0} {removed 3.0.0}
-  FIPS_mode_set: function (r: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_FIPS_mode_set; {removed 3.0.0} {removed 3.0.0}
+  OPENSSL_malloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_malloc; {removed 1.0.0}
+  OPENSSL_zalloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_zalloc; {removed 1.0.0}
+  OPENSSL_realloc: function (addr: Pointer; num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_realloc; {removed 1.0.0}
+  OPENSSL_clear_realloc: function (addr: Pointer; old_num: TOpenSSL_C_SIZET; num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_clear_realloc; {removed 1.0.0}
+  OPENSSL_clear_free: procedure (addr: Pointer; num: TOpenSSL_C_SIZET); cdecl = Load_OPENSSL_clear_free; {removed 1.0.0}
+  OPENSSL_free: procedure (addr: Pointer); cdecl = Load_OPENSSL_free; {removed 1.0.0}
+  OPENSSL_memdup: function (const str: Pointer; s: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_memdup; {removed 1.0.0}
+  OPENSSL_strdup: function (const str: PAnsiChar): PAnsiChar; cdecl = Load_OPENSSL_strdup; {removed 1.0.0}
+  OPENSSL_strndup: function (const str: PAnsiChar; n: TOpenSSL_C_SIZET): PAnsiChar; cdecl = Load_OPENSSL_strndup; {removed 1.0.0}
+  OPENSSL_secure_malloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_secure_malloc; {removed 1.0.0}
+  OPENSSL_secure_zalloc: function (num: TOpenSSL_C_SIZET): Pointer; cdecl = Load_OPENSSL_secure_zalloc; {removed 1.0.0}
+  OPENSSL_secure_free: procedure (addr: Pointer); cdecl = Load_OPENSSL_secure_free; {removed 1.0.0}
+  OPENSSL_secure_clear_free: procedure (addr: Pointer; num: TOpenSSL_C_SIZET); cdecl = Load_OPENSSL_secure_clear_free; {removed 1.0.0}
+  OPENSSL_secure_actual_size: function (ptr: Pointer): TOpenSSL_C_SIZET; cdecl = Load_OPENSSL_secure_actual_size; {removed 1.0.0}
+  FIPS_mode: function : TOpenSSL_C_INT; cdecl = Load_FIPS_mode; {removed 3.0.0}
+  FIPS_mode_set: function (r: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_FIPS_mode_set; {removed 3.0.0}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF}
 const
-  OPENSSL_malloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_zalloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_realloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_clear_realloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_clear_free_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_free_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_memdup_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_strdup_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_strndup_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_secure_malloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_secure_zalloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_secure_free_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_secure_clear_free_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_secure_actual_size_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREAD_lock_new_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREAD_read_lock_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREAD_write_lock_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREAD_unlock_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREAD_lock_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_atomic_add_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_mem_ctrl_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_strlcpy_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_strlcat_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_strnlen_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_buf2hexstr_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_hexstr2buf_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_hexchar2int_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OpenSSL_version_num_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OpenSSL_version_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_num_locks_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_set_locking_callback_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREADID_set_numeric_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREADID_set_callback_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_set_id_callback_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_set_mem_debug_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_set_mem_debug_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_zalloc_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_memdup_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_strndup_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_clear_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_clear_realloc_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_secure_malloc_init_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_secure_malloc_done_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_secure_malloc_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_secure_zalloc_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_secure_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_secure_clear_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_secure_allocated_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_secure_malloc_initialized_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_secure_actual_size_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_secure_used_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  FIPS_mode_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  FIPS_mode_set_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_cleanup_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_init_crypto_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_thread_stop_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_INIT_new_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  OPENSSL_INIT_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREAD_run_once_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREAD_get_local_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREAD_set_local_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREAD_cleanup_local_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREAD_get_current_id_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  CRYPTO_THREAD_compare_id_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  SSLeay_version_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
-  SSLeay_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4;
+  OPENSSL_malloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_zalloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_realloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_clear_realloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_clear_free_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_free_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_memdup_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_strdup_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_strndup_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_secure_malloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_secure_zalloc_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_secure_free_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_secure_clear_free_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  OPENSSL_secure_actual_size_removed = ((((((byte(1) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.0.0}
+  CRYPTO_THREAD_lock_new_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_THREAD_read_lock_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_THREAD_write_lock_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_THREAD_unlock_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_THREAD_lock_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_atomic_add_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_mem_ctrl_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 3.0.0}
+  OPENSSL_strlcpy_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  OPENSSL_strlcat_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  OPENSSL_strnlen_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  OPENSSL_buf2hexstr_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  OPENSSL_hexstr2buf_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  OPENSSL_hexchar2int_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  OpenSSL_version_num_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  OpenSSL_version_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_num_locks_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.1.0}
+  CRYPTO_set_locking_callback_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.1.0}
+  CRYPTO_THREADID_set_numeric_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.1.0}
+  CRYPTO_THREADID_set_callback_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.1.0}
+  CRYPTO_set_id_callback_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.1.0}
+  CRYPTO_set_mem_debug_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_set_mem_debug_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 3.0.0}
+  CRYPTO_zalloc_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_memdup_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_strndup_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_clear_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_clear_realloc_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_secure_malloc_init_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_secure_malloc_done_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_secure_malloc_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_secure_zalloc_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_secure_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_secure_clear_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_secure_allocated_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_secure_malloc_initialized_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_secure_actual_size_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_secure_used_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  FIPS_mode_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 3.0.0}
+  FIPS_mode_set_removed = ((((((byte(3) shl 8) or byte(0)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 3.0.0}
+  OPENSSL_cleanup_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  OPENSSL_init_crypto_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  OPENSSL_thread_stop_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  OPENSSL_INIT_new_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  OPENSSL_INIT_free_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_THREAD_run_once_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_THREAD_get_local_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_THREAD_set_local_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_THREAD_cleanup_local_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_THREAD_get_current_id_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  CRYPTO_THREAD_compare_id_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
+  SSLeay_version_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.1.0}
+  SSLeay_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.1.0}
 
 
 implementation
@@ -570,15 +570,15 @@ classes,
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
 {$J+}
 var
-  CRYPTO_mem_ctrl: function (mode: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_CRYPTO_mem_ctrl; {removed 3.0.0} {removed 3.0.0}
-  CRYPTO_num_locks: function : TOpenSSL_C_INT; cdecl = Load_CRYPTO_num_locks; {removed 1.1.0} {removed 1.1.0}
-  CRYPTO_set_locking_callback: procedure (func: TIdSslLockingCallback); cdecl = Load_CRYPTO_set_locking_callback; {removed 1.1.0} {removed 1.1.0}
-  CRYPTO_THREADID_set_numeric: procedure (id : PCRYPTO_THREADID; val: TOpenSSL_C_ULONG); cdecl = Load_CRYPTO_THREADID_set_numeric; {removed 1.1.0} {removed 1.1.0}
-  CRYPTO_THREADID_set_callback: procedure (threadid_func: Tthreadid_func); cdecl = Load_CRYPTO_THREADID_set_callback; {removed 1.1.0} {removed 1.1.0}
-  CRYPTO_set_id_callback: procedure (func: TIdSslIdCallback); cdecl = Load_CRYPTO_set_id_callback; {removed 1.1.0} {removed 1.1.0}
-  CRYPTO_set_mem_debug: function (flag: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_CRYPTO_set_mem_debug; {removed 3.0.0} {removed 3.0.0}
-  SSLeay_version: function (type_ : TOpenSSL_C_INT): PAnsiChar; cdecl = Load_SSLeay_version; {removed 1.1.0} {removed 1.1.0}
-  SSLeay: function : TOpenSSL_C_ULONG; cdecl = Load_SSLeay; {removed 1.1.0} {removed 1.1.0}
+  CRYPTO_mem_ctrl: function (mode: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_CRYPTO_mem_ctrl; {removed 3.0.0}
+  CRYPTO_num_locks: function : TOpenSSL_C_INT; cdecl = Load_CRYPTO_num_locks; {removed 1.1.0}
+  CRYPTO_set_locking_callback: procedure (func: TIdSslLockingCallback); cdecl = Load_CRYPTO_set_locking_callback; {removed 1.1.0}
+  CRYPTO_THREADID_set_numeric: procedure (id : PCRYPTO_THREADID; val: TOpenSSL_C_ULONG); cdecl = Load_CRYPTO_THREADID_set_numeric; {removed 1.1.0}
+  CRYPTO_THREADID_set_callback: procedure (threadid_func: Tthreadid_func); cdecl = Load_CRYPTO_THREADID_set_callback; {removed 1.1.0}
+  CRYPTO_set_id_callback: procedure (func: TIdSslIdCallback); cdecl = Load_CRYPTO_set_id_callback; {removed 1.1.0}
+  CRYPTO_set_mem_debug: function (flag: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_CRYPTO_set_mem_debug; {removed 3.0.0}
+  SSLeay_version: function (type_ : TOpenSSL_C_INT): PAnsiChar; cdecl = Load_SSLeay_version; {removed 1.1.0}
+  SSLeay: function : TOpenSSL_C_ULONG; cdecl = Load_SSLeay; {removed 1.1.0}
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ENDIF}
 var fips_provider: POSSL_PROVIDER;
@@ -587,7 +587,7 @@ var fips_provider: POSSL_PROVIDER;
 
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-{$if declared(IOpenSSLDLL)}
+{$if declared(CRYPTO_num_locks)}
 type
 
   { TOpenSSLLegacyCallbacks }
@@ -685,7 +685,7 @@ end;
 procedure SetLegacyCallbacks;
 begin
   {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  {$if declared(IOpenSSLDLL)}
+  {$if declared(CRYPTO_num_locks)}
   if TOpenSSLLegacyCallbacks.FCallbackList = nil then
     TOpenSSLLegacyCallbacks.Create;
   {$ifend}
@@ -695,7 +695,7 @@ end;
 procedure RemoveLegacyCallbacks;
 begin
   {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
-  {$if declared(IOpenSSLDLL)}
+  {$if declared(CRYPTO_num_locks)}
   if TOpenSSLLegacyCallbacks.FCallbackList <> nil then
     FreeAndNil(TOpenSSLLegacyCallbacks.FCallbackList);
     {$ifend}
@@ -1875,6 +1875,9 @@ end;
 initialization
 
 
+  {$if declared(CRYPTO_num_locks)}
+  TOpenSSLLegacyCallbacks.FCallbackList := nil;
+  {$ifend}
 
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}

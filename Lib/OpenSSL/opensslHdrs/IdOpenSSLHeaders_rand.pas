@@ -118,22 +118,22 @@ function Load_RAND_egd_bytes(const path: PAnsiChar; bytes: TOpenSSL_C_INT): TOpe
 function Load_RAND_poll: TOpenSSL_C_INT; cdecl;
 
 var
-  RAND_set_rand_method: function (const meth: PRAND_METHOD): TOpenSSL_C_INT; cdecl = Load_RAND_set_rand_method; {}
-  RAND_get_rand_method: function : PRAND_METHOD; cdecl = Load_RAND_get_rand_method; {}
-  RAND_set_rand_engine: function (engine: PENGINE): TOpenSSL_C_INT; cdecl = Load_RAND_set_rand_engine; {}
-  RAND_OpenSSL: function : PRAND_METHOD; cdecl = Load_RAND_OpenSSL; {}
-  RAND_bytes: function (buf: PByte; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_RAND_bytes; {}
-  RAND_priv_bytes: function (buf: PByte; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_RAND_priv_bytes; {}
-  RAND_seed: procedure (const buf: Pointer; num: TOpenSSL_C_INT); cdecl = Load_RAND_seed; {}
-  RAND_keep_random_devices_open: procedure (keep: TOpenSSL_C_INT); cdecl = Load_RAND_keep_random_devices_open; {}
-  RAND_add: procedure (const buf: Pointer; num: TOpenSSL_C_INT; randomness: TOpenSSL_C_DOUBLE); cdecl = Load_RAND_add; {}
-  RAND_load_file: function (const file_: PAnsiChar; max_bytes: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = Load_RAND_load_file; {}
-  RAND_write_file: function (const file_: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_RAND_write_file; {}
-  RAND_status: function : TOpenSSL_C_INT; cdecl = Load_RAND_status; {}
-  RAND_query_egd_bytes: function (const path: PAnsiChar; buf: PByte; bytes: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_RAND_query_egd_bytes; {}
-  RAND_egd: function (const path: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_RAND_egd; {}
-  RAND_egd_bytes: function (const path: PAnsiChar; bytes: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_RAND_egd_bytes; {}
-  RAND_poll: function : TOpenSSL_C_INT; cdecl = Load_RAND_poll; {}
+  RAND_set_rand_method: function (const meth: PRAND_METHOD): TOpenSSL_C_INT; cdecl = Load_RAND_set_rand_method;
+  RAND_get_rand_method: function : PRAND_METHOD; cdecl = Load_RAND_get_rand_method;
+  RAND_set_rand_engine: function (engine: PENGINE): TOpenSSL_C_INT; cdecl = Load_RAND_set_rand_engine;
+  RAND_OpenSSL: function : PRAND_METHOD; cdecl = Load_RAND_OpenSSL;
+  RAND_bytes: function (buf: PByte; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_RAND_bytes;
+  RAND_priv_bytes: function (buf: PByte; num: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_RAND_priv_bytes;
+  RAND_seed: procedure (const buf: Pointer; num: TOpenSSL_C_INT); cdecl = Load_RAND_seed;
+  RAND_keep_random_devices_open: procedure (keep: TOpenSSL_C_INT); cdecl = Load_RAND_keep_random_devices_open;
+  RAND_add: procedure (const buf: Pointer; num: TOpenSSL_C_INT; randomness: TOpenSSL_C_DOUBLE); cdecl = Load_RAND_add;
+  RAND_load_file: function (const file_: PAnsiChar; max_bytes: TOpenSSL_C_LONG): TOpenSSL_C_INT; cdecl = Load_RAND_load_file;
+  RAND_write_file: function (const file_: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_RAND_write_file;
+  RAND_status: function : TOpenSSL_C_INT; cdecl = Load_RAND_status;
+  RAND_query_egd_bytes: function (const path: PAnsiChar; buf: PByte; bytes: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_RAND_query_egd_bytes;
+  RAND_egd: function (const path: PAnsiChar): TOpenSSL_C_INT; cdecl = Load_RAND_egd;
+  RAND_egd_bytes: function (const path: PAnsiChar; bytes: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_RAND_egd_bytes;
+  RAND_poll: function : TOpenSSL_C_INT; cdecl = Load_RAND_poll;
 {$ENDIF}
 
 implementation

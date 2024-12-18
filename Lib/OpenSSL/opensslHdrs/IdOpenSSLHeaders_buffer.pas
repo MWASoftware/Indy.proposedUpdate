@@ -82,12 +82,12 @@ function Load_BUF_MEM_grow_clean(str: PBUF_MEM; len: TOpenSSL_C_SIZET): TOpenSSL
 procedure Load_BUF_reverse(out_: PByte; const in_: PByte; siz: TOpenSSL_C_SIZET); cdecl;
 
 var
-  BUF_MEM_new: function : PBUF_MEM; cdecl = Load_BUF_MEM_new; {}
-  BUF_MEM_new_ex: function (flags: TOpenSSL_C_ULONG): PBUF_MEM; cdecl = Load_BUF_MEM_new_ex; {}
-  BUF_MEM_free: procedure (a: PBUF_MEM); cdecl = Load_BUF_MEM_free; {}
-  BUF_MEM_grow: function (str: PBUF_MEM; len: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_BUF_MEM_grow; {}
-  BUF_MEM_grow_clean: function (str: PBUF_MEM; len: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_BUF_MEM_grow_clean; {}
-  BUF_reverse: procedure (out_: PByte; const in_: PByte; siz: TOpenSSL_C_SIZET); cdecl = Load_BUF_reverse; {}
+  BUF_MEM_new: function : PBUF_MEM; cdecl = Load_BUF_MEM_new;
+  BUF_MEM_new_ex: function (flags: TOpenSSL_C_ULONG): PBUF_MEM; cdecl = Load_BUF_MEM_new_ex;
+  BUF_MEM_free: procedure (a: PBUF_MEM); cdecl = Load_BUF_MEM_free;
+  BUF_MEM_grow: function (str: PBUF_MEM; len: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_BUF_MEM_grow;
+  BUF_MEM_grow_clean: function (str: PBUF_MEM; len: TOpenSSL_C_SIZET): TOpenSSL_C_SIZET; cdecl = Load_BUF_MEM_grow_clean;
+  BUF_reverse: procedure (out_: PByte; const in_: PByte; siz: TOpenSSL_C_SIZET); cdecl = Load_BUF_reverse;
 {$ENDIF}
 
 implementation
