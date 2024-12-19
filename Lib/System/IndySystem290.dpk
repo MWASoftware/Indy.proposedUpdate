@@ -49,6 +49,6 @@ contains
   IdStreamVCL in 'IdStreamVCL.pas',
   IdStruct in 'IdStruct.pas',
   IdWinsock2 in 'IdWinsock2.pas',
-  IdWship6 in 'IdWship6.pas';
+  IdWship6 in 'IdWship6.pas' ;
 
 end.
