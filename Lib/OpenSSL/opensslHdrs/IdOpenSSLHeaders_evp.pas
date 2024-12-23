@@ -2862,7 +2862,7 @@ const
 implementation
 
 uses IdOpenSSLHeaders_crypto,
-classes,
+Classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 

@@ -521,7 +521,7 @@ implementation
 
 
 
-uses classes,
+uses Classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 

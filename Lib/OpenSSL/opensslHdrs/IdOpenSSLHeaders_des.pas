@@ -197,10 +197,8 @@ procedure Load_DES_ofb_encrypt(in_:Pbyte; out_:Pbyte; numbits:longint; length:lo
 procedure Load_DES_pcbc_encrypt(input:Pbyte; output:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl;
 function Load_DES_quad_cksum(input:Pbyte; output:PDES_cblock; length:longint; out_count:longint; seed:PDES_cblock): DES_LONG; cdecl;
 function Load_DES_random_key(ret:PDES_cblock): longint; cdecl;
-procedure Load_DES_set_odd_parity(key:PDES_cblock); cdecl;
 function Load_DES_check_key_parity(key:Pconst_DES_cblock): longint; cdecl;
 function Load_DES_is_weak_key(key:Pconst_DES_cblock): longint; cdecl;
-function Load_DES_set_key(key:Pconst_DES_cblock; var schedule: DES_key_schedule): longint; cdecl;
 function Load_DES_key_sched(key:Pconst_DES_cblock; schedule:PDES_key_schedule): longint; cdecl;
 function Load_DES_set_key_checked(key:Pconst_DES_cblock; schedule:PDES_key_schedule): longint; cdecl;
 procedure Load_DES_set_key_unchecked(key:Pconst_DES_cblock; schedule:PDES_key_schedule); cdecl;
@@ -235,10 +233,10 @@ var
   DES_pcbc_encrypt: procedure (input:Pbyte; output:Pbyte; length:longint; schedule:PDES_key_schedule; ivec:PDES_cblock; enc:longint); cdecl = Load_DES_pcbc_encrypt;
   DES_quad_cksum: function (input:Pbyte; output:PDES_cblock; length:longint; out_count:longint; seed:PDES_cblock): DES_LONG; cdecl = Load_DES_quad_cksum;
   DES_random_key: function (ret:PDES_cblock): longint; cdecl = Load_DES_random_key;
-  DES_set_odd_parity: procedure (key:PDES_cblock); cdecl = Load_DES_set_odd_parity;
+  DES_set_odd_parity: procedure (key:PDES_cblock); cdecl = nil;
   DES_check_key_parity: function (key:Pconst_DES_cblock): longint; cdecl = Load_DES_check_key_parity;
   DES_is_weak_key: function (key:Pconst_DES_cblock): longint; cdecl = Load_DES_is_weak_key;
-  DES_set_key: function (key:Pconst_DES_cblock; var schedule: DES_key_schedule): longint; cdecl = Load_DES_set_key;
+  DES_set_key: function (key:Pconst_DES_cblock; var schedule: DES_key_schedule): longint; cdecl = nil;
   DES_key_sched: function (key:Pconst_DES_cblock; schedule:PDES_key_schedule): longint; cdecl = Load_DES_key_sched;
   DES_set_key_checked: function (key:Pconst_DES_cblock; schedule:PDES_key_schedule): longint; cdecl = Load_DES_set_key_checked;
   DES_set_key_unchecked: procedure (key:Pconst_DES_cblock; schedule:PDES_key_schedule); cdecl = Load_DES_set_key_unchecked;
@@ -269,7 +267,7 @@ const
 implementation
 
     
-uses classes,
+uses Classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
@@ -580,14 +578,6 @@ begin
   Result := DES_random_key(ret);
 end;
 
-procedure Load_DES_set_odd_parity(key:PDES_cblock); cdecl;
-begin
-  DES_set_odd_parity := LoadLibCryptoFunction('DES_set_odd_parity');
-  if not assigned(DES_set_odd_parity) then
-    EOpenSSLAPIFunctionNotPresent.RaiseException('DES_set_odd_parity');
-  DES_set_odd_parity(key);
-end;
-
 function Load_DES_check_key_parity(key:Pconst_DES_cblock): longint; cdecl;
 begin
   DES_check_key_parity := LoadLibCryptoFunction('DES_check_key_parity');
@@ -602,14 +592,6 @@ begin
   if not assigned(DES_is_weak_key) then
     EOpenSSLAPIFunctionNotPresent.RaiseException('DES_is_weak_key');
   Result := DES_is_weak_key(key);
-end;
-
-function Load_DES_set_key(key:Pconst_DES_cblock; var schedule: DES_key_schedule): longint; cdecl;
-begin
-  DES_set_key := LoadLibCryptoFunction('DES_set_key');
-  if not assigned(DES_set_key) then
-    EOpenSSLAPIFunctionNotPresent.RaiseException('DES_set_key');
-  Result := DES_set_key(key,schedule);
 end;
 
 function Load_DES_key_sched(key:Pconst_DES_cblock; schedule:PDES_key_schedule): longint; cdecl;
@@ -678,6 +660,24 @@ begin
 end;
 
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
+procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
+var FuncLoadError: boolean;
+begin
+  DES_set_odd_parity := LoadLibCryptoFunction('DES_set_odd_parity');
+  FuncLoadError := not assigned(DES_set_odd_parity);
+  if FuncLoadError then
+  begin
+    AFailed.Add('DES_set_odd_parity');
+  end;
+
+  DES_set_key := LoadLibCryptoFunction('DES_set_key');
+  FuncLoadError := not assigned(DES_set_key);
+  if FuncLoadError then
+  begin
+    AFailed.Add('DES_set_key');
+  end;
+
+end;
 
 procedure UnLoad;
 begin
@@ -709,10 +709,10 @@ begin
   DES_pcbc_encrypt := Load_DES_pcbc_encrypt;
   DES_quad_cksum := Load_DES_quad_cksum;
   DES_random_key := Load_DES_random_key;
-  DES_set_odd_parity := Load_DES_set_odd_parity;
+  DES_set_odd_parity := nil;
   DES_check_key_parity := Load_DES_check_key_parity;
   DES_is_weak_key := Load_DES_is_weak_key;
-  DES_set_key := Load_DES_set_key;
+  DES_set_key := nil;
   DES_key_sched := Load_DES_key_sched;
   DES_set_key_checked := Load_DES_set_key_checked;
   DES_set_key_unchecked := Load_DES_set_key_unchecked;
@@ -729,6 +729,7 @@ end;
 initialization
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+Register_SSLLoader(@Load);
 Register_SSLUnloader(@Unload);
 {$ENDIF}
 finalization

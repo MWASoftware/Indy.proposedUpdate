@@ -1482,6 +1482,7 @@ function Load_X509_aux_print(out_: PBIO; x: PX509; indent: TOpenSSL_C_INT): TOpe
 function Load_X509_NAME_print(bp: PBIO; const name: PX509_NAME; obase: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl;
 function Load_X509_NAME_print_ex(out_: PBIO; const nm: PX509_NAME; indent: TOpenSSL_C_INT; flags: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl;
 function Load_X509_print_ex(bp: PBIO; x: PX509; nmflag: TOpenSSL_C_ULONG; cflag: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl;
+function Load_X509_print(bp: PBIO; x: PX509): TOpenSSL_C_INT; cdecl;
 function Load_X509_ocspid_print(bp: PBIO; x: PX509): TOpenSSL_C_INT; cdecl;
 function Load_X509_CRL_print_ex(out_: PBIO; x: PX509_CRL; nmflag: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl;
 function Load_X509_CRL_print(bp: PBIO; x: PX509_CRL): TOpenSSL_C_INT; cdecl;
@@ -1856,7 +1857,7 @@ var
   X509_NAME_print: function (bp: PBIO; const name: PX509_NAME; obase: TOpenSSL_C_INT): TOpenSSL_C_INT; cdecl = Load_X509_NAME_print;
   X509_NAME_print_ex: function (out_: PBIO; const nm: PX509_NAME; indent: TOpenSSL_C_INT; flags: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = Load_X509_NAME_print_ex;
   X509_print_ex: function (bp: PBIO; x: PX509; nmflag: TOpenSSL_C_ULONG; cflag: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = Load_X509_print_ex;
-  X509_print: function (bp: PBIO; x: PX509): TOpenSSL_C_INT; cdecl = nil;
+  X509_print: function (bp: PBIO; x: PX509): TOpenSSL_C_INT; cdecl = Load_X509_print;
   X509_ocspid_print: function (bp: PBIO; x: PX509): TOpenSSL_C_INT; cdecl = Load_X509_ocspid_print;
   X509_CRL_print_ex: function (out_: PBIO; x: PX509_CRL; nmflag: TOpenSSL_C_ULONG): TOpenSSL_C_INT; cdecl = Load_X509_CRL_print_ex;
   X509_CRL_print: function (bp: PBIO; x: PX509_CRL): TOpenSSL_C_INT; cdecl = Load_X509_CRL_print;
@@ -2026,7 +2027,7 @@ implementation
 
 //# define X509_NAME_hash(x) X509_NAME_hash_ex(x, NULL, NULL, NULL)
 
-uses classes,
+uses Classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
@@ -4397,6 +4398,14 @@ begin
   Result := X509_print_ex(bp,x,nmflag,cflag);
 end;
 
+function Load_X509_print(bp: PBIO; x: PX509): TOpenSSL_C_INT; cdecl;
+begin
+  X509_print := LoadLibCryptoFunction('X509_print');
+  if not assigned(X509_print) then
+    EOpenSSLAPIFunctionNotPresent.RaiseException('X509_print');
+  Result := X509_print(bp,x);
+end;
+
 function Load_X509_ocspid_print(bp: PBIO; x: PX509): TOpenSSL_C_INT; cdecl;
 begin
   X509_ocspid_print := LoadLibCryptoFunction('X509_ocspid_print');
@@ -5205,17 +5214,6 @@ begin
   Result := X509_NAME_hash_ex(x,libctx,propq,ok);
 end;
 
-procedure Load(LibVersion: TOpenSSL_C_UINT; const AFailed: TStringList);
-var FuncLoadError: boolean;
-begin
-  X509_print := LoadLibCryptoFunction('X509_print');
-  FuncLoadError := not assigned(X509_print);
-  if FuncLoadError then
-  begin
-    AFailed.Add('X509_print');
-  end;
-
-end;
 
 procedure UnLoad;
 begin
@@ -5499,7 +5497,7 @@ begin
   X509_NAME_print := Load_X509_NAME_print;
   X509_NAME_print_ex := Load_X509_NAME_print_ex;
   X509_print_ex := Load_X509_print_ex;
-  X509_print := nil;
+  X509_print := Load_X509_print;
   X509_ocspid_print := Load_X509_ocspid_print;
   X509_CRL_print_ex := Load_X509_CRL_print_ex;
   X509_CRL_print := Load_X509_CRL_print;
@@ -5607,7 +5605,6 @@ end;
 initialization
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
-Register_SSLLoader(@Load);
 Register_SSLUnloader(@Unload);
 {$ENDIF}
 finalization

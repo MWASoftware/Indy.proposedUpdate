@@ -28,6 +28,8 @@ and this file regenerated *)
 unit IdOpenSSLHeaders_ssl;
 
 
+
+
 interface
 
 // Headers for OpenSSL 1.1.1
@@ -2839,6 +2841,10 @@ var
   SSL_get0_peer_certificate: function (const s: PSSL): PX509; cdecl = Load_SSL_get0_peer_certificate; {introduced 3.3.0 }
   SSL_get1_peer_certificate: function (const s: PSSL): PX509; cdecl = Load_SSL_get1_peer_certificate; {introduced 3.3.0 }
 
+
+
+
+
 {Removed functions for which legacy support available - use is deprecated}
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
@@ -3030,7 +3036,6 @@ const
   SSL_CTX_set_ciphersuites_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
   SSL_set_ciphersuites_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
   SSL_CTX_use_serverinfo_ex_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
-  SSL_use_certificate_chain_file_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
   SSL_load_error_strings_removed = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {removed 1.1.0}
   SSL_SESSION_get_protocol_version_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
   SSL_SESSION_set_protocol_version_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
@@ -3188,7 +3193,7 @@ implementation
 
 //#   define SSL_get_peer_certificate SSL_get1_peer_certificate
 
-uses classes,
+uses Classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
@@ -3287,11 +3292,7 @@ function IsOpenSSL_SSLv2_Available : Boolean;
 
 function HasTLS_method: boolean;
 begin
-  {$if declared(IOpenSSLDLL)}
-  Result := TLS_method_introduced <= GetIOpenSSL.GetOpenSSLVersion;
-  {$ELSE}
-  Result := true;
-  {$ENDIF}
+  Result := (GetIOpenSSL = nil) or (TLS_method_introduced <= GetIOpenSSL.GetOpenSSLVersion);
 end;
 
 
@@ -4307,8 +4308,6 @@ begin
   Result := SSL_set_ex_data(ssl,0,data);
 end;
 
-{forward_compatibility}
-
 
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ELSE}
@@ -4971,8 +4970,6 @@ begin
   Result := SSL_set_ex_data(ssl,0,data);
 end;
 
-{forward_compatibility}
-
 
 function COMPAT_SSL_CTX_get_default_passwd_cb(ctx: PSSL_CTX): pem_password_cb; cdecl;
 
@@ -5173,6 +5170,13 @@ begin
   end;
 end;
 
+
+
+function COMPAT_SSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX; const file_: PAnsiChar): TOpenSSL_C_INT; cdecl;
+
+begin
+  Result := SSL_CTX_use_certificate_file(ctx, file_, SSL_FILETYPE_PEM);
+end;
 
 
 
@@ -6684,7 +6688,11 @@ function Load_SSL_CTX_use_certificate_chain_file(ctx: PSSL_CTX; const file_: PAn
 begin
   SSL_CTX_use_certificate_chain_file := LoadLibSSLFunction('SSL_CTX_use_certificate_chain_file');
   if not assigned(SSL_CTX_use_certificate_chain_file) then
+{$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
+    SSL_CTX_use_certificate_chain_file := @COMPAT_SSL_CTX_use_certificate_chain_file;
+{$ELSE}
     EOpenSSLAPIFunctionNotPresent.RaiseException('SSL_CTX_use_certificate_chain_file');
+{$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
   Result := SSL_CTX_use_certificate_chain_file(ctx,file_);
 end;
 

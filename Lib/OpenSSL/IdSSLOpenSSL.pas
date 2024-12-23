@@ -2313,10 +2313,6 @@ var
   LLen : TIdC_INT;
   LBufPtr : PIdAnsiChar;
 begin
-  {$if declared(IOpenSSLDLL)}
-  if Assigned(X509_print) then
-  {$ifend}
-  begin
     LMem := BIO_new(BIO_s_mem);
     if LMem <> nil then begin
       try
@@ -2339,7 +2335,6 @@ begin
       finally
         BIO_free(LMem);
       end;
-    end;
   end;
 end;
 
@@ -2439,7 +2434,8 @@ begin
       Exit;
     end;
     InitializeRandom;
-    GetIOpenSSL.Init;
+    if GetIOpenSSL <> nil then
+      GetIOpenSSL.Init;
     // Create locking structures, we need them for callback routines
     Assert(LockInfoCB = nil);
     LockInfoCB := TIdCriticalSection.Create;
@@ -2462,9 +2458,8 @@ begin
       Exit;
 
     CleanupRandom; // <-- RLebeau: why is this here and not in IdSSLOpenSSLHeaders.Unload()?
-    {$if declared(GetIOpenSSLDLL)}
-    GetIOpenSSLDLL.Unload;
-    {$ifend}
+    if GetIOpenSSLDDL <> nil then
+      GetIOpenSSLDDL.Unload;
     FreeAndNil(LockInfoCB);
     FreeAndNil(LockPassCB);
     FreeAndNil(LockVerifyCB);
@@ -3659,17 +3654,7 @@ begin
   if PosInStrArray(ExtractFileExt(CertFile), ['.p12', '.pfx'], False) <> -1 then begin
     Result := IndySSL_CTX_use_certificate_file_PKCS12(fContext, CertFile) > 0;
   end else begin
-    //OpenSSL 1.0.2 has a new function, SSL_CTX_use_certificate_chain_file
-    //that handles a chain of certificates in a PEM file.  That is prefered.
-    {$if declared(IOpenSSLDLL)}
-    if Assigned(SSL_CTX_use_certificate_chain_file) then begin
-       Result := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
-    end else begin
-      Result := IndySSL_CTX_use_certificate_file(fContext, CertFile, SSL_FILETYPE_PEM) > 0;
-    end;
-    {$ELSE}
-      Result := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
-    {$ifend}
+    Result := IndySSL_CTX_use_certificate_chain_file(fContext, CertFile) > 0;
   end;
 end;
 
@@ -4055,15 +4040,10 @@ var
 begin
   Result.Length := 0;
   Result.Data := nil;
-  {$if declared(IOpenSSLDLL)}
-  if Assigned(SSL_get_session) and Assigned(SSL_SESSION_get_id) then
-  {$ifend}
-  begin
-    if fSSL <> nil then begin
-      pSession := SSL_get_session(fSSL);
-      if pSession <> nil then begin
-        Result.Data := PByte(SSL_SESSION_get_id(pSession, @Result.Length));
-      end;
+  if fSSL <> nil then begin
+    pSession := SSL_get_session(fSSL);
+    if pSession <> nil then begin
+      Result.Data := PByte(SSL_SESSION_get_id(pSession, @Result.Length));
     end;
   end;
 end;

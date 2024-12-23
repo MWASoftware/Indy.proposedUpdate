@@ -41,6 +41,10 @@ uses
   , SysUtils;
 
 const
+  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  OpenSSL_Using_Dynamic_Library_Load = true;
+  {$ENDIF}
+
   {The default SSLLibraryPath is empty. You can override this by setting the
    OPENSSL_LIBRARY_PATH environment variable to the absolute path of the location
    of your openssl library.}
@@ -59,8 +63,10 @@ const
   {$IFDEF OPENSSL_USE_STATIC_LIBRARY}
   CLibCrypto = '';
   CLibSSL = '';
+  {$IFDEF FPC}
   {$LINKLIB ssl.a}
   {$LINKLIB crypto.a}
+  {$ENDIF}
   {$ENDIF}
 
   {$IFDEF OPENSSL_USE_SHARED_LIBRARY}
@@ -271,9 +277,8 @@ TOpenSSL_C_SSIZET = TOpenSSL_C_INT64;
 
   function GetIOpenSSL: IOpenSSL;
 
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 type
-  IOpenSSLDLL = interface
+  IOpenSSLDLL = interface(IOpenSSL)
   ['{1d6cd9e7-e656-4981-80d2-288b12a69306}']
     procedure SetOpenSSLPath(const Value: string);
     function GetSSLLibVersions: string;
@@ -282,6 +287,7 @@ type
     function GetLibSSLHandle: TLibHandle;
     function GetLibCryptoFilePath: string;
     function GetLibSSLFilePath: string;
+    function GetFailedToLoadList: TStrings;
     function Load: Boolean;
     procedure Unload;
     function IsLoaded: boolean;
@@ -289,6 +295,7 @@ type
 end;
 
 function GetIOpenSSLDDL: IOpenSSLDLL;
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 function LoadLibCryptoFunction(const AProcName: AnsiString): Pointer;
 function LoadLibSSLFunction(const AProcName: AnsiString): Pointer;
 
@@ -365,6 +372,7 @@ type
     function GetLibSSLHandle: TLibHandle;
     function GetLibCryptoFilePath: string;
     function GetLibSSLFilePath: string;
+    function GetFailedToLoadList: TStrings;
     function Load: Boolean;
     procedure Unload;
     function IsLoaded: boolean;
@@ -528,9 +536,7 @@ end;
 
 function TOpenSSLDynamicLibProvider.Init : boolean;
 begin
-  Result := false;
-  if Load then
-    Result := inherited Init;
+  Result := Load;
 end;
 
 function LoadLibCryptoFunction(const AProcName: AnsiString): Pointer;
@@ -587,6 +593,11 @@ begin
   Result := FLibSSLFilePath;
 end;
 
+function TOpenSSLDynamicLibProvider.GetFailedToLoadList : TStrings;
+begin
+  Result := FFailed;
+end;
+
 function TOpenSSLDynamicLibProvider.Load : Boolean;
 type
   TOpenSSL_version_num = function: TOpenSSL_C_ULONG; cdecl;
@@ -595,7 +606,7 @@ var i: integer;
     SSLVersionNo: TOpenSSL_C_ULONG;
 begin
   Result := not FFailedToLoad;
-  if not Result then
+  if not Result  then
     Exit;
 
   FThreadLock.Acquire;
@@ -637,6 +648,7 @@ begin
   finally
     FThreadLock.Release;
   end;
+  Result := inherited Init;
 end;
 
 procedure TOpenSSLDynamicLibProvider.Unload;
@@ -695,14 +707,17 @@ begin
   Result := TOpenSSLStaticLibProvider.FOpenSSL;
 end;
 
-{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 function GetIOpenSSLDDL: IOpenSSLDLL;
 begin
+  {$IFDEF OPENSSL_STATIC_LINK_MODEL}
+  Result := nil;
+  {$ELSE}
   InitUnit;
   Result := TOpenSSLDynamicLibProvider.FOpenSSLDDL;
+  {$ENDIF}
 end;
 
-
+{$IFNDEF OPENSSL_STATIC_LINK_MODEL}
 procedure Register_SSLLoader(LoadProc : TOpenSSLLoadProc);
 begin
   InitUnit;

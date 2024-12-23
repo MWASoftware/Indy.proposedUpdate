@@ -926,6 +926,9 @@ var
   X509_policy_node_get0_policy: function (const node: PX509_POLICY_NODE): PASN1_OBJECT; cdecl = Load_X509_policy_node_get0_policy;
   X509_policy_node_get0_parent: function (const node: PX509_POLICY_NODE): PX509_POLICY_NODE; cdecl = Load_X509_policy_node_get0_parent;
 
+
+
+
 {Removed functions for which legacy support available - use is deprecated}
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
@@ -1011,7 +1014,7 @@ const
 implementation
 
 
-uses classes,
+uses Classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
@@ -1079,7 +1082,6 @@ begin
   Result := X509_STORE_CTX_get_ex_data(ctx,SSL_get_ex_data_X509_STORE_CTX_idx);
 end;
 
-{forward_compatibility}
 
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}
 {$ELSE}
@@ -1090,7 +1092,6 @@ begin
   Result := X509_STORE_CTX_get_ex_data(ctx,SSL_get_ex_data_X509_STORE_CTX_idx);
 end;
 
-{forward_compatibility}
 
 function COMPAT_X509_LOOKUP_meth_new(const name: PAnsiChar): PX509_LOOKUP_METHOD; cdecl;
 
@@ -1130,8 +1131,6 @@ function COMPAT_X509_LOOKUP_get_store(const ctx: PX509_LOOKUP): PX509_STORE; cde
 begin
   Result := _PX509_LOOKUP(ctx)^.store_ctx;
 end;
-
-{/forward_compatibility}
 
 
 {$ENDIF} { End of OPENSSL_NO_LEGACY_SUPPORT}

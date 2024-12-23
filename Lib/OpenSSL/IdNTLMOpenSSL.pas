@@ -29,7 +29,7 @@ end;
 
 function IsNTLMFuncsAvail: Boolean;
 begin
-  {$if not declared(IOpenSSLDLL)}
+  {$if not declared(OpenSSL_Using_Dynamic_Library_Load)}
   Result := true;
   {$ELSE}
   Result := Assigned(DES_set_odd_parity) and

@@ -6,7 +6,7 @@
     published by the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    The MWMWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
+    The MWA Software Pascal API for OpenSSL is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Lesser General Public License for more details.
@@ -57,7 +57,7 @@
 {$ENDIF}
 {$IFDEF OPENSSL_USE_STATIC_LIBRARY}
 {$IFNDEF FPC}
-{$message Error:OPENSSL_USE_STATIC_LIBRARY may only be used when compiling with the Free Pascal Compiler}
+{$warn Warning:OPENSSL_USE_STATIC_LIBRARY is supported only when compiling with the Free Pascal Compiler}
 {$ELSE}
 {$DEFINE OPENSSL_STATIC_LINK_MODEL}
 {$ENDIF}

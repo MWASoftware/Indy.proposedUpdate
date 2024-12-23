@@ -460,6 +460,9 @@ var
   CRYPTO_THREAD_get_current_id: function : CRYPTO_THREAD_ID; cdecl = Load_CRYPTO_THREAD_get_current_id;
   CRYPTO_THREAD_compare_id: function (a: CRYPTO_THREAD_ID; b: CRYPTO_THREAD_ID): TOpenSSL_C_INT; cdecl = Load_CRYPTO_THREAD_compare_id;
 
+
+
+
 {Removed functions for which legacy support available - use is deprecated}
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
@@ -553,9 +556,9 @@ const
 
 implementation
 
-uses SyncObjs, Sysutils
+uses SyncObjs,  Sysutils
      {$IFNDEF FPC}, Windows{$ENDIF},
-classes,
+Classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 

@@ -342,6 +342,9 @@ var
   ERR_pop_to_mark: function : TOpenSSL_C_INT; cdecl = Load_ERR_pop_to_mark;
   ERR_clear_last_mark: function : TOpenSSL_C_INT; cdecl = Load_ERR_clear_last_mark;
 
+
+
+
 {Removed functions for which legacy support available - use is deprecated}
 
 {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
@@ -367,7 +370,7 @@ const
 implementation
 
 
-uses classes,
+uses Classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 

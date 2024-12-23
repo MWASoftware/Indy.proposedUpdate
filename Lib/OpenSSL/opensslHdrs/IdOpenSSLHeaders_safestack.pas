@@ -95,7 +95,7 @@ files generated for C++. }
 
 implementation
 
-uses classes,
+uses Classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 

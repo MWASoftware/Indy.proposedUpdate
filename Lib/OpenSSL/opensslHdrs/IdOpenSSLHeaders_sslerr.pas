@@ -28,6 +28,7 @@ and this file regenerated *)
 unit IdOpenSSLHeaders_sslerr;
 
 
+
 interface
 
 // Headers for OpenSSL 1.1.1
@@ -808,7 +809,7 @@ implementation
 
 
 
-uses classes,
+uses Classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 

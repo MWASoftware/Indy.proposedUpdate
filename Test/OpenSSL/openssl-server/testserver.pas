@@ -321,20 +321,23 @@ procedure TOpenSSLServerTest.DoRun;
     FServer.Active := true;
     Sleep(1000); {let server get going}
     writeln('Using ',OpenSSLVersion);
-    {$if declared(GetIOpenSSLDDL)}
-    writeln('LibCrypto: ',GetIOpenSSLDDL.GetLibCryptoFilePath);
-    writeln('LibSSL: ',GetIOpenSSLDDL.GetLibSSLFilePath);
-    {$ifend}
+    if GetIOpenSSLDDL <> nil then
+    begin
+      writeln('LibCrypto: ',GetIOpenSSLDDL.GetLibCryptoFilePath);
+      writeln('LibSSL: ',GetIOpenSSLDDL.GetLibSSLFilePath);
+    end;
     if not LoadOpenSSLLibrary then
       raise Exception.Create('OpenSSL Library Failed to load');
-{    if GetOpenSSLLoader <> nil then
-    with GetOpenSSLLoader.FailedToLoad do
+
+    if GetIOpenSSLDDL <> nil then
+    with GetIOpenSSLDDL.GetFailedToLoadList do
     if Count > 0 then
     begin
       writeln('Note: The following functions failed to load and an exception will be raised if they are called:');
       for i := 0 to Count - 1 do
         writeln(Strings[i]);
-    end;}
+    end;
+
     writeln('Getting ',remoteSource,' with verification');
     writeln;
 
@@ -381,7 +384,6 @@ begin
       Inc(i);
    end;
 
-    {$if declared(GetIOpenSSLDDL)}
     if GetIOpenSSLDDL <> nil then
      begin
       if (FOpenSSLLibDir = '') or not IsDirectoryEmpty(FOpenSSLLibDir) then
@@ -393,7 +395,6 @@ begin
         writeln('Directory ',FOpenSSLLibDir,' is empty!');
     end
     else
-    {$ENDIF}
       RunTest;
 
 

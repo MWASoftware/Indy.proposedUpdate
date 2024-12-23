@@ -427,6 +427,9 @@ var
   DH_meth_set_finish: function (const dhm: PDH_Method; finish: DH_meth_finish_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_finish;
   DH_meth_get_generate_params: function (const dhm: PDH_Method): DH_meth_generate_params_cb; cdecl = Load_DH_meth_get_generate_params;
   DH_meth_set_generate_params: function (const dhm: PDH_Method; generate_params: DH_meth_generate_params_cb): TOpenSSL_C_INT; cdecl = Load_DH_meth_set_generate_params;
+
+
+
 {$ENDIF}
 const
   DH_bits_introduced = ((((((byte(1) shl 8) or byte(1)) shl 8) or byte(0)) shl 8) or byte(0)) shl 4; {introduced 1.1.0}
@@ -477,7 +480,7 @@ const
 
 implementation
 
-uses classes,
+uses Classes,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
