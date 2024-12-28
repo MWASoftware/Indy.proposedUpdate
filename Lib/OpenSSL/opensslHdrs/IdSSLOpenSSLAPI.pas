@@ -409,27 +409,6 @@ begin
   Result := OpenSSL_version_num;
 end;
 
-function TOpenSSLStaticLibProvider.Init: boolean;
-begin
-  Result := true;
-  FThreadLock.Acquire;
-  try
-    {$IFDEF OPENSSL_SET_MEMORY_FUNCS}
-        // has to be done before anything that uses memory
-        OpenSSLCryptoMallocInit;
-    {$ENDIF}
-    OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS or OPENSSL_INIT_ADD_ALL_CIPHERS or
-                     OPENSSL_INIT_ADD_ALL_DIGESTS or OPENSSL_INIT_LOAD_CRYPTO_STRINGS or
-                     OPENSSL_INIT_LOAD_CONFIG or OPENSSL_INIT_ASYNC or
-                     OPENSSL_INIT_ENGINE_ALL_BUILTIN ,nil);
-
-    if GetOpenSSLVersion < CRYPTO_set_locking_callback_removed then
-      SetLegacyCallbacks;
-  finally
-    FThreadLock.Release;
-  end;
-end;
-
 {$IFDEF OPENSSL_SET_MEMORY_FUNCS}
 
 function OpenSSLMalloc(num: UInt32): Pointer cdecl;
@@ -461,6 +440,27 @@ end;
 {$ENDIF}
 
 {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+function TOpenSSLStaticLibProvider.Init: boolean;
+begin
+  Result := true;
+  FThreadLock.Acquire;
+  try
+    {$IFDEF OPENSSL_SET_MEMORY_FUNCS}
+        // has to be done before anything that uses memory
+        OpenSSLCryptoMallocInit;
+    {$ENDIF}
+    OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS or OPENSSL_INIT_ADD_ALL_CIPHERS or
+                     OPENSSL_INIT_ADD_ALL_DIGESTS or OPENSSL_INIT_LOAD_CRYPTO_STRINGS or
+                     OPENSSL_INIT_LOAD_CONFIG or OPENSSL_INIT_ASYNC or
+                     OPENSSL_INIT_ENGINE_ALL_BUILTIN ,nil);
+
+    if GetOpenSSLVersion < CRYPTO_set_locking_callback_removed then
+      SetLegacyCallbacks;
+  finally
+    FThreadLock.Release;
+  end;
+end;
+
 function TOpenSSLDynamicLibProvider.FindLibrary(LibName , LibVersions : string;
   var FilePath : string) : TLibHandle;
 
