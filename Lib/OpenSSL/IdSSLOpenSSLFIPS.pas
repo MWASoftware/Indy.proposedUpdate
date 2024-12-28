@@ -57,9 +57,9 @@ function FIPS_mode_set(onoff : TIdC_INT) : TIdC_INT;  {$IFDEF INLINE}inline;{$EN
 begin
   Result := 0;
   {$IFDEF OPENSSL_FIPS}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if declared(OpenSSL_Using_Dynamic_Library_Load)}
   if Assigned(IdOpenSSLHeaders_crypto.FIPS_mode_set) then
-  {$ENDIF}
+  {$ifend}
   begin
     Result := IdOpenSSLHeaders_crypto.FIPS_mode_set(onoff);
   end;
@@ -70,9 +70,9 @@ function FIPS_mode() : TIdC_INT;  {$IFDEF INLINE}inline;{$ENDIF}
 begin
   Result := 0;
   {$IFDEF OPENSSL_FIPS}
-  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if declared(OpenSSL_Using_Dynamic_Library_Load)}
   if Assigned(IdOpenSSLHeaders_crypto.FIPS_mode) then
-  {$ENDIF}
+  {$ifend}
   begin
     Result := IdOpenSSLHeaders_crypto.FIPS_mode;
   end;
@@ -83,7 +83,7 @@ end;
 
 function OpenSSLIsHashingIntfAvail : Boolean;
 begin
-  {$if declared(IOpenSSLDLL)}
+  {$if declared(OpenSSL_Using_Dynamic_Library_Load)}
   Result := Assigned(EVP_DigestInit_ex) and
             Assigned(EVP_DigestUpdate) and
             Assigned(EVP_DigestFinal_ex) ;
@@ -124,7 +124,7 @@ begin
   {$IFDEF OPENSSL_NO_MD2}
   Result := False;
   {$ELSE}
-  {$if declared(EVP_md2)}
+  {$if declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_md2)}
   Result := Assigned(EVP_md2);
   {$ELSE}
   Result := true;
@@ -133,7 +133,7 @@ begin
 end;
 
 function OpenSSLGetMD2HashInst : TIdHashIntCtx;
-{$IF declared(EVP_md2)}
+{$IF declared(OpenSSL_Using_Dynamic_Library_Load)  and declared(EVP_md2)}
 var
   LRet : PEVP_MD;
 begin
@@ -147,7 +147,7 @@ end;
 
 function OpenSSLIsMD4HashIntfAvail: Boolean;
 begin
-  {$if declared(EVP_md4)}
+  {$if declared(OpenSSL_Using_Dynamic_Library_Load)  and declared(EVP_md4)}
   Result := Assigned(EVP_md4);
   {$ELSE}
   Result := true;
@@ -155,7 +155,7 @@ begin
 end;
 
 function OpenSSLGetMD4HashInst : TIdHashIntCtx;
-{$IF declared(EVP_md4)}
+{$IF declared(OpenSSL_Using_Dynamic_Library_Load)  and declared(EVP_md4)}
 var
   LRet : PEVP_MD;
 begin
@@ -169,7 +169,7 @@ end;
 
 function OpenSSLIsMD5HashIntfAvail: Boolean;
 begin
-  {$IF declared(EVP_md5)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_md5)}
   Result := Assigned(EVP_md5);
   {$ELSE}
   Result := true;
@@ -177,7 +177,7 @@ begin
 end;
 
 function OpenSSLGetMD5HashInst : TIdHashIntCtx;
-{$IF declared(EVP_md5)}
+{$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_md5)}
 var
   LRet : PEVP_MD;
 begin
@@ -194,7 +194,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA}
   Result := False;
   {$ELSE}
-  {$IF declared(EVP_sha1)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha1)}
   Result := Assigned(EVP_sha1);
   {$ELSE}
   Result := true;
@@ -211,7 +211,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA}
   Result := nil;
   {$ELSE}
-  {$IF declared(EVP_sha1)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha1)}
   LRet := EVP_sha1;
   Result := OpenSSLGetDigestCtx(LRet);
   {$ELSE}
@@ -225,7 +225,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := False;
   {$ELSE}
-  {$IF declared(EVP_sha224)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha224)}
   Result := Assigned(EVP_sha224);
   {$ELSE}
   Result := true;
@@ -242,7 +242,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := nil;
   {$ELSE}
-  {$IF declared(EVP_sha224)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha224)}
   LRet := EVP_sha224;
   Result := OpenSSLGetDigestCtx(LRet);
   {$IFEND}
@@ -254,7 +254,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := False;
   {$ELSE}
-  {$IF declared(EVP_sha256)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha256)}
   Result := Assigned(EVP_sha256);
   {$ELSE}
   Result := true;
@@ -271,7 +271,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := nil;
   {$ELSE}
-  {$IF declared(EVP_sha256)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha256)}
   LRet := EVP_sha256;
   Result := OpenSSLGetDigestCtx(LRet);
   {$ifend}
@@ -283,7 +283,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := False;
   {$ELSE}
-  {$IF declared(EVP_sha384)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha384)}
   Result := Assigned(EVP_sha384);
   {$ELSE}
   Result := false;
@@ -300,11 +300,11 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := nil;
   {$ELSE}
-  {$IF declared(EVP_sha384)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha384)}
   LRet := EVP_sha384;
   Result := OpenSSLGetDigestCtx(LRet);
   {$ELSE}
-  Result := false;
+  Result := nil;
   {$IFEND}
   {$ENDIF}
 end;
@@ -314,7 +314,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := nil;
   {$ELSE}
-  {$IF declared(EVP_sha512)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha512)}
   Result := Assigned(EVP_sha512);
   {$ELSE}
   Result := true;
@@ -331,11 +331,11 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := nil;
   {$ELSE}
-  {$IF declared(EVP_sha512)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load)  and declared(EVP_sha512)}
   LRet := EVP_sha512;
   Result := OpenSSLGetDigestCtx(LRet);
   {$ELSE}
-  Result := false;
+  Result := nil;
   {$IFEND}
 {$ENDIF}
 end;
@@ -369,7 +369,7 @@ begin
   {$IFDEF OPENSSL_NO_HMAC}
   Result := False;
   {$ELSE}
-  {$if declared(IOpenSSLDLL)}
+  {$if declared(OpenSSL_Using_Dynamic_Library_Load)}
   Result := Assigned(HMAC_CTX_new) and
             Assigned(HMAC_Init_ex) and
             Assigned(HMAC_Update)  and
@@ -386,7 +386,7 @@ begin
  {$IFDEF OPENSSL_NO_MD5}
  Result := False;
  {$ELSE}
- {$IF declared(EVP_md5)}
+ {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_md5)}
  Result := Assigned(EVP_md5);
  {$ELSE}
  Result := true;
@@ -396,7 +396,7 @@ end;
 
 function OpenSSLGetHMACMD5Inst(const AKey : TIdBytes) : TIdHMACIntCtx;
 begin
-  {$IF not declared(EVP_md5)}
+  {$IF not (declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_md5))}
   Result := nil;
   {$ELSE}
   Result := HMAC_CTX_new;
@@ -409,7 +409,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA}
   Result := False;
   {$ELSE}
-  {$IF declared(EVP_sha1)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha1)}
   Result := Assigned(EVP_sha1);
   {$ELSE}
   Result := true;
@@ -433,7 +433,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := False;
   {$ELSE}
-  {$IF declared(EVP_sha224)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha224)}
   Result := Assigned(EVP_sha224);
   {$ELSE}
   Result := true;
@@ -456,7 +456,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA256}
   Result := False;
   {$ELSE}
-  {$IF declared(EVP_sha256)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha256)}
   Result := Assigned(EVP_sha256);
   {$ELSE}
   Result := true;
@@ -479,7 +479,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := False;
   {$ELSE}
-   {$IF declared(EVP_sha384)}
+   {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha384)}
   Result := Assigned(EVP_sha384);
   {$ELSE}
   Result := true;
@@ -502,7 +502,7 @@ begin
   {$IFDEF OPENSSL_NO_SHA512}
   Result := False;
   {$ELSE}
-  {$IF declared(EVP_sha512)}
+  {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha512)}
   Result := Assigned(EVP_sha512);
   {$ELSE}
   Result := true;
