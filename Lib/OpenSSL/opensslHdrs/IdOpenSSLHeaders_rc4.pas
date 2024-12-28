@@ -188,28 +188,28 @@ begin
   FuncLoadError := not assigned(RC4_options);
   if FuncLoadError then
   begin
-    AFailed.Add('RC4_options');
+    {Don't report allow nil failure}
   end;
 
   RC4_set_key := LoadLibCryptoFunction('RC4_set_key');
   FuncLoadError := not assigned(RC4_set_key);
   if FuncLoadError then
   begin
-    AFailed.Add('RC4_set_key');
+    {Don't report allow nil failure}
   end;
 
   private_RC4_set_key := LoadLibCryptoFunction('private_RC4_set_key');
   FuncLoadError := not assigned(private_RC4_set_key);
   if FuncLoadError then
   begin
-    AFailed.Add('private_RC4_set_key');
+    {Don't report allow nil failure}
   end;
 
   RC4 := LoadLibCryptoFunction('RC4');
   FuncLoadError := not assigned(RC4);
   if FuncLoadError then
   begin
-    AFailed.Add('RC4');
+    {Don't report allow nil failure}
   end;
 
 {$ENDIF}

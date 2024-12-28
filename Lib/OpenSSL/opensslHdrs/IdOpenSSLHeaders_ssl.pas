@@ -8922,126 +8922,126 @@ begin
   FuncLoadError := not assigned(SSLv2_method);
   if FuncLoadError then
   begin
-    AFailed.Add('SSLv2_method');
+    {Don't report allow nil failure}
   end;
 
   SSLv2_server_method := LoadLibSSLFunction('SSLv2_server_method');
   FuncLoadError := not assigned(SSLv2_server_method);
   if FuncLoadError then
   begin
-    AFailed.Add('SSLv2_server_method');
+    {Don't report allow nil failure}
   end;
 
   SSLv2_client_method := LoadLibSSLFunction('SSLv2_client_method');
   FuncLoadError := not assigned(SSLv2_client_method);
   if FuncLoadError then
   begin
-    AFailed.Add('SSLv2_client_method');
+    {Don't report allow nil failure}
   end;
 
   SSLv3_method := LoadLibSSLFunction('SSLv3_method');
   FuncLoadError := not assigned(SSLv3_method);
   if FuncLoadError then
   begin
-    AFailed.Add('SSLv3_method');
+    {Don't report allow nil failure}
   end;
 
   SSLv3_server_method := LoadLibSSLFunction('SSLv3_server_method');
   FuncLoadError := not assigned(SSLv3_server_method);
   if FuncLoadError then
   begin
-    AFailed.Add('SSLv3_server_method');
+    {Don't report allow nil failure}
   end;
 
   SSLv3_client_method := LoadLibSSLFunction('SSLv3_client_method');
   FuncLoadError := not assigned(SSLv3_client_method);
   if FuncLoadError then
   begin
-    AFailed.Add('SSLv3_client_method');
+    {Don't report allow nil failure}
   end;
 
   SSLv23_method := LoadLibSSLFunction('SSLv23_method');
   FuncLoadError := not assigned(SSLv23_method);
   if FuncLoadError then
   begin
-    AFailed.Add('SSLv23_method');
+    {Don't report allow nil failure}
   end;
 
   SSLv23_server_method := LoadLibSSLFunction('SSLv23_server_method');
   FuncLoadError := not assigned(SSLv23_server_method);
   if FuncLoadError then
   begin
-    AFailed.Add('SSLv23_server_method');
+    {Don't report allow nil failure}
   end;
 
   SSLv23_client_method := LoadLibSSLFunction('SSLv23_client_method');
   FuncLoadError := not assigned(SSLv23_client_method);
   if FuncLoadError then
   begin
-    AFailed.Add('SSLv23_client_method');
+    {Don't report allow nil failure}
   end;
 
   TLSv1_method := LoadLibSSLFunction('TLSv1_method');
   FuncLoadError := not assigned(TLSv1_method);
   if FuncLoadError then
   begin
-    AFailed.Add('TLSv1_method');
+    {Don't report allow nil failure}
   end;
 
   TLSv1_server_method := LoadLibSSLFunction('TLSv1_server_method');
   FuncLoadError := not assigned(TLSv1_server_method);
   if FuncLoadError then
   begin
-    AFailed.Add('TLSv1_server_method');
+    {Don't report allow nil failure}
   end;
 
   TLSv1_client_method := LoadLibSSLFunction('TLSv1_client_method');
   FuncLoadError := not assigned(TLSv1_client_method);
   if FuncLoadError then
   begin
-    AFailed.Add('TLSv1_client_method');
+    {Don't report allow nil failure}
   end;
 
   TLSv1_1_method := LoadLibSSLFunction('TLSv1_1_method');
   FuncLoadError := not assigned(TLSv1_1_method);
   if FuncLoadError then
   begin
-    AFailed.Add('TLSv1_1_method');
+    {Don't report allow nil failure}
   end;
 
   TLSv1_1_server_method := LoadLibSSLFunction('TLSv1_1_server_method');
   FuncLoadError := not assigned(TLSv1_1_server_method);
   if FuncLoadError then
   begin
-    AFailed.Add('TLSv1_1_server_method');
+    {Don't report allow nil failure}
   end;
 
   TLSv1_1_client_method := LoadLibSSLFunction('TLSv1_1_client_method');
   FuncLoadError := not assigned(TLSv1_1_client_method);
   if FuncLoadError then
   begin
-    AFailed.Add('TLSv1_1_client_method');
+    {Don't report allow nil failure}
   end;
 
   TLSv1_2_method := LoadLibSSLFunction('TLSv1_2_method');
   FuncLoadError := not assigned(TLSv1_2_method);
   if FuncLoadError then
   begin
-    AFailed.Add('TLSv1_2_method');
+    {Don't report allow nil failure}
   end;
 
   TLSv1_2_server_method := LoadLibSSLFunction('TLSv1_2_server_method');
   FuncLoadError := not assigned(TLSv1_2_server_method);
   if FuncLoadError then
   begin
-    AFailed.Add('TLSv1_2_server_method');
+    {Don't report allow nil failure}
   end;
 
   TLSv1_2_client_method := LoadLibSSLFunction('TLSv1_2_client_method');
   FuncLoadError := not assigned(TLSv1_2_client_method);
   if FuncLoadError then
   begin
-    AFailed.Add('TLSv1_2_client_method');
+    {Don't report allow nil failure}
   end;
 
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT

@@ -7377,7 +7377,7 @@ begin
   if FuncLoadError then
   begin
     EVP_md2 := @COMPAT_EVP_md2;
-    AFailed.Add('EVP_md2');
+    {Don't report allow nil failure}
   end;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 
@@ -7389,7 +7389,7 @@ begin
   if FuncLoadError then
   begin
     EVP_md4 := @COMPAT_EVP_md4;
-    AFailed.Add('EVP_md4');
+    {Don't report allow nil failure}
   end;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 
@@ -7401,7 +7401,7 @@ begin
   if FuncLoadError then
   begin
     EVP_md5 := @COMPAT_EVP_md5;
-    AFailed.Add('EVP_md5');
+    {Don't report allow nil failure}
   end;
 {$ENDIF} //of OPENSSL_NO_LEGACY_SUPPORT
 

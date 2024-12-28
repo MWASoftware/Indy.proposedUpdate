@@ -667,14 +667,14 @@ begin
   FuncLoadError := not assigned(DES_set_odd_parity);
   if FuncLoadError then
   begin
-    AFailed.Add('DES_set_odd_parity');
+    {Don't report allow nil failure}
   end;
 
   DES_set_key := LoadLibCryptoFunction('DES_set_key');
   FuncLoadError := not assigned(DES_set_key);
   if FuncLoadError then
   begin
-    AFailed.Add('DES_set_key');
+    {Don't report allow nil failure}
   end;
 
 end;
