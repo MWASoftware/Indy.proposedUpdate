@@ -4153,20 +4153,20 @@ end;
 
 function TIdX509Fingerprints.GetSHA224 : TIdSSLEVP_MD;
 begin
-  {$IFDEF OPENSSL_STATIC_LINK_MODEL}
-    X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result.Length);
+  {$if not declared(OpenSSL_Using_Dynamic_Library_Load)}
+  X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result.Length);
   {$ELSE}
   if Assigned(EVP_sha224) then begin
     X509_digest(FX509, EVP_sha224, PByte(@Result.MD), Result.Length);
   end else begin
     FillChar(Result, SizeOf(Result), 0);
   end;
-  {$ENDIF}
+  {$ifend}
 end;
 
 function TIdX509Fingerprints.GetSHA224AsString : String;
 begin
-  {$IFDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if not declared(OpenSSL_Using_Dynamic_Library_Load)}
   Result := MDAsString(SHA224);
   {$ELSE}
   if Assigned(EVP_sha224) then begin
@@ -4174,12 +4174,12 @@ begin
   end else begin
     Result := '';
   end;
-  {$ENDIF}
+  {$ifend}
 end;
 
 function TIdX509Fingerprints.GetSHA256 : TIdSSLEVP_MD;
 begin
-  {$IFDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if not declared(OpenSSL_Using_Dynamic_Library_Load)}
   X509_digest(FX509, EVP_sha256, PByte(@Result.MD), Result.Length);
   {$ELSE}
   if Assigned(EVP_sha256) then begin
@@ -4187,12 +4187,12 @@ begin
   end else begin
     FillChar(Result, SizeOf(Result), 0);
   end;
-  {$ENDIF}
+  {$ifend}
 end;
 
 function TIdX509Fingerprints.GetSHA256AsString : String;
 begin
-  {$IFDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if not declared(OpenSSL_Using_Dynamic_Library_Load)}
   Result := MDAsString(SHA256);
   {$ELSE}
   if Assigned(EVP_sha256) then begin
@@ -4200,12 +4200,12 @@ begin
   end else begin
     Result := '';
   end;
-  {$ENDIF}
+  {$ifend}
 end;
 
 function TIdX509Fingerprints.GetSHA384 : TIdSSLEVP_MD;
 begin
-  {$IFDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if not declared(OpenSSL_Using_Dynamic_Library_Load)}
   X509_digest(FX509, EVP_SHA384, PByte(@Result.MD), Result.Length);
   {$ELSE}
   if Assigned(EVP_SHA384) then begin
@@ -4213,12 +4213,12 @@ begin
   end else begin
     FillChar(Result, SizeOf(Result), 0);
   end;
-  {$ENDIF}
+  {$ifend}
 end;
 
 function TIdX509Fingerprints.GetSHA384AsString : String;
 begin
-  {$IFDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if not declared(OpenSSL_Using_Dynamic_Library_Load)}
   Result := MDAsString(SHA384);
   {$ELSE}
   if Assigned(EVP_SHA384) then begin
@@ -4226,12 +4226,12 @@ begin
   end else begin
     Result := '';
   end;
-  {$ENDIF}
+  {$ifend}
 end;
 
 function TIdX509Fingerprints.GetSHA512 : TIdSSLEVP_MD;
 begin
-  {$IFDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if not declared(OpenSSL_Using_Dynamic_Library_Load)}
   X509_digest(FX509, EVP_sha512, PByte(@Result.MD), Result.Length);
   {$ELSE}
   if Assigned(EVP_sha512) then begin
@@ -4239,12 +4239,12 @@ begin
   end else begin
     FillChar(Result, SizeOf(Result), 0);
   end;
-  {$ENDIF}
+  {$ifend}
 end;
 
 function TIdX509Fingerprints.GetSHA512AsString : String;
 begin
-  {$IFDEF OPENSSL_STATIC_LINK_MODEL}
+  {$if not declared(OpenSSL_Using_Dynamic_Library_Load)}
   Result := MDAsString(SHA512);
   {$ELSE}
   if Assigned(EVP_sha512) then begin
@@ -4252,7 +4252,7 @@ begin
   end else begin
     Result := '';
   end;
-  {$ENDIF}
+  {$ifend}
 end;
 
 { TIdX509SigInfo }
