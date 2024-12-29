@@ -37,6 +37,9 @@ THIS SOFTWARE IS PROVIDED BY Chad Z. Hower (Kudzu) and the Indy Pit Crew &amp;am
     </Files>
     <RequiredPkgs>
       <Item>
+        <PackageName Value="indylaz"/>
+      </Item>
+      <Item>
         <PackageName Value="indyopenssl"/>
       </Item>
       <Item>
