@@ -436,9 +436,7 @@ implementation
 
 {$IFDEF USE_SSPI}
 uses
-  IdGlobalCore,
   IdGlobalProtocols,
-  IdException,
   IdCoderMIME,
   IdResourceStringsSSPI,
   IdHeaderList;

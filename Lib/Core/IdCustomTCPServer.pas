@@ -262,8 +262,8 @@ uses
   IdBaseComponent,
   IdComponent,IdContext, IdGlobal, IdException,
   IdIntercept, IdIOHandler, IdIOHandlerStack,
-  IdReply, IdScheduler, IdSchedulerOfThread, IdServerIOHandler,
-  IdServerIOHandlerStack, IdSocketHandle, IdStackConsts, IdTCPConnection,
+  IdReply, IdScheduler, IdServerIOHandler,
+  IdServerIOHandlerStack, IdSocketHandle, IdTCPConnection,
   IdThread, IdYarn, SysUtils;
 
 const
@@ -429,7 +429,7 @@ uses
     {$ENDIF}
   {$ENDIF}
   IdGlobalCore,
-  IdResourceStringsCore, IdReplyRFC,
+  IdResourceStringsCore,
   IdSchedulerOfThreadDefault, IdStack,
   IdThreadSafe;
 
@@ -986,6 +986,9 @@ end;
 // have that problem...
 {$DEFINE CanCreateTwoBindings}
 {$IFDEF LINUX} // should this be UNIX instead?
+  {$UNDEF CanCreateTwoBindings}
+{$ENDIF}
+{$IFDEF SOLARIS}
   {$UNDEF CanCreateTwoBindings}
 {$ENDIF}
 {$IFDEF ANDROID}
