@@ -1,12 +1,12 @@
-This is a "strawman" proposal to demonstrate a possible package split. That is 
-separating out the OpenSSL Indy components into a separate package. This
-version is based on the current (2024-08-17) "master" branch on GitHub for IndySockets/Indy.
+This "proposed update" to IndySockets/Indy adds support for OpenSSL 3.0 and 
+later to Indy. Both Delphi and Lazarus/fpc are fully supported by this source code tree. 
+
+This update includes a new (optional) OpenSSL package separate from Indy's "protocols" package.
 
 Three link models are supported.
-   Dynamic Library Load (the default and the approach used in previous versions)
-   compile time linkage to a shared (.so or .dll) library (OpenSSL 3.x only)
-   compile time linkage to a static library (FPC only with gcc compiled 
-OpenSSL).
+   * Dynamic Library Load (the default and the approach used in previous versions)
+   * compile time linkage to a shared (.so or .dll) library (OpenSSL 3.x only)
+   * compile time linkage to a static library (FPC only with gcc compiled OpenSSL).
 
 For dynamic library load, a "Just in Time" approach is used where each API call is initialised to a local proc "loader" function.
 The intent is that on the first call a given API function, the actual entry point in the OpenSSL function
@@ -16,7 +16,7 @@ then an exception is raised. If an API function is allowed to be nil (as set in 
 is loaded at library load time.
 
 
-I have tested this package under the following scenarios:
+The updated package has been tested under the following scenarios:
 
 1. Static Linking to Static Library (Lazarus/Linux only with gcc generated libssl.a and libcrypto.a).
 
@@ -62,7 +62,7 @@ icons\makedcr.bat has been updated to generate a .dcr package for the OpenSSL pa
 Lazarus/FPC Builds
 ==================
 
-All lazaarus packages may be found in the "lazarus-fpc/" top level folder. These are:
+All lazarus packages may be found in the "lazarus-fpc/" top level folder. These are:
 
 indysystem.lpk
 indycore.lpk
