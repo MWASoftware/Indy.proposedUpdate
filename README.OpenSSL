@@ -74,9 +74,15 @@ and the design time only packages
 indylaz.lpk
 indylaz_indyopenssl
 
-In order to install this strawman branch for Lazarus (Windows and Linux), Open first 
+In order to install this proposed update for Lazarus (Windows and Linux), Open first 
 that package indylaz.lpk and click on install. Then Open the package indylaz_openssl.lpk and 
 click on install. The Indy Library should now be available for use.
+
+You can also use fpcmake to create a makefile for building the full package. Run
+
+fpcmake -r
+
+in the package's root directiory.
 
 Test Programs
 =============
