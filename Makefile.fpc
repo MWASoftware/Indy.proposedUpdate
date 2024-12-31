@@ -4,7 +4,7 @@ export OPT=-O1 -g -gl
 else
 export OPT=-O3
 endif
-export INDY_VERSION=10.6.2.0
+export INDY_VERSION=10.6.3.7
 
 [target]
 dirs=Lib/System Lib/Core Lib/Protocols Lib/OpenSSL
