@@ -8,3 +8,6 @@ export INDY_VERSION=10.6.2.0
 
 [target]
 dirs=Lib/System Lib/Core Lib/Protocols Lib/OpenSSL
+
+[clean]
+files=units/$(CPU_TARGET)-$(OS_TARGET)/*.o units/$(CPU_TARGET)-$(OS_TARGET)/*.ppu
