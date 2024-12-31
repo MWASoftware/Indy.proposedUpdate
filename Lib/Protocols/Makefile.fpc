@@ -10,11 +10,10 @@ packages=indycore
 options= -MDelphi $(OPT) -Scghi -CX -Ur -Xs -vew
 unittargetdir= ../../units/$(CPU_TARGET)-$(OS_TARGET)
 includedir=../../includes
-unitdir=.:opensslHdrs
+unitdir=.
 
 [target]
 units=indyprotocolsfpc
-dirs=opensslHdrs
 implicitunits=IdAllAuthentications \
   IdAllFTPListParsers \
   IdAllHeaderCoders \
@@ -264,7 +263,6 @@ buildunit=indyprotocolsfpc
 
 [clean]
 files=../../units/$(CPU_TARGET)-$(OS_TARGET)/IdResourceStringsCore.rsj \
-  ../../units/$(CPU_TARGET)-$(OS_TARGET)/IdResourceStringsOpenSSL.rsj \
   ../../units/$(CPU_TARGET)-$(OS_TARGET)/IdResourceStringsProtocols.rsj \
   ../../units/$(CPU_TARGET)-$(OS_TARGET)/IdResourceStrings.rsj \
   ../../units/$(CPU_TARGET)-$(OS_TARGET)/IdResourceStringsSSPI.rsj \
