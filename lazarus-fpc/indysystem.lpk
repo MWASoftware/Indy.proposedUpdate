@@ -66,10 +66,6 @@ THIS SOFTWARE IS PROVIDED BY Chad Z. Hower (Kudzu) and the Indy Pit Crew &amp;am
         <UnitName Value="IdResourceStrings"/>
       </Item>
       <Item>
-        <Filename Value="../Lib/System/IdResourceStringsDotNet11.pas"/>
-        <UnitName Value="IdResourceStringsDotNet11"/>
-      </Item>
-      <Item>
         <Filename Value="../Lib/System/IdResourceStringsIconv.pas"/>
         <UnitName Value="IdResourceStringsIconv"/>
       </Item>

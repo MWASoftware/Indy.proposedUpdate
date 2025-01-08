@@ -9,11 +9,10 @@ interface
 
 uses
   IdBaseComponent, IdComponent, IdCTypes, IdException, IdGlobal, IdIDN, 
-  IdResourceStrings, IdResourceStringsDotNet11, IdResourceStringsIconv, 
-  IdResourceStringsKylixCompat, IdResourceStringsTextEncoding, 
-  IdResourceStringsUnix, IdStack, IdStackBSDBase, IdStackConsts, IdStream, 
-  IdStruct, IdTransactedFileStream, IdWinsock2, IdWship6, IdAntiFreezeBase, 
-  LazarusPackageIntf;
+  IdResourceStrings, IdResourceStringsIconv, IdResourceStringsKylixCompat, 
+  IdResourceStringsTextEncoding, IdResourceStringsUnix, IdStack, 
+  IdStackBSDBase, IdStackConsts, IdStream, IdStruct, IdTransactedFileStream, 
+  IdWinsock2, IdWship6, IdAntiFreezeBase, LazarusPackageIntf;
 
 implementation
 
