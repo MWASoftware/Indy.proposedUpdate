@@ -11,9 +11,8 @@ uses
   IdBaseComponent, IdComponent, IdCTypes, IdException, IdGlobal, IdIDN, 
   IdResourceStrings, IdResourceStringsDotNet11, IdResourceStringsIconv, 
   IdResourceStringsKylixCompat, IdResourceStringsTextEncoding, 
-  IdResourceStringsUnix, IdResourceStringsVCLPosix, IdStack, IdStackBSDBase, 
-  IdStackConsts, IdStream, IdStreamVCL, IdStruct, IdTransactedFileStream, 
-  IdVCLPosixSupplemental, IdWinsock2, IdWship6, IdAntiFreezeBase, 
+  IdResourceStringsUnix, IdStack, IdStackBSDBase, IdStackConsts, IdStream, 
+  IdStruct, IdTransactedFileStream, IdWinsock2, IdWship6, IdAntiFreezeBase, 
   LazarusPackageIntf;
 
 implementation
@@ -23,5 +22,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('indysystem' , @Register);
+  RegisterPackage('indysystem', @Register);
 end.
