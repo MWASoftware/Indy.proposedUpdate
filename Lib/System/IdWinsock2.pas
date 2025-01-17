@@ -160,8 +160,6 @@ To deal with this, I use the FPC predefined FPC_REQUIRES_PROPER_ALIGNMENT.
 
 {$I IdRangeCheckingOff.inc}
 
-{$IFDEF WINDOWS}
-
 {$IFDEF FPC}
   {$IFDEF WIN32}
     {$ALIGN OFF}
@@ -5971,11 +5969,9 @@ const
   {$EXTERNALSYM IN6ADDR_TEREDOPREFIX_LENGTH}
   IN6ADDR_TEREDOPREFIX_LENGTH = 32;
 
-{$ENDIF}
 //=============================================================
 implementation
 //=============================================================
-{$IFDEF WINDOWS}
 uses
   IdResourceStrings
   {$IFDEF HAS_AnsiStrings_StrLen}, AnsiStrings{$ENDIF}
@@ -9020,6 +9016,5 @@ initialization
   in6addr_teredoprefix                  := IN6ADDR_TEREDOPREFIX_INIT;
 
   InitializeStubs;
-{$ENDIF}
 end.
 
