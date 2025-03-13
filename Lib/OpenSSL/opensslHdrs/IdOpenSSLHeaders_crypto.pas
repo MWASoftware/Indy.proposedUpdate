@@ -24,6 +24,7 @@ and this file regenerated *)
 
 unit IdOpenSSLHeaders_crypto;
 
+{$I IdCompilerDefines.inc}
 
 interface
 
@@ -595,11 +596,18 @@ type
   TOpenSSLLegacyCallbacks = class(TThreadList)
   private
     procedure PrepareOpenSSLLocking;
+    {$IFDEF HAS_CLASSVARS}
     class var FCallbackList: TOpenSSLLegacyCallbacks;
+    {$ENDIF}
   public
     constructor Create;
     destructor Destroy; override;
   end;
+
+{$IFNDEF HAS_CLASSVARS}
+var
+  TOpenSSLLegacyCallbacks_FCallbackList: TOpenSSLLegacyCallbacks = nil;
+{$ENDIF}
 
 procedure TOpenSSLLegacyCallbacks.PrepareOpenSSLLocking;
 var
@@ -634,15 +642,27 @@ var
   Lock: TCriticalSection;
   LList: TList;
 begin
+  {$IFDEF HAS_CLASSVARS}
   Assert(TOpenSSLLegacyCallbacks.FCallbackList <> nil);
+  {$ELSE}
+  Assert(TOpenSSLLegacyCallbacks_FCallbackList <> nil);
+  {$ENDIF}
   Lock := nil;
 
+  {$IFDEF HAS_CLASSVARS}
   LList := TOpenSSLLegacyCallbacks.FCallbackList.LockList;
+  {$ELSE}
+  LList := TOpenSSLLegacyCallbacks_FCallbackList.LockList;
+  {$ENDIF}
   try
     if n < LList.Count then
       Lock := TCriticalSection(LList[n]);
   finally
+    {$IFDEF HAS_CLASSVARS}
     TOpenSSLLegacyCallbacks.FCallbackList.UnlockList;
+    {$ELSE}
+    TOpenSSLLegacyCallbacks_FCallbackList.UnlockList;
+    {$ENDIF}
   end;
   Assert(Lock <> nil);
   if (mode and CRYPTO_LOCK) = CRYPTO_LOCK then
@@ -653,9 +673,17 @@ end;
 
 constructor TOpenSSLLegacyCallbacks.Create;
 begin
+  {$IFDEF HAS_CLASSVARS}
   Assert(FCallbackList = nil);
+  {$ELSE}
+  Assert(TOpenSSLLegacyCallbacks_FCallbackList = nil);
+  {$ENDIF}
   inherited Create;
+  {$IFDEF HAS_CLASSVARS}
   FCallbackList := self;
+  {$ELSE}
+  TOpenSSLLegacyCallbacks_FCallbackList := self;
+  {$ENDIF}
   PrepareOpenSSLLocking;
   CRYPTO_set_locking_callback(@OpenSSLLockingCallback);
   CRYPTO_THREADID_set_callback(@OpenSSLSetCurrentThreadID);
@@ -676,7 +704,11 @@ begin
     UnlockList;
   end;
   inherited Destroy;
+  {$IFDEF HAS_CLASSVARS}
   FCallbackList := nil;
+  {$ELSE}
+  TOpenSSLLegacyCallbacks_FCallbackList := nil;
+  {$ENDIF}
 end;
 {$IFEND}
 {$ENDIF}
@@ -686,7 +718,11 @@ procedure SetLegacyCallbacks;
 begin
   {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
   {$if declared(CRYPTO_num_locks)}
+  {$IFDEF HAS_CLASSVARS}
   if TOpenSSLLegacyCallbacks.FCallbackList = nil then
+  {$ELSE}
+  if TOpenSSLLegacyCallbacks_FCallbackList = nil then
+  {$ENDIF}
     TOpenSSLLegacyCallbacks.Create;
   {$ifend}
   {$ENDIF}
@@ -696,9 +732,14 @@ procedure RemoveLegacyCallbacks;
 begin
   {$IFNDEF OPENSSL_NO_LEGACY_SUPPORT}
   {$if declared(CRYPTO_num_locks)}
+  {$IFDEF HAS_CLASSVARS}
   if TOpenSSLLegacyCallbacks.FCallbackList <> nil then
     FreeAndNil(TOpenSSLLegacyCallbacks.FCallbackList);
-    {$ifend}
+  {$ELSE}
+  if TOpenSSLLegacyCallbacks_FCallbackList <> nil then
+    FreeAndNil(TOpenSSLLegacyCallbacks_FCallbackList);
+  {$ENDIF}
+  {$ifend}
   {$ENDIF}
 end;
 
@@ -1876,7 +1917,11 @@ initialization
 
 
   {$if declared(CRYPTO_num_locks)}
+  {$IFDEF HAS_CLASSVARS}
   TOpenSSLLegacyCallbacks.FCallbackList := nil;
+  {$ELSE}
+  TOpenSSLLegacyCallbacks_FCallbackList := nil;
+  {$ENDIF}
   {$ifend}
 
 

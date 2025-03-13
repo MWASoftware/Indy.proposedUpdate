@@ -27,6 +27,8 @@ unit TestClient;
 
 interface
 
+{$I IdCompilerDefines.inc}
+
 uses
   Classes, SysUtils, {$IFDEF FPC}CustApp,{$ENDIF}IdIOHandler, IdHTTP,
   IdSSL, IdSSLOpenSSL;
@@ -132,7 +134,9 @@ begin
   SetLength(Result,Size);
   Position := 0;
   Read(Result[1],Size);
+  {$IF defined(FPC) or defined(VCL_2009_OR_ABOVE)}
   SetCodePage(RawByteString(Result), DefaultSystemCodePage, False);
+  {$IFEND}
 end;
 
 
@@ -215,7 +219,11 @@ function TBasicHttpsClient.IsDirectoryEmpty(Path: string): boolean;
 var Rslt: TSearchRec;
 begin
   Result := true;
-  if FindFirst(Path + DirectorySeparator + '*',faNormal or faSymLink,Rslt) = 0 then
+  if FindFirst(Path + DirectorySeparator + '*',
+   {$IF defined(FPC) or defined(VCL_2009_OR_ABOVE)}
+   faNormal or
+   {$IFEND}
+   faSymLink,Rslt) = 0 then
   begin
     Result := false;
     FindClose(Rslt);

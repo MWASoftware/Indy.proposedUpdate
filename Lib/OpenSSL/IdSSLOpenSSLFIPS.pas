@@ -245,6 +245,8 @@ begin
   {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha224)}
   LRet := EVP_sha224;
   Result := OpenSSLGetDigestCtx(LRet);
+  {$ELSE}
+  Result := nil;
   {$IFEND}
   {$ENDIF}
 end;
@@ -274,7 +276,9 @@ begin
   {$IF declared(OpenSSL_Using_Dynamic_Library_Load) and declared(EVP_sha256)}
   LRet := EVP_sha256;
   Result := OpenSSLGetDigestCtx(LRet);
-  {$ifend}
+  {$ELSE}
+  Result := nil;
+  {$IFEND}
   {$ENDIF}
 end;
 

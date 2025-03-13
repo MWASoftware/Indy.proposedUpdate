@@ -173,7 +173,7 @@ type
       {$IFDEF CPU64}
   TOpenSSL_C_TIMET = TOpenSSL_C_INT64;
       {$ENDIF}
-    {$ENDIF}
+    {$IFEND}
   {$ifend}
 
 {$ELSE}
@@ -215,7 +215,7 @@ TOpenSSL_C_SSIZET = TOpenSSL_C_INT32;
     {$IFDEF CPU64}
 TOpenSSL_C_SSIZET = TOpenSSL_C_INT64;
     {$ENDIF}
-  {$ENDIF}
+  {$IFEND}
 
   {$if declared(time_t))}
     TOpenSSL_C_TIMET = time_t;
@@ -312,13 +312,23 @@ uses SyncObjs,
      IdSSLOpenSSLExceptionHandlers,
      IdSSLOpenSSLResourceStrings;
 
+{$IFNDEF HAS_CLASSVARS}
+var
+  TOpenSSLStaticLibProvider_FOpenSSL: IOpenSSL = nil;
+  TOpenSSLDynamicLibProvider_FOpenSSLDDL: IOpenSSLDLL = nil;
+  TOpenSSLDynamicLibProvider_FLibLoadList: TList = nil;
+  TOpenSSLDynamicLibProvider_FUnLoadList: TList = nil;
+{$ENDIF}
+
 type
 
   { TOpenSSLProvider }
 
   TOpenSSLStaticLibProvider = class(TInterfacedObject, IOpenSSL)
+  {$IFDEF HAS_CLASSVARS}
   private
     class var FOpenSSL: IOpenSSL;
+  {$ENDIF}
   private
     FThreadLock: TCriticalSection;
     FOpenSSLPath: string;
@@ -339,10 +349,12 @@ type
   { TOpenSSLDynamicLibProvider }
 
   TOpenSSLDynamicLibProvider = class(TOpenSSLStaticLibProvider,IOpenSSLDLL)
+  {$IFDEF HAS_CLASSVARS}
   private
     class var FOpenSSLDDL: IOpenSSLDLL;
     class var FLibLoadList: TList;
     class var FUnLoadList: TList;
+  {$ENDIF}
   private
     FLibCrypto: TLibHandle;
     FLibSSL: TLibHandle;
@@ -481,7 +493,9 @@ begin
     LibVersionsList := TStringList.Create;
     try
       LibVersionsList.Delimiter := DirListDelimiter;
+      {$IF defined(FPC) or defined(VCL_2009_OR_ABOVE)}
       LibVersionsList.StrictDelimiter := true;
+      {$IFEND}
       LibVersionsList.DelimitedText := LibVersions; {Split list on delimiter}
       for i := 0 to LibVersionsList.Count - 1 do
       begin
@@ -538,13 +552,13 @@ end;
 
 function LoadLibCryptoFunction(const AProcName: AnsiString): Pointer;
 begin
-  Result := GetProcAddress(TOpenSSLDynamicLibProvider.FOpenSSLDDL.GetLibCryptoHandle,
+  Result := GetProcAddress({$IFDEF HAS_CLASSVARS}TOpenSSLDynamicLibProvider.FOpenSSLDDL.{$ELSE}TOpenSSLDynamicLibProvider_FOpenSSLDDL.{$ENDIF}GetLibCryptoHandle,
              {$IFDEF UNIX}AProcName{$ELSE}PAnsiChar(AProcName){$ENDIF});
 end;
 
 function LoadLibSSLFunction(const AProcName: AnsiString): Pointer;
 begin
-  Result := GetProcAddress(TOpenSSLDynamicLibProvider.FOpenSSLDDL.GetLibSSLHandle,
+  Result := GetProcAddress({$IFDEF HAS_CLASSVARS}TOpenSSLDynamicLibProvider.FOpenSSLDDL.{$ELSE}TOpenSSLDynamicLibProvider_FOpenSSLDDL.{$ENDIF}GetLibSSLHandle,
              {$IFDEF UNIX}AProcName{$ELSE}PAnsiChar(AProcName){$ENDIF});
 end;
 
@@ -637,8 +651,8 @@ begin
       if SSLVersionNo < min_supported_ssl_version then  {remove patch and dev flag}
         raise EOpenSSLError.CreateFmt(RSOSSUnsupportedVersion,[SSLVersionNo]);
 
-      for i := 0 to FLibLoadList.Count - 1 do
-        TOpenSSLLoadProc(FLibLoadList[i])(SSLVersionNo,FFailed);
+      for i := 0 to {$IFDEF HAS_CLASSVARS}FLibLoadList.{$ELSE}TOpenSSLDynamicLibProvider_FLibLoadList.{$ENDIF}Count - 1 do
+        TOpenSSLLoadProc({$IFDEF HAS_CLASSVARS}FLibLoadList{$ELSE}TOpenSSLDynamicLibProvider_FLibLoadList{$ENDIF}[i])(SSLVersionNo,FFailed);
 
     end;
 
@@ -656,8 +670,8 @@ begin
     if IsLoaded  then
     begin
       RemoveLegacyCallbacks;
-      for i := 0 to FUnLoadList.Count - 1 do
-         TOpenSSLUnloadProc(FUnLoadList[i]);
+      for i := 0 to {$IFDEF HAS_CLASSVARS}FUnLoadList.{$ELSE}TOpenSSLDynamicLibProvider_FUnLoadList.{$ENDIF}Count - 1 do
+         TOpenSSLUnloadProc({$IFDEF HAS_CLASSVARS}FUnLoadList{$ELSE}TOpenSSLDynamicLibProvider_FUnLoadList{$ENDIF}[i]);
 
       FFailed.Clear();
 
@@ -686,6 +700,7 @@ procedure InitUnit;
 begin
   if not InitUnitDone then
   begin
+    {$IFDEF HAS_CLASSVARS}
     {$IFDEF OPENSSL_STATIC_LINK_MODEL}
     TOpenSSLStaticLibProvider.FOpenSSL := TOpenSSLStaticLibProvider.Create;
     {$ELSE}
@@ -693,7 +708,17 @@ begin
     TOpenSSLDynamicLibProvider.FOpenSSLDDL := TOpenSSLDynamicLibProvider.FOpenSSL as IOpenSSLDLL;
     TOpenSSLDynamicLibProvider.FLibLoadList := TList.Create;
     TOpenSSLDynamicLibProvider.FUnLoadList := TList.Create;
-    {$ENDIF};
+    {$ENDIF}
+    {$ELSE}
+    {$IFDEF OPENSSL_STATIC_LINK_MODEL}
+    TOpenSSLStaticLibProvider_FOpenSSL := TOpenSSLStaticLibProvider.Create;
+    {$ELSE}
+    TOpenSSLStaticLibProvider_FOpenSSL := TOpenSSLDynamicLibProvider.Create;
+    TOpenSSLDynamicLibProvider_FOpenSSLDDL := TOpenSSLStaticLibProvider_FOpenSSL as IOpenSSLDLL;
+    TOpenSSLDynamicLibProvider_FLibLoadList := TList.Create;
+    TOpenSSLDynamicLibProvider_FUnLoadList := TList.Create;
+    {$ENDIF}
+    {$ENDIF}
     InitUnitDone := true;
   end;
 end;
@@ -701,7 +726,11 @@ end;
 function GetIOpenSSL: IOpenSSL;
 begin
   InitUnit;
+  {$IFDEF HAS_CLASSVARS}
   Result := TOpenSSLStaticLibProvider.FOpenSSL;
+  {$ELSE}
+  Result := TOpenSSLStaticLibProvider_FOpenSSL;
+  {$ENDIF}
 end;
 
 function GetIOpenSSLDDL: IOpenSSLDLL;
@@ -710,7 +739,11 @@ begin
   Result := nil;
   {$ELSE}
   InitUnit;
+  {$IFDEF HAS_CLASSVARS}
   Result := TOpenSSLDynamicLibProvider.FOpenSSLDDL;
+  {$ELSE}
+  Result := TOpenSSLDynamicLibProvider_FOpenSSLDDL;
+  {$ENDIF}
   {$ENDIF}
 end;
 
@@ -718,13 +751,21 @@ end;
 procedure Register_SSLLoader(LoadProc : TOpenSSLLoadProc);
 begin
   InitUnit;
+  {$IFDEF HAS_CLASSVARS}
   TOpenSSLDynamicLibProvider.FLibLoadList.Add(@LoadProc);
+  {$ELSE}
+  TOpenSSLDynamicLibProvider_FLibLoadList.Add(@LoadProc);
+  {$ENDIF}
 end;
 
 procedure Register_SSLUnloader(UnloadProc: TOpenSSLUnloadProc);
 begin
   InitUnit;
+  {$IFDEF HAS_CLASSVARS}
   TOpenSSLDynamicLibProvider.FUnLoadList.Add(@UnloadProc);
+  {$ELSE}
+  TOpenSSLDynamicLibProvider_FUnLoadList.Add(@UnloadProc);
+  {$ENDIF}
 end;
 {$ENDIF}
 
@@ -732,11 +773,20 @@ initialization
   InitUnit;
 
 finalization
+  {$IFDEF HAS_CLASSVARS}
   TOpenSSLStaticLibProvider.FOpenSSL := nil;
   {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
   TOpenSSLDynamicLibProvider.FOpenSSLDDL := nil;
   FreeAndNil(TOpenSSLDynamicLibProvider.FLibLoadList);
   FreeAndNil(TOpenSSLDynamicLibProvider.FUnLoadList);
+  {$ENDIF}
+  {$ELSE}
+  TOpenSSLStaticLibProvider_FOpenSSL := nil;
+  {$IFNDEF OPENSSL_STATIC_LINK_MODEL}
+  TOpenSSLDynamicLibProvider_FOpenSSLDDL := nil;
+  FreeAndNil(TOpenSSLDynamicLibProvider_FLibLoadList);
+  FreeAndNil(TOpenSSLDynamicLibProvider_FUnLoadList);
+  {$ENDIF}
   {$ENDIF}
 end.
 

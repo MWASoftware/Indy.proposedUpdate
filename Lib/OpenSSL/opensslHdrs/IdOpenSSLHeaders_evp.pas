@@ -32,6 +32,7 @@ interface
 
 
 uses
+  SysUtils,
   IdSSLOpenSSLAPI,
   IdOpenSSLHeaders_bio,
   IdOpenSSLHeaders_obj_mac,
