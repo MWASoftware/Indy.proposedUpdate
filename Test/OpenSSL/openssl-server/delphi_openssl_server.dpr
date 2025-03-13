@@ -5,7 +5,7 @@ program delphi_openssl_server;
 {$R *.res}
 
 uses
-  System.SysUtils,
+  SysUtils,
   testserver in 'testserver.pas';
 
 var

@@ -32,6 +32,7 @@ interface
 
 
 uses
+  SysUtils,
   IdSSLOpenSSLAPI,
   IdOpenSSLHeaders_ossl_typ,
   IdOpenSSLHeaders_evp;

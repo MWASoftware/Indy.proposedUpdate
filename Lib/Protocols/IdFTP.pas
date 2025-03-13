@@ -1,4 +1,4 @@
-ï»¿{
+{
   $Project$
   $Workfile$
   $Revision$
@@ -417,7 +417,7 @@
   P for both implicit and explicit TLS.  Data ports should work in PASV again.
 
   Rev 1.35    9/28/2003 11:41:06 PM  JPMugaas
-  Reworked Eldos's proposed FTP fix as suggested by Henrick HellstrÃ¶m by moving
+  Reworked Eldos's proposed FTP fix as suggested by Henrick Hellström by moving
   all of the IOHandler creation code to InitDataChannel.  This should reduce
   the likelihood of error.
 
@@ -555,10 +555,10 @@
   Rev 1.0    11/14/2002 02:20:00 PM  JPMugaas
 
 2002-10-25 - J. Peter Mugaas
-  - added XCRC support - specified by "GlobalSCAPE Secure FTP Server Userâ€™s Guide"
+  - added XCRC support - specified by "GlobalSCAPE Secure FTP Server User’s Guide"
     which is available at http://www.globalscape.com
     and also explained at http://www.southrivertech.com/support/titanftp/webhelp/titanftp.htm
-  - added COMB support - specified by "GlobalSCAPE Secure FTP Server Userâ€™s Guide"
+  - added COMB support - specified by "GlobalSCAPE Secure FTP Server User’s Guide"
     which is available at http://www.globalscape.com
     and also explained at http://www.southrivertech.com/support/titanftp/webhelp/titanftp.htm
 
@@ -2990,7 +2990,7 @@ USER ProxyUserName$ DestFTPUserName$DestFTPHostName
 PASS UsereDirectoryPassword$ DestFTPPassword
 
 Novell BorderManager 3.8 Proxy and Firewall Overview and Planning Guide
-Copyright Â© 1997-1998, 2001, 2002-2003, 2004 Novell, Inc. All rights reserved.
+Copyright © 1997-1998, 2001, 2002-2003, 2004 Novell, Inc. All rights reserved.
 ===
 From a WS-FTP Pro firescript at:
 
@@ -3912,7 +3912,7 @@ Indy would use are:
 
 Syntax 1:
 
-1) MDTM 0103220000 MyFile.exe Â (notice the 22 hour)
+1) MDTM 0103220000 MyFile.exe  (notice the 22 hour)
 
 Syntax 2:
 
