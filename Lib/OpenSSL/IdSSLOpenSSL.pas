@@ -2913,7 +2913,7 @@ end;
 
 function TIdSSLIOHandlerSocketOpenSSL.Readable(AMSec: Integer = IdTimeoutDefault): Boolean;
 var buf : byte;
-      Lr: integer;
+    Lr: integer;
  begin
   repeat
     {Wait for data ready - or timer expiry}
