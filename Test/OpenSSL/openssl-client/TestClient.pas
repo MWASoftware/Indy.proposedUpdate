@@ -32,7 +32,7 @@ uses
   IdSSL, IdSSLOpenSSL;
 
 const
-  remoteSource = 'https://www.mwasoftware.co.uk/openssltest.txt';
+  remoteSource = 'https://test.mwasoftware.co.uk/openssltest.txt';
   sGetException = 'Error: Status = %d returned when GETting %s';
   rcAccept = 'Application/txt';
   {$if not declared(DirectorySeparator)}
