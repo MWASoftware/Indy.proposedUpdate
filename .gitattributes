@@ -2719,4 +2719,5 @@ icons/tIdIdent.bmp -text svneol=unset#unset
 *.lps text
 *.dpk text
 *.dproj text
+README.* text
 
