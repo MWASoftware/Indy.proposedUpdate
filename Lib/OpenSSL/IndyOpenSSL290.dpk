@@ -33,8 +33,14 @@ requires
 
 contains
   IdNTLMOpenSSL in 'IdNTLMOpenSSL.pas',
-  IdResourceStringsOpenSSL in 'IdResourceStringsOpenSSL.pas',
   IdSSLOpenSSL in 'IdSSLOpenSSL.pas',
-  IdSSLOpenSSLFIPS in 'IdSSLOpenSSLFIPS.pas';
+  IdSSLOpenSSLFIPS in 'IdSSLOpenSSLFIPS.pas',
+  IdSSLOpenSSLOptions in 'IdSSLOpenSSLOptions.pas',
+  IdSSLOpenSSLSocket in 'IdSSLOpenSSLSocket.pas',
+  IdSSLOpenSSLUtils in 'IdSSLOpenSSLUtils.pas',
+  IdSSLOpenSSLX509 in 'IdSSLOpenSSLX509.pas',
+  IdSSLwincrypt in 'IdSSLwincrypt.pas',
+  IdSSLOpenSSLAPI in 'opensslHdrs\IdSSLOpenSSLAPI.pas',
+  IdResourceStringsOpenSSL in 'IdResourceStringsOpenSSL.pas';
 
 end.

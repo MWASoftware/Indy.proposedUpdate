@@ -8,7 +8,9 @@ unit indyopenssl;
 interface
 
 uses
-  IdNTLMOpenSSL, IdResourceStringsOpenSSL, IdSSLOpenSSL, IdSSLOpenSSLFIPS;
+  IdNTLMOpenSSL, IdResourceStringsOpenSSL, IdSSLOpenSSL, IdSSLOpenSSLFIPS, 
+  IdSSLOpenSSLX509, IdSSLOpenSSLUtils, IdSSLOpenSSLSocket, IdSSLwincrypt, 
+  IdSSLOpenSSLOptions, IdSSLOpenSSLAPI;
 
 implementation
 

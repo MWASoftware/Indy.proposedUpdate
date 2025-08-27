@@ -63,6 +63,8 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <Debugger_HostApplication>C:\Users\A User\projects\Indy\Test\OpenSSL\openssl-server\delphi_openssl_server.exe</Debugger_HostApplication>
+        <Debugger_CWD>C:\Users\A User\projects\Indy\Test\OpenSSL\openssl-server</Debugger_CWD>
         <DCC_DcuOutput>..\..\$(Platform)\$(Config)\</DCC_DcuOutput>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -82,9 +84,15 @@
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="IndyProtocols290.dcp"/>
         <DCCReference Include="IdNTLMOpenSSL.pas"/>
-        <DCCReference Include="IdResourceStringsOpenSSL.pas"/>
         <DCCReference Include="IdSSLOpenSSL.pas"/>
         <DCCReference Include="IdSSLOpenSSLFIPS.pas"/>
+        <DCCReference Include="IdSSLOpenSSLOptions.pas"/>
+        <DCCReference Include="IdSSLOpenSSLSocket.pas"/>
+        <DCCReference Include="IdSSLOpenSSLUtils.pas"/>
+        <DCCReference Include="IdSSLOpenSSLX509.pas"/>
+        <DCCReference Include="IdSSLwincrypt.pas"/>
+        <DCCReference Include="opensslHdrs\IdSSLOpenSSLAPI.pas"/>
+        <DCCReference Include="IdResourceStringsOpenSSL.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

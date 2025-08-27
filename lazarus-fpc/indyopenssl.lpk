@@ -10,6 +10,7 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
+        <CustomOptions Value="-Ur"/>
         <OtherDefines Count="3">
           <Define0 Value="OPENSSL_USE_STATIC_LIBRARY"/>
           <Define1 Value="OPENSSL_USE_SHARED_LIBRARY"/>
@@ -33,6 +34,30 @@
       <Item>
         <Filename Value="../Lib/OpenSSL/IdSSLOpenSSLFIPS.pas"/>
         <UnitName Value="IdSSLOpenSSLFIPS"/>
+      </Item>
+      <Item>
+        <Filename Value="../Lib/OpenSSL/IdSSLOpenSSLX509.pas"/>
+        <UnitName Value="IdSSLOpenSSLX509"/>
+      </Item>
+      <Item>
+        <Filename Value="../Lib/OpenSSL/IdSSLOpenSSLUtils.pas"/>
+        <UnitName Value="IdSSLOpenSSLUtils"/>
+      </Item>
+      <Item>
+        <Filename Value="../Lib/OpenSSL/IdSSLOpenSSLSocket.pas"/>
+        <UnitName Value="IdSSLOpenSSLSocket"/>
+      </Item>
+      <Item>
+        <Filename Value="../Lib/OpenSSL/IdSSLwincrypt.pas"/>
+        <UnitName Value="IdSSLwincrypt"/>
+      </Item>
+      <Item>
+        <Filename Value="../Lib/OpenSSL/IdSSLOpenSSLOptions.pas"/>
+        <UnitName Value="IdSSLOpenSSLOptions"/>
+      </Item>
+      <Item>
+        <Filename Value="../Lib/OpenSSL/opensslHdrs/IdSSLOpenSSLAPI.pas"/>
+        <UnitName Value="IdSSLOpenSSLAPI"/>
       </Item>
     </Files>
     <RequiredPkgs>

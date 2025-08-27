@@ -9,49 +9,30 @@ package IndyProtocols290;
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
-{$LOCALSYMBOLS ON}
+{$LOCALSYMBOLS OFF}
 {$LONGSTRINGS ON}
 {$OPENSTRINGS ON}
-{$OPTIMIZATION OFF}
+{$OPTIMIZATION ON}
 {$OVERFLOWCHECKS OFF}
 {$RANGECHECKS OFF}
-{$REFERENCEINFO ON}
+{$REFERENCEINFO OFF}
 {$SAFEDIVIDE OFF}
-{$STACKFRAMES ON}
+{$STACKFRAMES OFF}
 {$TYPEDADDRESS OFF}
 {$VARSTRINGCHECKS ON}
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
-{$DEFINE DEBUG}
-{$DEFINE VER360}
+{$DEFINE RELEASE}
 {$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'Indy 10 Protocols'}
 {$RUNONLY}
 {$IMPLICITBUILD OFF}
 
-// RLebeau: cannot use IdCompilerDefines.inc here!
-
-{$DEFINE HAS_PKG_RTL}
-{$IFDEF NEXTGEN}
-  {$IFDEF IOS}
-    // there is no RTL package available for iOS
-    {$UNDEF HAS_PKG_RTL}
-  {$ENDIF}
-{$ENDIF}
-
 requires
-  {$IFDEF HAS_PKG_RTL}
   rtl,
-  {$ENDIF}
   IndySystem290,
   IndyCore290;
-
-{$IFNDEF WINDOWS}
-  {$IFDEF MSWINDOWS}
-    {$DEFINE WINDOWS}
-  {$ENDIF}
-{$ENDIF}
 
 contains
   IdASN1Util in 'IdASN1Util.pas',
@@ -65,9 +46,7 @@ contains
   IdAuthenticationDigest in 'IdAuthenticationDigest.pas',
   IdAuthenticationManager in 'IdAuthenticationManager.pas',
   IdAuthenticationNTLM in 'IdAuthenticationNTLM.pas',
-  {$IFDEF WINDOWS}
   IdAuthenticationSSPI in 'IdAuthenticationSSPI.pas',
-  {$ENDIF}
   IdBlockCipherIntercept in 'IdBlockCipherIntercept.pas',
   IdChargenServer in 'IdChargenServer.pas',
   IdChargenUDPServer in 'IdChargenUDPServer.pas',
@@ -229,7 +208,6 @@ contains
   IdReplyIMAP4 in 'IdReplyIMAP4.pas',
   IdReplyPOP3 in 'IdReplyPOP3.pas',
   IdReplySMTP in 'IdReplySMTP.pas',
-  IdResourceStringsOpenSSL in 'IdResourceStringsOpenSSL.pas',
   IdResourceStringsProtocols in 'IdResourceStringsProtocols.pas',
   IdResourceStringsSSPI in 'IdResourceStringsSSPI.pas',
   IdResourceStringsUriUtils in 'IdResourceStringsUriUtils.pas',
@@ -257,11 +235,7 @@ contains
   IdSNPP in 'IdSNPP.pas',
   IdSNTP in 'IdSNTP.pas',
   IdSSL in 'IdSSL.pas',
-  IdSSLOpenSSL in 'IdSSLOpenSSL.pas',
-  IdSSLOpenSSLHeaders in 'IdSSLOpenSSLHeaders.pas',
-  {$IFDEF WINDOWS}
   IdSSPI in 'IdSSPI.pas',
-  {$ENDIF}
   IdServerInterceptLogBase in 'IdServerInterceptLogBase.pas',
   IdServerInterceptLogEvent in 'IdServerInterceptLogEvent.pas',
   IdServerInterceptLogFile in 'IdServerInterceptLogFile.pas',
