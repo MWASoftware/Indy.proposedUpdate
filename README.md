@@ -2,6 +2,11 @@
 
 This is a proposed update to Indy adding support for OpenSSL 3.x. See Readme.OpenSSL for more information.
 
+Branch Status:
+* main (this branch) is the current published version. All other branches have archive status.
+* OpenSSLAugust2025Update freezes the code at the point that the IdSSLOpenSSL unit split occurred.
+* OpenSSLFinal is the final version before the IdSSLOpenSSL unit split occurred.
+
 ##August 2025 Update
 
 The objective of this update is to improve readability and maintainability with only minimal impact on the end user. Primarily, this involves splitting up the IdSSLOpenSSL unit with limited code clean up. IdSSLOpenSSL is retained and continues to provide the classes TIdSSLIOHandlerSocketOpenSSL and TIdServerIOHandlerSSLOpenSSL. This should ensure that basic users of Indy OpenSSL should need to do no more than recompile their source code in order to use this update.
