@@ -1,4 +1,4 @@
-﻿unit IdVCLPosixSupplemental;
+unit IdVCLPosixSupplemental;
 
 interface
 
