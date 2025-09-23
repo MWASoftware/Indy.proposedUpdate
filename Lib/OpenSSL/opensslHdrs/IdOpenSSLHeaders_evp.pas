@@ -3956,7 +3956,7 @@ end;
 function Load_EVP_DigestUpdate(ctx: PEVP_MD_CTX; const d: Pointer; cnt: TOpenSSL_C_SIZET): TOpenSSL_C_INT; cdecl;
 begin
   EVP_DigestUpdate := LoadLibCryptoFunction('EVP_DigestUpdate');
-  if not assigned(@EVP_DigestUpdate) then
+  if not assigned(EVP_DigestUpdate) then
     EOpenSSLAPIFunctionNotPresent.RaiseException('EVP_DigestUpdate');
   Result := EVP_DigestUpdate(ctx,d,cnt);
 end;
